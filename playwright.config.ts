@@ -1,0 +1,57 @@
+import { defineConfig, devices } from '@playwright/test';
+
+/**
+ * @see https://playwright.dev/docs/test-configuration
+ */
+export default defineConfig({
+  testDir: './tests',
+  fullyParallel: true,
+  forbidOnly: !!process.env.CI,
+  retries: process.env.CI ? 2 : 0,
+
+  // ✅ Chạy tuần tự từng test
+  workers: 2,
+
+  // ✅ Dùng HTML reporter
+  reporter: 'html',
+
+  // ✅ Dùng chung cấu hình trace
+  use: {
+    trace: 'on-first-retry',
+  },
+
+  // ✅ Dự án trình duyệt
+  projects: [
+    {
+      name: 'chromium',
+      use: {
+        headless: false,
+        viewport: null,
+        launchOptions: {
+          args: ['--start-maximized'],
+        },
+      },
+    },
+    // {
+    //   name: 'firefox',
+    //   use: {
+    //     headless: false,
+    //     viewport: null,
+    //     launchOptions: {
+    //       args: ['--start-maximized'],
+    //     },
+    //   },
+    // },
+    // {
+    //   name: 'edge',
+    //   use: {
+    //     headless: false,
+    //     viewport: null,
+    //     channel: 'msedge',
+    //     launchOptions: {
+    //       args: ['--start-maximized'],
+    //     },
+    //   },
+    // },
+  ],
+});
