@@ -39,4 +39,15 @@ test.describe('Evaluation Type Tests', () => {
         const existsInDB = await checkEvaluationTypeExists(evaluationName);
         expect(existsInDB).toBeTruthy();
     });
+
+    // Search Evaluation Type
+
+    test('Search Evaluation Type', async ({ page }) => {
+        await homePage.clickAdmin();
+        await evaluationtype.clickEvaluationType();
+        await evaluationtype.setSerachEvaluationTypeName("Đánh giá chuyên cần");
+        await evaluationtype.clickSearchButton();
+        await evaluationtype.expectSearchEvaluationTypeName("Đánh giá chuyên cần");
+    });
+
 });
