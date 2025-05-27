@@ -41,7 +41,6 @@ test.describe('Evaluation Type Tests', () => {
     });
 
     // Search Evaluation Type
-
     test('Search Evaluation Type', async ({ page }) => {
         await homePage.clickAdmin();
         await evaluationtype.clickEvaluationType();
