@@ -1,6 +1,7 @@
 import { test, expect, Page, TestInfo } from '@playwright/test';
 import { LoginPage } from '../pages/LoginPage';
-import { takeScreenshotOnFailure } from '../helpers/utils';
+import { takeScreenshotOnFailure } from '../utils/screenshotUtils';
+import Config from '../utils/configUtils';
 
 test.describe('Login Tests', () => {
   let loginPage: LoginPage;
@@ -15,8 +16,13 @@ test.describe('Login Tests', () => {
   });
 
   test('Login Successful With Valid Credentials', async () => {
-    await loginPage.login('admin@gmail.com', '123456');
-    await loginPage.expectLoginSuccess();
+    await loginPage.login(Config.admin_username, Config.admin_password);
+    await loginPage.expectLoginAdminSuccess();
+  });
+
+  test('Login Successful With Employee Account', async () => {
+    await loginPage.login(Config.employee_username, Config.employee_password);
+    await loginPage.expectLoginEmployeeSuccess();
   });
 
   test('Login Unsuccessful With Invalid Credentials', async () => {
