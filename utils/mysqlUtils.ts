@@ -101,3 +101,33 @@ export async function checkEvaluationTypeExists(name: string): Promise<boolean> 
     return false;
   }
 }
+
+// Xóa paysheet mới nhất có tên chứa 'Automation test'
+export async function deleteLatestPaysheet(): Promise<void> {
+  const sqlSelect = `
+    SELECT id FROM paysheets 
+    WHERE name LIKE '%Automation test%' 
+    ORDER BY created_at DESC 
+    LIMIT 1
+  `;
+  const sqlDelete = `DELETE FROM paysheets WHERE id = ?`;
+
+  try {
+    const conn = await getConnection();
+    const [rows] = await conn.execute<any[]>(sqlSelect);
+
+    if (rows.length === 0) {
+      console.warn('Không tìm thấy paysheet nào để xóa');
+      await conn.end();
+      return;
+    }
+
+    const paysheetId = rows[0].id;
+    const [result] = await conn.execute<mysql.ResultSetHeader>(sqlDelete, [paysheetId]);
+
+    console.info(`Đã xóa paysheet mới nhất có ID: ${paysheetId}`);
+    await conn.end();
+  } catch (e) {
+    console.error("Lỗi khi xóa paysheet mới nhất:", e);
+  }
+}

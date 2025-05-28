@@ -5,8 +5,10 @@ import Config from '../utils/configUtils';
 import { HomePage } from '../pages/HomePage';
 import { PaysheetPage } from '../pages/PaysheetPage';
 import { clearAllPaysheets } from '../utils/mysqlUtils';
+import { deleteLatestPaysheet } from '../utils/mysqlUtils';
+import { clearAllPayslips } from '../utils/mysqlUtils';
 
-test.describe('Paysheet', () => {
+test.describe.serial('Paysheet', () => {
     let loginPage: LoginPage;
     let paysheet: PaysheetPage;
     let homePage: HomePage;
@@ -20,8 +22,8 @@ test.describe('Paysheet', () => {
     });
 
     // Test quy trình duyệt lương, chốt lương , thanh toán 
-    test('Paysheet Process', async ({ page }) => {
-        // await clearAllPaysheets();
+    test('Salary approval, salary closing, payment process', async ({ page }) => {
+        await clearAllPaysheets();
 
         await loginPage.goto();
         await loginPage.login(Config.admin_username, Config.admin_password);
@@ -36,7 +38,7 @@ test.describe('Paysheet', () => {
         await paysheet.clickAndSetDropDownEmployee();
         await paysheet.clickEmployeeOption();
         await paysheet.clickSave();
-        await paysheet.getToastAdd();
+        await paysheet.getToastAdd('Thêm thành công');
         await paysheet.clickLatestPaysheetRow();
         await paysheet.clickViewPayroll();
         await paysheet.clickSendAll();
@@ -93,11 +95,41 @@ test.describe('Paysheet', () => {
         await paysheet.getEmployeeName('Nguyễn Văn Minh');
 
 
-        await page.pause();
 
 
 
 
+    });
+
+    test('Add paysheet but not enter name', async ({ page }) => {
+        await loginPage.goto();
+        await loginPage.login(Config.admin_username, Config.admin_password);
+        await homePage.clickSalary();
+        await paysheet.clickPaysheet();
+        await paysheet.clickAdd();
+        await paysheet.clickSave();
+        await paysheet.getRequiredEnterName('Nhập tên');
+
+    });
+
+    // Add paysheet with all employee
+    test('Add paysheet with all employee', async ({ page }) => {
+        await loginPage.goto();
+        await loginPage.login(Config.admin_username, Config.admin_password);
+        await homePage.clickSalary();
+        await paysheet.clickPaysheet();
+        await paysheet.clickAdd();
+        await paysheet.setNamePaysheet('Automation test');
+        await paysheet.clickCheckBoxMonthly();
+        await paysheet.clickChooseMonth();
+        await paysheet.clickMonthOption();
+        await paysheet.clickSelectAllEmployees();
+        await paysheet.setNote('Automation test');
+        await paysheet.clickSave();
+        await paysheet.getToastAdd('Thêm thành công');
+
+        await deleteLatestPaysheet();
+        await clearAllPayslips();
     });
 
 });

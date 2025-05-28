@@ -1,5 +1,4 @@
 import { Locator, Page, expect } from "@playwright/test";
-import { Config } from "../utils/configUtils";
 
 
 export class EvaluationTypePage {

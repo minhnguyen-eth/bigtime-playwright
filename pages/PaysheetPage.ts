@@ -49,10 +49,12 @@ export class PaysheetPage {
     private chooseMonth: Locator;
     private employeeNameInput: Locator;
     private payslipPayment: Locator;
+    private requiredEnterName: Locator;
 
     constructor(page: Page) {
         this.page = page;
 
+        this.requiredEnterName = page.locator("//div[contains(text(),'Nhập tên')]")
         this.payslipPayment = page.locator("//span[normalize-space()='Phiếu lương']")
         this.employeeNameInput = page.locator("//form[1]/div[1]/div[3]/div[1]/div[2]/div[1]/div[2]/div[1]/div[6]/div[1]/div[1]/div[1]/div[3]/div[1]/input[1]")
         this.chooseMonth = page.locator("//div[@class='v-field v-field--active v-field--appended v-field--center-affix v-field--dirty v-field--variant-outlined v-theme--lightColor7 v-locale--is-ltr']//i[@title='Open']")
@@ -90,7 +92,7 @@ export class PaysheetPage {
         this.cancelPaysheetButton = page.locator('//span[normalize-space()="Hủy"]');
         this.searchLabel = page.locator('//label[@class="v-label v-field-label"]');
         this.verifyPaysheetIdCell = page.locator('//td[normalize-space()="BL000001"]');
-        this.selectAllEmployeesCheckbox = page.locator('//i[contains(@class,"mdi-radiobox-blank")][1]');
+        this.selectAllEmployeesCheckbox = page.locator("//div[@class='v-col-md-12 v-col-12']//i[@class='mdi-radiobox-blank mdi v-icon notranslate v-theme--lightColor7 v-icon--size-default']");
         this.reasonLabel = page.locator('//form//div[3]//textarea');
         this.reasonInput = page.locator('//form//div[3]//div[3]//textarea');
         this.toastAddSuccess = page.locator('//div[contains(text(),"Thêm thành công")]');
@@ -98,6 +100,11 @@ export class PaysheetPage {
         this.toastExportSuccess = page.locator('//div[contains(text(),"Xuất thành công")]');
         this.createTicketButton = page.locator('//span[contains(normalize-space(),"Tạo phiếu")]');
         this.paymentButton = page.locator('//span[contains(normalize-space(),"Thanh toán")]');
+    }
+
+    async getRequiredEnterName(enterName: string) {
+        await expect(this.requiredEnterName).toHaveText(enterName);
+      
     }
 
     async clickPayslipPayment() {
@@ -117,12 +124,8 @@ export class PaysheetPage {
     }
 
     async clickAndSetDropDownEmployee() {
-        // First click to open the dropdown
         await this.dropdownEmployee.click();
-
-        // Use keyboard to type the name instead of typing directly into the dropdown
         await this.page.keyboard.type('Nguyễn Văn Minh');
-
     }
 
     async setNote(note: string) {
@@ -151,8 +154,8 @@ export class PaysheetPage {
         return this.toastCancelSuccess.textContent();
     }
 
-    async getToastAdd() {
-        await expect(this.toastAddSuccess).toHaveText("Thêm thành công");
+    async getToastAdd(toast: string) {
+        await expect(this.toastAddSuccess).toHaveText(toast);
     }
 
     async clickRefresh() {
@@ -169,8 +172,9 @@ export class PaysheetPage {
     }
 
     async clickSelectAllEmployees() {
-        await this.selectAllEmployeesCheckbox.click();
+        await this.selectAllEmployeesCheckbox.click({ force: true });
     }
+
 
     async isPaysheetIdDisplayed(id: string) {
         const cell = this.page.locator(`//td[normalize-space()="${id}"]`);
@@ -187,7 +191,7 @@ export class PaysheetPage {
         await this.cancelPaysheetButton.click();
     }
 
-    async getEmployeeName(employeeName:string) {
+    async getEmployeeName(employeeName: string) {
         await expect(this.employeeNameLabel).toHaveText(employeeName);
     }
 
