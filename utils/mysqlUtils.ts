@@ -35,8 +35,10 @@ export async function clearAllTables(): Promise<void> {
   await clearTable('payslips');
   await clearTable('time_workings');
   await clearTable('shift_plans');
+  await clearTable('paysheets');
   await clearAllAllowanceTypes();
 }
+
 
 export async function clearAllShiftPlan() {
   await clearTable('shift_plans');

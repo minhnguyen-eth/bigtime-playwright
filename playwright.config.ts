@@ -15,9 +15,14 @@ export default defineConfig({
   // ✅ Dùng HTML reporter
   reporter: 'html',
 
+  // Increase test timeout
+  timeout: 60000,
+
   // ✅ Dùng chung cấu hình trace
   use: {
     trace: 'on-first-retry',
+    // Increase action timeout to handle slow UI responses
+    actionTimeout: 45000,
   },
 
   // ✅ Dự án trình duyệt
