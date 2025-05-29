@@ -50,10 +50,12 @@ export class PaysheetPage {
     private employeeNameInput: Locator;
     private payslipPayment: Locator;
     private requiredEnterName: Locator;
+    private searchButton: Locator;
 
     constructor(page: Page) {
         this.page = page;
 
+        this.searchButton = page.locator("//span[.=' Tìm kiếm']")
         this.requiredEnterName = page.locator("//div[contains(text(),'Nhập tên')]")
         this.payslipPayment = page.locator("//span[normalize-space()='Phiếu lương']")
         this.employeeNameInput = page.locator("//form[1]/div[1]/div[3]/div[1]/div[2]/div[1]/div[2]/div[1]/div[6]/div[1]/div[1]/div[1]/div[3]/div[1]/input[1]")
@@ -91,20 +93,34 @@ export class PaysheetPage {
         this.employeeNameLabel = page.locator('//div[contains(text(),"Nguyễn Văn Minh")]');
         this.cancelPaysheetButton = page.locator('//span[normalize-space()="Hủy"]');
         this.searchLabel = page.locator('//label[@class="v-label v-field-label"]');
-        this.verifyPaysheetIdCell = page.locator('//td[normalize-space()="BL000001"]');
+        this.verifyPaysheetIdCell = page.locator("//td[.='BL000001']");
         this.selectAllEmployeesCheckbox = page.locator("//div[@class='v-col-md-12 v-col-12']//i[@class='mdi-radiobox-blank mdi v-icon notranslate v-theme--lightColor7 v-icon--size-default']");
         this.reasonLabel = page.locator('//form//div[3]//textarea');
         this.reasonInput = page.locator('//form//div[3]//div[3]//textarea');
+        this.paymentButton = page.locator('//span[contains(normalize-space(),"Thanh toán")]');
+        this.createTicketButton = page.locator('//span[contains(normalize-space(),"Tạo phiếu")]');
+
+        // Toasts
         this.toastAddSuccess = page.locator('//div[contains(text(),"Thêm thành công")]');
         this.toastCancelSuccess = page.locator('//div[contains(text(),"Hủy thành công")]');
         this.toastExportSuccess = page.locator('//div[contains(text(),"Xuất thành công")]');
-        this.createTicketButton = page.locator('//span[contains(normalize-space(),"Tạo phiếu")]');
-        this.paymentButton = page.locator('//span[contains(normalize-space(),"Thanh toán")]');
+
+
+    }
+
+    async clickSearchButton() {
+        await this.searchButton.click();
+    }
+
+    async verifyPaysheetId(text: string) {
+        await expect(this.verifyPaysheetIdCell).toHaveText((text)
+        );
+
     }
 
     async getRequiredEnterName(enterName: string) {
         await expect(this.requiredEnterName).toHaveText(enterName);
-      
+
     }
 
     async clickPayslipPayment() {
@@ -181,10 +197,13 @@ export class PaysheetPage {
         return cell.isVisible();
     }
 
+    async clickSearchLabel() {
+        await this.searchLabel.click({ force: true });
+    }
+
+
     async searchPaysheet(id: string) {
-        await this.searchLabel.click();
-        await this.page.keyboard.type(id);
-        await this.page.keyboard.press('Enter');
+        await this.searchLabel.fill(id);
     }
 
     async clickCancelPaysheet() {
