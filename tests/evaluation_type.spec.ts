@@ -4,9 +4,9 @@ import { takeScreenshotOnFailure } from '../utils/screenshotUtils';
 import Config from '../utils/configUtils';
 import { EvaluationTypePage } from '../pages/EvaluationTypePage';
 import { HomePage } from '../pages/HomePage';
-import { checkEvaluationTypeExists } from '../utils/mysqlUtils';
+import { checkEvaluationTypeExists, deleteEvaluationType } from '../utils/mysqlUtils';
 
-test.describe('Evaluation Type Tests', () => {
+test.describe.serial('Evaluation Type Tests', () => {
     let loginPage: LoginPage;
     let evaluationtype: EvaluationTypePage;
     let homePage: HomePage;
@@ -24,7 +24,7 @@ test.describe('Evaluation Type Tests', () => {
         await takeScreenshotOnFailure(page, testInfo);
     });
 
-    test('Add Evaluation Type', async ({ page }) => {
+    test.only('Add Evaluation Type', async ({ page }) => {
         const randomSuffix = Date.now(); // Hoặc dùng Math.random().toString(36).substring(2, 8)
         const evaluationName = `Automation test ${randomSuffix}`;
 
@@ -38,6 +38,12 @@ test.describe('Evaluation Type Tests', () => {
         // Kiểm tra trong database
         const existsInDB = await checkEvaluationTypeExists(evaluationName);
         expect(existsInDB).toBeTruthy();
+        
+        // Xóa loại đánh giá sau khi kiểm tra
+        if (existsInDB) {
+            const isDeleted = await deleteEvaluationType(evaluationName);
+            console.info(`Đã xóa loại đánh giá "${evaluationName}": ${isDeleted}`);
+        }
     });
 
     // Search Evaluation Type

@@ -36,12 +36,20 @@ export class Config {
   }
 
   // Connect database
-  static get db_url(): string {
-    return process.env.DB_URL || '';
+  static get db_host(): string {
+    return process.env.DB_HOST || '';
   }
 
-  static get db_username(): string {
-    return process.env.DB_USERNAME || '';
+  static get db_port(): string {
+    return process.env.DB_PORT || '';
+  }
+
+  static get db_name(): string {
+    return process.env.DB_NAME || '';
+  }
+
+  static get db_user(): string {
+    return process.env.DB_USER || '';
   }
 
   static get db_password(): string {

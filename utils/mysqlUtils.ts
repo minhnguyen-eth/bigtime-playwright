@@ -102,6 +102,23 @@ export async function checkEvaluationTypeExists(name: string): Promise<boolean> 
   }
 }
 
+// Xóa loại đánh giá theo tên
+export async function deleteEvaluationType(name: string): Promise<boolean> {
+  const sql = "DELETE FROM evaluation_types WHERE name LIKE ?";
+  try {
+    const conn = await getConnection();
+    const [result] = await conn.execute<mysql.ResultSetHeader>(sql, [`%${name}%`]);
+    await conn.end();
+    
+    const affectedRows = result.affectedRows;
+    console.info(`Đã xóa ${affectedRows} loại đánh giá với tên: ${name}`);
+    return affectedRows > 0;
+  } catch (e) {
+    console.error(`Lỗi khi xóa loại đánh giá với tên ${name}:`, e);
+    return false;
+  }
+}
+
 // Xóa paysheet mới nhất có tên chứa 'Automation test'
 export async function deleteLatestPaysheet(): Promise<void> {
   const sqlSelect = `

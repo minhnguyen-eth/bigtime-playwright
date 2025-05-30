@@ -10,7 +10,7 @@ export default defineConfig({
   retries: process.env.CI ? 2 : 0,
 
   // ✅ Chạy tuần tự từng test
-  workers: 1,
+  workers: 5,
 
   // ✅ Dùng HTML reporter
   reporter: 'html',
@@ -30,7 +30,7 @@ export default defineConfig({
     {
       name: 'chromium',
       use: {
-        headless: false,
+        headless: process.env.CI ? true : false,
         viewport: null,
         launchOptions: {
           args: ['--start-maximized'],
