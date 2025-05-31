@@ -4,9 +4,6 @@ import { takeScreenshotOnFailure } from '../utils/screenshotUtils';
 import Config from '../utils/configUtils';
 import { HomePage } from '../pages/HomePage';
 import { PaysheetPage } from '../pages/PaysheetPage';
-import { clearAllPaysheets } from '../utils/mysqlUtils';
-import { deleteLatestPaysheet } from '../utils/mysqlUtils';
-import { clearAllPayslips } from '../utils/mysqlUtils';
 
 test.describe.serial('Paysheet', () => {
     let loginPage: LoginPage;
@@ -19,6 +16,10 @@ test.describe.serial('Paysheet', () => {
         homePage = new HomePage(page);
 
 
+    });
+
+    test.afterEach(async ({ page }, testInfo: TestInfo) => {
+        await takeScreenshotOnFailure(page, testInfo);
     });
 
     // Test quy trình duyệt lương, chốt lương , thanh toán 

@@ -60,6 +60,18 @@ export async function clearAllPayslips() {
   await clearTable('payslips');
 }
 
+export async function clearAllEluationTypes() {
+  const sql = "DELETE FROM evaluation_types WHERE name <> 'Đánh giá chuyên cần'";
+  try {
+    const conn = await getConnection();
+    const [result] = await conn.execute<mysql.ResultSetHeader>(sql);
+    console.info(`Đã xóa ${result.affectedRows} dòng trong bảng evaluation_types, giữ lại 'Đánh giá chuyên cần'`);
+    await conn.end();
+  } catch (e) {
+    console.error("Lỗi khi xóa dữ liệu trong bảng evaluation_types:", e);
+  }
+}
+
 // Xử lý đặc biệt với allowance_types
 export async function clearAllAllowanceTypes() {
   const sql = "DELETE FROM allowance_types WHERE name <> 'Phụ cấp tiền ăn'";
