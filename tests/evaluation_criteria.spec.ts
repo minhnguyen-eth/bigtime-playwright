@@ -27,24 +27,30 @@ test.describe.serial('Evaluation Type Tests', () => {
         await takeScreenshotOnFailure(page, testInfo);
     });
 
-    test.only('Create, Edit, Delete Evaluation Criteria', async ({ page }) => {
+    test('Create Criteria', async ({ page }) => {
 
         // Create Evaluation Criteria
         await homePage.clickAdmin();
         await evaluationCriteriaPage.clickEvaluationCriteria();
-        // await evaluationCriteriaPage.clickAddButton();
-        // await evaluationCriteriaPage.setEvaluationCriteriaName('Automation Test');
-        // await evaluationCriteriaPage.setDescription('Automation Test Description');
-        // await evaluationCriteriaPage.clickEvaluationCriteriaNameDropDown();
-        // await evaluationCriteriaPage.clickEvaluationTypeOption();
-        // await evaluationCriteriaPage.clickSave();
-        // await evaluationCriteriaPage.verifyToastAddSuccessfull('Thêm thành công');
+        await evaluationCriteriaPage.clickAddButton();
+        await evaluationCriteriaPage.setEvaluationCriteriaName('Automation Test');
+        await evaluationCriteriaPage.setDescription('Automation Test Description');
+        await evaluationCriteriaPage.clickEvaluationCriteriaNameDropDown();
+        await evaluationCriteriaPage.clickEvaluationTypeOption();
+        await evaluationCriteriaPage.clickSave();
+        await evaluationCriteriaPage.verifyToastAddSuccessfull('Thêm thành công');
+    
+    });
 
-        // Search Evaluation Criteria
+     //=====Search==========
+    test('Search Evaluation Criteria by status', async ({ page }) => {
+        await homePage.clickAdmin();
+        await evaluationCriteriaPage.clickEvaluationCriteria();
+
+        // Search by namename
         await evaluationCriteriaPage.searchEvaluationCriteriaName('Automation Test');
         await evaluationCriteriaPage.clickSearchButton();
         await evaluationCriteriaPage.verifyResultSearchByName('Automation Test');
-        await evaluationCriteriaPage.clickDeleteSearch();
 
         // Search Evaluation Criteria by status and locklock
         await evaluationCriteriaPage.clickStatusDropDown();
@@ -57,20 +63,10 @@ test.describe.serial('Evaluation Type Tests', () => {
         await evaluationCriteriaPage.clickSearchButton();
         await evaluationCriteriaPage.clickDeleteSearch();
 
-
         await evaluationCriteriaPage.clickStatusDropDown();
         await evaluationCriteriaPage.selectStatus('Hoạt động');
         await evaluationCriteriaPage.selectStatus('Khóa');
         await evaluationCriteriaPage.clickSearchButton();
-
-
-
-        // Delete Evaluation Criteria
-        await evaluationCriteriaPage.clickDelete();
-        await evaluationCriteriaPage.clickOKButton();
-        await evaluationCriteriaPage.verifyToastDeleteSuccessfull('Xóa thành công');
-
-
     });
 
 
@@ -93,22 +89,6 @@ test.describe.serial('Evaluation Type Tests', () => {
         await evaluationCriteriaPage.clickDelete();
         await evaluationCriteriaPage.clickOKButton();
         await evaluationCriteriaPage.verifyToastDeleteSuccessfull('Xóa thành công');
-    });
-
-    //=====Search==========
-
-    test('Search Evaluation Criteria by Name', async ({ page }) => {
-        await homePage.clickAdmin();
-        await evaluationCriteriaPage.searchEvaluationCriteriaName('Automation Test');
-        await evaluationCriteriaPage.clickSearchButton();
-        await evaluationCriteriaPage.verifyResultSearchByName('Automation Test');
-    });
-
-    test('Search Evaluation Criteria by status', async ({ page }) => {
-        await homePage.clickAdmin();
-        await evaluationCriteriaPage.clickStatusDropDown();
-        await evaluationCriteriaPage.selectStatus('Hoạt động');
-        await evaluationCriteriaPage.clickSearchButton();
     });
 
 });
