@@ -27,7 +27,6 @@ test.describe.serial('Evaluation Type Tests', () => {
 
 
 
-    
 
     test('Add Evaluation Type', async ({ page }) => {
         const randomSuffix = Date.now(); // Hoặc dùng Math.random().toString(36).substring(2, 8)

@@ -25,7 +25,6 @@ test.describe.serial('Paysheet', () => {
     // Test quy trình duyệt lương, chốt lương , thanh toán 
     test('Salary approval, salary closing, payment process', async ({ page }) => {
         // await clearAllPaysheets();
-
         await loginPage.goto();
         await loginPage.login(Config.admin_username, Config.admin_password);
         await homePage.clickSalary();

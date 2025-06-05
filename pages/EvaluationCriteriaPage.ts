@@ -18,10 +18,22 @@ export class EvaluationCriteriaPage {
     private OK_Button: Locator;
     private evaluationName_inputSearch: Locator;
     private search_Button: Locator;
+    private rusult_SearchByName: Locator;
+    private status_Search_Button: Locator;
+    private activity_Status: Locator;
+    private lock_Status: Locator;
+    private result_SearchByStatus: Locator;
+    private delete_Search: Locator;
 
 
     constructor(page: Page) {
         this.page = page;
+        this.delete_Search = page.locator("//span[.=' Xóa']");
+        this.result_SearchByStatus = page.locator("//tr[@id='row-0']//span[@class='custom-size'][contains(text(),'Hoạt động')]");
+        this.lock_Status = page.locator("//div[contains(text(),'Khóa')]");
+        this.activity_Status = page.locator("//div[contains(text(),'Hoạt động')]");
+        this.status_Search_Button = page.locator("//div[@class='v-field v-field--appended v-field--center-affix v-field--variant-outlined v-theme--lightColor7 v-locale--is-ltr']//div[@class='v-field__input']");
+        this.rusult_SearchByName = page.locator("//tbody/tr[@id='row-0']/td[2]/span[1]");
         this.search_Button = page.locator("//span[.=' Tìm kiếm']");
         this.evaluationName_inputSearch = page.locator("//div[1]/div/div/div/div[3]/div/input");
         this.OK_Button = page.locator("//span[normalize-space()='Có']");
@@ -38,6 +50,32 @@ export class EvaluationCriteriaPage {
         this.evaluationCriteriaName_DropDown = page.locator("//i[@title='Open']");
         this.evaluationType_Option = page.locator("//div/div[1]/div[1]/div[2]/div[2]/div[1]");
 
+    }
+
+    async clickDeleteSearch() {
+        await this.delete_Search.click();
+    }
+
+    async verifyResultSearchByStatus(text: string) {
+        await expect(this.result_SearchByStatus).toHaveText(text);
+        console.log("Kết quả tìm kiếm: " + text);
+    }
+
+    async clickStatusDropDown() {
+        await this.status_Search_Button.click();
+    }
+
+    async selectStatus(status: string) {
+        if (status == "Hoạt động") {
+            await this.activity_Status.click();
+        } else if (status == "Khóa") {
+            await this.lock_Status.click();
+        }
+    }
+
+    async verifyResultSearchByName(text: string) {
+        await expect(this.rusult_SearchByName).toHaveText(text);
+        console.log("Kết quả tìm kiếm: " + text);
     }
 
     async clickSearchButton() {
@@ -92,15 +130,12 @@ export class EvaluationCriteriaPage {
         await this.description_Input.fill(description);
     }
 
-    async clickEvaluationCriteria() {
-        await this.evaluationCriteria_Button.click();
-    }
 
     async clickEvaluationCriteriaNameDropDown() {
         await this.evaluationCriteriaName_DropDown.click();
     }
 
-    async clickEvaluationType() {
+    async clickEvaluationCriteria() {
         await this.evaluationCriteria_Button.click();
     }
     async clickAddButton() {

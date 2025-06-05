@@ -68,7 +68,7 @@ export class PaysheetPage {
         this.setNamePaysheetInput = page.locator('//form//div[3]//div[2]//div//div[1]//div//div[1]//div//input');
         this.radioMonthly = page.locator('//i[contains(@class,"mdi-radiobox-blank")]');
         this.dropdownMonth = page.locator('//i[@title="Open"]');
-        this.monthOption = page.locator('//div[@class="v-list-item-title"][normalize-space()="1/5/2025 - 31/5/2025"]');
+        this.monthOption = page.locator('//div[@class="v-list-item-title"][normalize-space()="1/6/2025 - 30/6/2025"]');
         this.dropdownEmployee = page.locator("//div[@class='v-field v-field--appended v-field--center-affix v-field--variant-outlined v-theme--lightColor7 v-locale--is-ltr']//div[@class='v-field__input']");
         this.employeeOption = page.locator("//div[@role='option']//div[@class='v-list-item-title']");
         this.saveButton = page.locator('//button[@type="submit"]//span[@class="v-btn__content"]');
