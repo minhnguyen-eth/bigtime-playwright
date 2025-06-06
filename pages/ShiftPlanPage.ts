@@ -26,19 +26,24 @@ export class ShiftPlanPage {
     private Day30Button: Locator;
     private chosseButton: Locator;
     private workShiftOption: Locator;
+    private searchEmployeeInput: Locator;
+    private employeeCheckbox: Locator;
+    private saveEmployeeButton: Locator;
 
 
     constructor(page: Page) {
         this.page = page;
 
-
+        this.saveEmployeeButton = page.locator("//div[6]/div[2]/div/div[4]/button[1]/span[3]")
+        this.employeeCheckbox = page.locator("//td[1]/div/div/div/input")
+        this.searchEmployeeInput = page.locator("//div[3]/div[1]/div/div/div[2]/div/div/div/div[4]/div/input")
         this.saveButton = page.locator("//button[@class='v-btn v-btn--slim v-theme--lightColor7 bg-primary v-btn--density-default rounded-lg v-btn--size-small v-btn--variant-flat']//span[@class='v-btn__content']")
         this.workShiftOption = page.locator("//div[text()='Ca ngày']")
         this.chosseButton = page.locator("//button[contains(text(),'Chọn')]")
         this.Day30Button = page.locator("//div[@class='dp__cell_inner dp__pointer dp__date_hover'][normalize-space()='30']")
         this.Day1Button = page.locator("//div[@class='dp__cell_inner dp__pointer dp__date_hover'][normalize-space()='1']")
         this.saveWorkShiftButton = page.locator("button[class='v-btn v-btn--slim v-theme--lightColor7 bg-primary v-btn--density-default rounded-lg v-btn--size-small v-btn--variant-flat']")
-        this.saveDepartmentButton = page.locator('div:nth-child(3) > div:nth-child(2) > div:nth-child(1) > div:nth-child(4) > button:nth-child(1) > span:nth-child(3)')
+        this.saveDepartmentButton = page.locator("//div[@class='v-overlay__content']/div[@class='v-card v-theme--lightColor7 v-card--density-default rounded-lg v-card--variant-elevated']/div[@class='v-card-actions justify-center']/button[1]/span[3]")
         this.departmentOption = page.locator("//div[text()='Bộ phận IT']")
         this.departmentDropDown = page.locator("//div[@class='v-input v-input--horizontal v-input--center-affix v-input--density-compact v-theme--lightColor7 v-locale--is-ltr v-text-field v-autocomplete v-autocomplete--single autocomplete-full-width autocomplete-fixed-height py-2']//i[@title='Open']")
         this.addDepartmentButton = page.locator("//button[@class='v-btn v-theme--lightColor7 text-blue v-btn--density-default rounded-lg v-btn--size-small v-btn--variant-outlined']//span[@class='v-btn__content'][normalize-space()='Thêm']")
@@ -56,6 +61,20 @@ export class ShiftPlanPage {
         this.toastCancelSuccess = page.locator('//div[contains(text(),"Hủy thành công")]');
         this.toastExportSuccess = page.locator('//div[contains(text(),"Xuất thành công")]');
 
+    }
+
+
+    async clickSaveEmployeeButton() {
+        await this.saveEmployeeButton.click();
+    }
+
+    async clickEmployeeCheckbox() {
+        await this.employeeCheckbox.click();
+    }
+
+    async fillSearchEmployeeInput(employeeName: string) {
+        await this.searchEmployeeInput.fill(employeeName);
+        await this.page.keyboard.press('Enter');
     }
 
     async clickWorkShiftOption() {
@@ -84,14 +103,14 @@ export class ShiftPlanPage {
 
     async clickAddButton() {
         await this.addButton.click();
-    }
 
-    async fillShiftPlanNameInput(shiftPlanName: string) {
+    } async fillShiftPlanNameInput(shiftPlanName: string) {
         await this.shiftPlanNameInput.fill(shiftPlanName);
     }
 
     async clickWorkShift() {
         await this.workShiftInput.click();
+
     }
 
     async clickStartDateInput() {
@@ -104,6 +123,7 @@ export class ShiftPlanPage {
 
     async clickSaveButton() {
         await this.saveButton.nth(0).click();
+
     }
 
 
@@ -121,8 +141,8 @@ export class ShiftPlanPage {
 
     async clickDepartmentOption() {
         await this.departmentOption.click();
-    }
 
+    }
     async clickSaveDepartmentButton() {
         await this.saveDepartmentButton.click();
     }

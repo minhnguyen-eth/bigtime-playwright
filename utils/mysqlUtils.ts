@@ -14,6 +14,21 @@ async function getConnection() {
   return await mysql.createConnection(config);
 }
 
+
+export async function clearAllShiftPlan(): Promise<void> {
+  const sql = "DELETE FROM shift_plans WHERE name NOT LIKE '%Phân ca tháng%'";
+  try {
+    const conn = await getConnection();
+    const [result] = await conn.execute<mysql.ResultSetHeader>(sql);
+    console.info(`Đã xóa ${result.affectedRows} dòng trong bảng shift_plans, giữ lại các bản ghi có tên 'Phân ca tháng'`);
+    await conn.end();
+  } catch (e) {
+    console.error("Lỗi khi xóa dữ liệu trong bảng shift_plans:", e);
+  }
+}
+
+
+
 // Xóa toàn bộ bảng
 export async function clearTable(tableName: string): Promise<void> {
   const sql = `TRUNCATE TABLE ${tableName}`;
@@ -37,11 +52,6 @@ export async function clearAllTables(): Promise<void> {
   await clearTable('shift_plans');
   await clearTable('paysheets');
   await clearAllAllowanceTypes();
-}
-
-
-export async function clearAllShiftPlan() {
-  await clearTable('shift_plans');
 }
 
 export async function clearAllLeaveApplications() {
@@ -97,6 +107,24 @@ export async function clearLeaveApplicationsForUser(userId: string) {
     console.error(`Lỗi khi xóa dữ liệu test cho user_id ${userId}:`, e);
   }
 }
+
+
+// Kiểm tra tồn tại loại đánh giá
+export async function checkShiftPlanExists(name: string): Promise<boolean> {
+  const sql = "SELECT COUNT(*) AS count FROM shift_plans WHERE name LIKE ?";
+  try {
+    const conn = await getConnection();
+    const [rows] = await conn.execute<any[]>(sql, [`%${name}%`]);
+    await conn.end();
+    const count = rows[0].count;
+    console.info(`Tìm thấy ${count} loại đánh giá với tên: ${name}`);
+    return count > 0;
+  } catch (e) {
+    console.error("Lỗi khi kiểm tra dữ liệu trong database:", e);
+    return false;
+  }
+}
+
 
 // Kiểm tra tồn tại loại đánh giá
 export async function checkEvaluationTypeExists(name: string): Promise<boolean> {
