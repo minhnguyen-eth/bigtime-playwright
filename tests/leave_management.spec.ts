@@ -55,9 +55,6 @@ test.describe.serial('Leave Management Tests', () => {
         await leaveManagementPage.clickBrowsed();
         await leaveManagementPage.clickOkButton();
         await leaveManagementPage.getToastBrowsed('Đã duyệt thành công');
-    
-
-
 
     });
 

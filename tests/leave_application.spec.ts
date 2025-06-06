@@ -25,7 +25,7 @@ test.describe.serial('Leave Application Tests', () => {
     });
 
     test('Add Leave Application', async ({ page }) => {
-          await loginPage.login(Config.employee_username, Config.employee_password);
+        await loginPage.login(Config.employee_username, Config.employee_password);
         await homePage.clickTimeKeepingManagement();
         await leaveApplicationPage.clickLeaveApplicationButton();
         await leaveApplicationPage.clickAddButton();
