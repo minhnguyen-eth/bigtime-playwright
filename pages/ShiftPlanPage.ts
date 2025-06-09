@@ -23,7 +23,7 @@ export class ShiftPlanPage {
     private saveDepartmentButton: Locator;
     private saveWorkShiftButton: Locator;
     private Day1Button: Locator;
-    private Day30Button: Locator;
+    private Day31Button: Locator;
     private chosseButton: Locator;
     private workShiftOption: Locator;
     private searchEmployeeInput: Locator;
@@ -33,21 +33,36 @@ export class ShiftPlanPage {
     private requiredFieldNameWorkShift: Locator;
     private logoutButton: Locator;
     private logoutConfirmButton: Locator;
+    private editButton: Locator;
+    private deleteButton: Locator;
+    private chosseMonthButton: Locator;
+    private Month07Button: Locator;
+    private okButton: Locator;
+    private getToastDeleteSuccess: Locator;
+    private chooseMonthSearch: Locator;
+
 
 
     constructor(page: Page) {
         this.page = page;
+
+        this.chooseMonthSearch = page.locator("//div/div[1]/div/div/div/div/div[1]/div/div/div[3]/input")
+        this.okButton = page.locator("//span[normalize-space()='Có']")
+        this.Month07Button = page.locator("//div[@class='dp__overlay_cell dp__overlay_cell_pad'][normalize-space()='Thg 7']")
+        this.chosseMonthButton = page.locator("button[aria-label='Open months overlay']")
+        this.deleteButton = page.locator("//tr[@id='row-0']//span[contains(text(),'Xóa')]")
+        this.editButton = page.locator("//span[contains(text(),'Sửa')]")
         this.logoutButton = page.locator('//div[contains(text(),"Đăng xuất")]');
         this.logoutConfirmButton = page.locator('//span[normalize-space()="Có"]');
         this.requiredFieldNameWorkShift = page.locator("//div[contains(text(),'Nhập ca làm việc')]")
         this.requiredFieldNameShift = page.locator("//div[contains(text(),'Nhập tên bảng phân ca')]")
-        this.saveEmployeeButton = page.locator("//div[6]/div[2]/div/div[4]/button[1]/span[3]")
+        this.saveEmployeeButton = page.locator("//body/div[@class='v-overlay-container']/div[@role='dialog']/div[@class='v-overlay__content']/div[@class='v-card v-theme--lightColor7 v-card--density-default rounded-lg v-card--variant-elevated']/div[@class='v-card-actions justify-center']/button[1]/span[3]")
         this.employeeCheckbox = page.locator("//td[1]/div/div/div/input")
         this.searchEmployeeInput = page.locator("//div[3]/div[1]/div/div/div[2]/div/div/div/div[4]/div/input")
         this.saveButton = page.locator("//button[@class='v-btn v-btn--slim v-theme--lightColor7 bg-primary v-btn--density-default rounded-lg v-btn--size-small v-btn--variant-flat']//span[@class='v-btn__content']")
         this.workShiftOption = page.locator("//div[text()='Ca ngày']")
         this.chosseButton = page.locator("//button[contains(text(),'Chọn')]")
-        this.Day30Button = page.locator("//div[@class='dp__cell_inner dp__pointer dp__date_hover'][normalize-space()='30']")
+        this.Day31Button = page.locator("//div[@class='dp__cell_inner dp__pointer dp__date_hover'][normalize-space()='31']")
         this.Day1Button = page.locator("//div[@class='dp__cell_inner dp__pointer dp__date_hover'][normalize-space()='1']")
         this.saveWorkShiftButton = page.locator("button[class='v-btn v-btn--slim v-theme--lightColor7 bg-primary v-btn--density-default rounded-lg v-btn--size-small v-btn--variant-flat']")
         this.saveDepartmentButton = page.locator("//div[@class='v-overlay__content']/div[@class='v-card v-theme--lightColor7 v-card--density-default rounded-lg v-card--variant-elevated']/div[@class='v-card-actions justify-center']/button[1]/span[3]")
@@ -61,17 +76,47 @@ export class ShiftPlanPage {
         this.shiftPlanNameInput = page.locator("//div[3]/div/div/div[2]/div[1]/div[2]/div/div/div/div[3]/div/input")
         this.addButton = page.locator("//span[normalize-space()='Thêm']")
         this.shiftPlanButton = page.locator("//div[contains(text(),'Phân ca nhanh')]")
-        this.searchButton = page.locator("//span[.=' Tìm kiếm']")
+        this.searchButton = page.locator("//span[contains(normalize-space(),'Tìm kiếm')]")
 
         // Toasts
         this.toastAddSuccess = page.locator('//div[contains(text(),"Thêm thành công")]');
         this.toastCancelSuccess = page.locator('//div[contains(text(),"Hủy thành công")]');
-        this.toastExportSuccess = page.locator('//div[contains(text(),"Xuất thành công")]');
+        this.getToastDeleteSuccess = page.locator('//div[contains(text(),"Xóa thành công")]');
 
     }
 
 
 
+    async clickChooseMonthSearch(){
+        await this.chooseMonthSearch.click()
+    }
+     
+
+    async getToastDelete(text: string) {
+        await expect(this.getToastDeleteSuccess).toHaveText(text);
+        return this.getToastDeleteSuccess.textContent();
+    }
+
+    async clickOkButton() {
+        await this.okButton.click();
+    }
+
+    async clickMonth07Button() {
+        await this.Month07Button.click();
+    }
+
+
+    async clickChosseMonthButton() {
+        await this.chosseMonthButton.click();
+    }
+
+    async clickDeleteButton() {
+        await this.deleteButton.click();
+    }
+
+    async clickEditButton() {
+        await this.editButton.click();
+    }
 
     async clickSaveEmployeeButton() {
         await this.saveEmployeeButton.click();
@@ -94,8 +139,8 @@ export class ShiftPlanPage {
         await this.chosseButton.click();
     }
 
-    async clickDay30Button() {
-        await this.Day30Button.click();
+    async clickDay31Button() {
+        await this.Day31Button.click();
     }
 
     async clickDay1Button() {

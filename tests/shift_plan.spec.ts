@@ -13,7 +13,7 @@ test.describe.serial('Evaluation Type Tests', () => {
     let homePage: HomePage;
 
     const randomSuffix = Math.random().toString(36).substring(2, 8); // chữ + số, độ dài 6
-    const shiftPlanNameRanDom = `Automation test add shift plan for department ${randomSuffix}`;
+    const shiftPlanNameRanDom = `Phân ca tháng 7 ${randomSuffix}`;
 
 
     test.beforeEach(async ({ page }) => {
@@ -29,11 +29,11 @@ test.describe.serial('Evaluation Type Tests', () => {
         await takeScreenshotOnFailure(page, testInfo);
 
         // Delete all shift plan
-        await clearAllShiftPlan();
+        // await clearAllShiftPlan();
     });
 
     test('Add shift plan for department', async ({ page }) => {
-
+        await clearAllShiftPlan();
 
         await homePage.clickTimeKeepingManagement();
         await shiftPlanPage.clickShiftPlanButton();
@@ -43,11 +43,15 @@ test.describe.serial('Evaluation Type Tests', () => {
         await shiftPlanPage.clickWorkShiftOption();
 
         await shiftPlanPage.clickStartDateInput();
+        await shiftPlanPage.clickChosseMonthButton();
+        await shiftPlanPage.clickMonth07Button();
         await shiftPlanPage.clickDay1Button();
         await shiftPlanPage.clickChosseButton();
 
         await shiftPlanPage.clickEndDateInput();
-        await shiftPlanPage.clickDay30Button();
+        await shiftPlanPage.clickChosseMonthButton();
+        await shiftPlanPage.clickMonth07Button();
+        await shiftPlanPage.clickDay31Button();
         await shiftPlanPage.clickChosseButton();
 
         await shiftPlanPage.clickDepartmentButton();
@@ -76,11 +80,15 @@ test.describe.serial('Evaluation Type Tests', () => {
         await shiftPlanPage.clickWorkShiftOption();
 
         await shiftPlanPage.clickStartDateInput();
+        await shiftPlanPage.clickChosseMonthButton();
+        await shiftPlanPage.clickMonth07Button();
         await shiftPlanPage.clickDay1Button();
         await shiftPlanPage.clickChosseButton();
 
         await shiftPlanPage.clickEndDateInput();
-        await shiftPlanPage.clickDay30Button();
+        await shiftPlanPage.clickChosseMonthButton();
+        await shiftPlanPage.clickMonth07Button();
+        await shiftPlanPage.clickDay31Button();
         await shiftPlanPage.clickChosseButton();
 
         await shiftPlanPage.clickAddDepartmentButton();
@@ -109,6 +117,22 @@ test.describe.serial('Evaluation Type Tests', () => {
 
 
     });
+
+
+    test('Delete shift plan', async ({ page }) => {
+        await homePage.clickTimeKeepingManagement();
+        await shiftPlanPage.clickShiftPlanButton();
+        await shiftPlanPage.clickChooseMonthSearch();
+        await shiftPlanPage.clickMonth07Button();
+        await shiftPlanPage.clickChosseButton();
+        await shiftPlanPage.clickSearchButton();
+        await shiftPlanPage.clickDeleteButton();
+        await shiftPlanPage.clickOkButton();
+        await shiftPlanPage.getToastDelete('Xóa thành công');
+
+
+    });
+
 
 
 });
