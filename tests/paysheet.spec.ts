@@ -45,7 +45,7 @@ test.describe.serial('Paysheet', () => {
         await paysheet.clickConfirm();
         await paysheet.clickLogout();
         await paysheet.clickLogoutConfirm();
-        await page.waitForTimeout(2000);
+        await page.waitForTimeout(1200);
 
         // Nhân viên duyệt lương
         await loginPage.goto();
@@ -57,7 +57,7 @@ test.describe.serial('Paysheet', () => {
         await paysheet.clickOk();
         await paysheet.clickLogout();
         await paysheet.clickLogoutConfirm();
-        await page.waitForTimeout(2000);
+        await page.waitForTimeout(1200);
 
         // Quản lý bộ phận duyệt lương
         await loginPage.goto();
@@ -69,7 +69,7 @@ test.describe.serial('Paysheet', () => {
         await paysheet.clickOk();
         await paysheet.clickLogout();
         await paysheet.clickLogoutConfirm();
-        await page.waitForTimeout(2000);
+        await page.waitForTimeout(1200);
 
         // Quản lý duyệt lương, chốt lương và thanh toán
         await loginPage.goto();

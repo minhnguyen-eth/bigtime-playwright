@@ -13,6 +13,9 @@ test.describe.serial('Evaluation Type Tests', () => {
     let evaluationCriteriaPage: EvaluationCriteriaPage;
     let homePage: HomePage;
 
+    const randomSuffix = Date.now();
+    const EvaluationCriteriaNameRandom = `Automation test ${randomSuffix}`;
+
     test.beforeEach(async ({ page }) => {
 
         loginPage = new LoginPage(page);
@@ -29,20 +32,21 @@ test.describe.serial('Evaluation Type Tests', () => {
 
     test('Create Criteria', async ({ page }) => {
 
+
         // Create Evaluation Criteria
         await homePage.clickAdmin();
         await evaluationCriteriaPage.clickEvaluationCriteria();
         await evaluationCriteriaPage.clickAddButton();
-        await evaluationCriteriaPage.setEvaluationCriteriaName('Automation Test');
+        await evaluationCriteriaPage.setEvaluationCriteriaName(EvaluationCriteriaNameRandom);
         await evaluationCriteriaPage.setDescription('Automation Test Description');
         await evaluationCriteriaPage.clickEvaluationCriteriaNameDropDown();
         await evaluationCriteriaPage.clickEvaluationTypeOption();
         await evaluationCriteriaPage.clickSave();
         await evaluationCriteriaPage.verifyToastAddSuccessfull('Thêm thành công');
-    
+
     });
 
-     //=====Search==========
+    //=====Search==========
     test('Search Evaluation Criteria by status', async ({ page }) => {
         await homePage.clickAdmin();
         await evaluationCriteriaPage.clickEvaluationCriteria();
@@ -50,7 +54,7 @@ test.describe.serial('Evaluation Type Tests', () => {
         // Search by namename
         await evaluationCriteriaPage.searchEvaluationCriteriaName('Automation Test');
         await evaluationCriteriaPage.clickSearchButton();
-        await evaluationCriteriaPage.verifyResultSearchByName('Automation Test');
+        await evaluationCriteriaPage.verifyResultSearchByName();
 
         // Search Evaluation Criteria by status and locklock
         await evaluationCriteriaPage.clickStatusDropDown();

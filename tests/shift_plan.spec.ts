@@ -12,6 +12,10 @@ test.describe.serial('Evaluation Type Tests', () => {
     let shiftPlanPage: ShiftPlanPage;
     let homePage: HomePage;
 
+    const randomSuffix = Math.random().toString(36).substring(2, 8); // chữ + số, độ dài 6
+    const shiftPlanNameRanDom = `Automation test add shift plan for department ${randomSuffix}`;
+
+
     test.beforeEach(async ({ page }) => {
         loginPage = new LoginPage(page);
         shiftPlanPage = new ShiftPlanPage(page);
@@ -29,8 +33,7 @@ test.describe.serial('Evaluation Type Tests', () => {
     });
 
     test('Add shift plan for department', async ({ page }) => {
-        const randomSuffix = Date.now(); // Hoặc dùng Math.random().toString(36).substring(2, 8)
-        const shiftPlanNameRanDom = `Automation test add sift plan for department ${randomSuffix}`;
+
 
         await homePage.clickTimeKeepingManagement();
         await shiftPlanPage.clickShiftPlanButton();
@@ -63,7 +66,6 @@ test.describe.serial('Evaluation Type Tests', () => {
     });
 
     test('Add shift plan for a employee', async ({ page }) => {
-        const randomSuffix = Date.now(); // Hoặc dùng Math.random().toString(36).substring(2, 8)
         const shiftPlanNameRanDom = `Automation test add sift plan for a employee ${randomSuffix}`;
 
         await homePage.clickTimeKeepingManagement();
@@ -86,7 +88,6 @@ test.describe.serial('Evaluation Type Tests', () => {
         await shiftPlanPage.clickEmployeeCheckbox();
         await shiftPlanPage.clickSaveEmployeeButton();
 
-
         await shiftPlanPage.clickSaveButton();
         await shiftPlanPage.getToastAdd('Thêm thành công');
 
@@ -97,7 +98,17 @@ test.describe.serial('Evaluation Type Tests', () => {
     });
 
 
+    test('Save shift plan with empty shift plan name and work shift', async ({ page }) => {
 
+        await homePage.clickTimeKeepingManagement();
+        await shiftPlanPage.clickShiftPlanButton();
+        await shiftPlanPage.clickAddButton();
+        await shiftPlanPage.clickSaveButton();
+        await shiftPlanPage.getRequiredFieldNameShift('Nhập tên bảng phân ca');
+        await shiftPlanPage.getRequiredFieldNameWorkShift('Nhập ca làm việc');
+
+
+    });
 
 
 });

@@ -73,10 +73,10 @@ export class EvaluationCriteriaPage {
         }
     }
 
-    async verifyResultSearchByName(text: string) {
-        await expect(this.rusult_SearchByName).toHaveText(text);
-        console.log("Kết quả tìm kiếm: " + text);
-    }
+   async verifyResultSearchByName() {
+    await expect(this.rusult_SearchByName).toContainText('Automation test');
+}
+
 
     async clickSearchButton() {
         await this.search_Button.click();

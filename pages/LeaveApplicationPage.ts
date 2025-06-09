@@ -21,6 +21,13 @@ export class LeaveApplicationPage {
     private numberOfDaysOff: Locator;
     private saveButton: Locator;
     private cancelButton: Locator;
+    private logoutButton: Locator;
+    private logoutConfirmButton: Locator;
+    private sendButton: Locator;
+    private OKButton: Locator;
+    private detailLeaveApplicationButton: Locator;
+    private toastSendSuccess: Locator;
+    private browsedButton: Locator;
 
 
 
@@ -28,6 +35,12 @@ export class LeaveApplicationPage {
         this.page = page;
 
 
+        this.browsedButton = page.locator("//span[contains(text(),'Duyệt')]")
+        this.detailLeaveApplicationButton = page.locator("//tr[@id='row-0']")
+        this.OKButton = page.locator("//span[normalize-space()='Có']")
+        this.sendButton = page.locator("//span[contains(text(),'Gửi')]")
+        this.logoutButton = page.locator('//div[contains(text(),"Đăng xuất")]');
+        this.logoutConfirmButton = page.locator('//span[normalize-space()="Có"]');
         this.cancelButton = page.locator("//span[.=' Hủy']")
         this.saveButton = page.locator("//span[.=' Lưu']")
         this.numberOfDaysOff = page.locator("//div/div[2]/div/div[7]/div/div/div/div[3]/div/input")
@@ -44,6 +57,7 @@ export class LeaveApplicationPage {
 
         // Toasts
         this.toastAddSuccess = page.locator('//div[contains(text(),"Thêm thành công")]');
+        this.toastSendSuccess = page.locator('//div[contains(text(),"Gửi duyệt thành công")]');
         this.toastCancelSuccess = page.locator('//div[contains(text(),"Hủy thành công")]');
         this.toastExportSuccess = page.locator('//div[contains(text(),"Xuất thành công")]');
 
@@ -51,8 +65,23 @@ export class LeaveApplicationPage {
 
     }
 
+    async clickBrowsedButton() {
+        await this.browsedButton.click();
+    }
 
-  async clickCancelButton() {
+    async clickDetailLeaveApplicationButton() {
+        await this.detailLeaveApplicationButton.click();
+    }
+
+    async clickOKButton() {
+        await this.OKButton.click();
+    }
+
+    async clickSendButton() {
+        await this.sendButton.click();
+    }
+
+    async clickCancelButton() {
         await this.cancelButton.click();
     }
 
@@ -115,9 +144,19 @@ export class LeaveApplicationPage {
         return this.toastCancelSuccess.textContent();
     }
 
+    async getToastSendSend(toast: string) {
+        await expect(this.toastSendSuccess).toHaveText(toast);
+        return this.toastSendSuccess.textContent();
+    }
+
     async getToastAdd(toast: string) {
         await expect(this.toastAddSuccess).toHaveText(toast);
         return this.toastAddSuccess.textContent();
+    }
+
+    async Logout() {
+        await this.logoutButton.click();
+        await this.logoutConfirmButton.click();
     }
 
 

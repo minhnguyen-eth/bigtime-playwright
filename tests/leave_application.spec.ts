@@ -4,7 +4,7 @@ import { takeScreenshotOnFailure } from '../utils/screenshotUtils';
 import Config from '../utils/configUtils';
 import { HomePage } from '../pages/HomePage';
 import { LeaveApplicationPage } from '../pages/LeaveApplicationPage';
-
+import { clearAllLeaveApplications } from '../utils/mysqlUtils';
 
 test.describe.serial('Leave Application Tests', () => {
     let loginPage: LoginPage;
@@ -17,14 +17,15 @@ test.describe.serial('Leave Application Tests', () => {
         homePage = new HomePage(page);
 
         await loginPage.goto();
-      
+        await clearAllLeaveApplications();
+
     });
 
     test.afterEach(async ({ page }, testInfo: TestInfo) => {
         await takeScreenshotOnFailure(page, testInfo);
     });
 
-    test('Add Leave Application', async ({ page }) => {
+    test('Add leave application and send to admin -> admin approve ', async ({ page }) => {
         await loginPage.login(Config.employee_username, Config.employee_password);
         await homePage.clickTimeKeepingManagement();
         await leaveApplicationPage.clickLeaveApplicationButton();
@@ -42,6 +43,24 @@ test.describe.serial('Leave Application Tests', () => {
         await leaveApplicationPage.fillReason('Automation test');
         await leaveApplicationPage.clickSaveButton();
         await leaveApplicationPage.getToastAdd('Thêm thành công');
+
+        await leaveApplicationPage.clickDetailLeaveApplicationButton();
+        await leaveApplicationPage.clickSendButton();
+        await leaveApplicationPage.clickOKButton();
+        await leaveApplicationPage.getToastAdd('Gửi duyệt thành công');
+
+        await leaveApplicationPage.Logout();
+
+
+        await loginPage.goto();
+        await loginPage.login(Config.admin_username, Config.admin_password);
+        await homePage.clickTimeKeepingManagement();
+        await leaveApplicationPage.clickLeaveApplicationButton();
+        await leaveApplicationPage.clickDetailLeaveApplicationButton();
+        await leaveApplicationPage.clickBrowsedButton();
+        await leaveApplicationPage.clickOKButton();
+
+        await leaveApplicationPage.getToastAdd('Phê duyệt thành công');
 
     });
 

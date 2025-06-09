@@ -31,7 +31,7 @@ test.describe.serial('Leave Management Tests', () => {
         await homePage.clickAdmin();
         await leaveManagementPage.clickLeaveManagementButton();
         await leaveManagementPage.clickAddButton();
-        await leaveManagementPage.clickAddEmployeeAndPart();
+        await leaveManagementPage.clickAddEmployee();
         await leaveManagementPage.fillSearchByName('Nguyễn Văn Minh');
         await leaveManagementPage.clickSelectAEmployee();
         await leaveManagementPage.clickSaveEmployee();
@@ -43,9 +43,8 @@ test.describe.serial('Leave Management Tests', () => {
         await leaveManagementPage.clickOkButton();
         await leaveManagementPage.getToastConfirm('Xác nhận thành công');
 
-        await leaveManagementPage.clickLogout();
-        await leaveManagementPage.clickLogoutConfirm();
-        await page.waitForTimeout(2000);
+        await leaveManagementPage.Logout();
+        await page.waitForTimeout(1200);
 
         await loginPage.goto();
         await loginPage.login(Config.employee_username, Config.employee_password);

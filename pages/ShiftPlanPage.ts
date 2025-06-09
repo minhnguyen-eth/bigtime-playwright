@@ -29,11 +29,18 @@ export class ShiftPlanPage {
     private searchEmployeeInput: Locator;
     private employeeCheckbox: Locator;
     private saveEmployeeButton: Locator;
+    private requiredFieldNameShift: Locator;
+    private requiredFieldNameWorkShift: Locator;
+    private logoutButton: Locator;
+    private logoutConfirmButton: Locator;
 
 
     constructor(page: Page) {
         this.page = page;
-
+        this.logoutButton = page.locator('//div[contains(text(),"Đăng xuất")]');
+        this.logoutConfirmButton = page.locator('//span[normalize-space()="Có"]');
+        this.requiredFieldNameWorkShift = page.locator("//div[contains(text(),'Nhập ca làm việc')]")
+        this.requiredFieldNameShift = page.locator("//div[contains(text(),'Nhập tên bảng phân ca')]")
         this.saveEmployeeButton = page.locator("//div[6]/div[2]/div/div[4]/button[1]/span[3]")
         this.employeeCheckbox = page.locator("//td[1]/div/div/div/input")
         this.searchEmployeeInput = page.locator("//div[3]/div[1]/div/div/div[2]/div/div/div/div[4]/div/input")
@@ -62,6 +69,8 @@ export class ShiftPlanPage {
         this.toastExportSuccess = page.locator('//div[contains(text(),"Xuất thành công")]');
 
     }
+
+
 
 
     async clickSaveEmployeeButton() {
@@ -153,6 +162,17 @@ export class ShiftPlanPage {
     }
 
 
+    async getRequiredFieldNameShift(text: string) {
+        await expect(this.requiredFieldNameShift).toHaveText(text);
+        return this.requiredFieldNameShift.textContent();
+    }
+
+    async getRequiredFieldNameWorkShift(text: string) {
+        await expect(this.requiredFieldNameWorkShift).toHaveText(text);
+        return this.requiredFieldNameWorkShift.textContent();
+    }
+
+
     async getToastExport() {
         await expect(this.toastExportSuccess).toBeVisible();
         return this.toastExportSuccess.textContent();
@@ -168,5 +188,10 @@ export class ShiftPlanPage {
         return this.toastAddSuccess.textContent();
     }
 
+
+    async Logout() {
+        await this.logoutButton.click();
+        await this.logoutConfirmButton.click();
+    }
 
 }

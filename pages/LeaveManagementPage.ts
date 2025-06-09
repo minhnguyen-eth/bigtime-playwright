@@ -34,6 +34,7 @@ export class LeaveManagementPage {
     private logoutConfirmButton: Locator;
     private browsed: Locator;
     private toastBrowsedSuccess: Locator;
+    private addEmployee: Locator;
 
 
 
@@ -41,13 +42,14 @@ export class LeaveManagementPage {
     constructor(page: Page) {
         this.page = page;
 
+        this.addEmployee = page.locator("div[class='v-slide-group__content'] div span[class='v-btn__content']")
         this.browsed = page.locator("//span[contains(text(),'Duyệt')]")
         this.logoutButton = page.locator('//div[contains(text(),"Đăng xuất")]');
         this.logoutConfirmButton = page.locator('//span[normalize-space()="Có"]');
         this.OkButton = page.locator("//span[normalize-space()='Có']")
         this.comfirmButton = page.locator("//span[contains(text(),'Xác nhận')]")
         this.iconAction = page.locator("//i[@class='mdi mdi-format-list-group mdi v-icon notranslate v-theme--lightColor7 v-icon--size-default']")
-        this.saveEmployee = page.locator("//body/div[@class='v-overlay-container']/div[3]/div[2]/div[1]/div[4]/button[1]/span[3]")
+        this.saveEmployee = page.locator("//span[contains(normalize-space(),'Lưu')]")
         this.selectAEmployee = page.locator("//td[@class='v-data-table__td v-data-table-column--no-padding v-data-table-column--align-start v-data-table__td--select-row']")
         this.searchByName = page.locator("//div[1]/div/div/div/div[4]/div/input")
         this.saveDepartmentAndTeam = page.locator("//button[@type='submit']//span[@class='v-btn__content']")
@@ -74,22 +76,20 @@ export class LeaveManagementPage {
         this.toastConfirmSuccess = page.locator('//div[contains(text(),"Xác nhận thành công")]');
 
 
-
-
     }
 
 
 
+    async clickAddEmployee() {
+        await this.addEmployee.click();
+    }
 
     async clickBrowsed() {
         await this.browsed.click();
     }
 
-    async clickLogout() {
+   async Logout() {
         await this.logoutButton.click();
-    }
-
-    async clickLogoutConfirm() {
         await this.logoutConfirmButton.click();
     }
 
@@ -107,7 +107,7 @@ export class LeaveManagementPage {
     }
 
     async clickSaveEmployee() {
-        await this.saveEmployee.click();
+        await this.saveEmployee.nth(1).click();
     }
 
 
