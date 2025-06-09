@@ -37,6 +37,21 @@ export class WorkShiftPage {
     private toastDeleteSuccess: Locator;
     private okButton: Locator;
     private verifyLockStatus: Locator;
+    private workshiftNameSearchField: Locator;
+    private workshiftCodeSearchField: Locator;
+    private branchDropdownSearch: Locator;
+    private statusDropdownSearch: Locator;
+    private statusActive: Locator;
+    private statusLock: Locator;
+    private branchBienHoaSearch: Locator;
+    private clearSearchButton: Locator;
+    private verifyWorkShiftName: Locator;
+    private verifyWorkShiftCode: Locator;
+    private verifyBranchBienHoaSearch: Locator;
+    private verifyAtiveStatusSearch: Locator;
+    private verifyLockStatusSearch: Locator;
+    private verifyLockStatusSearchRow1: Locator;
+    private verifyWorkingTime: Locator;
 
 
 
@@ -46,6 +61,22 @@ export class WorkShiftPage {
     constructor(page: Page) {
         this.page = page;
 
+
+        this.verifyWorkingTime = page.locator("//div[3]/div/input[@value='08:00']");
+        this.verifyLockStatusSearchRow1 = page.locator("//tr[@id='row-1']//span[@class='custom-size'][contains(text(),'Khóa')]");
+        this.statusDropdownSearch = page.locator("//div[@class='v-input v-input--horizontal v-input--center-affix v-input--density-compact v-theme--lightColor7 v-locale--is-ltr v-text-field v-select v-select--multiple custom-select multi-select-grid']");
+        this.verifyLockStatusSearch = page.locator("//span[@class='custom-size'][normalize-space()='Khóa']");
+        this.verifyAtiveStatusSearch = page.locator("//tr[@id='row-0']//span[@class='custom-size'][contains(text(),'Hoạt động')]");
+        this.verifyBranchBienHoaSearch = page.locator("//tr[@id='row-0']//span[contains(text(),'Biên Hòa')]");
+        this.verifyWorkShiftCode = page.locator("//tr[@id='row-0']//span[contains(text(),'CN')]");
+        this.verifyWorkShiftName = page.locator("//a[@class='ml-2']//span[contains(text(),'Ca ngày')]");
+        this.clearSearchButton = page.locator("//span[.=' Xóa']");
+        this.workshiftCodeSearchField = page.locator("//form/div/div[2]/div/div/div/div[3]/div/input");
+        this.workshiftNameSearchField = page.locator("//form/div/div[1]/div/div/div/div[3]/div/input");
+        this.branchBienHoaSearch = page.locator("//div[contains(text(),'Biên Hòa')]");
+        this.branchDropdownSearch = page.locator("//div[@class='v-field v-field--active v-field--appended v-field--center-affix v-field--dirty v-field--variant-outlined v-theme--lightColor7 v-locale--is-ltr']");
+        this.statusActive = page.locator("//div[text()='Hoạt động']");
+        this.statusLock = page.locator("//div[text()='Khóa']");
         this.verifyLockStatus = page.locator("//tr[@id='row-0']//span[@class='custom-size'][normalize-space()='Khóa']");
         this.okButton = page.locator("//span[normalize-space()='Có']");
         this.lockStatus = page.locator("//div[contains(text(),'Khóa')]");
@@ -69,7 +100,7 @@ export class WorkShiftPage {
         this.workshiftNameInput = page.locator("//div[2]/div/div[1]/div/div[1]/div/div[4]/div/input");
         this.workshiftCodeInput = page.locator("//div[2]/div/div[2]/div/div[1]/div/div[4]/div/input");
 
-        this.searchButton
+        this.searchButton = page.locator("//span[.=' Tìm kiếm']");
         this.workshiftButton = page.locator("//a[.='Ca làm việc']");
         this.addButton = page.locator("//span[normalize-space()='Thêm']");
         this.editButton = page.locator("//tr[@id='row-0']//span[contains(text(),'Sửa')]");
@@ -82,14 +113,106 @@ export class WorkShiftPage {
 
 
 
+
+
+
+    }
+    async getVerifyWorkingTime() {
+        await expect(this.verifyWorkingTime).toBeVisible();
+        const value = await this.verifyWorkingTime.inputValue();
+        console.log("🔍 Working time value found:", value);
+        return value;
     }
 
-   async getVerifyLockStatus() {
-    await expect(this.verifyLockStatus).toBeVisible();
-    const text = await this.verifyLockStatus.textContent();
-    console.log("🔍 Lock status text found:", text);
-    return text;
-}
+    async getVerifyLockStatusSearchRow1() {
+        await expect(this.verifyLockStatusSearchRow1).toBeVisible();
+        const text = await this.verifyLockStatusSearchRow1.textContent();
+        console.log("🔍 Lock status text found:", text);
+        return text;
+    }
+
+    async getVerifyLockStatusSearch() {
+        await expect(this.verifyLockStatusSearch).toBeVisible();
+        const text = await this.verifyLockStatusSearch.textContent();
+        console.log("🔍 Lock status text found:", text);
+        return text;
+    }
+
+    async getVerifyAtiveStatusSearch() {
+        const element = this.verifyAtiveStatusSearch.first();
+        await expect(element).toBeVisible();
+        const text = await element.textContent();
+        console.log("🔍 Active status text found:", text);
+        return text;
+    }
+
+
+
+    async getVerifyBranchBienHoaSearch() {
+        await expect(this.verifyBranchBienHoaSearch).toBeVisible();
+        const text = await this.verifyBranchBienHoaSearch.textContent();
+        console.log("🔍 Branch Bien Hoa text found:", text);
+        return text;
+    }
+
+    async getVerifyWorkShiftCode() {
+        await expect(this.verifyWorkShiftCode).toBeVisible();
+        const text = await this.verifyWorkShiftCode.textContent();
+        console.log("🔍 Workshift code text found:", text);
+        return text;
+    }
+
+    async getVerifyWorkShiftName() {
+        await expect(this.verifyWorkShiftName).toBeVisible();
+        const text = await this.verifyWorkShiftName.textContent();
+        console.log("🔍 Workshift name text found:", text);
+        return text;
+    }
+
+    async clickOnClearSearchButton() {
+        await this.clearSearchButton.click();
+    }
+
+    async fillWorkShiftCodeSearchField(code: string) {
+        await this.workshiftCodeSearchField.fill(code);
+    }
+
+    async fillWorkShiftNameSearchField(name: string) {
+        await this.workshiftNameSearchField.fill(name);
+    }
+
+    async clickOnBranchBienHoaSearch() {
+        await this.branchBienHoaSearch.click();
+    }
+
+    async clickOnBranchDropdownSearch() {
+        await this.branchDropdownSearch.click();
+    }
+
+
+    async clickOnStatus(status: 'Active' | 'Lock') {
+        if (status === 'Active') {
+            await this.statusActive.click();
+            console.log('Clicked on status: Active');
+        } else if (status === 'Lock') {
+            await this.statusLock.click();
+            console.log('Clicked on status: Lock');
+        } else {
+            console.log('Invalid status value:', status);
+        }
+    }
+
+
+    async clickOnStatusDropdownSearch() {
+        await this.statusDropdownSearch.click();
+    }
+
+    async getVerifyLockStatus() {
+        await expect(this.verifyLockStatus).toBeVisible();
+        const text = await this.verifyLockStatus.textContent();
+        console.log("🔍 Lock status text found:", text);
+        return text;
+    }
 
 
 

@@ -5,7 +5,7 @@ import Config from '../utils/configUtils';
 import { WorkShiftPage } from '../pages/WorkShiftPage';
 import { HomePage } from '../pages/HomePage';
 
-test.describe('Work Shift Tests', () => {
+test.describe.serial('Work Shift Tests', () => {
     let loginPage: LoginPage;
     let workShiftPage: WorkShiftPage;
     let homePage: HomePage;
@@ -64,6 +64,7 @@ test.describe('Work Shift Tests', () => {
         await workShiftPage.clickOnChosseMinutePicker();
         await workShiftPage.clickOnChosse00MinutePicker();
         await workShiftPage.clickOnChosseButtonPicker();
+        await workShiftPage.getVerifyWorkingTime();
 
         // await workShiftPage.clickOnBranchDropdown();
         // await workShiftPage.clickOnBranchBienHoa();
@@ -91,5 +92,65 @@ test.describe('Work Shift Tests', () => {
     });
 
 
+
+    //Search work shift
+    test('search work shift', async ({ page }) => {
+        await loginPage.login(Config.admin_username, Config.admin_password);
+        await homePage.clickTimeKeepingManagement();
+
+        // Search by name and code
+        await workShiftPage.clickOnWorkShiftButton();
+        await workShiftPage.fillWorkShiftNameSearchField('Ca ngày');
+        await workShiftPage.fillWorkShiftCodeSearchField('CN');
+        await workShiftPage.clickOnSearchButton();
+
+        //veriry search result
+        await workShiftPage.getVerifyWorkShiftName();
+        await workShiftPage.getVerifyWorkShiftCode();
+        await workShiftPage.clickOnClearSearchButton();
+
+
+        // Search only by name
+        await workShiftPage.fillWorkShiftNameSearchField('Ca ngày');
+        await workShiftPage.clickOnSearchButton();
+        await workShiftPage.getVerifyWorkShiftName();
+        await workShiftPage.clickOnClearSearchButton();
+
+        // Search only by code
+        await workShiftPage.fillWorkShiftCodeSearchField('CN');
+        await workShiftPage.clickOnSearchButton();
+        await workShiftPage.getVerifyWorkShiftCode();
+        await workShiftPage.clickOnClearSearchButton();
+
+        // Search by branch
+        await workShiftPage.clickOnBranchDropdownSearch();
+        await workShiftPage.clickOnBranchBienHoaSearch();
+        await workShiftPage.clickOnSearchButton();
+        await workShiftPage.getVerifyBranchBienHoaSearch();
+        await workShiftPage.clickOnClearSearchButton();
+
+        // Search by activestatus
+        await workShiftPage.clickOnStatusDropdownSearch();
+        await workShiftPage.clickOnStatus('Active');
+        await workShiftPage.clickOnSearchButton();
+        await workShiftPage.getVerifyAtiveStatusSearch();
+        await workShiftPage.clickOnClearSearchButton();
+
+        // Search by lockstatus
+        await workShiftPage.clickOnStatusDropdownSearch();
+        await workShiftPage.clickOnStatus('Lock');
+        await workShiftPage.clickOnSearchButton();
+        await workShiftPage.getVerifyLockStatusSearch();
+        await workShiftPage.clickOnClearSearchButton();
+
+        // Search by 2 status
+        await workShiftPage.clickOnStatusDropdownSearch();
+        await workShiftPage.clickOnStatus('Active');
+        await workShiftPage.clickOnStatus('Lock');
+        await workShiftPage.clickOnSearchButton();
+        await workShiftPage.getVerifyAtiveStatusSearch();
+        await workShiftPage.getVerifyLockStatusSearchRow1();
+
+    });
 
 });
