@@ -5,36 +5,36 @@ export class LeaveManagementPage {
     private page: Page;
 
     // Buttons & Inputs
-    private toastAddSuccess: Locator;
-    private toastCancelSuccess: Locator;
-    private leaveManagementButton: Locator;
-    private addButton: Locator;
-    private leaveTypeDropDown: Locator;
-    private anualLeave: Locator;
-    private startDate: Locator;
-    private endDate: Locator;
-    private reason: Locator;
-    private todayButton: Locator;
-    private chosseButton: Locator;
-    private searchButton: Locator;
-    private saveButton: Locator;
-    private cancelButton: Locator;
-    private addEmployeeAndPart: Locator;
-    private departmentAndTeam: Locator;
-    private departmentIT: Locator;
-    private saveDepartmentAndTeam: Locator;
-    private searchByName: Locator;
-    private selectAEmployee: Locator;
-    private saveEmployee: Locator;
-    private iconAction: Locator;
-    private comfirmButton: Locator;
-    private OkButton: Locator;
-    private toastConfirmSuccess: Locator;
-    private logoutButton: Locator;
-    private logoutConfirmButton: Locator;
-    private browsed: Locator;
-    private toastBrowsedSuccess: Locator;
-    private addEmployee: Locator;
+    readonly  toastAddSuccess: Locator;
+    readonly  toastCancelSuccess: Locator;
+    readonly  leaveManagementButton: Locator;
+    readonly  addButton: Locator;
+    readonly  leaveTypeDropDown: Locator;
+    readonly  anualLeave: Locator;
+    readonly  startDate: Locator;
+    readonly  endDate: Locator;
+    readonly  reason: Locator;
+    readonly  todayButton: Locator;
+    readonly  chosseButton: Locator;
+    readonly  searchButton: Locator;
+    readonly  saveButton: Locator;
+    readonly  cancelButton: Locator;
+    readonly  addEmployeeAndPart: Locator;
+    readonly  departmentAndTeam: Locator;
+    readonly  departmentIT: Locator;
+    readonly  saveDepartmentAndTeam: Locator;
+    readonly  searchByName: Locator;
+    readonly  selectAEmployee: Locator;
+    readonly  saveEmployee: Locator;
+    readonly  iconAction: Locator;
+    readonly  comfirmButton: Locator;
+    readonly  OkButton: Locator;
+    readonly  toastConfirmSuccess: Locator;
+    readonly  logoutButton: Locator;
+    readonly  logoutConfirmButton: Locator;
+    readonly  browsed: Locator;
+    readonly  toastBrowsedSuccess: Locator;
+    readonly  addEmployee: Locator;
 
 
 

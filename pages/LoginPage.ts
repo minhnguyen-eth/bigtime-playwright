@@ -2,13 +2,13 @@ import { Page, Locator, expect } from '@playwright/test';
 import Config from '../utils/configUtils';
 
 export class LoginPage {
-  private page: Page;
-  private usernameInput: Locator;
-  private passwordInput: Locator;
-  private loginButton: Locator;
-  private profileBadgeAdmin: Locator;
-  private profileBadgeEmployee: Locator;
-  private errorMessage: Locator;
+  readonly  page: Page;
+  readonly  usernameInput: Locator;
+  readonly  passwordInput: Locator;
+  readonly  loginButton: Locator;
+  readonly  profileBadgeAdmin: Locator;
+  readonly  profileBadgeEmployee: Locator;
+  readonly  errorMessage: Locator;
   
 
   constructor(page: Page) {

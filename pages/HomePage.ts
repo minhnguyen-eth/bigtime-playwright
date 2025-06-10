@@ -2,10 +2,10 @@ import { Locator, Page } from "@playwright/test";
 
 export class HomePage {
     private page: Page;
-    private Admin_Button: Locator;
-    private TimeKeepingManagement_Button: Locator;
-    private Salary_Button: Locator;
-    private Setting_Button: Locator;
+    readonly  Admin_Button: Locator;
+    readonly  TimeKeepingManagement_Button: Locator;
+    readonly  Salary_Button: Locator;
+    readonly  Setting_Button: Locator;
 
 constructor(page: Page) {
      this.page = page;

@@ -5,29 +5,30 @@ export class LeaveApplicationPage {
     private page: Page;
 
     // Buttons & Inputs
-    private toastAddSuccess: Locator;
-    private toastCancelSuccess: Locator;
-    private toastExportSuccess: Locator;
-    private searchButton: Locator;
-    private leaveApplicationButton: Locator;
-    private addButton: Locator;
-    private leaveTypeDropDown: Locator;
-    private anualLeave: Locator;
-    private startDate: Locator;
-    private endDate: Locator;
-    private reason: Locator;
-    private todayButton: Locator;
-    private chosseButton: Locator;
-    private numberOfDaysOff: Locator;
-    private saveButton: Locator;
-    private cancelButton: Locator;
-    private logoutButton: Locator;
-    private logoutConfirmButton: Locator;
-    private sendButton: Locator;
-    private OKButton: Locator;
-    private detailLeaveApplicationButton: Locator;
-    private toastSendSuccess: Locator;
-    private browsedButton: Locator;
+    readonly  toastAddSuccess: Locator;
+    readonly  toastCancelSuccess: Locator;
+    readonly  toastExportSuccess: Locator;
+    readonly  searchButton: Locator;
+    readonly  leaveApplicationButton: Locator;
+    readonly  addButton: Locator;
+    readonly  leaveTypeDropDown: Locator;
+    readonly  anualLeave: Locator;
+    readonly  startDate: Locator;
+    readonly  endDate: Locator;
+    readonly  reason: Locator;
+    readonly  todayButton: Locator;
+    readonly  chosseButton: Locator;
+    readonly  numberOfDaysOff: Locator;
+    readonly  saveButton: Locator;
+    readonly  cancelButton: Locator;
+    readonly  logoutButton: Locator;
+    readonly  logoutConfirmButton: Locator;
+    readonly  sendButton: Locator;
+    readonly  OKButton: Locator;
+    readonly  detailLeaveApplicationButton: Locator;
+    readonly  toastSendSuccess: Locator;
+    readonly  browsedButton: Locator;
+    readonly  toastBrowsedSuccess: Locator;
 
 
 
@@ -60,6 +61,7 @@ export class LeaveApplicationPage {
         this.toastSendSuccess = page.locator('//div[contains(text(),"Gửi duyệt thành công")]');
         this.toastCancelSuccess = page.locator('//div[contains(text(),"Hủy thành công")]');
         this.toastExportSuccess = page.locator('//div[contains(text(),"Xuất thành công")]');
+        this.toastBrowsedSuccess = page.locator('//div[contains(text(),"Phê duyệt thành công")]');
 
 
 
@@ -144,9 +146,13 @@ export class LeaveApplicationPage {
         return this.toastCancelSuccess.textContent();
     }
 
-    async getToastSendSend(toast: string) {
+    async getToastSend(toast: string) {
         await expect(this.toastSendSuccess).toHaveText(toast);
         return this.toastSendSuccess.textContent();
+    }
+    async getToastBrowsedSuccess(toast: string) {
+        await expect(this.toastBrowsedSuccess).toHaveText(toast);
+        return this.toastBrowsedSuccess.textContent();
     }
 
     async getToastAdd(toast: string) {

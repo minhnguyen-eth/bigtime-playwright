@@ -3,27 +3,27 @@ import { Locator, Page, expect } from "@playwright/test";
 
 export class EvaluationCriteriaPage {
     private page: Page;
-    private evaluationCriteria_Button: Locator;
-    private add_Button: Locator;
-    private evaluationCriteriaName_Input: Locator;
-    private save_Button: Locator;
-    private description_Input: Locator;
-    private evaluationCriteriaName_DropDown: Locator;
-    private evaluationType_Option: Locator;
-    private toastAddSuccessful: Locator;
-    private toastDeleteSuccessful: Locator;
-    private edit_Button: Locator;
-    private toastEditSuccessful: Locator;
-    private delete_Button: Locator;
-    private OK_Button: Locator;
-    private evaluationName_inputSearch: Locator;
-    private search_Button: Locator;
-    private rusult_SearchByName: Locator;
-    private status_Search_Button: Locator;
-    private activity_Status: Locator;
-    private lock_Status: Locator;
-    private result_SearchByStatus: Locator;
-    private delete_Search: Locator;
+    readonly  evaluationCriteria_Button: Locator;
+    readonly  add_Button: Locator;
+    readonly  evaluationCriteriaName_Input: Locator;
+    readonly  save_Button: Locator;
+    readonly  description_Input: Locator;
+    readonly  evaluationCriteriaName_DropDown: Locator;
+    readonly  evaluationType_Option: Locator;
+    readonly  toastAddSuccessful: Locator;
+    readonly  toastDeleteSuccessful: Locator;
+    readonly  edit_Button: Locator;
+    readonly  toastEditSuccessful: Locator;
+    readonly  delete_Button: Locator;
+    readonly  OK_Button: Locator;
+    readonly  evaluationName_inputSearch: Locator;
+    readonly  search_Button: Locator;
+    readonly  rusult_SearchByName: Locator;
+    readonly  status_Search_Button: Locator;
+    readonly  activity_Status: Locator;
+    readonly  lock_Status: Locator;
+    readonly  result_SearchByStatus: Locator;
+    readonly  delete_Search: Locator;
 
 
     constructor(page: Page) {

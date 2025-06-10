@@ -47,9 +47,10 @@ test.describe.serial('Leave Application Tests', () => {
         await leaveApplicationPage.clickDetailLeaveApplicationButton();
         await leaveApplicationPage.clickSendButton();
         await leaveApplicationPage.clickOKButton();
-        await leaveApplicationPage.getToastAdd('Gửi duyệt thành công');
+        await leaveApplicationPage.getToastSend('Gửi duyệt thành công');
 
         await leaveApplicationPage.Logout();
+        await page.waitForTimeout(1200);
 
 
         await loginPage.goto();
@@ -59,8 +60,7 @@ test.describe.serial('Leave Application Tests', () => {
         await leaveApplicationPage.clickDetailLeaveApplicationButton();
         await leaveApplicationPage.clickBrowsedButton();
         await leaveApplicationPage.clickOKButton();
-
-        await leaveApplicationPage.getToastAdd('Phê duyệt thành công');
+        await leaveApplicationPage.getToastBrowsedSuccess('Phê duyệt thành công');
 
     });
 

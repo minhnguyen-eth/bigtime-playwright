@@ -25,9 +25,6 @@ test.describe.serial('Evaluation Type Tests', () => {
         await takeScreenshotOnFailure(page, testInfo);
     });
 
-
-
-
     test('Add Evaluation Type', async ({ page }) => {
         const randomSuffix = Date.now(); // Hoặc dùng Math.random().toString(36).substring(2, 8)
         const evaluationName = `Automation test ${randomSuffix}`;
@@ -62,7 +59,5 @@ test.describe.serial('Evaluation Type Tests', () => {
     test('Clear Evaluation Type', async ({ page }) => {
         await clearAllEluationTypes();
     });
-
-
 
 });

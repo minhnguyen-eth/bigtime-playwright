@@ -2,9 +2,9 @@ import { Locator, Page, expect } from "@playwright/test";
 
 
 export class EvaluationProcessPage {
-    private page: Page;
-    private evaluationProcessButton: Locator;
-    private addButton: Locator;
+    readonly  page: Page;
+    readonly  evaluationProcessButton: Locator;
+    readonly  addButton: Locator;
 
     constructor(page: Page) {
         this.page = page;

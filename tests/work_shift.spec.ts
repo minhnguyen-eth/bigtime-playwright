@@ -12,6 +12,7 @@ test.describe.serial('Work Shift Tests', () => {
 
     const randomSuffix = Math.random().toString(36).substring(2, 8);
     const workShiftName = `Automation test ${randomSuffix}`;
+    const workShiftCode = 'AT' + randomSuffix;
 
     test.beforeEach(async ({ page }) => {
         loginPage = new LoginPage(page);
@@ -30,7 +31,7 @@ test.describe.serial('Work Shift Tests', () => {
         await workShiftPage.clickOnWorkShiftButton();
         await workShiftPage.clickOnAddButton();
         await workShiftPage.fillWorkShiftName(workShiftName);
-        await workShiftPage.fillWorkShiftCode('Test');
+        await workShiftPage.fillWorkShiftCode(workShiftCode);
 
         await workShiftPage.clickStartTime();
         await workShiftPage.clickChosseHourPicker();
