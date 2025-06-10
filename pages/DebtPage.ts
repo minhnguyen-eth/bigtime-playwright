@@ -6,6 +6,7 @@ export class DebtPage {
     readonly toastUpdateSuccess: Locator;
     readonly toastDeleteSuccess: Locator;
     readonly debtButton: Locator;
+    readonly addButton: Locator;
 
 
     constructor(page: Page) {
@@ -15,6 +16,7 @@ export class DebtPage {
         this.toastAddSuccess = page.locator('//div[contains(text(),"Thêm thành công")]');
         this.toastUpdateSuccess = page.locator('//div[contains(text(),"Cập nhật thành công")]');
         this.toastDeleteSuccess = page.locator('//div[contains(text(),"Xóa thành công")]');
+        this.addButton = page.locator("//span[normalize-space()='Thêm']");
 
     }
 
@@ -32,6 +34,8 @@ export class DebtPage {
         return this.toastAddSuccess.textContent();
     }
 
-
+    async clickAddButton() {
+        await this.addButton.click();
+    }
 }
 
