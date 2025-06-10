@@ -3,31 +3,38 @@ import { Locator, Page, expect } from "@playwright/test";
 
 export class EvaluationCriteriaPage {
     private page: Page;
-    readonly  evaluationCriteria_Button: Locator;
-    readonly  add_Button: Locator;
-    readonly  evaluationCriteriaName_Input: Locator;
-    readonly  save_Button: Locator;
-    readonly  description_Input: Locator;
-    readonly  evaluationCriteriaName_DropDown: Locator;
-    readonly  evaluationType_Option: Locator;
-    readonly  toastAddSuccessful: Locator;
-    readonly  toastDeleteSuccessful: Locator;
-    readonly  edit_Button: Locator;
-    readonly  toastEditSuccessful: Locator;
-    readonly  delete_Button: Locator;
-    readonly  OK_Button: Locator;
-    readonly  evaluationName_inputSearch: Locator;
-    readonly  search_Button: Locator;
-    readonly  rusult_SearchByName: Locator;
-    readonly  status_Search_Button: Locator;
-    readonly  activity_Status: Locator;
-    readonly  lock_Status: Locator;
-    readonly  result_SearchByStatus: Locator;
-    readonly  delete_Search: Locator;
+    readonly evaluationCriteria_Button: Locator;
+    readonly add_Button: Locator;
+    readonly evaluationCriteriaName_Input: Locator;
+    readonly save_Button: Locator;
+    readonly description_Input: Locator;
+    readonly evaluationCriteriaName_DropDown: Locator;
+    readonly evaluationType_Option: Locator;
+    readonly toastAddSuccessful: Locator;
+    readonly toastDeleteSuccessful: Locator;
+    readonly edit_Button: Locator;
+    readonly toastEditSuccessful: Locator;
+    readonly delete_Button: Locator;
+    readonly OK_Button: Locator;
+    readonly evaluationName_inputSearch: Locator;
+    readonly search_Button: Locator;
+    readonly rusult_SearchByName: Locator;
+    readonly status_Search_Button: Locator;
+    readonly activity_Status: Locator;
+    readonly lock_Status: Locator;
+    readonly result_SearchByStatus: Locator;
+    readonly delete_Search: Locator;
+    readonly verifyLockStatusSearch: Locator;
+    readonly verifyActivityStatus: Locator;
+    readonly cancelAddButton: Locator;
 
 
     constructor(page: Page) {
         this.page = page;
+
+        this.cancelAddButton = page.locator("//span[contains(normalize-space(),'Hủy')]");
+        this.verifyActivityStatus = page.locator("//tr[@id='row-0']//span[@class='custom-size'][normalize-space()='Hoạt động']");
+        this.verifyLockStatusSearch = page.locator("//span[@class='custom-size'][normalize-space()='Khóa']");
         this.delete_Search = page.locator("//span[.=' Xóa']");
         this.result_SearchByStatus = page.locator("//tr[@id='row-0']//span[@class='custom-size'][contains(text(),'Hoạt động')]");
         this.lock_Status = page.locator("//div[contains(text(),'Khóa')]");
@@ -52,6 +59,24 @@ export class EvaluationCriteriaPage {
 
     }
 
+    async clickCancelAddButton() {
+        await this.cancelAddButton.click();
+    }
+
+    async getVerifyActivityStatus() {
+        await expect(this.verifyActivityStatus).toBeVisible();
+        const text = await this.verifyActivityStatus.textContent();
+        console.log("🔍 Activity status text found:", text);
+        return text;
+    }
+
+    async getVerifyLockStatusSearch() {
+        await expect(this.verifyLockStatusSearch).toBeVisible();
+        const text = await this.verifyLockStatusSearch.textContent();
+        console.log("🔍 Lock status text found:", text);
+        return text;
+    }
+
     async clickDeleteSearch() {
         await this.delete_Search.click();
     }
@@ -73,9 +98,9 @@ export class EvaluationCriteriaPage {
         }
     }
 
-   async verifyResultSearchByName() {
-    await expect(this.rusult_SearchByName).toContainText('Automation test');
-}
+    async verifyResultSearchByName() {
+        await expect(this.rusult_SearchByName).toContainText('Automation test');
+    }
 
 
     async clickSearchButton() {
@@ -123,8 +148,8 @@ export class EvaluationCriteriaPage {
     }
 
     async clickEvaluationTypeOption() {
-    await this.evaluationType_Option.click();
-}
+        await this.evaluationType_Option.click();
+    }
 
     async setDescription(description: string) {
         await this.description_Input.fill(description);
@@ -150,7 +175,7 @@ export class EvaluationCriteriaPage {
         await this.save_Button.click();
     }
 
-   
+
 
 }
 

@@ -37,6 +37,8 @@ test.describe.serial('Evaluation Type Tests', () => {
         await homePage.clickAdmin();
         await evaluationCriteriaPage.clickEvaluationCriteria();
         await evaluationCriteriaPage.clickAddButton();
+        await evaluationCriteriaPage.clickCancelAddButton();
+        await evaluationCriteriaPage.clickAddButton();
         await evaluationCriteriaPage.setEvaluationCriteriaName(EvaluationCriteriaNameRandom);
         await evaluationCriteriaPage.setDescription('Automation Test Description');
         await evaluationCriteriaPage.clickEvaluationCriteriaNameDropDown();
@@ -51,26 +53,34 @@ test.describe.serial('Evaluation Type Tests', () => {
         await homePage.clickAdmin();
         await evaluationCriteriaPage.clickEvaluationCriteria();
 
-        // Search by namename
+        // Search by name 
         await evaluationCriteriaPage.searchEvaluationCriteriaName('Automation Test');
         await evaluationCriteriaPage.clickSearchButton();
         await evaluationCriteriaPage.verifyResultSearchByName();
+        await evaluationCriteriaPage.clickDeleteSearch();
 
         // Search Evaluation Criteria by status and locklock
         await evaluationCriteriaPage.clickStatusDropDown();
         await evaluationCriteriaPage.selectStatus('Hoạt động');
         await evaluationCriteriaPage.clickSearchButton();
+        await evaluationCriteriaPage.getVerifyActivityStatus();
         await evaluationCriteriaPage.clickDeleteSearch();
+
 
         await evaluationCriteriaPage.clickStatusDropDown();
         await evaluationCriteriaPage.selectStatus('Khóa');
         await evaluationCriteriaPage.clickSearchButton();
+        await evaluationCriteriaPage.getVerifyLockStatusSearch();
         await evaluationCriteriaPage.clickDeleteSearch();
+
 
         await evaluationCriteriaPage.clickStatusDropDown();
         await evaluationCriteriaPage.selectStatus('Hoạt động');
         await evaluationCriteriaPage.selectStatus('Khóa');
         await evaluationCriteriaPage.clickSearchButton();
+        await evaluationCriteriaPage.getVerifyActivityStatus();
+        await evaluationCriteriaPage.getVerifyLockStatusSearch();
+
     });
 
 
