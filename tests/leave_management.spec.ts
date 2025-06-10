@@ -74,7 +74,7 @@ test.describe.serial('Leave Management Tests', () => {
         await leaveManagementPage.clickSaveEmployee();
         await leaveManagementPage.clickSaveButton();
         await leaveManagementPage.verifyAnnualLeaveAlreadyExist('Nghỉ phép năm đã tồn tại.');
-    
+
 
     });
 
@@ -112,8 +112,8 @@ test.describe.serial('Leave Management Tests', () => {
     });
 
     test('Add annual leave for a department', async ({ page }) => {
+        await clearAllLeaveManagements();
 
-      
         await loginPage.login(Config.admin_username, Config.admin_password);
         await homePage.clickAdmin();
         await leaveManagementPage.clickLeaveManagementButton();
@@ -158,7 +158,7 @@ test.describe.serial('Leave Management Tests', () => {
 
     test('Search', async ({ page }) => {
 
-        
+
         await loginPage.login(Config.admin_username, Config.admin_password);
         await homePage.clickAdmin();
 
@@ -169,9 +169,9 @@ test.describe.serial('Leave Management Tests', () => {
         await leaveManagementPage.verifyResultEmployee('Nguyễn Văn Minh');
 
         // Search by year
-        await leaveManagementPage.fillSearchByYear('2026');
+        await leaveManagementPage.fillSearchByYear('2025');
         await leaveManagementPage.clickSearchButton();
-        await leaveManagementPage.verifyResultYear('2026');
+        await leaveManagementPage.verifyResultYear('2025');
 
     });
 

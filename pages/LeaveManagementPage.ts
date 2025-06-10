@@ -58,7 +58,7 @@ export class LeaveManagementPage {
 
 
         this.annualLeaveAlreadyExist = page.locator("//li[contains(text(),'Nghỉ phép năm đã tồn tại.')]")
-        this.resultYear = page.locator("//td[normalize-space()='2026']")
+        this.resultYear = page.locator("//td[normalize-space()='2025']")
         this.searchByYear = page.locator("//form/div/div[2]/div/div/div/div[3]/div/input")
         this.resultEmployee = page.locator("//tr[@id='row-0']//span[contains(text(),'Nguyễn Văn Minh')]")
         this.searchEmpployee = page.locator("//form/div/div[1]/div/div/div/div[3]/div/input")

@@ -8,13 +8,14 @@ import { checkEvaluationTypeExists, deleteEvaluationType } from '../utils/mysqlU
 import { clearAllEluationTypes } from '../utils/mysqlUtils';
 import { EvaluationCriteriaPage } from '../pages/EvaluationCriteriaPage';
 
-test.describe.serial('Evaluation Type Tests', () => {
+test.describe.serial('Evaluation Criteria Tests', () => {
     let loginPage: LoginPage;
     let evaluationCriteriaPage: EvaluationCriteriaPage;
     let homePage: HomePage;
 
     const randomSuffix = Date.now();
     const EvaluationCriteriaNameRandom = `Automation test ${randomSuffix}`;
+    const EvaluationCriteriaNameEdited = `Automation test Edited ${randomSuffix}`;
 
     test.beforeEach(async ({ page }) => {
 
@@ -89,7 +90,7 @@ test.describe.serial('Evaluation Type Tests', () => {
         await homePage.clickAdmin();
         await evaluationCriteriaPage.clickEvaluationCriteria();
         await evaluationCriteriaPage.clickEditButton();
-        await evaluationCriteriaPage.editEvaluationCriteriaName('Automation Test Edited');
+        await evaluationCriteriaPage.editEvaluationCriteriaName(EvaluationCriteriaNameEdited);
         await evaluationCriteriaPage.editDescription('Automation Test Description Edited');
         await evaluationCriteriaPage.clickSave();
         await evaluationCriteriaPage.verifyToastEditSuccessfull('Cập nhật thành công');
