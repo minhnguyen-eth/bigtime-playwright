@@ -15,8 +15,6 @@ test.describe.serial('Work Shift Tests', () => {
     let logoutPage: LogoutPage;
 
     const randomSuffix = Math.random().toString(36).substring(2, 8);
-    const workShiftName = `Automation test ${randomSuffix}`;
-    const workShiftCode = 'AT' + randomSuffix;
 
     test.beforeEach(async ({ page }) => {
         logoutPage = new LogoutPage(page);
