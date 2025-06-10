@@ -36,6 +36,9 @@ test.describe.serial('Work Shift Tests', () => {
         await regisnationPage.fillReason('Automation test');
         await regisnationPage.clickSaveButton();
         await toastPage.getToastAddSuccess();
+        await regisnationPage.clickRow0();
+        await regisnationPage.clickSendButton();
+        await regisnationPage.clickOkButton();
 
     });
 

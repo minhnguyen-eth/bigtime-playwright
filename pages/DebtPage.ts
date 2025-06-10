@@ -21,8 +21,6 @@ export class DebtPage {
 
 
     // Hàm xử lý
-
-
     async clickDebtButton() {
         await this.debtButton.click();
     }
