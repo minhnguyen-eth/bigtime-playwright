@@ -103,6 +103,7 @@ export class DebtPage {
     await this.addButton.click();
   }
 
+
   async clickSaveButton() {
     await this.saveButton.click();
   }
@@ -116,6 +117,12 @@ export class DebtPage {
       "Nhập chọn nhân viên"
     );
   }
+
+    // Hàm xử lý
+    async clickDebtButton() {
+        await this.debtButton.click();
+    }
+
 
   async expectFillNoteError() {
     await expect(this.requiredErrorNoteMessage).toHaveText("Nhập ghi chú");

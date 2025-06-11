@@ -8,13 +8,14 @@ import { checkEvaluationTypeExists, deleteEvaluationType } from '../utils/mysqlU
 import { clearAllEluationTypes } from '../utils/mysqlUtils';
 import { EvaluationCriteriaPage } from '../pages/EvaluationCriteriaPage';
 
-test.describe.serial('Evaluation Type Tests', () => {
+test.describe.serial('Evaluation Criteria Tests', () => {
     let loginPage: LoginPage;
     let evaluationCriteriaPage: EvaluationCriteriaPage;
     let homePage: HomePage;
 
     const randomSuffix = Date.now();
     const EvaluationCriteriaNameRandom = `Automation test ${randomSuffix}`;
+    const EvaluationCriteriaNameEdited = `Automation test Edited ${randomSuffix}`;
 
     test.beforeEach(async ({ page }) => {
 
@@ -37,6 +38,8 @@ test.describe.serial('Evaluation Type Tests', () => {
         await homePage.clickAdmin();
         await evaluationCriteriaPage.clickEvaluationCriteria();
         await evaluationCriteriaPage.clickAddButton();
+        await evaluationCriteriaPage.clickCancelAddButton();
+        await evaluationCriteriaPage.clickAddButton();
         await evaluationCriteriaPage.setEvaluationCriteriaName(EvaluationCriteriaNameRandom);
         await evaluationCriteriaPage.setDescription('Automation Test Description');
         await evaluationCriteriaPage.clickEvaluationCriteriaNameDropDown();
@@ -51,26 +54,34 @@ test.describe.serial('Evaluation Type Tests', () => {
         await homePage.clickAdmin();
         await evaluationCriteriaPage.clickEvaluationCriteria();
 
-        // Search by namename
+        // Search by name 
         await evaluationCriteriaPage.searchEvaluationCriteriaName('Automation Test');
         await evaluationCriteriaPage.clickSearchButton();
         await evaluationCriteriaPage.verifyResultSearchByName();
+        await evaluationCriteriaPage.clickDeleteSearch();
 
         // Search Evaluation Criteria by status and locklock
         await evaluationCriteriaPage.clickStatusDropDown();
         await evaluationCriteriaPage.selectStatus('Hoạt động');
         await evaluationCriteriaPage.clickSearchButton();
+        await evaluationCriteriaPage.getVerifyActivityStatus();
         await evaluationCriteriaPage.clickDeleteSearch();
+
 
         await evaluationCriteriaPage.clickStatusDropDown();
         await evaluationCriteriaPage.selectStatus('Khóa');
         await evaluationCriteriaPage.clickSearchButton();
+        await evaluationCriteriaPage.getVerifyLockStatusSearch();
         await evaluationCriteriaPage.clickDeleteSearch();
+
 
         await evaluationCriteriaPage.clickStatusDropDown();
         await evaluationCriteriaPage.selectStatus('Hoạt động');
         await evaluationCriteriaPage.selectStatus('Khóa');
         await evaluationCriteriaPage.clickSearchButton();
+        await evaluationCriteriaPage.getVerifyActivityStatus();
+        await evaluationCriteriaPage.getVerifyLockStatusSearch();
+
     });
 
 
@@ -79,7 +90,7 @@ test.describe.serial('Evaluation Type Tests', () => {
         await homePage.clickAdmin();
         await evaluationCriteriaPage.clickEvaluationCriteria();
         await evaluationCriteriaPage.clickEditButton();
-        await evaluationCriteriaPage.editEvaluationCriteriaName('Automation Test Edited');
+        await evaluationCriteriaPage.editEvaluationCriteriaName(EvaluationCriteriaNameEdited);
         await evaluationCriteriaPage.editDescription('Automation Test Description Edited');
         await evaluationCriteriaPage.clickSave();
         await evaluationCriteriaPage.verifyToastEditSuccessfull('Cập nhật thành công');

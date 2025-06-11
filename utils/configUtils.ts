@@ -7,6 +7,15 @@ export class Config {
     return process.env.URL_BIGTIME_STG || '';
   }
 
+  // Manager Team Account
+  static get manager_team_username(): string {
+    return process.env.MANAGER_TEAM_USERNAME || '';
+  }
+
+  static get manager_team_password(): string {
+    return process.env.MANAGER_TEAM_PASSWORD || '';
+  }
+
   // Employee Account
   static get employee_username(): string {
     return process.env.EMPLOYEE_USERNAME || '';
