@@ -1,6 +1,5 @@
 import { Locator, Page, expect } from "@playwright/test";
 
-
 export class EvaluationCriteriaPage {
     private page: Page;
     readonly evaluationCriteria_Button: Locator;
@@ -28,10 +27,8 @@ export class EvaluationCriteriaPage {
     readonly verifyActivityStatus: Locator;
     readonly cancelAddButton: Locator;
 
-
     constructor(page: Page) {
         this.page = page;
-
         this.cancelAddButton = page.locator("//span[contains(normalize-space(),'Hủy')]");
         this.verifyActivityStatus = page.locator("//tr[@id='row-0']//span[@class='custom-size'][normalize-space()='Hoạt động']");
         this.verifyLockStatusSearch = page.locator("//span[@class='custom-size'][normalize-space()='Khóa']");
@@ -56,7 +53,6 @@ export class EvaluationCriteriaPage {
         this.save_Button = page.locator("//span[normalize-space()='Lưu']");
         this.evaluationCriteriaName_DropDown = page.locator("//i[@title='Open']");
         this.evaluationType_Option = page.locator("//div/div[1]/div[1]/div[2]/div[2]/div[1]");
-
     }
 
     async clickCancelAddButton() {
@@ -174,9 +170,6 @@ export class EvaluationCriteriaPage {
     async clickSave() {
         await this.save_Button.click();
     }
-
-
-
 }
 
 

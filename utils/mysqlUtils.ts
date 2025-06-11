@@ -14,7 +14,6 @@ async function getConnection() {
   return await mysql.createConnection(config);
 }
 
-
 export async function clearAllShiftPlan(): Promise<void> {
   const sql = "DELETE FROM shift_plans WHERE name NOT LIKE '%Phân ca tháng%'";
   try {
@@ -26,8 +25,6 @@ export async function clearAllShiftPlan(): Promise<void> {
     console.error("Lỗi khi xóa dữ liệu trong bảng shift_plans:", e);
   }
 }
-
-
 
 // Xóa toàn bộ bảng
 export async function clearTable(tableName: string): Promise<void> {
@@ -51,7 +48,12 @@ export async function clearAllTables(): Promise<void> {
   await clearTable('time_workings');
   await clearTable('shift_plans');
   await clearTable('paysheets');
+  await clearTable('evaluation_progress');
   await clearAllAllowanceTypes();
+}
+
+export async function clearAllEvaluationProgress() {
+  await clearTable('evaluation_progress');
 }
 
 export async function clearAllLeaveApplications() {
@@ -71,11 +73,11 @@ export async function clearAllPayslips() {
 }
 
 export async function clearAllEluationTypes() {
-  const sql = "DELETE FROM evaluation_types WHERE name <> 'Đánh giá chuyên cần'";
+  const sql = "DELETE FROM evaluation_types WHERE name NOT LIKE '%Đánh giá%'";
   try {
     const conn = await getConnection();
     const [result] = await conn.execute<mysql.ResultSetHeader>(sql);
-    console.info(`Đã xóa ${result.affectedRows} dòng trong bảng evaluation_types, giữ lại 'Đánh giá chuyên cần'`);
+    console.info(`Đã xóa ${result.affectedRows} dòng trong bảng evaluation_types, giữ lại các bản ghi có chứa 'Đánh giá' trong name.`);
     await conn.end();
   } catch (e) {
     console.error("Lỗi khi xóa dữ liệu trong bảng evaluation_types:", e);
@@ -149,7 +151,7 @@ export async function deleteEvaluationType(name: string): Promise<boolean> {
     const conn = await getConnection();
     const [result] = await conn.execute<mysql.ResultSetHeader>(sql, [`%${name}%`]);
     await conn.end();
-    
+
     const affectedRows = result.affectedRows;
     console.info(`Đã xóa ${affectedRows} loại đánh giá với tên: ${name}`);
     return affectedRows > 0;

@@ -2,9 +2,7 @@ import { Locator, Page, expect } from '@playwright/test';
 
 export class LeaveManagementPage {
 
-    private page: Page;
-
-    // Buttons & Inputs
+    readonly page: Page;
     readonly toastAddSuccess: Locator;
     readonly toastCancelSuccess: Locator;
     readonly leaveManagementButton: Locator;
@@ -49,14 +47,8 @@ export class LeaveManagementPage {
     readonly resultYear: Locator;
     readonly annualLeaveAlreadyExist: Locator;
 
-
-
-
-
     constructor(page: Page) {
         this.page = page;
-
-
         this.annualLeaveAlreadyExist = page.locator("//li[contains(text(),'Nghỉ phép năm đã tồn tại.')]")
         this.resultYear = page.locator("//td[normalize-space()='2025']")
         this.searchByYear = page.locator("//form/div/div[2]/div/div/div/div[3]/div/input")
@@ -102,10 +94,6 @@ export class LeaveManagementPage {
         this.toastBrowsedSuccess = page.locator('//div[contains(text(),"Đã duyệt thành công")]');
         this.toastCancelSuccess = page.locator('//div[contains(text(),"Hủy thành công")]');
         this.toastConfirmSuccess = page.locator('//div[contains(text(),"Xác nhận thành công")]');
-
-
-
-
     }
 
     async verifyAnnualLeaveAlreadyExist(expectedValue: string) {
@@ -123,7 +111,6 @@ export class LeaveManagementPage {
         expect(value?.trim()).toBe(expectedValue);
         return value;
     }
-
 
     async fillSearchByYear(year: string) {
         await this.searchByYear.fill(year);
@@ -149,32 +136,29 @@ export class LeaveManagementPage {
         await this.iconActionRow2.click();
     }
 
-  async verifyStatusApproved(expectedValue: string) {
-    await expect(this.checkStatusApproved).toBeVisible();
-    const value = await this.checkStatusApproved.textContent();
-    console.log("🔍 Status value found (Approved):", value);
-    expect(value?.trim()).toBe(expectedValue);
-    return value;
-}
+    async verifyStatusApproved(expectedValue: string) {
+        await expect(this.checkStatusApproved).toBeVisible();
+        const value = await this.checkStatusApproved.textContent();
+        console.log("🔍 Status value found (Approved):", value);
+        expect(value?.trim()).toBe(expectedValue);
+        return value;
+    }
 
-async verifyStatusWaitingForApproval(expectedValue: string) {
-    await expect(this.checkStatusWaitingForApproval).toBeVisible();
-    const value = await this.checkStatusWaitingForApproval.textContent();
-    console.log("🔍 Status value found (Waiting for Approval):", value);
-    expect(value?.trim()).toBe(expectedValue);
-    return value;
-}
+    async verifyStatusWaitingForApproval(expectedValue: string) {
+        await expect(this.checkStatusWaitingForApproval).toBeVisible();
+        const value = await this.checkStatusWaitingForApproval.textContent();
+        console.log("🔍 Status value found (Waiting for Approval):", value);
+        expect(value?.trim()).toBe(expectedValue);
+        return value;
+    }
 
-async verifyStatusNew(expectedValue: string) {
-    await expect(this.checkStatusNew).toBeVisible();
-    const value = await this.checkStatusNew.textContent();
-    console.log("🔍 Status value found (New):", value);
-    expect(value?.trim()).toBe(expectedValue);
-    return value;
-}
-
-
-
+    async verifyStatusNew(expectedValue: string) {
+        await expect(this.checkStatusNew).toBeVisible();
+        const value = await this.checkStatusNew.textContent();
+        console.log("🔍 Status value found (New):", value);
+        expect(value?.trim()).toBe(expectedValue);
+        return value;
+    }
 
     async clickDepartmentOption() {
         await this.departmentOption.click();
@@ -201,7 +185,6 @@ async verifyStatusNew(expectedValue: string) {
         await this.logoutConfirmButton.click();
     }
 
-
     async clickOkButton() {
         await this.OkButton.click();
     }
@@ -217,7 +200,6 @@ async verifyStatusNew(expectedValue: string) {
     async clickSaveEmployee() {
         await this.saveEmployee.nth(1).click();
     }
-
 
     async clickSelectAEmployee() {
         await this.selectAEmployee.click();
@@ -248,7 +230,6 @@ async verifyStatusNew(expectedValue: string) {
         await this.leaveManagementButton.click();
     }
 
-
     async clickCancelButton() {
         await this.cancelButton.click();
     }
@@ -257,17 +238,13 @@ async verifyStatusNew(expectedValue: string) {
         await this.saveButton.first().click();
     }
 
-
-
     async clickAddButton() {
         await this.addButton.click();
     }
 
-
     async clickSearchButton() {
         await this.searchButton.click();
     }
-
 
     async getToastAdd(toast: string) {
         await expect(this.toastAddSuccess).toHaveText(toast);
@@ -283,6 +260,4 @@ async verifyStatusNew(expectedValue: string) {
         await expect(this.toastConfirmSuccess).toHaveText(toast);
         return this.toastConfirmSuccess.textContent();
     }
-
-
 }

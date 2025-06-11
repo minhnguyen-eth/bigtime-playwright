@@ -1,9 +1,7 @@
 import { Locator, Page, expect } from '@playwright/test';
 
 export class PaysheetPage {
-    private page: Page;
-
-    // Buttons & Inputs
+    readonly page: Page;
     readonly  cancelButton: Locator;
     readonly  paysheetButton: Locator;
     readonly  addButton: Locator;
@@ -54,7 +52,6 @@ export class PaysheetPage {
 
     constructor(page: Page) {
         this.page = page;
-
         this.searchButton = page.locator("//span[.=' Tìm kiếm']")
         this.requiredEnterName = page.locator("//div[contains(text(),'Nhập tên')]")
         this.payslipPayment = page.locator("//span[normalize-space()='Phiếu lương']")

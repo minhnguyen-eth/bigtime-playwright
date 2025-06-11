@@ -9,7 +9,6 @@ export class LoginPage {
   readonly  profileBadgeAdmin: Locator;
   readonly  profileBadgeEmployee: Locator;
   readonly  errorMessage: Locator;
-  
 
   constructor(page: Page) {
     this.page = page;
@@ -35,7 +34,6 @@ export class LoginPage {
   async expectLoginAdminSuccess() {
     await expect(this.profileBadgeAdmin).toHaveText('Admin');
   }
-
   
   async expectLoginEmployeeSuccess() {
     await expect(this.profileBadgeEmployee).toHaveText('Nguyễn Văn Minh');

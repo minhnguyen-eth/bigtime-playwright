@@ -1,41 +1,34 @@
 import { Locator, Page, expect } from '@playwright/test';
 
 export class LeaveApplicationPage {
-
-    private page: Page;
-
-    // Buttons & Inputs
-    readonly  toastAddSuccess: Locator;
-    readonly  toastCancelSuccess: Locator;
-    readonly  toastExportSuccess: Locator;
-    readonly  searchButton: Locator;
-    readonly  leaveApplicationButton: Locator;
-    readonly  addButton: Locator;
-    readonly  leaveTypeDropDown: Locator;
-    readonly  anualLeave: Locator;
-    readonly  startDate: Locator;
-    readonly  endDate: Locator;
-    readonly  reason: Locator;
-    readonly  todayButton: Locator;
-    readonly  chosseButton: Locator;
-    readonly  numberOfDaysOff: Locator;
-    readonly  saveButton: Locator;
-    readonly  cancelButton: Locator;
-    readonly  logoutButton: Locator;
-    readonly  logoutConfirmButton: Locator;
-    readonly  sendButton: Locator;
-    readonly  OKButton: Locator;
-    readonly  detailLeaveApplicationButton: Locator;
-    readonly  toastSendSuccess: Locator;
-    readonly  browsedButton: Locator;
-    readonly  toastBrowsedSuccess: Locator;
-
-
+    readonly page: Page;
+    readonly toastAddSuccess: Locator;
+    readonly toastCancelSuccess: Locator;
+    readonly toastExportSuccess: Locator;
+    readonly searchButton: Locator;
+    readonly leaveApplicationButton: Locator;
+    readonly addButton: Locator;
+    readonly leaveTypeDropDown: Locator;
+    readonly anualLeave: Locator;
+    readonly startDate: Locator;
+    readonly endDate: Locator;
+    readonly reason: Locator;
+    readonly todayButton: Locator;
+    readonly chosseButton: Locator;
+    readonly numberOfDaysOff: Locator;
+    readonly saveButton: Locator;
+    readonly cancelButton: Locator;
+    readonly logoutButton: Locator;
+    readonly logoutConfirmButton: Locator;
+    readonly sendButton: Locator;
+    readonly OKButton: Locator;
+    readonly detailLeaveApplicationButton: Locator;
+    readonly toastSendSuccess: Locator;
+    readonly browsedButton: Locator;
+    readonly toastBrowsedSuccess: Locator;
 
     constructor(page: Page) {
         this.page = page;
-
-
         this.browsedButton = page.locator("//span[contains(text(),'Duyệt')]")
         this.detailLeaveApplicationButton = page.locator("//tr[@id='row-0']")
         this.OKButton = page.locator("//span[normalize-space()='Có']")
@@ -62,9 +55,6 @@ export class LeaveApplicationPage {
         this.toastCancelSuccess = page.locator('//div[contains(text(),"Hủy thành công")]');
         this.toastExportSuccess = page.locator('//div[contains(text(),"Xuất thành công")]');
         this.toastBrowsedSuccess = page.locator('//div[contains(text(),"Phê duyệt thành công")]');
-
-
-
     }
 
     async clickBrowsedButton() {
@@ -135,7 +125,6 @@ export class LeaveApplicationPage {
         await this.searchButton.click();
     }
 
-
     async getToastExport() {
         await expect(this.toastExportSuccess).toBeVisible();
         return this.toastExportSuccess.textContent();
@@ -164,6 +153,4 @@ export class LeaveApplicationPage {
         await this.logoutButton.click();
         await this.logoutConfirmButton.click();
     }
-
-
 }

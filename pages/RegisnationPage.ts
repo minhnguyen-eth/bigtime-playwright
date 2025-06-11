@@ -1,8 +1,7 @@
 import { Locator, Page, expect } from '@playwright/test';
 
 export class RegisnationPage {
-    private page: Page;
-
+    readonly page: Page;
     readonly addButton: Locator;
     readonly reasonInput: Locator;
     readonly saveButton: Locator;
@@ -34,12 +33,9 @@ export class RegisnationPage {
     readonly exportButton: Locator;
     readonly startDate: Locator;
     readonly endDate: Locator;
-   
-
 
     constructor(page: Page) {
         this.page = page;
-     
         this.Day06 = page.locator("//div[@class='dp__cell_inner dp__pointer dp__date_hover'][normalize-space()='6']");
         this.endDate = page.locator("//div[3]/div/div/div/div/div[1]/div/div/div[3]/input");
         this.startDate = page.locator("//div[3]/div/div[2]/div/div/div/div/div[1]/div/div/div[3]/input");
@@ -71,7 +67,6 @@ export class RegisnationPage {
         this.reasonInput = page.locator("//div[2]/div/div[1]/div/div/div/div[3]/textarea");
         this.saveButton = page.locator("//span[contains(normalize-space(),'Lưu')]");
         this.regisnationButton = page.locator("//div[contains(text(),'Đơn thôi việc')]");
-
     }
 
     async clickDay06() {
@@ -81,7 +76,6 @@ export class RegisnationPage {
     async clickEndDate() {
         await this.endDate.click();
     }
-
 
     async clickStartDate() {
         await this.startDate.click();
@@ -111,7 +105,6 @@ export class RegisnationPage {
         console.log("🔍 Reject status option value found:", value);
         return value;
     }
-
 
     async getVerifySubmittedButton() {
         await expect(this.verifySubmittedButton).toBeVisible();
@@ -177,7 +170,6 @@ export class RegisnationPage {
         return value;
     }
 
-
     async clickSearchButton() {
         await this.searchButton.click();
     }
@@ -204,7 +196,6 @@ export class RegisnationPage {
     async clickRegisnationButton() {
         await this.regisnationButton.click();
     }
-
 
     async clickSaveButton() {
         await this.saveButton.click();

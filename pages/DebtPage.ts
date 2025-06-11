@@ -1,7 +1,6 @@
 import { Page, Locator, expect } from "@playwright/test";
 export class DebtPage {
-    private page: Page;
-
+    readonly page: Page;
     readonly toastAddSuccess: Locator;
     readonly toastUpdateSuccess: Locator;
     readonly toastDeleteSuccess: Locator;
@@ -88,10 +87,6 @@ export class DebtPage {
         this.actionRefusedButton = page.getByRole('button', { name: 'Từ chối' });
     }
 
-    // Hàm xử lý
-
-
-
     async getToastAddSuccess() {
         await expect(this.toastAddSuccess).toHaveText("Thêm thành công");
         return this.toastAddSuccess.textContent();
@@ -100,7 +95,6 @@ export class DebtPage {
     async clickAddButton() {
         await this.addButton.click();
     }
-
 
     async clickSaveButton() {
         await this.saveButton.click();
@@ -119,7 +113,6 @@ export class DebtPage {
     async clickDebtButton() {
         await this.debtButton.click();
     }
-
 
     async expectFillNoteError() {
         await expect(this.requiredErrorNoteMessage).toHaveText("Nhập ghi chú");

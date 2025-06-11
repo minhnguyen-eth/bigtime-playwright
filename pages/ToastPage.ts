@@ -1,7 +1,6 @@
 import { Page, Locator, expect } from '@playwright/test';
 export class ToastPage {
-    private page: Page;
-
+    readonly page: Page;
     readonly toastAddSuccess: Locator;
     readonly toastUpdateSuccess: Locator;
     readonly toastDeleteSuccess: Locator;
@@ -9,19 +8,16 @@ export class ToastPage {
     readonly toastBrowseSuccess: Locator;
     readonly toastExportSuccess: Locator;
 
-
     constructor(page: Page) {
         this.page = page;
-
         this.toastExportSuccess = page.locator('//div[contains(text(),"Xuất thành công")]');
         this.toastSendSuccess = page.locator('//div[contains(text(),"Đã gửi thành công")]');
         this.toastAddSuccess = page.locator('//div[contains(text(),"Thêm thành công")]');
         this.toastUpdateSuccess = page.locator('//div[contains(text(),"Cập nhật thành công")]');
         this.toastDeleteSuccess = page.locator('//div[contains(text(),"Xóa thành công")]');
         this.toastBrowseSuccess = page.locator('//div[contains(text(),"Đã duyệt thành công")]');
-
-
     }
+
 
    
     async getToastExportSuccess() {
@@ -53,6 +49,5 @@ export class ToastPage {
         await expect(this.toastDeleteSuccess).toHaveText('Xóa thành công');
         return this.toastDeleteSuccess.textContent();
     }
-
 }
 

@@ -2,9 +2,7 @@ import { Locator, Page, expect } from '@playwright/test';
 
 export class ShiftPlanPage {
 
-    private page: Page;
-
-    // Buttons & Inputs
+    readonly page: Page;
     readonly  toastAddSuccess: Locator;
     readonly  toastCancelSuccess: Locator;
     readonly  toastExportSuccess: Locator;
@@ -41,11 +39,8 @@ export class ShiftPlanPage {
     readonly  getToastDeleteSuccess: Locator;
     readonly  chooseMonthSearch: Locator;
 
-
-
     constructor(page: Page) {
         this.page = page;
-
         this.chooseMonthSearch = page.locator("//div/div[1]/div/div/div/div/div[1]/div/div/div[3]/input")
         this.okButton = page.locator("//span[normalize-space()='Có']")
         this.Month07Button = page.locator("//div[@class='dp__overlay_cell dp__overlay_cell_pad'][normalize-space()='Thg 7']")
@@ -82,15 +77,11 @@ export class ShiftPlanPage {
         this.toastAddSuccess = page.locator('//div[contains(text(),"Thêm thành công")]');
         this.toastCancelSuccess = page.locator('//div[contains(text(),"Hủy thành công")]');
         this.getToastDeleteSuccess = page.locator('//div[contains(text(),"Xóa thành công")]');
-
     }
-
-
 
     async clickChooseMonthSearch(){
         await this.chooseMonthSearch.click()
     }
-     
 
     async getToastDelete(text: string) {
         await expect(this.getToastDeleteSuccess).toHaveText(text);
@@ -104,7 +95,6 @@ export class ShiftPlanPage {
     async clickMonth07Button() {
         await this.Month07Button.click();
     }
-
 
     async clickChosseMonthButton() {
         await this.chosseMonthButton.click();
@@ -157,8 +147,9 @@ export class ShiftPlanPage {
 
     async clickAddButton() {
         await this.addButton.click();
+    } 
 
-    } async fillShiftPlanNameInput(shiftPlanName: string) {
+    async fillShiftPlanNameInput(shiftPlanName: string) {
         await this.shiftPlanNameInput.fill(shiftPlanName);
     }
 
@@ -180,7 +171,6 @@ export class ShiftPlanPage {
 
     }
 
-
     async clickDepartmentButton() {
         await this.departmentButton.click();
     }
@@ -195,14 +185,12 @@ export class ShiftPlanPage {
 
     async clickDepartmentOption() {
         await this.departmentOption.click();
-
     }
     async clickSaveDepartmentButton() {
         await this.saveDepartmentButton.click();
     }
 
     async clickSaveWorkShiftButton() {
-
         await this.saveWorkShiftButton.click();
     }
 
@@ -216,7 +204,6 @@ export class ShiftPlanPage {
         await expect(this.requiredFieldNameWorkShift).toHaveText(text);
         return this.requiredFieldNameWorkShift.textContent();
     }
-
 
     async getToastExport() {
         await expect(this.toastExportSuccess).toBeVisible();
@@ -233,10 +220,8 @@ export class ShiftPlanPage {
         return this.toastAddSuccess.textContent();
     }
 
-
     async Logout() {
         await this.logoutButton.click();
         await this.logoutConfirmButton.click();
     }
-
 }

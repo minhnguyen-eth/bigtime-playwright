@@ -53,14 +53,8 @@ export class WorkShiftPage {
     readonly  verifyLockStatusSearchRow1: Locator;
     readonly  verifyWorkingTime: Locator;
 
-
-
-
-
-
     constructor(page: Page) {
         this.page = page;
-
 
         this.verifyWorkingTime = page.locator("//div[3]/div/input[@value='08:00']");
         this.verifyLockStatusSearchRow1 = page.locator("//tr[@id='row-2']//span[@class='custom-size'][contains(text(),'Khóa')]");
@@ -99,22 +93,15 @@ export class WorkShiftPage {
         this.workshiftStartTimeInput = page.locator("//div[3]/div/div/div/div/div[1]/div/div/div[3]/input");
         this.workshiftNameInput = page.locator("//div[2]/div/div[1]/div/div[1]/div/div[4]/div/input");
         this.workshiftCodeInput = page.locator("//div[2]/div/div[2]/div/div[1]/div/div[4]/div/input");
-
         this.searchButton = page.locator("//span[.=' Tìm kiếm']");
         this.workshiftButton = page.locator("//a[.='Ca làm việc']");
         this.addButton = page.locator("//span[normalize-space()='Thêm']");
         this.editButton = page.locator("//tr[@id='row-0']//span[contains(text(),'Sửa')]");
         this.deleteButton = page.locator("//tr[@id='row-0']//span[contains(text(),'Xóa')]");
-
         this.toastAddSuccess = page.locator('//div[contains(text(),"Thêm thành công")]');
         this.toastUpdateSuccess = page.locator('//div[contains(text(),"Cập nhật thành công")]');
         this.toastCancelSuccess = page.locator('//div[contains(text(),"Hủy thành công")]');
         this.toastDeleteSuccess = page.locator('//div[contains(text(),"Xóa thành công")]');
-
-
-
-
-
 
     }
     async getVerifyWorkingTime() {
@@ -145,8 +132,6 @@ export class WorkShiftPage {
         console.log("🔍 Active status text found:", text);
         return text;
     }
-
-
 
     async getVerifyBranchBienHoaSearch() {
         await expect(this.verifyBranchBienHoaSearch).toBeVisible();
@@ -189,7 +174,6 @@ export class WorkShiftPage {
         await this.branchDropdownSearch.click();
     }
 
-
     async clickOnStatus(status: 'Active' | 'Lock') {
         if (status === 'Active') {
             await this.statusActive.click();
@@ -202,7 +186,6 @@ export class WorkShiftPage {
         }
     }
 
-
     async clickOnStatusDropdownSearch() {
         await this.statusDropdownSearch.click();
     }
@@ -213,8 +196,6 @@ export class WorkShiftPage {
         console.log("🔍 Lock status text found:", text);
         return text;
     }
-
-
 
     async clickOkButton() {
         await this.okButton.click();
@@ -232,7 +213,6 @@ export class WorkShiftPage {
     async clickOnStatusDropdown() {
         await this.statusDropdown.click();
     }
-
 
 
     async getToastUpdate(toast: string) {
@@ -339,6 +319,4 @@ export class WorkShiftPage {
     async clickOnAddButton() {
         await this.addButton.click();
     }
-
-
 }

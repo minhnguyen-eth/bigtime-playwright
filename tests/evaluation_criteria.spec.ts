@@ -2,10 +2,7 @@ import { test, expect, Page, TestInfo } from '@playwright/test';
 import { LoginPage } from '../pages/LoginPage';
 import { takeScreenshotOnFailure } from '../utils/screenshotUtils';
 import Config from '../utils/configUtils';
-import { EvaluationTypePage } from '../pages/EvaluationTypePage';
 import { HomePage } from '../pages/HomePage';
-import { checkEvaluationTypeExists, deleteEvaluationType } from '../utils/mysqlUtils';
-import { clearAllEluationTypes } from '../utils/mysqlUtils';
 import { EvaluationCriteriaPage } from '../pages/EvaluationCriteriaPage';
 
 test.describe.serial('Evaluation Criteria Tests', () => {
@@ -32,9 +29,6 @@ test.describe.serial('Evaluation Criteria Tests', () => {
     });
 
     test('Create Criteria', async ({ page }) => {
-
-
-        // Create Evaluation Criteria
         await homePage.clickAdmin();
         await evaluationCriteriaPage.clickEvaluationCriteria();
         await evaluationCriteriaPage.clickAddButton();
@@ -67,13 +61,11 @@ test.describe.serial('Evaluation Criteria Tests', () => {
         await evaluationCriteriaPage.getVerifyActivityStatus();
         await evaluationCriteriaPage.clickDeleteSearch();
 
-
         await evaluationCriteriaPage.clickStatusDropDown();
         await evaluationCriteriaPage.selectStatus('Khóa');
         await evaluationCriteriaPage.clickSearchButton();
         await evaluationCriteriaPage.getVerifyLockStatusSearch();
         await evaluationCriteriaPage.clickDeleteSearch();
-
 
         await evaluationCriteriaPage.clickStatusDropDown();
         await evaluationCriteriaPage.selectStatus('Hoạt động');
@@ -84,8 +76,6 @@ test.describe.serial('Evaluation Criteria Tests', () => {
 
     });
 
-
-
     test('Edit Evaluation Criteria', async ({ page }) => {
         await homePage.clickAdmin();
         await evaluationCriteriaPage.clickEvaluationCriteria();
@@ -94,8 +84,6 @@ test.describe.serial('Evaluation Criteria Tests', () => {
         await evaluationCriteriaPage.editDescription('Automation Test Description Edited');
         await evaluationCriteriaPage.clickSave();
         await evaluationCriteriaPage.verifyToastEditSuccessfull('Cập nhật thành công');
-
-
     });
 
     test('Delete Evaluation Criteria', async ({ page }) => {

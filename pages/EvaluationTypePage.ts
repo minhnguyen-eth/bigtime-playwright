@@ -1,16 +1,15 @@
 import { Locator, Page, expect } from "@playwright/test";
 
-
 export class EvaluationTypePage {
-    private page: Page;
-    private evaluationTypeButton: Locator;
-    private addButton: Locator;
-    private evaluationTypeNameInput: Locator;
-    private saveButton: Locator;
-    private messageSuccess: Locator;
-    private searchButton: Locator;
-    private searchEvaluationTypeInput: Locator;
-    private exptectedSearchEvaluationTypeName: Locator;
+    readonly page: Page;
+    readonly evaluationTypeButton: Locator;
+    readonly addButton: Locator;
+    readonly evaluationTypeNameInput: Locator;
+    readonly saveButton: Locator;
+    readonly messageSuccess: Locator;
+    readonly searchButton: Locator;
+    readonly searchEvaluationTypeInput: Locator;
+    readonly exptectedSearchEvaluationTypeName: Locator;
 
     constructor(page: Page) {
         this.page = page;
@@ -22,8 +21,6 @@ export class EvaluationTypePage {
         this.searchEvaluationTypeInput = page.locator("//div/div[1]/div/div/div/div[3]/div/input");
         this.searchButton = page.locator("//span[.=' Tìm kiếm']");
         this.exptectedSearchEvaluationTypeName = page.locator("//tr[@id='row-0']//span[contains(text(),'Đánh giá chuyên cần')]");
-
-
     }
     async expectSearchEvaluationTypeName(SearchName: string) {
         await expect(this.exptectedSearchEvaluationTypeName).toHaveText(SearchName);
@@ -54,12 +51,9 @@ export class EvaluationTypePage {
         await this.evaluationTypeNameInput.fill(name);
     }
 
-
     async clickSave() {
         await this.saveButton.click();
     }
-
-
 }
 
 
