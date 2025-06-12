@@ -1,9 +1,9 @@
 import { test, expect, Page, TestInfo } from '@playwright/test';
-import { LoginPage } from '../pages/LoginPage';
-import { takeScreenshotOnFailure } from '../utils/screenshotUtils';
-import Config from '../utils/configUtils';
-import { HomePage } from '../pages/HomePage';
-import { PaysheetPage } from '../pages/PaysheetPage';
+import { LoginPage } from '../../pages/LoginPage';
+import { takeScreenshotOnFailure } from '../../utils/screenshotUtils';
+import Config from '../../utils/configUtils';
+import { HomePage } from '../../pages/HomePage';
+import { PaysheetPage } from '../../pages/PaysheetPage';
 
 test.describe.serial('Paysheet', () => {
     let loginPage: LoginPage;
@@ -14,8 +14,6 @@ test.describe.serial('Paysheet', () => {
         loginPage = new LoginPage(page);
         paysheet = new PaysheetPage(page);
         homePage = new HomePage(page);
-
-
     });
 
     test.afterEach(async ({ page }, testInfo: TestInfo) => {
@@ -134,7 +132,6 @@ test.describe.serial('Paysheet', () => {
         await paysheet.setNote('Automation test');
         await paysheet.clickSave();
         await paysheet.getToastAdd('Thêm thành công');
-
 
     });
 

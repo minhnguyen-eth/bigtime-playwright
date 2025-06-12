@@ -1,11 +1,11 @@
 import { test, expect, Page, TestInfo } from '@playwright/test';
-import { LoginPage } from '../pages/LoginPage';
-import { takeScreenshotOnFailure } from '../utils/screenshotUtils';
-import Config from '../utils/configUtils';
-import { HomePage } from '../pages/HomePage';
-import { EvaluationProcessPage } from '../pages/EvaluationProcessPage';
-import { ToastPage } from '../pages/ToastPage';
-import { clearAllEvaluationProgress } from '../utils/mysqlUtils';
+import { LoginPage } from '../../pages/LoginPage';
+import { takeScreenshotOnFailure } from '../../utils/screenshotUtils';
+import Config from '../../utils/configUtils';
+import { HomePage } from '../../pages/HomePage';
+import { EvaluationProcessPage } from '../../pages/EvaluationProcessPage';
+import { ToastPage } from '../../pages/ToastPage';
+import { clearAllEvaluationProgress } from '../../utils/mysqlUtils';
 
 test.describe.serial('Evaluation Criteria Tests', () => {
     let loginPage: LoginPage;
@@ -95,6 +95,28 @@ test.describe.serial('Evaluation Criteria Tests', () => {
         await evaluationProcess.clickDepartmentForm();
         await evaluationProcess.clickSaveButton();
         await toast.getToastAddSuccess();
+    });
+
+    test('Confirm evaluation type', async ({ page }) => {
+        await homePage.clickAdmin();
+        await evaluationProcess.clickEvaluationProcessButton();
+        await evaluationProcess.clickIconAction();
+        await evaluationProcess.clickConfirmButton();
+        await evaluationProcess.clickYesButton();
+        await toast.getToastConfirmSuccess();
+    });
+
+
+    test('Evaluation employee', async ({ page }) => {
+        await homePage.clickAdmin();
+        await evaluationProcess.clickListEvaluationButton();
+        await evaluationProcess.getWaitEvaluationStatus();
+        await evaluationProcess.clickEvaluationButton();
+        await evaluationProcess.clickSaveButton();
+        await evaluationProcess.clickYesButton();
+        await toast.getToastEvaluationSuccess();
+
+
     });
 
 

@@ -24,11 +24,16 @@ export class EvaluationProcessPage {
     readonly confirmButton: Locator;
     readonly yesButton: Locator;
     readonly evaluationButton: Locator;
+    readonly listEvaluationButton: Locator;
+    readonly waitEvaluationStatus: Locator;
+
 
 
     constructor(page: Page) {
         this.page = page;
 
+        this.waitEvaluationStatus = page.locator("//div[normalize-space()='Chờ đánh giá']");
+        this.listEvaluationButton = page.locator("//div[@class='v-list-item-title'][contains(text(),'Danh sách đánh giá')]");
         this.evaluationButton = page.locator("//span[normalize-space()='Đánh giá']");
         this.yesButton = page.locator("//span[normalize-space()='Có']");
         this.confirmButton = page.locator("//span[contains(text(),'Xác nhận')]");
@@ -50,6 +55,19 @@ export class EvaluationProcessPage {
         this.employyeEvaluationInput = page.locator("//div[2]/div/div[1]/div/div[1]/div/div[3]/div/input");
         this.evaluationProcessButton = page.locator("//div[contains(text(),'Quy trình đánh giá')]");
         this.addButton = page.locator("//span[normalize-space()='Thêm']");
+    }
+
+    async getWaitEvaluationStatus() {
+        await expect(this.waitEvaluationStatus).toBeVisible();
+        const value = await this.waitEvaluationStatus.textContent();
+        console.log("🔍 Value of the evaluation status is:", value);
+        return value;
+    }
+
+
+
+    async clickListEvaluationButton() {
+        await this.listEvaluationButton.click();
     }
 
     async clickYesButton() {
@@ -104,7 +122,6 @@ export class EvaluationProcessPage {
     async clickStartTime() {
         await this.startTime.click();
     }
-
 
     async clickEvaluationForm() {
         await this.evaluationForm.click();

@@ -1,9 +1,9 @@
 import { test, expect, Page, TestInfo } from '@playwright/test';
-import { LoginPage } from '../pages/LoginPage';
-import { takeScreenshotOnFailure } from '../utils/screenshotUtils';
-import Config from '../utils/configUtils';
-import { WorkShiftPage } from '../pages/WorkShiftPage';
-import { HomePage } from '../pages/HomePage';
+import { LoginPage } from '../../pages/LoginPage';
+import { takeScreenshotOnFailure } from '../../utils/screenshotUtils';
+import Config from '../../utils/configUtils';
+import { WorkShiftPage } from '../../pages/WorkShiftPage';
+import { HomePage } from '../../pages/HomePage';
 
 test.describe.serial('Work Shift Tests', () => {
     let loginPage: LoginPage;

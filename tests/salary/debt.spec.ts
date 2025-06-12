@@ -1,11 +1,11 @@
 
 import { test, expect, Page, TestInfo } from "@playwright/test";
-import { LoginPage } from "../pages/LoginPage";
-import { takeScreenshotOnFailure } from "../utils/screenshotUtils";
-import Config from "../utils/configUtils";
-import { HomePage } from "../pages/HomePage";
-import { ToastPage } from "../pages/ToastPage";
-import { DebtPage } from "../pages/DebtPage";
+import { LoginPage } from "../../pages/LoginPage";
+import { takeScreenshotOnFailure } from "../../utils/screenshotUtils";
+import Config from "../../utils/configUtils";
+import { HomePage } from "../../pages/HomePage";
+import { ToastPage } from "../../pages/ToastPage";
+import { DebtPage } from "../../pages/DebtPage";
 import { throws } from "assert";
 
 test.describe.serial("Debt Tests", () => {

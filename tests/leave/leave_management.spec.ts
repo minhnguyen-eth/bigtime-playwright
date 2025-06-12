@@ -1,10 +1,10 @@
 import { test, expect, Page, TestInfo } from '@playwright/test';
-import { LoginPage } from '../pages/LoginPage';
-import { takeScreenshotOnFailure } from '../utils/screenshotUtils';
-import Config from '../utils/configUtils';
-import { HomePage } from '../pages/HomePage';
-import { LeaveManagementPage } from '../pages/LeaveManagementPage';
-import { clearAllLeaveManagements } from '../utils/mysqlUtils';
+import { LoginPage } from '../../pages/LoginPage';
+import { takeScreenshotOnFailure } from '../../utils/screenshotUtils';
+import Config from '../../utils/configUtils';
+import { HomePage } from '../../pages/HomePage';
+import { LeaveManagementPage } from '../../pages/LeaveManagementPage';
+import { clearAllLeaveManagements } from '../../utils/mysqlUtils';
 
 test.describe.serial('Leave Management Tests', () => {
     let loginPage: LoginPage;

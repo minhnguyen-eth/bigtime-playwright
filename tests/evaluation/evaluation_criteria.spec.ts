@@ -1,9 +1,9 @@
 import { test, expect, Page, TestInfo } from '@playwright/test';
-import { LoginPage } from '../pages/LoginPage';
-import { takeScreenshotOnFailure } from '../utils/screenshotUtils';
-import Config from '../utils/configUtils';
-import { HomePage } from '../pages/HomePage';
-import { EvaluationCriteriaPage } from '../pages/EvaluationCriteriaPage';
+import { LoginPage } from '../../pages/LoginPage';
+import { takeScreenshotOnFailure } from '../../utils/screenshotUtils';
+import Config from '../../utils/configUtils';
+import { HomePage } from '../../pages/HomePage';
+import { EvaluationCriteriaPage } from '../../pages/EvaluationCriteriaPage';
 
 test.describe.serial('Evaluation Criteria Tests', () => {
     let loginPage: LoginPage;

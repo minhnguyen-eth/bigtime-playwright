@@ -1,11 +1,11 @@
 import { test, expect, Page, TestInfo } from '@playwright/test';
-import { LoginPage } from '../pages/LoginPage';
-import { takeScreenshotOnFailure } from '../utils/screenshotUtils';
-import Config from '../utils/configUtils';
-import { HomePage } from '../pages/HomePage';
-import { ShiftPlanPage } from '../pages/ShiftPlanPage';
-import { clearAllShiftPlan } from '../utils/mysqlUtils';
-import { checkShiftPlanExists } from '../utils/mysqlUtils';
+import { LoginPage } from '../../pages/LoginPage';
+import { takeScreenshotOnFailure } from '../../utils/screenshotUtils';
+import Config from '../../utils/configUtils';
+import { HomePage } from '../../pages/HomePage';
+import { ShiftPlanPage } from '../../pages/ShiftPlanPage';
+import { clearAllShiftPlan } from '../../utils/mysqlUtils';
+import { checkShiftPlanExists } from '../../utils/mysqlUtils';
 
 test.describe.serial('Evaluation Type Tests', () => {
     let loginPage: LoginPage;
