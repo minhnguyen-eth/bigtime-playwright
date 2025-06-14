@@ -17,8 +17,6 @@ export class LeaveApplicationPage {
     readonly numberOfDaysOff: Locator;
     readonly saveButton: Locator;
     readonly cancelButton: Locator;
-    readonly logoutButton: Locator;
-    readonly logoutConfirmButton: Locator;
     readonly sendButton: Locator;
     readonly OKButton: Locator;
     readonly detailLeaveApplicationButton: Locator;
@@ -30,6 +28,8 @@ export class LeaveApplicationPage {
     readonly specialLeave: Locator;
     readonly socialInsuranceLeave: Locator;
     readonly maternityLeave: Locator;
+    readonly logoutButton: Locator;
+    readonly logoutConfirmButton: Locator;
 
     // verify type of leave
     readonly verifySpecialLeave: Locator;
@@ -40,13 +40,13 @@ export class LeaveApplicationPage {
 
     constructor(page: Page) {
         this.page = page;
-
+        this.logoutButton = this.page.locator('//div[contains(text(),"Đăng xuất")]');
+        this.logoutConfirmButton = this.page.locator('//span[normalize-space()="Có"]');
         this.verifySpecialLeave = page.locator("//div[normalize-space()='Nghỉ đặc biệt']")
         this.verifyMaternityLeave = page.locator("//div[normalize-space()='Nghỉ phụ sản']")
         this.verifySocialInsuranceLeave = page.locator("//div[normalize-space()='Nghỉ bảo hiểm xã hội']")
         this.verifyRegularLeave = page.locator("//div[normalize-space()='Nghỉ thường']")
         this.verifyAnualLeave = page.locator("//div[normalize-space()='Nghỉ theo phép năm']")
-
         this.specialLeave = page.locator("//div[contains(text(),'Nghỉ đặc biệt')]")
         this.maternityLeave = page.locator("//div[contains(text(),'Nghỉ phụ sản')]")
         this.socialInsuranceLeave = page.locator("//div[contains(text(),'Nghỉ bảo hiểm xã hội')]")
@@ -55,8 +55,6 @@ export class LeaveApplicationPage {
         this.detailLeaveApplicationButton = page.locator("//tr[@id='row-0']")
         this.OKButton = page.locator("//span[normalize-space()='Có']")
         this.sendButton = page.locator("//span[contains(text(),'Gửi')]")
-        this.logoutButton = page.locator('//div[contains(text(),"Đăng xuất")]');
-        this.logoutConfirmButton = page.locator('//span[normalize-space()="Có"]');
         this.cancelButton = page.locator("//span[.=' Hủy']")
         this.saveButton = page.locator("//span[.=' Lưu']")
         this.numberOfDaysOff = page.locator("//div/div[2]/div/div[7]/div/div/div/div[3]/div/input")
@@ -77,6 +75,11 @@ export class LeaveApplicationPage {
         this.toastCancelSuccess = page.locator('//div[contains(text(),"Hủy thành công")]');
         this.toastExportSuccess = page.locator('//div[contains(text(),"Xuất thành công")]');
         this.toastBrowsedSuccess = page.locator('//div[contains(text(),"Phê duyệt thành công")]');
+    }
+
+    async Logout(){
+        await this.logoutButton.click();
+        await this.logoutConfirmButton.click();
     }
 
     async clickSpecialLeave() {
@@ -185,11 +188,6 @@ export class LeaveApplicationPage {
     async getToastAdd(toast: string) {
         await expect(this.toastAddSuccess).toHaveText(toast);
         return this.toastAddSuccess.textContent();
-    }
-
-    async Logout() {
-        await this.logoutButton.click();
-        await this.logoutConfirmButton.click();
     }
 
     async getVerifySpecialLeave() {

@@ -4,13 +4,18 @@ import { takeScreenshotOnFailure } from '../../utils/screenshotUtils';
 import Config from '../../utils/configUtils';
 import { HomePage } from '../../pages/HomePage';
 import { PaysheetPage } from '../../pages/PaysheetPage';
+import { allure } from 'allure-playwright';
 
 test.describe.serial('Paysheet', () => {
+
     let loginPage: LoginPage;
     let paysheet: PaysheetPage;
     let homePage: HomePage;
 
     test.beforeEach(async ({ page }) => {
+        allure.owner('Minh Nguyen');
+        allure.feature('Paysheet Feature');
+        allure.severity('Critical');
         loginPage = new LoginPage(page);
         paysheet = new PaysheetPage(page);
         homePage = new HomePage(page);
@@ -41,8 +46,7 @@ test.describe.serial('Paysheet', () => {
         await paysheet.clickViewPayroll();
         await paysheet.clickSendAll();
         await paysheet.clickConfirm();
-        await paysheet.clickLogout();
-        await paysheet.clickLogoutConfirm();
+        await paysheet.Logout();
         await page.waitForTimeout(1200);
 
         // Nhân viên duyệt lương
@@ -53,9 +57,8 @@ test.describe.serial('Paysheet', () => {
         await paysheet.clickSalarySlipCode();
         await paysheet.clickBrowse();
         await paysheet.clickOk();
-        await paysheet.clickLogout();
-        await paysheet.clickLogoutConfirm();
-        await page.waitForTimeout(1200);
+        await paysheet.Logout();
+         await page.waitForTimeout(1200);
 
         // Quản lý bộ phận duyệt lương
         await loginPage.goto();
@@ -65,9 +68,10 @@ test.describe.serial('Paysheet', () => {
         await paysheet.clickSalarySlipCode();
         await paysheet.clickBrowse();
         await paysheet.clickOk();
-        await paysheet.clickLogout();
-        await paysheet.clickLogoutConfirm();
-        await page.waitForTimeout(1200);
+        await paysheet.Logout();
+         await page.waitForTimeout(1200);
+
+
 
         // Quản lý duyệt lương, chốt lương và thanh toán
         await loginPage.goto();

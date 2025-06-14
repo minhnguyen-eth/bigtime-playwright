@@ -2,11 +2,15 @@ import { test, expect, Page, TestInfo } from '@playwright/test';
 import { LoginPage } from '../pages/LoginPage';
 import { takeScreenshotOnFailure } from '../utils/screenshotUtils';
 import Config from '../utils/configUtils';
+import { allure } from 'allure-playwright';
 
 test.describe('Login Tests', () => {
   let loginPage: LoginPage;
 
   test.beforeEach(async ({ page }) => {
+    allure.owner('Minh Nguyen');
+    allure.feature('Login Feature');
+    allure.severity('Critical');
     loginPage = new LoginPage(page);
     await loginPage.goto();
   });

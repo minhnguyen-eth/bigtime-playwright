@@ -4,6 +4,9 @@ import { takeScreenshotOnFailure } from '../../utils/screenshotUtils';
 import Config from '../../utils/configUtils';
 import { WorkShiftPage } from '../../pages/WorkShiftPage';
 import { HomePage } from '../../pages/HomePage';
+import { allure } from 'allure-playwright';
+import { clearAllWorkingShift } from '../../utils/mysqlUtils';
+
 
 test.describe.serial('Work Shift Tests', () => {
     let loginPage: LoginPage;
@@ -15,6 +18,9 @@ test.describe.serial('Work Shift Tests', () => {
     const workShiftCode = 'AT' + randomSuffix;
 
     test.beforeEach(async ({ page }) => {
+        allure.owner('Minh Nguyen');
+        allure.feature('Work Shift Feature');
+        allure.severity('Critical');
         loginPage = new LoginPage(page);
         workShiftPage = new WorkShiftPage(page)
         homePage = new HomePage(page);
@@ -26,6 +32,8 @@ test.describe.serial('Work Shift Tests', () => {
     });
 
     test('Create new work shift', async ({ page }) => {
+        await clearAllWorkingShift();
+
         await loginPage.login(Config.admin_username, Config.admin_password);
         await homePage.clickTimeKeepingManagement();
         await workShiftPage.clickOnWorkShiftButton();
@@ -40,15 +48,12 @@ test.describe.serial('Work Shift Tests', () => {
         await workShiftPage.clickOnChosse00MinutePicker();
         await workShiftPage.clickOnChosseButtonPicker();
 
-
         await workShiftPage.clickEndTime();
         await workShiftPage.clickChosseHourPicker();
         await workShiftPage.clickOnChosse17HourPicker();
         await workShiftPage.clickOnChosseMinutePicker();
         await workShiftPage.clickOnChosse00MinutePicker();
         await workShiftPage.clickOnChosseButtonPicker();
-
-
 
         await workShiftPage.clickOnRestCheckBox();
 
@@ -67,8 +72,8 @@ test.describe.serial('Work Shift Tests', () => {
         await workShiftPage.clickOnChosseButtonPicker();
         await workShiftPage.getVerifyWorkingTime();
 
-        // await workShiftPage.clickOnBranchDropdown();
-        // await workShiftPage.clickOnBranchBienHoa();
+        await workShiftPage.clickOnBranchDropdown();
+        await workShiftPage.clickOnBranchBienHoa();
 
         await workShiftPage.clickOnSaveButton();
         await workShiftPage.getToastAdd('Thêm thành công');

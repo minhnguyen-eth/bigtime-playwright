@@ -49,6 +49,7 @@ export class PaysheetPage {
     readonly  payslipPayment: Locator;
     readonly  requiredEnterName: Locator;
     readonly  searchButton: Locator;
+    readonly  searchEmployeeName: Locator;
 
     constructor(page: Page) {
         this.page = page;
@@ -103,6 +104,10 @@ export class PaysheetPage {
         this.toastExportSuccess = page.locator('//div[contains(text(),"Xuất thành công")]');
 
 
+    }
+    async Logout(){
+        await this.logoutButton.click();
+        await this.logoutConfirmButton.click();
     }
 
     async clickSearchButton() {
@@ -287,11 +292,4 @@ export class PaysheetPage {
         await this.confirmButton.click();
     }
 
-    async clickLogout() {
-        await this.logoutButton.click();
-    }
-
-    async clickLogoutConfirm() {
-        await this.logoutConfirmButton.click();
-    }
 }

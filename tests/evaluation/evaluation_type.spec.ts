@@ -6,6 +6,7 @@ import { EvaluationTypePage } from '../../pages/EvaluationTypePage';
 import { HomePage } from '../../pages/HomePage';
 import { checkEvaluationTypeExists, deleteEvaluationType } from '../../utils/mysqlUtils';
 import { clearAllEluationTypes } from '../../utils/mysqlUtils';
+import { allure } from 'allure-playwright';
 
 test.describe.serial('Evaluation Type Tests', () => {
     let loginPage: LoginPage;
@@ -13,6 +14,9 @@ test.describe.serial('Evaluation Type Tests', () => {
     let homePage: HomePage;
 
     test.beforeEach(async ({ page }) => {
+        allure.owner('Minh Nguyen');
+        allure.feature('Evaluation Type Feature');
+        allure.severity('Critical');
         loginPage = new LoginPage(page);
         evaluationtype = new EvaluationTypePage(page);
         homePage = new HomePage(page);
@@ -26,7 +30,7 @@ test.describe.serial('Evaluation Type Tests', () => {
     });
 
     test('Add Evaluation Type', async ({ page }) => {
-        const randomSuffix = Date.now(); // Hoặc dùng Math.random().toString(36).substring(2, 8)
+        const randomSuffix = Math.random().toString(36).substring(2, 8)
         const evaluationName = `Automation test ${randomSuffix}`;
 
         await homePage.clickAdmin();

@@ -6,6 +6,8 @@ import { HomePage } from '../../pages/HomePage';
 import { EvaluationProcessPage } from '../../pages/EvaluationProcessPage';
 import { ToastPage } from '../../pages/ToastPage';
 import { clearAllEvaluationProgress } from '../../utils/mysqlUtils';
+import { allure } from 'allure-playwright';
+import { createCriteria } from '../evaluation/evaluation_helper';
 
 test.describe.serial('Evaluation Criteria Tests', () => {
     let loginPage: LoginPage;
@@ -17,6 +19,9 @@ test.describe.serial('Evaluation Criteria Tests', () => {
     const random = `Automation test ${randomSuffix}`;
 
     test.beforeEach(async ({ page }) => {
+        allure.owner('Minh Nguyen');
+        allure.feature('Evaluation Process Feature');
+        allure.severity('Critical');
         loginPage = new LoginPage(page);
         evaluationProcess = new EvaluationProcessPage(page);
         homePage = new HomePage(page);
@@ -74,7 +79,6 @@ test.describe.serial('Evaluation Criteria Tests', () => {
     });
 
 
-
     test('Add a new evaluation process department form', async ({ page }) => {
         await homePage.clickAdmin();
         await evaluationProcess.clickEvaluationProcessButton();
@@ -108,6 +112,7 @@ test.describe.serial('Evaluation Criteria Tests', () => {
 
 
     test('Evaluation employee', async ({ page }) => {
+        await createCriteria(page);
         await homePage.clickAdmin();
         await evaluationProcess.clickListEvaluationButton();
         await evaluationProcess.getWaitEvaluationStatus();
@@ -115,7 +120,6 @@ test.describe.serial('Evaluation Criteria Tests', () => {
         await evaluationProcess.clickSaveButton();
         await evaluationProcess.clickYesButton();
         await toast.getToastEvaluationSuccess();
-
 
     });
 

@@ -7,20 +7,30 @@ import { HomePage } from "../../pages/HomePage";
 import { ToastPage } from "../../pages/ToastPage";
 import { DebtPage } from "../../pages/DebtPage";
 import { throws } from "assert";
+import { LogoutPage } from "../../pages/LogoutPage";
+import { allure } from 'allure-playwright';
 
 test.describe.serial("Debt Tests", () => {
+
+
   let loginPage: LoginPage;
   let debtPage: DebtPage;
   let homePage: HomePage;
   let toastPage: ToastPage;
+  let logoutPage: LogoutPage;
 
   const randomSuffix = Math.random().toString(36).substring(2, 8);
 
   test.beforeEach(async ({ page }) => {
+    allure.owner('Minh Nguyen');
+    allure.feature('Debt Feature');
+    allure.severity('Critical');
+    
     loginPage = new LoginPage(page);
     debtPage = new DebtPage(page);
     homePage = new HomePage(page);
     toastPage = new ToastPage(page);
+    logoutPage = new LogoutPage(page);
     await loginPage.goto();
   });
 
@@ -28,7 +38,7 @@ test.describe.serial("Debt Tests", () => {
     await takeScreenshotOnFailure(page, testInfo);
   });
 
-  test("empty value Test", async ({ page }) => {
+  test("Add debt with empty value ", async ({ page }) => {
     await loginPage.login(Config.admin_username, Config.admin_password);
     await homePage.clickSalary();
     await debtPage.clickDebtButton();
@@ -38,7 +48,7 @@ test.describe.serial("Debt Tests", () => {
     await debtPage.expectFillNoteError();
   });
 
-  test("add debt Test", async ({ page }) => {
+  test("Add debt with valid value ", async ({ page }) => {
     await loginPage.login(Config.admin_username, Config.admin_password);
     await homePage.clickSalary();
     await debtPage.clickDebtButton();
@@ -51,7 +61,7 @@ test.describe.serial("Debt Tests", () => {
     expect(successMessage).toContain("Thêm thành công");
   });
 
-  test("value already exists Test", async ({ page }) => {
+  test("Add debt with value already exists ", async ({ page }) => {
     await loginPage.login(Config.admin_username, Config.admin_password);
     await homePage.clickSalary();
     await debtPage.clickDebtButton();
@@ -64,7 +74,7 @@ test.describe.serial("Debt Tests", () => {
     expect(successMessage).toContain("Thêm thành công");
   });
 
-  test("edit debt Test", async ({ page }) => {
+  test("Edit debt", async ({ page }) => {
     await loginPage.login(Config.admin_username, Config.admin_password);
     await homePage.clickSalary();
     await debtPage.clickDebtButton();
@@ -81,7 +91,7 @@ test.describe.serial("Debt Tests", () => {
     expect(editSuccessMessage).toContain("Cập nhật thành công");
   });
 
-  test("edit debt with empty value Test", async ({ page }) => {
+  test("Edit debt with empty value", async ({ page }) => {
     await loginPage.login(Config.admin_username, Config.admin_password);
     await homePage.clickSalary();
     await debtPage.clickDebtButton();
@@ -100,7 +110,7 @@ test.describe.serial("Debt Tests", () => {
     await debtPage.expectFillNoteError();
   });
 
-  test("edit debt with valid value Test", async ({ page }) => {
+  test("Edit debt with valid value", async ({ page }) => {
     await loginPage.login(Config.admin_username, Config.admin_password);
     await homePage.clickSalary();
     await debtPage.clickDebtButton();
@@ -119,7 +129,7 @@ test.describe.serial("Debt Tests", () => {
     expect(editSuccessMessage).toContain("Cập nhật thành công");
   });
 
-  test("send debt and view in employee account Test", async ({ page }) => {
+  test("Send debt and view in employee account", async ({ page }) => {
     await loginPage.login(Config.admin_username, Config.admin_password);
     await homePage.clickSalary();
     await debtPage.clickDebtButton();
@@ -136,8 +146,7 @@ test.describe.serial("Debt Tests", () => {
     expect(sendSuccessMessage).toContain("Đã gửi thành công");
 
     // Login as employee to check the sent debt
-    await debtPage.clickLogoutButton();
-    await debtPage.clickYesButton();
+    await logoutPage.logout();
     await loginPage.login(Config.employee_username, Config.employee_password);
     await homePage.clickSalary();
     await debtPage.clickDebtButton();
@@ -150,7 +159,7 @@ test.describe.serial("Debt Tests", () => {
     await expect(debtRow).toBeVisible();
   });
 
-  test("send debt and browse in employee account Test", async ({ page }) => {
+  test("Send debt and browse in employee account", async ({ page }) => {
     await loginPage.login(Config.admin_username, Config.admin_password);
     await homePage.clickSalary();
     await debtPage.clickDebtButton();
@@ -165,8 +174,8 @@ test.describe.serial("Debt Tests", () => {
     await debtPage.clickYesButton();
     const sendSuccessMessage = await debtPage.getToastSendSuccess();
     expect(sendSuccessMessage).toContain("Đã gửi thành công");
-    await debtPage.clickLogoutButton();
-    await debtPage.clickYesButton();
+
+    await logoutPage.logout();
     await loginPage.login(Config.employee_username, Config.employee_password);
     await homePage.clickSalary();
     await debtPage.clickDebtButton();
@@ -181,7 +190,7 @@ test.describe.serial("Debt Tests", () => {
     await expect(debtRow).toBeVisible();
   });
 
-  test("send debt and refused in employee account Test", async ({ page }) => {
+  test("Send debt and refused in employee account", async ({ page }) => {
     await loginPage.login(Config.admin_username, Config.admin_password);
     await homePage.clickSalary();
     await debtPage.clickDebtButton();
@@ -196,8 +205,8 @@ test.describe.serial("Debt Tests", () => {
     await debtPage.clickYesButton();
     const sendSuccessMessage = await debtPage.getToastSendSuccess();
     expect(sendSuccessMessage).toContain("Đã gửi thành công");
-    await debtPage.clickLogoutButton();
-    await debtPage.clickYesButton();
+
+    await logoutPage.logout();
     await loginPage.login(Config.employee_username, Config.employee_password);
     await homePage.clickSalary();
     await debtPage.clickDebtButton();
@@ -213,7 +222,7 @@ test.describe.serial("Debt Tests", () => {
     await expect(debtRow).toBeVisible();
   });
 
-  test("send debt and cancel Test", async ({ page }) => {
+  test("Send debt and cancel", async ({ page }) => {
     await loginPage.login(Config.admin_username, Config.admin_password);
     await homePage.clickSalary();
     await debtPage.clickDebtButton();
@@ -240,7 +249,7 @@ test.describe.serial("Debt Tests", () => {
     await expect(debtRow).toBeVisible();
   });
 
-  test("cancel debt Test", async ({ page }) => {
+  test("Cancel debt", async ({ page }) => {
     await loginPage.login(Config.admin_username, Config.admin_password);
     await homePage.clickSalary();
     await debtPage.clickDebtButton();
@@ -258,7 +267,7 @@ test.describe.serial("Debt Tests", () => {
     expect(cancelSuccessMessage).toContain("Hủy thành công");
   });
 
-  test("cancel debt with empty reason Test", async ({ page }) => {
+  test("Cancel debt with empty reason", async ({ page }) => {
     await loginPage.login(Config.admin_username, Config.admin_password);
     await homePage.clickSalary();
     await debtPage.clickDebtButton();
@@ -275,5 +284,5 @@ test.describe.serial("Debt Tests", () => {
     await debtPage.expectFillReasonError();
   });
 
-  
+
 });

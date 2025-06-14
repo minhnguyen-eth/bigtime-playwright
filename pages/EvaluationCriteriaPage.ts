@@ -26,9 +26,18 @@ export class EvaluationCriteriaPage {
     readonly verifyLockStatusSearch: Locator;
     readonly verifyActivityStatus: Locator;
     readonly cancelAddButton: Locator;
+    readonly statusDropDown: Locator;
+    readonly verifyLockStatus: Locator;
+    readonly requiredCriteriaName: Locator;
+    readonly requiredEvaluationTypeName: Locator;
 
     constructor(page: Page) {
         this.page = page;
+
+        this.requiredEvaluationTypeName = page.locator("//div[contains(text(),'Nhập tên loại đánh giá')]");
+        this.requiredCriteriaName = page.locator("//div[contains(text(),'Nhập tên tiêu chí')]");
+        this.verifyLockStatus = page.locator("//tr[@id='row-0']//span[@class='custom-size'][contains(text(),'Khóa')]");
+        this.statusDropDown = page.locator("//div[@class='v-field v-field--active v-field--appended v-field--center-affix v-field--dirty v-field--prepended v-field--variant-outlined v-theme--lightColor7 v-locale--is-ltr']//div[@class='v-field__input']");
         this.cancelAddButton = page.locator("//span[contains(normalize-space(),'Hủy')]");
         this.verifyActivityStatus = page.locator("//tr[@id='row-0']//span[@class='custom-size'][normalize-space()='Hoạt động']");
         this.verifyLockStatusSearch = page.locator("//span[@class='custom-size'][normalize-space()='Khóa']");
@@ -54,6 +63,36 @@ export class EvaluationCriteriaPage {
         this.evaluationCriteriaName_DropDown = page.locator("//i[@title='Open']");
         this.evaluationType_Option = page.locator("//div/div[1]/div[1]/div[2]/div[2]/div[1]");
     }
+
+    async getRequiredEvaluationTypeName() {
+        await expect(this.requiredEvaluationTypeName).toBeVisible();
+        const text = await this.requiredEvaluationTypeName.textContent();
+        console.log("🔍 Required evaluation type name text found:", text);
+        return text;
+    }
+
+    async getRequiredCriteriaName() {
+        await expect(this.requiredCriteriaName).toBeVisible();
+        const text = await this.requiredCriteriaName.textContent();
+        console.log("🔍 Required criteria name text found:", text);
+        return text;
+    }
+
+    async getVerifyLockStatus() {
+        await expect(this.verifyLockStatus).toBeVisible();
+        const text = await this.verifyLockStatus.textContent();
+        console.log("🔍 Lock status text found:", text);
+        return text;
+    }
+
+    async clickStatusDropDown() {
+        await this.statusDropDown.click();
+    }
+
+    async clickLockStatus() {
+        await this.lock_Status.click();
+    }
+    
 
     async clickCancelAddButton() {
         await this.cancelAddButton.click();
@@ -82,7 +121,7 @@ export class EvaluationCriteriaPage {
         console.log("Kết quả tìm kiếm: " + text);
     }
 
-    async clickStatusDropDown() {
+    async clickStatusDropDownSearch() {
         await this.status_Search_Button.click();
     }
 

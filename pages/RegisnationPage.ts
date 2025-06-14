@@ -33,9 +33,13 @@ export class RegisnationPage {
     readonly exportButton: Locator;
     readonly startDate: Locator;
     readonly endDate: Locator;
+    readonly logoutButton: Locator;
+    readonly logoutConfirmButton: Locator;
 
     constructor(page: Page) {
         this.page = page;
+        this.logoutButton = page.locator('//div[contains(text(),"Đăng xuất")]');
+        this.logoutConfirmButton = page.locator('//span[normalize-space()="Có"]');
         this.Day06 = page.locator("//div[@class='dp__cell_inner dp__pointer dp__date_hover'][normalize-space()='6']");
         this.endDate = page.locator("//div[3]/div/div/div/div/div[1]/div/div/div[3]/input");
         this.startDate = page.locator("//div[3]/div/div[2]/div/div/div/div/div[1]/div/div/div[3]/input");
@@ -69,6 +73,11 @@ export class RegisnationPage {
         this.regisnationButton = page.locator("//div[contains(text(),'Đơn thôi việc')]");
     }
 
+
+    async Logout() {
+        await this.logoutButton.click();
+        await this.logoutConfirmButton.click();
+    }
     async clickDay06() {
         await this.Day06.click();
     }

@@ -6,6 +6,7 @@ import { HomePage } from '../pages/HomePage';
 import { RegisnationPage } from '../pages/RegisnationPage';
 import { ToastPage } from '../pages/ToastPage';
 import { LogoutPage } from '../pages/LogoutPage';
+import { allure } from 'allure-playwright';
 
 test.describe.serial('Work Shift Tests', () => {
     let loginPage: LoginPage;
@@ -17,6 +18,9 @@ test.describe.serial('Work Shift Tests', () => {
     const randomSuffix = Math.random().toString(36).substring(2, 8);
 
     test.beforeEach(async ({ page }) => {
+        allure.owner('Minh Nguyen');
+        allure.feature('Registration Feature');
+        allure.severity('Critical');
         logoutPage = new LogoutPage(page);
         loginPage = new LoginPage(page);
         regisnationPage = new RegisnationPage(page)
@@ -51,9 +55,8 @@ test.describe.serial('Work Shift Tests', () => {
         await regisnationPage.clickBrowseButton();
         await regisnationPage.clickOkButton();
         await toastPage.getToastBrowseSuccess();
-        await logoutPage.logout();
+        await regisnationPage.Logout();
         await page.waitForTimeout(1200);
-
 
         // Manager browse
         await loginPage.goto();
@@ -64,8 +67,9 @@ test.describe.serial('Work Shift Tests', () => {
         await regisnationPage.clickBrowseButton();
         await regisnationPage.clickOkButton();
         await toastPage.getToastBrowseSuccess();
-        await logoutPage.logout();
+        await regisnationPage.Logout();
         await page.waitForTimeout(1200);
+
 
         // Admin browse
         await loginPage.goto();
@@ -135,8 +139,6 @@ test.describe.serial('Work Shift Tests', () => {
         await regisnationPage.clickChosseButton();
         await regisnationPage.clickOkButton();
         await toastPage.getToastExportSuccess();
-    }); 
-
-
+    });
 
 });

@@ -7,6 +7,7 @@ import { LeaveApplicationPage } from '../../pages/LeaveApplicationPage';
 import { clearAllLeaveApplications } from '../../utils/mysqlUtils';
 import { clearAllLeaveManagements } from '../../utils/mysqlUtils';
 import { addAnnualLeaveForEmployeeAndAdmin, sendAndApproveLeave } from './leave_helper';
+import { allure } from 'allure-playwright';
 
 test.describe.serial('Leave Application Tests', () => {
     let loginPage: LoginPage;
@@ -14,6 +15,9 @@ test.describe.serial('Leave Application Tests', () => {
     let homePage: HomePage;
 
     test.beforeEach(async ({ page }) => {
+        allure.owner('Minh Nguyen');
+        allure.feature('Leave Application Feature');
+        allure.severity('Critical');
         loginPage = new LoginPage(page);
         leaveApplicationPage = new LeaveApplicationPage(page);
         homePage = new HomePage(page);
@@ -155,8 +159,4 @@ test.describe.serial('Leave Application Tests', () => {
         // Send and approve
         await sendAndApproveLeave(page);
     });
-
-
-
-
 });

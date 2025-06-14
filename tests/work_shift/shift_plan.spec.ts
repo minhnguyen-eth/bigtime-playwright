@@ -6,6 +6,7 @@ import { HomePage } from '../../pages/HomePage';
 import { ShiftPlanPage } from '../../pages/ShiftPlanPage';
 import { clearAllShiftPlan } from '../../utils/mysqlUtils';
 import { checkShiftPlanExists } from '../../utils/mysqlUtils';
+import { allure } from 'allure-playwright';
 
 test.describe.serial('Evaluation Type Tests', () => {
     let loginPage: LoginPage;
@@ -15,8 +16,11 @@ test.describe.serial('Evaluation Type Tests', () => {
     const randomSuffix = Math.random().toString(36).substring(2, 8); // chữ + số, độ dài 6
     const shiftPlanNameRanDom = `Phân ca tháng 7 ${randomSuffix}`;
 
-
     test.beforeEach(async ({ page }) => {
+
+        allure.owner('Minh Nguyen');
+        allure.feature('Shift Plan Feature');
+        allure.severity('Critical');
         loginPage = new LoginPage(page);
         shiftPlanPage = new ShiftPlanPage(page);
         homePage = new HomePage(page);
@@ -114,8 +118,6 @@ test.describe.serial('Evaluation Type Tests', () => {
         await shiftPlanPage.clickSaveButton();
         await shiftPlanPage.getRequiredFieldNameShift('Nhập tên bảng phân ca');
         await shiftPlanPage.getRequiredFieldNameWorkShift('Nhập ca làm việc');
-
-
     });
 
 
@@ -129,8 +131,6 @@ test.describe.serial('Evaluation Type Tests', () => {
         await shiftPlanPage.clickDeleteButton();
         await shiftPlanPage.clickOkButton();
         await shiftPlanPage.getToastDelete('Xóa thành công');
-
-
     });
 
 
