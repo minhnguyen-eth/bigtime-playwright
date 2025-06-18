@@ -96,7 +96,7 @@ test.describe.serial('Work Shift Tests', () => {
 
         // Search by notification of leave
         await regisnationPage.clickNotificaOfLeave();
-        await regisnationPage.clickDay09();
+        await regisnationPage.clickDay16();
         await regisnationPage.clickChosseButton();
         await regisnationPage.clickSearchButton();
         await regisnationPage.getVerifyNotificationOfLeave();
@@ -123,10 +123,17 @@ test.describe.serial('Work Shift Tests', () => {
         await regisnationPage.getVerifyRejectStatusOption();
         await regisnationPage.clickClearSearchButton();
 
+        // Search by canceled status
+        await regisnationPage.clickStatusDropDown();
+        await regisnationPage.clickCancelStatusOption();
+        await regisnationPage.clickSearchButton();
+        await regisnationPage.getVerifyCancelStatusOption();
+        await regisnationPage.clickClearSearchButton();
+
 
     });
 
-    test('Export excel', async ({ page }) => {
+    test.only('Export excel', async ({ page }) => {
         await loginPage.login(Config.admin_username, Config.admin_password);
         await homePage.clickAdmin();
         await regisnationPage.clickRegisnationButton();

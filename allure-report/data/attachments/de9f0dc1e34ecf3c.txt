@@ -1,0 +1,150 @@
+# Page snapshot
+
+```yaml
+- banner:
+  - button
+  - text: Bigtime Stagin Environment
+  - button "Quản lý":
+    - paragraph: Quản lý
+  - button "Chấm công":
+    - paragraph: Chấm công
+  - button "Lương":
+    - paragraph: Lương
+  - button "Cài đặt":
+    - paragraph: Cài đặt
+  - img
+  - text: Admin
+  - button "Badge":
+    - status "Badge"
+  - button
+  - button "Đăng xuất"
+- banner:
+  - text: Version 1.0.23
+  - list:
+    - listitem "English":
+      - img
+    - listitem "Tiếng Việt":
+      - img
+  - button
+- navigation:
+  - listbox:
+    - link "Trung tâm":
+      - /url: /dashboard-admin
+    - separator
+    - text: Thông báo
+    - link "Quản lý thông báo":
+      - /url: /notification
+    - link "Danh sách thông báo":
+      - /url: /list-notification
+    - separator
+    - text: Đánh giá
+    - link "Phân loại đánh giá":
+      - /url: /evaluation-type
+    - link "Tiêu chí đánh giá":
+      - /url: /evaluation-criteria
+    - link "Quy trình đánh giá":
+      - /url: /evaluation-progress
+    - link "Danh sách đánh giá":
+      - /url: /list-evaluation
+    - separator
+    - text: Khen thưởng
+    - link "Loại khen thưởng":
+      - /url: /reward-type
+    - link "Khen thưởng nhân viên":
+      - /url: /reward-user
+    - separator
+    - text: Chung
+    - link "Quản lý nghỉ phép năm":
+      - /url: /leave-management
+    - link "Quản lý ngày nghỉ":
+      - /url: /holiday-management
+    - link "Đơn thôi việc":
+      - /url: /resignation
+    - link "Chi nhánh":
+      - /url: /branch
+    - link "Bộ phận":
+      - /url: /department
+    - link "Chức vụ":
+      - /url: /position
+    - link "Cấp bậc":
+      - /url: /level
+    - link "Nhóm":
+      - /url: /team
+    - separator
+    - text: Hợp đồng
+    - link "Hợp đồng":
+      - /url: /contract
+    - link "Điều khoản":
+      - /url: /term
+    - separator
+    - text: Thống kê
+    - link "Thống kê hợp đồng":
+      - /url: /contract-statistic
+    - separator
+    - text: Quản lý nhân viên
+    - link "Nhân viên":
+      - /url: /user
+- main:
+  - text: Nghỉ phép năm
+  - button "Làm mới"
+  - button "Thêm"
+  - text: Tên nhân viên
+  - textbox "Tên nhân viên Tên nhân viên"
+  - spinbutton "Năm Năm": "2025"
+  - combobox:
+    - text: Trạng thái
+    - textbox "Open"
+  - button "Tìm kiếm"
+  - button "Xóa"
+  - table:
+    - rowgroup:
+      - row "# Tên nhân viên Năm Số ngày nghỉ phép Ngày đã sử dụng Trạng thái Hành động":
+        - columnheader "#"
+        - columnheader "Tên nhân viên"
+        - columnheader "Năm"
+        - columnheader "Số ngày nghỉ phép"
+        - columnheader "Ngày đã sử dụng"
+        - columnheader "Trạng thái"
+        - columnheader "Hành động"
+    - rowgroup:
+      - row "1 Nguyễn Văn Minh 2025 12 0 Đã duyệt":
+        - cell "1"
+        - cell "Nguyễn Văn Minh"
+        - cell "2025"
+        - cell "12"
+        - cell "0"
+        - cell "Đã duyệt"
+        - cell
+      - row "2 Quản lý nhóm Tester 1 2025 12 0 Chờ duyệt":
+        - cell "2"
+        - cell "Quản lý nhóm Tester 1"
+        - cell "2025"
+        - cell "12"
+        - cell "0"
+        - cell "Chờ duyệt"
+        - cell
+      - row "3 Quản lý bộ phận IT 2025 12 0 Chờ duyệt":
+        - cell "3"
+        - cell "Quản lý bộ phận IT"
+        - cell "2025"
+        - cell "12"
+        - cell "0"
+        - cell "Chờ duyệt"
+        - cell
+  - text: Tổng 3, Hiển thị
+  - combobox:
+    - text: "20"
+    - textbox "Open": "20"
+  - navigation "Pagination Navigation":
+    - list:
+      - listitem:
+        - button "Previous page" [disabled]
+      - listitem:
+        - button "Page 1, Current page" [disabled]: "1"
+      - listitem:
+        - button "Next page" [disabled]
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+```

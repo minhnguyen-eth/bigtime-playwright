@@ -1,0 +1,4 @@
+🔍 Employee name value found: BAT810 - Nguyễn Văn Minh
+🔍 Notification of leave value found: 16-06-2025
+🔍 Browse status option value found: Đã duyệt
+📸 Screenshot saved: D:\BigAppTech\playwright-typescripts\screenshots\search_resignation.png

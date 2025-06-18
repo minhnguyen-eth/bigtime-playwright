@@ -1,0 +1,170 @@
+# Page snapshot
+
+```yaml
+- banner:
+  - button
+  - text: Bigtime Stagin Environment
+  - button "Quản lý":
+    - paragraph: Quản lý
+  - button "Chấm công":
+    - paragraph: Chấm công
+  - button "Lương":
+    - paragraph: Lương
+  - button "Cài đặt":
+    - paragraph: Cài đặt
+  - img
+  - text: Admin
+  - button "Badge":
+    - status "Badge"
+  - button
+  - button "Đăng xuất"
+- banner:
+  - text: Version 1.0.23
+  - list:
+    - listitem "English":
+      - img
+    - listitem "Tiếng Việt":
+      - img
+  - button
+- navigation:
+  - listbox:
+    - link "Trung tâm":
+      - /url: /dashboard-admin
+    - separator
+    - text: Thông báo
+    - link "Quản lý thông báo":
+      - /url: /notification
+    - link "Danh sách thông báo":
+      - /url: /list-notification
+    - separator
+    - text: Đánh giá
+    - link "Phân loại đánh giá":
+      - /url: /evaluation-type
+    - link "Tiêu chí đánh giá":
+      - /url: /evaluation-criteria
+    - link "Quy trình đánh giá":
+      - /url: /evaluation-progress
+    - link "Danh sách đánh giá":
+      - /url: /list-evaluation
+    - separator
+    - text: Khen thưởng
+    - link "Loại khen thưởng":
+      - /url: /reward-type
+    - link "Khen thưởng nhân viên":
+      - /url: /reward-user
+    - separator
+    - text: Chung
+    - link "Quản lý nghỉ phép năm":
+      - /url: /leave-management
+    - link "Quản lý ngày nghỉ":
+      - /url: /holiday-management
+    - link "Đơn thôi việc":
+      - /url: /resignation
+    - link "Chi nhánh":
+      - /url: /branch
+    - link "Bộ phận":
+      - /url: /department
+    - link "Chức vụ":
+      - /url: /position
+    - link "Cấp bậc":
+      - /url: /level
+    - link "Nhóm":
+      - /url: /team
+    - separator
+    - text: Hợp đồng
+    - link "Hợp đồng":
+      - /url: /contract
+    - link "Điều khoản":
+      - /url: /term
+    - separator
+    - text: Thống kê
+    - link "Thống kê hợp đồng":
+      - /url: /contract-statistic
+    - separator
+    - text: Quản lý nhân viên
+    - link "Nhân viên":
+      - /url: /user
+- main:
+  - text: Đơn thôi việc
+  - button "Làm mới"
+  - button "Xuất dữ liệu"
+  - text: Tên nhân viên
+  - textbox "Tên nhân viên Tên nhân viên"
+  - text: Ngày thông báo nghỉ
+  - textbox "Ngày thông báo nghỉ Ngày thông báo nghỉ"
+  - combobox:
+    - text: Trạng thái
+    - textbox "Open"
+  - button "Tìm kiếm"
+  - button "Xóa"
+  - table:
+    - rowgroup:
+      - row "# Tên nhân viên Lý do Ngày thông báo nghỉ Trạng thái":
+        - columnheader "#"
+        - columnheader "Tên nhân viên"
+        - columnheader "Lý do"
+        - columnheader "Ngày thông báo nghỉ"
+        - columnheader "Trạng thái"
+    - rowgroup:
+      - row "1 BAT810 - Nguyễn Văn Minh safasf 17-06-2025 Hủy":
+        - cell "1"
+        - cell "BAT810 - Nguyễn Văn Minh"
+        - cell "safasf"
+        - cell "17-06-2025"
+        - cell "Hủy"
+      - row "2 BAT810 - Nguyễn Văn Minh dad 17-06-2025 Từ chối":
+        - cell "2"
+        - cell "BAT810 - Nguyễn Văn Minh"
+        - cell "dad"
+        - cell "17-06-2025"
+        - cell "Từ chối"
+      - row "3 BAT810 - Nguyễn Văn Minh sdvsdv 17-06-2025 Đã gửi":
+        - cell "3"
+        - cell "BAT810 - Nguyễn Văn Minh"
+        - cell "sdvsdv"
+        - cell "17-06-2025"
+        - cell "Đã gửi"
+      - row "4 BAT810 - Nguyễn Văn Minh Automation test 17-06-2025 Đã duyệt":
+        - cell "4"
+        - cell "BAT810 - Nguyễn Văn Minh"
+        - cell "Automation test"
+        - cell "17-06-2025"
+        - cell "Đã duyệt"
+      - row "5 BAT810 - Nguyễn Văn Minh Automation test 17-06-2025 Đã duyệt":
+        - cell "5"
+        - cell "BAT810 - Nguyễn Văn Minh"
+        - cell "Automation test"
+        - cell "17-06-2025"
+        - cell "Đã duyệt"
+      - row "6 BAT810 - Nguyễn Văn Minh Automation test 16-06-2025 Đã duyệt":
+        - cell "6"
+        - cell "BAT810 - Nguyễn Văn Minh"
+        - cell "Automation test"
+        - cell "16-06-2025"
+        - cell "Đã duyệt"
+  - text: Tổng 6, Hiển thị
+  - combobox:
+    - text: "20"
+    - textbox "Open": "20"
+  - navigation "Pagination Navigation":
+    - list:
+      - listitem:
+        - button "Previous page" [disabled]
+      - listitem:
+        - button "Page 1, Current page" [disabled]: "1"
+      - listitem:
+        - button "Next page" [disabled]
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+```

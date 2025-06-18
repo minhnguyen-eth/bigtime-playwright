@@ -35,9 +35,12 @@ export class RegisnationPage {
     readonly endDate: Locator;
     readonly logoutButton: Locator;
     readonly logoutConfirmButton: Locator;
+    readonly Day16: Locator;
 
     constructor(page: Page) {
         this.page = page;
+
+        this.Day16 = page.locator("//div[@class='dp__cell_inner dp__pointer dp__date_hover'][normalize-space()='16']");
         this.logoutButton = page.locator('//div[contains(text(),"Đăng xuất")]');
         this.logoutConfirmButton = page.locator('//span[normalize-space()="Có"]');
         this.Day06 = page.locator("//div[@class='dp__cell_inner dp__pointer dp__date_hover'][normalize-space()='6']");
@@ -49,7 +52,7 @@ export class RegisnationPage {
         this.verifyRejectStatusOption = page.locator("//tr[@id='row-0']//div[text()='Từ chối']");
         this.verifySubmittedButton = page.locator("//tr[@id='row-0']//div[text()='Đã gửi']");
         this.verifyBrowseStatusOption = page.locator("//tr[@id='row-0']//div[text()='Đã duyệt']");
-        this.verifyNotificationOfLeave = page.locator("//td[normalize-space()='09-06-2025']");
+        this.verifyNotificationOfLeave = page.locator("//td[normalize-space()='16-06-2025']");
         this.chosseButton = page.locator("//button[contains(text(),'Chọn')]");
         this.clearSearchButton = page.locator("//span[normalize-space()='Xóa']");
         this.rejectStatusOption = page.locator("//div[contains(text(),'Từ chối')]");
@@ -73,6 +76,10 @@ export class RegisnationPage {
         this.regisnationButton = page.locator("//div[contains(text(),'Đơn thôi việc')]");
     }
 
+
+    async clickDay16() {
+        await this.Day16.click();
+    }
 
     async Logout() {
         await this.logoutButton.click();

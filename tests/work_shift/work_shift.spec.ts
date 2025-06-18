@@ -2,7 +2,7 @@ import { test, expect, Page, TestInfo } from '@playwright/test';
 import { LoginPage } from '../../pages/LoginPage';
 import { takeScreenshotOnFailure } from '../../utils/screenshotUtils';
 import Config from '../../utils/configUtils';
-import { WorkShiftPage } from '../../pages/WorkShiftPage';
+import { WorkShiftPage } from '../../pages/work_shift_page/WorkShiftPage';
 import { HomePage } from '../../pages/HomePage';
 import { allure } from 'allure-playwright';
 import { clearAllWorkingShift } from '../../utils/mysqlUtils';

@@ -3,7 +3,7 @@ import { LoginPage } from '../../pages/LoginPage';
 import { takeScreenshotOnFailure } from '../../utils/screenshotUtils';
 import Config from '../../utils/configUtils';
 import { HomePage } from '../../pages/HomePage';
-import { LeaveApplicationPage } from '../../pages/LeaveApplicationPage';
+import { LeaveApplicationPage } from '../../pages/leave_page/LeaveApplicationPage';
 import { clearAllLeaveApplications } from '../../utils/mysqlUtils';
 import { clearAllLeaveManagements } from '../../utils/mysqlUtils';
 import { addAnnualLeaveForEmployeeAndAdmin, sendAndApproveLeave } from './leave_helper';

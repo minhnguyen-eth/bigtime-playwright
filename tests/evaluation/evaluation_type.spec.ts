@@ -2,24 +2,28 @@ import { test, expect, Page, TestInfo } from '@playwright/test';
 import { LoginPage } from '../../pages/LoginPage';
 import { takeScreenshotOnFailure } from '../../utils/screenshotUtils';
 import Config from '../../utils/configUtils';
-import { EvaluationTypePage } from '../../pages/EvaluationTypePage';
+import { EvaluationTypePage } from '../../pages/evaluation_page/EvaluationTypePage';
 import { HomePage } from '../../pages/HomePage';
 import { checkEvaluationTypeExists, deleteEvaluationType } from '../../utils/mysqlUtils';
 import { clearAllEluationTypes } from '../../utils/mysqlUtils';
 import { allure } from 'allure-playwright';
+import { ToastPage } from '../../pages/ToastPage';
 
 test.describe.serial('Evaluation Type Tests', () => {
     let loginPage: LoginPage;
     let evaluationtype: EvaluationTypePage;
     let homePage: HomePage;
+    let toastPage: ToastPage;
 
     test.beforeEach(async ({ page }) => {
         allure.owner('Minh Nguyen');
         allure.feature('Evaluation Type Feature');
         allure.severity('Critical');
+
         loginPage = new LoginPage(page);
         evaluationtype = new EvaluationTypePage(page);
         homePage = new HomePage(page);
+        toastPage = new ToastPage(page);
 
         await loginPage.goto();
         await loginPage.login(Config.admin_username, Config.admin_password);
@@ -29,7 +33,9 @@ test.describe.serial('Evaluation Type Tests', () => {
         await takeScreenshotOnFailure(page, testInfo);
     });
 
-    test('Add Evaluation Type', async ({ page }) => {
+    test('Add evaluation type with valid data and check in database', async ({ page }) => {
+        await clearAllEluationTypes();
+
         const randomSuffix = Math.random().toString(36).substring(2, 8)
         const evaluationName = `Automation test ${randomSuffix}`;
 
@@ -37,8 +43,9 @@ test.describe.serial('Evaluation Type Tests', () => {
         await evaluationtype.clickEvaluationType();
         await evaluationtype.clickAdd();
         await evaluationtype.setEvaluationTypeName(evaluationName);
+        await evaluationtype.fillDescription('This is a test description');
         await evaluationtype.clickSave();
-        await evaluationtype.expectMessageSuccess();
+        await toastPage.getToastAddSuccess();
 
         // Kiểm tra trong database
         const existsInDB = await checkEvaluationTypeExists(evaluationName);
@@ -51,6 +58,57 @@ test.describe.serial('Evaluation Type Tests', () => {
         }
     });
 
+    test('Add evaluation type with empty description', async ({ page }) => {
+
+        const randomSuffix = Math.random().toString(36).substring(2, 8)
+        const evaluationName = `Automation test ${randomSuffix}`;
+
+        await homePage.clickAdmin();
+        await evaluationtype.clickEvaluationType();
+        await evaluationtype.clickAdd();
+        await evaluationtype.setEvaluationTypeName(evaluationName);
+        await evaluationtype.clickSave();
+        await toastPage.getToastAddSuccess();
+
+        // Kiểm tra trong database
+        const existsInDB = await checkEvaluationTypeExists(evaluationName);
+        expect(existsInDB).toBeTruthy();
+
+    });
+
+    test('Add evaluation type with lock status', async ({ page }) => {
+
+        const randomSuffix = Math.random().toString(36).substring(2, 8)
+        const evaluationName = `Automation test ${randomSuffix}`;
+
+        await homePage.clickAdmin();
+        await evaluationtype.clickEvaluationType();
+        await evaluationtype.clickAdd();
+        await evaluationtype.setEvaluationTypeName(evaluationName);
+        await evaluationtype.fillDescription('This is a test description');
+        await evaluationtype.clickStatusDropdown();
+        await evaluationtype.clickLockStatus();
+        await evaluationtype.clickSave();
+        await toastPage.getToastAddSuccess();
+
+        // Kiểm tra trong database
+        const existsInDB = await checkEvaluationTypeExists(evaluationName);
+        expect(existsInDB).toBeTruthy();
+
+    });
+
+    test('Edit activity to lock status', async ({ page }) => {
+        await homePage.clickAdmin();
+        await evaluationtype.clickEvaluationType();
+        await evaluationtype.clickEditButton();
+        await evaluationtype.clickStatusDropdown();
+        await evaluationtype.clickLockStatus();
+        await evaluationtype.clickSave();
+        await toastPage.getToastUpdateSuccess();
+    });
+
+
+
     // Search Evaluation Type
     test('Search Evaluation Type', async ({ page }) => {
         await homePage.clickAdmin();
@@ -60,8 +118,5 @@ test.describe.serial('Evaluation Type Tests', () => {
         await evaluationtype.expectSearchEvaluationTypeName("Đánh giá chuyên cần");
     });
 
-    test('Clear Evaluation Type', async ({ page }) => {
-        await clearAllEluationTypes();
-    });
 
 });

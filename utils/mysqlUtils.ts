@@ -50,7 +50,12 @@ export async function clearAllTables(): Promise<void> {
   await clearTable('paysheets');
   await clearTable('evaluation_progress');
   await clearTable('evaluation_criterias');
+  await clearTable('notifications');
   await clearAllAllowanceTypes();
+}
+
+export async function clearAllNotifications() {
+  await clearTable('notifications');
 }
 
 export async function clearAllEvaluationProgress() {

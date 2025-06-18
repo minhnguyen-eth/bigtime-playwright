@@ -1,0 +1,3 @@
+Tìm thấy 1 loại đánh giá với tên: Automation test plbmp9
+Đã xóa 1 loại đánh giá với tên: Automation test plbmp9
+Đã xóa loại đánh giá "Automation test plbmp9": true

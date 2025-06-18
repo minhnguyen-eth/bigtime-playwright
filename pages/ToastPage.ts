@@ -10,9 +10,15 @@ export class ToastPage {
     readonly toastConfirmSuccess: Locator;
     readonly toastEvaluationSuccess: Locator;
     readonly toastAddFailed: Locator;
+    readonly toastSendNotificationSuccess: Locator;
+    readonly toastCancelSuccess: Locator;
+    readonly toastRefuseSuccess: Locator;
 
     constructor(page: Page) {
         this.page = page;
+        this.toastRefuseSuccess = page.locator('//div[contains(text(),"Từ chối thành công")]');
+        this.toastCancelSuccess = page.locator('//div[contains(text(),"Hủy thành công")]');
+        this.toastSendNotificationSuccess = page.locator('//div[contains(text(),"Gửi thông báo thành công")]');
         this.toastAddFailed = page.locator('//div[contains(text(),"Thêm không thành công")]');
         this.toastEvaluationSuccess = page.locator('//div[contains(text(),"Đánh giá thành công")]');
         this.toastConfirmSuccess = page.locator('//div[contains(text(),"Xác nhận thành công")]');
@@ -23,6 +29,21 @@ export class ToastPage {
         this.toastDeleteSuccess = page.locator('//div[contains(text(),"Xóa thành công")]');
         this.toastBrowseSuccess = page.locator('//div[contains(text(),"Đã duyệt thành công")]');
 
+    }
+
+    async getToastRefuseSuccess() {
+        await expect(this.toastRefuseSuccess).toHaveText('Từ chối thành công');
+        return this.toastRefuseSuccess.textContent();
+    }
+
+    async getToastCancelSuccess() {
+        await expect(this.toastCancelSuccess).toHaveText('Hủy thành công');
+        return this.toastCancelSuccess.textContent();
+    }
+
+    async getToastSendNotificationSuccess() {
+        await expect(this.toastSendNotificationSuccess).toHaveText('Gửi thông báo thành công');
+        return this.toastSendNotificationSuccess.textContent();
     }
 
     async getToastAddFailed() {

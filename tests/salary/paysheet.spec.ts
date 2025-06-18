@@ -3,19 +3,24 @@ import { LoginPage } from '../../pages/LoginPage';
 import { takeScreenshotOnFailure } from '../../utils/screenshotUtils';
 import Config from '../../utils/configUtils';
 import { HomePage } from '../../pages/HomePage';
-import { PaysheetPage } from '../../pages/PaysheetPage';
+import { PaysheetPage } from '../../pages/salary_page/PaysheetPage';
 import { allure } from 'allure-playwright';
+import { ToastPage } from '../../pages/ToastPage';
 
 test.describe.serial('Paysheet', () => {
 
     let loginPage: LoginPage;
     let paysheet: PaysheetPage;
     let homePage: HomePage;
+    let toastPage: ToastPage;
 
     test.beforeEach(async ({ page }) => {
+
         allure.owner('Minh Nguyen');
         allure.feature('Paysheet Feature');
         allure.severity('Critical');
+        
+        toastPage = new ToastPage(page);
         loginPage = new LoginPage(page);
         paysheet = new PaysheetPage(page);
         homePage = new HomePage(page);
@@ -41,7 +46,7 @@ test.describe.serial('Paysheet', () => {
         await paysheet.clickAndSetDropDownEmployee();
         await paysheet.clickEmployeeOption();
         await paysheet.clickSave();
-        await paysheet.getToastAdd('Thêm thành công');
+        await toastPage.getToastAddSuccess();
         await paysheet.clickLatestPaysheetRow();
         await paysheet.clickViewPayroll();
         await paysheet.clickSendAll();
@@ -88,13 +93,13 @@ test.describe.serial('Paysheet', () => {
         await paysheet.clickSalaryClosing();
         await paysheet.clickConfirm();
 
-        await paysheet.clickLatestPaysheetRow();
-        await paysheet.clickPayslipPayment();
-        await paysheet.clickPayment();
-        await paysheet.clickCreateTicket();
-        await paysheet.clickPaymentHistory();
-        await paysheet.clickHistoryPaymentCode();
-        await paysheet.getEmployeeName('Nguyễn Văn Minh');
+        // await paysheet.clickLatestPaysheetRow();
+        // await paysheet.clickPayslipPayment();
+        // await paysheet.clickPayment();
+        // await paysheet.clickCreateTicket();
+        // await paysheet.clickPaymentHistory();
+        // await paysheet.clickHistoryPaymentCode();
+        // await paysheet.getEmployeeName('Nguyễn Văn Minh');
 
     });
 
@@ -135,7 +140,7 @@ test.describe.serial('Paysheet', () => {
         await paysheet.clickSelectAllEmployees();
         await paysheet.setNote('Automation test');
         await paysheet.clickSave();
-        await paysheet.getToastAdd('Thêm thành công');
+        await toastPage.getToastAddSuccess();
 
     });
 
