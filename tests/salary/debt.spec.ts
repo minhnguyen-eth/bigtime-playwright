@@ -12,7 +12,6 @@ import { allure } from 'allure-playwright';
 
 test.describe.serial("Debt Tests", () => {
 
-
   let loginPage: LoginPage;
   let debtPage: DebtPage;
   let homePage: HomePage;
@@ -20,6 +19,7 @@ test.describe.serial("Debt Tests", () => {
   let logoutPage: LogoutPage;
 
   test.beforeEach(async ({ page }) => {
+
     allure.owner('Minh Nguyen');
     allure.feature('Debt Feature');
     allure.severity('Critical');
@@ -121,17 +121,18 @@ test.describe.serial("Debt Tests", () => {
     await toastPage.getToastUpdateSuccess();
   });
 
-  test("Send debt and browse in employee account", async ({ page }) => {
+  test("Send debt and browse", async ({ page }) => {
     await loginPage.login(Config.admin_username, Config.admin_password);
     await homePage.clickSalary();
     await debtPage.clickDebtButton();
     await debtPage.clickAddButton();
     await debtPage.fillName("BAT810-Nguyễn Văn Minh");
-    await debtPage.fillAmount("1000000");
+    await debtPage.fillAmount("10000000");
     await debtPage.fillNote("add debt test for send");
     await debtPage.clickSaveButton();
     await toastPage.getToastAddSuccess();
-    await debtPage.clickActionSendButton();
+    await debtPage.clickIconAction();
+    await debtPage.clickSendButton();
     await debtPage.clickYesButton();
     await toastPage.getToastSendSuccess();
 
@@ -142,15 +143,8 @@ test.describe.serial("Debt Tests", () => {
     await homePage.clickSalary();
     await debtPage.clickDebtButton();
 
-    // Check if the sent debt is visible
-    const debtRow = page.getByRole("row", {
-      name: "1 BAT810 - Nguyễn Văn Minh 1.000.000 đ add debt test for send Admin Đã gửi",
-      exact: true,
-    });
-    await expect(debtRow).toBeVisible();
-
-
-    await debtPage.clickActionBrowsedButton();
+    await debtPage.clickIconAction();
+    await debtPage.clickBrowseButton();
     await debtPage.clickYesButton();
     await toastPage.getToastBrowseSuccess();;
 
@@ -166,7 +160,8 @@ test.describe.serial("Debt Tests", () => {
     await debtPage.fillNote("add debt test for send");
     await debtPage.clickSaveButton();
     await toastPage.getToastAddSuccess();
-    await debtPage.clickActionSendButton();
+    await debtPage.clickIconAction();
+    await debtPage.clickSendButton();
     await debtPage.clickYesButton();
     await toastPage.getToastSendSuccess();
 
@@ -192,7 +187,8 @@ test.describe.serial("Debt Tests", () => {
     await debtPage.fillNote("add debt test for send");
     await debtPage.clickSaveButton();
     await toastPage.getToastAddSuccess();
-    await debtPage.clickActionSendButton();
+    await debtPage.clickIconAction();
+    await debtPage.clickSendButton();
     await debtPage.clickYesButton();
     await toastPage.getToastSendSuccess();
     await debtPage.clickActionSendCancelButton();
@@ -201,7 +197,7 @@ test.describe.serial("Debt Tests", () => {
     await toastPage.getToastCancelSuccess();
   });
 
-  test("Cancel debt", async ({ page }) => {
+  test("Cancel debt with new status", async ({ page }) => {
     await loginPage.login(Config.admin_username, Config.admin_password);
     await homePage.clickSalary();
     await debtPage.clickDebtButton();

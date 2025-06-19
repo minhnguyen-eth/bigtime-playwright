@@ -34,10 +34,17 @@ export class DebtPage {
     readonly logoutButton: Locator;
     readonly actionBrowserButton: Locator;
     readonly actionRefusedButton: Locator;
+    readonly iconAction: Locator;
+    readonly sendButton: Locator;
+    readonly browseButton: Locator;
 
     constructor(page: Page) {
         this.page = page;
 
+
+        this.browseButton = page.locator("//span[contains(normalize-space(),'Duyệt')]");
+        this.sendButton = page.locator("//span[contains(normalize-space(),'Gửi')]");
+        this.iconAction = page.locator("//tr[@id='row-0']//i[@class='mdi mdi-format-list-group mdi v-icon notranslate v-theme--lightColor7 v-icon--size-default']");
         this.debtButton = page.locator("//div[contains(text(),'Tạm ứng')]");
         this.toastAddSuccess = page.locator(
             '//div[contains(text(),"Thêm thành công")]'
@@ -85,6 +92,18 @@ export class DebtPage {
         this.logoutButton = page.locator("//span[normalize-space()='Đăng xuất']");
         this.actionBrowserButton = page.getByRole('button', { name: 'Duyệt' });
         this.actionRefusedButton = page.getByRole('button', { name: 'Từ chối' });
+    }
+
+
+    async clickBrowseButton() {
+        await this.browseButton.click();
+    }
+
+    async clickIconAction() {
+        await this.iconAction.click();
+    }
+    async clickSendButton() {
+        await this.sendButton.click();
     }
 
     async getToastAddSuccess() {
@@ -170,11 +189,7 @@ export class DebtPage {
     }
 
     async clickActionSendButton() {
-        await this.searchNameInput.fill('BAT810 - Nguyễn Văn Minh');
-        await this.chosesearchName.click();
-        await this.searchButton.click();
-        await this.page.getByRole('row', { name: '1 BAT810 - Nguyễn Văn Minh 1.000.000 đ add debt test for send Admin Tạo mới', exact: true }).getByRole('button').click();
-        await this.actionSendButton.click();
+       
     }
 
     async expectFillReasonError() {

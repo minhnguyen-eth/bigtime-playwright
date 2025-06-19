@@ -10,7 +10,7 @@ export default defineConfig({
   retries: process.env.CI ? 2 : 0,
 
   // ✅ Chạy tuần tự từng test
-  workers: 1,
+  workers: 2,
 
   // ✅ Reporter
   reporter: [

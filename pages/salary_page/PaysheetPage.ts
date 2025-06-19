@@ -184,7 +184,7 @@ export class PaysheetPage {
         await this.okButton.click();
     }
 
-    async setReason(reason: string = 'Automation test') {
+    async fillReason(reason: string) {
         await this.reasonLabel.click();
         await this.reasonInput.fill(reason);
     }

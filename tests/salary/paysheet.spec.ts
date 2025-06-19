@@ -19,21 +19,23 @@ test.describe.serial('Paysheet', () => {
         allure.owner('Minh Nguyen');
         allure.feature('Paysheet Feature');
         allure.severity('Critical');
-        
+
         toastPage = new ToastPage(page);
         loginPage = new LoginPage(page);
         paysheet = new PaysheetPage(page);
         homePage = new HomePage(page);
+        await loginPage.goto();
     });
 
     test.afterEach(async ({ page }, testInfo: TestInfo) => {
         await takeScreenshotOnFailure(page, testInfo);
     });
 
+
+
     // Test quy trình duyệt lương, chốt lương , thanh toán 
-    test('Salary approval, salary closing, payment process', async ({ page }) => {
+    test('E2E testing of payroll and payment process', async ({ page }) => {
         // await clearAllPaysheets();
-        await loginPage.goto();
         await loginPage.login(Config.admin_username, Config.admin_password);
         await homePage.clickSalary();
         await paysheet.clickPaysheet();
@@ -63,7 +65,7 @@ test.describe.serial('Paysheet', () => {
         await paysheet.clickBrowse();
         await paysheet.clickOk();
         await paysheet.Logout();
-         await page.waitForTimeout(1200);
+        await page.waitForTimeout(1200);
 
         // Quản lý bộ phận duyệt lương
         await loginPage.goto();
@@ -74,7 +76,7 @@ test.describe.serial('Paysheet', () => {
         await paysheet.clickBrowse();
         await paysheet.clickOk();
         await paysheet.Logout();
-         await page.waitForTimeout(1200);
+        await page.waitForTimeout(1200);
 
 
 
@@ -93,18 +95,19 @@ test.describe.serial('Paysheet', () => {
         await paysheet.clickSalaryClosing();
         await paysheet.clickConfirm();
 
-        // await paysheet.clickLatestPaysheetRow();
-        // await paysheet.clickPayslipPayment();
-        // await paysheet.clickPayment();
-        // await paysheet.clickCreateTicket();
-        // await paysheet.clickPaymentHistory();
-        // await paysheet.clickHistoryPaymentCode();
-        // await paysheet.getEmployeeName('Nguyễn Văn Minh');
+        await paysheet.clickLatestPaysheetRow();
+        await paysheet.clickPayslipPayment();
+        await paysheet.clickPayment();
+        await paysheet.clickCreateTicket();
+        await paysheet.clickPaymentHistory();
+        await paysheet.clickHistoryPaymentCode();
+        await paysheet.getEmployeeName('Nguyễn Văn Minh');
 
     });
 
+
     test('Search paysheet', async ({ page }) => {
-        await loginPage.goto();
+
         await loginPage.login(Config.admin_username, Config.admin_password);
         await homePage.clickSalary();
         await paysheet.clickPaysheet();
@@ -116,7 +119,7 @@ test.describe.serial('Paysheet', () => {
     });
 
     test('Add paysheet but not enter name', async ({ page }) => {
-        await loginPage.goto();
+
         await loginPage.login(Config.admin_username, Config.admin_password);
         await homePage.clickSalary();
         await paysheet.clickPaysheet();
@@ -128,7 +131,7 @@ test.describe.serial('Paysheet', () => {
 
     // Add paysheet with all employee
     test('Add paysheet with all employee', async ({ page }) => {
-        await loginPage.goto();
+
         await loginPage.login(Config.admin_username, Config.admin_password);
         await homePage.clickSalary();
         await paysheet.clickPaysheet();
@@ -141,6 +144,19 @@ test.describe.serial('Paysheet', () => {
         await paysheet.setNote('Automation test');
         await paysheet.clickSave();
         await toastPage.getToastAddSuccess();
+
+    });
+
+    test('Cancel paysheet', async ({ page }) => {
+
+        await loginPage.login(Config.admin_username, Config.admin_password);
+        await homePage.clickSalary();
+        await paysheet.clickPaysheet();
+        await paysheet.clickLatestPaysheetRow();
+        await paysheet.clickCancelPaysheet();
+        await paysheet.fillReason('Automation test cancel paysheet');
+        await paysheet.clickOk();
+        await toastPage.getToastCancelSuccess();
 
     });
 

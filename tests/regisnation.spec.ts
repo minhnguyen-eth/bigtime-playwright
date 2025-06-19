@@ -133,7 +133,7 @@ test.describe.serial('Work Shift Tests', () => {
 
     });
 
-    test.only('Export excel', async ({ page }) => {
+    test('Export excel', async ({ page }) => {
         await loginPage.login(Config.admin_username, Config.admin_password);
         await homePage.clickAdmin();
         await regisnationPage.clickRegisnationButton();
