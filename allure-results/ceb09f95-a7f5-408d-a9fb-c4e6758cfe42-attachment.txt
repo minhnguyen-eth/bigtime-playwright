@@ -1,1 +1,0 @@
-Đã xóa toàn bộ dữ liệu trong bảng notifications

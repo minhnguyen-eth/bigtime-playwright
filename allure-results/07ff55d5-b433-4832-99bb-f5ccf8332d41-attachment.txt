@@ -1,6 +1,0 @@
-🔍 Employee name value found: BAT810 - Nguyễn Văn Minh
-🔍 Notification of leave value found: 16-06-2025
-🔍 Browse status option value found: Đã duyệt
-🔍 Submitted button value found: Đã gửi
-🔍 Reject status option value found: Từ chối
-🔍 Cancel status option value found: Hủy

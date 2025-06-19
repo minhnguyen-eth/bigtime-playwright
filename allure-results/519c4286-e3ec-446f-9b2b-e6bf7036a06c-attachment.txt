@@ -1,2 +1,0 @@
-Đã xóa toàn bộ dữ liệu trong bảng leave_applications
-🔍 Social insurance leave text found: Nghỉ bảo hiểm xã hội

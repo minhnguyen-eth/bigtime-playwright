@@ -1,4 +1,0 @@
-Đã xóa 0 dòng trong bảng evaluation_types, giữ lại các bản ghi có chứa 'Đánh giá' trong name.
-Tìm thấy 1 loại đánh giá với tên: Automation test g2tn8b
-Đã xóa 1 loại đánh giá với tên: Automation test g2tn8b
-Đã xóa loại đánh giá "Automation test g2tn8b": true

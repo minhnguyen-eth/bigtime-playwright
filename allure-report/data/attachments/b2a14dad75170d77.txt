@@ -1,2 +1,0 @@
-Đã xóa toàn bộ dữ liệu trong bảng evaluation_progress
-📸 Screenshot saved: D:\BigAppTech\playwright-typescripts\screenshots\add_a_new_evaluation_process_company_form.png
