@@ -15,9 +15,11 @@ test.describe.serial('Leave Application Tests', () => {
     let homePage: HomePage;
 
     test.beforeEach(async ({ page }) => {
-        allure.owner('Minh Nguyen');
+       
         allure.feature('Leave Application Feature');
+        allure.owner('Minh Nguyen');
         allure.severity('Critical');
+        
         loginPage = new LoginPage(page);
         leaveApplicationPage = new LeaveApplicationPage(page);
         homePage = new HomePage(page);
@@ -29,134 +31,141 @@ test.describe.serial('Leave Application Tests', () => {
     });
 
     test('Add annual leave for a employee and admin browsed', async ({ page }) => {
-        await clearAllLeaveManagements();
-        await addAnnualLeaveForEmployeeAndAdmin(page);
+        allure.story('Setup Annual Leave');
+        await allure.step('Clear all leave management and add annual leave for employee and admin', async () => {
+            await clearAllLeaveManagements();
+            await addAnnualLeaveForEmployeeAndAdmin(page);
+        });
     });
 
-    test('Add leave application with anual leave and send to admin -> admin approve ', async ({ page }) => {
-        await clearAllLeaveApplications();
-        await loginPage.login(Config.employee_username, Config.employee_password);
-        await homePage.clickTimeKeepingManagement();
-        await leaveApplicationPage.clickLeaveApplicationButton();
-        await leaveApplicationPage.clickAddButton();
-        await leaveApplicationPage.clickLeaveTypeDropDown();
-
-        await leaveApplicationPage.clickAnualLeave();
-        await leaveApplicationPage.clickStartDate();
-        await leaveApplicationPage.clickTodayButton();
-        await leaveApplicationPage.clickChosseButton();
-        await leaveApplicationPage.clickEndDate();
-        await leaveApplicationPage.clickTodayButton();
-        await leaveApplicationPage.clickChosseButton();
-
-        await leaveApplicationPage.fillReason('Automation test');
-        await leaveApplicationPage.clickSaveButton();
-        await leaveApplicationPage.getToastAdd('Thêm thành công');
-        await leaveApplicationPage.getVerifyAnualLeave();
-
-        // Send and approve
-        await sendAndApproveLeave(page);
-
+    test('Add leave application with annual leave and send to admin -> admin approve', async ({ page }) => {
+        allure.story('Annual Leave Application Flow');
+        await allure.step('Employee applies for annual leave', async () => {
+            await clearAllLeaveApplications();
+            await loginPage.login(Config.employee_username, Config.employee_password);
+            await homePage.clickTimeKeepingManagement();
+            await leaveApplicationPage.clickLeaveApplicationButton();
+            await leaveApplicationPage.clickAddButton();
+            await leaveApplicationPage.clickLeaveTypeDropDown();
+            await leaveApplicationPage.clickAnualLeave();
+            await leaveApplicationPage.clickStartDate();
+            await leaveApplicationPage.clickTodayButton();
+            await leaveApplicationPage.clickChosseButton();
+            await leaveApplicationPage.clickEndDate();
+            await leaveApplicationPage.clickTodayButton();
+            await leaveApplicationPage.clickChosseButton();
+            await leaveApplicationPage.fillReason('Automation test');
+            await leaveApplicationPage.clickSaveButton();
+            await leaveApplicationPage.getToastAdd('Thêm thành công');
+            await leaveApplicationPage.getVerifyAnualLeave();
+        });
+        await allure.step('Send and approve leave application', async () => {
+            await sendAndApproveLeave(page);
+        });
     });
 
-    test('Add leave application with regular leave  and send to admin -> admin approve ', async ({ page }) => {
-        await clearAllLeaveApplications();
-        await loginPage.login(Config.employee_username, Config.employee_password);
-        await homePage.clickTimeKeepingManagement();
-        await leaveApplicationPage.clickLeaveApplicationButton();
-        await leaveApplicationPage.clickAddButton();
-        await leaveApplicationPage.clickLeaveTypeDropDown();
-
-        await leaveApplicationPage.clickRegularLeave();
-        await leaveApplicationPage.clickStartDate();
-        await leaveApplicationPage.clickTodayButton();
-        await leaveApplicationPage.clickChosseButton();
-
-        await leaveApplicationPage.clickEndDate();
-        await leaveApplicationPage.clickTodayButton();
-        await leaveApplicationPage.clickChosseButton();
-
-        await leaveApplicationPage.fillReason('Automation test');
-        await leaveApplicationPage.clickSaveButton();
-        await leaveApplicationPage.getToastAdd('Thêm thành công');
-        await leaveApplicationPage.getVerifyRegularLeave();
-
-        // Send and approve
-        await sendAndApproveLeave(page);
-
-
+    test('Add leave application with regular leave and send to admin -> admin approve', async ({ page }) => {
+        allure.story('Regular Leave Application Flow');
+        await allure.step('Employee applies for regular leave', async () => {
+            await clearAllLeaveApplications();
+            await loginPage.login(Config.employee_username, Config.employee_password);
+            await homePage.clickTimeKeepingManagement();
+            await leaveApplicationPage.clickLeaveApplicationButton();
+            await leaveApplicationPage.clickAddButton();
+            await leaveApplicationPage.clickLeaveTypeDropDown();
+            await leaveApplicationPage.clickRegularLeave();
+            await leaveApplicationPage.clickStartDate();
+            await leaveApplicationPage.clickTodayButton();
+            await leaveApplicationPage.clickChosseButton();
+            await leaveApplicationPage.clickEndDate();
+            await leaveApplicationPage.clickTodayButton();
+            await leaveApplicationPage.clickChosseButton();
+            await leaveApplicationPage.fillReason('Automation test');
+            await leaveApplicationPage.clickSaveButton();
+            await leaveApplicationPage.getToastAdd('Thêm thành công');
+            await leaveApplicationPage.getVerifyRegularLeave();
+        });
+        await allure.step('Send and approve leave application', async () => {
+            await sendAndApproveLeave(page);
+        });
     });
 
-    test('Add leave application with social insurance leave and send to admin -> admin approve ', async ({ page }) => {
-        await clearAllLeaveApplications();
-        await loginPage.login(Config.employee_username, Config.employee_password);
-        await homePage.clickTimeKeepingManagement();
-        await leaveApplicationPage.clickLeaveApplicationButton();
-        await leaveApplicationPage.clickAddButton();
-        await leaveApplicationPage.clickLeaveTypeDropDown();
-
-        await leaveApplicationPage.clickSocialInsuranceLeave();
-        await leaveApplicationPage.clickStartDate();
-        await leaveApplicationPage.clickTodayButton();
-        await leaveApplicationPage.clickChosseButton();
-
-        await leaveApplicationPage.clickEndDate();
-        await leaveApplicationPage.clickTodayButton();
-        await leaveApplicationPage.clickChosseButton();
-
-        await leaveApplicationPage.fillReason('Automation test');
-        await leaveApplicationPage.clickSaveButton();
-        await leaveApplicationPage.getToastAdd('Thêm thành công');
-        await leaveApplicationPage.getVerifySocialInsuranceLeave();
-
-        // Send and approve
-        await sendAndApproveLeave(page);
+    test('Add leave application with social insurance leave and send to admin -> admin approve', async ({ page }) => {
+        allure.story('Social Insurance Leave Application Flow');
+        await allure.step('Employee applies for social insurance leave', async () => {
+            await clearAllLeaveApplications();
+            await loginPage.login(Config.employee_username, Config.employee_password);
+            await homePage.clickTimeKeepingManagement();
+            await leaveApplicationPage.clickLeaveApplicationButton();
+            await leaveApplicationPage.clickAddButton();
+            await leaveApplicationPage.clickLeaveTypeDropDown();
+            await leaveApplicationPage.clickSocialInsuranceLeave();
+            await leaveApplicationPage.clickStartDate();
+            await leaveApplicationPage.clickTodayButton();
+            await leaveApplicationPage.clickChosseButton();
+            await leaveApplicationPage.clickEndDate();
+            await leaveApplicationPage.clickTodayButton();
+            await leaveApplicationPage.clickChosseButton();
+            await leaveApplicationPage.fillReason('Automation test');
+            await leaveApplicationPage.clickSaveButton();
+            await leaveApplicationPage.getToastAdd('Thêm thành công');
+            await leaveApplicationPage.getVerifySocialInsuranceLeave();
+        });
+        await allure.step('Send and approve leave application', async () => {
+            await sendAndApproveLeave(page);
+        });
     });
 
-    test('Add leave application with maternity leave and send to admin -> admin approve ', async ({ page }) => {
-        await clearAllLeaveApplications();
-        await loginPage.login(Config.employee_username, Config.employee_password);
-        await homePage.clickTimeKeepingManagement();
-        await leaveApplicationPage.clickLeaveApplicationButton();
-        await leaveApplicationPage.clickAddButton();
-        await leaveApplicationPage.clickLeaveTypeDropDown();
-        await leaveApplicationPage.clickMaternityLeave();
-        await leaveApplicationPage.clickStartDate();
-        await leaveApplicationPage.clickTodayButton();
-        await leaveApplicationPage.clickChosseButton();
-        await leaveApplicationPage.clickEndDate();
-        await leaveApplicationPage.clickTodayButton();
-        await leaveApplicationPage.clickChosseButton();
-        await leaveApplicationPage.fillReason('Automation test');
-        await leaveApplicationPage.clickSaveButton();
-        await leaveApplicationPage.getToastAdd('Thêm thành công');
-        await leaveApplicationPage.getVerifyMaternityLeave();
-
-        // Send and approve
-        await sendAndApproveLeave(page);
+    test('Add leave application with maternity leave and send to admin -> admin approve', async ({ page }) => {
+        allure.story('Maternity Leave Application Flow');
+        await allure.step('Employee applies for maternity leave', async () => {
+            await clearAllLeaveApplications();
+            await loginPage.login(Config.employee_username, Config.employee_password);
+            await homePage.clickTimeKeepingManagement();
+            await leaveApplicationPage.clickLeaveApplicationButton();
+            await leaveApplicationPage.clickAddButton();
+            await leaveApplicationPage.clickLeaveTypeDropDown();
+            await leaveApplicationPage.clickMaternityLeave();
+            await leaveApplicationPage.clickStartDate();
+            await leaveApplicationPage.clickTodayButton();
+            await leaveApplicationPage.clickChosseButton();
+            await leaveApplicationPage.clickEndDate();
+            await leaveApplicationPage.clickTodayButton();
+            await leaveApplicationPage.clickChosseButton();
+            await leaveApplicationPage.fillReason('Automation test');
+            await leaveApplicationPage.clickSaveButton();
+            await leaveApplicationPage.getToastAdd('Thêm thành công');
+            await leaveApplicationPage.getVerifyMaternityLeave();
+        });
+        await allure.step('Send and approve leave application', async () => {
+            await sendAndApproveLeave(page);
+        });
     });
-    test('Add leave application with special leave and send to admin -> admin approve ', async ({ page }) => {
-        await clearAllLeaveApplications();
-        await loginPage.login(Config.employee_username, Config.employee_password);
-        await homePage.clickTimeKeepingManagement();
-        await leaveApplicationPage.clickLeaveApplicationButton();
-        await leaveApplicationPage.clickAddButton();
-        await leaveApplicationPage.clickLeaveTypeDropDown();
-        await leaveApplicationPage.clickSpecialLeave();
-        await leaveApplicationPage.clickStartDate();
-        await leaveApplicationPage.clickTodayButton();
-        await leaveApplicationPage.clickChosseButton();
 
-        await leaveApplicationPage.clickEndDate();
-        await leaveApplicationPage.clickTodayButton();
-        await leaveApplicationPage.clickChosseButton();
-
-        await leaveApplicationPage.fillReason('Automation test');
-        await leaveApplicationPage.clickSaveButton();
-        await leaveApplicationPage.getToastAdd('Thêm thành công');
-        await leaveApplicationPage.getVerifySpecialLeave();
-
-        // Send and approve
-        await sendAndApproveLeave(page);
+    test('Add leave application with special leave and send to admin -> admin approve', async ({ page }) => {
+        allure.story('Special Leave Application Flow');
+        await allure.step('Employee applies for special leave', async () => {
+            await clearAllLeaveApplications();
+            await loginPage.login(Config.employee_username, Config.employee_password);
+            await homePage.clickTimeKeepingManagement();
+            await leaveApplicationPage.clickLeaveApplicationButton();
+            await leaveApplicationPage.clickAddButton();
+            await leaveApplicationPage.clickLeaveTypeDropDown();
+            await leaveApplicationPage.clickSpecialLeave();
+            await leaveApplicationPage.clickStartDate();
+            await leaveApplicationPage.clickTodayButton();
+            await leaveApplicationPage.clickChosseButton();
+            await leaveApplicationPage.clickEndDate();
+            await leaveApplicationPage.clickTodayButton();
+            await leaveApplicationPage.clickChosseButton();
+            await leaveApplicationPage.fillReason('Automation test');
+            await leaveApplicationPage.clickSaveButton();
+            await leaveApplicationPage.getToastAdd('Thêm thành công');
+            await leaveApplicationPage.getVerifySpecialLeave();
+        });
+        await allure.step('Send and approve leave application', async () => {
+            await sendAndApproveLeave(page);
+        });
     });
+
 });

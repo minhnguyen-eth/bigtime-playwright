@@ -25,5 +25,4 @@ export async function createCriteria(page: Page) {
     await evaluationCriteriaPage.clickSave();
     await toastPage.getToastAddSuccess();
 
-
 }

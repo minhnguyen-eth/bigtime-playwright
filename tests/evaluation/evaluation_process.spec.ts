@@ -1,27 +1,29 @@
-import { test, expect, Page, TestInfo } from '@playwright/test';
-import { LoginPage } from '../../pages/LoginPage';
-import { takeScreenshotOnFailure } from '../../utils/screenshotUtils';
-import Config from '../../utils/configUtils';
-import { HomePage } from '../../pages/HomePage';
-import { EvaluationProcessPage } from '../../pages/evaluation_page/EvaluationProcessPage';
-import { ToastPage } from '../../pages/ToastPage';
-import { clearAllEvaluationProgress } from '../../utils/mysqlUtils';
-import { allure } from 'allure-playwright';
-import { createCriteria } from '../evaluation/evaluation_helper';
+import { test, expect, Page, TestInfo } from "@playwright/test";
+import { LoginPage } from "../../pages/LoginPage";
+import { takeScreenshotOnFailure } from "../../utils/screenshotUtils";
+import Config from "../../utils/configUtils";
+import { HomePage } from "../../pages/HomePage";
+import { EvaluationProcessPage } from "../../pages/evaluation_page/EvaluationProcessPage";
+import { ToastPage } from "../../pages/ToastPage";
+import { clearAllEvaluationProgress } from "../../utils/mysqlUtils";
+import { allure } from "allure-playwright";
+import { createCriteria } from "../evaluation/evaluation_helper";
 
-test.describe.serial('Evaluation Criteria Tests', () => {
+test.describe.serial("Evaluation Criteria Tests", () => {
     let loginPage: LoginPage;
     let evaluationProcess: EvaluationProcessPage;
     let homePage: HomePage;
-    let toast: ToastPage
+    let toast: ToastPage;
 
     const randomSuffix = Date.now();
     const random = `Automation test ${randomSuffix}`;
 
     test.beforeEach(async ({ page }) => {
-        allure.owner('Minh Nguyen');
-        allure.feature('Evaluation Process Feature');
-        allure.severity('Critical');
+       
+        allure.feature("Evaluation Process Feature");
+        allure.owner("Minh Nguyen");
+        allure.severity("Critical");
+
         loginPage = new LoginPage(page);
         evaluationProcess = new EvaluationProcessPage(page);
         homePage = new HomePage(page);
@@ -34,94 +36,107 @@ test.describe.serial('Evaluation Criteria Tests', () => {
         await takeScreenshotOnFailure(page, testInfo);
     });
 
-    test('Add a new evaluation process company form', async ({ page }) => {
-        await clearAllEvaluationProgress();
-        await homePage.clickAdmin();
-        await evaluationProcess.clickEvaluationProcessButton();
-        await evaluationProcess.clickAddButton();
-        await evaluationProcess.clickCancelButton();
-        await evaluationProcess.clickCancelButton();
-        await evaluationProcess.clickAddButton();
-        await evaluationProcess.fillEmployeeEvaluationInput('Nguyễn Văn Minh');
-        await evaluationProcess.clickEmployeeEvaluationOption();
-        await evaluationProcess.clickEvaluationTypeDropDown();
-        await evaluationProcess.clickEvaluationTypeOption1();
-        await evaluationProcess.clickStartTime();
-        await evaluationProcess.clickChosseButton();
-        await evaluationProcess.clickEndTime();
-        await evaluationProcess.clickToDay();
-        await evaluationProcess.clickChosseButton();
-        await evaluationProcess.clickSaveButton();
+    test("Add a new evaluation process company form", async ({ page }) => {
+        allure.story("Add Evaluation Process - Company Form");
+        await allure.step("Clear data and add new company evaluation process", async () => {
+            await clearAllEvaluationProgress();
+            await homePage.clickAdmin();
+            await evaluationProcess.clickEvaluationProcessButton();
+            await evaluationProcess.clickAddButton();
+            await evaluationProcess.clickCancelButton();
+            await evaluationProcess.clickCancelButton();
+            await evaluationProcess.clickAddButton();
+            await evaluationProcess.fillEmployeeEvaluationInput("Nguyễn Văn Minh");
+            await evaluationProcess.clickEmployeeEvaluationOption();
+            await evaluationProcess.clickEvaluationTypeDropDown();
+            await evaluationProcess.clickEvaluationTypeOption1();
+            await evaluationProcess.clickStartTime();
+            await evaluationProcess.clickChosseButton();
+            await evaluationProcess.clickEndTime();
+            await evaluationProcess.clickToDay();
+            await evaluationProcess.clickChosseButton();
+            await evaluationProcess.clickSaveButton();
+        });
         await toast.getToastAddSuccess();
     });
 
-    test(' Edit evaluation type', async ({ page }) => {
-        await homePage.clickAdmin();
-        await evaluationProcess.clickEvaluationProcessButton();
-        await evaluationProcess.clickIconAction();
-        await evaluationProcess.clickEditButton();
-        await evaluationProcess.clickCancelButton();
-        await evaluationProcess.clickIconAction();
-        await evaluationProcess.clickEditButton();
-        await evaluationProcess.clickEvaluationTypeDropDown();
-        await evaluationProcess.clickEvaluationTypeOption2();
-        await evaluationProcess.clickSaveButton();
+    test("Edit evaluation type", async ({ page }) => {
+        allure.story("Edit Evaluation Type");
+        await allure.step("Edit evaluation process type", async () => {
+            await homePage.clickAdmin();
+            await evaluationProcess.clickEvaluationProcessButton();
+            await evaluationProcess.clickIconAction();
+            await evaluationProcess.clickEditButton();
+            await evaluationProcess.clickCancelButton();
+            await evaluationProcess.clickIconAction();
+            await evaluationProcess.clickEditButton();
+            await evaluationProcess.clickEvaluationTypeDropDown();
+            await evaluationProcess.clickEvaluationTypeOption2();
+            await evaluationProcess.clickSaveButton();
+        });
         await toast.getToastUpdateSuccess();
     });
 
-    test('Delete evaluation type', async ({ page }) => {
-        await homePage.clickAdmin();
-        await evaluationProcess.clickEvaluationProcessButton();
-        await evaluationProcess.clickIconAction();
-        await evaluationProcess.clickDeleteButton();
-        await evaluationProcess.clickYesButton();
+    test("Delete evaluation type", async ({ page }) => {
+        allure.story("Delete Evaluation Process");
+        await allure.step("Delete evaluation process", async () => {
+            await homePage.clickAdmin();
+            await evaluationProcess.clickEvaluationProcessButton();
+            await evaluationProcess.clickIconAction();
+            await evaluationProcess.clickDeleteButton();
+            await evaluationProcess.clickYesButton();
+        });
         await toast.getToastDeleteSuccess();
     });
 
-
-    test('Add a new evaluation process department form', async ({ page }) => {
-        await homePage.clickAdmin();
-        await evaluationProcess.clickEvaluationProcessButton();
-        await evaluationProcess.clickAddButton();
-        await evaluationProcess.clickCancelButton();
-        await evaluationProcess.clickCancelButton();
-        await evaluationProcess.clickAddButton();
-        await evaluationProcess.fillEmployeeEvaluationInput('Nguyễn Văn Minh');
-        await evaluationProcess.clickEmployeeEvaluationOption();
-        await evaluationProcess.clickEvaluationTypeDropDown();
-        await evaluationProcess.clickEvaluationTypeOption1();
-        await evaluationProcess.clickStartTime();
-        await evaluationProcess.clickChosseButton();
-        await evaluationProcess.clickEndTime();
-        await evaluationProcess.clickToDay();
-        await evaluationProcess.clickChosseButton();
-        await evaluationProcess.clickEvaluationForm();
-        await evaluationProcess.clickDepartmentForm();
-        await evaluationProcess.clickSaveButton();
+    test("Add a new evaluation process department form", async ({ page }) => {
+        allure.story("Add Evaluation Process - Department Form");
+        await allure.step("Add new department evaluation process", async () => {
+            await homePage.clickAdmin();
+            await evaluationProcess.clickEvaluationProcessButton();
+            await evaluationProcess.clickAddButton();
+            await evaluationProcess.clickCancelButton();
+            await evaluationProcess.clickCancelButton();
+            await evaluationProcess.clickAddButton();
+            await evaluationProcess.fillEmployeeEvaluationInput("Nguyễn Văn Minh");
+            await evaluationProcess.clickEmployeeEvaluationOption();
+            await evaluationProcess.clickEvaluationTypeDropDown();
+            await evaluationProcess.clickEvaluationTypeOption1();
+            await evaluationProcess.clickStartTime();
+            await evaluationProcess.clickChosseButton();
+            await evaluationProcess.clickEndTime();
+            await evaluationProcess.clickToDay();
+            await evaluationProcess.clickChosseButton();
+            await evaluationProcess.clickEvaluationForm();
+            await evaluationProcess.clickDepartmentForm();
+            await evaluationProcess.clickSaveButton();
+        });
         await toast.getToastAddSuccess();
     });
 
-    test('Confirm evaluation type', async ({ page }) => {
-        await homePage.clickAdmin();
-        await evaluationProcess.clickEvaluationProcessButton();
-        await evaluationProcess.clickIconAction();
-        await evaluationProcess.clickConfirmButton();
-        await evaluationProcess.clickYesButton();
+    test("Confirm evaluation type", async ({ page }) => {
+        allure.story("Confirm Evaluation Process");
+        await allure.step("Confirm evaluation process", async () => {
+            await homePage.clickAdmin();
+            await evaluationProcess.clickEvaluationProcessButton();
+            await evaluationProcess.clickIconAction();
+            await evaluationProcess.clickConfirmButton();
+            await evaluationProcess.clickYesButton();
+        });
         await toast.getToastConfirmSuccess();
     });
 
-
-    test('Evaluation employee', async ({ page }) => {
-        await createCriteria(page);
-        await homePage.clickAdmin();
-        await evaluationProcess.clickListEvaluationButton();
-        await evaluationProcess.getWaitEvaluationStatus();
-        await evaluationProcess.clickEvaluationButton();
-        await evaluationProcess.clickSaveButton();
-        await evaluationProcess.clickYesButton();
+    test("Evaluation employee", async ({ page }) => {
+        allure.story("Employee Evaluation");
+        await allure.step("Employee performs evaluation", async () => {
+            await createCriteria(page);
+            await homePage.clickAdmin();
+            await evaluationProcess.clickListEvaluationButton();
+            await evaluationProcess.getWaitEvaluationStatus();
+            await evaluationProcess.clickEvaluationButton();
+            await evaluationProcess.clickSaveButton();
+            await evaluationProcess.clickYesButton();
+        });
         await toast.getToastEvaluationSuccess();
-
     });
-
-
 });

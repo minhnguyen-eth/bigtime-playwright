@@ -218,8 +218,9 @@ export class LeaveManagementPage {
     }
 
     async fillSearchByName() {
+        await this.page.waitForTimeout(1000);
         await expect(this.searchByName).toBeVisible();
-        await this.searchByName.fill('Nguyễn Văn Minh');
+        await this.searchByName.fill('Minh');
         await this.page.keyboard.press('Enter');
     }
 

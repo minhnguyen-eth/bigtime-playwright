@@ -7,7 +7,7 @@ import { PaysheetPage } from '../../pages/salary_page/PaysheetPage';
 import { allure } from 'allure-playwright';
 import { ToastPage } from '../../pages/ToastPage';
 
-test.describe.serial('Paysheet', () => {
+test.describe.serial('Paysheet Tests', () => {
 
     let loginPage: LoginPage;
     let paysheet: PaysheetPage;
@@ -15,9 +15,9 @@ test.describe.serial('Paysheet', () => {
     let toastPage: ToastPage;
 
     test.beforeEach(async ({ page }) => {
-
-        allure.owner('Minh Nguyen');
+   
         allure.feature('Paysheet Feature');
+        allure.owner('Minh Nguyen');
         allure.severity('Critical');
 
         toastPage = new ToastPage(page);
@@ -31,133 +31,143 @@ test.describe.serial('Paysheet', () => {
         await takeScreenshotOnFailure(page, testInfo);
     });
 
+    test('E2E Payroll and Payment Process', async ({ page }) => {
+        allure.story('Complete Paysheet Process Story');
 
+        await allure.step('Admin creates and sends paysheet', async () => {
+            await loginPage.login(Config.admin_username, Config.admin_password);
+            await homePage.clickSalary();
+            await paysheet.clickPaysheet();
+            await paysheet.clickAdd();
+            await paysheet.setNamePaysheet('Automation test');
+            await paysheet.clickCheckBoxMonthly();
+            await paysheet.clickChooseMonth();
+            await paysheet.clickMonthOption();
+            await paysheet.setNote('Automation test');
+            await paysheet.clickAndSetDropDownEmployee();
+            await paysheet.clickEmployeeOption();
+            await paysheet.clickSave();
+            await toastPage.getToastAddSuccess();
+            await paysheet.clickLatestPaysheetRow();
+            await paysheet.clickViewPayroll();
+            await paysheet.clickSendAll();
+            await paysheet.clickConfirm();
+            await paysheet.Logout();
+            await page.waitForTimeout(1200);
+        });
 
-    // Test quy trình duyệt lương, chốt lương , thanh toán 
-    test('E2E testing of payroll and payment process', async ({ page }) => {
-        // await clearAllPaysheets();
-        await loginPage.login(Config.admin_username, Config.admin_password);
-        await homePage.clickSalary();
-        await paysheet.clickPaysheet();
-        await paysheet.clickAdd();
-        await paysheet.setNamePaysheet('Automation test');
-        await paysheet.clickCheckBoxMonthly();
-        await paysheet.clickChooseMonth();
-        await paysheet.clickMonthOption();
-        await paysheet.setNote('Automation test');
-        await paysheet.clickAndSetDropDownEmployee();
-        await paysheet.clickEmployeeOption();
-        await paysheet.clickSave();
-        await toastPage.getToastAddSuccess();
-        await paysheet.clickLatestPaysheetRow();
-        await paysheet.clickViewPayroll();
-        await paysheet.clickSendAll();
-        await paysheet.clickConfirm();
-        await paysheet.Logout();
-        await page.waitForTimeout(1200);
+        await allure.step('Employee approves payslip', async () => {
+            await loginPage.goto();
+            await loginPage.login(Config.employee_username, Config.employee_password);
+            await homePage.clickSalary();
+            await paysheet.clickPayslip();
+            await paysheet.clickSalarySlipCode();
+            await paysheet.clickBrowse();
+            await paysheet.clickOk();
+            await paysheet.Logout();
+            await page.waitForTimeout(1200);
+        });
 
-        // Nhân viên duyệt lương
-        await loginPage.goto();
-        await loginPage.login(Config.employee_username, Config.employee_password);
-        await homePage.clickSalary();
-        await paysheet.clickPayslip();
-        await paysheet.clickSalarySlipCode();
-        await paysheet.clickBrowse();
-        await paysheet.clickOk();
-        await paysheet.Logout();
-        await page.waitForTimeout(1200);
+        await allure.step('Manager approves payslip', async () => {
+            await loginPage.goto();
+            await loginPage.login(Config.manager_username, Config.manager_password);
+            await homePage.clickSalary();
+            await paysheet.clickPayslip();
+            await paysheet.clickSalarySlipCode();
+            await paysheet.clickBrowse();
+            await paysheet.clickOk();
+            await paysheet.Logout();
+            await page.waitForTimeout(1200);
+        });
 
-        // Quản lý bộ phận duyệt lương
-        await loginPage.goto();
-        await loginPage.login(Config.manager_username, Config.manager_password);
-        await homePage.clickSalary();
-        await paysheet.clickPayslip();
-        await paysheet.clickSalarySlipCode();
-        await paysheet.clickBrowse();
-        await paysheet.clickOk();
-        await paysheet.Logout();
-        await page.waitForTimeout(1200);
+        await allure.step('Admin closes paysheet and completes payment', async () => {
+            await loginPage.goto();
+            await loginPage.login(Config.admin_username, Config.admin_password);
+            await homePage.clickSalary();
+            await paysheet.clickPayslip();
+            await paysheet.clickSalarySlipCode();
+            await paysheet.clickBrowse();
+            await paysheet.clickOk();
 
+            await paysheet.clickPaysheet();
+            await paysheet.clickLatestPaysheetRow();
+            await paysheet.clickViewPayroll();
+            await paysheet.clickSalaryClosing();
+            await paysheet.clickConfirm();
 
-
-        // Quản lý duyệt lương, chốt lương và thanh toán
-        await loginPage.goto();
-        await loginPage.login(Config.admin_username, Config.admin_password);
-        await homePage.clickSalary();
-        await paysheet.clickPayslip();
-        await paysheet.clickSalarySlipCode();
-        await paysheet.clickBrowse();
-        await paysheet.clickOk();
-
-        await paysheet.clickPaysheet();
-        await paysheet.clickLatestPaysheetRow();
-        await paysheet.clickViewPayroll();
-        await paysheet.clickSalaryClosing();
-        await paysheet.clickConfirm();
-
-        await paysheet.clickLatestPaysheetRow();
-        await paysheet.clickPayslipPayment();
-        await paysheet.clickPayment();
-        await paysheet.clickCreateTicket();
-        await paysheet.clickPaymentHistory();
-        await paysheet.clickHistoryPaymentCode();
-        await paysheet.getEmployeeName('Nguyễn Văn Minh');
-
+            await paysheet.clickLatestPaysheetRow();
+            await paysheet.clickPayslipPayment();
+            await paysheet.clickPayment();
+            await paysheet.clickCreateTicket();
+            await paysheet.clickPaymentHistory();
+            await paysheet.clickHistoryPaymentCode();
+            await paysheet.getEmployeeName('Nguyễn Văn Minh');
+        });
     });
 
-
-    test('Search paysheet', async ({ page }) => {
+    test('Search Paysheet', async ({ page }) => {
+        allure.story('Search Paysheet Story');
 
         await loginPage.login(Config.admin_username, Config.admin_password);
         await homePage.clickSalary();
         await paysheet.clickPaysheet();
-        await paysheet.clickSearchLabel();
-        await paysheet.searchPaysheet('BL000001');
-        await paysheet.clickSearchButton();
-        await paysheet.verifyPaysheetId('BL000001');
 
+        await allure.step('Search paysheet by ID', async () => {
+            await paysheet.clickSearchLabel();
+            await paysheet.searchPaysheet('BL000001');
+            await paysheet.clickSearchButton();
+            await paysheet.verifyPaysheetId('BL000001');
+        });
     });
 
-    test('Add paysheet but not enter name', async ({ page }) => {
+    test('Add Paysheet Without Name', async ({ page }) => {
+        allure.story('Validation Paysheet Creation Story');
 
         await loginPage.login(Config.admin_username, Config.admin_password);
         await homePage.clickSalary();
         await paysheet.clickPaysheet();
-        await paysheet.clickAdd();
-        await paysheet.clickSave();
-        await paysheet.getRequiredEnterName('Nhập tên');
 
+        await allure.step('Try to add paysheet without entering name', async () => {
+            await paysheet.clickAdd();
+            await paysheet.clickSave();
+            await paysheet.getRequiredEnterName('Nhập tên');
+        });
     });
 
-    // Add paysheet with all employee
-    test('Add paysheet with all employee', async ({ page }) => {
+    test('Add Paysheet With All Employees', async ({ page }) => {
+        allure.story('Add Paysheet For All Employees Story');
 
         await loginPage.login(Config.admin_username, Config.admin_password);
         await homePage.clickSalary();
         await paysheet.clickPaysheet();
-        await paysheet.clickAdd();
-        await paysheet.setNamePaysheet('Automation test');
-        await paysheet.clickCheckBoxMonthly();
-        await paysheet.clickChooseMonth();
-        await paysheet.clickMonthOption();
-        await paysheet.clickSelectAllEmployees();
-        await paysheet.setNote('Automation test');
-        await paysheet.clickSave();
-        await toastPage.getToastAddSuccess();
 
+        await allure.step('Add paysheet for all employees', async () => {
+            await paysheet.clickAdd();
+            await paysheet.setNamePaysheet('Automation test');
+            await paysheet.clickCheckBoxMonthly();
+            await paysheet.clickChooseMonth();
+            await paysheet.clickMonthOption();
+            await paysheet.clickSelectAllEmployees();
+            await paysheet.setNote('Automation test');
+            await paysheet.clickSave();
+            await toastPage.getToastAddSuccess();
+        });
     });
 
-    test('Cancel paysheet', async ({ page }) => {
+    test('Cancel Paysheet', async ({ page }) => {
+        allure.story('Cancel Paysheet Story');
 
         await loginPage.login(Config.admin_username, Config.admin_password);
         await homePage.clickSalary();
         await paysheet.clickPaysheet();
-        await paysheet.clickLatestPaysheetRow();
-        await paysheet.clickCancelPaysheet();
-        await paysheet.fillReason('Automation test cancel paysheet');
-        await paysheet.clickOk();
-        await toastPage.getToastCancelSuccess();
 
+        await allure.step('Cancel latest paysheet with reason', async () => {
+            await paysheet.clickLatestPaysheetRow();
+            await paysheet.clickCancelPaysheet();
+            await paysheet.fillReason('Automation test cancel paysheet');
+            await paysheet.clickOk();
+            await toastPage.getToastCancelSuccess();
+        });
     });
 
 });

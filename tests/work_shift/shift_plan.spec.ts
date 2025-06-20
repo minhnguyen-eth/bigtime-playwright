@@ -4,23 +4,23 @@ import { takeScreenshotOnFailure } from '../../utils/screenshotUtils';
 import Config from '../../utils/configUtils';
 import { HomePage } from '../../pages/HomePage';
 import { ShiftPlanPage } from '../../pages/work_shift_page/ShiftPlanPage';
-import { clearAllShiftPlan } from '../../utils/mysqlUtils';
-import { checkShiftPlanExists } from '../../utils/mysqlUtils';
+import { clearAllShiftPlan, checkShiftPlanExists } from '../../utils/mysqlUtils';
 import { allure } from 'allure-playwright';
 
-test.describe.serial('Evaluation Type Tests', () => {
+test.describe.serial('Shift Plan Tests', () => {
     let loginPage: LoginPage;
     let shiftPlanPage: ShiftPlanPage;
     let homePage: HomePage;
 
-    const randomSuffix = Math.random().toString(36).substring(2, 8); // chữ + số, độ dài 6
+    const randomSuffix = Math.random().toString(36).substring(2, 8);
     const shiftPlanNameRanDom = `Phân ca tháng 7 ${randomSuffix}`;
 
     test.beforeEach(async ({ page }) => {
-
-        allure.owner('Minh Nguyen');
+        
         allure.feature('Shift Plan Feature');
+        allure.owner('Minh Nguyen');
         allure.severity('Critical');
+
         loginPage = new LoginPage(page);
         shiftPlanPage = new ShiftPlanPage(page);
         homePage = new HomePage(page);
@@ -31,108 +31,134 @@ test.describe.serial('Evaluation Type Tests', () => {
 
     test.afterEach(async ({ page }, testInfo: TestInfo) => {
         await takeScreenshotOnFailure(page, testInfo);
-
-        // Delete all shift plan
+        // Optionally clear shift plans
         // await clearAllShiftPlan();
     });
 
     test('Add shift plan for department', async ({ page }) => {
-        await clearAllShiftPlan();
+        allure.story('Add Shift Plan for Department Story');
 
-        await homePage.clickTimeKeepingManagement();
-        await shiftPlanPage.clickShiftPlanButton();
-        await shiftPlanPage.clickAddButton();
-        await shiftPlanPage.fillShiftPlanNameInput(shiftPlanNameRanDom);
-        await shiftPlanPage.clickWorkShift();
-        await shiftPlanPage.clickWorkShiftOption();
+        await allure.step('Clear existing shift plans from DB', async () => {
+            await clearAllShiftPlan();
+        });
 
-        await shiftPlanPage.clickStartDateInput();
-        await shiftPlanPage.clickChosseMonthButton();
-        await shiftPlanPage.clickMonth07Button();
-        await shiftPlanPage.clickDay1Button();
-        await shiftPlanPage.clickChosseButton();
+        await allure.step('Navigate to Shift Plan page', async () => {
+            await homePage.clickTimeKeepingManagement();
+            await shiftPlanPage.clickShiftPlanButton();
+        });
 
-        await shiftPlanPage.clickEndDateInput();
-        await shiftPlanPage.clickChosseMonthButton();
-        await shiftPlanPage.clickMonth07Button();
-        await shiftPlanPage.clickDay31Button();
-        await shiftPlanPage.clickChosseButton();
+        await allure.step('Fill Shift Plan form for department', async () => {
+            await shiftPlanPage.clickAddButton();
+            await shiftPlanPage.fillShiftPlanNameInput(shiftPlanNameRanDom);
+            await shiftPlanPage.clickWorkShift();
+            await shiftPlanPage.clickWorkShiftOption();
 
-        await shiftPlanPage.clickDepartmentButton();
-        await shiftPlanPage.clickAddDepartmentButton();
-        await shiftPlanPage.clickDepartmentDropDown();
-        await shiftPlanPage.clickDepartmentOption();
-        await shiftPlanPage.clickSaveDepartmentButton();
+            await shiftPlanPage.clickStartDateInput();
+            await shiftPlanPage.clickChosseMonthButton();
+            await shiftPlanPage.clickMonth07Button();
+            await shiftPlanPage.clickDay1Button();
+            await shiftPlanPage.clickChosseButton();
 
-        await shiftPlanPage.clickSaveButton();
-        await shiftPlanPage.getToastAdd('Thêm thành công');
+            await shiftPlanPage.clickEndDateInput();
+            await shiftPlanPage.clickChosseMonthButton();
+            await shiftPlanPage.clickMonth07Button();
+            await shiftPlanPage.clickDay31Button();
+            await shiftPlanPage.clickChosseButton();
 
-        // Kiểm tra trong database
-        const existsInDB = await checkShiftPlanExists(shiftPlanNameRanDom);
-        expect(existsInDB).toBeTruthy();
+            await shiftPlanPage.clickDepartmentButton();
+            await shiftPlanPage.clickAddDepartmentButton();
+            await shiftPlanPage.clickDepartmentDropDown();
+            await shiftPlanPage.clickDepartmentOption();
+            await shiftPlanPage.clickSaveDepartmentButton();
 
+            await shiftPlanPage.clickSaveButton();
+            await shiftPlanPage.getToastAdd('Thêm thành công');
+        });
+
+        await allure.step('Verify shift plan added in DB', async () => {
+            const existsInDB = await checkShiftPlanExists(shiftPlanNameRanDom);
+            expect(existsInDB).toBeTruthy();
+        });
     });
 
-    test('Add shift plan for a employee', async ({ page }) => {
-        const shiftPlanNameRanDom = `Automation test add sift plan for a employee ${randomSuffix}`;
+    test('Add shift plan for an employee', async ({ page }) => {
+        allure.story('Add Shift Plan for Employee Story');
+        const shiftPlanNameRanDom = `Automation test add shift plan for an employee ${randomSuffix}`;
 
-        await homePage.clickTimeKeepingManagement();
-        await shiftPlanPage.clickShiftPlanButton();
-        await shiftPlanPage.clickAddButton();
-        await shiftPlanPage.fillShiftPlanNameInput(shiftPlanNameRanDom);
-        await shiftPlanPage.clickWorkShift();
-        await shiftPlanPage.clickWorkShiftOption();
+        await allure.step('Navigate to Shift Plan page', async () => {
+            await homePage.clickTimeKeepingManagement();
+            await shiftPlanPage.clickShiftPlanButton();
+        });
 
-        await shiftPlanPage.clickStartDateInput();
-        await shiftPlanPage.clickChosseMonthButton();
-        await shiftPlanPage.clickMonth07Button();
-        await shiftPlanPage.clickDay1Button();
-        await shiftPlanPage.clickChosseButton();
+        await allure.step('Fill Shift Plan form for employee', async () => {
+            await shiftPlanPage.clickAddButton();
+            await shiftPlanPage.fillShiftPlanNameInput(shiftPlanNameRanDom);
+            await shiftPlanPage.clickWorkShift();
+            await shiftPlanPage.clickWorkShiftOption();
 
-        await shiftPlanPage.clickEndDateInput();
-        await shiftPlanPage.clickChosseMonthButton();
-        await shiftPlanPage.clickMonth07Button();
-        await shiftPlanPage.clickDay31Button();
-        await shiftPlanPage.clickChosseButton();
+            await shiftPlanPage.clickStartDateInput();
+            await shiftPlanPage.clickChosseMonthButton();
+            await shiftPlanPage.clickMonth07Button();
+            await shiftPlanPage.clickDay1Button();
+            await shiftPlanPage.clickChosseButton();
 
-        await shiftPlanPage.clickAddDepartmentButton();
-        await shiftPlanPage.fillSearchEmployeeInput('Nguyễn Văn Minh');
-        await shiftPlanPage.clickEmployeeCheckbox();
-        await shiftPlanPage.clickSaveEmployeeButton();
+            await shiftPlanPage.clickEndDateInput();
+            await shiftPlanPage.clickChosseMonthButton();
+            await shiftPlanPage.clickMonth07Button();
+            await shiftPlanPage.clickDay31Button();
+            await shiftPlanPage.clickChosseButton();
 
-        await shiftPlanPage.clickSaveButton();
-        await shiftPlanPage.getToastAdd('Thêm thành công');
+            await shiftPlanPage.clickAddDepartmentButton();
+            await shiftPlanPage.fillSearchEmployeeInput('Nguyễn Văn Minh');
+            await shiftPlanPage.clickEmployeeCheckbox();
+            await shiftPlanPage.clickSaveEmployeeButton();
 
-        // Kiểm tra trong database
-        const existsInDB = await checkShiftPlanExists(shiftPlanNameRanDom);
-        expect(existsInDB).toBeTruthy();
+            await shiftPlanPage.clickSaveButton();
+            await shiftPlanPage.getToastAdd('Thêm thành công');
+        });
 
+        await allure.step('Verify shift plan added in DB', async () => {
+            const existsInDB = await checkShiftPlanExists(shiftPlanNameRanDom);
+            expect(existsInDB).toBeTruthy();
+        });
     });
-
 
     test('Save shift plan with empty shift plan name and work shift', async ({ page }) => {
+        allure.story('Validate Required Fields Story');
 
-        await homePage.clickTimeKeepingManagement();
-        await shiftPlanPage.clickShiftPlanButton();
-        await shiftPlanPage.clickAddButton();
-        await shiftPlanPage.clickSaveButton();
-        await shiftPlanPage.getRequiredFieldNameShift('Nhập tên bảng phân ca');
-        await shiftPlanPage.getRequiredFieldNameWorkShift('Nhập ca làm việc');
+        await allure.step('Navigate to Shift Plan page', async () => {
+            await homePage.clickTimeKeepingManagement();
+            await shiftPlanPage.clickShiftPlanButton();
+        });
+
+        await allure.step('Try saving empty shift plan', async () => {
+            await shiftPlanPage.clickAddButton();
+            await shiftPlanPage.clickSaveButton();
+        });
+
+        await allure.step('Verify required field warnings', async () => {
+            await shiftPlanPage.getRequiredFieldNameShift('Nhập tên bảng phân ca');
+            await shiftPlanPage.getRequiredFieldNameWorkShift('Nhập ca làm việc');
+        });
     });
-
 
     test('Delete shift plan', async ({ page }) => {
-        await homePage.clickTimeKeepingManagement();
-        await shiftPlanPage.clickShiftPlanButton();
-        await shiftPlanPage.clickChooseMonthSearch();
-        await shiftPlanPage.clickMonth07Button();
-        await shiftPlanPage.clickChosseButton();
-        await shiftPlanPage.clickSearchButton();
-        await shiftPlanPage.clickDeleteButton();
-        await shiftPlanPage.clickOkButton();
-        await shiftPlanPage.getToastDelete('Xóa thành công');
+        allure.story('Delete Shift Plan Story');
+
+        await allure.step('Navigate to Shift Plan page', async () => {
+            await homePage.clickTimeKeepingManagement();
+            await shiftPlanPage.clickShiftPlanButton();
+        });
+
+        await allure.step('Search and delete shift plan', async () => {
+            await shiftPlanPage.clickChooseMonthSearch();
+            await shiftPlanPage.clickMonth07Button();
+            await shiftPlanPage.clickChosseButton();
+            await shiftPlanPage.clickSearchButton();
+            await shiftPlanPage.clickDeleteButton();
+            await shiftPlanPage.clickOkButton();
+            await shiftPlanPage.getToastDelete('Xóa thành công');
+        });
     });
-
-
 
 });

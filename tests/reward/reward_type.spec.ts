@@ -1,24 +1,23 @@
 import { test, expect, TestInfo } from '@playwright/test';
-
 import { takeScreenshotOnFailure } from '../../utils/screenshotUtils';
-import { LoginPage } from '..//../pages/LoginPage';
+import { LoginPage } from '../../pages/LoginPage';
 import { RewardTypePage } from '../../pages/reward_page/RewardTypePage';
-import Config from '..//../utils/configUtils';
+import Config from '../../utils/configUtils';
 import { ToastPage } from '../../pages/ToastPage';
 import { HomePage } from '../../pages/HomePage';
 import { clearAllRewardType } from '../../utils/mysqlUtils';
 import { allure } from 'allure-playwright';
 
-test.describe.serial('Reward Type', () => {
-
+test.describe.serial('Reward Type Tests', () => {
     let loginPage: LoginPage;
     let rewardTypePage: RewardTypePage;
     let toast: ToastPage;
     let homePage: HomePage;
 
     test.beforeEach(async ({ page }) => {
+  
+        allure.feature('Reward Type Feature');
         allure.owner('Minh Nguyen');
-        allure.feature('Reward Feature');
         allure.severity('Critical');
 
         homePage = new HomePage(page);
@@ -33,137 +32,165 @@ test.describe.serial('Reward Type', () => {
     });
 
     test('Add reward type with empty name', async ({ page }) => {
-
-        await clearAllRewardType();
-        await loginPage.login(Config.admin_username, Config.admin_password);
-        await homePage.clickAdmin();
-        await rewardTypePage.clickRewardTypeButton();
-        await rewardTypePage.clickAddButton();
-        await rewardTypePage.clickSaveButton();
-        await rewardTypePage.getRequiredRewardTypeName();
-
+        allure.story('Validation for Required Fields');
+        await allure.step('Clear all reward types', async () => {
+            await clearAllRewardType();
+        });
+        await allure.step('Try to add reward type with empty name', async () => {
+            await loginPage.login(Config.admin_username, Config.admin_password);
+            await homePage.clickAdmin();
+            await rewardTypePage.clickRewardTypeButton();
+            await rewardTypePage.clickAddButton();
+            await rewardTypePage.clickSaveButton();
+            await rewardTypePage.getRequiredRewardTypeName();
+        });
     });
 
     test('Add reward type with valid data', async ({ page }) => {
+        allure.story('Add Reward Type Successfully');
         const randomSuffix = Math.random().toString(36).substring(2, 8);
         const rewardTypeName = `Test Reward Type ${randomSuffix}`;
-        await loginPage.login(Config.admin_username, Config.admin_password);
-        await homePage.clickAdmin();
-        await rewardTypePage.clickRewardTypeButton();
-        await rewardTypePage.clickAddButton();
-        await rewardTypePage.fillRewardTypeNameInput(rewardTypeName);
-        await rewardTypePage.fillDescriptionInput('Test Description');
-        await rewardTypePage.clickSaveButton();
-        await toast.getToastAddSuccess();
 
+        await allure.step('Add new reward type with valid data', async () => {
+            await loginPage.login(Config.admin_username, Config.admin_password);
+            await homePage.clickAdmin();
+            await rewardTypePage.clickRewardTypeButton();
+            await rewardTypePage.clickAddButton();
+            await rewardTypePage.fillRewardTypeNameInput(rewardTypeName);
+            await rewardTypePage.fillDescriptionInput('Test Description');
+            await rewardTypePage.clickSaveButton();
+        });
+        await toast.getToastAddSuccess();
     });
 
     test('Add reward type with duplicate name', async ({ page }) => {
-        await loginPage.login(Config.admin_username, Config.admin_password);
-        await homePage.clickAdmin();
-        await rewardTypePage.clickRewardTypeButton();
-        await rewardTypePage.clickAddButton();
-        await rewardTypePage.fillRewardTypeNameInput('Khen thưởng 1');
-        await rewardTypePage.fillDescriptionInput('Test Description');
-        await rewardTypePage.clickSaveButton();
+        allure.story('Validation for Duplicate Reward Type');
+
+        await allure.step('Try to add reward type with an existing name', async () => {
+            await loginPage.login(Config.admin_username, Config.admin_password);
+            await homePage.clickAdmin();
+            await rewardTypePage.clickRewardTypeButton();
+            await rewardTypePage.clickAddButton();
+            await rewardTypePage.fillRewardTypeNameInput('Khen thưởng 1');
+            await rewardTypePage.fillDescriptionInput('Test Description');
+            await rewardTypePage.clickSaveButton();
+        });
         await rewardTypePage.VerifyDuplicateNameError();
         await toast.getToastAddFailed();
     });
 
-
-
     test('Add Reward Type with empty description', async ({ page }) => {
+        allure.story('Add Reward Type Without Description');
         const randomSuffix = Math.random().toString(36).substring(2, 8);
         const rewardTypeName = `Test Reward Type ${randomSuffix}`;
-        await loginPage.login(Config.admin_username, Config.admin_password);
-        await homePage.clickAdmin();
-        await rewardTypePage.clickRewardTypeButton();
-        await rewardTypePage.clickAddButton();
-        await rewardTypePage.fillRewardTypeNameInput(rewardTypeName);
-        await rewardTypePage.clickStatusDropdownFormAdd();
-        await rewardTypePage.clickStatusLock();
-        await rewardTypePage.clickSaveButton();
+
+        await allure.step('Add reward type with empty description and lock status', async () => {
+            await loginPage.login(Config.admin_username, Config.admin_password);
+            await homePage.clickAdmin();
+            await rewardTypePage.clickRewardTypeButton();
+            await rewardTypePage.clickAddButton();
+            await rewardTypePage.fillRewardTypeNameInput(rewardTypeName);
+            await rewardTypePage.clickStatusDropdownFormAdd();
+            await rewardTypePage.clickStatusLock();
+            await rewardTypePage.clickSaveButton();
+        });
         await toast.getToastAddSuccess();
     });
 
     test('Add Reward Type with lock status', async ({ page }) => {
+        allure.story('Add Reward Type with Lock Status');
         const randomSuffix = Math.random().toString(36).substring(2, 8);
         const rewardTypeName = `Test Reward Type ${randomSuffix}`;
-        await loginPage.login(Config.admin_username, Config.admin_password);
-        await homePage.clickAdmin();
-        await rewardTypePage.clickRewardTypeButton();
-        await rewardTypePage.clickAddButton();
-        await rewardTypePage.fillRewardTypeNameInput(rewardTypeName);
-        await rewardTypePage.fillDescriptionInput('Test Description');
-        await rewardTypePage.clickStatusDropdownFormAdd();
-        await rewardTypePage.clickStatusLock();
-        await rewardTypePage.clickSaveButton();
+
+        await allure.step('Add reward type with lock status', async () => {
+            await loginPage.login(Config.admin_username, Config.admin_password);
+            await homePage.clickAdmin();
+            await rewardTypePage.clickRewardTypeButton();
+            await rewardTypePage.clickAddButton();
+            await rewardTypePage.fillRewardTypeNameInput(rewardTypeName);
+            await rewardTypePage.fillDescriptionInput('Test Description');
+            await rewardTypePage.clickStatusDropdownFormAdd();
+            await rewardTypePage.clickStatusLock();
+            await rewardTypePage.clickSaveButton();
+        });
         await toast.getToastAddSuccess();
     });
 
-
     test('Edit description', async ({ page }) => {
-        await loginPage.login(Config.admin_username, Config.admin_password);
-        await homePage.clickAdmin();
-        await rewardTypePage.clickRewardTypeButton();
-        await rewardTypePage.clickEditButton();
-        await rewardTypePage.fillDescriptionInput('Edit Description');
-        await rewardTypePage.clickSaveButton();
+        allure.story('Edit Reward Type Description');
+        await allure.step('Edit reward type description', async () => {
+            await loginPage.login(Config.admin_username, Config.admin_password);
+            await homePage.clickAdmin();
+            await rewardTypePage.clickRewardTypeButton();
+            await rewardTypePage.clickEditButton();
+            await rewardTypePage.fillDescriptionInput('Edit Description');
+            await rewardTypePage.clickSaveButton();
+        });
         await toast.getToastUpdateSuccess();
     });
 
-    test('Edit activty status to lock', async ({ page }) => {
-        await loginPage.login(Config.admin_username, Config.admin_password);
-        await homePage.clickAdmin();
-        await rewardTypePage.clickRewardTypeButton();
-        await rewardTypePage.clickEditButton();
-
+    test('Edit activity status to lock', async ({ page }) => {
+        allure.story('Edit Reward Type Status');
+        await allure.step('Open reward type edit form', async () => {
+            await loginPage.login(Config.admin_username, Config.admin_password);
+            await homePage.clickAdmin();
+            await rewardTypePage.clickRewardTypeButton();
+            await rewardTypePage.clickEditButton();
+        });
+        
     });
 
     test('Delete reward type', async ({ page }) => {
-        await loginPage.login(Config.admin_username, Config.admin_password);
-        await homePage.clickAdmin();
-        await rewardTypePage.clickRewardTypeButton();
-        await rewardTypePage.clickDeleteButton();
-        await rewardTypePage.clickYesButton();
+        allure.story('Delete Reward Type');
+        await allure.step('Delete a reward type', async () => {
+            await loginPage.login(Config.admin_username, Config.admin_password);
+            await homePage.clickAdmin();
+            await rewardTypePage.clickRewardTypeButton();
+            await rewardTypePage.clickDeleteButton();
+            await rewardTypePage.clickYesButton();
+        });
         await toast.getToastDeleteSuccess();
     });
 
     test('Search by name and status', async ({ page }) => {
-        await clearAllRewardType();
-        await loginPage.login(Config.admin_username, Config.admin_password);
-        await homePage.clickAdmin();
-        await rewardTypePage.clickRewardTypeButton();
-        await rewardTypePage.fillInputSearch('Khen thưởng');
-        await rewardTypePage.clickSearchButton();
-        await rewardTypePage.getResultSearch();
-        await rewardTypePage.clickClearSearch();
+        allure.story('Search Reward Type by Multiple Criteria');
+        await allure.step('Clear all reward types before search', async () => {
+            await clearAllRewardType();
+        });
 
-        // Search by lock status
-        await rewardTypePage.clickStatusDropdownSearch();
-        await rewardTypePage.clickStatusLock();
-        await rewardTypePage.clickSearchButton();
-        await rewardTypePage.VerifyLockStatus();
-        await rewardTypePage.clickClearSearch();
+        await allure.step('Search by name', async () => {
+            await loginPage.login(Config.admin_username, Config.admin_password);
+            await homePage.clickAdmin();
+            await rewardTypePage.clickRewardTypeButton();
+            await rewardTypePage.fillInputSearch('Khen thưởng');
+            await rewardTypePage.clickSearchButton();
+            await rewardTypePage.getResultSearch();
+            await rewardTypePage.clickClearSearch();
+        });
 
-        // Search by activity status
-        await rewardTypePage.clickStatusDropdownSearch();
-        await rewardTypePage.clickStatusActivity();
-        await rewardTypePage.clickSearchButton();
-        await rewardTypePage.VerifyActivityStatus();
-        await rewardTypePage.clickClearSearch();
+        await allure.step('Search by lock status', async () => {
+            await rewardTypePage.clickStatusDropdownSearch();
+            await rewardTypePage.clickStatusLock();
+            await rewardTypePage.clickSearchButton();
+            await rewardTypePage.VerifyLockStatus();
+            await rewardTypePage.clickClearSearch();
+        });
 
-        // Search by lock status and activity status
-        await rewardTypePage.clickStatusDropdownSearch();
-        await rewardTypePage.clickStatusLock();
-        await rewardTypePage.clickStatusActivity();
-        await rewardTypePage.clickSearchButton();
-        await rewardTypePage.VerifyLockStatus();
-        await rewardTypePage.VerifyActivityStatus();
+        await allure.step('Search by activity status', async () => {
+            await rewardTypePage.clickStatusDropdownSearch();
+            await rewardTypePage.clickStatusActivity();
+            await rewardTypePage.clickSearchButton();
+            await rewardTypePage.VerifyActivityStatus();
+            await rewardTypePage.clickClearSearch();
+        });
 
+        await allure.step('Search by lock & activity status', async () => {
+            await rewardTypePage.clickStatusDropdownSearch();
+            await rewardTypePage.clickStatusLock();
+            await rewardTypePage.clickStatusActivity();
+            await rewardTypePage.clickSearchButton();
+            await rewardTypePage.VerifyLockStatus();
+            await rewardTypePage.VerifyActivityStatus();
+        });
     });
-
-
-
-
 });
