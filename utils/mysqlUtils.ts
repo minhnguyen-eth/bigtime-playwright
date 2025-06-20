@@ -51,7 +51,12 @@ export async function clearAllTables(): Promise<void> {
   await clearTable('evaluation_progress');
   await clearTable('evaluation_criterias');
   await clearTable('notifications');
+  await clearTable('reward_users');
   await clearAllAllowanceTypes();
+}
+
+export async function ClearAllRewardUsers() {
+  await clearTable('reward_users');
 }
 
 export async function clearAllNotifications() {

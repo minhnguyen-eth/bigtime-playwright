@@ -213,14 +213,16 @@ export class LeaveManagementPage {
     }
 
     async clickSelectAEmployee() {
-        await expect(this.selectAEmployee).toBeVisible();
+        await expect(this.selectAEmployee).toBeVisible(); // đợi visible
+        await expect(this.selectAEmployee).toBeEnabled(); // đợi enabled (không bị disabled)
         await this.selectAEmployee.click();
     }
+
 
     async fillSearchByName() {
         await this.page.waitForTimeout(1000);
         await expect(this.searchByName).toBeVisible();
-        await this.searchByName.fill('Minh');
+        await this.searchByName.fill('Nguyễn Văn Minh');
         await this.page.keyboard.press('Enter');
     }
 

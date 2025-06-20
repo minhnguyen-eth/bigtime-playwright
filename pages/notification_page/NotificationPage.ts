@@ -25,6 +25,9 @@ export class NotificationPage {
     readonly personnalOption: Locator;
     readonly personnalSearch: Locator;
     readonly personnalSelect: Locator;
+    readonly listNotification: Locator;
+    readonly deleteButton: Locator;
+    readonly yesButton: Locator;
 
 
 
@@ -32,6 +35,9 @@ export class NotificationPage {
     constructor(page: Page) {
         this.page = page;
 
+        this.yesButton = page.locator("//span[normalize-space()='Có']");
+        this.deleteButton = page.locator("//span[normalize-space()='Xóa']");
+        this.listNotification = page.locator("//div[contains(text(),'Danh sách thông báo')]");
         this.personnalSelect = page.locator("//div[3]/div/div[1]/table/tbody/tr/td[1]/div/div/div/input");
         this.personnalSearch = page.locator("//div[2]/div/div/div/div[4]/div/input");
         this.personnalOption = page.locator("//tbody/tr[1]/td[1]/div[1]/div[1]/div[1]/i[1]");
@@ -55,6 +61,19 @@ export class NotificationPage {
         this.description = page.locator("//div[2]/div/div[5]/div/div/div/div[3]/textarea");
         this.saveButton = page.locator("//span[contains(normalize-space(),'Lưu')]");
         this.cancelButton = page.locator("//span[contains(normalize-space(),'Hủy')]");
+    }
+
+
+    async clickOnYesButton() {
+        await this.yesButton.click();
+    }
+
+    async clickOnDeleteButton() {
+        await this.deleteButton.click();
+    }
+
+    async clickOnListNotification() {
+        await this.listNotification.click();
     }
 
     async clickOnPersonnalSelect() {

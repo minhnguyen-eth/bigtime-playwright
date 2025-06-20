@@ -15,7 +15,7 @@ test.describe.serial('Paysheet Tests', () => {
     let toastPage: ToastPage;
 
     test.beforeEach(async ({ page }) => {
-   
+
         allure.feature('Paysheet Feature');
         allure.owner('Minh Nguyen');
         allure.severity('Critical');
@@ -105,6 +105,7 @@ test.describe.serial('Paysheet Tests', () => {
         });
     });
 
+
     test('Search Paysheet', async ({ page }) => {
         allure.story('Search Paysheet Story');
 
@@ -169,5 +170,64 @@ test.describe.serial('Paysheet Tests', () => {
             await toastPage.getToastCancelSuccess();
         });
     });
+
+    test('Export excel by all current month', async ({ page }) => {
+        allure.story('Export Excel by Month Story');
+
+        await loginPage.login(Config.admin_username, Config.admin_password);
+        await homePage.clickSalary();
+        await paysheet.clickPaysheet();
+
+        await allure.step('Export excel by month', async () => {
+            await paysheet.clickExportExcelByMonth();
+            await paysheet.clickOk();
+            await toastPage.getToastExportSuccess();
+        });
+    });
+
+    test('Export excel by all month 05', async ({ page }) => {
+        allure.story('Export Excel by Month 05 Story');
+
+        await loginPage.login(Config.admin_username, Config.admin_password);
+        await homePage.clickSalary();
+        await paysheet.clickPaysheet();
+
+        await allure.step('Export excel by month 5  ', async () => {
+
+            await paysheet.clickAdd();
+            await paysheet.setNamePaysheet('Automation test');
+            await paysheet.clickCheckBoxMonthly();
+            await paysheet.clickChooseMonth();
+            await paysheet.clickMonthOption();
+            await paysheet.setNote('Automation test');
+            await paysheet.clickAndSetDropDownEmployee();
+            await paysheet.clickEmployeeOption();
+            await paysheet.clickSave();
+            await toastPage.getToastAddSuccess();
+            await paysheet.clickExportExcelByMonth();
+            await paysheet.clickChosseMonthExport();
+            await paysheet.clickMonth05();
+            await paysheet.clickChosseDatePicker();
+            await paysheet.clickOk();
+            await toastPage.getToastExportSuccess();
+        });
+    });
+
+    test('Export excel by only one paysheet', async ({ page }) => {
+        allure.story('Export Excel by 1 Paysheet Story');
+
+        await loginPage.login(Config.admin_username, Config.admin_password);
+        await homePage.clickSalary();
+        await paysheet.clickPaysheet();
+
+        await allure.step('Click export button of the lastest paysheet ', async () => {
+            
+            await paysheet.clickLatestPaysheetRow();
+            await paysheet.clickExportOnly1Paysheet();
+            await toastPage.getToastExportSuccess();
+        });
+    });
+
+
 
 });

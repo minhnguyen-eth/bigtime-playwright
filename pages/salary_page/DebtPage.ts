@@ -41,32 +41,17 @@ export class DebtPage {
     constructor(page: Page) {
         this.page = page;
 
-
         this.browseButton = page.locator("//span[contains(normalize-space(),'Duyệt')]");
         this.sendButton = page.locator("//span[contains(normalize-space(),'Gửi')]");
         this.iconAction = page.locator("//tr[@id='row-0']//i[@class='mdi mdi-format-list-group mdi v-icon notranslate v-theme--lightColor7 v-icon--size-default']");
         this.debtButton = page.locator("//div[contains(text(),'Tạm ứng')]");
-        this.toastAddSuccess = page.locator(
-            '//div[contains(text(),"Thêm thành công")]'
-        );
-        this.toastUpdateSuccess = page.locator(
-            '//div[contains(text(),"Cập nhật thành công")]'
-        );
-        this.toastDeleteSuccess = page.locator(
-            '//div[contains(text(),"Xóa thành công")]'
-        );
-        this.toastCancelSuccess = page.locator(
-            '//div[contains(text(),"Hủy thành công")]'
-        );
-        this.toastSendSuccess = page.locator(
-            '//div[contains(text(),"Đã gửi thành công")]'
-        );
-        this.toastBrowserSuccess = page.locator(
-            '//div[contains(text(),"Đã gửi thành công")]'
-        );
-        this.toastRefusedSuccess = page.locator(
-            '//div[contains(text(),"Từ chối thành công")]'
-        );
+        this.toastAddSuccess = page.locator( '//div[contains(text(),"Thêm thành công")]' );
+        this.toastUpdateSuccess = page.locator('//div[contains(text(),"Cập nhật thành công")]');
+        this.toastDeleteSuccess = page.locator('//div[contains(text(),"Xóa thành công")]'  );
+        this.toastCancelSuccess = page.locator('//div[contains(text(),"Hủy thành công")]'     );
+        this.toastSendSuccess = page.locator('//div[contains(text(),"Đã gửi thành công")]'   );
+        this.toastBrowserSuccess = page.locator('//div[contains(text(),"Đã gửi thành công")]'     );
+        this.toastRefusedSuccess = page.locator('//div[contains(text(),"Từ chối thành công")]'   );
         this.addButton = page.locator("//span[normalize-space()='Thêm']");
         this.searchButton = page.locator("//span[normalize-space()='Tìm kiếm']");
         this.saveButton = page.locator("//span[normalize-space()='Lưu']");
@@ -75,9 +60,7 @@ export class DebtPage {
         this.requiredErrorAmountMessage = page.getByText("Nhập số tiền");
         this.requiredErrorNoteMessage = page.getByText("Nhập ghi chú");
         this.requiredErrorReasonMessage = page.getByText("Nhập lý do");
-        this.inputName = page.getByRole("textbox", {
-            name: "Chọn nhân viên ※ Chọn nhân vi",
-        });
+        this.inputName = page.getByRole("textbox", {name: "Chọn nhân viên ※ Chọn nhân vi", });
         this.chosenName = page.getByText("BAT810-Nguyễn Văn Minh");
         this.inputAmount = page.locator("//div[2]/div/div[2]/div/div[2]/div/div/div/div[3]/input");
         this.inputNote = page.getByRole("textbox", { name: "Ghi chú ※ Ghi chú ※" });

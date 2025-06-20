@@ -2,57 +2,69 @@ import { Locator, Page, expect } from '@playwright/test';
 
 export class PaysheetPage {
     readonly page: Page;
-    readonly  cancelButton: Locator;
-    readonly  paysheetButton: Locator;
-    readonly  addButton: Locator;
-    readonly  namePaysheetInput: Locator;
-    readonly  setNamePaysheetInput: Locator;
-    readonly  radioMonthly: Locator;
-    readonly  dropdownMonth: Locator;
-    readonly  monthOption: Locator;
-    readonly  dropdownEmployee: Locator;
-    readonly  employeeOption: Locator;
-    readonly  saveButton: Locator;
-    readonly  logoutButton: Locator;
-    readonly  logoutConfirmButton: Locator;
-    readonly  submitButton: Locator;
-    readonly  latestPaysheetRow: Locator;
-    readonly  viewPayrollButton: Locator;
-    readonly  sendAllButton: Locator;
-    readonly  confirm2Button: Locator;
-    readonly  noteInput: Locator;
-    readonly  payslipButton: Locator;
-    readonly  salarySlipCode: Locator;
-    readonly  browseButton: Locator;
-    readonly  okButton: Locator;
-    readonly  salaryClosingButton: Locator;
-    readonly  confirmButton: Locator;
-    readonly  exportDataButton: Locator;
-    readonly  refreshButton: Locator;
-    readonly  paymentHistoryButton: Locator;
-    readonly  historyPaymentCodeButton: Locator;
-    readonly  employeeNameLabel: Locator;
-    readonly  cancelPaysheetButton: Locator;
-    readonly  searchLabel: Locator;
-    readonly  verifyPaysheetIdCell: Locator;
-    readonly  selectAllEmployeesCheckbox: Locator;
-    readonly  reasonInput: Locator;
-    readonly  reasonLabel: Locator;
-    readonly  toastAddSuccess: Locator;
-    readonly  toastCancelSuccess: Locator;
-    readonly  toastExportSuccess: Locator;
-    readonly  createTicketButton: Locator;
-    readonly  paymentButton: Locator;
-    readonly  checkBoxMonthly: Locator;
-    readonly  chooseMonth: Locator;
-    readonly  employeeNameInput: Locator;
-    readonly  payslipPayment: Locator;
-    readonly  requiredEnterName: Locator;
-    readonly  searchButton: Locator;
-    readonly  searchEmployeeName: Locator;
+    readonly cancelButton: Locator;
+    readonly paysheetButton: Locator;
+    readonly addButton: Locator;
+    readonly namePaysheetInput: Locator;
+    readonly setNamePaysheetInput: Locator;
+    readonly radioMonthly: Locator;
+    readonly dropdownMonth: Locator;
+    readonly monthOption: Locator;
+    readonly dropdownEmployee: Locator;
+    readonly employeeOption: Locator;
+    readonly saveButton: Locator;
+    readonly logoutButton: Locator;
+    readonly logoutConfirmButton: Locator;
+    readonly submitButton: Locator;
+    readonly latestPaysheetRow: Locator;
+    readonly viewPayrollButton: Locator;
+    readonly sendAllButton: Locator;
+    readonly confirm2Button: Locator;
+    readonly noteInput: Locator;
+    readonly payslipButton: Locator;
+    readonly salarySlipCode: Locator;
+    readonly browseButton: Locator;
+    readonly okButton: Locator;
+    readonly salaryClosingButton: Locator;
+    readonly confirmButton: Locator;
+    readonly exportDataButton: Locator;
+    readonly refreshButton: Locator;
+    readonly paymentHistoryButton: Locator;
+    readonly historyPaymentCodeButton: Locator;
+    readonly employeeNameLabel: Locator;
+    readonly cancelPaysheetButton: Locator;
+    readonly searchLabel: Locator;
+    readonly verifyPaysheetIdCell: Locator;
+    readonly selectAllEmployeesCheckbox: Locator;
+    readonly reasonInput: Locator;
+    readonly reasonLabel: Locator;
+    readonly toastAddSuccess: Locator;
+    readonly toastCancelSuccess: Locator;
+    readonly toastExportSuccess: Locator;
+    readonly createTicketButton: Locator;
+    readonly paymentButton: Locator;
+    readonly checkBoxMonthly: Locator;
+    readonly chooseMonth: Locator;
+    readonly employeeNameInput: Locator;
+    readonly payslipPayment: Locator;
+    readonly requiredEnterName: Locator;
+    readonly searchButton: Locator;
+    readonly searchEmployeeName: Locator;
+    readonly exportExcelByMonth: Locator;
+    readonly chosseMonthExport: Locator;
+    readonly Month05: Locator;
+    readonly chosseDatePicker: Locator;
+    readonly exportOnly1Paysheet: Locator;
+    readonly monthOption05: Locator;
+
 
     constructor(page: Page) {
         this.page = page;
+        this.exportOnly1Paysheet = page.locator("//button[@class='v-btn v-theme--lightColor7 bg-success v-btn--density-default rounded-lg v-btn--size-x-small v-btn--variant-flat mr-2']//span[@class='v-btn__content']")
+        this.chosseDatePicker = page.locator("//button[contains(text(),'Chọn')]")
+        this.Month05 = page.locator("//div[@class='dp__overlay_cell dp__overlay_cell_pad'][normalize-space()='Thg 5']")
+        this.chosseMonthExport = page.locator("//div[2]/div/div/div/div/div[1]/div/div/div[3]/input")
+        this.exportExcelByMonth = page.locator("//span[.=' Xuất dữ liệu']")
         this.searchButton = page.locator("//span[.=' Tìm kiếm']")
         this.requiredEnterName = page.locator("//div[contains(text(),'Nhập tên')]")
         this.payslipPayment = page.locator("//span[normalize-space()='Phiếu lương']")
@@ -67,6 +79,7 @@ export class PaysheetPage {
         this.radioMonthly = page.locator('//i[contains(@class,"mdi-radiobox-blank")]');
         this.dropdownMonth = page.locator('//i[@title="Open"]');
         this.monthOption = page.locator('//div[@class="v-list-item-title"][normalize-space()="1/6/2025 - 30/6/2025"]');
+        this.monthOption05 = page.locator('//div[@class="v-list-item-title"][normalize-space()="1/5/2025 - 31/5/2025"]');
         this.dropdownEmployee = page.locator("//div[@class='v-field v-field--appended v-field--center-affix v-field--variant-outlined v-theme--lightColor7 v-locale--is-ltr']//div[@class='v-field__input']");
         this.employeeOption = page.locator("//div[@role='option']//div[@class='v-list-item-title']");
         this.saveButton = page.locator('//button[@type="submit"]//span[@class="v-btn__content"]');
@@ -98,14 +111,36 @@ export class PaysheetPage {
         this.paymentButton = page.locator('//span[contains(normalize-space(),"Thanh toán")]');
         this.createTicketButton = page.locator('//span[contains(normalize-space(),"Tạo phiếu")]');
 
-        // Toasts
-        this.toastAddSuccess = page.locator('//div[contains(text(),"Thêm thành công")]');
-        this.toastCancelSuccess = page.locator('//div[contains(text(),"Hủy thành công")]');
-        this.toastExportSuccess = page.locator('//div[contains(text(),"Xuất thành công")]');
 
 
     }
-    async Logout(){
+
+    async clickMonthOption05() {
+        await this.monthOption05.click();
+    }
+
+    async clickExportOnly1Paysheet() {
+        await this.exportOnly1Paysheet.click();
+    }
+
+    async clickChosseDatePicker() {
+        await this.chosseDatePicker.click();
+    }
+
+    async clickMonth05() {
+        await this.Month05.click();
+    }
+
+    async clickChosseMonthExport() {
+        await this.chosseMonthExport.click();
+    }
+
+    async clickExportExcelByMonth() {
+        await this.exportExcelByMonth.click();
+    }
+
+
+    async Logout() {
         await this.logoutButton.click();
         await this.logoutConfirmButton.click();
     }

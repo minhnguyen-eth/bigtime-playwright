@@ -16,7 +16,7 @@ test.describe.serial('Notification Test Suite', () => {
     let homePage: HomePage;
 
     test.beforeEach(async ({ page }) => {
-     
+
         allure.feature('Notification Feature');
         allure.owner('Minh Nguyen');
         allure.severity('Normal');
@@ -164,6 +164,18 @@ test.describe.serial('Notification Test Suite', () => {
             await notificationPage.clickOnSaveButton();
         });
         await toast.getToastSendNotificationSuccess();
+    });
+
+    test('Delete notification', async ({ page }) => {
+        allure.story('Delete Notification');
+        await allure.step('Delete notification', async () => {
+            await loginPage.login(Config.admin_username, Config.admin_password);
+            await homePage.clickAdmin();
+            await notificationPage.clickOnListNotification();
+            await notificationPage.clickOnDeleteButton();
+            await notificationPage.clickOnYesButton();
+        });
+        await toast.getToastDeleteSuccess();
     });
 
 });
