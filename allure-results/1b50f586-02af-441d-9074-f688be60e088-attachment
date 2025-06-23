@@ -1,0 +1,328 @@
+# Page snapshot
+
+```yaml
+- banner:
+  - button
+  - text: Bigtime Stagin Environment
+  - button "Quản lý":
+    - paragraph: Quản lý
+  - button "Chấm công":
+    - paragraph: Chấm công
+  - button "Lương":
+    - paragraph: Lương
+  - button "Cài đặt":
+    - paragraph: Cài đặt
+  - img
+  - text: Admin
+  - button "Badge":
+    - status "Badge"
+  - button
+  - button "Đăng xuất"
+- banner:
+  - text: Version 1.0.23
+  - list:
+    - listitem "English":
+      - img
+    - listitem "Tiếng Việt":
+      - img
+  - button
+- navigation:
+  - listbox:
+    - link "Trung tâm":
+      - /url: /dashboard-admin
+    - separator
+    - text: Thông báo
+    - link "Quản lý thông báo":
+      - /url: /notification
+    - link "Danh sách thông báo":
+      - /url: /list-notification
+    - separator
+    - text: Đánh giá
+    - link "Phân loại đánh giá":
+      - /url: /evaluation-type
+    - link "Tiêu chí đánh giá":
+      - /url: /evaluation-criteria
+    - link "Quy trình đánh giá":
+      - /url: /evaluation-progress
+    - link "Danh sách đánh giá":
+      - /url: /list-evaluation
+    - separator
+    - text: Khen thưởng
+    - link "Loại khen thưởng":
+      - /url: /reward-type
+    - link "Khen thưởng nhân viên":
+      - /url: /reward-user
+    - separator
+    - text: Chung
+    - link "Quản lý nghỉ phép năm":
+      - /url: /leave-management
+    - link "Quản lý ngày nghỉ":
+      - /url: /holiday-management
+    - link "Đơn thôi việc":
+      - /url: /resignation
+    - link "Chi nhánh":
+      - /url: /branch
+    - link "Bộ phận":
+      - /url: /department
+    - link "Chức vụ":
+      - /url: /position
+    - link "Cấp bậc":
+      - /url: /level
+    - link "Nhóm":
+      - /url: /team
+    - separator
+    - text: Hợp đồng
+    - link "Hợp đồng":
+      - /url: /contract
+    - link "Điều khoản":
+      - /url: /term
+    - separator
+    - text: Thống kê
+    - link "Thống kê hợp đồng":
+      - /url: /contract-statistic
+    - separator
+    - text: Quản lý nhân viên
+    - link "Nhân viên":
+      - /url: /user
+- main:
+  - text: Nhân viên
+  - button "Làm mới"
+  - button "Thêm"
+  - text: Mã nhân viên
+  - textbox "Mã nhân viên Mã nhân viên"
+  - text: Tên nhân viên
+  - textbox "Tên nhân viên Tên nhân viên"
+  - combobox:
+    - text: Giới tính
+    - textbox "Open"
+  - button "Tìm kiếm"
+  - button "Xóa"
+  - table:
+    - rowgroup:
+      - row "# Mã nhân viên Tên nhân viên Giới tính Loại nhân viên":
+        - columnheader "#"
+        - columnheader "Mã nhân viên"
+        - columnheader "Tên nhân viên"
+        - columnheader "Giới tính"
+        - columnheader "Loại nhân viên"
+    - rowgroup:
+      - row "1 BAT100000 Automation test Nữ Staff":
+        - cell "1"
+        - cell "BAT100000"
+        - cell "Automation test"
+        - cell "Nữ"
+        - cell "Staff"
+      - row "2 BAT810 Nguyễn Văn Minh Nữ Staff":
+        - cell "2"
+        - cell "BAT810"
+        - cell "Nguyễn Văn Minh"
+        - cell "Nữ"
+        - cell "Staff"
+      - row "3 admin admin Nữ Staff":
+        - cell "3"
+        - cell "admin"
+        - cell "admin"
+        - cell "Nữ"
+        - cell "Staff"
+      - row "4 BAT100 Quản lý bộ phận IT Nữ Admin":
+        - cell "4"
+        - cell "BAT100"
+        - cell "Quản lý bộ phận IT"
+        - cell "Nữ"
+        - cell "Admin"
+      - row "5 U0046 User 46 Nữ 0":
+        - cell "5"
+        - cell "U0046"
+        - cell "User 46"
+        - cell "Nữ"
+        - cell "0"
+      - row "6 U0073 User 73 Nam 0":
+        - cell "6"
+        - cell "U0073"
+        - cell "User 73"
+        - cell "Nam"
+        - cell "0"
+      - row "7 U0057 User 57 Nam 0":
+        - cell "7"
+        - cell "U0057"
+        - cell "User 57"
+        - cell "Nam"
+        - cell "0"
+      - row "8 U0084 User 84 Nữ 0":
+        - cell "8"
+        - cell "U0084"
+        - cell "User 84"
+        - cell "Nữ"
+        - cell "0"
+      - row "9 U0007 User 7 Nam 0":
+        - cell "9"
+        - cell "U0007"
+        - cell "User 7"
+        - cell "Nam"
+        - cell "0"
+      - row "10 U0095 User 95 Nam 0":
+        - cell "10"
+        - cell "U0095"
+        - cell "User 95"
+        - cell "Nam"
+        - cell "0"
+      - row "11 U0019 User 19 Nam 0":
+        - cell "11"
+        - cell "U0019"
+        - cell "User 19"
+        - cell "Nam"
+        - cell "0"
+      - row "12 U0030 User 30 Nữ 0":
+        - cell "12"
+        - cell "U0030"
+        - cell "User 30"
+        - cell "Nữ"
+        - cell "0"
+      - row "13 U0041 User 41 Nam 0":
+        - cell "13"
+        - cell "U0041"
+        - cell "User 41"
+        - cell "Nam"
+        - cell "0"
+      - row "14 U0068 User 68 Nữ 0":
+        - cell "14"
+        - cell "U0068"
+        - cell "User 68"
+        - cell "Nữ"
+        - cell "0"
+      - row "15 U0052 User 52 Nữ 0":
+        - cell "15"
+        - cell "U0052"
+        - cell "User 52"
+        - cell "Nữ"
+        - cell "0"
+      - row "16 U0079 User 79 Nam 0":
+        - cell "16"
+        - cell "U0079"
+        - cell "User 79"
+        - cell "Nam"
+        - cell "0"
+      - row "17 U0002 User 2 Nữ 0":
+        - cell "17"
+        - cell "U0002"
+        - cell "User 2"
+        - cell "Nữ"
+        - cell "0"
+      - row "18 U0063 User 63 Nam 0":
+        - cell "18"
+        - cell "U0063"
+        - cell "User 63"
+        - cell "Nam"
+        - cell "0"
+      - row "19 U0090 User 90 Nữ 0":
+        - cell "19"
+        - cell "U0090"
+        - cell "User 90"
+        - cell "Nữ"
+        - cell "0"
+      - row "20 U0014 User 14 Nữ 0":
+        - cell "20"
+        - cell "U0014"
+        - cell "User 14"
+        - cell "Nữ"
+        - cell "0"
+  - text: Tổng 120, Hiển thị
+  - combobox:
+    - text: "20"
+    - textbox "Open": "20"
+  - navigation "Pagination Navigation":
+    - list:
+      - listitem:
+        - button "Previous page" [disabled]
+      - listitem:
+        - button "Page 1, Current page": "1"
+      - listitem:
+        - button "Go to page 2": "2"
+      - listitem:
+        - button "Go to page 3": "3"
+      - listitem:
+        - button "Go to page 4": "4"
+      - listitem:
+        - button "Go to page 5": "5"
+      - listitem:
+        - button "Go to page 6": "6"
+      - listitem:
+        - button "Next page"
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- dialog:
+  - text: Thêm nhân viên
+  - tablist:
+    - tab "Thông tin cá nhân" [selected]
+    - tab "Thiết lập lương"
+  - alert:
+    - list:
+      - listitem: Địa chỉ email đã tồn tại.
+      - listitem: Mã nhân viên đã tồn tại.
+  - text: Thông tin cá nhân Hình
+  - img
+  - status "Badge"
+  - textbox "Mã nhân viên ※ Mã nhân viên ※": BAT100000
+  - textbox "Tên nhân viên ※ Tên nhân viên ※": Automation test
+  - text: Giới tính
+  - radiogroup:
+    - radio "Nam"
+    - text: Nam
+    - radio "Nữ" [checked]
+    - text: Nữ
+  - textbox "Email ※ Email ※": automationtest
+  - combobox:
+    - text: "@gmail.com"
+    - textbox "Open": "@gmail.com"
+  - combobox:
+    - text: Biên Hòa
+    - textbox "Tên chi nhánh ※ Tên chi nhánh ※": Biên Hòa
+    - button "Open": 󰍝
+  - checkbox "Cho phép chấm công bằng điện thoại"
+  - text: Cho phép chấm công bằng điện thoại
+  - textbox "Nhập mật khẩu ※ Nhập mật khẩu ※": "123456"
+  - button "appended action": 󰈉
+  - button
+  - textbox "Nhập lại mật khẩu ※ Nhập lại mật khẩu ※": "123456"
+  - button "appended action": 󰈉
+  - combobox:
+    - text: Bộ phận IT
+    - textbox "Thuộc bộ phận ※ Thuộc bộ phận ※": Bộ phận IT
+    - button "Clear": 󰅙
+    - button "Open": 󰍝
+  - combobox:
+    - text: Nhóm It1
+    - textbox "Tên nhóm ※ Tên nhóm ※"
+    - button "Clear": 󰅙
+    - button "Open": 󰍝
+  - combobox:
+    - text: Staff
+    - textbox "Loại nhân viên ※ Loại nhân viên ※": Staff
+    - button "Open": 󰍝
+  - combobox:
+    - text: Nhân viên
+    - textbox "Tên quyền ※ Tên quyền ※"
+    - button "Open": 󰍝
+  - button "Thông tin thêm"
+  - button "Lưu"
+  - button "Hủy"
+```

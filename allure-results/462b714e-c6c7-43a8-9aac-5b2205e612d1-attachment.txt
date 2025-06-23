@@ -1,0 +1,4 @@
+Đã xóa 0 dòng trong bảng evaluation_types, giữ lại các bản ghi có chứa 'Đánh giá' trong name.
+Tìm thấy 1 loại đánh giá với tên: Automation test 20most
+Đã xóa 1 loại đánh giá với tên: Automation test 20most
+Đã xóa loại đánh giá "Automation test 20most": true

@@ -1,0 +1,226 @@
+# Page snapshot
+
+```yaml
+- banner:
+  - button
+  - text: Bigtime Stagin Environment
+  - button "Quản lý":
+    - paragraph: Quản lý
+  - button "Chấm công":
+    - paragraph: Chấm công
+  - button "Lương":
+    - paragraph: Lương
+  - button "Cài đặt":
+    - paragraph: Cài đặt
+  - img
+  - text: Admin
+  - button "Badge":
+    - status "Badge"
+  - button
+  - button "Đăng xuất"
+- banner:
+  - text: Version 1.0.23
+  - list:
+    - listitem "English":
+      - img
+    - listitem "Tiếng Việt":
+      - img
+  - button
+- navigation:
+  - listbox:
+    - link "Trung tâm":
+      - /url: /dashboard-admin
+    - separator
+    - text: Thông báo
+    - link "Quản lý thông báo":
+      - /url: /notification
+    - link "Danh sách thông báo":
+      - /url: /list-notification
+    - separator
+    - text: Đánh giá
+    - link "Phân loại đánh giá":
+      - /url: /evaluation-type
+    - link "Tiêu chí đánh giá":
+      - /url: /evaluation-criteria
+    - link "Quy trình đánh giá":
+      - /url: /evaluation-progress
+    - link "Danh sách đánh giá":
+      - /url: /list-evaluation
+    - separator
+    - text: Khen thưởng
+    - link "Loại khen thưởng":
+      - /url: /reward-type
+    - link "Khen thưởng nhân viên":
+      - /url: /reward-user
+    - separator
+    - text: Chung
+    - link "Quản lý nghỉ phép năm":
+      - /url: /leave-management
+    - link "Quản lý ngày nghỉ":
+      - /url: /holiday-management
+    - link "Đơn thôi việc":
+      - /url: /resignation
+    - link "Chi nhánh":
+      - /url: /branch
+    - link "Bộ phận":
+      - /url: /department
+    - link "Chức vụ":
+      - /url: /position
+    - link "Cấp bậc":
+      - /url: /level
+    - link "Nhóm":
+      - /url: /team
+    - separator
+    - text: Hợp đồng
+    - link "Hợp đồng":
+      - /url: /contract
+    - link "Điều khoản":
+      - /url: /term
+    - separator
+    - text: Thống kê
+    - link "Thống kê hợp đồng":
+      - /url: /contract-statistic
+    - separator
+    - text: Quản lý nhân viên
+    - link "Nhân viên":
+      - /url: /user
+- main:
+  - text: Thông báo nội bộ
+  - button "Làm mới"
+  - button "Thêm"
+  - text: Tên thông báo
+  - textbox "Tên thông báo Tên thông báo"
+  - combobox:
+    - text: Hình thức thông báo
+    - textbox "Open"
+  - combobox:
+    - text: Trạng thái
+    - textbox "Open"
+  - button "Tìm kiếm"
+  - button "Xóa"
+  - table:
+    - rowgroup:
+      - row "# Tên thông báo Nội dung chi tiết Thời gian bắt đầu Thời gian kết thúc Hình thức thông báo Trạng thái Tình trạng Hành động":
+        - columnheader "#"
+        - columnheader "Tên thông báo"
+        - columnheader "Nội dung chi tiết"
+        - columnheader "Thời gian bắt đầu"
+        - columnheader "Thời gian kết thúc"
+        - columnheader "Hình thức thông báo"
+        - columnheader "Trạng thái"
+        - columnheader "Tình trạng"
+        - columnheader "Hành động"
+    - rowgroup:
+      - row "1 Thông báo Automation test 14-06-2025 14-06-2025 Khẩn cấp Hoạt động Đã gửi":
+        - cell "1"
+        - cell "Thông báo"
+        - cell "Automation test"
+        - cell "14-06-2025"
+        - cell "14-06-2025"
+        - cell "Khẩn cấp"
+        - cell "Hoạt động":
+          - button "Hoạt động"
+        - cell "Đã gửi"
+        - cell:
+          - button
+      - row "2 Thông báo Automation test 14-06-2025 14-06-2025 Lịch làm việc Hoạt động Chưa gửi":
+        - cell "2"
+        - cell "Thông báo"
+        - cell "Automation test"
+        - cell "14-06-2025"
+        - cell "14-06-2025"
+        - cell "Lịch làm việc"
+        - cell "Hoạt động":
+          - button "Hoạt động"
+        - cell "Chưa gửi"
+        - cell:
+          - button
+      - row "3 Thông báo Automation test 14-06-2025 14-06-2025 Ngày nghỉ Hoạt động Chưa gửi":
+        - cell "3"
+        - cell "Thông báo"
+        - cell "Automation test"
+        - cell "14-06-2025"
+        - cell "14-06-2025"
+        - cell "Ngày nghỉ"
+        - cell "Hoạt động":
+          - button "Hoạt động"
+        - cell "Chưa gửi"
+        - cell:
+          - button
+      - row "4 Thông báo Automation test 14-06-2025 14-06-2025 Sự kiện Hoạt động Chưa gửi":
+        - cell "4"
+        - cell "Thông báo"
+        - cell "Automation test"
+        - cell "14-06-2025"
+        - cell "14-06-2025"
+        - cell "Sự kiện"
+        - cell "Hoạt động":
+          - button "Hoạt động"
+        - cell "Chưa gửi"
+        - cell:
+          - button
+  - text: Tổng 4, Hiển thị
+  - combobox:
+    - text: "20"
+    - textbox "Open": "20"
+  - navigation "Pagination Navigation":
+    - list:
+      - listitem:
+        - button "Previous page" [disabled]
+      - listitem:
+        - button "Page 1, Current page" [disabled]: "1"
+      - listitem:
+        - button "Next page" [disabled]
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- dialog:
+  - text: Chi tiết thông báo
+  - separator
+  - text: Tên thông báo Thông báo Hình thức thông báo Khẩn cấp Thời gian bắt đầu 14-06-2025 Thời gian kết thúc 14-06-2025
+  - strong: "Nội dung chi tiết:"
+  - text: Automation test
+  - tablist:
+    - tab "Toàn công ty"
+    - tab "Bộ phận"
+    - tab "Cá nhân" [selected]
+    - textbox "Tìm kiếm theo mã, tên Tìm kiếm theo mã, tên": Minh
+    - button "󰅖"
+  - table:
+    - rowgroup:
+      - row "Mã nhân viên Tên nhân viên":
+        - cell:
+          - checkbox
+        - cell "Mã nhân viên"
+        - cell "Tên nhân viên"
+    - rowgroup:
+      - row "BAT810 Nguyễn Văn Minh":
+        - cell:
+          - checkbox
+        - cell "BAT810"
+        - cell "Nguyễn Văn Minh"
+  - separator
+  - text: Hiển thị
+  - combobox:
+    - text: "10"
+    - textbox "Open": "10"
+  - text: 1-1 of 1
+  - navigation "Pagination Navigation":
+    - list:
+      - listitem:
+        - button "First page" [disabled]
+      - listitem:
+        - button "Previous page" [disabled]
+      - listitem:
+        - button "Next page" [disabled]
+      - listitem:
+        - button "Last page" [disabled]
+  - button "Lưu"
+  - button "Hủy"
+```

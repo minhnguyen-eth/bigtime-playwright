@@ -1,0 +1,2 @@
+Đã xóa toàn bộ dữ liệu trong bảng leave_applications
+🔍 Maternity leave text found: Nghỉ phụ sản

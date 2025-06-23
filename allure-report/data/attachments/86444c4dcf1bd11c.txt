@@ -1,0 +1,2 @@
+Required name is Nhập tên thông báo
+Required description is Nhập nội dung chi tiết

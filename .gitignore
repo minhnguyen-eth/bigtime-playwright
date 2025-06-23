@@ -8,8 +8,8 @@ node_modules/
 /playwright/.cache/
 
 # Allure reports
-allure-results/
-allure-report/
+# allure-results/
+# allure-report/
 
 # Environment variables
 .env

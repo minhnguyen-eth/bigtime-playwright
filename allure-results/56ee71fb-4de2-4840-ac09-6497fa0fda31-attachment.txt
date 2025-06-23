@@ -1,0 +1,13 @@
+🔍 Workshift name text found: Ca ngày
+🔍 Workshift code text found: CN
+🔍 Workshift name text found: Ca ngày
+🔍 Workshift code text found: CN
+🔍 Branch Bien Hoa text found: Biên Hòa
+Clicked on status: Active
+🔍 Active status text found: Hoạt động
+Clicked on status: Lock
+🔍 Lock status text found: Khóa
+Clicked on status: Active
+Clicked on status: Lock
+🔍 Active status text found: Hoạt động
+🔍 Lock status text found: Khóa

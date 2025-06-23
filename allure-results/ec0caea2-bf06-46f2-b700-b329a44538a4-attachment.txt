@@ -1,0 +1,3 @@
+Đã xóa toàn bộ dữ liệu trong bảng leave_applications
+🔍 Regular leave text found: Nghỉ thường
+📸 Screenshot saved: D:\BigAppTech\playwright-typescripts\screenshots\add_leave_application_with_regular_leave_and_send_to_admin_-__admin_approve.png

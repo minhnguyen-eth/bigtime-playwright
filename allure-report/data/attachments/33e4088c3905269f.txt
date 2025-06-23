@@ -1,0 +1,193 @@
+# Page snapshot
+
+```yaml
+- banner:
+  - button
+  - text: Bigtime Stagin Environment
+  - button "Quản lý":
+    - paragraph: Quản lý
+  - button "Chấm công":
+    - paragraph: Chấm công
+  - button "Lương":
+    - paragraph: Lương
+  - button "Cài đặt":
+    - paragraph: Cài đặt
+  - img
+  - text: Admin
+  - button "Badge":
+    - status "Badge"
+  - button
+  - button "Đăng xuất"
+- banner:
+  - text: Version 1.0.23
+  - list:
+    - listitem "English":
+      - img
+    - listitem "Tiếng Việt":
+      - img
+  - button
+- navigation:
+  - listbox:
+    - link "Trung tâm":
+      - /url: /dashboard-salary
+    - separator
+    - text: Lương
+    - link "Loại phụ cấp":
+      - /url: /salary/allowance-type
+    - link "Bảng lương":
+      - /url: /salary/pay-sheet
+    - link "Phiếu lương":
+      - /url: /salary/payslip
+    - link "Tạm ứng":
+      - /url: /salary/debt
+    - separator
+    - text: Thống kê
+    - link "Thống kê lương":
+      - /url: /salary/salary-statistic
+    - link "Thống kê thuế":
+      - /url: /tax-statistic
+- main:
+  - text: Tạm ứng
+  - button "Làm mới"
+  - button "Thêm"
+  - textbox "Khoảng thời gian Khoảng thời gian": 01-06-2025 - 30-06-2025
+  - combobox:
+    - text: BAT810 - Nguyễn Văn Minh
+    - textbox "Tên nhân viên Tên nhân viên": BAT810 - Nguyễn Văn Minh
+    - button "Clear": 󰅙
+    - button "Open": 󰍝
+  - combobox:
+    - textbox "Tên bộ phận Tên bộ phận"
+    - button "Clear": 󰅙
+    - button "Open": 󰍝
+  - button "Tìm kiếm"
+  - button "Xóa"
+  - table:
+    - rowgroup:
+      - row "# Tên người nợ Tiền Ghi chú Tên người tạo Trạng thái Hành động":
+        - columnheader "#"
+        - columnheader "Tên người nợ"
+        - columnheader "Tiền"
+        - columnheader "Ghi chú"
+        - columnheader "Tên người tạo"
+        - columnheader "Trạng thái"
+        - columnheader "Hành động"
+    - rowgroup:
+      - row "1 BAT810 - Nguyễn Văn Minh 1.000.000 đ add debt test for edit Admin Tạo mới":
+        - cell "1"
+        - cell "BAT810 - Nguyễn Văn Minh"
+        - cell "1.000.000 đ"
+        - cell "add debt test for edit"
+        - cell "Admin"
+        - cell "Tạo mới"
+        - cell:
+          - button
+      - row "2 BAT810 - Nguyễn Văn Minh 1.000.000 đ add debt test for edit Admin Tạo mới":
+        - cell "2"
+        - cell "BAT810 - Nguyễn Văn Minh"
+        - cell "1.000.000 đ"
+        - cell "add debt test for edit"
+        - cell "Admin"
+        - cell "Tạo mới"
+        - cell:
+          - button
+      - row "3 BAT810 - Nguyễn Văn Minh 10.000.000 đ value already exists test Admin Tạo mới":
+        - cell "3"
+        - cell "BAT810 - Nguyễn Văn Minh"
+        - cell "10.000.000 đ"
+        - cell "value already exists test"
+        - cell "Admin"
+        - cell "Tạo mới"
+        - cell:
+          - button
+      - row "4 BAT810 - Nguyễn Văn Minh 10.000.000 đ add debt test Admin Tạo mới":
+        - cell "4"
+        - cell "BAT810 - Nguyễn Văn Minh"
+        - cell "10.000.000 đ"
+        - cell "add debt test"
+        - cell "Admin"
+        - cell "Tạo mới"
+        - cell:
+          - button
+      - row "5 BAT810 - Nguyễn Văn Minh 10.000.000 đ add debt test for send Admin Tạo mới":
+        - cell "5"
+        - cell "BAT810 - Nguyễn Văn Minh"
+        - cell "10.000.000 đ"
+        - cell "add debt test for send"
+        - cell "Admin"
+        - cell "Tạo mới"
+        - cell:
+          - button
+      - row "6 BAT810 - Nguyễn Văn Minh 1.000.000 đ add debt test Admin Tạo mới":
+        - cell "6"
+        - cell "BAT810 - Nguyễn Văn Minh"
+        - cell "1.000.000 đ"
+        - cell "add debt test"
+        - cell "Admin"
+        - cell "Tạo mới"
+        - cell:
+          - button
+      - row "7 BAT810 - Nguyễn Văn Minh 0 đ s Admin Đã duyệt":
+        - cell "7"
+        - cell "BAT810 - Nguyễn Văn Minh"
+        - cell "0 đ"
+        - cell "s"
+        - cell "Admin"
+        - cell "Đã duyệt"
+        - cell:
+          - button
+      - row "8 BAT810 - Nguyễn Văn Minh 200 đ sdgsdgs Admin Tạo mới":
+        - cell "8"
+        - cell "BAT810 - Nguyễn Văn Minh"
+        - cell "200 đ"
+        - cell "sdgsdgs"
+        - cell "Admin"
+        - cell "Tạo mới"
+        - cell:
+          - button
+  - text: Tổng 8, Hiển thị
+  - combobox:
+    - text: "20"
+    - textbox "Open": "20"
+  - navigation "Pagination Navigation":
+    - list:
+      - listitem:
+        - button "Previous page" [disabled]
+      - listitem:
+        - button "Page 1, Current page" [disabled]: "1"
+      - listitem:
+        - button "Next page" [disabled]
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- dialog:
+  - text: Cập nhật khoản ứng
+  - combobox:
+    - text: BAT810-Nguyễn Văn Minh
+    - textbox "Chọn nhân viên ※ Chọn nhân viên ※"
+    - button "Open": 󰍝
+  - text: Số tiền ※
+  - textbox "Số tiền ※ Số tiền ※"
+  - alert: Nhập số tiền
+  - text: Ghi chú ※
+  - textbox "Ghi chú ※ Ghi chú ※"
+  - alert: Nhập ghi chú
+  - textbox "Ngày cập nhật lần cuối Ngày cập nhật lần cuối" [disabled]: 17-06-2025 11:21
+  - textbox "Người cập nhật lần cuối Người cập nhật lần cuối" [disabled]: Admin
+  - button "Lưu"
+  - button "Hủy"
+```

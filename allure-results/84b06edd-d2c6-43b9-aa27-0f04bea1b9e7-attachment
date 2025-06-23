@@ -1,0 +1,132 @@
+# Page snapshot
+
+```yaml
+- banner:
+  - button
+  - text: Bigtime Stagin Environment
+  - button "Quản lý":
+    - paragraph: Quản lý
+  - button "Chấm công":
+    - paragraph: Chấm công
+  - button "Lương":
+    - paragraph: Lương
+  - button "Cài đặt":
+    - paragraph: Cài đặt
+  - img
+  - text: Admin
+  - button "Badge":
+    - status "Badge"
+  - button
+  - button "Đăng xuất"
+- banner:
+  - text: Version 1.0.23
+  - list:
+    - listitem "English":
+      - img
+    - listitem "Tiếng Việt":
+      - img
+  - button
+- navigation:
+  - listbox:
+    - link "Trung tâm":
+      - /url: /dashboard-time-keeping
+    - separator
+    - text: Quản lý chấm công
+    - link "Lịch sử điểm danh":
+      - /url: /checkin-out-history
+    - link "Điểm danh hôm nay":
+      - /url: /checkin-out-today
+    - link "Đơn nghỉ phép":
+      - /url: /leave-application
+    - link "Phiếu tăng ca":
+      - /url: /overtime-ticket
+    - separator
+    - text: Ca làm việc
+    - link "Điểm danh":
+      - /url: /checkin-out
+    - link "Ca làm việc":
+      - /url: /working-shift
+    - link "Phân ca nhanh":
+      - /url: /shift-plan
+    - link "Lịch làm việc tổng hợp":
+      - /url: /time-working
+    - separator
+    - text: Thống kê
+    - link "Thống kê ngày công tháng":
+      - /url: /monthly-workday-statistic
+    - link "Thống kê tổng thời gian":
+      - /url: /user-checkin-statistic
+    - link "Thống kê thời gian vào và ra":
+      - /url: /user-checkin-and-checkout-statistic
+    - link "Thống kê việc làm tháng":
+      - /url: /employment-statistic-month
+- main:
+  - text: Đơn nghỉ phép
+  - button "Làm mới"
+  - button "Thêm"
+  - combobox:
+    - text: Loại ngày nghỉ
+    - textbox "Open"
+  - combobox:
+    - text: Trạng thái
+    - textbox "Open"
+  - textbox "Chọn tháng Chọn tháng": 06-2025
+  - combobox:
+    - text: Tất cả
+    - textbox "Open"
+  - combobox:
+    - text: Tất cả
+    - textbox "Open"
+  - button "Tìm kiếm"
+  - button "Xóa"
+  - table:
+    - rowgroup:
+      - row "# Nghỉ từ ngày Nghỉ từ ngày Đến hết ngày Số ngày nghỉ Lý do Loại ngày nghỉ Trạng thái":
+        - columnheader "#"
+        - columnheader "Nghỉ từ ngày"
+        - columnheader "Nghỉ từ ngày"
+        - columnheader "Đến hết ngày"
+        - columnheader "Số ngày nghỉ"
+        - columnheader "Lý do"
+        - columnheader "Loại ngày nghỉ"
+        - columnheader "Trạng thái"
+    - rowgroup:
+      - row "1 BAT810 - Nguyễn Văn Minh 19-06-2025 19-06-2025 1 Automation test Nghỉ thường Chờ duyệt":
+        - cell "1"
+        - cell "BAT810 - Nguyễn Văn Minh"
+        - cell "19-06-2025"
+        - cell "19-06-2025"
+        - cell "1"
+        - cell "Automation test"
+        - cell "Nghỉ thường"
+        - cell "Chờ duyệt"
+      - row "Tên nhân viên BAT810 - Nguyễn Văn Minh Loại ngày nghỉ Nghỉ thường Trạng thái Chờ duyệt Nghỉ từ ngày 19-06-2025 Đến hết ngày 19-06-2025 Số ngày nghỉ 1 Lý do Automation test Duyệt Từ chối Hủy":
+        - cell "Tên nhân viên BAT810 - Nguyễn Văn Minh Loại ngày nghỉ Nghỉ thường Trạng thái Chờ duyệt Nghỉ từ ngày 19-06-2025 Đến hết ngày 19-06-2025 Số ngày nghỉ 1 Lý do Automation test Duyệt Từ chối Hủy":
+          - tablist:
+            - tab "Thông tin chi tiết" [selected]
+            - tab "Lịch sử cập nhật"
+          - text: Tên nhân viên BAT810 - Nguyễn Văn Minh Loại ngày nghỉ Nghỉ thường Trạng thái Chờ duyệt Nghỉ từ ngày 19-06-2025 Đến hết ngày 19-06-2025 Số ngày nghỉ 1 Lý do Automation test
+          - separator
+          - button "Duyệt"
+          - button "Từ chối"
+          - button "Hủy"
+  - text: Tổng 1, Hiển thị
+  - combobox:
+    - text: "20"
+    - textbox "Open": "20"
+  - navigation "Pagination Navigation":
+    - list:
+      - listitem:
+        - button "Previous page" [disabled]
+      - listitem:
+        - button "Page 1, Current page" [disabled]: "1"
+      - listitem:
+        - button "Next page" [disabled]
+- tooltip
+- tooltip
+- tooltip
+- dialog:
+  - text: Bạn có chắc chắn muốn duyệt?
+  - button "Có"
+  - button "Không"
+```

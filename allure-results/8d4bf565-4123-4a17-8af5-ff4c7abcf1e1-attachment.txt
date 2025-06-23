@@ -1,0 +1,4 @@
+Đã sửa tên tiêu chí đánh giá: Automation test edited vo9p48
+Đã sửa mô tả: Automation Test Description Edited
+🔍 Lock status text found: Khóa
+📸 Screenshot saved: D:\BigAppTech\playwright-typescripts\screenshots\edit_evaluation_criteria.png

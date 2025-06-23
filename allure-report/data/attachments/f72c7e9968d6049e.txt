@@ -1,0 +1,231 @@
+# Page snapshot
+
+```yaml
+- banner:
+  - button
+  - text: Bigtime Stagin Environment
+  - button "Quản lý":
+    - paragraph: Quản lý
+  - button "Chấm công":
+    - paragraph: Chấm công
+  - button "Lương":
+    - paragraph: Lương
+  - button "Cài đặt":
+    - paragraph: Cài đặt
+  - img
+  - text: Admin
+  - button "Badge":
+    - status "Badge"
+  - button
+  - button "Đăng xuất"
+- banner:
+  - text: Version 1.0.23
+  - list:
+    - listitem "English":
+      - img
+    - listitem "Tiếng Việt":
+      - img
+  - button
+- navigation:
+  - listbox:
+    - link "Trung tâm":
+      - /url: /dashboard-admin
+    - separator
+    - text: Thông báo
+    - link "Quản lý thông báo":
+      - /url: /notification
+    - link "Danh sách thông báo":
+      - /url: /list-notification
+    - separator
+    - text: Đánh giá
+    - link "Phân loại đánh giá":
+      - /url: /evaluation-type
+    - link "Tiêu chí đánh giá":
+      - /url: /evaluation-criteria
+    - link "Quy trình đánh giá":
+      - /url: /evaluation-progress
+    - link "Danh sách đánh giá":
+      - /url: /list-evaluation
+    - separator
+    - text: Khen thưởng
+    - link "Loại khen thưởng":
+      - /url: /reward-type
+    - link "Khen thưởng nhân viên":
+      - /url: /reward-user
+    - separator
+    - text: Chung
+    - link "Quản lý nghỉ phép năm":
+      - /url: /leave-management
+    - link "Quản lý ngày nghỉ":
+      - /url: /holiday-management
+    - link "Đơn thôi việc":
+      - /url: /resignation
+    - link "Chi nhánh":
+      - /url: /branch
+    - link "Bộ phận":
+      - /url: /department
+    - link "Chức vụ":
+      - /url: /position
+    - link "Cấp bậc":
+      - /url: /level
+    - link "Nhóm":
+      - /url: /team
+    - separator
+    - text: Hợp đồng
+    - link "Hợp đồng":
+      - /url: /contract
+    - link "Điều khoản":
+      - /url: /term
+    - separator
+    - text: Thống kê
+    - link "Thống kê hợp đồng":
+      - /url: /contract-statistic
+    - separator
+    - text: Quản lý nhân viên
+    - link "Nhân viên":
+      - /url: /user
+- main:
+  - text: 1 2 3 4 5 6 7 8 9 10 11 12
+  - paragraph:
+    - strong: "󰦑 Thuộc chi nhánh:"
+    - text: (Trống) |
+  - paragraph:
+    - strong: "󰠦 Thuộc bộ phận:"
+    - text: (Trống) |
+  - paragraph:
+    - strong: "󰭘 Thuộc nhóm:"
+    - text: (Trống)
+  - separator
+  - paragraph:
+    - strong: "󰕒 Cấp bậc:"
+    - text: (Trống) |
+  - paragraph:
+    - strong: "󰗘 Chức vụ:"
+    - text: (Trống)
+  - separator
+  - paragraph:
+    - strong: "󰠀 Ngày vào công ty:"
+    - text: 11-01-2025
+  - separator
+  - paragraph:
+    - strong: "󰞌 Lần cuối đăng nhập:"
+    - text: 17-06-2025 16:14
+  - separator
+  - paragraph:
+    - strong: "󰺘 Liên hệ:"
+  - link "admin@gmail.com":
+    - /url: "mailto:{{ userStore.currentUser?.email }}"
+  - paragraph:
+    - strong: "󰏲 SĐT:"
+  - link "01234567899":
+    - /url: "tel:{{ userStore.currentUser?.phone }}"
+  - separator
+  - link "Thông tin cá nhân":
+    - /url: /user/info
+    - paragraph: Thông tin cá nhân
+  - text: "Số liệu Nhân viên 20 Bộ phận 4 Chức vụ 8 Nhóm 5 Đánh giá 1 Đơn thôi việc Tạo mới : 0 Đã gửi : 0 Đã duyệt : 2 Từ chối : 0 Hủy : 0"
+  - button "Xem thêm"
+  - text: "Phép năm Số ngày nghỉ : 12 Số ngày đã sử dụng : 0"
+  - button "Xem thêm"
+  - text: "Nhân viên Đang hoạt động : 20 Khóa : 0 Nghỉ làm : 0"
+  - button "Xem thêm"
+  - text: Danh sách hợp đồng thao tác gần nhất
+  - table:
+    - rowgroup:
+      - row "Mã hợp đồng Nhân viên Ngày bắt đầu Ngày kết thúc Loại hợp đồng Trạng thái":
+        - cell "Mã hợp đồng"
+        - cell "Nhân viên"
+        - cell "Ngày bắt đầu"
+        - cell "Ngày kết thúc"
+        - cell "Loại hợp đồng"
+        - cell "Trạng thái"
+    - rowgroup:
+      - row:
+        - cell
+      - row "HD0002-20250609 Nguyễn Văn Minh 09-06-2025 Chính thức Đã xác nhận":
+        - cell "HD0002-20250609"
+        - cell "Nguyễn Văn Minh"
+        - cell "09-06-2025"
+        - cell
+        - cell "Chính thức"
+        - cell "Đã xác nhận"
+      - row:
+        - cell
+  - text: Danh sách nhân viên thao tác gần nhất
+  - table:
+    - rowgroup:
+      - row "Mã nhân viên Nhân viên Email Số điện thoại":
+        - cell "Mã nhân viên"
+        - cell "Nhân viên"
+        - cell "Email"
+        - cell "Số điện thoại"
+    - rowgroup:
+      - row:
+        - cell
+      - row "BAT810 Nguyễn Văn Minh minh@gmail.com 0378818596":
+        - cell "BAT810"
+        - cell "Nguyễn Văn Minh"
+        - cell "minh@gmail.com"
+        - cell "0378818596"
+      - row "BAT100 Quản lý bộ phận IT minh1@gmail.com":
+        - cell "BAT100"
+        - cell "Quản lý bộ phận IT"
+        - cell "minh1@gmail.com"
+        - cell
+      - row "user user minhnguyen.eth@gmail.com 0123456782":
+        - cell "user"
+        - cell "user"
+        - cell "minhnguyen.eth@gmail.com"
+        - cell "0123456782"
+      - row "Huy Yami Huy Yami thahluog160524@gmail.com 0123456789":
+        - cell "Huy Yami"
+        - cell "Huy Yami"
+        - cell "thahluog160524@gmail.com"
+        - cell "0123456789"
+      - row "test05 test05 test05@gmail.com":
+        - cell "test05"
+        - cell "test05"
+        - cell "test05@gmail.com"
+        - cell
+      - row "Testng 03 Testng 03 test03@gmail.com":
+        - cell "Testng 03"
+        - cell "Testng 03"
+        - cell "test03@gmail.com"
+        - cell
+      - row "TEST13 Nghỉ phụ sản 2 TEST13@gmail.com":
+        - cell "TEST13"
+        - cell "Nghỉ phụ sản 2"
+        - cell "TEST13@gmail.com"
+        - cell
+      - row "Test 12 Test nghỉ phụ sản Test12@gmail.com":
+        - cell "Test 12"
+        - cell "Test nghỉ phụ sản"
+        - cell "Test12@gmail.com"
+        - cell
+      - row "test1 test1 test1@gmail.com":
+        - cell "test1"
+        - cell "test1"
+        - cell "test1@gmail.com"
+        - cell
+      - row "BAT10000 Nguyễn Quốc Việt viet@gmail.com":
+        - cell "BAT10000"
+        - cell "Nguyễn Quốc Việt"
+        - cell "viet@gmail.com"
+        - cell
+      - row:
+        - cell
+  - text: Nhân viên đang hoạt động
+  - table:
+    - rowgroup:
+      - row:
+        - cell
+      - row "BAT810 Nguyễn Văn Minh Hoạt động":
+        - cell "BAT810 Nguyễn Văn Minh"
+        - cell "Hoạt động"
+      - row "BAT0000 Admin Hoạt động":
+        - cell "BAT0000 Admin"
+        - cell "Hoạt động"
+      - row:
+        - cell
+- tooltip
+```
