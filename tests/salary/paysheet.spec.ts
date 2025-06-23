@@ -198,7 +198,7 @@ test.describe.serial('Paysheet Tests', () => {
             await paysheet.setNamePaysheet('Automation test');
             await paysheet.clickCheckBoxMonthly();
             await paysheet.clickChooseMonth();
-            await paysheet.clickMonthOption();
+            await paysheet.clickMonthOption05();
             await paysheet.setNote('Automation test');
             await paysheet.clickAndSetDropDownEmployee();
             await paysheet.clickEmployeeOption();

@@ -1,0 +1,165 @@
+import { test, expect, Page, TestInfo } from '@playwright/test';
+import { LoginPage } from '../pages/LoginPage';
+import { takeScreenshotOnFailure } from '../utils/screenshotUtils';
+import Config from '../utils/configUtils';
+import { allure } from 'allure-playwright';
+import { EmployeePage } from '../pages/EmployeePage';
+import { ToastPage } from '../pages/ToastPage';
+import { HomePage } from '../pages/HomePage';
+
+test.describe('Employee Tests', () => {
+    let loginPage: LoginPage;
+    let employeePage: EmployeePage
+    let toastPage: ToastPage;
+    let homePage: HomePage;
+
+    test.beforeEach(async ({ page }) => {
+        allure.feature('Employee Feature');
+        allure.owner('Minh Nguyen');
+        allure.severity('Critical');
+
+        toastPage = new ToastPage(page);
+        employeePage = new EmployeePage(page);
+        loginPage = new LoginPage(page);
+        homePage = new HomePage(page);
+        await loginPage.goto();
+
+    });
+
+    test.afterEach(async ({ page }, testInfo: TestInfo) => {
+        await takeScreenshotOnFailure(page, testInfo);
+    });
+
+    test('Add with role employee', async ({ page }) => {
+        const randomSuffix = Math.random().toString(36).substring(2, 8);
+        const randomAllowanceName = `Phụ cấp${randomSuffix}`;
+        const userCode = `userCode${randomSuffix}`;
+        const emailRandom = `email${randomSuffix}`;
+        const random10Digits = Math.floor(1000000000 + Math.random() * 9000000000); // đảm bảo đủ 10 chữ số
+        const phoneNumber = `09${Math.floor(100000000 + Math.random() * 900000000)}`; // dạng 09xxxxxxxx
+
+        await loginPage.login(Config.admin_username, Config.admin_password);
+        await homePage.clickAdmin();
+        await employeePage.clickUser();
+        await employeePage.clickAddButton();
+
+        // Fill information
+        await employeePage.fillEmployeeCode(userCode);
+        await employeePage.fillEmployeeName('Automation test');
+        await employeePage.fillEmail(emailRandom);
+        await employeePage.clickSelectMale();
+        await employeePage.clickDropdownBranch();
+        await employeePage.clickSelectBranch();
+        await employeePage.clickDropdownDepartment();
+        await employeePage.clickSelectDepartment();
+        await employeePage.clickDropdownEmployeeType();
+        await employeePage.clickStaff();
+        await employeePage.clickDropdownInfoMore();
+        await employeePage.clickDropdownPosition();
+        await employeePage.clickPosition();
+        await employeePage.clickDropdownRank();
+        await employeePage.clickSelectRank();
+        await employeePage.fillCitizenId(random10Digits);
+        await employeePage.clickCitizenIdCardIssueDate();
+        await employeePage.clickChosseYear();
+        await employeePage.clickSelectYear();
+        await employeePage.clickChosseMonth();
+        await employeePage.clickSelectMonth();
+        await employeePage.clickSelectDay();
+        await employeePage.clickChosseButton();
+
+        await employeePage.fillPlaceOfIssueOfIdentityCard('Bien Hoa, Dong Nai');
+        await employeePage.fillBankName('Vietcombank');
+        await employeePage.fillBankAccountNumber('02847182497124');
+        await employeePage.fillPhoneNumber(phoneNumber);
+        await employeePage.clickDateOfBirth();
+        await employeePage.clickChosseYear();
+        await employeePage.clickSelectYear();
+        await employeePage.clickChosseMonth();
+        await employeePage.clickSelectMonth();
+        await employeePage.clickSelectDay();
+        await employeePage.clickChosseButton();
+        await employeePage.clickDateOfJoiningTheCompany();
+        await employeePage.clickToDay();
+        await employeePage.clickChosseButton();
+        await employeePage.fillAddress('Bien Hoa, Dong Nai');
+        await employeePage.fillNote('Automation testing');
+
+        // Set salary 
+        await employeePage.clickSetSalary();
+        await employeePage.fillFillSalary('22000000');
+        await employeePage.fillFillInsurance('50000');
+        await employeePage.clickOpenAllowance();
+        await employeePage.clickAddAllowance();
+        await employeePage.clickDropdownAllowance();
+        await employeePage.clickSelectAllowance();
+
+        // await employeePage.clickAddAllowance();
+        // await employeePage.clickDropdownAllowance2();
+        // await employeePage.clickAddAllowanceTypeButton();
+        // await employeePage.fillAllowanceTypeName(randomAllowanceName);
+        // await employeePage.fillMoneyAllowance('100000');
+        // await employeePage.clickConfirm();
+
+        await employeePage.clickSaveButton();
+
+        await toastPage.getToastAddSuccess();
+
+        //Verify
+        await employeePage.clickRow0();
+
+    });
+
+    test('Edit user', async ({ page }) => {
+        await loginPage.login(Config.admin_username, Config.admin_password);
+        await homePage.clickAdmin();
+        await employeePage.clickUser();
+        await employeePage.clickRow0();
+        await employeePage.clickEditButton();
+        await employeePage.fillEmployeeName('Automation test edit');
+        await employeePage.clickSaveButton();
+        await toastPage.getToastUpdateSuccess();
+
+    });
+
+    test('Delete user', async ({ page }) => {
+        await loginPage.login(Config.admin_username, Config.admin_password);
+        await homePage.clickAdmin();
+        await employeePage.clickUser();
+        await employeePage.clickRow0();
+        await employeePage.clickDeleteUser();
+        await employeePage.clickYesButton();
+        await toastPage.getToastDeleteSuccess();
+
+    });
+
+    test('Search user', async ({ page }) => {
+        await loginPage.login(Config.admin_username, Config.admin_password);
+        await homePage.clickAdmin();
+        await employeePage.clickUser();
+
+        // Search by code
+        await employeePage.fillSearchByCode('BAT810');
+        await employeePage.clickSearchButton();
+        await employeePage.verifySearchByCode();
+        await employeePage.clickClearSearch();
+
+        // Search by name
+        await employeePage.fillSearchByName('Nguyễn Văn Minh');
+        await employeePage.clickSearchButton();
+        await employeePage.verifySearchByName();
+        await employeePage.clickClearSearch();
+
+        // Seach by code and name
+        await employeePage.fillSearchByCode('BAT810');
+        await employeePage.fillSearchByName('Nguyễn Văn Minh');
+        await employeePage.clickSearchButton();
+        await employeePage.verifySearchByCode();
+        await employeePage.verifySearchByName();
+        await employeePage.clickClearSearch();
+
+    });
+
+
+
+});

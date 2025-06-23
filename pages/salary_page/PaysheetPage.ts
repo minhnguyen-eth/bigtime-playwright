@@ -38,9 +38,6 @@ export class PaysheetPage {
     readonly selectAllEmployeesCheckbox: Locator;
     readonly reasonInput: Locator;
     readonly reasonLabel: Locator;
-    readonly toastAddSuccess: Locator;
-    readonly toastCancelSuccess: Locator;
-    readonly toastExportSuccess: Locator;
     readonly createTicketButton: Locator;
     readonly paymentButton: Locator;
     readonly checkBoxMonthly: Locator;
@@ -110,7 +107,6 @@ export class PaysheetPage {
         this.reasonInput = page.locator('//form//div[3]//div[3]//textarea');
         this.paymentButton = page.locator('//span[contains(normalize-space(),"Thanh toán")]');
         this.createTicketButton = page.locator('//span[contains(normalize-space(),"Tạo phiếu")]');
-
 
 
     }
@@ -195,20 +191,6 @@ export class PaysheetPage {
 
     async clickExportData() {
         await this.exportDataButton.click();
-    }
-
-    async getToastExport() {
-        await expect(this.toastExportSuccess).toBeVisible();
-        return this.toastExportSuccess.textContent();
-    }
-
-    async getToastCancel() {
-        await expect(this.toastCancelSuccess).toBeVisible();
-        return this.toastCancelSuccess.textContent();
-    }
-
-    async getToastAdd(toast: string) {
-        await expect(this.toastAddSuccess).toHaveText(toast);
     }
 
     async clickRefresh() {

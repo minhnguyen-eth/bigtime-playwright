@@ -1,13 +1,6 @@
 import { Page, Locator, expect } from "@playwright/test";
 export class DebtPage {
     readonly page: Page;
-    readonly toastAddSuccess: Locator;
-    readonly toastUpdateSuccess: Locator;
-    readonly toastDeleteSuccess: Locator;
-    readonly toastCancelSuccess: Locator;
-    readonly toastSendSuccess: Locator;
-    readonly toastBrowserSuccess: Locator;
-    readonly toastRefusedSuccess: Locator;
     readonly debtButton: Locator;
     readonly addButton: Locator;
     readonly editButton: Locator;
@@ -45,13 +38,7 @@ export class DebtPage {
         this.sendButton = page.locator("//span[contains(normalize-space(),'Gửi')]");
         this.iconAction = page.locator("//tr[@id='row-0']//i[@class='mdi mdi-format-list-group mdi v-icon notranslate v-theme--lightColor7 v-icon--size-default']");
         this.debtButton = page.locator("//div[contains(text(),'Tạm ứng')]");
-        this.toastAddSuccess = page.locator( '//div[contains(text(),"Thêm thành công")]' );
-        this.toastUpdateSuccess = page.locator('//div[contains(text(),"Cập nhật thành công")]');
-        this.toastDeleteSuccess = page.locator('//div[contains(text(),"Xóa thành công")]'  );
-        this.toastCancelSuccess = page.locator('//div[contains(text(),"Hủy thành công")]'     );
-        this.toastSendSuccess = page.locator('//div[contains(text(),"Đã gửi thành công")]'   );
-        this.toastBrowserSuccess = page.locator('//div[contains(text(),"Đã gửi thành công")]'     );
-        this.toastRefusedSuccess = page.locator('//div[contains(text(),"Từ chối thành công")]'   );
+
         this.addButton = page.locator("//span[normalize-space()='Thêm']");
         this.searchButton = page.locator("//span[normalize-space()='Tìm kiếm']");
         this.saveButton = page.locator("//span[normalize-space()='Lưu']");
@@ -87,11 +74,6 @@ export class DebtPage {
     }
     async clickSendButton() {
         await this.sendButton.click();
-    }
-
-    async getToastAddSuccess() {
-        await expect(this.toastAddSuccess).toHaveText("Thêm thành công");
-        return this.toastAddSuccess.textContent();
     }
 
     async clickAddButton() {
@@ -141,11 +123,6 @@ export class DebtPage {
         await this.editButton.click();
     }
 
-    async getToastEditSuccess() {
-        await expect(this.toastUpdateSuccess).toHaveText("Cập nhật thành công");
-        return this.toastUpdateSuccess.textContent();
-    }
-
     async expectFillAmountError() {
         await expect(this.requiredErrorAmountMessage).toHaveText("Nhập số tiền");
     }
@@ -156,11 +133,6 @@ export class DebtPage {
         await this.searchButton.click();
         await this.page.getByRole('row', { name: '1 BAT810 - Nguyễn Văn Minh 1.000.000 đ add debt test for cancel Admin Tạo mới', exact: true }).getByRole('button').click();
         await this.actionCancelButton.click();
-    }
-
-    async getToastCancelSuccess() {
-        await expect(this.toastCancelSuccess).toHaveText("Hủy thành công");
-        return this.toastCancelSuccess.textContent();
     }
 
     async fillReason(reason: string) {
@@ -179,11 +151,6 @@ export class DebtPage {
         await expect(this.requiredErrorReasonMessage).toHaveText("Nhập lý do");
     }
 
-    async getToastSendSuccess() {
-        await expect(this.toastSendSuccess).toHaveText("Đã gửi thành công");
-        return this.toastSendSuccess.textContent();
-    }
-
     async clickLogoutButton() {
         await this.logoutButton.click();
     }
@@ -193,19 +160,9 @@ export class DebtPage {
         await this.actionBrowserButton.click();
     }
 
-    async getToastBrowseSuccess() {
-        await expect(this.toastBrowserSuccess).toHaveText("Đã gửi thành công");
-        return this.toastBrowserSuccess.textContent();
-    }
-
     async clickActionRefusedButton() {
         await this.page.getByRole('row', { name: '1 BAT810 - Nguyễn Văn Minh 1.000.000 đ add debt test for send Admin Đã gửi', exact: true }).getByRole('button').click();
         await this.actionRefusedButton.click();
-    }
-
-    async getToastRefusedSuccess() {
-        await expect(this.toastRefusedSuccess).toHaveText("Từ chối thành công");
-        return this.toastRefusedSuccess.textContent();
     }
 
     async clickActionSendCancelButton() {

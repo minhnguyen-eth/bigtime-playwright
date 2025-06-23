@@ -28,7 +28,6 @@ export class RewardEmployeePage {
     readonly chosseButton: Locator;
     readonly searchByRewardName: Locator;
     readonly searchByEmployee: Locator;
-
     readonly searchByRewardType: Locator;
     readonly searchByDate: Locator;
     readonly statusDropdownSearch: Locator;
@@ -36,7 +35,6 @@ export class RewardEmployeePage {
     readonly approvedStatus: Locator;
     readonly cancelledStatus: Locator;
     readonly clearSearch: Locator;
-
     readonly verifySearchByRewardName: Locator;
     readonly verifySearchByEmployee: Locator;
     readonly verifySearchByRewardType: Locator;
@@ -54,7 +52,6 @@ export class RewardEmployeePage {
 
     constructor(page: Page) {
         this.page = page;
-
         this.browseButton = page.locator("//span[contains(text(),'Duyệt')]");
         this.dayRewardAdd = page.locator("//div[7]/div/div/div/div/div[1]/div/div/div[3]/input");
         this.reasonCancelInput = page.locator("//form/div/div[3]/div/div/div/div/div/div[3]/textarea");
@@ -80,7 +77,6 @@ export class RewardEmployeePage {
         this.chosseButton = page.locator("//button[contains(text(),'Chọn')]");
         this.day19 = page.locator("//div[@class='dp__cell_inner dp__pointer dp__date_hover'][normalize-space()='19']");
         this.dayReward = page.locator("//form/div/div[4]/div/div/div/div/div[1]/div/div/div[3]/input");
-        
         this.validationMoney = page.locator("//div[contains(text(),'Nhập tiền thưởng')]");
         this.validationRewardType = page.locator("//div[contains(text(),'Nhập chọn loại khen thưởng')]");
         this.validationEmployee = page.locator("//div[contains(text(),'Nhập chọn nhân viên')]");
