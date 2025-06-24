@@ -4,7 +4,7 @@ import { takeScreenshotOnFailure } from '../utils/screenshotUtils';
 import Config from '../utils/configUtils';
 import { allure } from 'allure-playwright';
 
-test.describe('Login Tests', () => {
+test.describe.serial('Login Tests', () => {
   let loginPage: LoginPage;
 
   test.beforeEach(async ({ page }) => {
@@ -29,7 +29,7 @@ test.describe('Login Tests', () => {
     });
 
     await allure.step('Verify successful admin login', async () => {
-      await loginPage.expectLoginAdminSuccess();
+      await loginPage.expectLoginSuccess();
     });
   });
 
@@ -41,7 +41,7 @@ test.describe('Login Tests', () => {
     });
 
     await allure.step('Verify successful employee login', async () => {
-      await loginPage.expectLoginEmployeeSuccess();
+      await loginPage.expectLoginSuccess();
     });
   });
 

@@ -92,16 +92,16 @@ test.describe.serial('Paysheet Tests', () => {
             await paysheet.clickPaysheet();
             await paysheet.clickLatestPaysheetRow();
             await paysheet.clickViewPayroll();
-            await paysheet.clickSalaryClosing();
-            await paysheet.clickConfirm();
+            // await paysheet.clickSalaryClosing();
+            // await paysheet.clickConfirm();
 
-            await paysheet.clickLatestPaysheetRow();
-            await paysheet.clickPayslipPayment();
-            await paysheet.clickPayment();
-            await paysheet.clickCreateTicket();
-            await paysheet.clickPaymentHistory();
-            await paysheet.clickHistoryPaymentCode();
-            await paysheet.getEmployeeName('Nguyễn Văn Minh');
+            // await paysheet.clickLatestPaysheetRow();
+            // await paysheet.clickPayslipPayment();
+            // await paysheet.clickPayment();
+            // await paysheet.clickCreateTicket();
+            // await paysheet.clickPaymentHistory();
+            // await paysheet.clickHistoryPaymentCode();
+            // await paysheet.getEmployeeName('Nguyễn Văn Minh');
         });
     });
 

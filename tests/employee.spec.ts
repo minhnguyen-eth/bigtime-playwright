@@ -213,7 +213,6 @@ test.describe.serial('Employee Tests', () => {
         await toastPage.getToastAddFailed();
         await employeePage.verifyEmailExisted();
         await employeePage.verifyEmployeeCodeExisted();
-
     });
 
     test('Save but not fill any information', async ({ page }) => {

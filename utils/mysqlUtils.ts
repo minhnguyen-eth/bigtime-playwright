@@ -14,59 +14,36 @@ async function getConnection() {
   return await mysql.createConnection(config);
 }
 
-export async function clearAllShiftPlan(): Promise<void> {
-  const sql = "DELETE FROM shift_plans WHERE name NOT LIKE '%Phân ca tháng%'";
+// General query executor
+async function executeQuery(sql: string, params: any[] = []): Promise<any> {
+  const conn = await getConnection();
   try {
-    const conn = await getConnection();
-    const [result] = await conn.execute<mysql.ResultSetHeader>(sql);
-    console.info(`Đã xóa ${result.affectedRows} dòng trong bảng shift_plans, giữ lại các bản ghi có tên 'Phân ca tháng'`);
+    const [result] = await conn.execute(sql, params);
+    return result;
+  } catch (error) {
+    console.error('DB Error:', error);
+    throw error;
+  } finally {
     await conn.end();
-  } catch (e) {
-    console.error("Lỗi khi xóa dữ liệu trong bảng shift_plans:", e);
   }
 }
 
-// Xóa toàn bộ bảng
-export async function clearTable(tableName: string): Promise<void> {
-  const sql = `TRUNCATE TABLE ${tableName}`;
-  try {
-    const conn = await getConnection();
-    await conn.execute(sql);
-    console.info(`Đã xóa toàn bộ dữ liệu trong bảng ${tableName}`);
-    await conn.end();
-  } catch (e) {
-    console.error(`Lỗi khi xoá dữ liệu trong bảng ${tableName}:`, e);
+// Clear full table or with condition
+async function clearTable(tableName: string, condition?: string): Promise<void> {
+  const sql = condition 
+    ? `DELETE FROM ${tableName} WHERE ${condition}` 
+    : `TRUNCATE TABLE ${tableName}`;
+  
+  const result = await executeQuery(sql);
+  
+  if ('affectedRows' in result) {
+    console.info(`Cleared ${result.affectedRows} rows in ${tableName} ${condition ? 'with condition' : ''}.`);
+  } else {
+    console.info(`Truncated table ${tableName}.`);
   }
 }
 
-// Gọi từng bảng cụ thể
-export async function clearAllTables(): Promise<void> {
-  await clearTable('leave_applications');
-  await clearTable('leave_managements');
-  await clearTable('paysheets');
-  await clearTable('payslips');
-  await clearTable('time_workings');
-  await clearTable('shift_plans');
-  await clearTable('paysheets');
-  await clearTable('evaluation_progress');
-  await clearTable('evaluation_criterias');
-  await clearTable('notifications');
-  await clearTable('reward_users');
-  await clearAllAllowanceTypes();
-}
-
-export async function ClearAllRewardUsers() {
-  await clearTable('reward_users');
-}
-
-export async function clearAllNotifications() {
-  await clearTable('notifications');
-}
-
-export async function clearAllEvaluationProgress() {
-  await clearTable('evaluation_progress');
-}
-
+// Specific Clear functions preserved (for backward compatibility)
 export async function clearAllLeaveApplications() {
   await clearTable('leave_applications');
 }
@@ -83,157 +60,108 @@ export async function clearAllPayslips() {
   await clearTable('payslips');
 }
 
-export async function clearAllRewardType() {
-  const sql = "DELETE FROM reward_types WHERE name NOT LIKE '%Khen thưởng%'";
-  try {
-    const conn = await getConnection();
-    const [result] = await conn.execute<mysql.ResultSetHeader>(sql);
-    console.info(`Đã xóa ${result.affectedRows} dòng trong bảng reward_types, giữ lại các bản ghi có chứa 'Khen thưởng' trong name.`);
-    await conn.end();
-  } catch (e) {
-    console.error("Lỗi khi xóa dữ liệu trong bảng reward_types:", e);
-  }
+export async function clearAllTimeWorkings() {
+  await clearTable('time_workings');
+}
+
+export async function clearAllShiftPlan() {
+  await clearTable('shift_plans', "name NOT LIKE '%Phân ca tháng%'");
+}
+
+export async function clearAllEvaluationProgress() {
+  await clearTable('evaluation_progress');
 }
 
 export async function clearAllEvaluationCriterias() {
-  const sql = "DELETE FROM evaluation_criterias WHERE name NOT LIKE '%Tiêu chí%'";
-  try {
-    const conn = await getConnection();
-    const [result] = await conn.execute<mysql.ResultSetHeader>(sql);
-    console.info(`Đã xóa ${result.affectedRows} dòng trong bảng evaluation_criterias, giữ lại các bản ghi có chứa 'Tiêu chí' trong name.`);
-    await conn.end();
-  } catch (e) {
-    console.error("Lỗi khi xóa dữ liệu trong bảng evaluation_criterias:", e);
-  }
+  await clearTable('evaluation_criterias', "name NOT LIKE '%Tiêu chí%'");
+}
+
+export async function clearAllNotifications() {
+  await clearTable('notifications');
+}
+
+export async function clearAllRewardUsers() {
+  await clearTable('reward_users');
+}
+
+export async function clearAllRewardType() {
+  await clearTable('reward_types', "name NOT LIKE '%Khen thưởng%'");
 }
 
 export async function clearAllWorkingShift() {
-  const sql = "DELETE FROM working_shifts WHERE name NOT LIKE '%Ca%'";
-  try {
-    const conn = await getConnection();
-    const [result] = await conn.execute<mysql.ResultSetHeader>(sql);
-    console.info(`Đã xóa ${result.affectedRows} dòng trong bảng working_shifts, giữ lại các bản ghi có chứa 'Ca' trong name.`);
-    await conn.end();
-  } catch (e) {
-    console.error("Lỗi khi xóa dữ liệu trong bảng working_shifts:", e);
-  }
+  await clearTable('working_shifts', "name NOT LIKE '%Ca%'");
 }
 
 export async function clearAllEluationTypes() {
-  const sql = "DELETE FROM evaluation_types WHERE name NOT LIKE '%Đánh giá%'";
-  try {
-    const conn = await getConnection();
-    const [result] = await conn.execute<mysql.ResultSetHeader>(sql);
-    console.info(`Đã xóa ${result.affectedRows} dòng trong bảng evaluation_types, giữ lại các bản ghi có chứa 'Đánh giá' trong name.`);
-    await conn.end();
-  } catch (e) {
-    console.error("Lỗi khi xóa dữ liệu trong bảng evaluation_types:", e);
-  }
+  await clearTable('evaluation_types', "name NOT LIKE '%Đánh giá%'");
 }
 
-// Xử lý đặc biệt với allowance_types
 export async function clearAllAllowanceTypes() {
-  const sql = "DELETE FROM allowance_types WHERE name <> 'Phụ cấp tiền ăn'";
-  try {
-    const conn = await getConnection();
-    const [result] = await conn.execute<mysql.ResultSetHeader>(sql);
-    console.info(`Đã xóa ${result.affectedRows} dòng trong bảng allowance_types, giữ lại 'Phụ cấp tiền ăn'`);
-    await conn.end();
-  } catch (e) {
-    console.error("Lỗi khi xóa dữ liệu trong bảng allowance_types:", e);
-  }
+  await clearTable('allowance_types', "name <> 'Phụ cấp tiền ăn'");
 }
 
 // Xóa theo user_id
 export async function clearLeaveApplicationsForUser(userId: string) {
-  const sql = "DELETE FROM leave_applications WHERE user_id = ?";
-  try {
-    const conn = await getConnection();
-    const [result] = await conn.execute<mysql.ResultSetHeader>(sql, [userId]);
-    console.info(`Đã xóa ${result.affectedRows} dòng dữ liệu test cho user_id ${userId}`);
-    await conn.end();
-  } catch (e) {
-    console.error(`Lỗi khi xóa dữ liệu test cho user_id ${userId}:`, e);
+  await executeQuery("DELETE FROM leave_applications WHERE user_id = ?", [userId]);
+  console.info(`Cleared leave applications for user_id ${userId}`);
+}
+
+// Clear all tables
+export async function clearAllTables() {
+  const tables = [
+    clearAllLeaveApplications,
+    clearAllLeaveManagements,
+    clearAllPaysheets,
+    clearAllPayslips,
+    clearAllTimeWorkings,
+    clearAllShiftPlan,
+    clearAllEvaluationProgress,
+    clearAllEvaluationCriterias,
+    clearAllNotifications,
+    clearAllRewardUsers,
+    clearAllAllowanceTypes
+  ];
+
+  for (const clearFunc of tables) {
+    await clearFunc();
   }
 }
 
-
-// Kiểm tra tồn tại loại đánh giá
-export async function checkShiftPlanExists(name: string): Promise<boolean> {
-  const sql = "SELECT COUNT(*) AS count FROM shift_plans WHERE name LIKE ?";
-  try {
-    const conn = await getConnection();
-    const [rows] = await conn.execute<any[]>(sql, [`%${name}%`]);
-    await conn.end();
-    const count = rows[0].count;
-    console.info(`Tìm thấy ${count} loại đánh giá với tên: ${name}`);
-    return count > 0;
-  } catch (e) {
-    console.error("Lỗi khi kiểm tra dữ liệu trong database:", e);
-    return false;
-  }
+// Check exists generalized
+async function checkExists(table: string, name: string): Promise<boolean> {
+  const result = await executeQuery(`SELECT COUNT(*) AS count FROM ${table} WHERE name LIKE ?`, [`%${name}%`]);
+  const count = (result as any[])[0].count;
+  console.info(`Found ${count} records in ${table} with name like '${name}'`);
+  return count > 0;
 }
 
-
-// Kiểm tra tồn tại loại đánh giá
-export async function checkEvaluationTypeExists(name: string): Promise<boolean> {
-  const sql = "SELECT COUNT(*) AS count FROM evaluation_types WHERE name LIKE ?";
-  try {
-    const conn = await getConnection();
-    const [rows] = await conn.execute<any[]>(sql, [`%${name}%`]);
-    await conn.end();
-    const count = rows[0].count;
-    console.info(`Tìm thấy ${count} loại đánh giá với tên: ${name}`);
-    return count > 0;
-  } catch (e) {
-    console.error("Lỗi khi kiểm tra dữ liệu trong database:", e);
-    return false;
-  }
+export async function checkShiftPlanExists(name: string) {
+  return checkExists('shift_plans', name);
 }
 
-// Xóa loại đánh giá theo tên
-export async function deleteEvaluationType(name: string): Promise<boolean> {
-  const sql = "DELETE FROM evaluation_types WHERE name LIKE ?";
-  try {
-    const conn = await getConnection();
-    const [result] = await conn.execute<mysql.ResultSetHeader>(sql, [`%${name}%`]);
-    await conn.end();
-
-    const affectedRows = result.affectedRows;
-    console.info(`Đã xóa ${affectedRows} loại đánh giá với tên: ${name}`);
-    return affectedRows > 0;
-  } catch (e) {
-    console.error(`Lỗi khi xóa loại đánh giá với tên ${name}:`, e);
-    return false;
-  }
+export async function checkEvaluationTypeExists(name: string) {
+  return checkExists('evaluation_types', name);
 }
 
-// Xóa paysheet mới nhất có tên chứa 'Automation test'
-export async function deleteLatestPaysheet(): Promise<void> {
-  const sqlSelect = `
+export async function deleteEvaluationType(name: string) {
+  const result = await executeQuery("DELETE FROM evaluation_types WHERE name LIKE ?", [`%${name}%`]) as mysql.ResultSetHeader;
+  console.info(`Deleted ${result.affectedRows} rows from evaluation_types where name like '${name}'`);
+  return result.affectedRows > 0;
+}
+
+export async function deleteLatestPaysheet() {
+  const rows = await executeQuery(`
     SELECT id FROM paysheets 
     WHERE name LIKE '%Automation test%' 
-    ORDER BY created_at DESC 
-    LIMIT 1
-  `;
-  const sqlDelete = `DELETE FROM paysheets WHERE id = ?`;
+    ORDER BY created_at DESC LIMIT 1
+  `) as any[];
 
-  try {
-    const conn = await getConnection();
-    const [rows] = await conn.execute<any[]>(sqlSelect);
-
-    if (rows.length === 0) {
-      console.warn('Không tìm thấy paysheet nào để xóa');
-      await conn.end();
-      return;
-    }
-
-    const paysheetId = rows[0].id;
-    const [result] = await conn.execute<mysql.ResultSetHeader>(sqlDelete, [paysheetId]);
-
-    console.info(`Đã xóa paysheet mới nhất có ID: ${paysheetId}`);
-    await conn.end();
-  } catch (e) {
-    console.error("Lỗi khi xóa paysheet mới nhất:", e);
+  if (rows.length === 0) {
+    console.warn('No paysheet found to delete');
+    return;
   }
+
+  const paysheetId = rows[0].id;
+  await executeQuery(`DELETE FROM paysheets WHERE id = ?`, [paysheetId]);
+  console.info(`Deleted latest paysheet with ID: ${paysheetId}`);
 }

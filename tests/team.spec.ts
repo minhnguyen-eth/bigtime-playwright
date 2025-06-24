@@ -38,7 +38,6 @@ test.describe.serial('Team', () => {
         const randomSuffix = Math.random().toString(36).substring(2, 8);
         const teamNameRandom = `team${randomSuffix}`;
         const teamCodeRandom = `code${randomSuffix}`;
-
         await loginPage.login(Config.admin_username, Config.admin_password);
         await homePage.clickAdmin();
         await teamPage.clickTeamButton();
@@ -106,7 +105,6 @@ test.describe.serial('Team', () => {
     test('Edit team name', async ({ page }) => {
         const randomSuffix = Math.random().toString(36).substring(2, 8);
         const editTeamNameRandom = `team${randomSuffix}`;
-
         await loginPage.login(Config.admin_username, Config.admin_password);
         await homePage.clickAdmin();
         await teamPage.clickTeamButton();
@@ -217,7 +215,6 @@ test.describe.serial('Team', () => {
         await basePage.clickSearch();
         await teamPage.getResultSearchByName();
         await basePage.clickClearSearch();
-
 
         // Search by code
         await teamPage.searchByTeamCode('T001');

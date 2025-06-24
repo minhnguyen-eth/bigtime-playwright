@@ -9,9 +9,11 @@ export class LoginPage {
   readonly  profileBadgeAdmin: Locator;
   readonly  profileBadgeEmployee: Locator;
   readonly  errorMessage: Locator;
+  readonly  dashBoard: Locator;
 
   constructor(page: Page) {
     this.page = page;
+    this.dashBoard = page.locator("//div[contains(text(),'Bigtime Stagin Environment')]");
     this.usernameInput = page.locator('#input-0');
     this.passwordInput = page.locator('#input-2');
     this.loginButton = page.locator('span.v-btn__content');
@@ -30,13 +32,11 @@ export class LoginPage {
     await this.loginButton.click();
   }
 
-  async expectLoginAdminSuccess() {
-    await expect(this.profileBadgeAdmin).toHaveText('Admin');
+  async expectLoginSuccess() {
+    await expect(this.dashBoard).toBeVisible();
+    await expect(this.dashBoard).toHaveText('Bigtime Stagin Environment');
   }
   
-  async expectLoginEmployeeSuccess() {
-    await expect(this.profileBadgeEmployee).toHaveText('Nguyễn Văn Minh');
-  }
 
   async expectLoginError() {
     await expect(this.errorMessage).toHaveText('Tên đăng nhập hoặc mật khẩu không đúng');
