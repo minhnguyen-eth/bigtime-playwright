@@ -65,11 +65,24 @@ export class EmployeePage {
   readonly emailError: Locator;
   readonly dailySalary: Locator;
   readonly dropdownSalaryType: Locator;
+  readonly selectAdmin: Locator;
+  readonly emailAddressExisted: Locator;
+  readonly employeeCodeExisted: Locator;
+  readonly validateEmployeeCode: Locator;
+  readonly validateEmail: Locator;
+  readonly validateEmployeeName: Locator;
+  readonly validateRoleName: Locator;
 
 
   constructor(page: Page) {
     this.page = page;
 
+    this.validateRoleName = page.locator("//div[contains(text(),'Nhập tên quyền')]");
+    this.validateEmail = page.locator("//div[contains(text(),'Nhập email')]");
+    this.validateEmployeeName = page.locator("//div[contains(text(),'Nhập tên nhân viên')]");
+    this.validateEmployeeCode = page.locator("//div[contains(text(),'Nhập mã nhân viên')]");
+    this.employeeCodeExisted = page.locator("//li[contains(text(),'Mã nhân viên đã tồn tại.')]");
+    this.emailAddressExisted = page.locator("//li[contains(text(),'Địa chỉ email đã tồn tại.')]");
     this.dropdownSalaryType = page.locator("//div[@class='v-field v-field--active v-field--appended v-field--center-affix v-field--dirty v-field--variant-outlined v-theme--lightColor7 rounded-lg v-locale--is-ltr']//i[@class='mdi-menu-down mdi v-icon notranslate v-theme--lightColor7 v-icon--size-default v-select__menu-icon']");
     this.dailySalary = page.locator("//div[contains(text(),'Theo ngày')]");
     this.emailError = page.locator("//li[contains(text(),'Định dạng Địa chỉ email không hợp lệ.')]");
@@ -127,6 +140,7 @@ export class EmployeePage {
     this.selectDepartment = page.locator("//div[text()='Bộ phận IT']");
     this.dropdownDepartment = page.locator("//div[2]/div/div[10]/div/div/div/div[3]/div/input");
     this.selectStaff = page.locator("//div[@class='v-list-item-title'][normalize-space()='Staff']");
+    this.selectAdmin = page.locator("//div[@class='v-list-item-title'][normalize-space()='Admin']");
     this.dropdownEmployeeType = page.locator("//div[2]/div/div[12]/div/div/div/div[3]/div/input");
     this.email = page.locator("//div[2]/div/div[4]/div/div[1]/div/div/div/div[3]/div/input");
     this.employeeName = page.locator("//div[2]/div/div[2]/div/div/div/div[3]/div/input");
@@ -136,6 +150,35 @@ export class EmployeePage {
     
   }
 
+  async validateRequiredFields() {
+    const validations = [
+        { locator: this.validateRoleName, expectedText: 'Nhập tên quyền' },
+        { locator: this.validateEmail, expectedText: 'Nhập email' },
+        { locator: this.validateEmployeeName, expectedText: 'Nhập tên nhân viên' },
+        { locator: this.validateEmployeeCode, expectedText: 'Nhập mã nhân viên' },
+    ];
+
+    for (const { locator, expectedText } of validations) {
+        await expect(locator).toBeVisible();
+        await expect(locator).toHaveText(expectedText);
+    }
+}
+
+
+  async verifyEmployeeCodeExisted() {
+    await expect(this.employeeCodeExisted).toBeVisible();
+    await expect(this.employeeCodeExisted).toHaveText("Mã nhân viên đã tồn tại.");
+
+  }
+
+  async verifyEmailExisted() {
+    await expect(this.emailAddressExisted).toBeVisible();
+    await expect(this.emailAddressExisted).toHaveText("Địa chỉ email đã tồn tại.");
+  }
+
+  async clickAdmin() {
+    await this.selectAdmin.click();
+  }
 
   async clickDropdownSalaryType() {
     await this.dropdownSalaryType.click();

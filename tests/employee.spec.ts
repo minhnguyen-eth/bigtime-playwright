@@ -7,7 +7,7 @@ import { EmployeePage } from '../pages/EmployeePage';
 import { ToastPage } from '../pages/ToastPage';
 import { HomePage } from '../pages/HomePage';
 
-test.describe('Employee Tests', () => {
+test.describe.serial('Employee Tests', () => {
     let loginPage: LoginPage;
     let employeePage: EmployeePage
     let toastPage: ToastPage;
@@ -35,8 +35,8 @@ test.describe('Employee Tests', () => {
         const randomAllowanceName = `Phụ cấp${randomSuffix}`;
         const userCode = `userCode${randomSuffix}`;
         const emailRandom = `email${randomSuffix}`;
-        const random10Digits = Math.floor(1000000000 + Math.random() * 9000000000); 
-        const phoneNumber = `09${Math.floor(100000000 + Math.random() * 900000000)}`; 
+        const random10Digits = Math.floor(1000000000 + Math.random() * 9000000000);
+        const phoneNumber = `09${Math.floor(100000000 + Math.random() * 900000000)}`;
 
         await loginPage.login(Config.admin_username, Config.admin_password);
         await homePage.clickAdmin();
@@ -184,10 +184,46 @@ test.describe('Employee Tests', () => {
         await employeePage.clickSelectBranch();
         await employeePage.clickDropdownDepartment();
         await employeePage.clickSelectDepartment();
+        await employeePage.clickDropdownEmployeeType();
+        await employeePage.clickStaff();
+        await employeePage.clickDropdownEmployeeType();
+        await employeePage.clickAdmin();
         await employeePage.clickDropdownRoleName();
         await employeePage.clickManagementDepartmentRole();
+
         await employeePage.clickSaveButton();
         await toastPage.getToastAddSuccess();
+    });
+
+    test('Add with duplicate employee code and email', async ({ page }) => {
+        await loginPage.login(Config.admin_username, Config.admin_password);
+        await homePage.clickAdmin();
+        await employeePage.clickUser();
+        await employeePage.clickAddButton();
+        await employeePage.fillEmployeeCode('BAT810');
+        await employeePage.fillEmployeeName('Automation test');
+        await employeePage.fillEmail('minh');
+        await employeePage.clickDropdownBranch();
+        await employeePage.clickSelectBranch();
+        await employeePage.clickDropdownDepartment();
+        await employeePage.clickSelectDepartment();
+        await employeePage.clickDropdownEmployeeType();
+        await employeePage.clickStaff();
+        await employeePage.clickSaveButton();
+        await toastPage.getToastAddFailed();
+        await employeePage.verifyEmailExisted();
+        await employeePage.verifyEmployeeCodeExisted();
+
+    });
+
+    test('Save but not fill any information', async ({ page }) => {
+        await loginPage.login(Config.admin_username, Config.admin_password);
+        await homePage.clickAdmin();
+        await employeePage.clickUser();
+        await employeePage.clickAddButton();
+        await employeePage.clickSaveButton();
+        await employeePage.validateRequiredFields();
+       
     });
 
     test('Edit employee name', async ({ page }) => {

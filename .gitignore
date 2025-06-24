@@ -11,5 +11,9 @@ node_modules/
 allure-results/
 allure-report/
 
+# Screenshot and video
+screenshots/
+videos/
+
 # Environment variables
 .env
