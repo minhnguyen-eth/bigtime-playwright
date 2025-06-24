@@ -5,7 +5,6 @@ import Config from '../utils/configUtils';
 import { HomePage } from '../pages/HomePage';
 import { RegisnationPage } from '../pages/RegisnationPage';
 import { ToastPage } from '../pages/ToastPage';
-import { LogoutPage } from '../pages/LogoutPage';
 import { allure } from 'allure-playwright';
 
 test.describe.serial('Resignation Tests', () => {
@@ -13,7 +12,7 @@ test.describe.serial('Resignation Tests', () => {
     let regisnationPage: RegisnationPage;
     let homePage: HomePage;
     let toastPage: ToastPage;
-    let logoutPage: LogoutPage;
+   
 
     const randomSuffix = Math.random().toString(36).substring(2, 8);
 
@@ -23,7 +22,6 @@ test.describe.serial('Resignation Tests', () => {
         allure.owner('Minh Nguyen');
         allure.severity('Critical');
 
-        logoutPage = new LogoutPage(page);
         loginPage = new LoginPage(page);
         regisnationPage = new RegisnationPage(page);
         homePage = new HomePage(page);

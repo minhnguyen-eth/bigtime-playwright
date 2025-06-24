@@ -1,4 +1,4 @@
-import { test, expect, TestInfo } from '@playwright/test';
+import { test, TestInfo } from '@playwright/test';
 import { LoginPage } from '../../pages/LoginPage';
 import { HomePage } from '../../pages/HomePage';
 import { takeScreenshotOnFailure } from '../../utils/screenshotUtils';

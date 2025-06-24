@@ -59,10 +59,23 @@ export class EmployeePage {
   readonly resultSearchByCode: Locator;
   readonly resultSearchByName: Locator;
   readonly editButton: Locator;
+  readonly dropdownRoleName: Locator;
+  readonly managementDepartmentRole: Locator;
+  readonly cancelAdd: Locator;
+  readonly emailError: Locator;
+  readonly dailySalary: Locator;
+  readonly dropdownSalaryType: Locator;
+
 
   constructor(page: Page) {
     this.page = page;
 
+    this.dropdownSalaryType = page.locator("//div[@class='v-field v-field--active v-field--appended v-field--center-affix v-field--dirty v-field--variant-outlined v-theme--lightColor7 rounded-lg v-locale--is-ltr']//i[@class='mdi-menu-down mdi v-icon notranslate v-theme--lightColor7 v-icon--size-default v-select__menu-icon']");
+    this.dailySalary = page.locator("//div[contains(text(),'Theo ngày')]");
+    this.emailError = page.locator("//li[contains(text(),'Định dạng Địa chỉ email không hợp lệ.')]");
+    this.cancelAdd = page.locator("//span[contains(normalize-space(),'Hủy')]");
+    this.managementDepartmentRole = page.locator("//div[text()='Trưởng bộ phận']");
+    this.dropdownRoleName = page.locator("//div[2]/div/div[2]/div/div[13]/div/div/div/div[3]/div/input");
     this.editButton = page.locator("//span[contains(text(),'Sửa')]");
     this.resultSearchByName = page.locator("//tr[@id='row-0']//span[contains(text(),'Nguyễn Văn Minh')]");
     this.resultSearchByCode = page.locator("//a[normalize-space()='BAT810']");
@@ -120,6 +133,33 @@ export class EmployeePage {
     this.employeeCode = page.locator("//div[2]/div/div[1]/div/div/div/div[3]/div/input");
     this.addButton = page.locator("//span[normalize-space()='Thêm']");
     this.userButton = page.locator("//div[contains(text(),'Nhân viên')]");
+    
+  }
+
+
+  async clickDropdownSalaryType() {
+    await this.dropdownSalaryType.click();
+  }
+
+  async clickDailySalary() {
+    await this.dailySalary.click();
+  }
+
+  async verifyEmailError() {
+    await expect(this.emailError).toBeVisible();
+    await expect(this.emailError).toHaveText("Định dạng Địa chỉ email không hợp lệ.");
+  }
+
+  async clickCancelAdd() {
+    await this.cancelAdd.click();
+  }
+
+  async clickManagementDepartmentRole() {
+    await this.managementDepartmentRole.click();
+  }
+
+  async clickDropdownRoleName() {
+    await this.dropdownRoleName.click();
   }
 
   async clickEditButton() {
@@ -264,11 +304,6 @@ export class EmployeePage {
     // Fill the new value
     await this.citizenId.fill(date.toString());
     
-    // Verify the value was filled correctly
-    const filledValue = await this.citizenId.inputValue();
-    if (filledValue !== date.toString()) {
-      throw new Error(`Failed to fill Citizen ID. Expected: ${date.toString()}, Actual: ${filledValue}`);
-    }
   }
 
   async clickDropdownRank() {

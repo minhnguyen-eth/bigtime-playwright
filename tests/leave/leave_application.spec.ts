@@ -15,11 +15,11 @@ test.describe.serial('Leave Application Tests', () => {
     let homePage: HomePage;
 
     test.beforeEach(async ({ page }) => {
-       
+
         allure.feature('Leave Application Feature');
         allure.owner('Minh Nguyen');
         allure.severity('Critical');
-        
+
         loginPage = new LoginPage(page);
         leaveApplicationPage = new LeaveApplicationPage(page);
         homePage = new HomePage(page);

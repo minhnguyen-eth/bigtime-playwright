@@ -1,4 +1,4 @@
-import { test, expect, Page, TestInfo } from '@playwright/test';
+import { test, TestInfo } from '@playwright/test';
 import { LoginPage } from '../pages/LoginPage';
 import { takeScreenshotOnFailure } from '../utils/screenshotUtils';
 import Config from '../utils/configUtils';
@@ -35,8 +35,8 @@ test.describe('Employee Tests', () => {
         const randomAllowanceName = `Phụ cấp${randomSuffix}`;
         const userCode = `userCode${randomSuffix}`;
         const emailRandom = `email${randomSuffix}`;
-        const random10Digits = Math.floor(1000000000 + Math.random() * 9000000000); // đảm bảo đủ 10 chữ số
-        const phoneNumber = `09${Math.floor(100000000 + Math.random() * 900000000)}`; // dạng 09xxxxxxxx
+        const random10Digits = Math.floor(1000000000 + Math.random() * 9000000000); 
+        const phoneNumber = `09${Math.floor(100000000 + Math.random() * 900000000)}`; 
 
         await loginPage.login(Config.admin_username, Config.admin_password);
         await homePage.clickAdmin();
@@ -54,6 +54,7 @@ test.describe('Employee Tests', () => {
         await employeePage.clickSelectDepartment();
         await employeePage.clickDropdownEmployeeType();
         await employeePage.clickStaff();
+
         await employeePage.clickDropdownInfoMore();
         await employeePage.clickDropdownPosition();
         await employeePage.clickPosition();
@@ -88,7 +89,7 @@ test.describe('Employee Tests', () => {
         // Set salary 
         await employeePage.clickSetSalary();
         await employeePage.fillFillSalary('22000000');
-        await employeePage.fillFillInsurance('50000');
+        await employeePage.fillFillInsurance('500000');
         await employeePage.clickOpenAllowance();
         await employeePage.clickAddAllowance();
         await employeePage.clickDropdownAllowance();
@@ -102,7 +103,6 @@ test.describe('Employee Tests', () => {
         // await employeePage.clickConfirm();
 
         await employeePage.clickSaveButton();
-
         await toastPage.getToastAddSuccess();
 
         //Verify
@@ -110,7 +110,87 @@ test.describe('Employee Tests', () => {
 
     });
 
-    test('Edit user', async ({ page }) => {
+    test('Add and set daily salary ', async ({ page }) => {
+        const randomSuffix = Math.random().toString(36).substring(2, 8);
+        const randomAllowanceName = `Phụ cấp${randomSuffix}`;
+        const userCode = `userCode${randomSuffix}`;
+        const emailRandom = `email${randomSuffix}`;
+
+        await loginPage.login(Config.admin_username, Config.admin_password);
+        await homePage.clickAdmin();
+        await employeePage.clickUser();
+        await employeePage.clickAddButton();
+
+        // Fill information
+        await employeePage.fillEmployeeCode(userCode);
+        await employeePage.fillEmployeeName('Automation test');
+        await employeePage.fillEmail(emailRandom);
+        await employeePage.clickSelectMale();
+        await employeePage.clickDropdownBranch();
+        await employeePage.clickSelectBranch();
+        await employeePage.clickDropdownDepartment();
+        await employeePage.clickSelectDepartment();
+        await employeePage.clickDropdownEmployeeType();
+        await employeePage.clickStaff();
+
+        // Set salary 
+        await employeePage.clickSetSalary();
+        await employeePage.clickDropdownSalaryType();
+        await employeePage.clickDailySalary();
+        await employeePage.fillFillSalary('22000000');
+        await employeePage.fillFillInsurance('500000');
+        await employeePage.clickSaveButton();
+        await toastPage.getToastAddSuccess();
+
+        //Verify
+        await employeePage.clickRow0();
+
+    });
+
+    test('Add with invalid email', async ({ page }) => {
+        const randomSuffix = Math.random().toString(36).substring(2, 8);
+        const userCode = `userCode${randomSuffix}`;
+        await loginPage.login(Config.admin_username, Config.admin_password);
+        await homePage.clickAdmin();
+        await employeePage.clickUser();
+        await employeePage.clickAddButton();
+        await employeePage.fillEmployeeCode(userCode);
+        await employeePage.fillEmployeeName('Automation test');
+        await employeePage.clickDropdownBranch();
+        await employeePage.clickSelectBranch();
+        await employeePage.clickDropdownDepartment();
+        await employeePage.clickSelectDepartment();
+        await employeePage.clickDropdownEmployeeType();
+        await employeePage.clickStaff();
+        await employeePage.fillEmail('Tét');
+        await employeePage.clickSaveButton();
+        await employeePage.verifyEmailError();
+        await toastPage.getToastAddFailed();
+
+    });
+
+    test('Add with role department management', async ({ page }) => {
+        const randomSuffix = Math.random().toString(36).substring(2, 8);
+        const userCode = `userCode${randomSuffix}`;
+        const emailRandom = `email${randomSuffix}`;
+        await loginPage.login(Config.admin_username, Config.admin_password);
+        await homePage.clickAdmin();
+        await employeePage.clickUser();
+        await employeePage.clickAddButton();
+        await employeePage.fillEmployeeCode(userCode);
+        await employeePage.fillEmployeeName('Automation test');
+        await employeePage.fillEmail(emailRandom);
+        await employeePage.clickDropdownBranch();
+        await employeePage.clickSelectBranch();
+        await employeePage.clickDropdownDepartment();
+        await employeePage.clickSelectDepartment();
+        await employeePage.clickDropdownRoleName();
+        await employeePage.clickManagementDepartmentRole();
+        await employeePage.clickSaveButton();
+        await toastPage.getToastAddSuccess();
+    });
+
+    test('Edit employee name', async ({ page }) => {
         await loginPage.login(Config.admin_username, Config.admin_password);
         await homePage.clickAdmin();
         await employeePage.clickUser();
@@ -118,7 +198,22 @@ test.describe('Employee Tests', () => {
         await employeePage.clickEditButton();
         await employeePage.fillEmployeeName('Automation test edit');
         await employeePage.clickSaveButton();
-        await toastPage.getToastUpdateSuccess();
+        // await toastPage.getToastUpdateSuccess();
+        await toastPage.getToastEditSuccess();
+
+    });
+
+    test('Edit employee code', async ({ page }) => {
+        const randomSuffix = Math.random().toString(36).substring(2, 8);
+        const userEditCode = `userEditCode${randomSuffix}`;
+        await loginPage.login(Config.admin_username, Config.admin_password);
+        await homePage.clickAdmin();
+        await employeePage.clickUser();
+        await employeePage.clickRow0();
+        await employeePage.clickEditButton();
+        await employeePage.fillEmployeeCode(userEditCode);
+        await employeePage.clickSaveButton();
+        await toastPage.getToastEditSuccess();
 
     });
 
@@ -126,6 +221,16 @@ test.describe('Employee Tests', () => {
         await loginPage.login(Config.admin_username, Config.admin_password);
         await homePage.clickAdmin();
         await employeePage.clickUser();
+        await employeePage.clickRow0();
+        await employeePage.clickDeleteUser();
+        await employeePage.clickYesButton();
+        await toastPage.getToastDeleteSuccess();
+
+        await employeePage.clickRow0();
+        await employeePage.clickDeleteUser();
+        await employeePage.clickYesButton();
+        await toastPage.getToastDeleteSuccess();
+
         await employeePage.clickRow0();
         await employeePage.clickDeleteUser();
         await employeePage.clickYesButton();
@@ -159,7 +264,4 @@ test.describe('Employee Tests', () => {
         await employeePage.clickClearSearch();
 
     });
-
-
-
 });
