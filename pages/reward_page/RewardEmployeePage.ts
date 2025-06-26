@@ -44,7 +44,7 @@ export class RewardEmployeePage {
     readonly verifyCancelledStatus: Locator;
     readonly row0: Locator;
     readonly cancelRewardButton: Locator;
-    readonly reasonCancelInput: Locator;
+    readonly reasonInput: Locator;
     readonly yesButton: Locator;
     readonly dayRewardAdd: Locator;
     readonly browseButton: Locator;
@@ -54,7 +54,7 @@ export class RewardEmployeePage {
         this.page = page;
         this.browseButton = page.locator("//span[contains(text(),'Duyệt')]");
         this.dayRewardAdd = page.locator("//div[7]/div/div/div/div/div[1]/div/div/div[3]/input");
-        this.reasonCancelInput = page.locator("//form/div/div[3]/div/div/div/div/div/div[3]/textarea");
+        this.reasonInput = page.locator("//form/div/div[3]/div/div/div/div/div/div[3]/textarea");
         this.yesButton = page.locator("//span[normalize-space()='Có']");
         this.cancelRewardButton = page.locator("//span[contains(text(),'Hủy')]");
         this.row0 = page.locator("//tr[@id='row-0']");
@@ -107,8 +107,8 @@ export class RewardEmployeePage {
         await this.dayRewardAdd.click();
     }
 
-    async clickReasonCancelInput(reasonCancelInput: string) {
-        await this.reasonCancelInput.fill(reasonCancelInput);
+    async fillReasonInput(reasonInput: string) {
+        await this.reasonInput.fill(reasonInput);
         await this.yesButton.click();
     }
 
@@ -290,4 +290,19 @@ export class RewardEmployeePage {
     async clickOnAddButton() {
         await this.addButton.click();
     }
+
+
+    async CreateReward(){
+        await this.fillRewardName('Reward Employee');
+        await this.fillChosseEmployee('Minh');
+        await this.clickSelectEmployee();
+        await this.clickChosseRewardType();
+        await this.clickSelectRewardType();
+        await this.fillMoneyInput('1000000');
+        await this.fillDescriptionInput('Description');
+        await this.fillNoteInput('Note');
+        await this.clickSaveButton();
+
+    }
+
 }

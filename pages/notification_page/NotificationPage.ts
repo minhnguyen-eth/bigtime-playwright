@@ -69,7 +69,7 @@ export class NotificationPage {
     }
 
     async clickOnDeleteButton() {
-        await this.deleteButton.click();
+        await this.deleteButton.first().click();
     }
 
     async clickOnListNotification() {

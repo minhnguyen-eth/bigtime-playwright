@@ -30,85 +30,92 @@ test.describe.serial('Employee Tests', () => {
         await takeScreenshotOnFailure(page, testInfo);
     });
 
-    test('Add with role employee', async ({ page }) => {
-        const randomSuffix = Math.random().toString(36).substring(2, 8);
-        const randomAllowanceName = `Phụ cấp${randomSuffix}`;
-        const userCode = `userCode${randomSuffix}`;
-        const emailRandom = `email${randomSuffix}`;
-        const random10Digits = Math.floor(1000000000 + Math.random() * 9000000000);
-        const phoneNumber = `09${Math.floor(100000000 + Math.random() * 900000000)}`;
+        test(`Add with role employee`, async ({ page }) => {
+            const randomSuffix = Math.random().toString(36).substring(2, 8);
+            const randomAllowanceName = `Phụ cấp${randomSuffix}`;
+            const userCode = `userCode${randomSuffix}`;
+            const emailRandom = `email${randomSuffix}`;
+            const random10Digits = Math.floor(1000000000 + Math.random() * 9000000000);
+            const phoneNumber = `09${Math.floor(100000000 + Math.random() * 900000000)}`;
 
-        await loginPage.login(Config.admin_username, Config.admin_password);
-        await homePage.clickAdmin();
-        await employeePage.clickUser();
-        await employeePage.clickAddButton();
+            try {
+                await loginPage.login(Config.admin_username, Config.admin_password);
+                await homePage.clickAdmin();
+                await employeePage.clickUser();
+                await employeePage.clickAddButton();
 
-        // Fill information
-        await employeePage.fillEmployeeCode(userCode);
-        await employeePage.fillEmployeeName('Automation test');
-        await employeePage.fillEmail(emailRandom);
-        await employeePage.clickSelectMale();
-        await employeePage.clickDropdownBranch();
-        await employeePage.clickSelectBranch();
-        await employeePage.clickDropdownDepartment();
-        await employeePage.clickSelectDepartment();
-        await employeePage.clickDropdownEmployeeType();
-        await employeePage.clickStaff();
+                // Fill information
+                await employeePage.fillEmployeeCode(userCode);
+                await employeePage.fillEmployeeName('Automation test');
+                await employeePage.fillEmail(emailRandom);
+                await employeePage.clickSelectMale();
+                await employeePage.clickDropdownBranch();
+                await employeePage.clickSelectBranch();
+                await employeePage.clickDropdownDepartment();
+                await employeePage.clickSelectDepartment();
+                await employeePage.clickDropdownEmployeeType();
+                await employeePage.clickStaff();
 
-        await employeePage.clickDropdownInfoMore();
-        await employeePage.clickDropdownPosition();
-        await employeePage.clickPosition();
-        await employeePage.clickDropdownRank();
-        await employeePage.clickSelectRank();
-        await employeePage.fillCitizenId(random10Digits);
-        await employeePage.clickCitizenIdCardIssueDate();
-        await employeePage.clickChosseYear();
-        await employeePage.clickSelectYear();
-        await employeePage.clickChosseMonth();
-        await employeePage.clickSelectMonth();
-        await employeePage.clickSelectDay();
-        await employeePage.clickChosseButton();
+                await employeePage.clickDropdownInfoMore();
+                await employeePage.clickDropdownPosition();
+                await employeePage.clickPosition();
+                await employeePage.clickDropdownRank();
+                await employeePage.clickSelectRank();
+                await employeePage.fillCitizenId(random10Digits);
+                await employeePage.clickCitizenIdCardIssueDate();
+                await employeePage.clickChosseYear();
+                await employeePage.clickSelectYear();
+                await employeePage.clickChosseMonth();
+                await employeePage.clickSelectMonth();
+                await employeePage.clickSelectDay();
+                await employeePage.clickChosseButton();
 
-        await employeePage.fillPlaceOfIssueOfIdentityCard('Bien Hoa, Dong Nai');
-        await employeePage.fillBankName('Vietcombank');
-        await employeePage.fillBankAccountNumber('02847182497124');
-        await employeePage.fillPhoneNumber(phoneNumber);
-        await employeePage.clickDateOfBirth();
-        await employeePage.clickChosseYear();
-        await employeePage.clickSelectYear();
-        await employeePage.clickChosseMonth();
-        await employeePage.clickSelectMonth();
-        await employeePage.clickSelectDay();
-        await employeePage.clickChosseButton();
-        await employeePage.clickDateOfJoiningTheCompany();
-        await employeePage.clickToDay();
-        await employeePage.clickChosseButton();
-        await employeePage.fillAddress('Bien Hoa, Dong Nai');
-        await employeePage.fillNote('Automation testing');
+                await employeePage.fillPlaceOfIssueOfIdentityCard('Bien Hoa, Dong Nai');
+                await employeePage.fillBankName('Vietcombank');
+                await employeePage.fillBankAccountNumber('02847182497124');
+                await employeePage.fillPhoneNumber(phoneNumber);
+                await employeePage.clickDateOfBirth();
+                await employeePage.clickChosseYear();
+                await employeePage.clickSelectYear();
+                await employeePage.clickChosseMonth();
+                await employeePage.clickSelectMonth();
+                await employeePage.clickSelectDay();
+                await employeePage.clickChosseButton();
+                await employeePage.clickDateOfJoiningTheCompany();
+                await employeePage.clickToDay();
+                await employeePage.clickChosseButton();
+                await employeePage.fillAddress('Bien Hoa, Dong Nai');
+                await employeePage.fillNote('Automation testing');
 
-        // Set salary 
-        await employeePage.clickSetSalary();
-        await employeePage.fillFillSalary('22000000');
-        await employeePage.fillFillInsurance('500000');
-        await employeePage.clickOpenAllowance();
-        await employeePage.clickAddAllowance();
-        await employeePage.clickDropdownAllowance();
-        await employeePage.clickSelectAllowance();
+                // Set salary 
+                await employeePage.clickSetSalary();
+                await employeePage.fillFillSalary('22000000');
+                await employeePage.fillFillInsurance('500000');
+                await employeePage.clickOpenAllowance();
+                await employeePage.clickAddAllowance();
+                await employeePage.clickDropdownAllowance();
+                await employeePage.clickSelectAllowance();
 
-        // await employeePage.clickAddAllowance();
-        // await employeePage.clickDropdownAllowance2();
-        // await employeePage.clickAddAllowanceTypeButton();
-        // await employeePage.fillAllowanceTypeName(randomAllowanceName);
-        // await employeePage.fillMoneyAllowance('100000');
-        // await employeePage.clickConfirm();
+                // await employeePage.clickAddAllowance();
+                // await employeePage.clickDropdownAllowance2();
+                // await employeePage.clickAddAllowanceTypeButton();
+                // await employeePage.fillAllowanceTypeName(randomAllowanceName);
+                // await employeePage.fillMoneyAllowance('100000');
+                // await employeePage.clickConfirm();
 
-        await employeePage.clickSaveButton();
-        await toastPage.getToastAddSuccess();
+                await employeePage.clickSaveButton();
+                await toastPage.getToastAddSuccess();
 
-        //Verify
-        await employeePage.clickRow0();
-
-    });
+                //Verify
+                await employeePage.clickRow0();
+            } catch (error) {
+                console.error(`Test failed with error: ${error}`);
+                // Pause the test when an error occurs
+                await page.pause();
+                throw error; // Re-throw to make sure the test still fails
+            }
+        });
+    
 
     test('Add and set daily salary ', async ({ page }) => {
         const randomSuffix = Math.random().toString(36).substring(2, 8);
@@ -222,7 +229,7 @@ test.describe.serial('Employee Tests', () => {
         await employeePage.clickAddButton();
         await employeePage.clickSaveButton();
         await employeePage.validateRequiredFields();
-       
+
     });
 
     test('Edit employee name', async ({ page }) => {

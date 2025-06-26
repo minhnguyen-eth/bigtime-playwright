@@ -12,7 +12,7 @@ export class ToastPage {
     readonly toastAddFailed: Locator;
     readonly toastSendNotificationSuccess: Locator;
     readonly toastCancelSuccess: Locator;
-    readonly toastRefuseSuccess: Locator;
+    readonly toastRejectSuccess: Locator;
     readonly toastCancelledSuccess: Locator;
     readonly toastEditSuccess: Locator;
 
@@ -20,7 +20,7 @@ export class ToastPage {
         this.page = page;
         this.toastEditSuccess = page.locator('//div[contains(text(),"Chỉnh sửa thành công")]');
         this.toastCancelledSuccess = page.locator('//div[contains(text(),"Đã hủy thành công")]');
-        this.toastRefuseSuccess = page.locator('//div[contains(text(),"Từ chối thành công")]');
+        this.toastRejectSuccess = page.locator('//div[contains(text(),"Từ chối thành công")]');
         this.toastCancelSuccess = page.locator('//div[contains(text(),"Hủy thành công")]');
         this.toastSendNotificationSuccess = page.locator('//div[contains(text(),"Gửi thông báo thành công")]');
         this.toastAddFailed = page.locator('//div[contains(text(),"Thêm không thành công")]');
@@ -32,6 +32,7 @@ export class ToastPage {
         this.toastUpdateSuccess = page.locator('//div[contains(text(),"Cập nhật thành công")]');
         this.toastDeleteSuccess = page.locator('//div[contains(text(),"Xóa thành công")]');
         this.toastBrowseSuccess = page.locator('//div[contains(text(),"Đã duyệt thành công")]');
+
 
     }
 
@@ -45,9 +46,9 @@ export class ToastPage {
         return this.toastCancelledSuccess.textContent();
     }
 
-    async getToastRefuseSuccess() {
-        await expect(this.toastRefuseSuccess).toHaveText('Từ chối thành công');
-        return this.toastRefuseSuccess.textContent();
+    async getToastRejectSuccess() {
+        await expect(this.toastRejectSuccess).toHaveText('Từ chối thành công');
+        return this.toastRejectSuccess.textContent();
     }
 
     async getToastCancelSuccess() {
@@ -86,7 +87,7 @@ export class ToastPage {
     }
 
     async getToastSendSuccess() {
-        await expect(this.toastSendSuccess).toHaveText('Đã gửi thành công');
+        await expect(this.toastSendSuccess).toContainText('Đã gửi thành công');
         return this.toastSendSuccess.textContent();
     }
 

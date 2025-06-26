@@ -137,7 +137,7 @@ export class EmployeePage {
     this.fillInsurance = page.locator("//div[3]/div[3]/div/div/div/div/div/div/div[3]/input");
     this.fillSalary = page.locator("//div[3]/div/div/div[2]/div/div/div/div[3]/input");
     this.setSalary = page.locator("//span[contains(normalize-space(),'Thiết lập lương')]");
-    this.selectDepartment = page.locator("//div[text()='Bộ phận IT']");
+    this.selectDepartment = page.locator("//div[text()='Bộ phận Marketing']");
     this.dropdownDepartment = page.locator("//div[2]/div/div[10]/div/div/div/div[3]/div/input");
     this.selectStaff = page.locator("//div[@class='v-list-item-title'][normalize-space()='Staff']");
     this.selectAdmin = page.locator("//div[@class='v-list-item-title'][normalize-space()='Admin']");

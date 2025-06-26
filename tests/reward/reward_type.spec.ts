@@ -7,23 +7,27 @@ import { ToastPage } from '../../pages/ToastPage';
 import { HomePage } from '../../pages/HomePage';
 import { clearAllRewardType } from '../../utils/mysqlUtils';
 import { allure } from 'allure-playwright';
+import { BasePage } from '../../pages/BasePage';
 
 test.describe.serial('Reward Type Tests', () => {
     let loginPage: LoginPage;
     let rewardTypePage: RewardTypePage;
     let toast: ToastPage;
     let homePage: HomePage;
+    let basePage: BasePage;
 
     test.beforeEach(async ({ page }) => {
-  
+
         allure.feature('Reward Type Feature');
         allure.owner('Minh Nguyen');
         allure.severity('Critical');
 
+        basePage = new BasePage(page);
         homePage = new HomePage(page);
         toast = new ToastPage(page);
         loginPage = new LoginPage(page);
         rewardTypePage = new RewardTypePage(page);
+
         await loginPage.goto();
     });
 
@@ -40,8 +44,8 @@ test.describe.serial('Reward Type Tests', () => {
             await loginPage.login(Config.admin_username, Config.admin_password);
             await homePage.clickAdmin();
             await rewardTypePage.clickRewardTypeButton();
-            await rewardTypePage.clickAddButton();
-            await rewardTypePage.clickSaveButton();
+            await basePage.clickAdd();
+            await basePage.clickSave();
             await rewardTypePage.getRequiredRewardTypeName();
         });
     });
@@ -55,10 +59,10 @@ test.describe.serial('Reward Type Tests', () => {
             await loginPage.login(Config.admin_username, Config.admin_password);
             await homePage.clickAdmin();
             await rewardTypePage.clickRewardTypeButton();
-            await rewardTypePage.clickAddButton();
+            await basePage.clickAdd();
             await rewardTypePage.fillRewardTypeNameInput(rewardTypeName);
             await rewardTypePage.fillDescriptionInput('Test Description');
-            await rewardTypePage.clickSaveButton();
+            await basePage.clickSave();
         });
         await toast.getToastAddSuccess();
     });
@@ -70,10 +74,10 @@ test.describe.serial('Reward Type Tests', () => {
             await loginPage.login(Config.admin_username, Config.admin_password);
             await homePage.clickAdmin();
             await rewardTypePage.clickRewardTypeButton();
-            await rewardTypePage.clickAddButton();
+            await basePage.clickAdd();
             await rewardTypePage.fillRewardTypeNameInput('Khen thưởng 1');
             await rewardTypePage.fillDescriptionInput('Test Description');
-            await rewardTypePage.clickSaveButton();
+            await basePage.clickSave();
         });
         await rewardTypePage.VerifyDuplicateNameError();
         await toast.getToastAddFailed();
@@ -88,11 +92,11 @@ test.describe.serial('Reward Type Tests', () => {
             await loginPage.login(Config.admin_username, Config.admin_password);
             await homePage.clickAdmin();
             await rewardTypePage.clickRewardTypeButton();
-            await rewardTypePage.clickAddButton();
+            await basePage.clickAdd();
             await rewardTypePage.fillRewardTypeNameInput(rewardTypeName);
             await rewardTypePage.clickStatusDropdownFormAdd();
             await rewardTypePage.clickStatusLock();
-            await rewardTypePage.clickSaveButton();
+            await basePage.clickSave();
         });
         await toast.getToastAddSuccess();
     });
@@ -106,12 +110,12 @@ test.describe.serial('Reward Type Tests', () => {
             await loginPage.login(Config.admin_username, Config.admin_password);
             await homePage.clickAdmin();
             await rewardTypePage.clickRewardTypeButton();
-            await rewardTypePage.clickAddButton();
+            await basePage.clickAdd();
             await rewardTypePage.fillRewardTypeNameInput(rewardTypeName);
             await rewardTypePage.fillDescriptionInput('Test Description');
             await rewardTypePage.clickStatusDropdownFormAdd();
             await rewardTypePage.clickStatusLock();
-            await rewardTypePage.clickSaveButton();
+            await basePage.clickSave();
         });
         await toast.getToastAddSuccess();
     });
@@ -122,9 +126,9 @@ test.describe.serial('Reward Type Tests', () => {
             await loginPage.login(Config.admin_username, Config.admin_password);
             await homePage.clickAdmin();
             await rewardTypePage.clickRewardTypeButton();
-            await rewardTypePage.clickEditButton();
+            await basePage.clickEdit();
             await rewardTypePage.fillDescriptionInput('Edit Description');
-            await rewardTypePage.clickSaveButton();
+            await basePage.clickSave();
         });
         await toast.getToastUpdateSuccess();
     });
@@ -137,7 +141,7 @@ test.describe.serial('Reward Type Tests', () => {
             await rewardTypePage.clickRewardTypeButton();
             await rewardTypePage.clickEditButton();
         });
-        
+
     });
 
     test('Delete reward type', async ({ page }) => {

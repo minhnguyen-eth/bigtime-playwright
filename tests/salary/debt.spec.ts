@@ -192,7 +192,7 @@ test.describe.serial("Debt Tests", () => {
       await debtPage.fillReason("refused debt test");
       await debtPage.clickYesButton();
     });
-    await toastPage.getToastRefuseSuccess();
+    await toastPage.getToastRejectSuccess();
   });
 
   test("Send debt and cancel", async ({ page }) => {
