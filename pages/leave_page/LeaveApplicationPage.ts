@@ -19,7 +19,7 @@ export class LeaveApplicationPage {
     readonly cancelButton: Locator;
     readonly sendButton: Locator;
     readonly OKButton: Locator;
-    readonly detailLeaveApplicationButton: Locator;
+    readonly Row0: Locator;
     readonly toastSendSuccess: Locator;
     readonly browsedButton: Locator;
     readonly toastBrowsedSuccess: Locator;
@@ -52,7 +52,7 @@ export class LeaveApplicationPage {
         this.socialInsuranceLeave = page.locator("//div[contains(text(),'Nghỉ bảo hiểm xã hội')]")
         this.regularLeave = page.locator("//div[contains(text(),'Nghỉ thường')]")
         this.browsedButton = page.locator("//span[contains(text(),'Duyệt')]")
-        this.detailLeaveApplicationButton = page.locator("//tr[@id='row-0']")
+        this.Row0 = page.locator("//tr[@id='row-0']")
         this.OKButton = page.locator("//span[normalize-space()='Có']")
         this.sendButton = page.locator("//span[contains(text(),'Gửi')]")
         this.cancelButton = page.locator("//span[.=' Hủy']")
@@ -77,7 +77,7 @@ export class LeaveApplicationPage {
         this.toastBrowsedSuccess = page.locator('//div[contains(text(),"Phê duyệt thành công")]');
     }
 
-    async Logout(){
+    async Logout() {
         await this.logoutButton.click();
         await this.logoutConfirmButton.click();
     }
@@ -102,21 +102,11 @@ export class LeaveApplicationPage {
         await this.browsedButton.click();
     }
 
-    async clickDetailLeaveApplicationButton() {
-        await this.detailLeaveApplicationButton.click();
+    async clickRow0() {
+        await this.Row0.click();
     }
 
-    async clickOKButton() {
-        await this.OKButton.click();
-    }
 
-    async clickSendButton() {
-        await this.sendButton.click();
-    }
-
-    async clickCancelButton() {
-        await this.cancelButton.click();
-    }
 
     async clickSaveButton() {
         await this.saveButton.click();
@@ -191,6 +181,7 @@ export class LeaveApplicationPage {
     }
 
     async getVerifySpecialLeave() {
+        await this.page.waitForLoadState('load');
         await expect(this.verifySpecialLeave).toBeVisible();
         const text = await this.verifySpecialLeave.textContent();
         console.log("🔍 Special leave text found:", text);
@@ -200,6 +191,7 @@ export class LeaveApplicationPage {
 
 
     async getVerifyMaternityLeave() {
+        await this.page.waitForLoadState('load');
         await expect(this.verifyMaternityLeave).toBeVisible();
         const text = await this.verifyMaternityLeave.textContent();
         console.log("🔍 Maternity leave text found:", text);
@@ -207,6 +199,7 @@ export class LeaveApplicationPage {
     }
 
     async getVerifySocialInsuranceLeave() {
+        await this.page.waitForLoadState('load');
         await expect(this.verifySocialInsuranceLeave).toBeVisible();
         const text = await this.verifySocialInsuranceLeave.textContent();
         console.log("🔍 Social insurance leave text found:", text);
@@ -214,6 +207,7 @@ export class LeaveApplicationPage {
     }
 
     async getVerifyRegularLeave() {
+        await this.page.waitForLoadState('load');
         await expect(this.verifyRegularLeave).toBeVisible();
         const text = await this.verifyRegularLeave.textContent();
         console.log("🔍 Regular leave text found:", text);
@@ -221,6 +215,7 @@ export class LeaveApplicationPage {
     }
 
     async getVerifyAnualLeave() {
+        await this.page.waitForLoadState('load');
         await expect(this.verifyAnualLeave).toBeVisible();
         const text = await this.verifyAnualLeave.textContent();
         console.log("🔍 Anual leave text found:", text);

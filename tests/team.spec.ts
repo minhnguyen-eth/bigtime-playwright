@@ -7,6 +7,7 @@ import { HomePage } from '../pages/HomePage';
 import { BasePage } from '../pages/BasePage';
 import { takeScreenshotOnFailure } from '../utils/screenshotUtils';
 import { Config } from '../utils/configUtils';
+import { clearTeam } from '../utils/mysqlUtils';
 
 test.describe.serial('Team', () => {
 
@@ -35,6 +36,7 @@ test.describe.serial('Team', () => {
     });
 
     test('Create a new team', async ({ page }) => {
+        await clearTeam();
         const randomSuffix = Math.random().toString(36).substring(2, 8);
         const teamNameRandom = `team${randomSuffix}`;
         const teamCodeRandom = `code${randomSuffix}`;
@@ -137,16 +139,6 @@ test.describe.serial('Team', () => {
         await toastPage.getToastUpdateSuccess();
     });
 
-
-    test('Delete team', async ({ page }) => {
-        await loginPage.login(Config.admin_username, Config.admin_password);
-        await homePage.clickAdmin();
-        await teamPage.clickTeamButton();
-        await basePage.clickDelete();
-        await basePage.clickYes();
-        await toastPage.getToastDeleteSuccess();
-    });
-
     test('Maxleght team name 255 characters', async ({ page }) => {
         const randomSuffix = Math.random().toString(36).substring(2, 8);
         const teamNameRandom = `team${randomSuffix}`;
@@ -203,6 +195,14 @@ test.describe.serial('Team', () => {
         await teamPage.getResultMaxlenghtCode();
     });
 
+    test('Delete team', async ({ page }) => {
+        await loginPage.login(Config.admin_username, Config.admin_password);
+        await homePage.clickAdmin();
+        await teamPage.clickTeamButton();
+        await basePage.clickDelete();
+        await toastPage.getToastDeleteSuccess();
+    });
+
 
 
     test('Seach', async ({ page }) => {
@@ -243,7 +243,7 @@ test.describe.serial('Team', () => {
         await basePage.clickSearch();
         // await teamPage.getVerifyActivityStatus();
         // await teamPage.getVerifyLockStatus();
-       
+
     });
 
 

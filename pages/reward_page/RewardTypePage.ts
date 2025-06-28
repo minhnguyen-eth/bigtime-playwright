@@ -2,12 +2,7 @@ import { expect, Locator, Page } from "@playwright/test";
 
 export class RewardTypePage {
     readonly page: Page;
-    readonly addButton: Locator;
     readonly rewardTypeButton: Locator;
-    readonly editButton: Locator;
-    readonly deleteButton: Locator;
-    readonly searchButton: Locator;
-    readonly clearSearch: Locator;
     readonly rewardTypeNameInput: Locator;
     readonly descriptionInput: Locator;
     readonly saveButton: Locator;
@@ -18,18 +13,18 @@ export class RewardTypePage {
     readonly inputSearch: Locator;
     readonly resultSearch: Locator;
     readonly statusDrodownSearch: Locator;
-    readonly yesButton: Locator;
     readonly verifyActivityStatus: Locator;
     readonly verifyLockStatus: Locator;
     readonly verifyDuplicateNameError: Locator;
+    readonly verifyLockStatusRow1: Locator;
 
     constructor(page: Page) {
         this.page = page;
         this.verifyDuplicateNameError = page.locator("//li[contains(text(),'Tên đã tồn tại.')]");
-        this.verifyLockStatus = page.locator("//span[@class='custom-size'][normalize-space()='Khóa']");
-        this.verifyActivityStatus = page.locator("//span[@class='custom-size'][contains(text(),'Hoạt động')]");
-        this.resultSearch = page.locator("//tr[@id='row-0']//span[contains(text(),'Khen thưởng 2')]");
-        this.yesButton = page.locator("//span[normalize-space()='Có']");
+        this.verifyLockStatus = page.locator("//tr[@id='row-0']//span[@class='custom-size'][normalize-space()='Khóa']");
+        this.verifyLockStatusRow1 = page.locator("//tr[@id='row-1']//span[@class='custom-size'][contains(text(),'Khóa')]");
+        this.verifyActivityStatus = page.locator("//tr[@id='row-0']//span[@class='custom-size'][contains(text(),'Hoạt động')]");
+        this.resultSearch = page.locator("//tr[@id='row-0']//span[contains(text(),'Khen thưởng')]");
         this.activityStatus = page.locator("//div[contains(text(),'Hoạt động')]");
         this.statusDrodownSearch = page.locator("//div[@class='v-field v-field--appended v-field--center-affix v-field--variant-outlined v-theme--lightColor7 v-locale--is-ltr']//div[@class='v-field__input']");
         this.inputSearch = page.locator("//form/div/div[1]/div/div/div/div[3]/div/input");
@@ -39,11 +34,6 @@ export class RewardTypePage {
         this.saveButton = page.locator("//span[contains(normalize-space(),'Lưu')]");
         this.rewardTypeNameInput = page.locator("//div[2]/div/div[1]/div/div/div/div[3]/div/input");
         this.descriptionInput = page.locator("//div[2]/div/div/div/div[3]/textarea");
-        this.clearSearch = page.locator("//span[text()=' Xóa']");
-        this.searchButton = page.locator("//span[contains(normalize-space(),'Tìm kiếm')]");
-        this.deleteButton = page.locator("//tr[@id='row-0']//span[contains(text(),'Xóa')]");
-        this.editButton = page.locator("//tr[@id='row-0']//span[contains(text(),'Sửa')]");
-        this.addButton = page.locator("//span[normalize-space()='Thêm']");
         this.rewardTypeButton = page.locator("//div[contains(text(),'Loại khen thưởng')]");
     }
 
@@ -53,6 +43,8 @@ export class RewardTypePage {
         console.log("🔍 Error found:", value);
         return value;
     }
+
+
 
     async VerifyActivityStatus() {
         await expect(this.verifyActivityStatus).toBeVisible();
@@ -68,15 +60,17 @@ export class RewardTypePage {
         return value;
     }
 
+     async VerifyLockStatusRow1() {
+        await expect(this.verifyLockStatusRow1).toBeVisible();
+        const value = await this.verifyLockStatusRow1.textContent();
+        console.log("🔍 Status found:", value);
+        return value;
+    }
+
     async getResultSearch() {
         await expect(this.resultSearch).toBeVisible();
         await expect(this.resultSearch).toContainText('Khen thưởng');
         return this.resultSearch;
-    }
-
-    async clickYesButton() {
-        await expect(this.yesButton).toBeVisible();
-        await this.yesButton.click();
     }
 
     async clickStatusActivity() {
@@ -120,34 +114,9 @@ export class RewardTypePage {
         await this.descriptionInput.fill(description);
     }
 
-    async clickClearSearch() {
-        await expect(this.clearSearch).toBeVisible();
-        await this.clearSearch.click();
-    }
-
-    async clickSearchButton() {
-        await expect(this.searchButton).toBeVisible();
-        await this.searchButton.click();
-    }
-
     async fillInputSearch(search: string) {
         await expect(this.inputSearch).toBeVisible();
         await this.inputSearch.fill(search);
-    }
-
-    async clickDeleteButton() {
-        await expect(this.deleteButton).toBeVisible();
-        await this.deleteButton.click();
-    }
-
-    async clickEditButton() {
-        await expect(this.editButton).toBeVisible();
-        await this.editButton.click();
-    }
-
-    async clickAddButton() {
-        await expect(this.addButton).toBeVisible();
-        await this.addButton.click();
     }
 
     async clickRewardTypeButton() {

@@ -8,18 +8,21 @@ import { ToastPage } from "../../pages/ToastPage";
 import { clearAllEvaluationProgress } from "../../utils/mysqlUtils";
 import { allure } from "allure-playwright";
 import { createCriteria } from "../evaluation/evaluation_helper";
+import { BasePage } from "../../pages/BasePage";
 
 test.describe.serial("Evaluation Criteria Tests", () => {
+
     let loginPage: LoginPage;
     let evaluationProcess: EvaluationProcessPage;
     let homePage: HomePage;
     let toast: ToastPage;
+    let basePage: BasePage;
 
     const randomSuffix = Date.now();
     const random = `Automation test ${randomSuffix}`;
 
     test.beforeEach(async ({ page }) => {
-       
+
         allure.feature("Evaluation Process Feature");
         allure.owner("Minh Nguyen");
         allure.severity("Critical");
@@ -28,6 +31,7 @@ test.describe.serial("Evaluation Criteria Tests", () => {
         evaluationProcess = new EvaluationProcessPage(page);
         homePage = new HomePage(page);
         toast = new ToastPage(page);
+        basePage = new BasePage(page);
         await loginPage.goto();
         await loginPage.login(Config.admin_username, Config.admin_password);
     });
@@ -42,10 +46,7 @@ test.describe.serial("Evaluation Criteria Tests", () => {
             await clearAllEvaluationProgress();
             await homePage.clickAdmin();
             await evaluationProcess.clickEvaluationProcessButton();
-            await evaluationProcess.clickAddButton();
-            await evaluationProcess.clickCancelButton();
-            await evaluationProcess.clickCancelButton();
-            await evaluationProcess.clickAddButton();
+            await basePage.clickAdd();
             await evaluationProcess.fillEmployeeEvaluationInput("Nguyễn Văn Minh");
             await evaluationProcess.clickEmployeeEvaluationOption();
             await evaluationProcess.clickEvaluationTypeDropDown();
@@ -55,7 +56,7 @@ test.describe.serial("Evaluation Criteria Tests", () => {
             await evaluationProcess.clickEndTime();
             await evaluationProcess.clickToDay();
             await evaluationProcess.clickChosseButton();
-            await evaluationProcess.clickSaveButton();
+            await basePage.clickSave();
         });
         await toast.getToastAddSuccess();
     });
@@ -66,13 +67,10 @@ test.describe.serial("Evaluation Criteria Tests", () => {
             await homePage.clickAdmin();
             await evaluationProcess.clickEvaluationProcessButton();
             await evaluationProcess.clickIconAction();
-            await evaluationProcess.clickEditButton();
-            await evaluationProcess.clickCancelButton();
-            await evaluationProcess.clickIconAction();
-            await evaluationProcess.clickEditButton();
+            await basePage.clickEdit();
             await evaluationProcess.clickEvaluationTypeDropDown();
             await evaluationProcess.clickEvaluationTypeOption2();
-            await evaluationProcess.clickSaveButton();
+            await basePage.clickSave();
         });
         await toast.getToastUpdateSuccess();
     });
@@ -83,8 +81,7 @@ test.describe.serial("Evaluation Criteria Tests", () => {
             await homePage.clickAdmin();
             await evaluationProcess.clickEvaluationProcessButton();
             await evaluationProcess.clickIconAction();
-            await evaluationProcess.clickDeleteButton();
-            await evaluationProcess.clickYesButton();
+            await basePage.clickDelete();
         });
         await toast.getToastDeleteSuccess();
     });
@@ -94,10 +91,7 @@ test.describe.serial("Evaluation Criteria Tests", () => {
         await allure.step("Add new department evaluation process", async () => {
             await homePage.clickAdmin();
             await evaluationProcess.clickEvaluationProcessButton();
-            await evaluationProcess.clickAddButton();
-            await evaluationProcess.clickCancelButton();
-            await evaluationProcess.clickCancelButton();
-            await evaluationProcess.clickAddButton();
+            await basePage.clickAdd();
             await evaluationProcess.fillEmployeeEvaluationInput("Nguyễn Văn Minh");
             await evaluationProcess.clickEmployeeEvaluationOption();
             await evaluationProcess.clickEvaluationTypeDropDown();
@@ -109,7 +103,7 @@ test.describe.serial("Evaluation Criteria Tests", () => {
             await evaluationProcess.clickChosseButton();
             await evaluationProcess.clickEvaluationForm();
             await evaluationProcess.clickDepartmentForm();
-            await evaluationProcess.clickSaveButton();
+            await basePage.clickSave();
         });
         await toast.getToastAddSuccess();
     });
@@ -120,8 +114,7 @@ test.describe.serial("Evaluation Criteria Tests", () => {
             await homePage.clickAdmin();
             await evaluationProcess.clickEvaluationProcessButton();
             await evaluationProcess.clickIconAction();
-            await evaluationProcess.clickConfirmButton();
-            await evaluationProcess.clickYesButton();
+            await basePage.clickConfirm();
         });
         await toast.getToastConfirmSuccess();
     });
@@ -134,8 +127,8 @@ test.describe.serial("Evaluation Criteria Tests", () => {
             await evaluationProcess.clickListEvaluationButton();
             await evaluationProcess.getWaitEvaluationStatus();
             await evaluationProcess.clickEvaluationButton();
-            await evaluationProcess.clickSaveButton();
-            await evaluationProcess.clickYesButton();
+            await basePage.clickSave();
+            await basePage.clickYes();
         });
         await toast.getToastEvaluationSuccess();
     });

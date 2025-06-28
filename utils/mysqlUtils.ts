@@ -48,6 +48,10 @@ export async function clearAllLeaveApplications() {
   await clearTable('leave_applications');
 }
 
+export async function clearTeam(){
+  await clearTable('teams', "name NOT LIKE '%Nhóm%'");
+}
+
 export async function clearAllLeaveManagements() {
   await clearTable('leave_managements');
 }
@@ -81,7 +85,7 @@ export async function clearAllNotifications() {
 }
 
 export async function clearAllRewardUsers() {
-  await clearTable('reward_users');
+  await clearTable('reward_users', "name NOT LIKE '%Test data%'");
 }
 
 export async function clearAllRewardType() {

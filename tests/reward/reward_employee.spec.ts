@@ -50,6 +50,7 @@ test.describe.serial('Reward Employee Tests', () => {
         await rewardEmployeePage.clickRewardEmployee();
         await basePage.clickAdd();
         await rewardEmployeePage.CreateReward();
+        await basePage.clickSave();
         await toast.getToastAddSuccess();
 
         // Send reward to admin
@@ -72,6 +73,7 @@ test.describe.serial('Reward Employee Tests', () => {
         await rewardEmployeePage.clickRewardEmployee();
         await basePage.clickAdd();
         await rewardEmployeePage.CreateReward();
+        await basePage.clickSave();
         await toast.getToastAddSuccess();
 
         // Send reward to admin
@@ -95,6 +97,7 @@ test.describe.serial('Reward Employee Tests', () => {
         await rewardEmployeePage.clickRewardEmployee();
         await basePage.clickAdd();
         await rewardEmployeePage.CreateReward();
+        await basePage.clickSave();
         await toast.getToastAddSuccess();
     });
 
@@ -113,7 +116,7 @@ test.describe.serial('Reward Employee Tests', () => {
         await rewardEmployeePage.fillNoteInput('Note 2');
         await rewardEmployeePage.clickStatusDropdownAdd();
         await rewardEmployeePage.clickSeclectApproved();
-        await rewardEmployeePage.clickSaveButton();
+        await basePage.clickSave();
         await toast.getToastAddSuccess();
     });
 
@@ -122,13 +125,13 @@ test.describe.serial('Reward Employee Tests', () => {
         await homePage.clickAdmin();
         await rewardEmployeePage.clickRewardEmployee();
         await rewardEmployeePage.clickRow0();
-        await rewardEmployeePage.clickCancelRewardButton();
+        await basePage.clickCancel();
         await rewardEmployeePage.fillReasonInput('Reason cancel');
         await toast.getToastCancelledSuccess();
 
     });
 
-    test('Create reward with empty description, note ', async ({ page }) => {
+    test('Create reward with empty description and note ', async ({ page }) => {
         await loginPage.login(Config.admin_username, Config.admin_password);
         await homePage.clickAdmin();
         await rewardEmployeePage.clickRewardEmployee();
@@ -139,7 +142,7 @@ test.describe.serial('Reward Employee Tests', () => {
         await rewardEmployeePage.clickChosseRewardType();
         await rewardEmployeePage.clickSelectRewardType();
         await rewardEmployeePage.fillMoneyInput('1000000');
-        await rewardEmployeePage.clickSaveButton();
+        await basePage.clickSave();
         await toast.getToastAddSuccess();
     });
 
@@ -159,7 +162,7 @@ test.describe.serial('Reward Employee Tests', () => {
         await rewardEmployeePage.clickDayRewardAdd();
         await rewardEmployeePage.clickDay19();
         await rewardEmployeePage.clickChosseButton();
-        await rewardEmployeePage.clickSaveButton();
+        await basePage.clickSave();
         await toast.getToastAddSuccess();
 
     });
@@ -170,7 +173,7 @@ test.describe.serial('Reward Employee Tests', () => {
         await rewardEmployeePage.clickRewardEmployee();
         await basePage.clickAdd();
         await rewardEmployeePage.clearMoneyInput();
-        await rewardEmployeePage.clickSaveButton();
+        await basePage.clickSave();
         await rewardEmployeePage.validateValidationRewardName();
         await rewardEmployeePage.validateValidationEmployee();
         await rewardEmployeePage.validateValidationRewardType();
@@ -184,49 +187,49 @@ test.describe.serial('Reward Employee Tests', () => {
         // Search with reward name
         await rewardEmployeePage.clickRewardEmployee();
         await rewardEmployeePage.fillSearchByRewardName('Reward Employee');
-        await rewardEmployeePage.clickSearchButton();
+        await basePage.clickSearch();
         await rewardEmployeePage.verifySearchByRewardNameSearch();
-        await rewardEmployeePage.clickClearSearch();
+        await basePage.clickClearSearch();
 
         // Search with employee name
         await rewardEmployeePage.fillSearchByEmployee('Nguyễn Văn Minh');
-        await rewardEmployeePage.clickSearchButton();
-        await rewardEmployeePage.clickClearSearch();
+        await basePage.clickSearch();
+        await basePage.clickClearSearch();
 
         // Search with reward type
         await rewardEmployeePage.fillSearchByRewardType('Khen thưởng 2');
-        await rewardEmployeePage.clickSearchButton();
+        await basePage.clickSearch();
         await rewardEmployeePage.verifySearchByRewardTypeSearch();
-        await rewardEmployeePage.clickClearSearch();
+        await basePage.clickClearSearch();
 
         // Search with date
         await rewardEmployeePage.clickDayReward();
         await rewardEmployeePage.clickDay19();
-        await rewardEmployeePage.clickChosseButton();
-        await rewardEmployeePage.clickSearchButton();
+        await basePage.clickChoose();
+        await basePage.clickSearch();
         await rewardEmployeePage.verifySearchByDateSearch();
-        await rewardEmployeePage.clickClearSearch();
+        await basePage.clickClearSearch();
 
         // Search with approved status
         await rewardEmployeePage.clickStatusDropdownSearch();
         await rewardEmployeePage.clickApprovedStatus();
-        await rewardEmployeePage.clickSearchButton();
+        await basePage.clickSearch();
         await rewardEmployeePage.verifyApprovedStatusSearch();
-        await rewardEmployeePage.clickClearSearch();
+        await basePage.clickClearSearch();
 
         // Search with new status
         await rewardEmployeePage.clickStatusDropdownSearch();
         await rewardEmployeePage.clickNewStatus();
-        await rewardEmployeePage.clickSearchButton();
+        await basePage.clickSearch();
         await rewardEmployeePage.verifyNewStatusSearch();
-        await rewardEmployeePage.clickClearSearch();
+        await basePage.clickClearSearch();
 
         // Search with cancelled status
         await rewardEmployeePage.clickStatusDropdownSearch();
         await rewardEmployeePage.clickCancelledStatus();
-        await rewardEmployeePage.clickSearchButton();
+        await basePage.clickSearch();
         await rewardEmployeePage.verifyCancelledStatusSearch();
-        await rewardEmployeePage.clickClearSearch();
+        await basePage.clickClearSearch();
 
     });
 

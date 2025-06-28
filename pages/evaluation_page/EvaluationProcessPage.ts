@@ -19,10 +19,6 @@ export class EvaluationProcessPage {
     readonly departmentForm: Locator;
     readonly cancelButton: Locator;
     readonly iconAction: Locator;
-    readonly deleteButton: Locator;
-    readonly editButton: Locator;
-    readonly confirmButton: Locator;
-    readonly yesButton: Locator;
     readonly evaluationButton: Locator;
     readonly listEvaluationButton: Locator;
     readonly waitEvaluationStatus: Locator;
@@ -35,10 +31,6 @@ export class EvaluationProcessPage {
         this.waitEvaluationStatus = page.locator("//div[normalize-space()='Chờ đánh giá']");
         this.listEvaluationButton = page.locator("//div[@class='v-list-item-title'][contains(text(),'Danh sách đánh giá')]");
         this.evaluationButton = page.locator("//span[normalize-space()='Đánh giá']");
-        this.yesButton = page.locator("//span[normalize-space()='Có']");
-        this.confirmButton = page.locator("//span[contains(text(),'Xác nhận')]");
-        this.deleteButton = page.locator("//span[contains(text(),'Xóa')]");
-        this.editButton = page.locator("//span[contains(text(),'Sửa')]");
         this.iconAction = page.locator("//tr[@id='row-0']//i[@class='mdi mdi-format-list-group mdi v-icon notranslate v-theme--lightColor7 v-icon--size-default']");
         this.cancelButton = page.locator("//span[contains(normalize-space(),'Hủy')]");
         this.departmentForm = page.locator("//div[@role='option']//div[@class='v-list-item-title'][contains(text(),'Bộ phận')]");
@@ -70,27 +62,12 @@ export class EvaluationProcessPage {
         await this.listEvaluationButton.click();
     }
 
-    async clickYesButton() {
-        await this.yesButton.click();
-    }
-
-    async clickConfirmButton() {
-        await this.confirmButton.click();
-    }
-
     async clickEvaluationButton() {
         await this.evaluationButton.click();
     }
 
     async clickEvaluationTypeOption2() {
         await this.evaluationTypeOption2.click();
-    }
-
-    async clickDeleteButton() {
-        await this.deleteButton.click();
-    }
-    async clickEditButton() {
-        await this.editButton.click();
     }
 
     async clickIconAction() {

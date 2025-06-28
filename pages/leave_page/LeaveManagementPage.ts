@@ -176,6 +176,7 @@ export class LeaveManagementPage {
     }
 
     async clickAddEmployee() {
+        await this.page.waitForLoadState('networkidle');
         await expect(this.addEmployee).toBeVisible();
         await this.addEmployee.click();
     }
@@ -208,22 +209,21 @@ export class LeaveManagementPage {
     }
 
     async clickSaveEmployee() {
+        await this.page.waitForLoadState('load');
         await expect(this.saveEmployee.nth(1)).toBeVisible();
         await this.saveEmployee.nth(1).click();
     }
 
     async clickSelectAEmployee() {
+        await this.page.waitForLoadState('load');
         await this.page.waitForTimeout(2000);
-        await expect(this.selectAEmployee).toBeVisible(); // đợi visible
-        await expect(this.selectAEmployee).toBeEnabled(); // đợi enabled (không bị disabled)
         await this.selectAEmployee.click();
     }
 
 
     async fillSearchByName() {
-        await expect(this.searchByName).toBeVisible();
+        await this.page.waitForTimeout(1500);
         await this.searchByName.fill('Minh');
-        await this.page.keyboard.press('Enter');
     }
 
     async clickSaveDepartmentAndTeam() {

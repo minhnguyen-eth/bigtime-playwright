@@ -4,9 +4,7 @@ import { expect, Locator, Page } from "@playwright/test";
 export class RewardEmployeePage {
 
     readonly page: Page;
-    readonly addButton: Locator;
     readonly rewardEmployee: Locator;
-    readonly searchButton: Locator;
     readonly rewardNameInput: Locator;
     readonly chosseEmployeeInput: Locator;
     readonly selectEmployee: Locator;
@@ -17,8 +15,6 @@ export class RewardEmployeePage {
     readonly noteInput: Locator;
     readonly statusDropdownAdd: Locator;
     readonly seclectApproved: Locator;
-    readonly saveButton: Locator;
-    readonly cancelButton: Locator;
     readonly validationRewardName: Locator;
     readonly validationEmployee: Locator;
     readonly validationRewardType: Locator;
@@ -34,7 +30,6 @@ export class RewardEmployeePage {
     readonly newStatus: Locator;
     readonly approvedStatus: Locator;
     readonly cancelledStatus: Locator;
-    readonly clearSearch: Locator;
     readonly verifySearchByRewardName: Locator;
     readonly verifySearchByEmployee: Locator;
     readonly verifySearchByRewardType: Locator;
@@ -43,20 +38,18 @@ export class RewardEmployeePage {
     readonly verifyApprovedStatus: Locator;
     readonly verifyCancelledStatus: Locator;
     readonly row0: Locator;
-    readonly cancelRewardButton: Locator;
     readonly reasonInput: Locator;
-    readonly yesButton: Locator;
     readonly dayRewardAdd: Locator;
-    readonly browseButton: Locator;
+    readonly yesButton: Locator;
+  
+ 
 
 
     constructor(page: Page) {
         this.page = page;
-        this.browseButton = page.locator("//span[contains(text(),'Duyệt')]");
+        this.yesButton = page.locator("//span[normalize-space()='Có']");
         this.dayRewardAdd = page.locator("//div[7]/div/div/div/div/div[1]/div/div/div[3]/input");
         this.reasonInput = page.locator("//form/div/div[3]/div/div/div/div/div/div[3]/textarea");
-        this.yesButton = page.locator("//span[normalize-space()='Có']");
-        this.cancelRewardButton = page.locator("//span[contains(text(),'Hủy')]");
         this.row0 = page.locator("//tr[@id='row-0']");
         this.verifyCancelledStatus = page.locator("//tr[@id='row-0']//div[text()='Đã hủy']");
         this.verifyApprovedStatus = page.locator("//tr[@id='row-0']//div[text()='Đã duyệt']");
@@ -64,8 +57,7 @@ export class RewardEmployeePage {
         this.verifySearchByDate = page.locator("//td[normalize-space()='19-06-2025']");
         this.verifySearchByRewardType = page.locator("//tr[@id='row-0']//span[contains(text(),'Khen thưởng 2')]");
         this.verifySearchByEmployee = page.locator("//tr[@id='row-0']//span[contains(text(),'BAT810 - Nguyễn Văn Minh')]");
-        this.verifySearchByRewardName = page.locator("//tr[@id='row-0']//span[contains(text(),'Reward Employee 1')]");
-        this.clearSearch = page.locator("//span[normalize-space()='Xóa']");
+        this.verifySearchByRewardName = page.locator("//tr[@id='row-0']//span[contains(text(),'Reward Employee 4')]");
         this.approvedStatus = page.locator("//div[contains(text(),'Đã duyệt')]");
         this.cancelledStatus = page.locator("//div[contains(text(),'Đã hủy')]");
         this.newStatus = page.locator("//div[contains(text(),'Mới tạo')]");
@@ -81,8 +73,6 @@ export class RewardEmployeePage {
         this.validationRewardType = page.locator("//div[contains(text(),'Nhập chọn loại khen thưởng')]");
         this.validationEmployee = page.locator("//div[contains(text(),'Nhập chọn nhân viên')]");
         this.validationRewardName = page.locator("//div[contains(text(),'Nhập tên khen thưởng')]");
-        this.cancelButton = page.locator("//span[contains(normalize-space(),'Hủy')]");
-        this.saveButton = page.locator("//span[contains(normalize-space(),'Lưu')]");
         this.seclectApproved = page.locator("//div[contains(text(),'Đã duyệt')]");
         this.statusDropdownAdd = page.locator("//div[@class='v-input v-input--horizontal v-input--center-affix v-input--density-compact v-theme--lightColor7 v-locale--is-ltr v-input--dirty v-text-field v-select v-select--single v-select--selected custom-select']//div[@class='v-field__input']");
         this.noteInput = page.locator("//div[2]/div/div[6]/div/div/div/div[3]/textarea");
@@ -93,15 +83,11 @@ export class RewardEmployeePage {
         this.selectEmployee = page.locator("//span[@class='v-autocomplete__unmask'][contains(text(),'BAT810 - Nguyễn Văn')]");
         this.chosseEmployeeInput = page.locator("//div[2]/div/div[2]/div/div/div/div[3]/div/input");
         this.rewardNameInput = page.locator("//div[2]/div/div[1]/div/div/div/div[3]/div/input");
-        this.searchButton = page.locator("//span[contains(.,'Tìm kiếm')]");
         this.rewardEmployee = page.locator("//div[contains(text(),'Khen thưởng nhân viên')]");
-        this.addButton = page.locator("//span[normalize-space()='Thêm']");
+      
     }
 
     
-    async clickBrowseButton() {
-        await this.browseButton.click();
-    }
 
     async clickDayRewardAdd() {
         await this.dayRewardAdd.click();
@@ -114,10 +100,6 @@ export class RewardEmployeePage {
 
     async clickYesButton() {
         await this.yesButton.click();
-    }
-
-    async clickCancelRewardButton() {
-        await this.cancelRewardButton.click();
     }
 
     async clickRow0() {
@@ -140,7 +122,7 @@ export class RewardEmployeePage {
 
     async verifySearchByRewardNameSearch() {
         await expect(this.verifySearchByRewardName).toBeVisible();
-        await expect(this.verifySearchByRewardName).toHaveText('Reward Employee 1');
+        await expect(this.verifySearchByRewardName).toHaveText('Reward Employee 4');
     }
 
     async verifySearchByEmployeeSearch() {
@@ -184,11 +166,6 @@ export class RewardEmployeePage {
         await this.searchByRewardType.fill(searchByRewardType);
     }
 
-    async clickClearSearch() {
-        await this.clearSearch.click();
-    }
-
-
     async clickSearchByDate() {
         await this.searchByDate.click();
     }
@@ -225,15 +202,6 @@ export class RewardEmployeePage {
         await expect(this.validationRewardName).toHaveText('Nhập tên khen thưởng');
     }
 
-
-    async clickCancelButton() {
-        await this.cancelButton.click();
-    }
-
-    async clickSaveButton() {
-        await this.saveButton.click();
-    }
-
     async clickSeclectApproved() {
         await this.seclectApproved.click();
     }
@@ -267,10 +235,6 @@ export class RewardEmployeePage {
         await this.chosseRewardType.click();
     }
 
-    async clickSearchButton() {
-        await this.searchButton.click();
-    }
-
     async clickSelectEmployee() {
         await this.selectEmployee.click();
     }
@@ -287,11 +251,6 @@ export class RewardEmployeePage {
         await this.rewardEmployee.click();
     }
 
-    async clickOnAddButton() {
-        await this.addButton.click();
-    }
-
-
     async CreateReward(){
         await this.fillRewardName('Reward Employee');
         await this.fillChosseEmployee('Minh');
@@ -301,7 +260,6 @@ export class RewardEmployeePage {
         await this.fillMoneyInput('1000000');
         await this.fillDescriptionInput('Description');
         await this.fillNoteInput('Note');
-        await this.clickSaveButton();
 
     }
 

@@ -2,9 +2,8 @@ import { Locator, Page, expect } from '@playwright/test';
 
 export class PaysheetPage {
     readonly page: Page;
-    readonly cancelButton: Locator;
+ 
     readonly paysheetButton: Locator;
-    readonly addButton: Locator;
     readonly namePaysheetInput: Locator;
     readonly setNamePaysheetInput: Locator;
     readonly radioMonthly: Locator;
@@ -12,9 +11,6 @@ export class PaysheetPage {
     readonly monthOption: Locator;
     readonly dropdownEmployee: Locator;
     readonly employeeOption: Locator;
-    readonly saveButton: Locator;
-    readonly logoutButton: Locator;
-    readonly logoutConfirmButton: Locator;
     readonly submitButton: Locator;
     readonly latestPaysheetRow: Locator;
     readonly viewPayrollButton: Locator;
@@ -33,7 +29,7 @@ export class PaysheetPage {
     readonly historyPaymentCodeButton: Locator;
     readonly employeeNameLabel: Locator;
     readonly cancelPaysheetButton: Locator;
-    readonly searchLabel: Locator;
+    readonly searchInput: Locator;
     readonly verifyPaysheetIdCell: Locator;
     readonly selectAllEmployeesCheckbox: Locator;
     readonly reasonInput: Locator;
@@ -68,9 +64,9 @@ export class PaysheetPage {
         this.employeeNameInput = page.locator("//form[1]/div[1]/div[3]/div[1]/div[2]/div[1]/div[2]/div[1]/div[6]/div[1]/div[1]/div[1]/div[3]/div[1]/input[1]")
         this.chooseMonth = page.locator("//div[@class='v-field v-field--active v-field--appended v-field--center-affix v-field--dirty v-field--variant-outlined v-theme--lightColor7 v-locale--is-ltr']//i[@title='Open']")
         this.checkBoxMonthly = page.locator('//div/div[2]/div/div[2]/div/div/div/div/div[2]/div/div/input')
-        this.cancelButton = page.locator('//span[contains(normalize-space(),"Hủy")]');
+    
         this.paysheetButton = page.locator('//a[@href="/salary/pay-sheet"]');
-        this.addButton = page.locator('//span[normalize-space()="Thêm"]');
+        
         this.namePaysheetInput = page.locator('//form/div/div[3]/div/div[2]/div/div[2]/div/div[1]/div/div/div/div[3]/div/input');
         this.setNamePaysheetInput = page.locator('//form//div[3]//div[2]//div//div[1]//div//div[1]//div//input');
         this.radioMonthly = page.locator('//i[contains(@class,"mdi-radiobox-blank")]');
@@ -79,9 +75,7 @@ export class PaysheetPage {
         this.monthOption05 = page.locator('//div[@class="v-list-item-title"][normalize-space()="1/5/2025 - 31/5/2025"]');
         this.dropdownEmployee = page.locator("//div[@class='v-field v-field--appended v-field--center-affix v-field--variant-outlined v-theme--lightColor7 v-locale--is-ltr']//div[@class='v-field__input']");
         this.employeeOption = page.locator("//div[@role='option']//div[@class='v-list-item-title']");
-        this.saveButton = page.locator('//button[@type="submit"]//span[@class="v-btn__content"]');
-        this.logoutButton = page.locator('//div[contains(text(),"Đăng xuất")]');
-        this.logoutConfirmButton = page.locator('//span[normalize-space()="Có"]');
+       
         this.submitButton = page.locator('//button[@type="submit"]');
         this.latestPaysheetRow = page.locator('//tr[@id="row-0"]');
         this.viewPayrollButton = page.locator('//span[contains(normalize-space(),"Xem bảng lương")]');
@@ -100,7 +94,7 @@ export class PaysheetPage {
         this.historyPaymentCodeButton = page.locator('//td[@class="text-left cursor-pointer"]');
         this.employeeNameLabel = page.locator('//div[contains(text(),"Nguyễn Văn Minh")]');
         this.cancelPaysheetButton = page.locator('//span[normalize-space()="Hủy"]');
-        this.searchLabel = page.locator('//label[@class="v-label v-field-label"]');
+        this.searchInput = page.locator("//div[1]/div/div/div/div[4]/div/input");
         this.verifyPaysheetIdCell = page.locator("//td[.='BL000001']");
         this.selectAllEmployeesCheckbox = page.locator("//div[@class='v-col-md-12 v-col-12']//i[@class='mdi-radiobox-blank mdi v-icon notranslate v-theme--lightColor7 v-icon--size-default']");
         this.reasonLabel = page.locator('//form//div[3]//textarea');
@@ -135,11 +129,6 @@ export class PaysheetPage {
         await this.exportExcelByMonth.click();
     }
 
-
-    async Logout() {
-        await this.logoutButton.click();
-        await this.logoutConfirmButton.click();
-    }
 
     async clickSearchButton() {
         await this.searchButton.click();
@@ -210,19 +199,13 @@ export class PaysheetPage {
         await this.selectAllEmployeesCheckbox.click({ force: true });
     }
 
-
     async isPaysheetIdDisplayed(id: string) {
         const cell = this.page.locator(`//td[normalize-space()="${id}"]`);
         return cell.isVisible();
     }
 
-    async clickSearchLabel() {
-        await this.searchLabel.click({ force: true });
-    }
-
-
-    async searchPaysheet(id: string) {
-        await this.searchLabel.fill(id);
+    async fillSearchPaysheet(id: string) {
+        await this.searchInput.fill(id);
     }
 
     async clickCancelPaysheet() {
@@ -253,10 +236,6 @@ export class PaysheetPage {
         await this.paysheetButton.click();
     }
 
-    async clickAdd() {
-        await this.addButton.click();
-    }
-
     async setNamePaysheet(name: string) {
         await this.namePaysheetInput.fill(name);
     }
@@ -275,10 +254,6 @@ export class PaysheetPage {
 
     async setEmployeeName(name: string) {
         await this.employeeNameInput.fill(name);
-    }
-
-    async clickSave() {
-        await this.saveButton.click();
     }
 
     async clickLatestPaysheetRow() {

@@ -139,7 +139,7 @@ test.describe.serial('Reward Type Tests', () => {
             await loginPage.login(Config.admin_username, Config.admin_password);
             await homePage.clickAdmin();
             await rewardTypePage.clickRewardTypeButton();
-            await rewardTypePage.clickEditButton();
+            await basePage.clickEdit();
         });
 
     });
@@ -150,51 +150,50 @@ test.describe.serial('Reward Type Tests', () => {
             await loginPage.login(Config.admin_username, Config.admin_password);
             await homePage.clickAdmin();
             await rewardTypePage.clickRewardTypeButton();
-            await rewardTypePage.clickDeleteButton();
-            await rewardTypePage.clickYesButton();
+            await basePage.clickDelete();
         });
         await toast.getToastDeleteSuccess();
     });
 
     test('Search by name and status', async ({ page }) => {
-        allure.story('Search Reward Type by Multiple Criteria');
-        await allure.step('Clear all reward types before search', async () => {
-            await clearAllRewardType();
-        });
+        allure.story('Search by name and status');
+
 
         await allure.step('Search by name', async () => {
             await loginPage.login(Config.admin_username, Config.admin_password);
             await homePage.clickAdmin();
             await rewardTypePage.clickRewardTypeButton();
             await rewardTypePage.fillInputSearch('Khen thưởng');
-            await rewardTypePage.clickSearchButton();
+            await basePage.clickSearch();
             await rewardTypePage.getResultSearch();
-            await rewardTypePage.clickClearSearch();
+            await basePage.clickClearSearch();
         });
 
         await allure.step('Search by lock status', async () => {
             await rewardTypePage.clickStatusDropdownSearch();
             await rewardTypePage.clickStatusLock();
-            await rewardTypePage.clickSearchButton();
+            await basePage.clickSearch();
             await rewardTypePage.VerifyLockStatus();
-            await rewardTypePage.clickClearSearch();
+            await basePage.clickClearSearch();
         });
 
         await allure.step('Search by activity status', async () => {
             await rewardTypePage.clickStatusDropdownSearch();
             await rewardTypePage.clickStatusActivity();
-            await rewardTypePage.clickSearchButton();
+            await basePage.clickSearch();
             await rewardTypePage.VerifyActivityStatus();
-            await rewardTypePage.clickClearSearch();
+            await basePage.clickClearSearch();
         });
 
         await allure.step('Search by lock & activity status', async () => {
+            await clearAllRewardType();
             await rewardTypePage.clickStatusDropdownSearch();
             await rewardTypePage.clickStatusLock();
             await rewardTypePage.clickStatusActivity();
-            await rewardTypePage.clickSearchButton();
-            await rewardTypePage.VerifyLockStatus();
+            await basePage.clickSearch();
+            await rewardTypePage.VerifyLockStatusRow1();
             await rewardTypePage.VerifyActivityStatus();
+
         });
     });
 });

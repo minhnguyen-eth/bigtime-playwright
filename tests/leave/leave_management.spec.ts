@@ -8,23 +8,29 @@ import { clearAllLeaveManagements } from '../../utils/mysqlUtils';
 import { employeeBrowseLeaveManagement } from './leave_helper';
 import { allure } from 'allure-playwright';
 import { ToastPage } from '../../pages/ToastPage';
+import { BasePage } from '../../pages/BasePage';
+import { LogoutPage } from '../../pages/LogoutPage';
 
 test.describe.serial('Leave Management Tests', () => {
     let loginPage: LoginPage;
     let leaveManagementPage: LeaveManagementPage;
     let homePage: HomePage;
     let toastPage: ToastPage;
+    let basePage: BasePage;
+    let logoutPage: LogoutPage;
 
     test.beforeEach(async ({ page }) => {
-     
+
         allure.feature('Leave Management Feature');
         allure.owner('Minh Nguyen');
         allure.severity('Critical');
 
+        logoutPage = new LogoutPage(page);
         toastPage = new ToastPage(page);
         loginPage = new LoginPage(page);
         leaveManagementPage = new LeaveManagementPage(page);
         homePage = new HomePage(page);
+        basePage = new BasePage(page);
         await loginPage.goto();
     });
 
@@ -43,18 +49,18 @@ test.describe.serial('Leave Management Tests', () => {
             await loginPage.login(Config.admin_username, Config.admin_password);
             await homePage.clickAdmin();
             await leaveManagementPage.clickLeaveManagementButton();
-            await leaveManagementPage.clickAddButton();
+            await basePage.clickAdd();
             await leaveManagementPage.clickAddEmployee();
             await leaveManagementPage.fillSearchByName();
             await leaveManagementPage.clickSelectAEmployee();
             await leaveManagementPage.clickSaveEmployee();
-            await leaveManagementPage.clickSaveButton();
+            await page.waitForTimeout(1000); // Wait for 3 seconds
+            await basePage.clickSave();
             await toastPage.getToastAddSuccess();
             await leaveManagementPage.verifyStatusNew('Mới');
 
             await leaveManagementPage.clickIconActionRow0();
-            await leaveManagementPage.clickComfirmButton();
-            await leaveManagementPage.clickOkButton();
+            await basePage.clickConfirm();
             await toastPage.getToastConfirmSuccess();
             await leaveManagementPage.verifyStatusWaitingForApproval('Chờ duyệt');
         });
@@ -71,14 +77,14 @@ test.describe.serial('Leave Management Tests', () => {
             await loginPage.login(Config.admin_username, Config.admin_password);
             await homePage.clickAdmin();
             await leaveManagementPage.clickLeaveManagementButton();
-            await leaveManagementPage.clickAddButton();
+            await basePage.clickAdd();
             await leaveManagementPage.clickStatusDropDown();
             await leaveManagementPage.clickWaitingForApproval();
             await leaveManagementPage.clickAddEmployee();
             await leaveManagementPage.fillSearchByName();
             await leaveManagementPage.clickSelectAEmployee();
             await leaveManagementPage.clickSaveEmployee();
-            await leaveManagementPage.clickSaveButton();
+            await basePage.clickSave();
             await leaveManagementPage.verifyAnnualLeaveAlreadyExist('Nghỉ phép năm đã tồn tại.');
         });
     });
@@ -91,14 +97,14 @@ test.describe.serial('Leave Management Tests', () => {
             await loginPage.login(Config.admin_username, Config.admin_password);
             await homePage.clickAdmin();
             await leaveManagementPage.clickLeaveManagementButton();
-            await leaveManagementPage.clickAddButton();
+            await basePage.clickAdd();
             await leaveManagementPage.clickStatusDropDown();
             await leaveManagementPage.clickWaitingForApproval();
             await leaveManagementPage.clickAddEmployee();
             await leaveManagementPage.fillSearchByName();
             await leaveManagementPage.clickSelectAEmployee();
             await leaveManagementPage.clickSaveEmployee();
-            await leaveManagementPage.clickSaveButton();
+            await basePage.clickSave();
             await toastPage.getToastAddSuccess();
             await leaveManagementPage.verifyStatusWaitingForApproval('Chờ duyệt');
         });
@@ -116,30 +122,27 @@ test.describe.serial('Leave Management Tests', () => {
             await loginPage.login(Config.admin_username, Config.admin_password);
             await homePage.clickAdmin();
             await leaveManagementPage.clickLeaveManagementButton();
-            await leaveManagementPage.clickAddButton();
+            await basePage.clickAdd();
             await leaveManagementPage.clickDepartmentAndTeam();
             await leaveManagementPage.clickAddDepatment();
             await leaveManagementPage.clickDepartmentOption();
             await leaveManagementPage.clickSaveDepartmentAndTeam();
-            await leaveManagementPage.clickSaveButton();
+            await basePage.clickSave();
             await toastPage.getToastAddSuccess();
             await leaveManagementPage.verifyStatusNew('Mới');
         });
 
         await allure.step('Admin confirms each row and sets status to waiting for approval', async () => {
-           
-                await leaveManagementPage.clickIconActionRow0();
-                await leaveManagementPage.clickComfirmButton();
-                await leaveManagementPage.clickOkButton();
-                await toastPage.getToastConfirmSuccess();
 
-                await leaveManagementPage.clickIconActionRow1();
-                await leaveManagementPage.clickComfirmButton();
-                await leaveManagementPage.clickOkButton();
+            await leaveManagementPage.clickIconActionRow0();
+            await basePage.clickConfirm();
+            await toastPage.getToastConfirmSuccess();
 
-                await leaveManagementPage.clickIconActionRow2();
-                await leaveManagementPage.clickComfirmButton();
-                await leaveManagementPage.clickOkButton();
+            await leaveManagementPage.clickIconActionRow1();
+            await basePage.clickConfirm();
+
+            await leaveManagementPage.clickIconActionRow2();
+            await basePage.clickConfirm();
         });
 
         await allure.step('Employee browses leave management', async () => {
@@ -155,14 +158,14 @@ test.describe.serial('Leave Management Tests', () => {
             await homePage.clickAdmin();
             await leaveManagementPage.clickLeaveManagementButton();
             await leaveManagementPage.fillSearchEmpployee('Nguyễn Văn Minh');
-            await leaveManagementPage.clickSearchButton();
+            await basePage.clickSearch();
             await leaveManagementPage.verifyResultEmployee('Nguyễn Văn Minh');
             await leaveManagementPage.clickClearSearchButton();
         });
 
         await allure.step('Admin searches leave management by year', async () => {
             await leaveManagementPage.fillSearchByYear('2025');
-            await leaveManagementPage.clickSearchButton();
+            await basePage.clickSearch();
             await leaveManagementPage.verifyResultYear('2025');
         });
     });

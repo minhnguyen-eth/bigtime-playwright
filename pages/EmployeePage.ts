@@ -104,7 +104,7 @@ export class EmployeePage {
     this.addAllowanceTypeButton = page.locator("//span[contains(normalize-space(),'+ Thêm loại phụ cấp')]");
     this.selectMale = page.locator("//input[@aria-label='Nam']");
     this.row0 = page.locator("//tr[@id='row-0']");
-    this.dateOfBirth = page.locator("//div[2]/div/div[2]/div/div/div/div/div[1]/div/div/div[3]/input");
+    this.dateOfBirth = page.locator("//div[2]/div/div/div/div[3]/div/div[2]/div/div[2]/div/div/div/div/div[1]/div/div/div[3]/input");
     this.note = page.locator("//div[3]/div/div[2]/div/div[5]/div/div/div/div[3]/div/input");
     this.address = page.locator("//div[3]/div/div[2]/div/div[4]/div/div/div/div[3]/div/input");
     this.toDay = page.locator("//div[@class='dp__cell_inner dp__pointer dp__today dp__date_hover']");
@@ -127,7 +127,7 @@ export class EmployeePage {
     this.dropdownPosition = page.locator("//div[1]/div/div[3]/div/div[1]/div/div/div/div[3]/div/input");
     this.dropdownInfoMore = page.locator("//i[@class='mdi-chevron-down mdi v-icon notranslate v-theme--lightColor7 v-icon--size-default']");
     this.selectBranch = page.locator("//div[text()='Biên Hòa']");
-    this.dropdownBranch = page.locator("//div[2]/div/div[5]/div/div/div/div[3]/div/input");
+    this.dropdownBranch = page.locator("//div[3]/div/div[2]/div/div[2]/div/div[5]/div/div/div/div[3]/div/input");
     this.selectAllowance = page.locator("//div[contains(text(),'Phụ cấp tiền ăn')]");
     this.dropdownAllowance = page.locator("//tbody/tr/td[1]/div/div/div/div[3]/div");
     this.dropdownAllowance2 = page.locator("//div[@class='v-input v-input--horizontal v-input--center-affix v-input--density-compact v-theme--lightColor7 v-locale--is-ltr v-text-field v-select v-select--single v-select--selected']//i[@class='mdi-menu-down mdi v-icon notranslate v-theme--lightColor7 v-icon--size-default v-select__menu-icon']");
@@ -142,9 +142,9 @@ export class EmployeePage {
     this.selectStaff = page.locator("//div[@class='v-list-item-title'][normalize-space()='Staff']");
     this.selectAdmin = page.locator("//div[@class='v-list-item-title'][normalize-space()='Admin']");
     this.dropdownEmployeeType = page.locator("//div[2]/div/div[12]/div/div/div/div[3]/div/input");
-    this.email = page.locator("//div[2]/div/div[4]/div/div[1]/div/div/div/div[3]/div/input");
+    this.email = page.locator("//div[2]/div/div[4]/div/div[1]/div/div/div/div[3]/input");
     this.employeeName = page.locator("//div[2]/div/div[2]/div/div/div/div[3]/div/input");
-    this.employeeCode = page.locator("//div[2]/div/div[1]/div/div/div/div[3]/div/input");
+    this.employeeCode = page.locator("//div[2]/div/div[2]/div/div[1]/div/div/div/div[3]/div/input");
     this.addButton = page.locator("//span[normalize-space()='Thêm']");
     this.userButton = page.locator("//div[contains(text(),'Nhân viên')]");
     

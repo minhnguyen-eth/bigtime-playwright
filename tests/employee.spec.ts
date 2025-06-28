@@ -56,7 +56,6 @@ test.describe.serial('Employee Tests', () => {
                 await employeePage.clickDropdownEmployeeType();
                 await employeePage.clickStaff();
 
-                await employeePage.clickDropdownInfoMore();
                 await employeePage.clickDropdownPosition();
                 await employeePage.clickPosition();
                 await employeePage.clickDropdownRank();
