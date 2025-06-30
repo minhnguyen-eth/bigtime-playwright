@@ -239,8 +239,7 @@ test.describe.serial('Employee Tests', () => {
         await employeePage.clickEditButton();
         await employeePage.fillEmployeeName('Automation test edit');
         await employeePage.clickSaveButton();
-        // await toastPage.getToastUpdateSuccess();
-        await toastPage.getToastEditSuccess();
+        await toastPage.getToastUpdateSuccess();
 
     });
 
@@ -254,7 +253,7 @@ test.describe.serial('Employee Tests', () => {
         await employeePage.clickEditButton();
         await employeePage.fillEmployeeCode(userEditCode);
         await employeePage.clickSaveButton();
-        await toastPage.getToastEditSuccess();
+        await toastPage.getToastUpdateSuccess();
 
     });
 
@@ -262,16 +261,6 @@ test.describe.serial('Employee Tests', () => {
         await loginPage.login(Config.admin_username, Config.admin_password);
         await homePage.clickAdmin();
         await employeePage.clickUser();
-        await employeePage.clickRow0();
-        await employeePage.clickDeleteUser();
-        await employeePage.clickYesButton();
-        await toastPage.getToastDeleteSuccess();
-
-        await employeePage.clickRow0();
-        await employeePage.clickDeleteUser();
-        await employeePage.clickYesButton();
-        await toastPage.getToastDeleteSuccess();
-
         await employeePage.clickRow0();
         await employeePage.clickDeleteUser();
         await employeePage.clickYesButton();

@@ -30,7 +30,7 @@ export class TeamPage {
     this.page = page;
 
     this.resultMaxlenghtName = page.locator("//div[contains(text(),'Không nhập quá 255 kí tự.')]");
-    this.resultMaxlenghtCode = page.locator("//li[contains(text(),'Mã nhóm không được lớn hơn 100')]");
+    this.resultMaxlenghtCode = page.locator("//div[contains(text(),'Không nhập quá 100 kí tự.')]");
     this.resultSearchByCode = page.locator("//tr[@id='row-0']//span[contains(text(),'T001')]");
     this.resultSearchByName = page.locator("//tr[@id='row-0']//span[contains(text(),'Nhóm It1')]");
     this.validateNameExist = page.locator("//li[contains(text(),'Tên đã tồn tại.')]");
@@ -63,7 +63,7 @@ export class TeamPage {
 
   async getResultMaxlenghtCode() {
     await expect(this.resultMaxlenghtCode).toBeVisible();
-    await expect(this.resultMaxlenghtCode).toHaveText('Mã nhóm không được lớn hơn 100');
+    await expect(this.resultMaxlenghtCode).toHaveText('Không nhập quá 100 kí tự.');
 
   }
 

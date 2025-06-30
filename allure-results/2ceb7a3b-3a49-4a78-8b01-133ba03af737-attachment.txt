@@ -1,3 +1,0 @@
-Đã xóa toàn bộ dữ liệu trong bảng leave_managements
-🔍 Status value found (Waiting for Approval): Chờ duyệt
-🔍 Status value found (Approved): Đã duyệt

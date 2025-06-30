@@ -45,9 +45,9 @@ test.describe.serial('Reward Employee Tests', () => {
         await clearAllRewardUsers();
         await loginPage.login(Config.manager_username, Config.manager_password);
         await homePage.clickAdmin();
-
-        // Create reward
         await rewardEmployeePage.clickRewardEmployee();
+
+        // Create reward  
         await basePage.clickAdd();
         await rewardEmployeePage.CreateReward();
         await basePage.clickSave();
@@ -101,7 +101,26 @@ test.describe.serial('Reward Employee Tests', () => {
         await toast.getToastAddSuccess();
     });
 
-    test('Create reward with approved status', async ({ page }) => {
+    test('Manager create reward with approved status', async ({ page }) => {
+        await loginPage.login(Config.manager_username, Config.manager_password);
+        await homePage.clickAdmin();
+        await rewardEmployeePage.clickRewardEmployee();
+        await basePage.clickAdd();
+        await rewardEmployeePage.fillRewardName('Reward Employee 2');
+        await rewardEmployeePage.fillChosseEmployee('Minh');
+        await rewardEmployeePage.clickSelectEmployee();
+        await rewardEmployeePage.clickChosseRewardType();
+        await rewardEmployeePage.clickSelectRewardType();
+        await rewardEmployeePage.fillMoneyInput('1000000');
+        await rewardEmployeePage.fillDescriptionInput('Description 2');
+        await rewardEmployeePage.fillNoteInput('Note 2');
+        await rewardEmployeePage.clickStatusDropdownAdd();
+        await rewardEmployeePage.clickSeclectWaitingForApproved();
+        await basePage.clickSave();
+        await toast.getToastAddSuccess();
+    });
+
+    test('Admin create reward with approved status', async ({ page }) => {
         await loginPage.login(Config.admin_username, Config.admin_password);
         await homePage.clickAdmin();
         await rewardEmployeePage.clickRewardEmployee();
@@ -115,7 +134,7 @@ test.describe.serial('Reward Employee Tests', () => {
         await rewardEmployeePage.fillDescriptionInput('Description 2');
         await rewardEmployeePage.fillNoteInput('Note 2');
         await rewardEmployeePage.clickStatusDropdownAdd();
-        await rewardEmployeePage.clickSeclectApproved();
+        await rewardEmployeePage.clickSelectApproved();
         await basePage.clickSave();
         await toast.getToastAddSuccess();
     });
@@ -180,35 +199,50 @@ test.describe.serial('Reward Employee Tests', () => {
         await rewardEmployeePage.validateValidationMoney();
     });
 
-    test('Search with reward name and employee name, reward type, date, status', async ({ page }) => {
+    test('Search with reward name', async ({ page }) => {
         await loginPage.login(Config.admin_username, Config.admin_password);
         await homePage.clickAdmin();
-
-        // Search with reward name
         await rewardEmployeePage.clickRewardEmployee();
         await rewardEmployeePage.fillSearchByRewardName('Reward Employee');
         await basePage.clickSearch();
         await rewardEmployeePage.verifySearchByRewardNameSearch();
         await basePage.clickClearSearch();
+    });
 
-        // Search with employee name
+    test('Search by employee name', async ({ page }) => {
+        await loginPage.login(Config.admin_username, Config.admin_password);
+        await homePage.clickAdmin();
+        await rewardEmployeePage.clickRewardEmployee();
         await rewardEmployeePage.fillSearchByEmployee('Nguyễn Văn Minh');
         await basePage.clickSearch();
-        await basePage.clickClearSearch();
+        await rewardEmployeePage.verifySearchByEmployeeSearch();
+    });
 
-        // Search with reward type
+    test('Search by reward type', async ({ page }) => {
+        await loginPage.login(Config.admin_username, Config.admin_password);
+        await homePage.clickAdmin();
+        await rewardEmployeePage.clickRewardEmployee();
         await rewardEmployeePage.fillSearchByRewardType('Khen thưởng 2');
         await basePage.clickSearch();
         await rewardEmployeePage.verifySearchByRewardTypeSearch();
-        await basePage.clickClearSearch();
+    });
 
-        // Search with date
+    test('Search by date', async ({ page }) => {
+        await loginPage.login(Config.admin_username, Config.admin_password);
+        await homePage.clickAdmin();
+        await rewardEmployeePage.clickRewardEmployee();
         await rewardEmployeePage.clickDayReward();
         await rewardEmployeePage.clickDay19();
         await basePage.clickChoose();
         await basePage.clickSearch();
         await rewardEmployeePage.verifySearchByDateSearch();
         await basePage.clickClearSearch();
+    });
+
+    test('Search by status', async ({ page }) => {
+        await loginPage.login(Config.admin_username, Config.admin_password);
+        await homePage.clickAdmin();
+        await rewardEmployeePage.clickRewardEmployee();
 
         // Search with approved status
         await rewardEmployeePage.clickStatusDropdownSearch();
@@ -229,8 +263,6 @@ test.describe.serial('Reward Employee Tests', () => {
         await rewardEmployeePage.clickCancelledStatus();
         await basePage.clickSearch();
         await rewardEmployeePage.verifyCancelledStatusSearch();
-        await basePage.clickClearSearch();
-
     });
 
 });

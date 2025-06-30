@@ -1,1 +1,0 @@
-📸 Screenshot saved: D:\BigAppTech\playwright-typescripts\screenshots\search_by_employee_name_and_year.png

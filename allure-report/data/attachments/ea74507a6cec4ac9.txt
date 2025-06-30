@@ -1,3 +1,0 @@
-Đã xóa 3 dòng trong bảng evaluation_criterias, giữ lại các bản ghi có chứa 'Tiêu chí' trong name.
-🔍 Required evaluation type name text found: Nhập tên loại đánh giá
-🔍 Required criteria name text found: Nhập tên tiêu chí

@@ -81,6 +81,7 @@ export class NotificationPage {
     }
 
     async fillPersonnalSearch(personnel: string) {
+        await this.page.waitForLoadState('networkidle');
         await this.personnalSearch.fill(personnel);
         await this.page.keyboard.press('Enter');
     }

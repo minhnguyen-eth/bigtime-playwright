@@ -1,2 +1,0 @@
-Đã xóa 2 dòng trong bảng working_shifts, giữ lại các bản ghi có chứa 'Ca' trong name.
-🔍 Working time value found: 08:00

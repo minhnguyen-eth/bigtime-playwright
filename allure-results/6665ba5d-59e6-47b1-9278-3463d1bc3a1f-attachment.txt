@@ -1,1 +1,0 @@
-📸 Screenshot saved: D:\BigAppTech\playwright-typescripts\screenshots\edit_debt_with_empty_value.png

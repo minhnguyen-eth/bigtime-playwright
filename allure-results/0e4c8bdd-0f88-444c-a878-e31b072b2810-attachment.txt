@@ -1,1 +1,0 @@
-📸 Screenshot saved: D:\BigAppTech\playwright-typescripts\screenshots\search_with_reward_name_and_employee_name__reward_type__date__status.png

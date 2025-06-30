@@ -14,7 +14,7 @@ export class RewardEmployeePage {
     readonly descriptionInput: Locator;
     readonly noteInput: Locator;
     readonly statusDropdownAdd: Locator;
-    readonly seclectApproved: Locator;
+    readonly seclectWaitingForApproved: Locator;
     readonly validationRewardName: Locator;
     readonly validationEmployee: Locator;
     readonly validationRewardType: Locator;
@@ -41,6 +41,7 @@ export class RewardEmployeePage {
     readonly reasonInput: Locator;
     readonly dayRewardAdd: Locator;
     readonly yesButton: Locator;
+    readonly selectApproved: Locator;
   
  
 
@@ -73,7 +74,8 @@ export class RewardEmployeePage {
         this.validationRewardType = page.locator("//div[contains(text(),'Nhập chọn loại khen thưởng')]");
         this.validationEmployee = page.locator("//div[contains(text(),'Nhập chọn nhân viên')]");
         this.validationRewardName = page.locator("//div[contains(text(),'Nhập tên khen thưởng')]");
-        this.seclectApproved = page.locator("//div[contains(text(),'Đã duyệt')]");
+        this.seclectWaitingForApproved = page.locator("//div[contains(text(),'Chờ duyệt')]");
+        this.selectApproved = page.locator("//div[contains(text(),'Đã duyệt')]");
         this.statusDropdownAdd = page.locator("//div[@class='v-input v-input--horizontal v-input--center-affix v-input--density-compact v-theme--lightColor7 v-locale--is-ltr v-input--dirty v-text-field v-select v-select--single v-select--selected custom-select']//div[@class='v-field__input']");
         this.noteInput = page.locator("//div[2]/div/div[6]/div/div/div/div[3]/textarea");
         this.descriptionInput = page.locator("//div[2]/div/div[5]/div/div/div/div[3]/textarea");
@@ -88,6 +90,10 @@ export class RewardEmployeePage {
     }
 
     
+
+    async clickSelectApproved() {
+        await this.selectApproved.click();
+    }
 
     async clickDayRewardAdd() {
         await this.dayRewardAdd.click();
@@ -202,8 +208,8 @@ export class RewardEmployeePage {
         await expect(this.validationRewardName).toHaveText('Nhập tên khen thưởng');
     }
 
-    async clickSeclectApproved() {
-        await this.seclectApproved.click();
+    async clickSeclectWaitingForApproved() {
+        await this.seclectWaitingForApproved.click();
     }
 
     async clickStatusDropdownAdd() {

@@ -1,2 +1,0 @@
-Đã xóa toàn bộ dữ liệu trong bảng leave_managements
-📸 Screenshot saved: D:\BigAppTech\playwright-typescripts\screenshots\add_annual_leave_for_a_employee_and_admin_browsed.png

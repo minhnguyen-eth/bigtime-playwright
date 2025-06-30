@@ -1,3 +1,0 @@
-Tìm thấy 1 loại đánh giá với tên: Automation test a8yds2
-Đã xóa 1 loại đánh giá với tên: Automation test a8yds2
-Đã xóa loại đánh giá "Automation test a8yds2": true

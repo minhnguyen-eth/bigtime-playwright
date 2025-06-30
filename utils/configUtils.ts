@@ -3,7 +3,7 @@ dotenv.config();
 
 export class Config {
   // URL staging
-  static get urlStating(): string {
+  static get urlStaging(): string {
     return process.env.URL_BIGTIME_STG || '';
   }
 

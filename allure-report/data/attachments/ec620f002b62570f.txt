@@ -1,2 +1,0 @@
-Đã xóa toàn bộ dữ liệu trong bảng leave_applications
-🔍 Regular leave text found: Nghỉ thường

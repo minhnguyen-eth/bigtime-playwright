@@ -43,12 +43,12 @@ export class LeaveApplicationPage {
         this.logoutButton = this.page.locator('//div[contains(text(),"Đăng xuất")]');
         this.logoutConfirmButton = this.page.locator('//span[normalize-space()="Có"]');
         this.verifySpecialLeave = page.locator("//div[normalize-space()='Nghỉ đặc biệt']")
-        this.verifyMaternityLeave = page.locator("//div[normalize-space()='Nghỉ phụ sản']")
+        this.verifyMaternityLeave = page.locator("//div[normalize-space()='Nghỉ thai sản']")
         this.verifySocialInsuranceLeave = page.locator("//div[normalize-space()='Nghỉ bảo hiểm xã hội']")
         this.verifyRegularLeave = page.locator("//div[normalize-space()='Nghỉ thường']")
         this.verifyAnualLeave = page.locator("//div[normalize-space()='Nghỉ theo phép năm']")
         this.specialLeave = page.locator("//div[contains(text(),'Nghỉ đặc biệt')]")
-        this.maternityLeave = page.locator("//div[contains(text(),'Nghỉ phụ sản')]")
+        this.maternityLeave = page.locator("//div[contains(text(),'Nghỉ thai sản')]")
         this.socialInsuranceLeave = page.locator("//div[contains(text(),'Nghỉ bảo hiểm xã hội')]")
         this.regularLeave = page.locator("//div[contains(text(),'Nghỉ thường')]")
         this.browsedButton = page.locator("//span[contains(text(),'Duyệt')]")

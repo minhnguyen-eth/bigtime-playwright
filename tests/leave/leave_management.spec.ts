@@ -84,7 +84,7 @@ test.describe.serial('Leave Management Tests', () => {
             await leaveManagementPage.fillSearchByName();
             await leaveManagementPage.clickSelectAEmployee();
             await leaveManagementPage.clickSaveEmployee();
-            await basePage.clickSave();
+            await leaveManagementPage.clickSaveButton();
             await leaveManagementPage.verifyAnnualLeaveAlreadyExist('Nghỉ phép năm đã tồn tại.');
         });
     });
@@ -104,7 +104,7 @@ test.describe.serial('Leave Management Tests', () => {
             await leaveManagementPage.fillSearchByName();
             await leaveManagementPage.clickSelectAEmployee();
             await leaveManagementPage.clickSaveEmployee();
-            await basePage.clickSave();
+            await leaveManagementPage.clickSaveButton();
             await toastPage.getToastAddSuccess();
             await leaveManagementPage.verifyStatusWaitingForApproval('Chờ duyệt');
         });
@@ -127,22 +127,21 @@ test.describe.serial('Leave Management Tests', () => {
             await leaveManagementPage.clickAddDepatment();
             await leaveManagementPage.clickDepartmentOption();
             await leaveManagementPage.clickSaveDepartmentAndTeam();
-            await basePage.clickSave();
+            await leaveManagementPage.clickSaveButton();
             await toastPage.getToastAddSuccess();
             await leaveManagementPage.verifyStatusNew('Mới');
         });
 
         await allure.step('Admin confirms each row and sets status to waiting for approval', async () => {
 
+            await leaveManagementPage.fillSearchEmpployee('Nguyễn Văn Minh');
+            await basePage.clickSearch();
+            await leaveManagementPage.verifyResultEmployee('Nguyễn Văn Minh');
             await leaveManagementPage.clickIconActionRow0();
             await basePage.clickConfirm();
             await toastPage.getToastConfirmSuccess();
 
-            await leaveManagementPage.clickIconActionRow1();
-            await basePage.clickConfirm();
-
-            await leaveManagementPage.clickIconActionRow2();
-            await basePage.clickConfirm();
+        
         });
 
         await allure.step('Employee browses leave management', async () => {

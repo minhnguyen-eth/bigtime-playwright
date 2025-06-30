@@ -29,6 +29,9 @@ test.describe.serial('Reward Type Tests', () => {
         rewardTypePage = new RewardTypePage(page);
 
         await loginPage.goto();
+        await loginPage.login(Config.admin_username, Config.admin_password);
+        await homePage.clickAdmin();
+        await rewardTypePage.clickRewardTypeButton();
     });
 
     test.afterEach(async ({ page }, testInfo: TestInfo) => {
@@ -41,8 +44,7 @@ test.describe.serial('Reward Type Tests', () => {
             await clearAllRewardType();
         });
         await allure.step('Try to add reward type with empty name', async () => {
-            await loginPage.login(Config.admin_username, Config.admin_password);
-            await homePage.clickAdmin();
+
             await rewardTypePage.clickRewardTypeButton();
             await basePage.clickAdd();
             await basePage.clickSave();
@@ -56,9 +58,7 @@ test.describe.serial('Reward Type Tests', () => {
         const rewardTypeName = `Test Reward Type ${randomSuffix}`;
 
         await allure.step('Add new reward type with valid data', async () => {
-            await loginPage.login(Config.admin_username, Config.admin_password);
-            await homePage.clickAdmin();
-            await rewardTypePage.clickRewardTypeButton();
+
             await basePage.clickAdd();
             await rewardTypePage.fillRewardTypeNameInput(rewardTypeName);
             await rewardTypePage.fillDescriptionInput('Test Description');
@@ -71,9 +71,7 @@ test.describe.serial('Reward Type Tests', () => {
         allure.story('Validation for Duplicate Reward Type');
 
         await allure.step('Try to add reward type with an existing name', async () => {
-            await loginPage.login(Config.admin_username, Config.admin_password);
-            await homePage.clickAdmin();
-            await rewardTypePage.clickRewardTypeButton();
+
             await basePage.clickAdd();
             await rewardTypePage.fillRewardTypeNameInput('Khen thưởng 1');
             await rewardTypePage.fillDescriptionInput('Test Description');
@@ -83,23 +81,6 @@ test.describe.serial('Reward Type Tests', () => {
         await toast.getToastAddFailed();
     });
 
-    test('Add Reward Type with empty description', async ({ page }) => {
-        allure.story('Add Reward Type Without Description');
-        const randomSuffix = Math.random().toString(36).substring(2, 8);
-        const rewardTypeName = `Test Reward Type ${randomSuffix}`;
-
-        await allure.step('Add reward type with empty description and lock status', async () => {
-            await loginPage.login(Config.admin_username, Config.admin_password);
-            await homePage.clickAdmin();
-            await rewardTypePage.clickRewardTypeButton();
-            await basePage.clickAdd();
-            await rewardTypePage.fillRewardTypeNameInput(rewardTypeName);
-            await rewardTypePage.clickStatusDropdownFormAdd();
-            await rewardTypePage.clickStatusLock();
-            await basePage.clickSave();
-        });
-        await toast.getToastAddSuccess();
-    });
 
     test('Add Reward Type with lock status', async ({ page }) => {
         allure.story('Add Reward Type with Lock Status');
@@ -107,9 +88,7 @@ test.describe.serial('Reward Type Tests', () => {
         const rewardTypeName = `Test Reward Type ${randomSuffix}`;
 
         await allure.step('Add reward type with lock status', async () => {
-            await loginPage.login(Config.admin_username, Config.admin_password);
-            await homePage.clickAdmin();
-            await rewardTypePage.clickRewardTypeButton();
+ 
             await basePage.clickAdd();
             await rewardTypePage.fillRewardTypeNameInput(rewardTypeName);
             await rewardTypePage.fillDescriptionInput('Test Description');
@@ -120,13 +99,25 @@ test.describe.serial('Reward Type Tests', () => {
         await toast.getToastAddSuccess();
     });
 
+    test('Add Reward Type with empty description', async ({ page }) => {
+        allure.story('Add Reward Type Without Description');
+        const randomSuffix = Math.random().toString(36).substring(2, 8);
+        const rewardTypeName = `Test Reward Type ${randomSuffix}`;
+
+        await allure.step('Add reward type with empty description and lock status', async () => {
+     
+            await basePage.clickAdd();
+            await rewardTypePage.fillRewardTypeNameInput(rewardTypeName);
+            await basePage.clickSave();
+        });
+        await toast.getToastAddSuccess();
+    });
+
     test('Edit description', async ({ page }) => {
         allure.story('Edit Reward Type Description');
         await allure.step('Edit reward type description', async () => {
-            await loginPage.login(Config.admin_username, Config.admin_password);
-            await homePage.clickAdmin();
-            await rewardTypePage.clickRewardTypeButton();
-            await basePage.clickEdit();
+      
+            await basePage.clickEditRow0();
             await rewardTypePage.fillDescriptionInput('Edit Description');
             await basePage.clickSave();
         });
@@ -136,10 +127,12 @@ test.describe.serial('Reward Type Tests', () => {
     test('Edit activity status to lock', async ({ page }) => {
         allure.story('Edit Reward Type Status');
         await allure.step('Open reward type edit form', async () => {
-            await loginPage.login(Config.admin_username, Config.admin_password);
-            await homePage.clickAdmin();
-            await rewardTypePage.clickRewardTypeButton();
-            await basePage.clickEdit();
+        
+            await basePage.clickEditRow0();
+            await rewardTypePage.clickStatusDropdownFormAdd();
+            await rewardTypePage.clickStatusLock();
+            await basePage.clickSave();
+            await toast.getToastUpdateSuccess();
         });
 
     });
@@ -147,10 +140,8 @@ test.describe.serial('Reward Type Tests', () => {
     test('Delete reward type', async ({ page }) => {
         allure.story('Delete Reward Type');
         await allure.step('Delete a reward type', async () => {
-            await loginPage.login(Config.admin_username, Config.admin_password);
-            await homePage.clickAdmin();
-            await rewardTypePage.clickRewardTypeButton();
-            await basePage.clickDelete();
+          
+            await basePage.clickDeleteRow0();
         });
         await toast.getToastDeleteSuccess();
     });
@@ -160,9 +151,7 @@ test.describe.serial('Reward Type Tests', () => {
 
 
         await allure.step('Search by name', async () => {
-            await loginPage.login(Config.admin_username, Config.admin_password);
-            await homePage.clickAdmin();
-            await rewardTypePage.clickRewardTypeButton();
+           
             await rewardTypePage.fillInputSearch('Khen thưởng');
             await basePage.clickSearch();
             await rewardTypePage.getResultSearch();

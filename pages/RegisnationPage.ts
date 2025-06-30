@@ -36,6 +36,7 @@ export class RegisnationPage {
     readonly logoutButton: Locator;
     readonly logoutConfirmButton: Locator;
     readonly Day16: Locator;
+    
 
     constructor(page: Page) {
         this.page = page;
@@ -219,6 +220,10 @@ export class RegisnationPage {
 
     async fillReason(reason: string) {
         await this.reasonInput.fill(reason);
+    }
+
+    async clearReason() {
+        await this.reasonInput.clear();
     }
 
     async clickAddButton() {

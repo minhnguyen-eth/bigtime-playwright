@@ -1,2 +1,0 @@
-Đã xóa 1 dòng trong bảng shift_plans, giữ lại các bản ghi có tên 'Phân ca tháng'
-Tìm thấy 1 loại đánh giá với tên: Phân ca tháng 7 skb1k4

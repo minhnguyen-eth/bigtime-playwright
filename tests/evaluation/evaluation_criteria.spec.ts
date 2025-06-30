@@ -136,7 +136,7 @@ test.describe.serial("Evaluation Criteria Tests", () => {
         allure.story("Delete Evaluation Criteria");
         await homePage.clickAdmin();
         await evaluationCriteriaPage.clickEvaluationCriteria();
-        await basePage.clickDelete();
+        await basePage.clickDeleteRow0();
         await evaluationCriteriaPage.verifyToastDeleteSuccessfull("Xóa thành công");
     });
 });

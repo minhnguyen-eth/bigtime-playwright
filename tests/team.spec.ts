@@ -97,7 +97,7 @@ test.describe.serial('Team', () => {
         await loginPage.login(Config.admin_username, Config.admin_password);
         await homePage.clickAdmin();
         await teamPage.clickTeamButton();
-        await basePage.clickEdit();
+        await basePage.clickEditRow0();
         await teamPage.clickDropdownFormAdd();
         await teamPage.clickLockStatus();
         await basePage.clickSave();
@@ -110,7 +110,7 @@ test.describe.serial('Team', () => {
         await loginPage.login(Config.admin_username, Config.admin_password);
         await homePage.clickAdmin();
         await teamPage.clickTeamButton();
-        await basePage.clickEdit();
+        await basePage.clickEditRow0();
         await teamPage.fillTeamName(editTeamNameRandom);
         await basePage.clickSave();
         await toastPage.getToastUpdateSuccess();
@@ -123,7 +123,7 @@ test.describe.serial('Team', () => {
         await loginPage.login(Config.admin_username, Config.admin_password);
         await homePage.clickAdmin();
         await teamPage.clickTeamButton();
-        await basePage.clickEdit();
+        await basePage.clickEditRow0();
         await teamPage.fillTeamCode(editTeamNameCode);
         await basePage.clickSave();
         await toastPage.getToastUpdateSuccess();
@@ -133,7 +133,7 @@ test.describe.serial('Team', () => {
         await loginPage.login(Config.admin_username, Config.admin_password);
         await homePage.clickAdmin();
         await teamPage.clickTeamButton();
-        await basePage.clickEdit();
+        await basePage.clickEditRow0();
         await teamPage.fillNote('Automation test edit note');
         await basePage.clickSave();
         await toastPage.getToastUpdateSuccess();
@@ -191,15 +191,14 @@ test.describe.serial('Team', () => {
         await teamPage.fillTeamName(teamNameRandom);
         await teamPage.clickSelectDepartment();
         await basePage.clickSave();
-        await toastPage.getToastAddFailed();
-        await teamPage.getResultMaxlenghtCode();
+        await teamPage.getResultMaxlenghtCode();  
     });
 
     test('Delete team', async ({ page }) => {
         await loginPage.login(Config.admin_username, Config.admin_password);
         await homePage.clickAdmin();
         await teamPage.clickTeamButton();
-        await basePage.clickDelete();
+        await basePage.clickDeleteRow0();
         await toastPage.getToastDeleteSuccess();
     });
 

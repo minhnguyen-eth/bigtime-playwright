@@ -15,9 +15,11 @@ export class ToastPage {
     readonly toastRejectSuccess: Locator;
     readonly toastCancelledSuccess: Locator;
     readonly toastEditSuccess: Locator;
+    readonly toastExportHaveNoData: Locator;
 
     constructor(page: Page) {
         this.page = page;
+        this.toastExportHaveNoData = page.locator('//div[contains(text(),"Không có dữ liệu")]');
         this.toastEditSuccess = page.locator('//div[contains(text(),"Chỉnh sửa thành công")]');
         this.toastCancelledSuccess = page.locator('//div[contains(text(),"Đã hủy thành công")]');
         this.toastRejectSuccess = page.locator('//div[contains(text(),"Từ chối thành công")]');
@@ -34,6 +36,11 @@ export class ToastPage {
         this.toastBrowseSuccess = page.locator('//div[contains(text(),"Đã duyệt thành công")]');
 
 
+    }
+
+    async getToastExportHaveNoData() {
+        await expect(this.toastExportHaveNoData).toHaveText('Không có dữ liệu');
+        return this.toastExportHaveNoData.textContent();
     }
 
     async getToastEditSuccess() {

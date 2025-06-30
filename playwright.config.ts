@@ -14,10 +14,10 @@ export default defineConfig({
 
   // ✅ Reporter
   reporter: [
-  ['list'],
-  ['allure-playwright'],
-  ['html', { open: 'never' }]
-],
+    ['list'],
+    ['allure-playwright'],
+    ['html', { open: 'never' }]
+  ],
 
   // Increase test timeout
   timeout: 60000,
@@ -32,35 +32,35 @@ export default defineConfig({
   // ✅ Dự án trình duyệt
   projects: [
     {
-      name: 'chromium',
-      use: {
-        headless: process.env.CI ? true : false,
-        viewport: null,
-        launchOptions: {
-          args: ['--start-maximized'],
+        name: 'chromium',
+        use: {
+          headless: process.env.CI ? true : false,
+          viewport: null,
+          launchOptions: {
+            args: ['--start-maximized'],
+          },
         },
       },
-    },
-    // {
-    //   name: 'firefox',
-    //   use: {
-    //     headless: false,
-    //     viewport: null,
-    //     launchOptions: {
-    //       args: ['--start-maximized'],
-    //     },
-    //   },
-    // },
-    // {
-    //   name: 'edge',
-    //   use: {
-    //     headless: false,
-    //     viewport: null,
-    //     channel: 'msedge',
-    //     launchOptions: {
-    //       args: ['--start-maximized'],
-    //     },
-    //   },
-    // },
+      // {
+      //   name: 'firefox',
+      //   use: {
+      //     headless: false,
+      //     viewport: null,
+      //     launchOptions: {
+      //       args: ['--start-maximized'],
+      //     },
+      //   },
+      // },
+      //   {
+  //     name: 'edge',
+  //     use: {
+  //       headless: false,
+  //       viewport: null,
+  //       channel: 'msedge',
+  //       launchOptions: {
+  //         args: ['--start-maximized'],
+  //       },
+  //     },
+  //   },
   ],
 });

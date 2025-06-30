@@ -20,9 +20,18 @@ export class BasePage {
     readonly reasonInput: Locator;
     readonly editButton: Locator;
     readonly deleteButton: Locator;
+    readonly toDayDatePicker: Locator;
+    readonly iconAction: Locator;
+
+    // Validatation
+    readonly requiredFillReason: Locator;
 
     constructor(page: Page) {
         this.page = page;
+
+        this.iconAction = page.locator("//tr[@id='row-0']//i[@class='mdi mdi-format-list-group mdi v-icon notranslate v-theme--lightColor7 v-icon--size-default']");
+        this.requiredFillReason = page.locator("//div[contains(text(),'Nhập lý do')]");
+        this.toDayDatePicker = page.locator("//div[@class='dp__cell_inner dp__pointer dp__today dp__date_hover']");
         this.deleteButton = page.locator("//span[contains(text(),'Xóa')]");
         this.editButton = page.locator("//span[contains(text(),'Sửa')]");
         this.reasonInput = page.locator("//div[2]/div/div[2]/div/div/div/div[3]/textarea");
@@ -43,6 +52,18 @@ export class BasePage {
         this.searchButton = page.locator("//span[contains(normalize-space(),'Tìm kiếm')]");
     }
 
+    async clickIconAction() {
+        await this.iconAction.click();
+    }
+
+    async verifyRequiredFillReason() {
+        await expect(this.requiredFillReason).toBeVisible();
+        await expect(this.requiredFillReason).toHaveText('Nhập lý do');
+    }
+
+    async clickTodayDatePicker() {
+        await this.toDayDatePicker.click();
+    }
 
     async clickDelete() {
         await this.deleteButton.click();

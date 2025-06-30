@@ -1,2 +1,0 @@
-Đã xóa toàn bộ dữ liệu trong bảng leave_applications
-🔍 Special leave text found: Nghỉ đặc biệt

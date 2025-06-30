@@ -68,7 +68,8 @@ test.describe.serial('Paysheet Tests', () => {
             await homePage.clickSalary();
             await paysheet.clickPayslip();
             await paysheet.clickSalarySlipCode();
-            await basePage.clickBrowse();
+            await paysheet.clickBrowse();
+            await basePage.clickYes();
             await logoutPage.logout();
         });
 
@@ -78,7 +79,8 @@ test.describe.serial('Paysheet Tests', () => {
             await homePage.clickSalary();
             await paysheet.clickPayslip();
             await paysheet.clickSalarySlipCode();
-            await basePage.clickBrowse();
+            await paysheet.clickBrowse();
+            await basePage.clickYes();
             await logoutPage.logout();
         });
 
@@ -88,7 +90,8 @@ test.describe.serial('Paysheet Tests', () => {
             await homePage.clickSalary();
             await paysheet.clickPayslip();
             await paysheet.clickSalarySlipCode();
-            await basePage.clickBrowse();
+            await paysheet.clickBrowse();
+            await basePage.clickYes();
             await paysheet.clickPaysheet();
             await paysheet.clickLatestPaysheetRow();
             await paysheet.clickViewPayroll();
@@ -226,7 +229,4 @@ test.describe.serial('Paysheet Tests', () => {
             await toastPage.getToastExportSuccess();
         });
     });
-
-
-
 });

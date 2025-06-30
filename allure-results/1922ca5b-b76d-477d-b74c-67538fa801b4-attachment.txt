@@ -1,1 +1,0 @@
-Đã xóa 0 dòng trong bảng reward_types, giữ lại các bản ghi có chứa 'Khen thưởng' trong name.

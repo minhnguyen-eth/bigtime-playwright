@@ -1,1 +1,0 @@
-Đã xóa 0 dòng trong bảng evaluation_types, giữ lại các bản ghi có chứa 'Đánh giá' trong name.

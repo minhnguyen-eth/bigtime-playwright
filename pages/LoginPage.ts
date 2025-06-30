@@ -23,11 +23,12 @@ export class LoginPage {
   }
 
   async goto() {
-    await this.page.goto(Config.urlStating);
+    await this.page.waitForLoadState('load');
+    await this.page.goto(Config.urlStaging);
   }
 
   async login(username: string, password: string) {
-    await this.page.waitForLoadState('networkidle');
+    await this.page.waitForLoadState('domcontentloaded');
     await this.usernameInput.fill(username);
     await this.passwordInput.fill(password);
     await this.loginButton.click();

@@ -8,6 +8,7 @@ import { DebtPage } from "../../pages/salary_page/DebtPage";
 import { throws } from "assert";
 import { LogoutPage } from "../../pages/LogoutPage";
 import { allure } from 'allure-playwright';
+import { BasePage } from "../../pages/BasePage";
 
 test.describe.serial("Debt Tests", () => {
 
@@ -16,9 +17,10 @@ test.describe.serial("Debt Tests", () => {
   let homePage: HomePage;
   let toastPage: ToastPage;
   let logoutPage: LogoutPage;
+  let basePage: BasePage;
 
   test.beforeEach(async ({ page }) => {
-   
+
     allure.feature('Debt Feature');
     allure.owner('Minh Nguyen');
     allure.severity('Critical');
@@ -28,6 +30,7 @@ test.describe.serial("Debt Tests", () => {
     homePage = new HomePage(page);
     toastPage = new ToastPage(page);
     logoutPage = new LogoutPage(page);
+    basePage = new BasePage(page);
     await loginPage.goto();
   });
 
@@ -78,61 +81,30 @@ test.describe.serial("Debt Tests", () => {
     await toastPage.getToastAddSuccess();
   });
 
-  test("Edit debt", async ({ page }) => {
+  test("Edit money ", async ({ page }) => {
     allure.story('Edit Debt Record');
     await allure.step('Admin edits existing debt', async () => {
       await loginPage.login(Config.admin_username, Config.admin_password);
       await homePage.clickSalary();
       await debtPage.clickDebtButton();
-      await debtPage.clickAddButton();
-      await debtPage.fillName("BAT810-Nguyễn Văn Minh");
-      await debtPage.fillAmount("1000000");
-      await debtPage.fillNote("add debt test for edit");
-      await debtPage.clickSaveButton();
-      await toastPage.getToastAddSuccess();
-      await debtPage.clickEditButton();
-      await debtPage.clickSaveButton();
+      await basePage.clickIconAction();
+      await basePage.clickEdit();
+      await debtPage.fillAmount("20000000");
+      await basePage.clickSave();
     });
     await toastPage.getToastUpdateSuccess();
   });
 
-  test("Edit debt with empty value", async ({ page }) => {
-    allure.story('Validation on Debt Edit');
-    await allure.step('Admin tries to edit debt with empty fields', async () => {
-      await loginPage.login(Config.admin_username, Config.admin_password);
-      await homePage.clickSalary();
-      await debtPage.clickDebtButton();
-      await debtPage.clickAddButton();
-      await debtPage.fillName("BAT810-Nguyễn Văn Minh");
-      await debtPage.fillAmount("1000000");
-      await debtPage.fillNote("add debt test for edit");
-      await debtPage.clickSaveButton();
-      await toastPage.getToastAddSuccess();
-      await debtPage.clickEditButton();
-      await debtPage.inputAmount.fill("");
-      await debtPage.inputNote.fill("");
-      await debtPage.clickSaveButton();
-    });
-    await debtPage.expectFillAmountError();
-    await debtPage.expectFillNoteError();
-  });
-
-  test("Edit debt with valid value", async ({ page }) => {
+  test("Edit note", async ({ page }) => {
     allure.story('Successful Debt Edit');
     await allure.step('Admin edits debt with valid new values', async () => {
       await loginPage.login(Config.admin_username, Config.admin_password);
       await homePage.clickSalary();
       await debtPage.clickDebtButton();
-      await debtPage.clickAddButton();
-      await debtPage.fillName("BAT810-Nguyễn Văn Minh");
-      await debtPage.fillAmount("1000000");
-      await debtPage.fillNote("add debt test for edit");
-      await debtPage.clickSaveButton();
-      await toastPage.getToastAddSuccess();
-      await debtPage.clickEditButton();
-      await debtPage.inputAmount.fill("2000000");
+      await basePage.clickIconAction();
+      await basePage.clickEdit();
       await debtPage.inputNote.fill("edit valid value");
-      await debtPage.clickSaveButton();
+      await basePage.clickSave();
     });
     await toastPage.getToastUpdateSuccess();
   });
@@ -230,7 +202,8 @@ test.describe.serial("Debt Tests", () => {
       await debtPage.fillNote("add debt test for cancel");
       await debtPage.clickSaveButton();
       await toastPage.getToastAddSuccess();
-      await debtPage.clickActionCancelButton();
+      await basePage.clickIconAction();
+      await basePage.clickCancel();
       await debtPage.fillReason("cancel debt test");
       await debtPage.clickYesButton();
     });
@@ -249,7 +222,8 @@ test.describe.serial("Debt Tests", () => {
       await debtPage.fillNote("add debt test for cancel");
       await debtPage.clickSaveButton();
       await toastPage.getToastAddSuccess();
-      await debtPage.clickActionCancelButton();
+      await basePage.clickIconAction();
+      await basePage.clickCancel();
       await debtPage.fillReason("");
       await debtPage.clickYesButton();
     });

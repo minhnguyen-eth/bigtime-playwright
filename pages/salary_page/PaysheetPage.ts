@@ -274,9 +274,11 @@ export class PaysheetPage {
 
     async clickBrowse() {
         await this.browseButton.click();
+        
     }
 
     async clickSalaryClosing() {
+        await this.page.waitForLoadState('networkidle');
         await this.salaryClosingButton.click();
     }
 

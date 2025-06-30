@@ -1,4 +1,0 @@
-Đã sửa tên tiêu chí đánh giá: Automation test edited q99rvg
-Đã sửa mô tả: Automation Test Description Edited
-🔍 Lock status text found: Khóa
-🔍 Activity status text found: Hoạt động
