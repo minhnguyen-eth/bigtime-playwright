@@ -30,12 +30,12 @@ async function executeQuery(sql: string, params: any[] = []): Promise<any> {
 
 // Clear full table or with condition
 async function clearTable(tableName: string, condition?: string): Promise<void> {
-  const sql = condition 
-    ? `DELETE FROM ${tableName} WHERE ${condition}` 
+  const sql = condition
+    ? `DELETE FROM ${tableName} WHERE ${condition}`
     : `TRUNCATE TABLE ${tableName}`;
-  
+
   const result = await executeQuery(sql);
-  
+
   if ('affectedRows' in result) {
     console.info(`Cleared ${result.affectedRows} rows in ${tableName} ${condition ? 'with condition' : ''}.`);
   } else {
@@ -45,6 +45,9 @@ async function clearTable(tableName: string, condition?: string): Promise<void> 
 
 // Specific Clear functions preserved (for backward compatibility)
 
+export async function clearEmploymentContract() {
+  await clearTable('employment_contracts');
+}
 
 export async function clearAllEmployees() {
   await clearTable('users', "name LIKE '%user%'");
@@ -54,7 +57,7 @@ export async function clearAllLeaveApplications() {
   await clearTable('leave_applications');
 }
 
-export async function clearTeam(){
+export async function clearTeam() {
   await clearTable('teams', "name NOT LIKE '%Nhóm%'");
 }
 

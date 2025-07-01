@@ -6,22 +6,25 @@ import { WorkShiftPage } from '../../pages/work_shift_page/WorkShiftPage';
 import { HomePage } from '../../pages/HomePage';
 import { allure } from 'allure-playwright';
 import { clearAllWorkingShift } from '../../utils/mysqlUtils';
+import { ToastPage } from '../../pages/ToastPage';
 
 test.describe.serial('Work Shift Tests', () => {
     let loginPage: LoginPage;
     let workShiftPage: WorkShiftPage;
     let homePage: HomePage;
+    let toastPage: ToastPage;
 
     const randomSuffix = Math.random().toString(36).substring(2, 8);
     const workShiftName = `Automation test ${randomSuffix}`;
     const workShiftCode = 'AT' + randomSuffix;
 
     test.beforeEach(async ({ page }) => {
-        
+
         allure.feature('Work Shift Feature');
         allure.owner('Minh Nguyen');
         allure.severity('Critical');
 
+        toastPage = new ToastPage(page);
         loginPage = new LoginPage(page);
         workShiftPage = new WorkShiftPage(page);
         homePage = new HomePage(page);
@@ -86,13 +89,13 @@ test.describe.serial('Work Shift Tests', () => {
             await workShiftPage.clickOnBranchDropdown();
             await workShiftPage.clickOnBranchBienHoa();
             await workShiftPage.clickOnSaveButton();
-            await workShiftPage.getToastAdd('Thêm thành công');
+            await toastPage.getToastAddSuccess();
         });
     });
 
     test('Edit and delete work shift', async ({ page }) => {
         allure.story('Edit & Delete Work Shift Story');
-        allure.step('Login to system and navigate to Work Shift page', async () => {})
+        allure.step('Login to system and navigate to Work Shift page', async () => { })
         await loginPage.login(Config.admin_username, Config.admin_password);
         await homePage.clickTimeKeepingManagement();
         await workShiftPage.clickOnWorkShiftButton();
@@ -102,21 +105,22 @@ test.describe.serial('Work Shift Tests', () => {
             await workShiftPage.clickOnStatusDropdown();
             await workShiftPage.clickOnLockStatus();
             await workShiftPage.clickOnSaveButton();
-            await workShiftPage.getToastUpdate('Cập nhật thành công');
+            await toastPage.getToastUpdateSuccess();
             await workShiftPage.getVerifyLockStatus();
         });
 
         await allure.step('Delete work shift', async () => {
             await workShiftPage.clickOnDeleteButton();
             await workShiftPage.clickOkButton();
-            await workShiftPage.getToastDelete('Xóa thành công');
+            await toastPage.getToastDeleteSuccess();
         });
+
     });
 
     test('Search work shift', async ({ page }) => {
         allure.story('Search Work Shift Story');
 
-        await allure.step('Login to system and navigate to Work Shift page', async () => {})
+        await allure.step('Login to system and navigate to Work Shift page', async () => { })
         await loginPage.login(Config.admin_username, Config.admin_password);
         await homePage.clickTimeKeepingManagement();
         await workShiftPage.clickOnWorkShiftButton();
@@ -177,5 +181,6 @@ test.describe.serial('Work Shift Tests', () => {
             await workShiftPage.getVerifyLockStatusSearchRow1();
         });
     });
-
 });
+
+

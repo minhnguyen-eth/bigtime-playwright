@@ -1,0 +1,266 @@
+# Page snapshot
+
+```yaml
+- banner:
+  - button
+  - text: Bigtime
+  - button "Quản lý":
+    - paragraph: Quản lý
+  - button "Chấm công":
+    - paragraph: Chấm công
+  - button "Lương":
+    - paragraph: Lương
+  - button "Cài đặt":
+    - paragraph: Cài đặt
+  - img
+  - text: Admin
+  - button "Badge":
+    - status "Badge"
+  - button
+  - button "Đăng xuất"
+- banner:
+  - text: Version 1.1.0
+  - list:
+    - listitem "English":
+      - img
+    - listitem "Tiếng Việt":
+      - img
+  - button
+- navigation:
+  - listbox:
+    - link "Trung tâm":
+      - /url: /dashboard-salary
+    - separator
+    - text: Lương
+    - link "Loại phụ cấp":
+      - /url: /salary/allowance-type
+    - link "Bảng lương":
+      - /url: /salary/pay-sheet
+    - link "Phiếu lương":
+      - /url: /salary/payslip
+    - link "Tạm ứng":
+      - /url: /salary/debt
+    - separator
+    - text: Thống kê
+    - link "Thống kê lương":
+      - /url: /salary/salary-statistic
+    - link "Thống kê thuế":
+      - /url: /tax-statistic
+- main:
+  - text: Bảng lương
+  - button "Làm mới"
+  - button "Xuất dữ liệu"
+  - button "Thêm"
+  - text: Tìm kiếm theo mã hoặc tên bảng lương
+  - textbox "Tìm kiếm theo mã hoặc tên bảng lương Tìm kiếm theo mã hoặc tên bảng lương"
+  - button "Tìm kiếm"
+  - table:
+    - rowgroup:
+      - row "# Mã bảng lương Tên bảng lương Loại kì lương Trạng thái Tổng lương Đã thanh toán":
+        - columnheader "#"
+        - columnheader "Mã bảng lương"
+        - columnheader "Tên bảng lương"
+        - columnheader "Loại kì lương"
+        - columnheader "Trạng thái"
+        - columnheader "Tổng lương"
+        - columnheader "Đã thanh toán"
+    - rowgroup:
+      - row "1 BL000109 Automation test 7/2025 Hàng tháng Đã chốt 43.106.250 đ 0 đ":
+        - cell "1"
+        - cell "BL000109"
+        - cell "Automation test 7/2025"
+        - cell "Hàng tháng"
+        - cell "Đã chốt"
+        - cell "43.106.250 đ"
+        - cell "0 đ"
+      - row "2 BL000108 Automation test 7/2025 Hàng tháng Đã chốt 43.106.250 đ 43.106.250 đ":
+        - cell "2"
+        - cell "BL000108"
+        - cell "Automation test 7/2025"
+        - cell "Hàng tháng"
+        - cell "Đã chốt"
+        - cell "43.106.250 đ"
+        - cell "43.106.250 đ"
+      - row "3 BL000107 Automation test 7/2025 Hàng tháng Đã chốt 43.106.250 đ 43.106.250 đ":
+        - cell "3"
+        - cell "BL000107"
+        - cell "Automation test 7/2025"
+        - cell "Hàng tháng"
+        - cell "Đã chốt"
+        - cell "43.106.250 đ"
+        - cell "43.106.250 đ"
+      - row "4 BL000106 Automation test 7/2025 Hàng tháng Tạm tính 43.106.250 đ 0 đ":
+        - cell "4"
+        - cell "BL000106"
+        - cell "Automation test 7/2025"
+        - cell "Hàng tháng"
+        - cell "Tạm tính"
+        - cell "43.106.250 đ"
+        - cell "0 đ"
+      - row "5 BL000105 Automation test 7/2025 Hàng tháng Tạm tính 43.106.250 đ 0 đ":
+        - cell "5"
+        - cell "BL000105"
+        - cell "Automation test 7/2025"
+        - cell "Hàng tháng"
+        - cell "Tạm tính"
+        - cell "43.106.250 đ"
+        - cell "0 đ"
+      - row "6 BL000104 Automation test 7/2025 Hàng tháng Tạm tính 43.106.250 đ 0 đ":
+        - cell "6"
+        - cell "BL000104"
+        - cell "Automation test 7/2025"
+        - cell "Hàng tháng"
+        - cell "Tạm tính"
+        - cell "43.106.250 đ"
+        - cell "0 đ"
+      - row "7 BL000103 Automation test 7/2025 Hàng tháng Tạm tính 43.106.250 đ 0 đ":
+        - cell "7"
+        - cell "BL000103"
+        - cell "Automation test 7/2025"
+        - cell "Hàng tháng"
+        - cell "Tạm tính"
+        - cell "43.106.250 đ"
+        - cell "0 đ"
+      - row "8 BL000102 Automation test 7/2025 Hàng tháng Đã chốt 43.106.250 đ 0 đ":
+        - cell "8"
+        - cell "BL000102"
+        - cell "Automation test 7/2025"
+        - cell "Hàng tháng"
+        - cell "Đã chốt"
+        - cell "43.106.250 đ"
+        - cell "0 đ"
+      - row "9 BL000101 Automation test 7/2025 Hàng tháng Tạm tính 43.106.250 đ 0 đ":
+        - cell "9"
+        - cell "BL000101"
+        - cell "Automation test 7/2025"
+        - cell "Hàng tháng"
+        - cell "Tạm tính"
+        - cell "43.106.250 đ"
+        - cell "0 đ"
+      - row "10 BL000100 Automation test 7/2025 Hàng tháng Tạm tính 86.606.250 đ 0 đ":
+        - cell "10"
+        - cell "BL000100"
+        - cell "Automation test 7/2025"
+        - cell "Hàng tháng"
+        - cell "Tạm tính"
+        - cell "86.606.250 đ"
+        - cell "0 đ"
+      - row "11 BL000099 Automation test 7/2025 Hàng tháng Tạm tính 86.606.250 đ 0 đ":
+        - cell "11"
+        - cell "BL000099"
+        - cell "Automation test 7/2025"
+        - cell "Hàng tháng"
+        - cell "Tạm tính"
+        - cell "86.606.250 đ"
+        - cell "0 đ"
+      - row "12 BL000098 Automation test 7/2025 Hàng tháng Tạm tính 86.606.250 đ 0 đ":
+        - cell "12"
+        - cell "BL000098"
+        - cell "Automation test 7/2025"
+        - cell "Hàng tháng"
+        - cell "Tạm tính"
+        - cell "86.606.250 đ"
+        - cell "0 đ"
+      - row "13 BL000097 Automation test 7/2025 Hàng tháng Đã chốt 43.106.250 đ 43.106.250 đ":
+        - cell "13"
+        - cell "BL000097"
+        - cell "Automation test 7/2025"
+        - cell "Hàng tháng"
+        - cell "Đã chốt"
+        - cell "43.106.250 đ"
+        - cell "43.106.250 đ"
+      - row "14 BL000096 Automation test 7/2025 Hàng tháng Đã chốt 43.106.250 đ 43.106.250 đ":
+        - cell "14"
+        - cell "BL000096"
+        - cell "Automation test 7/2025"
+        - cell "Hàng tháng"
+        - cell "Đã chốt"
+        - cell "43.106.250 đ"
+        - cell "43.106.250 đ"
+      - row "15 BL000095 Automation test 7/2025 Hàng tháng Tạm tính 86.606.250 đ 0 đ":
+        - cell "15"
+        - cell "BL000095"
+        - cell "Automation test 7/2025"
+        - cell "Hàng tháng"
+        - cell "Tạm tính"
+        - cell "86.606.250 đ"
+        - cell "0 đ"
+      - row "16 BL000094 Automation test 7/2025 Hàng tháng Đã chốt 43.106.250 đ 43.106.250 đ":
+        - cell "16"
+        - cell "BL000094"
+        - cell "Automation test 7/2025"
+        - cell "Hàng tháng"
+        - cell "Đã chốt"
+        - cell "43.106.250 đ"
+        - cell "43.106.250 đ"
+      - row "17 BL000093 Automation test 7/2025 Hàng tháng Tạm tính 43.106.250 đ 0 đ":
+        - cell "17"
+        - cell "BL000093"
+        - cell "Automation test 7/2025"
+        - cell "Hàng tháng"
+        - cell "Tạm tính"
+        - cell "43.106.250 đ"
+        - cell "0 đ"
+      - row "18 BL000092 Automation test 7/2025 Hàng tháng Tạm tính 43.106.250 đ 0 đ":
+        - cell "18"
+        - cell "BL000092"
+        - cell "Automation test 7/2025"
+        - cell "Hàng tháng"
+        - cell "Tạm tính"
+        - cell "43.106.250 đ"
+        - cell "0 đ"
+      - row "19 BL000091 Automation test 7/2025 Hàng tháng Tạm tính 86.606.250 đ 0 đ":
+        - cell "19"
+        - cell "BL000091"
+        - cell "Automation test 7/2025"
+        - cell "Hàng tháng"
+        - cell "Tạm tính"
+        - cell "86.606.250 đ"
+        - cell "0 đ"
+      - row "20 BL000090 Automation test 7/2025 Hàng tháng Tạm tính 86.606.250 đ 0 đ":
+        - cell "20"
+        - cell "BL000090"
+        - cell "Automation test 7/2025"
+        - cell "Hàng tháng"
+        - cell "Tạm tính"
+        - cell "86.606.250 đ"
+        - cell "0 đ"
+  - text: Tổng 0, Hiển thị
+  - combobox:
+    - text: "20"
+    - textbox "Open": "20"
+  - navigation "Pagination Navigation":
+    - list:
+      - listitem:
+        - button "Previous page" [disabled]
+      - listitem:
+        - button "Page 1, Current page" [disabled]: "1"
+      - listitem:
+        - button "Next page" [disabled]
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- alert:
+  - img
+  - text: Thêm thanh toán phiếu lương thành công
+- button "close"
+- progressbar "notification timer"
+```

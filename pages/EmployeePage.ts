@@ -113,7 +113,7 @@ export class EmployeePage {
     this.bankAccountNumber = page.locator("//div[2]/div/div[3]/div/div[5]/div/div/div/div[3]/div/input");
     this.bankName = page.locator("//div[2]/div/div[3]/div/div[4]/div/div/div/div[3]/div/input");
     this.placeOfIssueOfIdentityCard = page.locator("//div[2]/div/div[3]/div/div[3]/div/div/div/div[3]/div/input");
-    this.selectRank = page.locator("//div[@class='v-list-item-title'][normalize-space()='QC']");
+    this.selectRank = page.locator("//div[@class='v-list-item-title'][normalize-space()='Intern']");
     this.chosseButton = page.locator("//button[contains(text(),'Chọn')]");
     this.selectDay = page.locator("//div[@class='dp__cell_inner dp__pointer dp__date_hover'][normalize-space()='8']");
     this.selectMonth = page.locator("//div[@class='dp__overlay_cell dp__overlay_cell_pad'][normalize-space()='Thg 8']");
@@ -123,7 +123,7 @@ export class EmployeePage {
     this.citizenIdCardIssueDate = page.locator("//div[3]/div/div[2]/div/div/div/div/div[1]/div/div/div[3]/input");
     this.citizenId = page.locator("//div[2]/div/div[3]/div/div[1]/div/div/div/div[3]/div/input");
     this.dropdownRank = page.locator("//div[2]/div/div/div/div[1]/div/div[3]/div/div[2]/div/div/div/div[3]/div/input");
-    this.selectPosition = page.locator("//div[@class='v-list-item-title'][normalize-space()='Nhân viên test']");
+    this.selectPosition = page.locator("//div[@class='v-list-item-title'][normalize-space()='QA']");
     this.dropdownPosition = page.locator("//div[1]/div/div[3]/div/div[1]/div/div/div/div[3]/div/input");
     this.dropdownInfoMore = page.locator("//i[@class='mdi-chevron-down mdi v-icon notranslate v-theme--lightColor7 v-icon--size-default']");
     this.selectBranch = page.locator("//div[text()='Biên Hòa']");

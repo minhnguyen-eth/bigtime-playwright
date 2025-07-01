@@ -1,0 +1,2 @@
+Cleared 1 rows in working_shifts with condition.
+🔍 Working time value found: 08:00

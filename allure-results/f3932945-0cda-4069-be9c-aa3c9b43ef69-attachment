@@ -1,0 +1,22 @@
+# Page snapshot
+
+```yaml
+- banner:
+  - text: Bigtime
+  - img
+  - text: Admin
+  - button "Badge":
+    - status "Badge"
+  - button
+  - button "Đăng xuất"
+- banner:
+  - text: Version 1.1.0
+  - list:
+    - listitem "English":
+      - img
+    - listitem "Tiếng Việt":
+      - img
+  - button
+- text: Quản lý Quản lý chấm công Lương Cài đặt
+- tooltip
+```

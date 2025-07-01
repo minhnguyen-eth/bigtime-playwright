@@ -1,0 +1,2 @@
+Cleared 1 rows in shift_plans with condition.
+Found 1 records in shift_plans with name like 'Phân ca tháng 7 9k68l0'

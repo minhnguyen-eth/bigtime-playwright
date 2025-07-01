@@ -2,7 +2,7 @@ import { Locator, Page, expect } from '@playwright/test';
 
 export class PaysheetPage {
     readonly page: Page;
- 
+
     readonly paysheetButton: Locator;
     readonly namePaysheetInput: Locator;
     readonly setNamePaysheetInput: Locator;
@@ -49,10 +49,16 @@ export class PaysheetPage {
     readonly chosseDatePicker: Locator;
     readonly exportOnly1Paysheet: Locator;
     readonly monthOption05: Locator;
-
+    readonly addMoreEmployee: Locator;
+    readonly fillEmployeeName: Locator;
+    readonly selectMoreEmployee: Locator;
+    readonly salarySlipCodeRow1: Locator;
 
     constructor(page: Page) {
         this.page = page;
+        this.selectMoreEmployee = page.locator("//span[contains(.,'Big App Tech')]")
+        this.fillEmployeeName = page.locator("//div[3]/div[2]/div/div/div/div[3]/div/input")
+        this.addMoreEmployee = page.locator("//span[normalize-space()='Thêm nhân viên']")
         this.exportOnly1Paysheet = page.locator("//button[@class='v-btn v-theme--lightColor7 bg-success v-btn--density-default rounded-lg v-btn--size-x-small v-btn--variant-flat mr-2']//span[@class='v-btn__content']")
         this.chosseDatePicker = page.locator("//button[contains(text(),'Chọn')]")
         this.Month05 = page.locator("//div[@class='dp__overlay_cell dp__overlay_cell_pad'][normalize-space()='Thg 5']")
@@ -64,26 +70,24 @@ export class PaysheetPage {
         this.employeeNameInput = page.locator("//form[1]/div[1]/div[3]/div[1]/div[2]/div[1]/div[2]/div[1]/div[6]/div[1]/div[1]/div[1]/div[3]/div[1]/input[1]")
         this.chooseMonth = page.locator("//div[@class='v-field v-field--active v-field--appended v-field--center-affix v-field--dirty v-field--variant-outlined v-theme--lightColor7 v-locale--is-ltr']//i[@title='Open']")
         this.checkBoxMonthly = page.locator('//div/div[2]/div/div[2]/div/div/div/div/div[2]/div/div/input')
-    
         this.paysheetButton = page.locator('//a[@href="/salary/pay-sheet"]');
-        
         this.namePaysheetInput = page.locator('//form/div/div[3]/div/div[2]/div/div[2]/div/div[1]/div/div/div/div[3]/div/input');
         this.setNamePaysheetInput = page.locator('//form//div[3]//div[2]//div//div[1]//div//div[1]//div//input');
         this.radioMonthly = page.locator('//i[contains(@class,"mdi-radiobox-blank")]');
         this.dropdownMonth = page.locator('//i[@title="Open"]');
-        this.monthOption = page.locator('//div[@class="v-list-item-title"][normalize-space()="1/6/2025 - 30/6/2025"]');
+        this.monthOption = page.locator('//div[@class="v-list-item-title"][normalize-space()="1/7/2025 - 31/7/2025"]');
         this.monthOption05 = page.locator('//div[@class="v-list-item-title"][normalize-space()="1/5/2025 - 31/5/2025"]');
         this.dropdownEmployee = page.locator("//div[@class='v-field v-field--appended v-field--center-affix v-field--variant-outlined v-theme--lightColor7 v-locale--is-ltr']//div[@class='v-field__input']");
         this.employeeOption = page.locator("//div[@role='option']//div[@class='v-list-item-title']");
-       
         this.submitButton = page.locator('//button[@type="submit"]');
-        this.latestPaysheetRow = page.locator('//tr[@id="row-0"]');
-        this.viewPayrollButton = page.locator('//span[contains(normalize-space(),"Xem bảng lương")]');
+        this.latestPaysheetRow = page.locator("//table/tbody/tr[1]");
+        this.viewPayrollButton = page.locator("//span[.='Xem bảng lương']");
         this.sendAllButton = page.locator('//span[contains(normalize-space(),"Gửi tất cả")]');
         this.confirm2Button = page.locator('//span[.="Xác nhận"]');
         this.noteInput = page.locator('//textarea[@class="v-field__input"]');
         this.payslipButton = page.locator('//a[@href="/salary/payslip"]');
         this.salarySlipCode = page.locator('//tr[@id="row-0"]//td[2]');
+        this.salarySlipCodeRow1 = page.locator('//tr[@id="row-1"]//td[2]');
         this.browseButton = page.locator('//span[contains(normalize-space(),"Duyệt")]');
         this.okButton = page.locator('//span[normalize-space()="Có"]');
         this.salaryClosingButton = page.locator('//span[contains(normalize-space(),"Chốt lương")]');
@@ -102,7 +106,22 @@ export class PaysheetPage {
         this.paymentButton = page.locator('//span[contains(normalize-space(),"Thanh toán")]');
         this.createTicketButton = page.locator('//span[contains(normalize-space(),"Tạo phiếu")]');
 
+    }
 
+    async clickSalarySlipCodeRow1() {
+        await this.salarySlipCodeRow1.click();
+    }
+
+    async clickSelectMoreEmployee() {
+        await this.selectMoreEmployee.click();
+    }
+
+    async fillEmployeeNameInput(name: string) {
+        await this.fillEmployeeName.fill(name);
+    }
+
+    async clickAddMoreEmployee() {
+        await this.addMoreEmployee.click();
     }
 
     async clickMonthOption05() {
@@ -161,9 +180,9 @@ export class PaysheetPage {
         await this.employeeOption.click();
     }
 
-    async clickAndSetDropDownEmployee() {
+    async clickAndSetDropDownEmployee(name: string) {
         await this.dropdownEmployee.click();
-        await this.page.keyboard.type('Nguyễn Văn Minh');
+        await this.page.keyboard.type(name);
     }
 
     async setNote(note: string) {
@@ -217,6 +236,7 @@ export class PaysheetPage {
     }
 
     async clickHistoryPaymentCode() {
+        await expect(this.historyPaymentCodeButton).toBeVisible();
         await this.historyPaymentCodeButton.click();
     }
 
@@ -257,10 +277,13 @@ export class PaysheetPage {
     }
 
     async clickLatestPaysheetRow() {
+        await this.latestPaysheetRow.waitFor({ state: 'attached', timeout: 10_000 });
+        await this.latestPaysheetRow.waitFor({ state: 'visible', timeout: 5_000 });
         await this.latestPaysheetRow.click();
     }
 
     async clickViewPayroll() {
+        await expect(this.viewPayrollButton).toBeVisible();
         await this.viewPayrollButton.click();
     }
 
@@ -274,13 +297,14 @@ export class PaysheetPage {
 
     async clickBrowse() {
         await this.browseButton.click();
-        
+        await this.okButton.click();
+
     }
 
     async clickSalaryClosing() {
-        await this.page.waitForLoadState('networkidle');
         await this.salaryClosingButton.click();
     }
+
 
     async clickConfirm() {
         await this.confirmButton.click();

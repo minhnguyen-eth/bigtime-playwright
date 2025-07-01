@@ -1,0 +1,459 @@
+# Page snapshot
+
+```yaml
+- banner:
+  - button
+  - text: Bigtime
+  - button "Quản lý":
+    - paragraph: Quản lý
+  - button "Chấm công":
+    - paragraph: Chấm công
+  - button "Lương":
+    - paragraph: Lương
+  - img
+  - text: Nguyễn Văn Minh
+  - button "Badge":
+    - status "Badge"
+  - button
+  - button "Đăng xuất"
+- banner:
+  - text: Version 1.1.0
+  - list:
+    - listitem "English":
+      - img
+    - listitem "Tiếng Việt":
+      - img
+  - button
+- navigation:
+  - listbox:
+    - link "Trung tâm":
+      - /url: /dashboard-salary
+    - link "Phiếu lương":
+      - /url: /salary/payslip
+    - link "Tạm ứng":
+      - /url: /salary/debt
+- main:
+  - text: Phiếu lương
+  - button "Làm mới"
+  - text: Mã phiếu
+  - textbox "Mã phiếu Mã phiếu"
+  - textbox "Khoảng thời gian Khoảng thời gian": 07-2025
+  - button "Tìm kiếm"
+  - button "Xóa"
+  - table:
+    - rowgroup:
+      - row "# Mã phiếu Mã - tên nhân viên Lương chính Ca làm việc Lương tăng ca Phụ cấp Thưởng Tiền khấu trừ Tiền cần trả Số tiền đã trả Trạng thái":
+        - columnheader "#"
+        - columnheader "Mã phiếu"
+        - columnheader "Mã - tên nhân viên"
+        - columnheader "Lương chính"
+        - columnheader "Ca làm việc"
+        - columnheader "Lương tăng ca"
+        - columnheader "Phụ cấp"
+        - columnheader "Thưởng"
+        - columnheader "Tiền khấu trừ"
+        - columnheader "Tiền cần trả"
+        - columnheader "Số tiền đã trả"
+        - columnheader "Trạng thái"
+    - rowgroup:
+      - row "1 PL001915 BAT810 - Nguyễn Văn Minh 0 đ 0 0 đ 50.000.000 đ 0 đ 0 đ 43.106.250 đ 0 đ Đã gửi":
+        - cell "1"
+        - cell "PL001915":
+          - paragraph: PL001915
+        - cell "BAT810 - Nguyễn Văn Minh"
+        - cell "0 đ"
+        - cell "0"
+        - cell "0 đ"
+        - cell "50.000.000 đ"
+        - cell "0 đ"
+        - cell "0 đ"
+        - cell "43.106.250 đ"
+        - cell "0 đ"
+        - cell "Đã gửi"
+      - row "2 PL001914 BAT810 - Nguyễn Văn Minh 0 đ 0 0 đ 50.000.000 đ 0 đ 0 đ 43.106.250 đ 43.106.250 đ Đã duyệt":
+        - cell "2"
+        - cell "PL001914":
+          - paragraph: PL001914
+        - cell "BAT810 - Nguyễn Văn Minh"
+        - cell "0 đ"
+        - cell "0"
+        - cell "0 đ"
+        - cell "50.000.000 đ"
+        - cell "0 đ"
+        - cell "0 đ"
+        - cell "43.106.250 đ"
+        - cell "43.106.250 đ"
+        - cell "Đã duyệt"
+      - row "3 PL001913 BAT810 - Nguyễn Văn Minh 0 đ 0 0 đ 50.000.000 đ 0 đ 0 đ 43.106.250 đ 0 đ Đã duyệt":
+        - cell "3"
+        - cell "PL001913":
+          - paragraph: PL001913
+        - cell "BAT810 - Nguyễn Văn Minh"
+        - cell "0 đ"
+        - cell "0"
+        - cell "0 đ"
+        - cell "50.000.000 đ"
+        - cell "0 đ"
+        - cell "0 đ"
+        - cell "43.106.250 đ"
+        - cell "0 đ"
+        - cell "Đã duyệt"
+      - row "4 PL001912 BAT810 - Nguyễn Văn Minh 0 đ 0 0 đ 50.000.000 đ 0 đ 0 đ 43.106.250 đ 43.106.250 đ Đã duyệt":
+        - cell "4"
+        - cell "PL001912":
+          - paragraph: PL001912
+        - cell "BAT810 - Nguyễn Văn Minh"
+        - cell "0 đ"
+        - cell "0"
+        - cell "0 đ"
+        - cell "50.000.000 đ"
+        - cell "0 đ"
+        - cell "0 đ"
+        - cell "43.106.250 đ"
+        - cell "43.106.250 đ"
+        - cell "Đã duyệt"
+      - row "5 PL001911 BAT810 - Nguyễn Văn Minh 0 đ 0 0 đ 50.000.000 đ 0 đ 0 đ 43.106.250 đ 43.106.250 đ Đã duyệt":
+        - cell "5"
+        - cell "PL001911":
+          - paragraph: PL001911
+        - cell "BAT810 - Nguyễn Văn Minh"
+        - cell "0 đ"
+        - cell "0"
+        - cell "0 đ"
+        - cell "50.000.000 đ"
+        - cell "0 đ"
+        - cell "0 đ"
+        - cell "43.106.250 đ"
+        - cell "43.106.250 đ"
+        - cell "Đã duyệt"
+      - row "6 PL001910 BAT810 - Nguyễn Văn Minh 0 đ 0 0 đ 50.000.000 đ 0 đ 0 đ 43.106.250 đ 43.106.250 đ Đã duyệt":
+        - cell "6"
+        - cell "PL001910":
+          - paragraph: PL001910
+        - cell "BAT810 - Nguyễn Văn Minh"
+        - cell "0 đ"
+        - cell "0"
+        - cell "0 đ"
+        - cell "50.000.000 đ"
+        - cell "0 đ"
+        - cell "0 đ"
+        - cell "43.106.250 đ"
+        - cell "43.106.250 đ"
+        - cell "Đã duyệt"
+      - row "7 PL001909 BAT810 - Nguyễn Văn Minh 0 đ 0 0 đ 50.000.000 đ 0 đ 0 đ 43.106.250 đ 43.106.250 đ Đã duyệt":
+        - cell "7"
+        - cell "PL001909":
+          - paragraph: PL001909
+        - cell "BAT810 - Nguyễn Văn Minh"
+        - cell "0 đ"
+        - cell "0"
+        - cell "0 đ"
+        - cell "50.000.000 đ"
+        - cell "0 đ"
+        - cell "0 đ"
+        - cell "43.106.250 đ"
+        - cell "43.106.250 đ"
+        - cell "Đã duyệt"
+      - row "8 PL001908 BAT810 - Nguyễn Văn Minh 0 đ 0 0 đ 50.000.000 đ 0 đ 0 đ 43.106.250 đ 43.106.250 đ Đã duyệt":
+        - cell "8"
+        - cell "PL001908":
+          - paragraph: PL001908
+        - cell "BAT810 - Nguyễn Văn Minh"
+        - cell "0 đ"
+        - cell "0"
+        - cell "0 đ"
+        - cell "50.000.000 đ"
+        - cell "0 đ"
+        - cell "0 đ"
+        - cell "43.106.250 đ"
+        - cell "43.106.250 đ"
+        - cell "Đã duyệt"
+      - row "9 PL001907 BAT810 - Nguyễn Văn Minh 0 đ 0 0 đ 50.000.000 đ 0 đ 0 đ 43.106.250 đ 43.106.250 đ Đã duyệt":
+        - cell "9"
+        - cell "PL001907":
+          - paragraph: PL001907
+        - cell "BAT810 - Nguyễn Văn Minh"
+        - cell "0 đ"
+        - cell "0"
+        - cell "0 đ"
+        - cell "50.000.000 đ"
+        - cell "0 đ"
+        - cell "0 đ"
+        - cell "43.106.250 đ"
+        - cell "43.106.250 đ"
+        - cell "Đã duyệt"
+      - row "10 PL001902 BAT810 - Nguyễn Văn Minh 0 đ 0 0 đ 50.000.000 đ 0 đ 0 đ 43.106.250 đ 0 đ Đã duyệt":
+        - cell "10"
+        - cell "PL001902":
+          - paragraph: PL001902
+        - cell "BAT810 - Nguyễn Văn Minh"
+        - cell "0 đ"
+        - cell "0"
+        - cell "0 đ"
+        - cell "50.000.000 đ"
+        - cell "0 đ"
+        - cell "0 đ"
+        - cell "43.106.250 đ"
+        - cell "0 đ"
+        - cell "Đã duyệt"
+      - row "11 PL001901 BAT810 - Nguyễn Văn Minh 0 đ 0 0 đ 50.000.000 đ 0 đ 0 đ 43.106.250 đ 0 đ Đã duyệt":
+        - cell "11"
+        - cell "PL001901":
+          - paragraph: PL001901
+        - cell "BAT810 - Nguyễn Văn Minh"
+        - cell "0 đ"
+        - cell "0"
+        - cell "0 đ"
+        - cell "50.000.000 đ"
+        - cell "0 đ"
+        - cell "0 đ"
+        - cell "43.106.250 đ"
+        - cell "0 đ"
+        - cell "Đã duyệt"
+      - row "12 PL001899 BAT810 - Nguyễn Văn Minh 0 đ 0 0 đ 50.000.000 đ 0 đ 0 đ 43.106.250 đ 0 đ Đã duyệt":
+        - cell "12"
+        - cell "PL001899":
+          - paragraph: PL001899
+        - cell "BAT810 - Nguyễn Văn Minh"
+        - cell "0 đ"
+        - cell "0"
+        - cell "0 đ"
+        - cell "50.000.000 đ"
+        - cell "0 đ"
+        - cell "0 đ"
+        - cell "43.106.250 đ"
+        - cell "0 đ"
+        - cell "Đã duyệt"
+      - row "13 PL001897 BAT810 - Nguyễn Văn Minh 0 đ 0 0 đ 50.000.000 đ 0 đ 0 đ 43.106.250 đ 0 đ Đã duyệt":
+        - cell "13"
+        - cell "PL001897":
+          - paragraph: PL001897
+        - cell "BAT810 - Nguyễn Văn Minh"
+        - cell "0 đ"
+        - cell "0"
+        - cell "0 đ"
+        - cell "50.000.000 đ"
+        - cell "0 đ"
+        - cell "0 đ"
+        - cell "43.106.250 đ"
+        - cell "0 đ"
+        - cell "Đã duyệt"
+      - row "14 PL001895 BAT810 - Nguyễn Văn Minh 0 đ 0 0 đ 50.000.000 đ 0 đ 0 đ 43.106.250 đ 0 đ Đã duyệt":
+        - cell "14"
+        - cell "PL001895":
+          - paragraph: PL001895
+        - cell "BAT810 - Nguyễn Văn Minh"
+        - cell "0 đ"
+        - cell "0"
+        - cell "0 đ"
+        - cell "50.000.000 đ"
+        - cell "0 đ"
+        - cell "0 đ"
+        - cell "43.106.250 đ"
+        - cell "0 đ"
+        - cell "Đã duyệt"
+      - row "15 PL001894 BAT810 - Nguyễn Văn Minh 0 đ 0 0 đ 50.000.000 đ 0 đ 0 đ 43.106.250 đ 43.106.250 đ Đã duyệt":
+        - cell "15"
+        - cell "PL001894":
+          - paragraph: PL001894
+        - cell "BAT810 - Nguyễn Văn Minh"
+        - cell "0 đ"
+        - cell "0"
+        - cell "0 đ"
+        - cell "50.000.000 đ"
+        - cell "0 đ"
+        - cell "0 đ"
+        - cell "43.106.250 đ"
+        - cell "43.106.250 đ"
+        - cell "Đã duyệt"
+      - row "16 PL001893 BAT810 - Nguyễn Văn Minh 0 đ 0 0 đ 50.000.000 đ 0 đ 0 đ 43.106.250 đ 43.106.250 đ Đã duyệt":
+        - cell "16"
+        - cell "PL001893":
+          - paragraph: PL001893
+        - cell "BAT810 - Nguyễn Văn Minh"
+        - cell "0 đ"
+        - cell "0"
+        - cell "0 đ"
+        - cell "50.000.000 đ"
+        - cell "0 đ"
+        - cell "0 đ"
+        - cell "43.106.250 đ"
+        - cell "43.106.250 đ"
+        - cell "Đã duyệt"
+      - row "17 PL001891 BAT810 - Nguyễn Văn Minh 0 đ 0 0 đ 50.000.000 đ 0 đ 0 đ 43.106.250 đ 0 đ Đã duyệt":
+        - cell "17"
+        - cell "PL001891":
+          - paragraph: PL001891
+        - cell "BAT810 - Nguyễn Văn Minh"
+        - cell "0 đ"
+        - cell "0"
+        - cell "0 đ"
+        - cell "50.000.000 đ"
+        - cell "0 đ"
+        - cell "0 đ"
+        - cell "43.106.250 đ"
+        - cell "0 đ"
+        - cell "Đã duyệt"
+      - row "18 PL001890 BAT810 - Nguyễn Văn Minh 0 đ 0 0 đ 50.000.000 đ 0 đ 0 đ 43.106.250 đ 43.106.250 đ Đã duyệt":
+        - cell "18"
+        - cell "PL001890":
+          - paragraph: PL001890
+        - cell "BAT810 - Nguyễn Văn Minh"
+        - cell "0 đ"
+        - cell "0"
+        - cell "0 đ"
+        - cell "50.000.000 đ"
+        - cell "0 đ"
+        - cell "0 đ"
+        - cell "43.106.250 đ"
+        - cell "43.106.250 đ"
+        - cell "Đã duyệt"
+      - row "19 PL001886 BAT810 - Nguyễn Văn Minh 0 đ 0 0 đ 50.000.000 đ 0 đ 0 đ 43.106.250 đ 0 đ Đã duyệt":
+        - cell "19"
+        - cell "PL001886":
+          - paragraph: PL001886
+        - cell "BAT810 - Nguyễn Văn Minh"
+        - cell "0 đ"
+        - cell "0"
+        - cell "0 đ"
+        - cell "50.000.000 đ"
+        - cell "0 đ"
+        - cell "0 đ"
+        - cell "43.106.250 đ"
+        - cell "0 đ"
+        - cell "Đã duyệt"
+      - row "20 PL001884 BAT810 - Nguyễn Văn Minh 0 đ 0 0 đ 50.000.000 đ 0 đ 0 đ 43.106.250 đ 0 đ Đã duyệt":
+        - cell "20"
+        - cell "PL001884":
+          - paragraph: PL001884
+        - cell "BAT810 - Nguyễn Văn Minh"
+        - cell "0 đ"
+        - cell "0"
+        - cell "0 đ"
+        - cell "50.000.000 đ"
+        - cell "0 đ"
+        - cell "0 đ"
+        - cell "43.106.250 đ"
+        - cell "0 đ"
+        - cell "Đã duyệt"
+  - text: Tổng 29, Hiển thị
+  - combobox:
+    - text: "20"
+    - textbox "Open": "20"
+  - navigation "Pagination Navigation":
+    - list:
+      - listitem:
+        - button "Previous page" [disabled]
+      - listitem:
+        - button "Page 1, Current page": "1"
+      - listitem:
+        - button "Go to page 2": "2"
+      - listitem:
+        - button "Next page"
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- dialog:
+  - heading "Chi tiết phiếu lương" [level=3]
+  - text: Trạng thái của phiếu
+  - button "1 Nhân viên" [disabled]
+  - separator
+  - button "2 Quản lý Bộ phận" [disabled]
+  - separator
+  - button "3 Quản lý" [disabled]
+  - text: Thông tin chi tiết
+  - paragraph: Mã phiếu
+  - separator
+  - paragraph: Mã nhân viên
+  - separator
+  - paragraph: Tên nhân viên
+  - separator
+  - paragraph: Lương chính
+  - separator
+  - paragraph: Loại lương thiết lập
+  - separator
+  - paragraph: Bảo hiểm
+  - separator
+  - paragraph: Ca làm việc
+  - separator
+  - paragraph: Ngày tính lương
+  - paragraph: PL001915
+  - separator
+  - paragraph: BAT810
+  - separator
+  - paragraph: Nguyễn Văn Minh
+  - separator
+  - paragraph: 0 đ
+  - separator
+  - paragraph: Cố định
+  - separator
+  - paragraph: 5.000.000 đ
+  - separator
+  - paragraph: "0"
+  - separator
+  - paragraph: 0 / Ngày
+  - text: Tiền nhận
+  - paragraph: Lương tăng ca
+  - separator
+  - paragraph: Phụ cấp
+  - separator
+  - paragraph: Thưởng
+  - separator
+  - paragraph: Tiền khấu trừ
+  - separator
+  - paragraph: Tiền đóng bảo hiểm
+  - separator
+  - paragraph: Tiền đóng thuế
+  - separator
+  - paragraph: Thực nhận (đã trừ thuế và bảo hiểm)
+  - separator
+  - paragraph: Tiền tạm ứng
+  - separator
+  - paragraph: Số tiền đã trả
+  - separator
+  - paragraph: Trạng thái
+  - separator
+  - paragraph: 0 đ
+  - separator
+  - paragraph: 50.000.000 đ
+  - separator
+  - paragraph: 0 đ
+  - separator
+  - paragraph: 0 đ
+  - separator
+  - paragraph: 525.000 đ
+  - separator
+  - paragraph: 6.368.750 đ
+  - separator
+  - paragraph: 43.106.250 đ
+  - separator
+  - paragraph: 0 đ
+  - separator
+  - paragraph: 0 đ
+  - separator
+  - paragraph: Đã gửi
+  - separator
+  - button "Thêm thông tin"
+  - button "Duyệt"
+  - button "Từ chối"
+  - button "Lịch sử"
+- tooltip
+```

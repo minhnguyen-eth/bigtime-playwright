@@ -25,11 +25,22 @@ export class Config {
     return process.env.EMPLOYEE_PASSWORD || '';
   }
 
+  // Employee Account 2
+  static get employee2_username(): string {
+    return process.env.EMPLOYEE2_USERNAME || '';
+  }
+
+  static get employee2_password(): string {
+    return process.env.EMPLOYEE2_PASSWORD || '';
+  }
+
+
+
+  // Manager Account
   static get manager_username(): string {
     return process.env.MANAGER_USERNAME || '';
   }
 
-  // Manager Account
   static get manager_password(): string {
     return process.env.MANAGER_PASSWORD || '';
   }

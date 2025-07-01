@@ -1,0 +1,21 @@
+DB Error: Error: Table 'stagin_bigtime.employment_contract' doesn't exist
+    at PromiseConnection.execute (D:\BigAppTech\playwright-typescripts\node_modules\mysql2\lib\promise\connection.js:47:22)
+    at executeQuery (D:\BigAppTech\playwright-typescripts\utils\mysqlUtils.ts:21:33)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at clearTable (D:\BigAppTech\playwright-typescripts\utils\mysqlUtils.ts:37:18)
+    at clearEmploymentContract (D:\BigAppTech\playwright-typescripts\utils\mysqlUtils.ts:49:3)
+    at D:\BigAppTech\playwright-typescripts\tests\contract\contract.spec.ts:37:9
+    at D:\BigAppTech\playwright-typescripts\node_modules\playwright\lib\worker\workerMain.js:304:9
+    at D:\BigAppTech\playwright-typescripts\node_modules\playwright\lib\worker\testInfo.js:284:11
+    at TimeoutManager.withRunnable (D:\BigAppTech\playwright-typescripts\node_modules\playwright\lib\worker\timeoutManager.js:67:14)
+    at TestInfoImpl._runWithTimeout (D:\BigAppTech\playwright-typescripts\node_modules\playwright\lib\worker\testInfo.js:282:7)
+    at D:\BigAppTech\playwright-typescripts\node_modules\playwright\lib\worker\workerMain.js:302:7
+    at WorkerMain._runTest (D:\BigAppTech\playwright-typescripts\node_modules\playwright\lib\worker\workerMain.js:277:5)
+    at WorkerMain.runTestGroup (D:\BigAppTech\playwright-typescripts\node_modules\playwright\lib\worker\workerMain.js:193:11)
+    at process.<anonymous> (D:\BigAppTech\playwright-typescripts\node_modules\playwright\lib\common\process.js:65:22) {
+  code: 'ER_NO_SUCH_TABLE',
+  errno: 1146,
+  sql: 'TRUNCATE TABLE employment_contract',
+  sqlState: '42S02',
+  sqlMessage: "Table 'stagin_bigtime.employment_contract' doesn't exist"
+}

@@ -1,0 +1,2 @@
+Cleared 5 rows in shift_plans with condition.
+📸 Screenshot saved: D:\BigAppTech\playwright-typescripts\screenshots\add_shift_plan_for_department.png

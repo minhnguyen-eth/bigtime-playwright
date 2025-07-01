@@ -22,13 +22,21 @@ export class BasePage {
     readonly deleteButton: Locator;
     readonly toDayDatePicker: Locator;
     readonly iconAction: Locator;
+    readonly Admin_Button: Locator;
+    readonly TimeKeepingManagement_Button: Locator;
+    readonly Salary_Button: Locator;
+    readonly Setting_Button: Locator;
+
 
     // Validatation
     readonly requiredFillReason: Locator;
 
     constructor(page: Page) {
         this.page = page;
-
+        this.Admin_Button = page.locator("//span[normalize-space()='Quản lý']");
+        this.TimeKeepingManagement_Button = page.locator("//span[normalize-space()='Quản lý chấm công']");
+        this.Salary_Button = page.locator("//span[normalize-space()='Lương']");
+        this.Setting_Button = page.locator("//span[normalize-space()='Cài đặt']");
         this.iconAction = page.locator("//tr[@id='row-0']//i[@class='mdi mdi-format-list-group mdi v-icon notranslate v-theme--lightColor7 v-icon--size-default']");
         this.requiredFillReason = page.locator("//div[contains(text(),'Nhập lý do')]");
         this.toDayDatePicker = page.locator("//div[@class='dp__cell_inner dp__pointer dp__today dp__date_hover']");
@@ -44,12 +52,29 @@ export class BasePage {
         this.noButton = page.locator("//span[normalize-space()='Không']");
         this.yesButton = page.locator("//span[normalize-space()='Có']");
         this.cancelButton = page.locator("//span[contains(text(),'Hủy')]");
-        this.saveButton = page.locator("//span[contains(normalize-space(),'Lưu')]");
+        this.saveButton = page.locator("//span[normalize-space()='Lưu']");//span[contains(normalize-space(),'Lưu')]
         this.deleteRow0Button = page.locator("//tr[@id='row-0']//span[contains(text(),'Xóa')]");
         this.editRow0Button = page.locator("//tr[@id='row-0']//span[contains(text(),'Sửa')]");
         this.clearSearchButton = page.locator("//span[.=' Xóa']");
         this.addButton = page.locator("//span[normalize-space()='Thêm']");
         this.searchButton = page.locator("//span[contains(normalize-space(),'Tìm kiếm')]");
+    }
+
+
+    async clickAdmin() {
+        await this.Admin_Button.click();
+    }
+
+    async clickTimeKeepingManagement() {
+        await this.TimeKeepingManagement_Button.click();
+    }
+
+    async clickSalary() {
+        await this.Salary_Button.click();
+    }
+
+    async clickSetting() {
+        await this.Setting_Button.click();
     }
 
     async clickIconAction() {
@@ -133,7 +158,7 @@ export class BasePage {
     }
 
     async clickEditRow0() {
-        await this.page.waitForLoadState('networkidle');
+        await this.page.waitForLoadState('load');
         await this.editRow0Button.click();
     }
 

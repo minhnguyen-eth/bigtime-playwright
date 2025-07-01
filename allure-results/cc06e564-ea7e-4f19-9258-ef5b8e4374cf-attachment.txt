@@ -1,0 +1,4 @@
+Test failed with error: TimeoutError: locator.click: Timeout 45000ms exceeded.
+Call log:
+  - waiting for locator('//div[@class=\'v-list-item-title\'][normalize-space()=\'Nhân viên test\']')
+

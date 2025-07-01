@@ -1,0 +1,120 @@
+# Page snapshot
+
+```yaml
+- banner:
+  - button
+  - text: Bigtime
+  - button "Quản lý":
+    - paragraph: Quản lý
+  - button "Chấm công":
+    - paragraph: Chấm công
+  - button "Lương":
+    - paragraph: Lương
+  - button "Cài đặt":
+    - paragraph: Cài đặt
+  - img
+  - text: Admin
+  - button "Badge":
+    - status "Badge"
+  - button
+  - button "Đăng xuất"
+- banner:
+  - text: Version 1.1.0
+  - list:
+    - listitem "English":
+      - img
+    - listitem "Tiếng Việt":
+      - img
+  - button
+- navigation:
+  - listbox:
+    - link "Trung tâm":
+      - /url: /dashboard-salary
+    - separator
+    - text: Lương
+    - link "Loại phụ cấp":
+      - /url: /salary/allowance-type
+    - link "Bảng lương":
+      - /url: /salary/pay-sheet
+    - link "Phiếu lương":
+      - /url: /salary/payslip
+    - link "Tạm ứng":
+      - /url: /salary/debt
+    - separator
+    - text: Thống kê
+    - link "Thống kê lương":
+      - /url: /salary/salary-statistic
+    - link "Thống kê thuế":
+      - /url: /tax-statistic
+- main:
+  - button "󰳝"
+  - paragraph: Cập nhật bảng tính lương
+  - combobox:
+    - textbox "Tùy chọn nhân viên Tùy chọn nhân viên"
+    - button "Clear": 󰅙
+    - button "Open": 󰍝
+  - alert: Tìm kiếm theo tên hoặc mã nhân viên
+  - button "Lưu tạm"
+  - button "Chốt lương"
+  - button "Thêm nhân viên"
+  - text: "Đã gửi: Đã duyệt: Từ chối:"
+  - table:
+    - rowgroup:
+      - row "# Tên nhân viên Lương chính Làm thêm Phụ cấp Thưởng Giảm trừ Tổng lương Thuế Bảo hiểm Tổng nhận được Đã trả Còn cần trả":
+        - cell
+        - cell "#"
+        - cell "Tên nhân viên"
+        - cell "Lương chính"
+        - cell "Làm thêm"
+        - cell "Phụ cấp"
+        - cell "Thưởng"
+        - cell "Giảm trừ"
+        - cell "Tổng lương"
+        - cell "Thuế"
+        - cell "Bảo hiểm"
+        - cell "Tổng nhận được"
+        - cell "Đã trả"
+        - cell "Còn cần trả"
+      - row "0 đ 0 đ 50.000.000 đ 0 đ 0 đ 50.000.000 đ 6.368.750 đ 525.000 đ 43.106.250 đ 0 đ 43.106.250 đ":
+        - cell
+        - cell "0 đ"
+        - cell "0 đ"
+        - cell "50.000.000 đ"
+        - cell "0 đ"
+        - cell "0 đ"
+        - cell "50.000.000 đ"
+        - cell "6.368.750 đ"
+        - cell "525.000 đ"
+        - cell "43.106.250 đ"
+        - cell "0 đ"
+        - cell "43.106.250 đ"
+    - rowgroup:
+      - row "1 Nguyễn Văn Minh BAT810 0 đ 0 ₫ 50.000.000 đ 0 đ 0 đ 50.000.000 đ 6.368.750 đ 525.000 đ 43.106.250 đ 0 đ 43.106.250 đ":
+        - cell
+        - cell "1"
+        - cell "Nguyễn Văn Minh BAT810":
+          - paragraph: Nguyễn Văn Minh
+          - paragraph: BAT810
+        - cell "0 đ":
+          - paragraph: 0 đ
+        - cell "0 ₫":
+          - textbox: 0 ₫
+        - cell "50.000.000 đ":
+          - paragraph: 50.000.000 đ
+        - cell "0 đ":
+          - paragraph: 0 đ
+        - cell "0 đ":
+          - paragraph: 0 đ
+        - cell "50.000.000 đ"
+        - cell "6.368.750 đ":
+          - paragraph: 6.368.750 đ
+        - cell "525.000 đ":
+          - paragraph: 525.000 đ
+        - cell "43.106.250 đ"
+        - cell "0 đ"
+        - cell "43.106.250 đ"
+- tooltip
+- tooltip
+- progressbar:
+  - img
+```

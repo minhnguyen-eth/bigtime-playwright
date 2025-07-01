@@ -3,9 +3,6 @@ import { Locator, Page, expect } from '@playwright/test';
 export class ShiftPlanPage {
 
     readonly page: Page;
-    readonly  toastAddSuccess: Locator;
-    readonly  toastCancelSuccess: Locator;
-    readonly  toastExportSuccess: Locator;
     readonly  searchButton: Locator;
     readonly  shiftPlanButton: Locator;
     readonly  addButton: Locator;
@@ -43,7 +40,7 @@ export class ShiftPlanPage {
         this.page = page;
         this.chooseMonthSearch = page.locator("//div/div[1]/div/div/div/div/div[1]/div/div/div[3]/input")
         this.okButton = page.locator("//span[normalize-space()='Có']")
-        this.Month07Button = page.locator("//div[@class='dp__overlay_cell dp__overlay_cell_pad'][normalize-space()='Thg 7']")
+        this.Month07Button = page.locator("//div[@class='dp__overlay_cell dp__overlay_cell_pad'][normalize-space()='Thg 8']")
         this.chosseMonthButton = page.locator("button[aria-label='Open months overlay']")
         this.deleteButton = page.locator("//tr[@id='row-0']//span[contains(text(),'Xóa')]")
         this.editButton = page.locator("//span[contains(text(),'Sửa')]")
@@ -73,10 +70,6 @@ export class ShiftPlanPage {
         this.shiftPlanButton = page.locator("//div[contains(text(),'Phân ca nhanh')]")
         this.searchButton = page.locator("//span[contains(normalize-space(),'Tìm kiếm')]")
 
-        // Toasts
-        this.toastAddSuccess = page.locator('//div[contains(text(),"Thêm thành công")]');
-        this.toastCancelSuccess = page.locator('//div[contains(text(),"Hủy thành công")]');
-        this.getToastDeleteSuccess = page.locator('//div[contains(text(),"Xóa thành công")]');
     }
 
     async clickChooseMonthSearch(){
@@ -203,21 +196,6 @@ export class ShiftPlanPage {
     async getRequiredFieldNameWorkShift(text: string) {
         await expect(this.requiredFieldNameWorkShift).toHaveText(text);
         return this.requiredFieldNameWorkShift.textContent();
-    }
-
-    async getToastExport() {
-        await expect(this.toastExportSuccess).toBeVisible();
-        return this.toastExportSuccess.textContent();
-    }
-
-    async getToastCancel() {
-        await expect(this.toastCancelSuccess).toBeVisible();
-        return this.toastCancelSuccess.textContent();
-    }
-
-    async getToastAdd(toast: string) {
-        await expect(this.toastAddSuccess).toHaveText(toast);
-        return this.toastAddSuccess.textContent();
     }
 
     async Logout() {

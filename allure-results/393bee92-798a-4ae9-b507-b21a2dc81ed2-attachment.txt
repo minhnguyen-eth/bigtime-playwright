@@ -1,0 +1,2 @@
+🔍 Employee name value found: BAT810 - Nguyễn Văn Minh
+📸 Screenshot saved: D:\BigAppTech\playwright-typescripts\screenshots\search_resignation_requests.png

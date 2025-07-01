@@ -1,0 +1,509 @@
+# Page snapshot
+
+```yaml
+- banner:
+  - button
+  - text: Bigtime
+  - button "Quản lý":
+    - paragraph: Quản lý
+  - button "Chấm công":
+    - paragraph: Chấm công
+  - button "Lương":
+    - paragraph: Lương
+  - button "Cài đặt":
+    - paragraph: Cài đặt
+  - img
+  - text: Admin
+  - button "Badge":
+    - status "Badge"
+  - button
+  - button "Đăng xuất"
+- banner:
+  - text: Version 1.1.0
+  - list:
+    - listitem "English":
+      - img
+    - listitem "Tiếng Việt":
+      - img
+  - button
+- navigation:
+  - listbox:
+    - link "Trung tâm":
+      - /url: /dashboard-time-keeping
+    - separator
+    - text: Quản lý chấm công
+    - link "Lịch sử điểm danh":
+      - /url: /checkin-out-history
+    - link "Điểm danh hôm nay":
+      - /url: /checkin-out-today
+    - link "Đơn nghỉ phép":
+      - /url: /leave-application
+    - link "Phiếu tăng ca":
+      - /url: /overtime-ticket
+    - separator
+    - text: Ca làm việc
+    - link "Ca làm việc":
+      - /url: /working-shift
+    - link "Phân ca nhanh":
+      - /url: /shift-plan
+    - link "Lịch làm việc tổng hợp":
+      - /url: /time-working
+    - separator
+    - text: Thống kê
+    - link "Thống kê ngày công tháng":
+      - /url: /monthly-workday-statistic
+    - link "Thống kê tổng thời gian":
+      - /url: /user-checkin-statistic
+    - link "Thống kê thời gian vào và ra":
+      - /url: /user-checkin-and-checkout-statistic
+    - link "Thống kê việc làm tháng":
+      - /url: /employment-statistic-month
+- main:
+  - text: Phân ca nhanh
+  - button "Làm mới"
+  - button "Thêm"
+  - textbox "Chọn tháng Chọn tháng": 07-2025
+  - text: Tên bảng phân ca
+  - textbox "Tên bảng phân ca Tên bảng phân ca"
+  - combobox:
+    - text: Ca làm việc
+    - textbox "Open"
+  - button "Tìm kiếm"
+  - button "Xóa"
+  - table:
+    - rowgroup:
+      - row "# Tên bảng phân ca Ca làm việc Thời gian áp dụng Đối tượng áp dụng Bộ phận áp dụng Hành động":
+        - columnheader "#"
+        - columnheader "Tên bảng phân ca"
+        - columnheader "Ca làm việc"
+        - columnheader "Thời gian áp dụng"
+        - columnheader "Đối tượng áp dụng"
+        - columnheader "Bộ phận áp dụng"
+        - columnheader "Hành động"
+    - rowgroup:
+      - row "1 Phân ca tháng 7 9k68l0 Ca ngày 01-07-2025 - 31-07-2025 Nguyễn Văn Minh,testing ,... Bộ phận IT Sửa Xóa":
+        - cell "1"
+        - cell "Phân ca tháng 7 9k68l0"
+        - cell "Ca ngày"
+        - cell "01-07-2025 - 31-07-2025"
+        - cell "Nguyễn Văn Minh,testing ,..."
+        - cell "Bộ phận IT"
+        - cell "Sửa Xóa":
+          - button "Sửa"
+          - button "Xóa"
+      - row "2 Phân ca tháng 7 5t5raa Ca ngày 01-07-2025 - 31-07-2025 testing01,Quản lý bộ phận... Bộ phận IT Sửa Xóa":
+        - cell "2"
+        - cell "Phân ca tháng 7 5t5raa"
+        - cell "Ca ngày"
+        - cell "01-07-2025 - 31-07-2025"
+        - cell "testing01,Quản lý bộ phận..."
+        - cell "Bộ phận IT"
+        - cell "Sửa Xóa":
+          - button "Sửa"
+          - button "Xóa"
+      - row "3 Phân ca tháng 7 uin00p Ca ngày 01-07-2025 - 31-07-2025 Nguyễn Văn Minh,Quản lý b... Bộ phận IT Sửa Xóa":
+        - cell "3"
+        - cell "Phân ca tháng 7 uin00p"
+        - cell "Ca ngày"
+        - cell "01-07-2025 - 31-07-2025"
+        - cell "Nguyễn Văn Minh,Quản lý b..."
+        - cell "Bộ phận IT"
+        - cell "Sửa Xóa":
+          - button "Sửa"
+          - button "Xóa"
+      - row "4 Phân ca tháng 7 u4r09g Ca ngày 01-07-2025 - 31-07-2025 Quản lý bộ phận IT,testin... Bộ phận IT Sửa Xóa":
+        - cell "4"
+        - cell "Phân ca tháng 7 u4r09g"
+        - cell "Ca ngày"
+        - cell "01-07-2025 - 31-07-2025"
+        - cell "Quản lý bộ phận IT,testin..."
+        - cell "Bộ phận IT"
+        - cell "Sửa Xóa":
+          - button "Sửa"
+          - button "Xóa"
+      - row "5 Phân ca tháng 7 v3xsvg Ca ngày 01-07-2025 - 31-07-2025 Quản lý nhóm Tester 1,Quả... Bộ phận IT Sửa Xóa":
+        - cell "5"
+        - cell "Phân ca tháng 7 v3xsvg"
+        - cell "Ca ngày"
+        - cell "01-07-2025 - 31-07-2025"
+        - cell "Quản lý nhóm Tester 1,Quả..."
+        - cell "Bộ phận IT"
+        - cell "Sửa Xóa":
+          - button "Sửa"
+          - button "Xóa"
+      - row "6 Phân ca tháng 7 zo2k5q Ca ngày 01-07-2025 - 31-07-2025 Quản lý bộ phận IT,Quản l... Bộ phận IT Sửa Xóa":
+        - cell "6"
+        - cell "Phân ca tháng 7 zo2k5q"
+        - cell "Ca ngày"
+        - cell "01-07-2025 - 31-07-2025"
+        - cell "Quản lý bộ phận IT,Quản l..."
+        - cell "Bộ phận IT"
+        - cell "Sửa Xóa":
+          - button "Sửa"
+          - button "Xóa"
+      - row "7 Phân ca tháng 7 bộ phận IT Ca ngày 01-07-2025 - 31-07-2025 Quản lý bộ phận IT,Quản l... Bộ phận IT Sửa Xóa":
+        - cell "7"
+        - cell "Phân ca tháng 7 bộ phận IT"
+        - cell "Ca ngày"
+        - cell "01-07-2025 - 31-07-2025"
+        - cell "Quản lý bộ phận IT,Quản l..."
+        - cell "Bộ phận IT"
+        - cell "Sửa Xóa":
+          - button "Sửa"
+          - button "Xóa"
+      - row "8 Phân ca tháng 7 eev3fu Ca ngày 01-07-2025 - 31-07-2025 Quản lý bộ phận IT,Quản l... Bộ phận IT Sửa Xóa":
+        - cell "8"
+        - cell "Phân ca tháng 7 eev3fu"
+        - cell "Ca ngày"
+        - cell "01-07-2025 - 31-07-2025"
+        - cell "Quản lý bộ phận IT,Quản l..."
+        - cell "Bộ phận IT"
+        - cell "Sửa Xóa":
+          - button "Sửa"
+          - button "Xóa"
+      - row "9 Phân ca tháng 7 2y9x5i Ca ngày 01-07-2025 - 31-07-2025 Quản lý bộ phận IT,Quản l... Bộ phận IT Sửa Xóa":
+        - cell "9"
+        - cell "Phân ca tháng 7 2y9x5i"
+        - cell "Ca ngày"
+        - cell "01-07-2025 - 31-07-2025"
+        - cell "Quản lý bộ phận IT,Quản l..."
+        - cell "Bộ phận IT"
+        - cell "Sửa Xóa":
+          - button "Sửa"
+          - button "Xóa"
+      - row "10 Phân ca tháng 0,90,,. Test ca làm việc 01-07-2025 - 31-07-2025 Sửa Xóa":
+        - cell "10"
+        - cell "Phân ca tháng 0,90,,."
+        - cell "Test ca làm việc"
+        - cell "01-07-2025 - 31-07-2025"
+        - cell
+        - cell
+        - cell "Sửa Xóa":
+          - button "Sửa"
+          - button "Xóa"
+      - row "11 Phân ca tháng 7 skb1k4 Ca ngày 01-07-2025 - 31-07-2025 Bộ phận IT Sửa Xóa":
+        - cell "11"
+        - cell "Phân ca tháng 7 skb1k4"
+        - cell "Ca ngày"
+        - cell "01-07-2025 - 31-07-2025"
+        - cell
+        - cell "Bộ phận IT"
+        - cell "Sửa Xóa":
+          - button "Sửa"
+          - button "Xóa"
+      - row "12 Phân ca tháng 7 g7tyv4 Ca ngày 01-07-2025 - 31-07-2025 Bộ phận IT Sửa Xóa":
+        - cell "12"
+        - cell "Phân ca tháng 7 g7tyv4"
+        - cell "Ca ngày"
+        - cell "01-07-2025 - 31-07-2025"
+        - cell
+        - cell "Bộ phận IT"
+        - cell "Sửa Xóa":
+          - button "Sửa"
+          - button "Xóa"
+      - row "13 Phân ca tháng 7 28pij9 Ca ngày 01-07-2025 - 31-07-2025 Bộ phận IT Sửa Xóa":
+        - cell "13"
+        - cell "Phân ca tháng 7 28pij9"
+        - cell "Ca ngày"
+        - cell "01-07-2025 - 31-07-2025"
+        - cell
+        - cell "Bộ phận IT"
+        - cell "Sửa Xóa":
+          - button "Sửa"
+          - button "Xóa"
+      - row "14 Phân ca tháng 7 r479fo Ca ngày 01-07-2025 - 31-07-2025 Bộ phận IT Sửa Xóa":
+        - cell "14"
+        - cell "Phân ca tháng 7 r479fo"
+        - cell "Ca ngày"
+        - cell "01-07-2025 - 31-07-2025"
+        - cell
+        - cell "Bộ phận IT"
+        - cell "Sửa Xóa":
+          - button "Sửa"
+          - button "Xóa"
+      - row "15 Phân ca tháng 7 p84x88 Ca ngày 01-07-2025 - 31-07-2025 Bộ phận IT Sửa Xóa":
+        - cell "15"
+        - cell "Phân ca tháng 7 p84x88"
+        - cell "Ca ngày"
+        - cell "01-07-2025 - 31-07-2025"
+        - cell
+        - cell "Bộ phận IT"
+        - cell "Sửa Xóa":
+          - button "Sửa"
+          - button "Xóa"
+      - row "16 Phân ca tháng 7 qxdxuq Ca ngày 01-07-2025 - 31-07-2025 Bộ phận IT Sửa Xóa":
+        - cell "16"
+        - cell "Phân ca tháng 7 qxdxuq"
+        - cell "Ca ngày"
+        - cell "01-07-2025 - 31-07-2025"
+        - cell
+        - cell "Bộ phận IT"
+        - cell "Sửa Xóa":
+          - button "Sửa"
+          - button "Xóa"
+      - row "17 Phân ca tháng 7 06eynq Ca ngày 01-07-2025 - 31-07-2025 Bộ phận IT Sửa Xóa":
+        - cell "17"
+        - cell "Phân ca tháng 7 06eynq"
+        - cell "Ca ngày"
+        - cell "01-07-2025 - 31-07-2025"
+        - cell
+        - cell "Bộ phận IT"
+        - cell "Sửa Xóa":
+          - button "Sửa"
+          - button "Xóa"
+      - row "18 Phân ca tháng 7 puziiz Ca ngày 01-07-2025 - 31-07-2025 Bộ phận IT Sửa Xóa":
+        - cell "18"
+        - cell "Phân ca tháng 7 puziiz"
+        - cell "Ca ngày"
+        - cell "01-07-2025 - 31-07-2025"
+        - cell
+        - cell "Bộ phận IT"
+        - cell "Sửa Xóa":
+          - button "Sửa"
+          - button "Xóa"
+      - row "19 Phân ca tháng 7 gmdcmy Ca ngày 01-07-2025 - 31-07-2025 Bộ phận IT Sửa Xóa":
+        - cell "19"
+        - cell "Phân ca tháng 7 gmdcmy"
+        - cell "Ca ngày"
+        - cell "01-07-2025 - 31-07-2025"
+        - cell
+        - cell "Bộ phận IT"
+        - cell "Sửa Xóa":
+          - button "Sửa"
+          - button "Xóa"
+      - row "20 Phân ca tháng 7 9vadun Ca ngày 01-07-2025 - 31-07-2025 Bộ phận IT Sửa Xóa":
+        - cell "20"
+        - cell "Phân ca tháng 7 9vadun"
+        - cell "Ca ngày"
+        - cell "01-07-2025 - 31-07-2025"
+        - cell
+        - cell "Bộ phận IT"
+        - cell "Sửa Xóa":
+          - button "Sửa"
+          - button "Xóa"
+  - text: Tổng 23, Hiển thị
+  - combobox:
+    - text: "20"
+    - textbox "Open": "20"
+  - navigation "Pagination Navigation":
+    - list:
+      - listitem:
+        - button "Previous page" [disabled]
+      - listitem:
+        - button "Page 1, Current page": "1"
+      - listitem:
+        - button "Go to page 2": "2"
+      - listitem:
+        - button "Next page"
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- dialog:
+  - text: Thêm phân ca nhanh Thông tin chung
+  - textbox "Tên bảng phân ca ※ Tên bảng phân ca ※": Phân ca tháng 7 quweig
+  - combobox:
+    - text: Ca ngày
+    - textbox "Ca làm việc ※ Ca làm việc ※": Ca ngày
+    - button "Open": 󰍝
+  - text: Thời gian áp dụng
+  - textbox "Ngày bắt đầu ※ Ngày bắt đầu ※": 01-07-2025
+  - dialog:
+    - document:
+      - button "Previous month"
+      - button "Open months overlay": Thg 7
+      - dialog:
+        - grid:
+          - row "Thg 1 Thg 2 Thg 3":
+            - gridcell "Thg 1"
+            - gridcell "Thg 2"
+            - gridcell "Thg 3"
+          - row "Thg 4 Thg 5 Thg 6":
+            - gridcell "Thg 4"
+            - gridcell "Thg 5"
+            - gridcell "Thg 6"
+          - row "Thg 7 Thg 8 Thg 9":
+            - gridcell "Thg 7" [selected]
+            - gridcell "Thg 8"
+            - gridcell "Thg 9"
+          - row "Thg 10 Thg 11 Thg 12":
+            - gridcell "Thg 10"
+            - gridcell "Thg 11"
+            - gridcell "Thg 12"
+        - button "Toggle overlay"
+      - button "Open years overlay": "2025"
+      - button "Next month"
+      - grid "Calendar wrapper":
+        - row "2 3 4 5 6 7 CN":
+          - gridcell "2"
+          - gridcell "3"
+          - gridcell "4"
+          - gridcell "5"
+          - gridcell "6"
+          - gridcell "7"
+          - gridcell "CN"
+        - grid "Calendar days":
+          - row "30 1 2 3 4 5 6":
+            - gridcell "30"
+            - gridcell "1" [selected]
+            - gridcell "2"
+            - gridcell "3"
+            - gridcell "4"
+            - gridcell "5"
+            - gridcell "6"
+          - row "7 8 9 10 11 12 13":
+            - gridcell "7"
+            - gridcell "8"
+            - gridcell "9"
+            - gridcell "10"
+            - gridcell "11"
+            - gridcell "12"
+            - gridcell "13"
+          - row "14 15 16 17 18 19 20":
+            - gridcell "14"
+            - gridcell "15"
+            - gridcell "16"
+            - gridcell "17"
+            - gridcell "18"
+            - gridcell "19"
+            - gridcell "20"
+          - row "21 22 23 24 25 26 27":
+            - gridcell "21"
+            - gridcell "22"
+            - gridcell "23"
+            - gridcell "24"
+            - gridcell "25"
+            - gridcell "26"
+            - gridcell "27"
+          - row "28 29 30 31 1 2 3":
+            - gridcell "28"
+            - gridcell "29"
+            - gridcell "30"
+            - gridcell "31"
+            - gridcell "1"
+            - gridcell "2"
+            - gridcell "3"
+      - button "Open time picker"
+    - text: 01-07-2025
+    - button "Hủy"
+    - button "Chọn"
+  - textbox "Ngày kết thúc ※ Ngày kết thúc ※": 01-07-2025
+  - text: Lặp lại
+  - combobox:
+    - text: Tuần
+    - textbox "Open": "1"
+  - spinbutton "Chu kỳ nghỉ ※ Chu kỳ nghỉ ※": "0"
+  - spinbutton "Chu kỳ làm ※ Chu kỳ làm ※": "1"
+  - checkbox "Thứ hai" [checked]
+  - text: Thứ hai
+  - checkbox "Thứ ba" [checked]
+  - text: Thứ ba
+  - checkbox "Thứ tư" [checked]
+  - text: Thứ tư
+  - checkbox "Thứ năm" [checked]
+  - text: Thứ năm
+  - checkbox "Thứ sáu" [checked]
+  - text: Thứ sáu
+  - checkbox "Thứ bảy"
+  - text: Thứ bảy
+  - checkbox "Chủ nhật"
+  - text: Chủ nhật Áp dụng với
+  - tablist:
+    - tab "Nhân viên" [selected]
+    - tab "Bộ phận"
+    - text: Tìm kiếm theo tên
+    - textbox "Tìm kiếm theo tên Tìm kiếm theo tên"
+    - button "Thêm"
+  - table:
+    - rowgroup:
+      - row "Mã Tên nhân viên Hành động":
+        - cell "Mã"
+        - cell "Tên nhân viên"
+        - cell "Hành động"
+    - rowgroup:
+      - row "Không có dữ liệu":
+        - cell "Không có dữ liệu"
+  - separator
+  - text: Hiển thị
+  - combobox:
+    - text: "10"
+    - textbox "Open": "10"
+  - text: 0-0 of 0
+  - navigation "Pagination Navigation":
+    - list:
+      - listitem:
+        - button "First page" [disabled]
+      - listitem:
+        - button "Previous page" [disabled]
+      - listitem:
+        - button "Next page" [disabled]
+      - listitem:
+        - button "Last page" [disabled]
+  - button "Lưu"
+  - button "Hủy"
+```

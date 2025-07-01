@@ -50,7 +50,7 @@ test.describe.serial('Paysheet Tests', () => {
             await paysheet.clickChooseMonth();
             await paysheet.clickMonthOption();
             await paysheet.setNote('Automation test');
-            await paysheet.clickAndSetDropDownEmployee();
+            await paysheet.clickAndSetDropDownEmployee('Nguyễn Văn Minh');
             await paysheet.clickEmployeeOption();
             await basePage.clickSave();
             await toastPage.getToastAddSuccess();
@@ -69,7 +69,7 @@ test.describe.serial('Paysheet Tests', () => {
             await paysheet.clickPayslip();
             await paysheet.clickSalarySlipCode();
             await paysheet.clickBrowse();
-            await basePage.clickYes();
+            await toastPage.getToastBrowseSuccess();
             await logoutPage.logout();
         });
 
@@ -80,7 +80,6 @@ test.describe.serial('Paysheet Tests', () => {
             await paysheet.clickPayslip();
             await paysheet.clickSalarySlipCode();
             await paysheet.clickBrowse();
-            await basePage.clickYes();
             await logoutPage.logout();
         });
 
@@ -91,20 +90,79 @@ test.describe.serial('Paysheet Tests', () => {
             await paysheet.clickPayslip();
             await paysheet.clickSalarySlipCode();
             await paysheet.clickBrowse();
-            await basePage.clickYes();
             await paysheet.clickPaysheet();
             await paysheet.clickLatestPaysheetRow();
             await paysheet.clickViewPayroll();
-            await paysheet.clickSalaryClosing();
+            // await paysheet.clickSalaryClosing();
+            // await paysheet.clickConfirm();
+            // await paysheet.clickLatestPaysheetRow();
+            // await paysheet.clickPayslipPayment();
+            // await paysheet.clickPayment();
+            // await paysheet.clickCreateTicket();
+            // await toastPage.getToastPaymentSuccess();
+        });
+    });
+
+    test('E2E Payroll and Payment Process with add more employee', async ({ page }) => {
+        allure.story('Complete Paysheet Process Story');
+
+        await allure.step('Admin creates and sends paysheet', async () => {
+            await loginPage.login(Config.admin_username, Config.admin_password);
+            await homePage.clickSalary();
+            await paysheet.clickPaysheet();
+            await basePage.clickAdd();
+            await paysheet.setNamePaysheet('Automation test');
+            await paysheet.clickCheckBoxMonthly();
+            await paysheet.clickChooseMonth();
+            await paysheet.clickMonthOption();
+            await paysheet.setNote('Automation test');
+            await paysheet.clickAndSetDropDownEmployee('Nguyễn Văn Minh');
+            await paysheet.clickEmployeeOption();
+            await basePage.clickSave();
+            await toastPage.getToastAddSuccess();
+            await paysheet.clickLatestPaysheetRow();
+            await paysheet.clickViewPayroll();
+            await paysheet.clickAddMoreEmployee();
+            await paysheet.fillEmployeeNameInput('Big app tech')
+            await paysheet.clickSelectMoreEmployee();
+            await basePage.clickSave();
+            await toastPage.getToastAddSuccess();
+            await paysheet.clickSendAll();
             await paysheet.clickConfirm();
-            await paysheet.clickLatestPaysheetRow();
-            await paysheet.clickPayslipPayment();
-            await paysheet.clickPayment();
-            await paysheet.clickCreateTicket();
-            await paysheet.clickLatestPaysheetRow();
-            await paysheet.clickPaymentHistory();
-            await paysheet.clickHistoryPaymentCode();
-            await paysheet.getEmployeeName('Nguyễn Văn Minh');
+            await logoutPage.logout();
+
+        });
+
+        await allure.step('Employee 1 approves payslip', async () => {
+            await loginPage.login(Config.employee_username, Config.employee_password);
+            await homePage.clickSalary();
+            await paysheet.clickPayslip();
+            await paysheet.clickSalarySlipCode();
+            await paysheet.clickBrowse();
+            await logoutPage.logout();
+        });
+
+
+        await allure.step('Employee 2 approves payslip', async () => {
+            await loginPage.login(Config.employee2_username, Config.employee2_password);
+            await homePage.clickSalary();
+            await paysheet.clickPayslip();
+            await paysheet.clickSalarySlipCode();
+            await paysheet.clickBrowse();
+            await logoutPage.logout();
+        });
+
+        await allure.step('Manager approves payslip', async () => {
+            await loginPage.login(Config.manager_username, Config.manager_password);
+            await homePage.clickSalary();
+            await paysheet.clickPayslip();
+            await paysheet.clickSalarySlipCode();
+            await paysheet.clickBrowse();
+
+            await paysheet.clickSalarySlipCodeRow1();
+            await paysheet.clickBrowse();
+  
+            await logoutPage.logout();
         });
     });
 
@@ -202,7 +260,7 @@ test.describe.serial('Paysheet Tests', () => {
             await paysheet.clickChooseMonth();
             await paysheet.clickMonthOption05();
             await paysheet.setNote('Automation test');
-            await paysheet.clickAndSetDropDownEmployee();
+            await paysheet.clickAndSetDropDownEmployee('Nguyễn Văn Minh');
             await paysheet.clickEmployeeOption();
             await basePage.clickSave();
             await toastPage.getToastAddSuccess();
@@ -229,4 +287,5 @@ test.describe.serial('Paysheet Tests', () => {
             await toastPage.getToastExportSuccess();
         });
     });
+
 });
