@@ -16,6 +16,7 @@ export class ContractPage {
     readonly noteInput: Locator;
     readonly selectAllTerm: Locator;
     readonly contractTypeDropdown: Locator;
+    
 
 
     constructor(page: Page) {
