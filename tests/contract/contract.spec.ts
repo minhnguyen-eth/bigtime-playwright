@@ -43,7 +43,6 @@ test.describe.serial('Contract Tests', () => {
         await contractPage.checkSelectAllTerm();
         await basePage.clickSave();
         await toastPage.getToastAddSuccess();
-
     });
 
     test('Create with formal contract ', async ({ page }) => {
