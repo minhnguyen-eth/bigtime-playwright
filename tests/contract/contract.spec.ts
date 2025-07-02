@@ -8,14 +8,12 @@ import Config from '../../utils/configUtils';
 import { clearEmploymentContract } from '../../utils/mysqlUtils';
 
 test.describe.serial('Contract Tests', () => {
-
     let contractPage: ContractPage;
     let toastPage: ToastPage;
     let loginPage: LoginPage;
     let basePage: BasePage;
 
     test.beforeEach(async ({ page }) => {
-
         loginPage = new LoginPage(page);
         toastPage = new ToastPage(page);
         contractPage = new ContractPage(page);
@@ -25,7 +23,6 @@ test.describe.serial('Contract Tests', () => {
         await loginPage.login(Config.admin_username, Config.admin_password);
         await basePage.clickAdmin();
         await contractPage.clickContract();
-
     });
 
     test.afterEach(async ({ page }, testInfo: TestInfo) => {
@@ -82,6 +79,5 @@ test.describe.serial('Contract Tests', () => {
         await basePage.clickSave();
         await toastPage.getToastAddSuccess();
     });
-
 });
 
