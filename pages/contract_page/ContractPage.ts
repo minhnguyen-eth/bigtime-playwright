@@ -1,4 +1,4 @@
-import { Page, Locator } from 'playwright';
+import { Page, Locator, expect } from 'playwright/test';
 
 export class ContractPage {
     readonly page: Page;
@@ -16,8 +16,6 @@ export class ContractPage {
     readonly noteInput: Locator;
     readonly selectAllTerm: Locator;
     readonly contractTypeDropdown: Locator;
-    
-
 
     constructor(page: Page) {
         this.page = page;
@@ -39,14 +37,17 @@ export class ContractPage {
     }
 
     async clickContractTypeDropdown() {
+        await expect(this.contractTypeDropdown).toBeVisible();
         await this.contractTypeDropdown.click({ force: true });
     }
 
     async checkSelectAllTerm() {
+        await expect(this.selectAllTerm).toBeVisible();
         await this.selectAllTerm.click({ force: true });
     }
 
     async selectEndDate() {
+        await expect(this.endDateDropDown).toBeVisible();
         await this.endDateDropDown.click();
         await this.MonthButton.click();
         await this.selectMonth.click();
@@ -54,31 +55,38 @@ export class ContractPage {
     }
 
     async fillSalary(salary: string) {
+        await expect(this.salaryInput).toBeVisible();
         await this.salaryInput.fill(salary);
     }
 
     async clickCollaboratorContract() {
+        await expect(this.collaboratorContract).toBeVisible();
         await this.collaboratorContract.click();
     }
 
     async clickSeasonalContract() {
+        await expect(this.seasonalContract).toBeVisible();
         await this.seasonalContract.click();
     }
 
     async clickFormalContract() {
+        await expect(this.formalContract).toBeVisible();
         await this.formalContract.click();
     }
 
     async clickContract() {
+        await expect(this.contractButton).toBeVisible();
         await this.contractButton.click();
     }
 
     async fillEmployeeName() {
+        await expect(this.EmployeeInput).toBeVisible();
         await this.EmployeeInput.fill("Minh");
         await this.selectEmployee.click();
     }
 
     async fillNote(note: string) {
+        await expect(this.noteInput).toBeVisible();
         await this.noteInput.fill(note);
     }
 }

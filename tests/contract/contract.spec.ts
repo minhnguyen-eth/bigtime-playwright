@@ -1,11 +1,11 @@
 import { test, TestInfo } from '@playwright/test';
 import { ToastPage } from '../../pages/ToastPage';
 import { LoginPage } from '../../pages/LoginPage';
-import { ContractPage } from '../../pages/contract_page/ContractPage';
 import { BasePage } from '../../pages/BasePage';
 import { takeScreenshotOnFailure } from '../../utils/screenshotUtils';
 import Config from '../../utils/configUtils';
 import { clearEmploymentContract } from '../../utils/mysqlUtils';
+import { ContractPage } from '../../pages/contract_page/ContractPage';
 
 test.describe.serial('Contract Tests', () => {
     let contractPage: ContractPage;

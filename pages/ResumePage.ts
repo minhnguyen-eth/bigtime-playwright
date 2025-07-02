@@ -42,9 +42,17 @@ export class ResumePage {
     readonly chosseButton: Locator;
     readonly editButton: Locator;
     readonly politicalTheoryInput: Locator;
+    readonly msgPlaceOfBirthRequired: Locator;
+    readonly msgHownTownRequired: Locator;
+    readonly msgEthnicityRequired: Locator;
+    readonly msgReligionRequired: Locator;
 
     constructor(page: Page) {
         this.page = page;
+        this.msgReligionRequired = page.locator("//div[contains(text(),'Nhập tôn giáo')]");
+        this.msgEthnicityRequired = page.locator("//div[contains(text(),'Nhập dân tộc')]");
+        this.msgHownTownRequired = page.locator("//div[contains(text(),'Nhập quê quán')]");
+        this.msgPlaceOfBirthRequired = page.locator("//div[contains(text(),'Nhập nơi sinh')]");
         this.politicalTheoryInput = page.locator("//div[1]/div/div[2]/div/div[26]/div/div/div/div[3]/div/input");
         this.editButton = page.locator("//span[contains(text(),'Sửa')]");
         this.chosseButton = page.locator("//button[contains(text(),'Chọn')]");
@@ -84,6 +92,23 @@ export class ResumePage {
         this.aliasName = page.locator("//div[1]/div/div[2]/div/div[4]/div/div/div/div[3]/div/input");
         this.identifier = page.locator("//div[1]/div/div[2]/div/div[2]/div/div/div/div[3]/div/input");
         this.resumeButton = page.locator("//span[contains(.,'Sơ yếu lý lịch')]");
+    }
+
+    async verifyMsgPlaceOfBirthRequired() {
+        await expect(this.msgPlaceOfBirthRequired).toBeVisible();
+        await expect(this.msgPlaceOfBirthRequired).toHaveText('Nhập nơi sinh');
+    }
+    async verifyMsgHownTownRequired() {
+        await expect(this.msgHownTownRequired).toBeVisible();
+        await expect(this.msgHownTownRequired).toHaveText('Nhập quê quán');
+    }
+    async verifyMsgEthnicityRequired() {
+        await expect(this.msgEthnicityRequired).toBeVisible();
+        await expect(this.msgEthnicityRequired).toHaveText('Nhập dân tộc');
+    }
+    async verifyMsgReligionRequired() {
+        await expect(this.msgReligionRequired).toBeVisible();
+        await expect(this.msgReligionRequired).toHaveText('Nhập tôn giáo');
     }
 
     async clickEditButton() {
@@ -228,6 +253,11 @@ export class ResumePage {
 
     async clickResume() {
         await this.resumeButton.click();
+    }
+
+    async testSaveWithEmptyFieldsRequired() {
+        await this.clickResume();
+        await this.clickEditButton();
     }
 
     async testResumeWithValidData() {

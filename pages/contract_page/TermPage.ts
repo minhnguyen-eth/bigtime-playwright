@@ -46,22 +46,27 @@ export class TermPage {
     }
 
     async clickLockStatus() {
+        await expect(this.lockStatus).toBeVisible();
         await this.lockStatus.click();
     }
 
     async clickDropdownStatus() {
+        await expect(this.dropdownStatus).toBeVisible();
         await this.dropdownStatus.click();
     }
 
     async fillName(name: string) {
+        await expect(this.nameInput).toBeVisible();
         await this.nameInput.fill(name);
     }
 
     async fillContent(content: string) {
+        await expect(this.contentInput).toBeVisible();
         await this.contentInput.fill(content);
     }
 
     async clickTerm() {
+        await expect(this.termButton).toBeVisible();
         await this.termButton.click();
     }
 }

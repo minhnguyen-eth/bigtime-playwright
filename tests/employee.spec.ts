@@ -9,7 +9,6 @@ import { BasePage } from '../pages/BasePage';
 import { ResumePage } from '../pages/ResumePage';
 import { ToastPage } from '../pages/ToastPage';
 
-
 test.describe.serial('Employee Tests', () => {
     let loginPage: LoginPage;
     let employeePage: EmployeePage
@@ -33,7 +32,6 @@ test.describe.serial('Employee Tests', () => {
         await loginPage.login(Config.admin_username, Config.admin_password);
         await homePage.clickAdmin();
         await employeePage.clickUser();
-
     });
 
     test.afterEach(async ({ page }, testInfo: TestInfo) => {
@@ -43,7 +41,6 @@ test.describe.serial('Employee Tests', () => {
     test(`Add with role employee`, async ({ page }) => {
         await employeePage.addWithRoleEmployee();
     });
-
     test('Test resume with full data valid information', async ({ page }) => {
         await basePage.clickRow0();
         await resumePage.testResumeWithValidData();
@@ -51,8 +48,34 @@ test.describe.serial('Employee Tests', () => {
         await toastPage.getToastEditSuccess();
     });
 
-    test('Add and set daily salary ', async ({ page }) => {
-        await employeePage.addAndSetDailySalary();
+    test('Add with basic information and set salary by date ', async ({ page }) => {
+        await employeePage.testAddAndSetSalaryByDate();
+    });
+
+    test('Add without set salary', async ({ page }) => {
+        await employeePage.addWithoutSetSalary();
+    });
+
+    test('Add with basic information and edit information', async ({ page }) => {
+        await employeePage.testAddEmployee();
+        await basePage.clickSave();
+        await toastPage.getToastAddSuccess();
+        await basePage.clickRow0();
+        await basePage.clickEdit();
+        await employeePage.testFillMoreInformation();
+        await basePage.clickSave();
+        await toastPage.getToastUpdateSuccess();
+    });
+
+    test('Save resume with empty information required', async ({ page }) => {
+        await basePage.clickRow0();
+        await resumePage.testSaveWithEmptyFieldsRequired();
+        await basePage.clickSave();
+        await resumePage.verifyMsgEthnicityRequired();
+        await resumePage.verifyMsgPlaceOfBirthRequired();
+        await resumePage.verifyMsgReligionRequired();
+        await resumePage.verifyMsgHownTownRequired();
+
     });
 
     test('Add with invalid email', async ({ page }) => {

@@ -78,7 +78,7 @@ export class EmployeePage {
   readonly checkBoxGender: Locator;
   readonly verifyMaleSearch: Locator;
   readonly verifyFemaleSearch: Locator;
-  
+
 
   constructor(page: Page) {
     this.page = page;
@@ -522,49 +522,24 @@ export class EmployeePage {
   }
 
   async addWithRoleDepartmentManager() {
-    const randomSuffix = Math.random().toString(36).substring(2, 8);
-    const userCode = `userCode${randomSuffix}`;
-    const emailRandom = `email${randomSuffix}`;
-
-    await this.clickAddButton();
-    await this.fillEmployeeCode(userCode);
-    await this.fillEmployeeName('Automation test');
-    await this.fillEmail(emailRandom);
-    await this.clickDropdownBranch();
-    await this.clickSelectBranch();
-    await this.clickDropdownDepartment();
-    await this.clickSelectDepartment();
-    await this.clickDropdownEmployeeType();
-    await this.clickStaff();
+    await this.testAddEmployee();
     await this.clickDropdownEmployeeType();
     await this.clickAdmin();
     await this.clickDropdownRoleName();
     await this.clickManagementDepartmentRole();
-
     await this.clickSaveButton();
     await this.toastPage.getToastAddSuccess();
   }
 
   async addWithInValidEmail() {
-    const randomSuffix = Math.random().toString(36).substring(2, 8);
-    const userCode = `userCode${randomSuffix}`;
-
-    await this.clickAddButton();
-    await this.fillEmployeeCode(userCode);
-    await this.fillEmployeeName('Automation test');
-    await this.clickDropdownBranch();
-    await this.clickSelectBranch();
-    await this.clickDropdownDepartment();
-    await this.clickSelectDepartment();
-    await this.clickDropdownEmployeeType();
-    await this.clickStaff();
+    await this.testAddEmployee();
     await this.fillEmail('Tét');
     await this.clickSaveButton();
     await this.verifyEmailError();
     await this.toastPage.getToastAddFailed();
   }
 
-  async addAndSetDailySalary() {
+  async testAddEmployee() {
     const randomSuffix = Math.random().toString(36).substring(2, 8);
     const randomAllowanceName = `Phụ cấp${randomSuffix}`;
     const userCode = `userCode${randomSuffix}`;
@@ -583,9 +558,12 @@ export class EmployeePage {
     await this.clickSelectDepartment();
     await this.clickDropdownEmployeeType();
     await this.clickStaff();
+  }
 
-    // Set salary 
-    await this.clickSetSalary();
+  async testAddAndSetSalaryByDate() {
+    await this.testAddEmployee();
+    // Set daily day salary 
+    await this.testSetSalary();
     await this.clickDropdownSalaryType();
     await this.clickDailySalary();
     await this.fillFillSalary('22000000');
@@ -594,74 +572,14 @@ export class EmployeePage {
     await this.toastPage.getToastAddSuccess();
   }
 
+  async addWithoutSetSalary() {
+    await this.testAddEmployee();
+  }
+
   async addWithRoleEmployee() {
-    const randomSuffix = Math.random().toString(36).substring(2, 8);
-    const randomAllowanceName = `Phụ cấp${randomSuffix}`;
-    const userCode = `userCode${randomSuffix}`;
-    const emailRandom = `email${randomSuffix}`;
-    const random10Digits = Math.floor(1000000000 + Math.random() * 9000000000);
-    const phoneNumber = `09${Math.floor(100000000 + Math.random() * 900000000)}`;
-
-    await this.clickAddButton();
-
-    // Fill information
-    await this.fillEmployeeCode(userCode);
-    await this.fillEmployeeName('Automation test');
-    await this.fillEmail(emailRandom);
-    await this.clickSelectMale();
-    await this.clickDropdownBranch();
-    await this.clickSelectBranch();
-    await this.clickDropdownDepartment();
-    await this.clickSelectDepartment();
-    await this.clickDropdownEmployeeType();
-    await this.clickStaff();
-
-    await this.clickDropdownPosition();
-    await this.clickPosition();
-    await this.clickDropdownRank();
-    await this.clickSelectRank();
-    await this.fillCitizenId(random10Digits);
-    await this.clickCitizenIdCardIssueDate();
-    await this.clickChosseYear();
-    await this.clickSelectYear();
-    await this.clickChosseMonth();
-    await this.clickSelectMonth();
-    await this.clickSelectDay();
-    await this.clickChosseButton();
-
-    await this.fillPlaceOfIssueOfIdentityCard('Bien Hoa, Dong Nai');
-    await this.fillBankName('Vietcombank');
-    await this.fillBankAccountNumber('02847182497124');
-    await this.fillPhoneNumber(phoneNumber);
-    await this.clickDateOfBirth();
-    await this.clickChosseYear();
-    await this.clickSelectYear();
-    await this.clickChosseMonth();
-    await this.clickSelectMonth();
-    await this.clickSelectDay();
-    await this.clickChosseButton();
-    await this.clickDateOfJoiningTheCompany();
-    await this.clickToDay();
-    await this.clickChosseButton();
-    await this.fillAddress('Bien Hoa, Dong Nai');
-    await this.fillNote('Automation testing');
-
-    // Set salary 
-    await this.clickSetSalary();
-    await this.fillFillSalary('22000000');
-    await this.fillFillInsurance('500000');
-    await this.clickOpenAllowance();
-    await this.clickAddAllowance();
-    await this.clickDropdownAllowance();
-    await this.clickSelectAllowance();
-
-    // await this.clickAddAllowance();
-    // await this.clickDropdownAllowance2();
-    // await this.clickAddAllowanceTypeButton();
-    // await this.fillAllowanceTypeName(randomAllowanceName);
-    // await this.fillMoneyAllowance('100000');
-    // await this.clickConfirm();
-
+    await this.testAddEmployee();
+    await this.testFillMoreInformation();
+    await this.testSetSalary();
     await this.clickSaveButton();
     await this.toastPage.getToastAddSuccess();
   }
@@ -702,6 +620,58 @@ export class EmployeePage {
     await this.clickSearchButton();
     await this.verifyVerifyFemaleSearch();
     await this.clickClearSearch();
+  }
 
+  async testFillMoreInformation() {
+    const random10Digits = Math.floor(1000000000 + Math.random() * 9000000000);
+    const phoneNumber = `09${Math.floor(100000000 + Math.random() * 900000000)}`;
+
+    // Fill more information
+    await this.clickDropdownPosition();
+    await this.clickPosition();
+    await this.clickDropdownRank();
+    await this.clickSelectRank();
+    await this.fillCitizenId(random10Digits);
+    await this.clickCitizenIdCardIssueDate();
+    await this.clickChosseYear();
+    await this.clickSelectYear();
+    await this.clickChosseMonth();
+    await this.clickSelectMonth();
+    await this.clickSelectDay();
+    await this.clickChosseButton();
+
+    await this.fillPlaceOfIssueOfIdentityCard('Bien Hoa, Dong Nai');
+    await this.fillBankName('Vietcombank');
+    await this.fillBankAccountNumber('02847182497124');
+    await this.fillPhoneNumber(phoneNumber);
+    await this.clickDateOfBirth();
+    await this.clickChosseYear();
+    await this.clickSelectYear();
+    await this.clickChosseMonth();
+    await this.clickSelectMonth();
+    await this.clickSelectDay();
+    await this.clickChosseButton();
+    await this.clickDateOfJoiningTheCompany();
+    await this.clickToDay();
+    await this.clickChosseButton();
+    await this.fillAddress('Bien Hoa, Dong Nai');
+    await this.fillNote('Automation testing');
+  }
+
+  async testSetSalary() {
+    await this.clickSetSalary();
+    await this.fillFillSalary('22000000');
+    await this.fillFillInsurance('500000');
+    await this.clickOpenAllowance();
+    await this.clickAddAllowance();
+    await this.clickDropdownAllowance();
+    await this.clickSelectAllowance();
+
+    // await this.clickAddAllowance();
+    // await this.clickDropdownAllowance2();
+    // await this.clickAddAllowanceTypeButton();
+    // await this.fillAllowanceTypeName(randomAllowanceName);
+    // await this.fillMoneyAllowance('100000');
+    // await this.clickConfirm();
   }
 }

@@ -88,13 +88,13 @@ test.describe.serial('Paysheet Tests', () => {
             await paysheet.clickPaysheet();
             await paysheet.clickLatestPaysheetRow();
             await paysheet.clickViewPayroll();
-            // await paysheet.clickSalaryClosing();
-            // await paysheet.clickConfirm();
-            // await paysheet.clickLatestPaysheetRow();
-            // await paysheet.clickPayslipPayment();
-            // await paysheet.clickPayment();
-            // await paysheet.clickCreateTicket();
-            // await toastPage.getToastPaymentSuccess();
+            await paysheet.clickSalaryClosing();
+            await paysheet.clickConfirm();
+            await paysheet.clickLatestPaysheetRow();
+            await paysheet.clickPayslipPayment();
+            await paysheet.clickPayment();
+            await paysheet.clickCreateTicket();
+            await toastPage.getToastPaymentSuccess();
         });
     });
 
