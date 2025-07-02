@@ -5,20 +5,30 @@ import Config from '../utils/configUtils';
 import { allure } from 'allure-playwright';
 import { EmployeePage } from '../pages/EmployeePage';
 import { HomePage } from '../pages/HomePage';
+import { BasePage } from '../pages/BasePage';
+import { ResumePage } from '../pages/ResumePage';
+import { ToastPage } from '../pages/ToastPage';
+
 
 test.describe.serial('Employee Tests', () => {
     let loginPage: LoginPage;
     let employeePage: EmployeePage
     let homePage: HomePage;
+    let basePage: BasePage;
+    let resumePage: ResumePage;
+    let toastPage: ToastPage;
 
     test.beforeEach(async ({ page }) => {
         allure.feature('Employee Feature');
         allure.owner('Minh Nguyen');
         allure.severity('Critical');
 
+        toastPage = new ToastPage(page);
         employeePage = new EmployeePage(page);
         loginPage = new LoginPage(page);
         homePage = new HomePage(page);
+        basePage = new BasePage(page);
+        resumePage = new ResumePage(page);
         await loginPage.goto();
         await loginPage.login(Config.admin_username, Config.admin_password);
         await homePage.clickAdmin();
@@ -32,6 +42,13 @@ test.describe.serial('Employee Tests', () => {
 
     test(`Add with role employee`, async ({ page }) => {
         await employeePage.addWithRoleEmployee();
+    });
+
+    test('Test resume with full data valid information', async ({ page }) => {
+        await basePage.clickRow0();
+        await resumePage.testResumeWithValidData();
+        await basePage.clickSave();
+        await toastPage.getToastEditSuccess();
     });
 
     test('Add and set daily salary ', async ({ page }) => {

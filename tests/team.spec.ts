@@ -10,7 +10,6 @@ import { Config } from '../utils/configUtils';
 import { clearTeam } from '../utils/mysqlUtils';
 
 test.describe.serial('Team', () => {
-
     let loginPage: LoginPage;
     let teamPage: TeamPage;
     let toastPage: ToastPage;
@@ -68,20 +67,20 @@ test.describe.serial('Team', () => {
         await teamPage.getValidateNameExist();
     });
 
-    // test('Create a new team with existing team code', async ({ page }) => {
-    //     const randomSuffix = Math.random().toString(36).substring(2, 8);
-    //     const teamNameRandom = `team${randomSuffix}`;
-    //     await loginPage.login(Config.admin_username, Config.admin_password);
-    //     await homePage.clickAdmin();
-    //     await teamPage.clickTeamButton();
-    //     await basePage.clickAdd();
-    //     await teamPage.fillTeamCode('T001');
-    //     await teamPage.fillTeamName(teamNameRandom);
-    //     await teamPage.clickSlectDepartment();
-    //     await basePage.clickSave();
-    //     await toastPage.getToastAddFailed();
-    //     await teamPage.getValidateCodeExist();
-    // });
+    test('Create a new team with existing team code', async ({ page }) => {
+        const randomSuffix = Math.random().toString(36).substring(2, 8);
+        const teamNameRandom = `team${randomSuffix}`;
+        await loginPage.login(Config.admin_username, Config.admin_password);
+        await homePage.clickAdmin();
+        await teamPage.clickTeamButton();
+        await basePage.clickAdd();
+        await teamPage.fillTeamCode('T001');
+        await teamPage.fillTeamName(teamNameRandom);
+        await teamPage.clickSelectDepartment();
+        await basePage.clickSave();
+        await toastPage.getToastAddFailed();
+        await teamPage.getValidateCodeExist();
+    });
 
     test('Save team without filling in any information', async ({ page }) => {
         await loginPage.login(Config.admin_username, Config.admin_password);
@@ -90,7 +89,6 @@ test.describe.serial('Team', () => {
         await basePage.clickAdd();
         await basePage.clickSave();
         await teamPage.validateRequiredFields();
-
     });
 
     test('Edit status', async ({ page }) => {
@@ -191,7 +189,7 @@ test.describe.serial('Team', () => {
         await teamPage.fillTeamName(teamNameRandom);
         await teamPage.clickSelectDepartment();
         await basePage.clickSave();
-        await teamPage.getResultMaxlenghtCode();  
+        await teamPage.getResultMaxlenghtCode();
     });
 
     test('Delete team', async ({ page }) => {
@@ -201,8 +199,6 @@ test.describe.serial('Team', () => {
         await basePage.clickDeleteRow0();
         await toastPage.getToastDeleteSuccess();
     });
-
-
 
     test('Seach', async ({ page }) => {
         await loginPage.login(Config.admin_username, Config.admin_password);
@@ -244,9 +240,5 @@ test.describe.serial('Team', () => {
         // await teamPage.getVerifyLockStatus();
 
     });
-
-
-
-
 
 });

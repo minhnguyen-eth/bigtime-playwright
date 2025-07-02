@@ -31,6 +31,7 @@ export class BasePage {
     readonly dropdownStatusSearch: Locator;
     readonly lockStatusSearch: Locator;
     readonly activityStatusSearch: Locator;
+    readonly row0: Locator;
 
 
     // Validatation
@@ -38,6 +39,7 @@ export class BasePage {
 
     constructor(page: Page) {
         this.page = page;
+        this.row0 = page.locator("//tr[@id='row-0']");
         this.lockStatusSearch = page.locator("//div[contains(text(),'Khóa')]");
         this.activityStatusSearch = page.locator("//div[contains(text(),'Hoạt động')]");
         this.dropdownStatusSearch = page.locator("//div[@class='v-field v-field--appended v-field--center-affix v-field--variant-outlined v-theme--lightColor7 v-locale--is-ltr']//i[@class='mdi-menu-down mdi v-icon notranslate v-theme--lightColor7 v-icon--size-default v-select__menu-icon']");
@@ -69,6 +71,10 @@ export class BasePage {
         this.addButton = page.locator("//span[normalize-space()='Thêm']");
         this.searchButton = page.locator("//span[contains(normalize-space(),'Tìm kiếm')]");
        
+    }
+
+    async clickRow0() {
+        await this.row0.click();
     }
 
     async clickLockStatusSearch() {

@@ -34,7 +34,7 @@ export class TeamPage {
     this.resultSearchByCode = page.locator("//tr[@id='row-0']//span[contains(text(),'T001')]");
     this.resultSearchByName = page.locator("//tr[@id='row-0']//span[contains(text(),'Nhóm It1')]");
     this.validateNameExist = page.locator("//li[contains(text(),'Tên đã tồn tại.')]");
-    this.validateCodeExist = page.locator("//li[contains(text(),'Mã nhóm đã tồn tại')]");
+    this.validateCodeExist = page.locator("//li[contains(text(),'Mã đã tồn tại.')]");
     this.dropdownStatusFormAdd = page.locator("//div[@class='v-field v-field--active v-field--appended v-field--center-affix v-field--dirty v-field--prepended v-field--variant-outlined v-theme--lightColor7 v-locale--is-ltr']//i[@class='mdi-menu-down mdi v-icon notranslate v-theme--lightColor7 v-icon--size-default v-select__menu-icon']");
     this.verifyLockStatus = page.locator("//tr[@id='row-0']//span[@class='custom-size'][normalize-space()='Khóa']");
     this.verifyActivityStatus = page.locator("//tr[@id='row-0']//span[@class='custom-size'][contains(text(),'Hoạt động')]");
@@ -88,7 +88,7 @@ export class TeamPage {
 
   async getValidateCodeExist() {
     await expect(this.validateCodeExist).toBeVisible();
-    await expect(this.validateCodeExist).toHaveText('Mã nhóm đã tồn tại');
+    await expect(this.validateCodeExist).toHaveText('Mã đã tồn tại.');
   }
 
   async getVerifyLockStatus() {

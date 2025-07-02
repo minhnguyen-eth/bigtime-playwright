@@ -10,7 +10,6 @@ import { LogoutPage } from '../../pages/LogoutPage';
 import { BasePage } from '../../pages/BasePage';
 
 test.describe.serial('Paysheet Tests', () => {
-
     let loginPage: LoginPage;
     let paysheet: PaysheetPage;
     let homePage: HomePage;
@@ -59,11 +58,9 @@ test.describe.serial('Paysheet Tests', () => {
             await paysheet.clickSendAll();
             await paysheet.clickConfirm();
             await logoutPage.logout();
-
         });
 
         await allure.step('Employee approves payslip', async () => {
-
             await loginPage.login(Config.employee_username, Config.employee_password);
             await homePage.clickSalary();
             await paysheet.clickPayslip();
@@ -74,7 +71,6 @@ test.describe.serial('Paysheet Tests', () => {
         });
 
         await allure.step('Manager approves payslip', async () => {
-
             await loginPage.login(Config.manager_username, Config.manager_password);
             await homePage.clickSalary();
             await paysheet.clickPayslip();
@@ -84,7 +80,6 @@ test.describe.serial('Paysheet Tests', () => {
         });
 
         await allure.step('Admin closes paysheet and completes payment', async () => {
-
             await loginPage.login(Config.admin_username, Config.admin_password);
             await homePage.clickSalary();
             await paysheet.clickPayslip();

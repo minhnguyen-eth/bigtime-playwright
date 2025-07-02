@@ -1,8 +1,6 @@
 import { expect, Locator, Page } from '@playwright/test';
 import { ToastPage } from './ToastPage';
 
-
-
 export class EmployeePage {
   readonly page: Page;
   readonly toastPage: ToastPage;
@@ -80,6 +78,7 @@ export class EmployeePage {
   readonly checkBoxGender: Locator;
   readonly verifyMaleSearch: Locator;
   readonly verifyFemaleSearch: Locator;
+  
 
   constructor(page: Page) {
     this.page = page;
@@ -196,7 +195,6 @@ export class EmployeePage {
       await expect(locator).toHaveText(expectedText);
     }
   }
-
 
   async verifyEmployeeCodeExisted() {
     await expect(this.employeeCodeExisted).toBeVisible();
