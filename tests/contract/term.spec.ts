@@ -135,6 +135,21 @@ test.describe.serial('Term Tests', () => {
         await basePage.clickCancel();
     });
 
+    test('Search by status', async ({ page }) => {
+        // Search by lock status
+        await basePage.clickDropdownStatusSearch();
+        await basePage.clickLockStatusSearch();
+        await basePage.clickSearch();
+        await basePage.verifyLockStatusRow0();
+        await basePage.clickClearSearch();
+
+        // Search by active status
+        await basePage.clickDropdownStatusSearch();
+        await basePage.clickActivityStatusSearch();
+        await basePage.clickSearch();
+        await basePage.verifyActivityStatusRow0();
+    });
+
     test('Delete term', async ({ page }) => {
         await basePage.clickDeleteRow0();
         await toastPage.getToastDeleteSuccess();

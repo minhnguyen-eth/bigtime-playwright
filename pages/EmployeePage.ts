@@ -1,7 +1,11 @@
 import { expect, Locator, Page } from '@playwright/test';
+import { ToastPage } from './ToastPage';
+
+
 
 export class EmployeePage {
   readonly page: Page;
+  readonly toastPage: ToastPage;
   readonly userButton: Locator;
   readonly addButton: Locator;
   readonly employeeName: Locator;
@@ -72,11 +76,18 @@ export class EmployeePage {
   readonly validateEmail: Locator;
   readonly validateEmployeeName: Locator;
   readonly validateRoleName: Locator;
-
+  readonly dropdownGenderSearch: Locator;
+  readonly checkBoxGender: Locator;
+  readonly verifyMaleSearch: Locator;
+  readonly verifyFemaleSearch: Locator;
 
   constructor(page: Page) {
     this.page = page;
-
+    this.toastPage = new ToastPage(page);
+    this.verifyFemaleSearch = page.locator("//tr[@id='row-0']//div[contains(text(),'Nữ')]");
+    this.verifyMaleSearch = page.locator("//tr[@id='row-0']//div[contains(text(),'Nam')]");
+    this.checkBoxGender = page.locator("//input[@type='checkbox']");
+    this.dropdownGenderSearch = page.locator("//div[@class='v-field v-field--appended v-field--center-affix v-field--variant-outlined v-theme--lightColor7 v-locale--is-ltr']//i[@class='mdi-menu-down mdi v-icon notranslate v-theme--lightColor7 v-icon--size-default v-select__menu-icon']");
     this.validateRoleName = page.locator("//div[contains(text(),'Nhập tên quyền')]");
     this.validateEmail = page.locator("//div[contains(text(),'Nhập email')]");
     this.validateEmployeeName = page.locator("//div[contains(text(),'Nhập tên nhân viên')]");
@@ -147,22 +158,44 @@ export class EmployeePage {
     this.employeeCode = page.locator("//div[2]/div/div[2]/div/div[1]/div/div/div/div[3]/div/input");
     this.addButton = page.locator("//span[normalize-space()='Thêm']");
     this.userButton = page.locator("//div[contains(text(),'Nhân viên')]");
-    
+
+  }
+
+
+  async verifyVerifyMaleSearch() {
+    await expect(this.verifyMaleSearch).toBeVisible();
+    await expect(this.verifyMaleSearch).toHaveText('Nam');
+  }
+  async verifyVerifyFemaleSearch() {
+    await expect(this.verifyFemaleSearch).toBeVisible();
+    await expect(this.verifyFemaleSearch).toHaveText('Nữ');
+  }
+
+  async selectMaleSearch() {
+    await this.checkBoxGender.first().check();
+  }
+
+  async selectFemaleSearch() {
+    await this.checkBoxGender.nth(1).check();
+  }
+
+  async clickDropdownGenderSearch() {
+    await this.dropdownGenderSearch.click();
   }
 
   async validateRequiredFields() {
     const validations = [
-        { locator: this.validateRoleName, expectedText: 'Nhập tên quyền' },
-        { locator: this.validateEmail, expectedText: 'Nhập email' },
-        { locator: this.validateEmployeeName, expectedText: 'Nhập tên nhân viên' },
-        { locator: this.validateEmployeeCode, expectedText: 'Nhập mã nhân viên' },
+      { locator: this.validateRoleName, expectedText: 'Nhập tên quyền' },
+      { locator: this.validateEmail, expectedText: 'Nhập email' },
+      { locator: this.validateEmployeeName, expectedText: 'Nhập tên nhân viên' },
+      { locator: this.validateEmployeeCode, expectedText: 'Nhập mã nhân viên' },
     ];
 
     for (const { locator, expectedText } of validations) {
-        await expect(locator).toBeVisible();
-        await expect(locator).toHaveText(expectedText);
+      await expect(locator).toBeVisible();
+      await expect(locator).toHaveText(expectedText);
     }
-}
+  }
 
 
   async verifyEmployeeCodeExisted() {
@@ -340,13 +373,13 @@ export class EmployeePage {
     // Wait for element to be visible and enabled
     await this.citizenId.waitFor({ state: 'visible' });
     await this.citizenId.click();
-    
+
     // Clear existing content first
     await this.citizenId.clear();
-    
+
     // Fill the new value
     await this.citizenId.fill(date.toString());
-    
+
   }
 
   async clickDropdownRank() {
@@ -386,7 +419,7 @@ export class EmployeePage {
   }
 
   async clickOpenAllowance() {
-    await this.openAllowance.nth(1).check(); 
+    await this.openAllowance.nth(1).check();
   }
 
   async fillFillInsurance(insurance: string) {
@@ -440,5 +473,237 @@ export class EmployeePage {
     await this.userButton.click();
   }
 
-}
 
+  async deleteAUser() {
+    await this.clickRow0();
+    await this.clickDeleteUser();
+    await this.clickYesButton();
+    await this.toastPage.getToastDeleteSuccess();
+  }
+
+  async testSaveWithoutAnyInformation() {
+    await this.clickAddButton();
+    await this.clickSaveButton();
+    await this.validateRequiredFields();
+  }
+
+  async testEditEmployeeName() {
+    await this.clickRow0();
+    await this.clickEditButton();
+    await this.fillEmployeeName('Automation test edit');
+    await this.clickSaveButton();
+    await this.toastPage.getToastUpdateSuccess();
+  }
+
+  async testEditEmployeeCode() {
+    const randomSuffix = Math.random().toString(36).substring(2, 8);
+    const userEditCode = `userEditCode${randomSuffix}`;
+
+    await this.clickRow0();
+    await this.clickEditButton();
+    await this.fillEmployeeCode(userEditCode);
+    await this.clickSaveButton();
+    await this.toastPage.getToastUpdateSuccess();
+  }
+
+  async addWithDuplicateCodeAndEmail() {
+    await this.clickAddButton();
+    await this.fillEmployeeCode('BAT810');
+    await this.fillEmployeeName('Automation test');
+    await this.fillEmail('minh');
+    await this.clickDropdownBranch();
+    await this.clickSelectBranch();
+    await this.clickDropdownDepartment();
+    await this.clickSelectDepartment();
+    await this.clickDropdownEmployeeType();
+    await this.clickStaff();
+    await this.clickSaveButton();
+    await this.toastPage.getToastAddFailed();
+    await this.verifyEmailExisted();
+    await this.verifyEmployeeCodeExisted();
+  }
+
+  async addWithRoleDepartmentManager() {
+    const randomSuffix = Math.random().toString(36).substring(2, 8);
+    const userCode = `userCode${randomSuffix}`;
+    const emailRandom = `email${randomSuffix}`;
+
+    await this.clickAddButton();
+    await this.fillEmployeeCode(userCode);
+    await this.fillEmployeeName('Automation test');
+    await this.fillEmail(emailRandom);
+    await this.clickDropdownBranch();
+    await this.clickSelectBranch();
+    await this.clickDropdownDepartment();
+    await this.clickSelectDepartment();
+    await this.clickDropdownEmployeeType();
+    await this.clickStaff();
+    await this.clickDropdownEmployeeType();
+    await this.clickAdmin();
+    await this.clickDropdownRoleName();
+    await this.clickManagementDepartmentRole();
+
+    await this.clickSaveButton();
+    await this.toastPage.getToastAddSuccess();
+  }
+
+  async addWithInValidEmail() {
+    const randomSuffix = Math.random().toString(36).substring(2, 8);
+    const userCode = `userCode${randomSuffix}`;
+
+    await this.clickAddButton();
+    await this.fillEmployeeCode(userCode);
+    await this.fillEmployeeName('Automation test');
+    await this.clickDropdownBranch();
+    await this.clickSelectBranch();
+    await this.clickDropdownDepartment();
+    await this.clickSelectDepartment();
+    await this.clickDropdownEmployeeType();
+    await this.clickStaff();
+    await this.fillEmail('Tét');
+    await this.clickSaveButton();
+    await this.verifyEmailError();
+    await this.toastPage.getToastAddFailed();
+  }
+
+  async addAndSetDailySalary() {
+    const randomSuffix = Math.random().toString(36).substring(2, 8);
+    const randomAllowanceName = `Phụ cấp${randomSuffix}`;
+    const userCode = `userCode${randomSuffix}`;
+    const emailRandom = `email${randomSuffix}`;
+
+    await this.clickAddButton();
+
+    // Fill information
+    await this.fillEmployeeCode(userCode);
+    await this.fillEmployeeName('Automation test');
+    await this.fillEmail(emailRandom);
+    await this.clickSelectMale();
+    await this.clickDropdownBranch();
+    await this.clickSelectBranch();
+    await this.clickDropdownDepartment();
+    await this.clickSelectDepartment();
+    await this.clickDropdownEmployeeType();
+    await this.clickStaff();
+
+    // Set salary 
+    await this.clickSetSalary();
+    await this.clickDropdownSalaryType();
+    await this.clickDailySalary();
+    await this.fillFillSalary('22000000');
+    await this.fillFillInsurance('500000');
+    await this.clickSaveButton();
+    await this.toastPage.getToastAddSuccess();
+  }
+
+  async addWithRoleEmployee() {
+    const randomSuffix = Math.random().toString(36).substring(2, 8);
+    const randomAllowanceName = `Phụ cấp${randomSuffix}`;
+    const userCode = `userCode${randomSuffix}`;
+    const emailRandom = `email${randomSuffix}`;
+    const random10Digits = Math.floor(1000000000 + Math.random() * 9000000000);
+    const phoneNumber = `09${Math.floor(100000000 + Math.random() * 900000000)}`;
+
+    await this.clickAddButton();
+
+    // Fill information
+    await this.fillEmployeeCode(userCode);
+    await this.fillEmployeeName('Automation test');
+    await this.fillEmail(emailRandom);
+    await this.clickSelectMale();
+    await this.clickDropdownBranch();
+    await this.clickSelectBranch();
+    await this.clickDropdownDepartment();
+    await this.clickSelectDepartment();
+    await this.clickDropdownEmployeeType();
+    await this.clickStaff();
+
+    await this.clickDropdownPosition();
+    await this.clickPosition();
+    await this.clickDropdownRank();
+    await this.clickSelectRank();
+    await this.fillCitizenId(random10Digits);
+    await this.clickCitizenIdCardIssueDate();
+    await this.clickChosseYear();
+    await this.clickSelectYear();
+    await this.clickChosseMonth();
+    await this.clickSelectMonth();
+    await this.clickSelectDay();
+    await this.clickChosseButton();
+
+    await this.fillPlaceOfIssueOfIdentityCard('Bien Hoa, Dong Nai');
+    await this.fillBankName('Vietcombank');
+    await this.fillBankAccountNumber('02847182497124');
+    await this.fillPhoneNumber(phoneNumber);
+    await this.clickDateOfBirth();
+    await this.clickChosseYear();
+    await this.clickSelectYear();
+    await this.clickChosseMonth();
+    await this.clickSelectMonth();
+    await this.clickSelectDay();
+    await this.clickChosseButton();
+    await this.clickDateOfJoiningTheCompany();
+    await this.clickToDay();
+    await this.clickChosseButton();
+    await this.fillAddress('Bien Hoa, Dong Nai');
+    await this.fillNote('Automation testing');
+
+    // Set salary 
+    await this.clickSetSalary();
+    await this.fillFillSalary('22000000');
+    await this.fillFillInsurance('500000');
+    await this.clickOpenAllowance();
+    await this.clickAddAllowance();
+    await this.clickDropdownAllowance();
+    await this.clickSelectAllowance();
+
+    // await this.clickAddAllowance();
+    // await this.clickDropdownAllowance2();
+    // await this.clickAddAllowanceTypeButton();
+    // await this.fillAllowanceTypeName(randomAllowanceName);
+    // await this.fillMoneyAllowance('100000');
+    // await this.clickConfirm();
+
+    await this.clickSaveButton();
+    await this.toastPage.getToastAddSuccess();
+  }
+
+  async searchByEmployeeCode() {
+    await this.fillSearchByCode('BAT810');
+    await this.clickSearchButton();
+    await this.verifySearchByCode();
+    await this.clickClearSearch();
+  }
+
+  async searchByEmployeeCodeAndName() {
+    await this.fillSearchByCode('BAT810');
+    await this.fillSearchByName('Nguyễn Văn Minh');
+    await this.clickSearchButton();
+    await this.verifySearchByCode();
+    await this.verifySearchByName();
+    await this.clickClearSearch();
+  }
+
+  async searchByEmployeeName() {
+    await this.fillSearchByName('Nguyễn Văn Minh');
+    await this.clickSearchButton();
+    await this.verifySearchByName();
+    await this.clickClearSearch();
+  }
+
+  async searchByGender() {
+    // Search by gender
+    await this.clickDropdownGenderSearch();
+    await this.selectMaleSearch();
+    await this.clickSearchButton();
+    await this.verifyVerifyMaleSearch();
+    await this.clickClearSearch();
+
+    await this.clickDropdownGenderSearch();
+    await this.selectFemaleSearch();
+    await this.clickSearchButton();
+    await this.verifyVerifyFemaleSearch();
+    await this.clickClearSearch();
+
+  }
+}

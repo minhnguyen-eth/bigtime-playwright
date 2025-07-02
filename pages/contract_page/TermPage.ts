@@ -1,4 +1,4 @@
-import { Page, Locator } from 'playwright';
+import { Locator, Page, expect } from "@playwright/test";
 
 export class TermPage {
     readonly page: Page;
@@ -11,7 +11,7 @@ export class TermPage {
     readonly validateNameDuplicate: Locator;
     readonly dropdownStatus: Locator;
     readonly lockStatus: Locator;
-    
+
     constructor(page: Page) {
         this.page = page;
         this.validateNameDuplicate = page.locator("//li[contains(text(),'Tiêu đề đã tồn tại.')]");
@@ -25,29 +25,24 @@ export class TermPage {
         this.termButton = page.locator("//div[contains(text(),'Điều khoản')]");
     }
 
-
     async validateNameDuplicateError() {
-        const text = await this.validateNameDuplicate.innerText();
-        console.log('Message is:', text);
-        return text;
+        await expect(this.validateNameDuplicate).toBeVisible();
+        await expect(this.validateNameDuplicate).toHaveText('Tiêu đề đã tồn tại.');
     }
 
     async validateMaxLengthNameError() {
-        const text = await this.validateMaxLengthName.innerText();
-        console.log('Message is:', text);
-        return text;
+        await expect(this.validateMaxLengthName).toBeVisible();
+        await expect(this.validateMaxLengthName).toHaveText('Không nhập quá 255 kí tự.');
     }
 
     async validateNameError() {
-        const text = await this.validateName.innerText();
-        console.log('Message is:', text);
-        return text;
+        await expect(this.validateName).toBeVisible();
+        await expect(this.validateName).toHaveText('Nhập tiêu đề');
     }
 
     async validateContentError() {
-        const text = await this.validateContent.innerText();
-        console.log('Message is:', text);
-        return text;
+        await expect(this.validateContent).toBeVisible();
+        await expect(this.validateContent).toHaveText('Nhập nội dung');
     }
 
     async clickLockStatus() {

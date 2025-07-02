@@ -26,7 +26,11 @@ export class BasePage {
     readonly TimeKeepingManagement_Button: Locator;
     readonly Salary_Button: Locator;
     readonly Setting_Button: Locator;
- 
+    readonly lockStatusRow0: Locator;
+    readonly activityStatusRow0: Locator;
+    readonly dropdownStatusSearch: Locator;
+    readonly lockStatusSearch: Locator;
+    readonly activityStatusSearch: Locator;
 
 
     // Validatation
@@ -34,7 +38,11 @@ export class BasePage {
 
     constructor(page: Page) {
         this.page = page;
-        
+        this.lockStatusSearch = page.locator("//div[contains(text(),'Khóa')]");
+        this.activityStatusSearch = page.locator("//div[contains(text(),'Hoạt động')]");
+        this.dropdownStatusSearch = page.locator("//div[@class='v-field v-field--appended v-field--center-affix v-field--variant-outlined v-theme--lightColor7 v-locale--is-ltr']//i[@class='mdi-menu-down mdi v-icon notranslate v-theme--lightColor7 v-icon--size-default v-select__menu-icon']");
+        this.activityStatusRow0 = page.locator("//tr[@id='row-0']//span[@class='custom-size'][contains(text(),'Hoạt động')]");
+        this.lockStatusRow0 = page.locator("//tr[@id='row-0']//span[@class='custom-size'][normalize-space()='Khóa']");
         this.Admin_Button = page.locator("//span[normalize-space()='Quản lý']");
         this.TimeKeepingManagement_Button = page.locator("//span[normalize-space()='Quản lý chấm công']");
         this.Salary_Button = page.locator("//span[normalize-space()='Lương']");
@@ -63,6 +71,27 @@ export class BasePage {
        
     }
 
+    async clickLockStatusSearch() {
+        await this.lockStatusSearch.click();
+    }
+
+    async clickActivityStatusSearch() {
+        await this.activityStatusSearch.click();
+    }
+
+    async clickDropdownStatusSearch() {
+        await this.dropdownStatusSearch.click();
+    }
+
+    async verifyActivityStatusRow0() {
+        await expect(this.activityStatusRow0).toBeVisible();
+        await expect(this.activityStatusRow0).toHaveText('Hoạt động');
+    }
+
+    async verifyLockStatusRow0() {
+        await expect(this.lockStatusRow0).toBeVisible();
+        await expect(this.lockStatusRow0).toHaveText('Khóa');
+    }
 
     async clickNoButton() {
         await this.noButton.click();
