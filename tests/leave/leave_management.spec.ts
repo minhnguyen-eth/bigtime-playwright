@@ -2,7 +2,6 @@ import { test, expect, Page, TestInfo } from '@playwright/test';
 import { LoginPage } from '../../pages/LoginPage';
 import { takeScreenshotOnFailure } from '../../utils/screenshotUtils';
 import Config from '../../utils/configUtils';
-import { HomePage } from '../../pages/HomePage';
 import { LeaveManagementPage } from '../../pages/leave_page/LeaveManagementPage';
 import { clearAllLeaveManagements } from '../../utils/mysqlUtils';
 import { employeeBrowseLeaveManagement } from './leave_helper';
@@ -14,7 +13,6 @@ import { LogoutPage } from '../../pages/LogoutPage';
 test.describe.serial('Leave Management Tests', () => {
     let loginPage: LoginPage;
     let leaveManagementPage: LeaveManagementPage;
-    let homePage: HomePage;
     let toastPage: ToastPage;
     let basePage: BasePage;
     let logoutPage: LogoutPage;
@@ -29,7 +27,6 @@ test.describe.serial('Leave Management Tests', () => {
         toastPage = new ToastPage(page);
         loginPage = new LoginPage(page);
         leaveManagementPage = new LeaveManagementPage(page);
-        homePage = new HomePage(page);
         basePage = new BasePage(page);
         await loginPage.goto();
     });
@@ -47,7 +44,7 @@ test.describe.serial('Leave Management Tests', () => {
 
         await allure.step('Admin adds annual leave for employee and browses it', async () => {
             await loginPage.login(Config.admin_username, Config.admin_password);
-            await homePage.clickAdmin();
+            await basePage.clickAdmin();
             await leaveManagementPage.clickLeaveManagementButton();
             await basePage.clickAdd();
             await leaveManagementPage.clickAddEmployee();
@@ -75,7 +72,7 @@ test.describe.serial('Leave Management Tests', () => {
 
         await allure.step('Admin tries to add existing annual leave record', async () => {
             await loginPage.login(Config.admin_username, Config.admin_password);
-            await homePage.clickAdmin();
+            await basePage.clickAdmin();
             await leaveManagementPage.clickLeaveManagementButton();
             await basePage.clickAdd();
             await leaveManagementPage.clickStatusDropDown();
@@ -95,7 +92,7 @@ test.describe.serial('Leave Management Tests', () => {
         await allure.step('Clear previous data and add leave in "Waiting for approval" status', async () => {
             await clearAllLeaveManagements();
             await loginPage.login(Config.admin_username, Config.admin_password);
-            await homePage.clickAdmin();
+            await basePage.clickAdmin();
             await leaveManagementPage.clickLeaveManagementButton();
             await basePage.clickAdd();
             await leaveManagementPage.clickStatusDropDown();
@@ -120,7 +117,7 @@ test.describe.serial('Leave Management Tests', () => {
         await allure.step('Clear previous leave management and add department leave', async () => {
             await clearAllLeaveManagements();
             await loginPage.login(Config.admin_username, Config.admin_password);
-            await homePage.clickAdmin();
+            await basePage.clickAdmin();
             await leaveManagementPage.clickLeaveManagementButton();
             await basePage.clickAdd();
             await leaveManagementPage.clickDepartmentAndTeam();
@@ -154,7 +151,7 @@ test.describe.serial('Leave Management Tests', () => {
 
         await allure.step('Admin searches leave management by employee name', async () => {
             await loginPage.login(Config.admin_username, Config.admin_password);
-            await homePage.clickAdmin();
+            await basePage.clickAdmin();
             await leaveManagementPage.clickLeaveManagementButton();
             await leaveManagementPage.fillSearchEmpployee('Nguyễn Văn Minh');
             await basePage.clickSearch();

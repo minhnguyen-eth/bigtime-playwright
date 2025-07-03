@@ -161,15 +161,6 @@ export class EmployeePage {
   }
 
 
-  async verifyVerifyMaleSearch() {
-    await expect(this.verifyMaleSearch).toBeVisible();
-    await expect(this.verifyMaleSearch).toHaveText('Nam');
-  }
-  async verifyVerifyFemaleSearch() {
-    await expect(this.verifyFemaleSearch).toBeVisible();
-    await expect(this.verifyFemaleSearch).toHaveText('Nữ');
-  }
-
   async selectMaleSearch() {
     await this.checkBoxGender.first().check();
   }
@@ -182,31 +173,6 @@ export class EmployeePage {
     await this.dropdownGenderSearch.click();
   }
 
-  async validateRequiredFields() {
-    const validations = [
-      { locator: this.validateRoleName, expectedText: 'Nhập tên quyền' },
-      { locator: this.validateEmail, expectedText: 'Nhập email' },
-      { locator: this.validateEmployeeName, expectedText: 'Nhập tên nhân viên' },
-      { locator: this.validateEmployeeCode, expectedText: 'Nhập mã nhân viên' },
-    ];
-
-    for (const { locator, expectedText } of validations) {
-      await expect(locator).toBeVisible();
-      await expect(locator).toHaveText(expectedText);
-    }
-  }
-
-  async verifyEmployeeCodeExisted() {
-    await expect(this.employeeCodeExisted).toBeVisible();
-    await expect(this.employeeCodeExisted).toHaveText("Mã nhân viên đã tồn tại.");
-
-  }
-
-  async verifyEmailExisted() {
-    await expect(this.emailAddressExisted).toBeVisible();
-    await expect(this.emailAddressExisted).toHaveText("Địa chỉ email đã tồn tại.");
-  }
-
   async clickAdmin() {
     await this.selectAdmin.click();
   }
@@ -217,11 +183,6 @@ export class EmployeePage {
 
   async clickDailySalary() {
     await this.dailySalary.click();
-  }
-
-  async verifyEmailError() {
-    await expect(this.emailError).toBeVisible();
-    await expect(this.emailError).toHaveText("Định dạng Địa chỉ email không hợp lệ.");
   }
 
   async clickCancelAdd() {
@@ -238,16 +199,6 @@ export class EmployeePage {
 
   async clickEditButton() {
     await this.editButton.click();
-  }
-
-  async verifySearchByCode() {
-    await expect(this.resultSearchByCode).toBeVisible();
-    await expect(this.resultSearchByCode).toHaveText("BAT810");
-  }
-
-  async verifySearchByName() {
-    await expect(this.resultSearchByName).toBeVisible();
-    await expect(this.resultSearchByName).toHaveText("Nguyễn Văn Minh");
   }
 
   async clickClearSearch() {
@@ -472,6 +423,58 @@ export class EmployeePage {
   }
 
 
+  // FUNCTION VERIFY 
+  async validateRequiredFields() {
+    const validations = [
+      { locator: this.validateRoleName, expectedText: 'Nhập tên quyền' },
+      { locator: this.validateEmail, expectedText: 'Nhập email' },
+      { locator: this.validateEmployeeName, expectedText: 'Nhập tên nhân viên' },
+      { locator: this.validateEmployeeCode, expectedText: 'Nhập mã nhân viên' },
+    ];
+
+    for (const { locator, expectedText } of validations) {
+      await expect(locator).toBeVisible();
+      await expect(locator).toHaveText(expectedText);
+    }
+  }
+
+  async verifyEmployeeCodeExisted() {
+    await expect(this.employeeCodeExisted).toBeVisible();
+    await expect(this.employeeCodeExisted).toHaveText("Mã nhân viên đã tồn tại.");
+
+  }
+
+  async verifyEmailExisted() {
+    await expect(this.emailAddressExisted).toBeVisible();
+    await expect(this.emailAddressExisted).toHaveText("Địa chỉ email đã tồn tại.");
+  }
+
+  async verifyEmailError() {
+    await expect(this.emailError).toBeVisible();
+    await expect(this.emailError).toHaveText("Định dạng Địa chỉ email không hợp lệ.");
+  }
+
+  async verifySearchByCode() {
+    await expect(this.resultSearchByCode).toBeVisible();
+    await expect(this.resultSearchByCode).toHaveText("BAT810");
+  }
+
+  async verifySearchByName() {
+    await expect(this.resultSearchByName).toBeVisible();
+    await expect(this.resultSearchByName).toHaveText("Nguyễn Văn Minh");
+  }
+
+  async verifyVerifyMaleSearch() {
+    await expect(this.verifyMaleSearch).toBeVisible();
+    await expect(this.verifyMaleSearch).toHaveText('Nam');
+  }
+  async verifyVerifyFemaleSearch() {
+    await expect(this.verifyFemaleSearch).toBeVisible();
+    await expect(this.verifyFemaleSearch).toHaveText('Nữ');
+  }
+
+
+  // FUNCTION HANDLE 
   async deleteAUser() {
     await this.clickRow0();
     await this.clickDeleteUser();

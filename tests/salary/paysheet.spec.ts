@@ -2,7 +2,6 @@ import { test, TestInfo } from '@playwright/test';
 import { LoginPage } from '../../pages/LoginPage';
 import { takeScreenshotOnFailure } from '../../utils/screenshotUtils';
 import Config from '../../utils/configUtils';
-import { HomePage } from '../../pages/HomePage';
 import { PaysheetPage } from '../../pages/salary_page/PaysheetPage';
 import { allure } from 'allure-playwright';
 import { ToastPage } from '../../pages/ToastPage';
@@ -12,7 +11,6 @@ import { BasePage } from '../../pages/BasePage';
 test.describe.serial('Paysheet Tests', () => {
     let loginPage: LoginPage;
     let paysheet: PaysheetPage;
-    let homePage: HomePage;
     let toastPage: ToastPage;
     let logoutPage: LogoutPage;
     let basePage: BasePage;
@@ -27,7 +25,6 @@ test.describe.serial('Paysheet Tests', () => {
         toastPage = new ToastPage(page);
         loginPage = new LoginPage(page);
         paysheet = new PaysheetPage(page);
-        homePage = new HomePage(page);
         logoutPage = new LogoutPage(page);
         await loginPage.goto();
     });
@@ -41,7 +38,7 @@ test.describe.serial('Paysheet Tests', () => {
 
         await allure.step('Admin creates and sends paysheet', async () => {
             await loginPage.login(Config.admin_username, Config.admin_password);
-            await homePage.clickSalary();
+            await basePage.clickSalary();
             await paysheet.clickPaysheet();
             await basePage.clickAdd();
             await paysheet.setNamePaysheet('Automation test');
@@ -62,7 +59,7 @@ test.describe.serial('Paysheet Tests', () => {
 
         await allure.step('Employee approves payslip', async () => {
             await loginPage.login(Config.employee_username, Config.employee_password);
-            await homePage.clickSalary();
+            await basePage.clickSalary();
             await paysheet.clickPayslip();
             await paysheet.clickSalarySlipCode();
             await paysheet.clickBrowse();
@@ -72,7 +69,7 @@ test.describe.serial('Paysheet Tests', () => {
 
         await allure.step('Manager approves payslip', async () => {
             await loginPage.login(Config.manager_username, Config.manager_password);
-            await homePage.clickSalary();
+            await basePage.clickSalary();
             await paysheet.clickPayslip();
             await paysheet.clickSalarySlipCode();
             await paysheet.clickBrowse();
@@ -81,7 +78,7 @@ test.describe.serial('Paysheet Tests', () => {
 
         await allure.step('Admin closes paysheet and completes payment', async () => {
             await loginPage.login(Config.admin_username, Config.admin_password);
-            await homePage.clickSalary();
+            await basePage.clickSalary();
             await paysheet.clickPayslip();
             await paysheet.clickSalarySlipCode();
             await paysheet.clickBrowse();
@@ -103,7 +100,7 @@ test.describe.serial('Paysheet Tests', () => {
 
         await allure.step('Admin creates and sends paysheet', async () => {
             await loginPage.login(Config.admin_username, Config.admin_password);
-            await homePage.clickSalary();
+            await basePage.clickSalary();
             await paysheet.clickPaysheet();
             await basePage.clickAdd();
             await paysheet.setNamePaysheet('Automation test');
@@ -115,6 +112,7 @@ test.describe.serial('Paysheet Tests', () => {
             await paysheet.clickEmployeeOption();
             await basePage.clickSave();
             await toastPage.getToastAddSuccess();
+
             await paysheet.clickLatestPaysheetRow();
             await paysheet.clickViewPayroll();
             await paysheet.clickAddMoreEmployee();
@@ -130,7 +128,7 @@ test.describe.serial('Paysheet Tests', () => {
 
         await allure.step('Employee 1 approves payslip', async () => {
             await loginPage.login(Config.employee_username, Config.employee_password);
-            await homePage.clickSalary();
+            await basePage.clickSalary();
             await paysheet.clickPayslip();
             await paysheet.clickSalarySlipCode();
             await paysheet.clickBrowse();
@@ -140,7 +138,7 @@ test.describe.serial('Paysheet Tests', () => {
 
         await allure.step('Employee 2 approves payslip', async () => {
             await loginPage.login(Config.employee2_username, Config.employee2_password);
-            await homePage.clickSalary();
+            await basePage.clickSalary();
             await paysheet.clickPayslip();
             await paysheet.clickSalarySlipCode();
             await paysheet.clickBrowse();
@@ -149,24 +147,54 @@ test.describe.serial('Paysheet Tests', () => {
 
         await allure.step('Manager approves payslip', async () => {
             await loginPage.login(Config.manager_username, Config.manager_password);
-            await homePage.clickSalary();
+            await basePage.clickSalary();
             await paysheet.clickPayslip();
             await paysheet.clickSalarySlipCode();
             await paysheet.clickBrowse();
-
             await paysheet.clickSalarySlipCodeRow1();
             await paysheet.clickBrowse();
-  
+            await toastPage.getToastBrowseSuccess();
             await logoutPage.logout();
         });
+
+        await allure.step('Admin approves payslip', async () => {
+            await loginPage.login(Config.admin_username, Config.admin_password);
+            await basePage.clickSalary();
+            await paysheet.clickPayslip();
+            await paysheet.clickSalarySlipCode();
+            await paysheet.clickBrowse();
+            await paysheet.clickSalarySlipCodeRow1();
+            await paysheet.clickBrowse();
+            await toastPage.getToastBrowseSuccess();
+            await logoutPage.logout();
+
+        });
+
     });
 
+    test('Admin closes paysheet and completes payment', async ({ page }) => {
+        await allure.step('Admin closes paysheet and completes payment', async () => {
+            await loginPage.login(Config.admin_username, Config.admin_password);
+            await basePage.clickSalary();
+            await paysheet.clickPaysheet();
+            await paysheet.clickLatestPaysheetRow();
+            await paysheet.clickViewPayroll();
+            await paysheet.clickSalaryClosing();
+            await paysheet.clickConfirm();
+            await paysheet.clickLatestPaysheetRow();
+            await paysheet.clickPayslipPayment();
+            await paysheet.clickPayment();
+            await paysheet.clickCreateTicket();
+            await toastPage.getToastPaymentSuccess();
+        });
+
+    });
 
     test('Search Paysheet', async ({ page }) => {
         allure.story('Search Paysheet Story');
 
         await loginPage.login(Config.admin_username, Config.admin_password);
-        await homePage.clickSalary();
+        await basePage.clickSalary();
         await paysheet.clickPaysheet();
 
         await allure.step('Search paysheet by ID', async () => {
@@ -180,7 +208,7 @@ test.describe.serial('Paysheet Tests', () => {
         allure.story('Validation Paysheet Creation Story');
 
         await loginPage.login(Config.admin_username, Config.admin_password);
-        await homePage.clickSalary();
+        await basePage.clickSalary();
         await paysheet.clickPaysheet();
 
         await allure.step('Try to add paysheet without entering name', async () => {
@@ -194,7 +222,7 @@ test.describe.serial('Paysheet Tests', () => {
         allure.story('Add Paysheet For All Employees Story');
 
         await loginPage.login(Config.admin_username, Config.admin_password);
-        await homePage.clickSalary();
+        await basePage.clickSalary();
         await paysheet.clickPaysheet();
 
         await allure.step('Add paysheet for all employees', async () => {
@@ -214,7 +242,7 @@ test.describe.serial('Paysheet Tests', () => {
         allure.story('Cancel Paysheet Story');
 
         await loginPage.login(Config.admin_username, Config.admin_password);
-        await homePage.clickSalary();
+        await basePage.clickSalary();
         await paysheet.clickPaysheet();
 
         await allure.step('Cancel latest paysheet with reason', async () => {
@@ -230,7 +258,7 @@ test.describe.serial('Paysheet Tests', () => {
         allure.story('Export Excel by Month Story');
 
         await loginPage.login(Config.admin_username, Config.admin_password);
-        await homePage.clickSalary();
+        await basePage.clickSalary();
         await paysheet.clickPaysheet();
 
         await allure.step('Export excel by month', async () => {
@@ -244,7 +272,7 @@ test.describe.serial('Paysheet Tests', () => {
         allure.story('Export Excel by Month 05 Story');
 
         await loginPage.login(Config.admin_username, Config.admin_password);
-        await homePage.clickSalary();
+        await basePage.clickSalary();
         await paysheet.clickPaysheet();
 
         await allure.step('Export excel by month 5  ', async () => {
@@ -272,7 +300,7 @@ test.describe.serial('Paysheet Tests', () => {
         allure.story('Export Excel by 1 Paysheet Story');
 
         await loginPage.login(Config.admin_username, Config.admin_password);
-        await homePage.clickSalary();
+        await basePage.clickSalary();
         await paysheet.clickPaysheet();
 
         await allure.step('Click export button of the lastest paysheet ', async () => {
@@ -282,5 +310,4 @@ test.describe.serial('Paysheet Tests', () => {
             await toastPage.getToastExportSuccess();
         });
     });
-
 });

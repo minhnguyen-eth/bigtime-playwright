@@ -2,7 +2,6 @@ import { test, expect, Page, TestInfo } from '@playwright/test';
 import { LoginPage } from '../../pages/LoginPage';
 import { takeScreenshotOnFailure } from '../../utils/screenshotUtils';
 import Config from '../../utils/configUtils';
-import { HomePage } from '../../pages/HomePage';
 import { ShiftPlanPage } from '../../pages/work_shift_page/ShiftPlanPage';
 import { clearAllShiftPlan, checkShiftPlanExists } from '../../utils/mysqlUtils';
 import { allure } from 'allure-playwright';
@@ -12,7 +11,6 @@ import { BasePage } from '../../pages/BasePage';
 test.describe.serial('Shift Plan Tests', () => {
     let loginPage: LoginPage;
     let shiftPlanPage: ShiftPlanPage;
-    let homePage: HomePage;
     let toastPage: ToastPage;
     let basePage: BasePage;
 
@@ -29,11 +27,10 @@ test.describe.serial('Shift Plan Tests', () => {
         basePage = new BasePage(page);
         loginPage = new LoginPage(page);
         shiftPlanPage = new ShiftPlanPage(page);
-        homePage = new HomePage(page);
 
         await loginPage.goto();
         await loginPage.login(Config.admin_username, Config.admin_password);
-        await homePage.clickTimeKeepingManagement();
+        await basePage.clickTimeKeepingManagement();
         await shiftPlanPage.clickShiftPlanButton();
     });
 
@@ -145,5 +142,4 @@ test.describe.serial('Shift Plan Tests', () => {
             await toastPage.getToastDeleteSuccess();
         });
     });
-
 });

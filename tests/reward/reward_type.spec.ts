@@ -4,7 +4,6 @@ import { LoginPage } from '../../pages/LoginPage';
 import { RewardTypePage } from '../../pages/reward_page/RewardTypePage';
 import Config from '../../utils/configUtils';
 import { ToastPage } from '../../pages/ToastPage';
-import { HomePage } from '../../pages/HomePage';
 import { clearAllRewardType } from '../../utils/mysqlUtils';
 import { allure } from 'allure-playwright';
 import { BasePage } from '../../pages/BasePage';
@@ -13,7 +12,6 @@ test.describe.serial('Reward Type Tests', () => {
     let loginPage: LoginPage;
     let rewardTypePage: RewardTypePage;
     let toast: ToastPage;
-    let homePage: HomePage;
     let basePage: BasePage;
 
     test.beforeEach(async ({ page }) => {
@@ -23,14 +21,13 @@ test.describe.serial('Reward Type Tests', () => {
         allure.severity('Critical');
 
         basePage = new BasePage(page);
-        homePage = new HomePage(page);
         toast = new ToastPage(page);
         loginPage = new LoginPage(page);
         rewardTypePage = new RewardTypePage(page);
 
         await loginPage.goto();
         await loginPage.login(Config.admin_username, Config.admin_password);
-        await homePage.clickAdmin();
+        await basePage.clickAdmin();
         await rewardTypePage.clickRewardTypeButton();
     });
 

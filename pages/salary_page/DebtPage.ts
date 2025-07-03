@@ -38,7 +38,6 @@ export class DebtPage {
         this.sendButton = page.locator("//span[contains(normalize-space(),'Gửi')]");
         this.iconAction = page.locator("//tr[@id='row-0']//i[@class='mdi mdi-format-list-group mdi v-icon notranslate v-theme--lightColor7 v-icon--size-default']");
         this.debtButton = page.locator("//div[contains(text(),'Tạm ứng')]");
-
         this.addButton = page.locator("//span[normalize-space()='Thêm']");
         this.searchButton = page.locator("//span[normalize-space()='Tìm kiếm']");
         this.saveButton = page.locator("//span[normalize-space()='Lưu']");

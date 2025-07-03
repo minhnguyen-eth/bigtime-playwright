@@ -2,19 +2,15 @@ import { test, TestInfo } from "@playwright/test";
 import { LoginPage } from "../../pages/LoginPage";
 import { takeScreenshotOnFailure } from "../../utils/screenshotUtils";
 import Config from "../../utils/configUtils";
-import { HomePage } from "../../pages/HomePage";
 import { ToastPage } from "../../pages/ToastPage";
 import { DebtPage } from "../../pages/salary_page/DebtPage";
-import { throws } from "assert";
 import { LogoutPage } from "../../pages/LogoutPage";
 import { allure } from 'allure-playwright';
 import { BasePage } from "../../pages/BasePage";
 
 test.describe.serial("Debt Tests", () => {
-
   let loginPage: LoginPage;
   let debtPage: DebtPage;
-  let homePage: HomePage;
   let toastPage: ToastPage;
   let logoutPage: LogoutPage;
   let basePage: BasePage;
@@ -27,7 +23,6 @@ test.describe.serial("Debt Tests", () => {
 
     loginPage = new LoginPage(page);
     debtPage = new DebtPage(page);
-    homePage = new HomePage(page);
     toastPage = new ToastPage(page);
     logoutPage = new LogoutPage(page);
     basePage = new BasePage(page);
@@ -42,7 +37,7 @@ test.describe.serial("Debt Tests", () => {
     allure.story('Validation Debt Creation');
     await allure.step('Admin logs in and attempts to add debt with empty values', async () => {
       await loginPage.login(Config.admin_username, Config.admin_password);
-      await homePage.clickSalary();
+      await basePage.clickSalary();
       await debtPage.clickDebtButton();
       await debtPage.clickAddButton();
       await debtPage.clickSaveButton();
@@ -55,7 +50,7 @@ test.describe.serial("Debt Tests", () => {
     allure.story('Add Debt Successfully');
     await allure.step('Admin logs in and adds a valid debt record', async () => {
       await loginPage.login(Config.admin_username, Config.admin_password);
-      await homePage.clickSalary();
+      await basePage.clickSalary();
       await debtPage.clickDebtButton();
       await debtPage.clickAddButton();
       await debtPage.fillName("BAT810-Nguyễn Văn Minh");
@@ -70,7 +65,7 @@ test.describe.serial("Debt Tests", () => {
     allure.story('Duplicate Debt Entry');
     await allure.step('Admin tries to add duplicate debt', async () => {
       await loginPage.login(Config.admin_username, Config.admin_password);
-      await homePage.clickSalary();
+      await basePage.clickSalary();
       await debtPage.clickDebtButton();
       await debtPage.clickAddButton();
       await debtPage.fillName("BAT810-Nguyễn Văn Minh");
@@ -85,7 +80,7 @@ test.describe.serial("Debt Tests", () => {
     allure.story('Edit Debt Record');
     await allure.step('Admin edits existing debt', async () => {
       await loginPage.login(Config.admin_username, Config.admin_password);
-      await homePage.clickSalary();
+      await basePage.clickSalary();
       await debtPage.clickDebtButton();
       await basePage.clickIconAction();
       await basePage.clickEdit();
@@ -99,7 +94,7 @@ test.describe.serial("Debt Tests", () => {
     allure.story('Successful Debt Edit');
     await allure.step('Admin edits debt with valid new values', async () => {
       await loginPage.login(Config.admin_username, Config.admin_password);
-      await homePage.clickSalary();
+      await basePage.clickSalary();
       await debtPage.clickDebtButton();
       await basePage.clickIconAction();
       await basePage.clickEdit();
@@ -113,7 +108,7 @@ test.describe.serial("Debt Tests", () => {
     allure.story('Send and Approve Debt');
     await allure.step('Admin sends debt, Employee approves', async () => {
       await loginPage.login(Config.admin_username, Config.admin_password);
-      await homePage.clickSalary();
+      await basePage.clickSalary();
       await debtPage.clickDebtButton();
       await debtPage.clickAddButton();
       await debtPage.fillName("BAT810-Nguyễn Văn Minh");
@@ -129,7 +124,7 @@ test.describe.serial("Debt Tests", () => {
       await debtPage.clickLogoutButton();
       await debtPage.clickYesButton();
       await loginPage.login(Config.employee_username, Config.employee_password);
-      await homePage.clickSalary();
+      await basePage.clickSalary();
       await debtPage.clickDebtButton();
       await debtPage.clickIconAction();
       await debtPage.clickBrowseButton();
@@ -142,7 +137,7 @@ test.describe.serial("Debt Tests", () => {
     allure.story('Send and Refuse Debt');
     await allure.step('Admin sends debt, Employee refuses', async () => {
       await loginPage.login(Config.admin_username, Config.admin_password);
-      await homePage.clickSalary();
+      await basePage.clickSalary();
       await debtPage.clickDebtButton();
       await debtPage.clickAddButton();
       await debtPage.fillName("BAT810-Nguyễn Văn Minh");
@@ -158,7 +153,7 @@ test.describe.serial("Debt Tests", () => {
       await debtPage.clickLogoutButton();
       await debtPage.clickYesButton();
       await loginPage.login(Config.employee_username, Config.employee_password);
-      await homePage.clickSalary();
+      await basePage.clickSalary();
       await debtPage.clickDebtButton();
       await debtPage.clickActionRefusedButton();
       await debtPage.fillReason("refused debt test");
@@ -171,7 +166,7 @@ test.describe.serial("Debt Tests", () => {
     allure.story('Send and Cancel Debt');
     await allure.step('Admin sends debt then cancels', async () => {
       await loginPage.login(Config.admin_username, Config.admin_password);
-      await homePage.clickSalary();
+      await basePage.clickSalary();
       await debtPage.clickDebtButton();
       await debtPage.clickAddButton();
       await debtPage.fillName("BAT810-Nguyễn Văn Minh");
@@ -194,7 +189,7 @@ test.describe.serial("Debt Tests", () => {
     allure.story('Cancel New Debt');
     await allure.step('Admin cancels newly added debt', async () => {
       await loginPage.login(Config.admin_username, Config.admin_password);
-      await homePage.clickSalary();
+      await basePage.clickSalary();
       await debtPage.clickDebtButton();
       await debtPage.clickAddButton();
       await debtPage.fillName("BAT810-Nguyễn Văn Minh");
@@ -214,7 +209,7 @@ test.describe.serial("Debt Tests", () => {
     allure.story('Cancel Debt Validation');
     await allure.step('Admin attempts to cancel debt without reason', async () => {
       await loginPage.login(Config.admin_username, Config.admin_password);
-      await homePage.clickSalary();
+      await basePage.clickSalary();
       await debtPage.clickDebtButton();
       await debtPage.clickAddButton();
       await debtPage.fillName("BAT810-Nguyễn Văn Minh");
@@ -229,5 +224,4 @@ test.describe.serial("Debt Tests", () => {
     });
     await debtPage.expectFillReasonError();
   });
-
 });

@@ -1,6 +1,5 @@
 import { test, TestInfo } from '@playwright/test';
 import { LoginPage } from '../../pages/LoginPage';
-import { HomePage } from '../../pages/HomePage';
 import { takeScreenshotOnFailure } from '../../utils/screenshotUtils';
 import { ToastPage } from '../../pages/ToastPage';
 import { RewardTypePage } from '../../pages/reward_page/RewardTypePage';
@@ -12,11 +11,9 @@ import { BasePage } from '../../pages/BasePage';
 import { LogoutPage } from '../../pages/LogoutPage';
 
 test.describe.serial('Reward Employee Tests', () => {
-
     let loginPage: LoginPage;
     let rewardEmployeePage: RewardEmployeePage;
     let toast: ToastPage;
-    let homePage: HomePage;
     let basePage: BasePage;
     let logoutPage: LogoutPage;
 
@@ -31,7 +28,6 @@ test.describe.serial('Reward Employee Tests', () => {
         loginPage = new LoginPage(page);
         rewardEmployeePage = new RewardEmployeePage(page);
         toast = new ToastPage(page);
-        homePage = new HomePage(page);
         await loginPage.goto();
 
     });
@@ -40,11 +36,10 @@ test.describe.serial('Reward Employee Tests', () => {
         await takeScreenshotOnFailure(page, testInfo);
     });
 
-
     test('E2E reward employee - manager send reward to admin approve', async ({ page }) => {
         await clearAllRewardUsers();
         await loginPage.login(Config.manager_username, Config.manager_password);
-        await homePage.clickAdmin();
+        await basePage.clickAdmin();
         await rewardEmployeePage.clickRewardEmployee();
 
         // Create reward  
@@ -59,7 +54,7 @@ test.describe.serial('Reward Employee Tests', () => {
 
         await logoutPage.logout();
         await loginPage.login(Config.admin_username, Config.admin_password);
-        await homePage.clickAdmin();
+        await basePage.clickAdmin();
         await rewardEmployeePage.clickRewardEmployee();
         await rewardEmployeePage.clickRow0();
         await basePage.clickBrowse();
@@ -69,7 +64,7 @@ test.describe.serial('Reward Employee Tests', () => {
 
     test('E2E reward employee - manager send reward to admin reject', async ({ page }) => {
         await loginPage.login(Config.manager_username, Config.manager_password);
-        await homePage.clickAdmin();
+        await basePage.clickAdmin();
         await rewardEmployeePage.clickRewardEmployee();
         await basePage.clickAdd();
         await rewardEmployeePage.CreateReward();
@@ -82,7 +77,7 @@ test.describe.serial('Reward Employee Tests', () => {
 
         await logoutPage.logout();
         await loginPage.login(Config.admin_username, Config.admin_password);
-        await homePage.clickAdmin();
+        await basePage.clickAdmin();
         await rewardEmployeePage.clickRewardEmployee();
         await rewardEmployeePage.clickRow0();
         await basePage.clickReject();
@@ -93,7 +88,7 @@ test.describe.serial('Reward Employee Tests', () => {
 
     test('Create reward with valid information', async ({ page }) => {
         await loginPage.login(Config.admin_username, Config.admin_password);
-        await homePage.clickAdmin();
+        await basePage.clickAdmin();
         await rewardEmployeePage.clickRewardEmployee();
         await basePage.clickAdd();
         await rewardEmployeePage.CreateReward();
@@ -103,7 +98,7 @@ test.describe.serial('Reward Employee Tests', () => {
 
     test('Manager create reward with approved status', async ({ page }) => {
         await loginPage.login(Config.manager_username, Config.manager_password);
-        await homePage.clickAdmin();
+        await basePage.clickAdmin();
         await rewardEmployeePage.clickRewardEmployee();
         await basePage.clickAdd();
         await rewardEmployeePage.fillRewardName('Reward Employee 2');
@@ -122,7 +117,7 @@ test.describe.serial('Reward Employee Tests', () => {
 
     test('Admin create reward with approved status', async ({ page }) => {
         await loginPage.login(Config.admin_username, Config.admin_password);
-        await homePage.clickAdmin();
+        await basePage.clickAdmin();
         await rewardEmployeePage.clickRewardEmployee();
         await basePage.clickAdd();
         await rewardEmployeePage.fillRewardName('Reward Employee 2');
@@ -141,7 +136,7 @@ test.describe.serial('Reward Employee Tests', () => {
 
     test('Cancel reward', async ({ page }) => {
         await loginPage.login(Config.admin_username, Config.admin_password);
-        await homePage.clickAdmin();
+        await basePage.clickAdmin();
         await rewardEmployeePage.clickRewardEmployee();
         await rewardEmployeePage.clickRow0();
         await basePage.clickCancel();
@@ -152,7 +147,7 @@ test.describe.serial('Reward Employee Tests', () => {
 
     test('Create reward with empty description and note ', async ({ page }) => {
         await loginPage.login(Config.admin_username, Config.admin_password);
-        await homePage.clickAdmin();
+        await basePage.clickAdmin();
         await rewardEmployeePage.clickRewardEmployee();
         await basePage.clickAdd();
         await rewardEmployeePage.fillRewardName('Reward Employee 3');
@@ -167,7 +162,7 @@ test.describe.serial('Reward Employee Tests', () => {
 
     test('Create reward with chosse day reward', async ({ page }) => {
         await loginPage.login(Config.admin_username, Config.admin_password);
-        await homePage.clickAdmin();
+        await basePage.clickAdmin();
         await rewardEmployeePage.clickRewardEmployee();
         await basePage.clickAdd();
         await rewardEmployeePage.fillRewardName('Reward Employee 4');
@@ -188,7 +183,7 @@ test.describe.serial('Reward Employee Tests', () => {
 
     test('Save with empty reward name, employee, reward type, money', async ({ page }) => {
         await loginPage.login(Config.admin_username, Config.admin_password);
-        await homePage.clickAdmin();
+        await basePage.clickAdmin();
         await rewardEmployeePage.clickRewardEmployee();
         await basePage.clickAdd();
         await rewardEmployeePage.clearMoneyInput();
@@ -201,7 +196,7 @@ test.describe.serial('Reward Employee Tests', () => {
 
     test('Search with reward name', async ({ page }) => {
         await loginPage.login(Config.admin_username, Config.admin_password);
-        await homePage.clickAdmin();
+        await basePage.clickAdmin();
         await rewardEmployeePage.clickRewardEmployee();
         await rewardEmployeePage.fillSearchByRewardName('Reward Employee');
         await basePage.clickSearch();
@@ -211,7 +206,7 @@ test.describe.serial('Reward Employee Tests', () => {
 
     test('Search by employee name', async ({ page }) => {
         await loginPage.login(Config.admin_username, Config.admin_password);
-        await homePage.clickAdmin();
+        await basePage.clickAdmin();
         await rewardEmployeePage.clickRewardEmployee();
         await rewardEmployeePage.fillSearchByEmployee('Nguyễn Văn Minh');
         await basePage.clickSearch();
@@ -220,7 +215,7 @@ test.describe.serial('Reward Employee Tests', () => {
 
     test('Search by reward type', async ({ page }) => {
         await loginPage.login(Config.admin_username, Config.admin_password);
-        await homePage.clickAdmin();
+        await basePage.clickAdmin();
         await rewardEmployeePage.clickRewardEmployee();
         await rewardEmployeePage.fillSearchByRewardType('Khen thưởng 2');
         await basePage.clickSearch();
@@ -229,7 +224,7 @@ test.describe.serial('Reward Employee Tests', () => {
 
     test('Search by date', async ({ page }) => {
         await loginPage.login(Config.admin_username, Config.admin_password);
-        await homePage.clickAdmin();
+        await basePage.clickAdmin();
         await rewardEmployeePage.clickRewardEmployee();
         await rewardEmployeePage.clickDayReward();
         await rewardEmployeePage.clickDay19();
@@ -241,7 +236,7 @@ test.describe.serial('Reward Employee Tests', () => {
 
     test('Search by status', async ({ page }) => {
         await loginPage.login(Config.admin_username, Config.admin_password);
-        await homePage.clickAdmin();
+        await basePage.clickAdmin();
         await rewardEmployeePage.clickRewardEmployee();
 
         // Search with approved status
@@ -264,5 +259,4 @@ test.describe.serial('Reward Employee Tests', () => {
         await basePage.clickSearch();
         await rewardEmployeePage.verifyCancelledStatusSearch();
     });
-
 });

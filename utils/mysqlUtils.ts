@@ -49,6 +49,10 @@ export async function clearEmploymentContract() {
   await clearTable('employment_contracts');
 }
 
+export async function clearAllowanceType() {
+  await clearTable('allowance_types', "name NOT LIKE '%Phụ cấp%'");
+}
+
 export async function clearTerm() {
   await clearTable('terms', "title NOT LIKE '%Điều khoản%'");
 }

@@ -2,7 +2,6 @@ import { test, expect, Page, TestInfo } from "@playwright/test";
 import { LoginPage } from "../../pages/LoginPage";
 import { takeScreenshotOnFailure } from "../../utils/screenshotUtils";
 import Config from "../../utils/configUtils";
-import { HomePage } from "../../pages/HomePage";
 import { EvaluationCriteriaPage } from "../../pages/evaluation_page/EvaluationCriteriaPage";
 import { clearAllEvaluationCriterias } from "../../utils/mysqlUtils";
 import { allure } from "allure-playwright";
@@ -11,7 +10,6 @@ import { BasePage } from "../../pages/BasePage";
 test.describe.serial("Evaluation Criteria Tests", () => {
     let loginPage: LoginPage;
     let evaluationCriteriaPage: EvaluationCriteriaPage;
-    let homePage: HomePage;
     let basePage: BasePage;
 
     test.beforeEach(async ({ page }) => {
@@ -21,7 +19,6 @@ test.describe.serial("Evaluation Criteria Tests", () => {
 
         loginPage = new LoginPage(page);
         evaluationCriteriaPage = new EvaluationCriteriaPage(page);
-        homePage = new HomePage(page);
         basePage = new BasePage(page);
         await loginPage.goto();
         await loginPage.login(Config.admin_username, Config.admin_password);
@@ -34,7 +31,7 @@ test.describe.serial("Evaluation Criteria Tests", () => {
     test("Create Criteria without any field", async ({ page }) => {
         allure.story("Validation on Create Criteria");
         await clearAllEvaluationCriterias();
-        await homePage.clickAdmin();
+        await basePage.clickAdmin();
         await evaluationCriteriaPage.clickEvaluationCriteria();
         await basePage.clickAdd();
         await basePage.clickSave();
@@ -46,7 +43,7 @@ test.describe.serial("Evaluation Criteria Tests", () => {
         allure.story("Create Criteria with Lock Status");
         const randomSuffix = Math.random().toString(36).substring(2, 8);
         const EvaluationCriteriaNameRandom = `Automation test ${randomSuffix}`;
-        await homePage.clickAdmin();
+        await basePage.clickAdmin();
         await evaluationCriteriaPage.clickEvaluationCriteria();
         await basePage.clickAdd();
         await evaluationCriteriaPage.setEvaluationCriteriaName(EvaluationCriteriaNameRandom);
@@ -64,7 +61,7 @@ test.describe.serial("Evaluation Criteria Tests", () => {
         allure.story("Create Criteria with Activity Status");
         const randomSuffix = Math.random().toString(36).substring(2, 8);
         const EvaluationCriteriaNameRandom = `Automation test ${randomSuffix}`;
-        await homePage.clickAdmin();
+        await basePage.clickAdmin();
         await evaluationCriteriaPage.clickEvaluationCriteria();
         await basePage.clickAdd();
         await evaluationCriteriaPage.clickCancelAddButton();
@@ -79,7 +76,7 @@ test.describe.serial("Evaluation Criteria Tests", () => {
 
     test("Search Evaluation Criteria by status", async ({ page }) => {
         allure.story("Search Criteria by Name and Status");
-        await homePage.clickAdmin();
+        await basePage.clickAdmin();
         await evaluationCriteriaPage.clickEvaluationCriteria();
         await evaluationCriteriaPage.searchEvaluationCriteriaName("Automation Test");
         await evaluationCriteriaPage.clickSearchButton();
@@ -110,7 +107,7 @@ test.describe.serial("Evaluation Criteria Tests", () => {
         allure.story("Edit Evaluation Criteria");
         const randomSuffix = Math.random().toString(36).substring(2, 8);
         const EvaluationCriteriaNameEdited = `Automation test edited ${randomSuffix}`;
-        await homePage.clickAdmin();
+        await basePage.clickAdmin();
         await evaluationCriteriaPage.clickEvaluationCriteria();
         await basePage.clickEditRow0();
         await evaluationCriteriaPage.editEvaluationCriteriaName(EvaluationCriteriaNameEdited);
@@ -134,7 +131,7 @@ test.describe.serial("Evaluation Criteria Tests", () => {
 
     test("Delete Evaluation Criteria", async ({ page }) => {
         allure.story("Delete Evaluation Criteria");
-        await homePage.clickAdmin();
+        await basePage.clickAdmin();
         await evaluationCriteriaPage.clickEvaluationCriteria();
         await basePage.clickDeleteRow0();
         await evaluationCriteriaPage.verifyToastDeleteSuccessfull("Xóa thành công");

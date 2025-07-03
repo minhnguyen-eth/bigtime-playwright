@@ -3,7 +3,6 @@ import { LoginPage } from "../../pages/LoginPage";
 import { takeScreenshotOnFailure } from "../../utils/screenshotUtils";
 import Config from "../../utils/configUtils";
 import { EvaluationTypePage } from "../../pages/evaluation_page/EvaluationTypePage";
-import { HomePage } from "../../pages/HomePage";
 import { checkEvaluationTypeExists, deleteEvaluationType } from "../../utils/mysqlUtils";
 import { clearAllEluationTypes } from "../../utils/mysqlUtils";
 import { allure } from "allure-playwright";
@@ -13,7 +12,6 @@ import { BasePage } from "../../pages/BasePage";
 test.describe.serial("Evaluation Type Tests", () => {
     let loginPage: LoginPage;
     let evaluationtype: EvaluationTypePage;
-    let homePage: HomePage;
     let toastPage: ToastPage;
     let basePage: BasePage;
 
@@ -24,7 +22,6 @@ test.describe.serial("Evaluation Type Tests", () => {
 
         loginPage = new LoginPage(page);
         evaluationtype = new EvaluationTypePage(page);
-        homePage = new HomePage(page);
         toastPage = new ToastPage(page);
         basePage = new BasePage(page);
 
@@ -45,7 +42,7 @@ test.describe.serial("Evaluation Type Tests", () => {
         const randomSuffix = Math.random().toString(36).substring(2, 8);
         const evaluationName = `Automation test ${randomSuffix}`;
 
-        await homePage.clickAdmin();
+        await basePage.clickAdmin();
         await evaluationtype.clickEvaluationType();
         await basePage.clickAdd();
         await evaluationtype.setEvaluationTypeName(evaluationName);
@@ -69,7 +66,7 @@ test.describe.serial("Evaluation Type Tests", () => {
         const randomSuffix = Math.random().toString(36).substring(2, 8);
         const evaluationName = `Automation test ${randomSuffix}`;
 
-        await homePage.clickAdmin();
+        await basePage.clickAdmin();
         await evaluationtype.clickEvaluationType();
         await basePage.clickAdd();
         await evaluationtype.setEvaluationTypeName(evaluationName);
@@ -85,7 +82,7 @@ test.describe.serial("Evaluation Type Tests", () => {
         allure.story("Edit Evaluation Type Status");
         allure.description("Chỉnh sửa loại đánh giá từ trạng thái hoạt động sang trạng thái khóa.");
 
-        await homePage.clickAdmin();
+        await basePage.clickAdmin();
         await evaluationtype.clickEvaluationType();
         await basePage.clickEditRow0();
         await evaluationtype.clickStatusDropdown();
@@ -101,7 +98,7 @@ test.describe.serial("Evaluation Type Tests", () => {
         const randomSuffix = Math.random().toString(36).substring(2, 8);
         const evaluationName = `Automation test ${randomSuffix}`;
 
-        await homePage.clickAdmin();
+        await basePage.clickAdmin();
         await evaluationtype.clickEvaluationType();
         await basePage.clickAdd();
         await evaluationtype.setEvaluationTypeName(evaluationName);
@@ -119,7 +116,7 @@ test.describe.serial("Evaluation Type Tests", () => {
         allure.story("Search Evaluation Type by Name");
         allure.description("Tìm kiếm loại đánh giá theo tên cụ thể và xác minh kết quả.");
 
-        await homePage.clickAdmin();
+        await basePage.clickAdmin();
         await evaluationtype.clickEvaluationType();
         await evaluationtype.setSerachEvaluationTypeName("Đánh giá chuyên cần");
         await basePage.clickSearch();
@@ -130,11 +127,9 @@ test.describe.serial("Evaluation Type Tests", () => {
         allure.story("Delete Evaluation Type");
         allure.description("Xóa loại đánh giá và xác minh thông báo thành công.");
 
-        await homePage.clickAdmin();
+        await basePage.clickAdmin();
         await evaluationtype.clickEvaluationType();
         await basePage.clickDeleteRow0();
         await toastPage.getToastDeleteSuccess();
     });
-
-    
 });

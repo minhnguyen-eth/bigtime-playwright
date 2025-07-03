@@ -3,25 +3,23 @@ import { takeScreenshotOnFailure } from '../../utils/screenshotUtils';
 import { LoginPage } from '../../pages/LoginPage';
 import Config from '../../utils/configUtils';
 import { ToastPage } from '../../pages/ToastPage';
-import { HomePage } from '../../pages/HomePage';
 import { allure } from 'allure-playwright';
 import { NotificationPage } from '../../pages/notification_page/NotificationPage';
 import { clearAllNotifications } from '../../utils/mysqlUtils';
+import { BasePage } from '../../pages/BasePage';
 
 test.describe.serial('Notification Test Suite', () => {
-
     let loginPage: LoginPage;
     let notificationPage: NotificationPage;
     let toast: ToastPage;
-    let homePage: HomePage;
+    let basePage: BasePage;
 
     test.beforeEach(async ({ page }) => {
-
         allure.feature('Notification Feature');
         allure.owner('Minh Nguyen');
         allure.severity('Normal');
 
-        homePage = new HomePage(page);
+        basePage = new BasePage(page);
         toast = new ToastPage(page);
         loginPage = new LoginPage(page);
         notificationPage = new NotificationPage(page);
@@ -37,7 +35,7 @@ test.describe.serial('Notification Test Suite', () => {
         await allure.step('Clear all notifications and add new event notification', async () => {
             await clearAllNotifications();
             await loginPage.login(Config.admin_username, Config.admin_password);
-            await homePage.clickAdmin();
+            await basePage.clickAdmin();
             await notificationPage.clickOnNotification();
             await notificationPage.clickOnAddButton();
             await notificationPage.fillNotificationName('Thông báo');
@@ -51,7 +49,7 @@ test.describe.serial('Notification Test Suite', () => {
         allure.story('Validation for Duplicate Notification');
         await allure.step('Try to add notification with existing name', async () => {
             await loginPage.login(Config.admin_username, Config.admin_password);
-            await homePage.clickAdmin();
+            await basePage.clickAdmin();
             await notificationPage.clickOnNotification();
             await notificationPage.clickOnAddButton();
             await notificationPage.fillNotificationName('Thông báo');
@@ -65,7 +63,7 @@ test.describe.serial('Notification Test Suite', () => {
         allure.story('Validation for Required Fields');
         await allure.step('Try to add notification with empty fields', async () => {
             await loginPage.login(Config.admin_username, Config.admin_password);
-            await homePage.clickAdmin();
+            await basePage.clickAdmin();
             await notificationPage.clickOnNotification();
             await notificationPage.clickOnAddButton();
             await notificationPage.clickOnSaveButton();
@@ -78,7 +76,7 @@ test.describe.serial('Notification Test Suite', () => {
         allure.story('Add Holiday Notification');
         await allure.step('Add new holiday notification', async () => {
             await loginPage.login(Config.admin_username, Config.admin_password);
-            await homePage.clickAdmin();
+            await basePage.clickAdmin();
             await notificationPage.clickOnNotification();
             await notificationPage.clickOnAddButton();
             await notificationPage.clickOnNotificationFormDropdown();
@@ -94,7 +92,7 @@ test.describe.serial('Notification Test Suite', () => {
         allure.story('Add Work Schedule Notification');
         await allure.step('Add new work schedule notification', async () => {
             await loginPage.login(Config.admin_username, Config.admin_password);
-            await homePage.clickAdmin();
+            await basePage.clickAdmin();
             await notificationPage.clickOnNotification();
             await notificationPage.clickOnAddButton();
             await notificationPage.clickOnNotificationFormDropdown();
@@ -110,7 +108,7 @@ test.describe.serial('Notification Test Suite', () => {
         allure.story('Add Urgent Notification');
         await allure.step('Add new urgent notification', async () => {
             await loginPage.login(Config.admin_username, Config.admin_password);
-            await homePage.clickAdmin();
+            await basePage.clickAdmin();
             await notificationPage.clickOnNotification();
             await notificationPage.clickOnAddButton();
             await notificationPage.clickOnNotificationFormDropdown();
@@ -126,7 +124,7 @@ test.describe.serial('Notification Test Suite', () => {
         allure.story('Send Notification to Company');
         await allure.step('Send notification to entire company', async () => {
             await loginPage.login(Config.admin_username, Config.admin_password);
-            await homePage.clickAdmin();
+            await basePage.clickAdmin();
             await notificationPage.clickOnNotification();
             await notificationPage.clickOnIconAction();
             await notificationPage.clickOnSendNotification();
@@ -139,7 +137,7 @@ test.describe.serial('Notification Test Suite', () => {
         allure.story('Send Notification to Department');
         await allure.step('Send notification to a department', async () => {
             await loginPage.login(Config.admin_username, Config.admin_password);
-            await homePage.clickAdmin();
+            await basePage.clickAdmin();
             await notificationPage.clickOnNotification();
             await notificationPage.clickOnIconAction();
             await notificationPage.clickOnSendNotification();
@@ -154,7 +152,7 @@ test.describe.serial('Notification Test Suite', () => {
         allure.story('Send Notification to Personal');
         await allure.step('Send notification to a specific employee', async () => {
             await loginPage.login(Config.admin_username, Config.admin_password);
-            await homePage.clickAdmin();
+            await basePage.clickAdmin();
             await notificationPage.clickOnNotification();
             await notificationPage.clickOnIconAction();
             await notificationPage.clickOnSendNotification();
@@ -170,12 +168,11 @@ test.describe.serial('Notification Test Suite', () => {
         allure.story('Delete Notification');
         await allure.step('Delete notification', async () => {
             await loginPage.login(Config.admin_username, Config.admin_password);
-            await homePage.clickAdmin();
+            await basePage.clickAdmin();
             await notificationPage.clickOnListNotification();
             await notificationPage.clickOnDeleteButton();
             await notificationPage.clickOnYesButton();
         });
         await toast.getToastDeleteSuccess();
     });
-
 });

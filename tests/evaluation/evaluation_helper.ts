@@ -1,6 +1,5 @@
 import { Page } from '@playwright/test';
 import { LoginPage } from '../../pages/LoginPage';
-import { HomePage } from '../../pages/HomePage';
 import Config from '../../utils/configUtils';
 import { EvaluationCriteriaPage } from '../../pages/evaluation_page/EvaluationCriteriaPage';
 import { ToastPage } from '../../pages/ToastPage';
@@ -10,15 +9,14 @@ import { BasePage } from '../../pages/BasePage';
 
 export async function createCriteria(page: Page) {
 
-    const homePage = new HomePage(page);
+
     const evaluationCriteriaPage = new EvaluationCriteriaPage(page);
     const toastPage = new ToastPage(page);
     const basePage = new BasePage(page);
 
-
     const randomSuffix = Math.random().toString(36).substring(2, 8);
     const EvaluationCriteriaNameRandom = `Automation test ${randomSuffix}`;
-    await homePage.clickAdmin();
+    await basePage.clickAdmin();
     await evaluationCriteriaPage.clickEvaluationCriteria();
     await basePage.clickAdd();
     await evaluationCriteriaPage.clickCancelAddButton();

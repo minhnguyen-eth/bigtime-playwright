@@ -2,7 +2,6 @@ import { test, expect, Page, TestInfo } from '@playwright/test';
 import { LoginPage } from '../../pages/LoginPage';
 import { takeScreenshotOnFailure } from '../../utils/screenshotUtils';
 import Config from '../../utils/configUtils';
-import { HomePage } from '../../pages/HomePage';
 import { LeaveApplicationPage } from '../../pages/leave_page/LeaveApplicationPage';
 import { clearAllLeaveApplications } from '../../utils/mysqlUtils';
 import { clearAllLeaveManagements } from '../../utils/mysqlUtils';
@@ -15,7 +14,6 @@ import { LogoutPage } from '../../pages/LogoutPage';
 test.describe.serial('Leave Application Tests', () => {
     let loginPage: LoginPage;
     let leaveApplicationPage: LeaveApplicationPage;
-    let homePage: HomePage;
     let basePage: BasePage;
     let toastPage: ToastPage;
     let logoutPage: LogoutPage;
@@ -29,7 +27,6 @@ test.describe.serial('Leave Application Tests', () => {
         logoutPage = new LogoutPage(page);
         loginPage = new LoginPage(page);
         leaveApplicationPage = new LeaveApplicationPage(page);
-        homePage = new HomePage(page);
         basePage = new BasePage(page);
         toastPage = new ToastPage(page);
         await loginPage.goto();
@@ -52,7 +49,7 @@ test.describe.serial('Leave Application Tests', () => {
         await allure.step('Employee applies for annual leave', async () => {
             await clearAllLeaveApplications();
             await loginPage.login(Config.employee_username, Config.employee_password);
-            await homePage.clickTimeKeepingManagement();
+            await basePage.clickTimeKeepingManagement();
             await leaveApplicationPage.clickLeaveApplicationButton();
             await basePage.clickAdd();
             await leaveApplicationPage.clickLeaveTypeDropDown();
@@ -78,7 +75,7 @@ test.describe.serial('Leave Application Tests', () => {
         await allure.step('Employee applies for annual leave', async () => {
             await clearAllLeaveApplications();
             await loginPage.login(Config.employee_username, Config.employee_password);
-            await homePage.clickTimeKeepingManagement();
+            await basePage.clickTimeKeepingManagement();
             await leaveApplicationPage.clickLeaveApplicationButton();
             await basePage.clickAdd();
             await leaveApplicationPage.clickLeaveTypeDropDown();
@@ -112,7 +109,7 @@ test.describe.serial('Leave Application Tests', () => {
         await allure.step('Employee applies for regular leave', async () => {
             await clearAllLeaveApplications();
             await loginPage.login(Config.employee_username, Config.employee_password);
-            await homePage.clickTimeKeepingManagement();
+            await basePage.clickTimeKeepingManagement();
             await leaveApplicationPage.clickLeaveApplicationButton();
             await basePage.clickAdd();
             await leaveApplicationPage.clickLeaveTypeDropDown();
@@ -138,7 +135,7 @@ test.describe.serial('Leave Application Tests', () => {
         await allure.step('Employee applies for social insurance leave', async () => {
             await clearAllLeaveApplications();
             await loginPage.login(Config.employee_username, Config.employee_password);
-            await homePage.clickTimeKeepingManagement();
+            await basePage.clickTimeKeepingManagement();
             await leaveApplicationPage.clickLeaveApplicationButton();
             await basePage.clickAdd();
             await leaveApplicationPage.clickLeaveTypeDropDown();
@@ -164,7 +161,7 @@ test.describe.serial('Leave Application Tests', () => {
         await allure.step('Employee applies for maternity leave', async () => {
             await clearAllLeaveApplications();
             await loginPage.login(Config.employee_username, Config.employee_password);
-            await homePage.clickTimeKeepingManagement();
+            await basePage.clickTimeKeepingManagement();
             await leaveApplicationPage.clickLeaveApplicationButton();
             await basePage.clickAdd();
             await leaveApplicationPage.clickLeaveTypeDropDown();
@@ -190,7 +187,7 @@ test.describe.serial('Leave Application Tests', () => {
         await allure.step('Employee applies for special leave', async () => {
             await clearAllLeaveApplications();
             await loginPage.login(Config.employee_username, Config.employee_password);
-            await homePage.clickTimeKeepingManagement();
+            await basePage.clickTimeKeepingManagement();
             await leaveApplicationPage.clickLeaveApplicationButton();
             await basePage.clickAdd();
             await leaveApplicationPage.clickLeaveTypeDropDown();
@@ -210,5 +207,4 @@ test.describe.serial('Leave Application Tests', () => {
             await sendAndApproveLeave(page);
         });
     });
-
 });

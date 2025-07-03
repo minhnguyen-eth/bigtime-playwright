@@ -4,7 +4,6 @@ import { takeScreenshotOnFailure } from '../utils/screenshotUtils';
 import Config from '../utils/configUtils';
 import { allure } from 'allure-playwright';
 import { EmployeePage } from '../pages/EmployeePage';
-import { HomePage } from '../pages/HomePage';
 import { BasePage } from '../pages/BasePage';
 import { ResumePage } from '../pages/ResumePage';
 import { ToastPage } from '../pages/ToastPage';
@@ -12,7 +11,6 @@ import { ToastPage } from '../pages/ToastPage';
 test.describe.serial('Employee Tests', () => {
     let loginPage: LoginPage;
     let employeePage: EmployeePage
-    let homePage: HomePage;
     let basePage: BasePage;
     let resumePage: ResumePage;
     let toastPage: ToastPage;
@@ -25,12 +23,11 @@ test.describe.serial('Employee Tests', () => {
         toastPage = new ToastPage(page);
         employeePage = new EmployeePage(page);
         loginPage = new LoginPage(page);
-        homePage = new HomePage(page);
         basePage = new BasePage(page);
         resumePage = new ResumePage(page);
         await loginPage.goto();
         await loginPage.login(Config.admin_username, Config.admin_password);
-        await homePage.clickAdmin();
+        await basePage.clickAdmin();
         await employeePage.clickUser();
     });
 

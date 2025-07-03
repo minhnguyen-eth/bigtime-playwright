@@ -2,7 +2,6 @@ import { Locator, Page, expect } from '@playwright/test';
 
 export class PaysheetPage {
     readonly page: Page;
-
     readonly paysheetButton: Locator;
     readonly namePaysheetInput: Locator;
     readonly setNamePaysheetInput: Locator;
@@ -80,7 +79,7 @@ export class PaysheetPage {
         this.dropdownEmployee = page.locator("//div[@class='v-field v-field--appended v-field--center-affix v-field--variant-outlined v-theme--lightColor7 v-locale--is-ltr']//div[@class='v-field__input']");
         this.employeeOption = page.locator("//div[@role='option']//div[@class='v-list-item-title']");
         this.submitButton = page.locator('//button[@type="submit"]');
-        this.latestPaysheetRow = page.locator("//table/tbody/tr[1]");
+        this.latestPaysheetRow = page.locator("//tr[@id='row-0']");
         this.viewPayrollButton = page.locator("//span[.='Xem bảng lương']");
         this.sendAllButton = page.locator('//span[contains(normalize-space(),"Gửi tất cả")]');
         this.confirm2Button = page.locator('//span[.="Xác nhận"]');
@@ -165,6 +164,7 @@ export class PaysheetPage {
     }
 
     async clickPayslipPayment() {
+        await this.waitForOverlayToDisappear();
         await this.payslipPayment.click();
     }
 
@@ -249,7 +249,21 @@ export class PaysheetPage {
     }
 
     async clickPayment() {
+        await this.waitForOverlayToDisappear();
         await this.paymentButton.click();
+    }
+
+    async waitForOverlayToDisappear() {
+        await this.page.waitForFunction(() => {
+            return [...document.querySelectorAll('.v-overlay__scrim')].every(el => {
+                const style = window.getComputedStyle(el);
+                return (
+                    (el as HTMLElement).offsetParent === null ||
+                    style.visibility === 'hidden' ||
+                    style.opacity === '0'
+                );
+            });
+        }, { timeout: 10000 });
     }
 
     async clickPaysheet() {
@@ -277,10 +291,10 @@ export class PaysheetPage {
     }
 
     async clickLatestPaysheetRow() {
-        await this.latestPaysheetRow.waitFor({ state: 'attached', timeout: 10_000 });
-        await this.latestPaysheetRow.waitFor({ state: 'visible', timeout: 5_000 });
+        await this.waitForOverlayToDisappear();
         await this.latestPaysheetRow.click();
     }
+
 
     async clickViewPayroll() {
         await expect(this.viewPayrollButton).toBeVisible();

@@ -2,7 +2,6 @@ import { test, expect, Page, TestInfo } from "@playwright/test";
 import { LoginPage } from "../../pages/LoginPage";
 import { takeScreenshotOnFailure } from "../../utils/screenshotUtils";
 import Config from "../../utils/configUtils";
-import { HomePage } from "../../pages/HomePage";
 import { EvaluationProcessPage } from "../../pages/evaluation_page/EvaluationProcessPage";
 import { ToastPage } from "../../pages/ToastPage";
 import { clearAllEvaluationProgress } from "../../utils/mysqlUtils";
@@ -14,7 +13,6 @@ test.describe.serial("Evaluation Criteria Tests", () => {
 
     let loginPage: LoginPage;
     let evaluationProcess: EvaluationProcessPage;
-    let homePage: HomePage;
     let toast: ToastPage;
     let basePage: BasePage;
 
@@ -29,7 +27,6 @@ test.describe.serial("Evaluation Criteria Tests", () => {
 
         loginPage = new LoginPage(page);
         evaluationProcess = new EvaluationProcessPage(page);
-        homePage = new HomePage(page);
         toast = new ToastPage(page);
         basePage = new BasePage(page);
         await loginPage.goto();
@@ -44,7 +41,7 @@ test.describe.serial("Evaluation Criteria Tests", () => {
         allure.story("Add Evaluation Process - Company Form");
         await allure.step("Clear data and add new company evaluation process", async () => {
             await clearAllEvaluationProgress();
-            await homePage.clickAdmin();
+            await basePage.clickAdmin();
             await evaluationProcess.clickEvaluationProcessButton();
             await basePage.clickAdd();
             await evaluationProcess.fillEmployeeEvaluationInput("Nguyễn Văn Minh");
@@ -64,7 +61,7 @@ test.describe.serial("Evaluation Criteria Tests", () => {
     test("Edit evaluation type", async ({ page }) => {
         allure.story("Edit Evaluation Type");
         await allure.step("Edit evaluation process type", async () => {
-            await homePage.clickAdmin();
+            await basePage.clickAdmin();
             await evaluationProcess.clickEvaluationProcessButton();
             await evaluationProcess.clickIconAction();
             await basePage.clickEdit();
@@ -78,7 +75,7 @@ test.describe.serial("Evaluation Criteria Tests", () => {
     test("Delete evaluation type", async ({ page }) => {
         allure.story("Delete Evaluation Process");
         await allure.step("Delete evaluation process", async () => {
-            await homePage.clickAdmin();
+            await basePage.clickAdmin();
             await evaluationProcess.clickEvaluationProcessButton();
             await evaluationProcess.clickIconAction();
             await basePage.clickDelete();
@@ -89,7 +86,7 @@ test.describe.serial("Evaluation Criteria Tests", () => {
     test("Add a new evaluation process department form", async ({ page }) => {
         allure.story("Add Evaluation Process - Department Form");
         await allure.step("Add new department evaluation process", async () => {
-            await homePage.clickAdmin();
+            await basePage.clickAdmin();
             await evaluationProcess.clickEvaluationProcessButton();
             await basePage.clickAdd();
             await evaluationProcess.fillEmployeeEvaluationInput("Nguyễn Văn Minh");
@@ -111,7 +108,7 @@ test.describe.serial("Evaluation Criteria Tests", () => {
     test("Confirm evaluation type", async ({ page }) => {
         allure.story("Confirm Evaluation Process");
         await allure.step("Confirm evaluation process", async () => {
-            await homePage.clickAdmin();
+            await basePage.clickAdmin();
             await evaluationProcess.clickEvaluationProcessButton();
             await evaluationProcess.clickIconAction();
             await basePage.clickConfirm();
@@ -123,7 +120,7 @@ test.describe.serial("Evaluation Criteria Tests", () => {
         allure.story("Employee Evaluation");
         await allure.step("Employee performs evaluation", async () => {
             await createCriteria(page);
-            await homePage.clickAdmin();
+            await basePage.clickAdmin();
             await evaluationProcess.clickListEvaluationButton();
             await evaluationProcess.getWaitEvaluationStatus();
             await evaluationProcess.clickEvaluationButton();
