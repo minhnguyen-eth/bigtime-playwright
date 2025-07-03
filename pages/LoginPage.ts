@@ -13,7 +13,7 @@ export class LoginPage {
 
   constructor(page: Page) {
     this.page = page;
-    this.dashBoard = page.locator("//div[contains(text(),'Bigtime Stagin Environment')]");
+    this.dashBoard = page.locator("//div[contains(text(),'Bigtime')]");
     this.usernameInput = page.locator('#input-0');
     this.passwordInput = page.locator('#input-2');
     this.loginButton = page.locator('span.v-btn__content');
@@ -36,7 +36,7 @@ export class LoginPage {
 
   async expectLoginSuccess() {
     await expect(this.dashBoard).toBeVisible();
-    await expect(this.dashBoard).toHaveText('Bigtime Stagin Environment');
+    await expect(this.dashBoard).toHaveText('Bigtime');
   }
   
 

@@ -227,6 +227,8 @@ test.describe.serial('Reward Employee Tests', () => {
         await basePage.clickAdmin();
         await rewardEmployeePage.clickRewardEmployee();
         await rewardEmployeePage.clickDayReward();
+        await rewardEmployeePage.clickMonthButton();
+        await rewardEmployeePage.clickMonth06Button();
         await rewardEmployeePage.clickDay19();
         await basePage.clickChoose();
         await basePage.clickSearch();

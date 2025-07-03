@@ -54,7 +54,7 @@ export class BasePage {
         this.toDayDatePicker = page.locator("//div[@class='dp__cell_inner dp__pointer dp__today dp__date_hover']");
         this.deleteButton = page.locator("//span[contains(text(),'Xóa')]");
         this.editButton = page.locator("//span[contains(text(),'Sửa')]");
-        this.reasonInput = page.locator("//div[2]/div/div[2]/div/div/div/div[3]/textarea");
+        this.reasonInput = page.locator("//textarea");
         this.chosseButton = page.locator("//button[contains(text(),'Chọn')]");
         this.confirmButton = page.locator("//span[contains(text(),'Xác nhận')]");
         this.rejectButton = page.locator("//span[contains(text(),'Từ chối')]");
@@ -63,7 +63,7 @@ export class BasePage {
         this.sendButton = page.locator("//span[contains(text(),'Gửi')]");
         this.noButton = page.locator("//span[normalize-space()='Không']");
         this.yesButton = page.locator("//span[normalize-space()='Có']");
-        this.cancelButton = page.locator("//span[contains(normalize-space(),'Hủy')]");
+        this.cancelButton = page.locator("//span[contains(text(),'Hủy')]");
         this.saveButton = page.locator("//span[normalize-space()='Lưu']");//span[contains(normalize-space(),'Lưu')]
         this.deleteRow0Button = page.locator("//tr[@id='row-0']//span[contains(text(),'Xóa')]");
         this.editRow0Button = page.locator("//tr[@id='row-0']//span[contains(text(),'Sửa')]");

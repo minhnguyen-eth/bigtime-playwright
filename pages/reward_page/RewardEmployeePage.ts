@@ -42,8 +42,10 @@ export class RewardEmployeePage {
     readonly dayRewardAdd: Locator;
     readonly yesButton: Locator;
     readonly selectApproved: Locator;
-  
- 
+    readonly monthButton: Locator;
+    readonly month06Button: Locator;
+
+
 
 
     constructor(page: Page) {
@@ -86,10 +88,17 @@ export class RewardEmployeePage {
         this.chosseEmployeeInput = page.locator("//div[2]/div/div[2]/div/div/div/div[3]/div/input");
         this.rewardNameInput = page.locator("//div[2]/div/div[1]/div/div/div/div[3]/div/input");
         this.rewardEmployee = page.locator("//div[contains(text(),'Khen thưởng nhân viên')]");
-      
+        this.month06Button = page.locator("//div[@class='dp__overlay_cell dp__overlay_cell_pad'][normalize-space()='Thg 6']");
+        this.monthButton = page.locator("button[aria-label='Open months overlay']");
     }
 
-    
+    async clickMonth06Button() {
+        await this.month06Button.click();
+    }
+
+    async clickMonthButton() {
+        await this.monthButton.click();
+    }
 
     async clickSelectApproved() {
         await this.selectApproved.click();
@@ -257,7 +266,7 @@ export class RewardEmployeePage {
         await this.rewardEmployee.click();
     }
 
-    async CreateReward(){
+    async CreateReward() {
         await this.fillRewardName('Reward Employee');
         await this.fillChosseEmployee('Minh');
         await this.clickSelectEmployee();

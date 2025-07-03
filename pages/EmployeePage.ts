@@ -511,7 +511,7 @@ export class EmployeePage {
     await this.clickAddButton();
     await this.fillEmployeeCode('BAT810');
     await this.fillEmployeeName('Automation test');
-    await this.fillEmail('minh');
+    await this.fillEmail('minhnguyen.eth');
     await this.clickDropdownBranch();
     await this.clickSelectBranch();
     await this.clickDropdownDepartment();

@@ -36,7 +36,7 @@ test.describe.serial('Leave Application Tests', () => {
         await takeScreenshotOnFailure(page, testInfo);
     });
 
-    test('Add annual leave for a employee and admin browsed', async ({ page }) => {
+    test('Add annual leave for a employee and manager browsed', async ({ page }) => {
         allure.story('Setup Annual Leave');
         await allure.step('Clear all leave management and add annual leave for employee and admin', async () => {
             await clearAllLeaveManagements();

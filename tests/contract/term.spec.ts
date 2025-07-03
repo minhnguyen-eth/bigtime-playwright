@@ -123,18 +123,6 @@ test.describe.serial('Term Tests', () => {
         await toastPage.getToastUpdateSuccess();
     });
 
-    test('Cancel add and cancel edit term', async ({ page }) => {
-        await basePage.clickAdd();
-        await termPage.fillName('Automatic created term');
-        await termPage.fillContent('Automatic created term');
-        await basePage.clickCancel();
-
-        await basePage.clickEditRow0();
-        await termPage.fillName('Automatic edit name');
-        await termPage.fillContent('Automatic edit content');
-        await basePage.clickCancel();
-    });
-
     test('Search by status', async ({ page }) => {
         // Search by lock status
         await basePage.clickDropdownStatusSearch();

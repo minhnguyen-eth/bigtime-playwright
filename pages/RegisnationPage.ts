@@ -36,11 +36,14 @@ export class RegisnationPage {
     readonly logoutButton: Locator;
     readonly logoutConfirmButton: Locator;
     readonly Day16: Locator;
-    
+    readonly monthButton: Locator;
+    readonly month06Button: Locator;
+
 
     constructor(page: Page) {
         this.page = page;
-
+        this.month06Button = page.locator("//div[@class='dp__overlay_cell dp__overlay_cell_pad'][normalize-space()='Thg 6']");
+        this.monthButton = page.locator("button[aria-label='Open months overlay']");
         this.Day16 = page.locator("//div[@class='dp__cell_inner dp__pointer dp__date_hover'][normalize-space()='16']");
         this.logoutButton = page.locator('//div[contains(text(),"Đăng xuất")]');
         this.logoutConfirmButton = page.locator('//span[normalize-space()="Có"]');
@@ -76,7 +79,13 @@ export class RegisnationPage {
         this.saveButton = page.locator("//span[contains(normalize-space(),'Lưu')]");
         this.regisnationButton = page.locator("//div[contains(text(),'Đơn thôi việc')]");
     }
+    async clickMonth06Button() {
+        await this.month06Button.click();
+    }
 
+    async clickMonthButton() {
+        await this.monthButton.click();
+    }
 
     async clickDay16() {
         await this.Day16.click();

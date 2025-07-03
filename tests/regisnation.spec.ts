@@ -1,4 +1,5 @@
 import { test, expect, Page, TestInfo } from '@playwright/test';
+import { clearResignation } from '../utils/mysqlUtils';
 import { LoginPage } from '../pages/LoginPage';
 import { takeScreenshotOnFailure } from '../utils/screenshotUtils';
 import Config from '../utils/configUtils';
@@ -6,12 +7,14 @@ import { RegisnationPage } from '../pages/RegisnationPage';
 import { ToastPage } from '../pages/ToastPage';
 import { allure } from 'allure-playwright';
 import { BasePage } from '../pages/BasePage';
+import { LogoutPage } from '../pages/LogoutPage';
 
 test.describe.serial('Resignation Tests', () => {
   let loginPage: LoginPage;
   let regisnationPage: RegisnationPage;
   let toastPage: ToastPage;
   let basePage: BasePage;
+  let logoutPage: LogoutPage;
 
   const randomSuffix = Math.random().toString(36).substring(2, 8);
 
@@ -20,10 +23,12 @@ test.describe.serial('Resignation Tests', () => {
     allure.owner('Minh Nguyen');
     allure.severity('Critical');
 
+    loginPage = new LoginPage(page);
     basePage = new BasePage(page);
     loginPage = new LoginPage(page);
     regisnationPage = new RegisnationPage(page);
     toastPage = new ToastPage(page);
+    logoutPage = new LogoutPage(page);
 
     await loginPage.goto();
   });
@@ -33,6 +38,7 @@ test.describe.serial('Resignation Tests', () => {
   });
 
   test('Add new resignation and send', async ({ page }) => {
+    await clearResignation();
     allure.story('Add new resignation Story');
 
     await allure.step('Employee logs in and creates resignation', async () => {
@@ -52,6 +58,8 @@ test.describe.serial('Resignation Tests', () => {
       await toastPage.getToastSendSuccess();
     });
   });
+
+
 
   test('Edit resignation reason', async ({ page }) => {
     allure.story('Edit Resignation Story');
@@ -85,6 +93,59 @@ test.describe.serial('Resignation Tests', () => {
     });
   });
 
+  test('E2E - Complete resignation reject process', async ({ page }) => {
+    allure.story('Full Resignation Reject Story');
+
+    await allure.step('Employee logs in and creates resignation request', async () => {
+      await loginPage.login(Config.employee_username, Config.employee_password);
+      await basePage.clickAdmin();
+      await regisnationPage.clickRegisnationButton();
+      await regisnationPage.clickAddButton();
+      await regisnationPage.fillReason('Automation test');
+      await regisnationPage.clickSaveButton();
+      await toastPage.getToastAddSuccess();
+      await regisnationPage.clickRow0();
+    });
+
+    await allure.step('Employee sends resignation request', async () => {
+      await regisnationPage.clickSendButton();
+      await regisnationPage.clickOkButton();
+      await toastPage.getToastSendSuccess();
+    });
+
+    await allure.step('Employee browses own request', async () => {
+      await regisnationPage.clickRow0();
+      await regisnationPage.clickBrowseButton();
+      await regisnationPage.clickOkButton();
+      await toastPage.getToastBrowseSuccess();
+      await logoutPage.logout();
+
+    });
+
+    await allure.step('Manager approves resignation request', async () => {
+      await loginPage.goto();
+      await loginPage.login(Config.manager_username, Config.manager_password);
+      await basePage.clickAdmin();
+      await regisnationPage.clickRegisnationButton();
+      await regisnationPage.clickRow0();
+      await regisnationPage.clickBrowseButton();
+      await regisnationPage.clickOkButton();
+      await toastPage.getToastBrowseSuccess();
+      await logoutPage.logout();
+    });
+
+    await allure.step('Admin rejects resignation request', async () => {
+      await loginPage.goto();
+      await loginPage.login(Config.admin_username, Config.admin_password);
+      await basePage.clickAdmin();
+      await regisnationPage.clickRegisnationButton();
+      await regisnationPage.clickRow0();
+      await basePage.clickReject();
+      await basePage.fillReason('Automation test reject');
+      await toastPage.getToastRejectSuccess();
+    });
+  });
+
   test('E2E - Complete resignation approval process', async ({ page }) => {
     allure.story('Full Resignation Process Story');
 
@@ -110,8 +171,8 @@ test.describe.serial('Resignation Tests', () => {
       await regisnationPage.clickBrowseButton();
       await regisnationPage.clickOkButton();
       await toastPage.getToastBrowseSuccess();
-      await regisnationPage.Logout();
-      await page.waitForTimeout(1200);
+      await logoutPage.logout();
+
     });
 
     await allure.step('Manager approves resignation request', async () => {
@@ -123,8 +184,7 @@ test.describe.serial('Resignation Tests', () => {
       await regisnationPage.clickBrowseButton();
       await regisnationPage.clickOkButton();
       await toastPage.getToastBrowseSuccess();
-      await regisnationPage.Logout();
-      await page.waitForTimeout(1200);
+      await logoutPage.logout();
     });
 
     await allure.step('Admin approves resignation request', async () => {
@@ -136,6 +196,19 @@ test.describe.serial('Resignation Tests', () => {
       await regisnationPage.clickBrowseButton();
       await regisnationPage.clickOkButton();
       await toastPage.getToastBrowseSuccess();
+    });
+  });
+
+  test('Cancel resignation', async ({ page }) => {
+    allure.story('Cancel Resignation Story');
+    await allure.step('Employee cancels resignation request', async () => {
+      await loginPage.login(Config.admin_username, Config.admin_password);
+      await basePage.clickAdmin();
+      await regisnationPage.clickRegisnationButton();
+      await regisnationPage.clickRow0();
+      await basePage.clickCancel();
+      await basePage.fillReason('Automation test cancel');
+      await toastPage.getToastCancelSuccess();
     });
   });
 
@@ -155,6 +228,8 @@ test.describe.serial('Resignation Tests', () => {
 
     await allure.step('Search by notification of leave date', async () => {
       await regisnationPage.clickNotificaOfLeave();
+      await regisnationPage.clickMonthButton();
+      await regisnationPage.clickMonth06Button();
       await regisnationPage.clickDay16();
       await regisnationPage.clickChosseButton();
       await regisnationPage.clickSearchButton();

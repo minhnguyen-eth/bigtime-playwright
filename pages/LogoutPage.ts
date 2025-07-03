@@ -12,15 +12,13 @@ export class LogoutPage {
     }
 
     async logout() {
-        // Wait for the logout button to be visible and clickable
-        await this.page.waitForLoadState('networkidle');
+
         await this.page.waitForSelector('//div[contains(text(),"Đăng xuất")]', { state: 'visible' });
         await this.logoutButton.click();
 
-        // Wait for the confirmation button to be visible and clickable
-        await this.page.waitForLoadState('networkidle');
         await this.page.waitForSelector('//span[normalize-space()="Có"]', { state: 'visible' });
         await this.logoutConfirmButton.click();
 
+        await this.page.waitForTimeout(1200);
     }
 }
