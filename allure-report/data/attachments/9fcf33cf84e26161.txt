@@ -1,1 +1,0 @@
-Cleared 3 rows in evaluation_criterias with condition.

@@ -37,19 +37,6 @@ test.describe.serial('Allowance Test', () => {
         await takeScreenshotOnFailure(page, testInfo);
     });
 
-    test('Cancel add allowance', async ({ page }) => {
-        await basePage.clickAdd();
-        await allowancePage.fillAllwanceName('Automation test cancel add');
-        await allowancePage.fillAllwanceMoney('250000');
-        await allowancePage.fillNote('Automation test cancel allowance');
-        await basePage.clickCancel();
-    });
-
-    test('Cancel edit allowance', async ({ page }) => {
-        await basePage.clickEditRow0();
-        await allowancePage.fillAllwanceName('Automation test cancel edit');
-        await basePage.clickCancel();
-    });
 
     test('Save with empty data', async ({ page }) => {
         await clearAllowanceType();

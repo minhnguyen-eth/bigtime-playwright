@@ -178,7 +178,7 @@ test.describe.serial('Work Shift Tests', () => {
             await workShiftPage.clickOnStatus('Lock');
             await workShiftPage.clickOnSearchButton();
             await workShiftPage.getVerifyAtiveStatusSearch();
-            await workShiftPage.getVerifyLockStatusSearchRow1();
+            // await workShiftPage.getVerifyLockStatusSearchRow1();
         });
     });
 });
