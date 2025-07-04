@@ -29,9 +29,12 @@ export class BasePage {
     readonly lockStatusRow0: Locator;
     readonly activityStatusRow0: Locator;
     readonly dropdownStatusSearch: Locator;
-    readonly lockStatusSearch: Locator;
-    readonly activityStatusSearch: Locator;
+    readonly lockStatus: Locator;
+    readonly activityStatus: Locator;
     readonly row0: Locator;
+    readonly noExistData: Locator;
+    readonly iconStatusDropdown: Locator;
+    readonly validationNameExist: Locator;
 
 
     // Validatation
@@ -39,9 +42,12 @@ export class BasePage {
 
     constructor(page: Page) {
         this.page = page;
+        this.validationNameExist = page.locator("//li[contains(text(),'Tên đã tồn tại.')]");
+        this.iconStatusDropdown = page.locator("//i[@class='mdi-book-lock-open-outline mdi v-icon notranslate v-theme--lightColor7 v-icon--size-default']");
+        this.noExistData = page.locator("//td[.='Không có dữ liệu']");
         this.row0 = page.locator("//tr[@id='row-0']");
-        this.lockStatusSearch = page.locator("//div[contains(text(),'Khóa')]");
-        this.activityStatusSearch = page.locator("//div[contains(text(),'Hoạt động')]");
+        this.lockStatus = page.locator("//div[contains(text(),'Khóa')]");
+        this.activityStatus = page.locator("//div[contains(text(),'Hoạt động')]");
         this.dropdownStatusSearch = page.locator("//div[@class='v-field v-field--appended v-field--center-affix v-field--variant-outlined v-theme--lightColor7 v-locale--is-ltr']//i[@class='mdi-menu-down mdi v-icon notranslate v-theme--lightColor7 v-icon--size-default v-select__menu-icon']");
         this.activityStatusRow0 = page.locator("//tr[@id='row-0']//span[@class='custom-size'][contains(text(),'Hoạt động')]");
         this.lockStatusRow0 = page.locator("//tr[@id='row-0']//span[@class='custom-size'][normalize-space()='Khóa']");
@@ -73,16 +79,30 @@ export class BasePage {
        
     }
 
+    async expectNameExist() {
+        await expect(this.validationNameExist).toBeVisible();
+        await expect(this.validationNameExist).toHaveText('Tên đã tồn tại.');
+    }
+
+    async clickIconStatusDropdown() {
+        await this.iconStatusDropdown.click();
+    }
+
+    async verifyNoExistData() {
+        await expect(this.noExistData).toBeVisible();
+        await expect(this.noExistData).toHaveText('Không có dữ liệu');
+    }
+
     async clickRow0() {
         await this.row0.click();
     }
 
-    async clickLockStatusSearch() {
-        await this.lockStatusSearch.click();
+    async clickLockStatus() {
+        await this.lockStatus.click();
     }
 
-    async clickActivityStatusSearch() {
-        await this.activityStatusSearch.click();
+    async clickActivityStatus() {
+        await this.activityStatus.click();
     }
 
     async clickDropdownStatusSearch() {

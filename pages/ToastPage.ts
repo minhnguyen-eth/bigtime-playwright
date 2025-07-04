@@ -18,9 +18,11 @@ export class ToastPage {
     readonly toastEditSuccess: Locator;
     readonly toastExportHaveNoData: Locator;
     readonly toastPaymentSuccess: Locator;
+    readonly toastUpdateFailed: Locator;
 
     constructor(page: Page) {
         this.page = page;
+        this.toastUpdateFailed = page.locator('//div[contains(text(),"Cập nhật không thành công")]');
         this.toastPaymentSuccess = page.locator('//div[contains(text(),"Thêm thanh toán phiếu lương thành công")]');
         this.toastExportHaveNoData = page.locator('//div[contains(text(),"Không có dữ liệu")]');
         this.toastEditSuccess = page.locator('//div[contains(text(),"Chỉnh sửa thành công")]');
@@ -37,6 +39,11 @@ export class ToastPage {
         this.toastUpdateSuccess = page.locator('//div[contains(text(),"Cập nhật thành công")]');
         this.toastDeleteSuccess = page.locator('//div[contains(text(),"Xóa thành công")]');
         this.toastBrowseSuccess = page.locator('//div[contains(text(),"Đã duyệt thành công")]');
+    }
+
+    async getToastUpdateFailed() {
+        await expect(this.toastUpdateFailed).toHaveText('Cập nhật không thành công');
+        return this.toastUpdateFailed.textContent();
     }
 
     async getToastPaymentSuccess() {

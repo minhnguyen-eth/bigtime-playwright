@@ -1,2 +1,0 @@
-Cleared 0 rows in employment_contracts .
-📸 Screenshot saved: D:\BigAppTech\playwright-typescripts\screenshots\create_contract_with_probation.png

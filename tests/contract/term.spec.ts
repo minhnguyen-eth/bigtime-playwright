@@ -6,6 +6,7 @@ import { takeScreenshotOnFailure } from '../../utils/screenshotUtils';
 import Config from '../../utils/configUtils';
 import { TermPage } from '../../pages/contract_page/TermPage';
 import { clearTerm } from '../../utils/mysqlUtils';
+import { allure } from "allure-playwright";
 
 test.describe.serial('Term Tests', () => {
     let termPage: TermPage;
@@ -14,6 +15,9 @@ test.describe.serial('Term Tests', () => {
     let basePage: BasePage;
 
     test.beforeEach(async ({ page }) => {
+        allure.owner("Minh Nguyen");
+        allure.feature("Term Feature");
+        allure.severity("Critical");
         loginPage = new LoginPage(page);
         toastPage = new ToastPage(page);
         termPage = new TermPage(page);
@@ -126,14 +130,14 @@ test.describe.serial('Term Tests', () => {
     test('Search by status', async ({ page }) => {
         // Search by lock status
         await basePage.clickDropdownStatusSearch();
-        await basePage.clickLockStatusSearch();
+        await basePage.clickLockStatus();
         await basePage.clickSearch();
         await basePage.verifyLockStatusRow0();
         await basePage.clickClearSearch();
 
         // Search by active status
         await basePage.clickDropdownStatusSearch();
-        await basePage.clickActivityStatusSearch();
+        await basePage.clickActivityStatus();
         await basePage.clickSearch();
         await basePage.verifyActivityStatusRow0();
     });

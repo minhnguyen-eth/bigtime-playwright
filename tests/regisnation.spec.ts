@@ -9,6 +9,7 @@ import { allure } from 'allure-playwright';
 import { BasePage } from '../pages/BasePage';
 import { LogoutPage } from '../pages/LogoutPage';
 
+
 test.describe.serial('Resignation Tests', () => {
   let loginPage: LoginPage;
   let regisnationPage: RegisnationPage;

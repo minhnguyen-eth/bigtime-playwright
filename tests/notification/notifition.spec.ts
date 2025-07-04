@@ -17,7 +17,7 @@ test.describe.serial('Notification Test Suite', () => {
     test.beforeEach(async ({ page }) => {
         allure.feature('Notification Feature');
         allure.owner('Minh Nguyen');
-        allure.severity('Normal');
+        allure.severity('High');
 
         basePage = new BasePage(page);
         toast = new ToastPage(page);

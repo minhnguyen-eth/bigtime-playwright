@@ -17,7 +17,7 @@ test.describe.serial('Allowance Test', () => {
     let allowancePage: AllowancePage;
 
     test.beforeEach(async ({ page }) => {
-        allure.feature('Debt Feature');
+        allure.feature('Allowance Feature');
         allure.owner('Minh Nguyen');
         allure.severity('Critical');
 

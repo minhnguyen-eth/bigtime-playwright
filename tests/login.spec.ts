@@ -56,4 +56,65 @@ test.describe.serial('Login Tests', () => {
       await loginPage.expectLoginError();
     });
   });
+
+  test('Login Unsuccessful With Empty Credentials', async () => {
+    allure.story('Empty Login Story');
+
+    await allure.step('Login with empty credentials', async () => {
+      await loginPage.login('', '');
+    });
+
+    await allure.step('Verify login failure message', async () => {
+      await loginPage.expectUsernameValidate();
+      await loginPage.expectPasswordValidate();
+    });
+  });
+
+  test('Login Unsuccessful With Empty Username', async () => {
+    allure.story('Empty Username Login Story');
+
+    await allure.step('Login with empty username', async () => {
+      await loginPage.login('', Config.admin_password);
+    });
+
+    await allure.step('Verify login failure message', async () => {
+      await loginPage.expectUsernameValidate();
+    });
+  });
+
+  test('Login Unsuccessful With Empty Password', async () => {
+    allure.story('Empty Password Login Story');
+
+    await allure.step('Login with empty password', async () => {
+      await loginPage.login(Config.admin_username, '');
+    });
+
+    await allure.step('Verify login failure message', async () => {
+      await loginPage.expectPasswordValidate();
+    });
+  });
+
+  test('Login Unsuccessful With Invalid Username', async () => {
+    allure.story('Invalid Username Login Story');
+
+    await allure.step('Login with invalid username', async () => {
+      await loginPage.login('admin@bigapptech.vn', Config.admin_password);
+    });
+
+    await allure.step('Verify login failure message', async () => {
+      await loginPage.expectLoginError();
+    });
+  });
+
+  test('Login Unsuccessful With Invalid Password', async () => {
+    allure.story('Invalid Password Login Story');
+
+    await allure.step('Login with invalid password', async () => {
+      await loginPage.login(Config.admin_username, 'asfasfasfas');
+    });
+
+    await allure.step('Verify login failure message', async () => {
+      await loginPage.expectLoginError();
+    });
+  });
 });

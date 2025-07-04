@@ -6,6 +6,8 @@ import { takeScreenshotOnFailure } from '../../utils/screenshotUtils';
 import Config from '../../utils/configUtils';
 import { clearEmploymentContract } from '../../utils/mysqlUtils';
 import { ContractPage } from '../../pages/contract_page/ContractPage';
+import { allure } from "allure-playwright";
+
 
 test.describe.serial('Contract Tests', () => {
     let contractPage: ContractPage;
@@ -14,6 +16,10 @@ test.describe.serial('Contract Tests', () => {
     let basePage: BasePage;
 
     test.beforeEach(async ({ page }) => {
+        allure.owner("Minh Nguyen");
+        allure.feature("Contract Feature");
+        allure.severity("Critical");
+
         loginPage = new LoginPage(page);
         toastPage = new ToastPage(page);
         contractPage = new ContractPage(page);

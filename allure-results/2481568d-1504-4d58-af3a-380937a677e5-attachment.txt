@@ -1,3 +1,0 @@
-Cleared 0 rows in evaluation_criterias with condition.
-🔍 Required evaluation type name text found: Nhập tên loại đánh giá
-🔍 Required criteria name text found: Nhập tên tiêu chí
