@@ -1,8 +1,9 @@
 {
   "homepage": "https://minhnguyen-eth.github.io/bigtime-playwright",
   "scripts": {
+    "generate": "node generate-report.js",
     "deploy": "gh-pages -d allure-report",
-    "report": "npx allure generate allure-results --clean -o allure-report && npm run deploy"
+    "report": "npm run generate && npm run deploy"
   },
   "devDependencies": {
     "@playwright/test": "^1.53.0",
