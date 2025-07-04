@@ -9,7 +9,7 @@ import { LevelPage } from '../pages/LevelPage';
 import { clearLevel } from '../utils/mysqlUtils';
 
 
-test.describe.serial('Branch', () => {
+test.describe.serial('Level Test Suite', () => {
 
     let loginPage: LoginPage;
     let levelPage: LevelPage;

@@ -9,7 +9,7 @@ import { DepartmentPage } from '../pages/DepartmentPage';
 import { clearDepartment } from '../utils/mysqlUtils'
 
 
-test.describe.serial('Branch', () => {
+test.describe.serial('Department Test', () => {
 
     let loginPage: LoginPage;
     let departmentPage: DepartmentPage;

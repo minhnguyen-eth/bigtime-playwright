@@ -9,7 +9,7 @@ import Config from '../../utils/configUtils';
 import { AllowancePage } from '../../pages/salary_page/AllowancePage';
 import { clearAllowanceType } from '../../utils/mysqlUtils';
 
-test.describe.serial('Allowance Test', () => {
+test.describe.serial('Allowance Tests', () => {
     let loginPage: LoginPage;
     let toastPage: ToastPage;
     let logoutPage: LogoutPage;

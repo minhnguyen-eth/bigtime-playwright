@@ -32,7 +32,7 @@ test.describe('Forgot Password Test Suite', () => {
         await page.locator("//span[.=' Quên mật khẩu']").click();
 
         // Input wrong format email
-        await page.locator("//label[@class='v-label v-field-label']").fill("abc@abc");
+        await page.locator("//form/div/div/div/div/div/div[4]/div/input").fill("abc@abc");
 
         // Click on forget password button
         await page.locator("//span[.=' Quên mật khẩu']").click();

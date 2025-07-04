@@ -9,7 +9,7 @@ import { BranchPage } from '../pages/BranchPage';
 import { clearBranch } from '../utils/mysqlUtils';
 
 
-test.describe.serial('Branch', () => {
+test.describe.serial('Branch Test', () => {
 
     let loginPage: LoginPage;
     let branchPage: BranchPage
