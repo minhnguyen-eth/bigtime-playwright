@@ -59,8 +59,6 @@ test.describe.serial('Resignation Tests', () => {
     });
   });
 
-
-
   test('Edit resignation reason', async ({ page }) => {
     allure.story('Edit Resignation Story');
     await allure.step('Employee edits resignation reason with valid data', async () => {

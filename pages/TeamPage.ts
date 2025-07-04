@@ -28,7 +28,6 @@ export class TeamPage {
 
   constructor(page: Page) {
     this.page = page;
-
     this.resultMaxlenghtName = page.locator("//div[contains(text(),'Không nhập quá 255 kí tự.')]");
     this.resultMaxlenghtCode = page.locator("//div[contains(text(),'Không nhập quá 100 kí tự.')]");
     this.resultSearchByCode = page.locator("//tr[@id='row-0']//span[contains(text(),'T001')]");
@@ -52,8 +51,6 @@ export class TeamPage {
     this.teamCodeInput = page.locator("//div[2]/div/div[3]/div/div/div/div[3]/div/input");
     this.teamNameInput = page.locator("//div[2]/div/div[2]/div/div/div/div[3]/div/input");
     this.teamButton = page.locator("//div[contains(text(),'Nhóm')]");
-
-
   }
 
   async getResultMaxlenghtName() {

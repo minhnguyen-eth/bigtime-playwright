@@ -45,6 +45,10 @@ async function clearTable(tableName: string, condition?: string): Promise<void> 
 
 // Specific Clear functions preserved (for backward compatibility)
 
+export async function clearPosition() {
+  await clearTable('positions', "name LIKE '%Automation test%'");
+}
+
 export async function clearEmploymentContract() {
   await clearTable('employment_contracts');
 }

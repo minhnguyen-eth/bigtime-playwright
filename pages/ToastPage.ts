@@ -1,4 +1,5 @@
 import { Page, Locator, expect } from '@playwright/test';
+
 export class ToastPage {
     readonly page: Page;
     readonly toastAddSuccess: Locator;
