@@ -4,7 +4,7 @@ import { takeScreenshotOnFailure } from '../../utils/screenshotUtils';
 import Config from '../../utils/configUtils';
 import { LeaveManagementPage } from '../../pages/leave_page/LeaveManagementPage';
 import { clearAllLeaveManagements } from '../../utils/mysqlUtils';
-import { employeeBrowseLeaveManagement } from './leave_helper';
+import { employeeBrowseLeaveManagement } from './leave-helper';
 import { allure } from 'allure-playwright';
 import { ToastPage } from '../../pages/ToastPage';
 import { BasePage } from '../../pages/BasePage';

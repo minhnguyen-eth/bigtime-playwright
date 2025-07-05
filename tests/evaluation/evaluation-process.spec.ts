@@ -6,7 +6,7 @@ import { EvaluationProcessPage } from "../../pages/evaluation_page/EvaluationPro
 import { ToastPage } from "../../pages/ToastPage";
 import { clearAllEvaluationProgress } from "../../utils/mysqlUtils";
 import { allure } from "allure-playwright";
-import { createCriteria } from "../evaluation/evaluation_helper";
+import { createCriteria } from "../evaluation/evaluation-helper";
 import { BasePage } from "../../pages/BasePage";
 
 test.describe.serial("Evaluation Criteria Tests", () => {

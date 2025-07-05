@@ -78,4 +78,3 @@ export class LevelPage {
         await this.levelButton.click();
     }
 }
-

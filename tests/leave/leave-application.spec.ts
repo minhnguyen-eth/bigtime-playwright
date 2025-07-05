@@ -5,7 +5,7 @@ import Config from '../../utils/configUtils';
 import { LeaveApplicationPage } from '../../pages/leave_page/LeaveApplicationPage';
 import { clearAllLeaveApplications } from '../../utils/mysqlUtils';
 import { clearAllLeaveManagements } from '../../utils/mysqlUtils';
-import { addAnnualLeaveForEmployeeAndAdmin, sendAndApproveLeave } from './leave_helper';
+import { addAnnualLeaveForEmployeeAndAdmin, sendAndApproveLeave } from './leave-helper';
 import { allure } from 'allure-playwright';
 import { BasePage } from '../../pages/BasePage';
 import { ToastPage } from '../../pages/ToastPage';

@@ -150,6 +150,7 @@ export class BasePage {
 
     async clickTodayDatePicker() {
         await this.toDayDatePicker.click();
+        await this.chosseButton.click();
     }
 
     async clickDelete() {
