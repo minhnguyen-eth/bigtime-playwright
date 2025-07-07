@@ -39,9 +39,11 @@ export class BasePage {
 
     // Validatation
     readonly requiredFillReason: Locator;
+    readonly validateMaxlenght255Charactor: Locator
 
     constructor(page: Page) {
         this.page = page;
+        this.validateMaxlenght255Charactor = page.locator("//div[contains(text(),'Không nhập quá 255 kí tự.')]");
         this.validationNameExist = page.locator("//li[contains(text(),'Tên đã tồn tại.')]");
         this.iconStatusDropdown = page.locator("//i[@class='mdi-book-lock-open-outline mdi v-icon notranslate v-theme--lightColor7 v-icon--size-default']");
         this.noExistData = page.locator("//td[.='Không có dữ liệu']");
@@ -77,6 +79,11 @@ export class BasePage {
         this.addButton = page.locator("//span[normalize-space()='Thêm']");
         this.searchButton = page.locator("//span[contains(normalize-space(),'Tìm kiếm')]");
        
+    }
+
+    async verifyMaxlenght255Charactor() {
+        await expect(this.validateMaxlenght255Charactor).toBeVisible();
+        await expect(this.validateMaxlenght255Charactor).toHaveText('Không nhập quá 255 kí tự.');
     }
 
     async expectNameExist() {

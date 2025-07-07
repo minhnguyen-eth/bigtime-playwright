@@ -15,13 +15,6 @@ async function getConnection() {
   return await mysql.createConnection(config);
 }
 
-
-// Gọi hàm mock (chạy trực tiếp)
-const today = new Date().toISOString().split('T')[0];
-mockCheckinData('4cMiTbHpAz', today);
-
-
-
 export async function mockCheckinData(userId: string, date: string) {
   const conn = await getConnection();
 
@@ -117,6 +110,10 @@ async function clearTable(tableName: string, condition?: string): Promise<void> 
 
 // Specific Clear functions preserved (for backward compatibility)
 
+export const clearOvertimeSubmission = async () => {
+  await clearTable('overtime_submissions');
+};
+
 export const clearCheckDay = async () => {
   await clearTable('check_days');
 };
@@ -124,8 +121,6 @@ export const clearCheckDay = async () => {
 export const clearCheckTime = async () => {
   await clearTable('check_times');
 };
-
-
 
 export const clearHolidayManagement = async () => {
   await clearTable('holiday_managements');
