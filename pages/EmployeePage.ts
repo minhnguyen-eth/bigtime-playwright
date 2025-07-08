@@ -78,10 +78,22 @@ export class EmployeePage {
   readonly checkBoxGender: Locator;
   readonly verifyMaleSearch: Locator;
   readonly verifyFemaleSearch: Locator;
+  readonly verifyDataOfBirth: Locator;
+  readonly verifyAddress: Locator;
+  readonly verifyJoningTheCompany: Locator;
+  readonly verifyDepartment: Locator;
+  readonly verifyTeam: Locator;
+  readonly verifyPosition: Locator;
 
 
   constructor(page: Page) {
     this.page = page;
+    this.verifyPosition = page.locator("//div[normalize-space()='QA']");
+    this.verifyTeam = page.locator("//div[normalize-space()='Nhóm 1 Marketing']");
+    this.verifyDepartment = page.locator("//div[contains(text(),'Bộ phận Marketing')]");
+    this.verifyJoningTheCompany = page.locator("//div[normalize-space()='08-07-2025']");
+    this.verifyAddress = page.locator("//div[normalize-space()='Bien Hoa, Dong Nai']");
+    this.verifyDataOfBirth = page.locator("//div[normalize-space()='08-08-2014']");
     this.toastPage = new ToastPage(page);
     this.verifyFemaleSearch = page.locator("//tr[@id='row-0']//div[contains(text(),'Nữ')]");
     this.verifyMaleSearch = page.locator("//tr[@id='row-0']//div[contains(text(),'Nam')]");
@@ -160,6 +172,35 @@ export class EmployeePage {
 
   }
 
+  async expectTeamIsDisplayed() {
+    await expect(this.verifyTeam).toBeVisible();
+    await expect(this.verifyTeam).toContainText('Nhóm 1 Marketing');
+  }
+
+  async expectDepartmentIsDisplayed() {
+    await expect(this.verifyDepartment).toBeVisible();
+    await expect(this.verifyDepartment).toContainText('Marketing');
+  }
+
+  async expectPositionIsDisplayed() {
+    await expect(this.verifyPosition).toBeVisible();
+    await expect(this.verifyPosition).toContainText('QA');
+  }
+
+  async expectJoningTheCompanyIsDisplayed() {
+    await expect(this.verifyJoningTheCompany).toBeVisible();
+    await expect(this.verifyJoningTheCompany).toContainText('2025');
+  }
+
+  async expectAddressIsDisplayed() {
+    await expect(this.verifyAddress).toBeVisible();
+    await expect(this.verifyAddress).toContainText('Bien Hoa, Dong Nai');
+  }
+
+  async expectDateOfBirthIsDisplayed() {
+    await expect(this.verifyDataOfBirth).toBeVisible();
+    await expect(this.verifyDataOfBirth).toContainText('08-08-2014');
+  }
 
   async selectMaleSearch() {
     await this.checkBoxGender.first().check();

@@ -28,13 +28,15 @@ export class NotificationPage {
     readonly listNotification: Locator;
     readonly deleteButton: Locator;
     readonly yesButton: Locator;
-
-
-
+    readonly verifyNotificationDepartment: Locator;
+    readonly verifyNotificationCompany: Locator;
+    readonly verifyNotificationPersonnal: Locator;
 
     constructor(page: Page) {
         this.page = page;
-
+        this.verifyNotificationPersonnal = page.locator("//strong[contains(text(),'Gửi đến: Nhân viên BAT810-Nguyễn Văn Minh')]");
+        this.verifyNotificationCompany = page.locator("//strong[contains(text(),'Gửi đến: Toàn công ty')]");
+        this.verifyNotificationDepartment = page.locator("//strong[contains(text(),'Gửi đến: Bộ phận Bộ phận IT')]");
         this.yesButton = page.locator("//span[normalize-space()='Có']");
         this.deleteButton = page.locator("//span[normalize-space()='Xóa']");
         this.listNotification = page.locator("//div[contains(text(),'Danh sách thông báo')]");
@@ -63,6 +65,24 @@ export class NotificationPage {
         this.cancelButton = page.locator("//span[contains(normalize-space(),'Hủy')]");
     }
 
+
+    async getVerifyNotificationPersonnal() {
+        const verifyNotificationPersonnal = await this.verifyNotificationPersonnal.textContent();
+        console.log("Verify notification personal is " + verifyNotificationPersonnal);
+        return verifyNotificationPersonnal;
+    }
+
+    async getVerifyNotificationCompany() {
+        const verifyNotificationCompany = await this.verifyNotificationCompany.textContent();
+        console.log("Verify notification company is " + verifyNotificationCompany);
+        return verifyNotificationCompany;
+    }
+
+    async getVerifyNotificationDepartment() {
+        const verifyNotificationDepartment = await this.verifyNotificationDepartment.textContent();
+        console.log("Verify notification department is " + verifyNotificationDepartment);
+        return verifyNotificationDepartment;
+    }
 
     async clickOnYesButton() {
         await this.yesButton.click();

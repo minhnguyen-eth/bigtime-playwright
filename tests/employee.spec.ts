@@ -35,8 +35,16 @@ test.describe.serial('Employee Tests', () => {
         await takeScreenshotOnFailure(page, testInfo);
     });
 
-    test(`Add with role employee`, async ({ page }) => {
+    test(`E2E - Add with role employee`, async ({ page }) => {
         await employeePage.addWithRoleEmployee();
+
+        //Verify
+        await basePage.clickRow0();
+        await employeePage.expectDateOfBirthIsDisplayed();
+        await employeePage.expectDepartmentIsDisplayed();
+        await employeePage.expectPositionIsDisplayed();
+        await employeePage.expectTeamIsDisplayed();
+        await employeePage.expectJoningTheCompanyIsDisplayed();
     });
     test('Test resume with full data valid information', async ({ page }) => {
         await basePage.clickRow0();

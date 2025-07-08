@@ -19,13 +19,17 @@ export class HolidayManagementPage {
     readonly chosseUserInput: Locator;
     readonly selectUser: Locator;
     readonly restHolidayHaveSalary: Locator;
+    readonly restHolidayNoSalary: Locator;
     readonly msgNameRequired: Locator;
     readonly msgStartDateRequired: Locator;
     readonly msgEndDateRequired: Locator;
     readonly msgReasonRequired: Locator;
+    readonly checkBox: Locator;
     
     constructor(page: Page) {
         this.page = page;
+        this.restHolidayNoSalary = page.locator("//td[contains(text(),'Ngày lễ không lương')]");
+        this.checkBox = page.locator("//input[@type='checkbox']");
         this.msgReasonRequired = page.locator("//div[contains(text(),'Nhập lý do')]");
         this.msgEndDateRequired = page.locator("//div[contains(text(),'Nhập đến hết ngày')]");
         this.msgStartDateRequired = page.locator("//div[contains(text(),'Nhập bắt đầu từ ngày')]");
@@ -43,6 +47,11 @@ export class HolidayManagementPage {
         this.startDate = page.locator("//div[4]/div/div/div/div/div[1]/div/div/div[3]/input");
         this.holidayButton = page.locator("//div[contains(text(),'Quản lý ngày nghỉ')]");
         this.holidayName = page.locator("//div[2]/div/div[1]/div/div/div/div[3]/div/input");
+
+    }
+
+    async unCheckBox() {
+        await this.checkBox.uncheck();
     }
 
     async expectNameRequired() {
@@ -69,6 +78,12 @@ export class HolidayManagementPage {
         const text = await this.restHolidayHaveSalary.textContent();
         console.log(` Rest Holiday Have Salary: ${text}`);
         await expect(this.restHolidayHaveSalary).toContainText("Ngày lễ có lương");
+    }
+
+    async verifyRestHolidayNoSalary() {
+        const text = await this.restHolidayNoSalary.textContent();
+        console.log(` Rest Holiday No Salary: ${text}`);
+        await expect(this.restHolidayNoSalary).toContainText("Ngày lễ không lương");
     }
 
     async fillAndSelectUser() {
@@ -118,4 +133,5 @@ export class HolidayManagementPage {
     async clickHolidayButton() {
         await this.holidayButton.click();
     }
+
 }

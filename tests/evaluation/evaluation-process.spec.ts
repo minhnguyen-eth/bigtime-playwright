@@ -20,7 +20,6 @@ test.describe.serial("Evaluation Criteria Tests", () => {
     const random = `Automation test ${randomSuffix}`;
 
     test.beforeEach(async ({ page }) => {
-
         allure.feature("Evaluation Process Feature");
         allure.owner("Minh Nguyen");
         allure.severity("Critical");

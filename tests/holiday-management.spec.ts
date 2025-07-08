@@ -5,8 +5,7 @@ import Config from '../utils/configUtils';
 import { ToastPage } from '../pages/ToastPage';
 import { HolidayManagementPage } from '../pages/HolidayManagementPage';
 import { clearHolidayManagement } from '../utils/mysqlUtils';
-
-
+import { allure } from 'allure-playwright';
 
 test.describe('Holiday Management', () => {
     let loginPage: LoginPage;
@@ -14,8 +13,11 @@ test.describe('Holiday Management', () => {
     let holidayManagementPage: HolidayManagementPage;
     let toastPage: ToastPage;
 
-
     test.beforeEach(async ({ page }) => {
+        allure.feature('Holiday Management Feature');
+        allure.owner('Minh Nguyen');
+        allure.severity('Critical');
+
         loginPage = new LoginPage(page);
         basePage = new BasePage(page);
         toastPage = new ToastPage(page);
@@ -24,7 +26,6 @@ test.describe('Holiday Management', () => {
         await loginPage.login(Config.admin_username, Config.admin_password);
         await basePage.clickAdmin();
         await holidayManagementPage.clickHolidayButton();
-
     });
 
     test('E2E - Add Holiday Management', async ({ page }) => {
@@ -45,6 +46,24 @@ test.describe('Holiday Management', () => {
         await holidayManagementPage.verifyRestHolidayHaveSalary();
     });
 
+    test('Unpaid leave', async ({ page }) => {
+        await clearHolidayManagement();
+        await basePage.clickAdd();
+        await holidayManagementPage.fillHolidayName("Test");
+        await holidayManagementPage.unCheckBox();
+        await holidayManagementPage.clickStartDate();
+        await basePage.clickTodayDatePicker();
+        await holidayManagementPage.clickEndDate();
+        await basePage.clickTodayDatePicker();
+        await holidayManagementPage.fillReason('Test Reason');
+        await holidayManagementPage.checkTotalHolidayResult();
+        await basePage.clickSave();
+        await toastPage.getToastAddSuccess();
+        await holidayManagementPage.clickTimeKeeping();
+        await holidayManagementPage.clickCheckInOutHistory();
+        await holidayManagementPage.fillAndSelectUser();
+        await holidayManagementPage.verifyRestHolidayNoSalary();
+    });
 
     test('Check validation required add with blank field', async ({ page }) => {
         await basePage.clickAdd();
@@ -53,6 +72,28 @@ test.describe('Holiday Management', () => {
         await holidayManagementPage.expectStartDateRequired();
         await holidayManagementPage.expectEndDateRequired();
         await holidayManagementPage.expectReasonRequired();
+    });
+
+    test('Add with blank reason', async ({ page }) => {
+        await basePage.clickAdd();
+        await holidayManagementPage.fillHolidayName("Test");
+        await holidayManagementPage.clickStartDate();
+        await basePage.clickTodayDatePicker();
+        await holidayManagementPage.clickEndDate();
+        await basePage.clickTodayDatePicker();
+        await basePage.clickSave();
+        await holidayManagementPage.expectReasonRequired();
+    });
+
+    test('Add with blank name', async ({ page }) => {
+        await basePage.clickAdd();
+        await holidayManagementPage.clickStartDate();
+        await basePage.clickTodayDatePicker();
+        await holidayManagementPage.clickEndDate();
+        await basePage.clickTodayDatePicker();
+        await holidayManagementPage.fillReason('Test Reason');
+        await basePage.clickSave();
+        await holidayManagementPage.expectNameRequired();
     });
 
     test('Delete Holiday', async ({ page }) => {

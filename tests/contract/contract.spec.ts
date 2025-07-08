@@ -8,7 +8,6 @@ import { clearEmploymentContract } from '../../utils/mysqlUtils';
 import { ContractPage } from '../../pages/contract_page/ContractPage';
 import { allure } from "allure-playwright";
 
-
 test.describe.serial('Contract Tests', () => {
     let contractPage: ContractPage;
     let toastPage: ToastPage;
@@ -35,7 +34,7 @@ test.describe.serial('Contract Tests', () => {
         await takeScreenshotOnFailure(page, testInfo);
     });
 
-    test('Create contract with probation', async ({ page }) => {
+    async function CreateContractWithProbation() {
         await clearEmploymentContract();
         await basePage.clickAdd();
         await contractPage.fillEmployeeName();
@@ -46,6 +45,49 @@ test.describe.serial('Contract Tests', () => {
         await contractPage.checkSelectAllTerm();
         await basePage.clickSave();
         await toastPage.getToastAddSuccess();
+    }
+
+    test('Create contract with no select term and blank note', async ({ page }) => {
+        await clearEmploymentContract();
+        await basePage.clickAdd();
+        await contractPage.fillEmployeeName();
+        await contractPage.fillSalary("10000000");
+        await contractPage.selectEndDate();
+        await basePage.clickChoose();
+        await basePage.clickSave();
+        await toastPage.getToastAddSuccess();
+    });
+
+    test('Edit contract type - Probation to Permanent', async ({ page }) => {
+        await CreateContractWithProbation();
+        await basePage.clickRow0();
+        await basePage.clickEdit();
+        await contractPage.clickContractTypeDropdown();
+        await contractPage.clickFormalContract();
+        await basePage.clickSave();
+        await toastPage.getToastUpdateSuccess();
+        await contractPage.verifyPermanentType();
+    });
+
+    test('Edit base salary', async ({ page }) => {
+        await basePage.clickRow0();
+        await basePage.clickEdit();
+        await contractPage.fillSalary("20000000");
+        await basePage.clickSave();
+        await toastPage.getToastUpdateSuccess();
+    });
+
+    test('Edit note ', async ({ page }) => {
+        await basePage.clickRow0();
+        await basePage.clickEdit();
+        await contractPage.fillNote('Automation test edit');
+        await basePage.clickSave();
+        await toastPage.getToastUpdateSuccess();
+    });
+
+    test('Create contract with probation', async ({ page }) => {
+        await CreateContractWithProbation();
+
     });
 
     test('Create with formal contract ', async ({ page }) => {
@@ -72,8 +114,16 @@ test.describe.serial('Contract Tests', () => {
         await toastPage.getToastAddSuccess();
     });
 
-    test('Create with collaborator contract ', async ({ page }) => {
+    test('Edit end date', async ({ page }) => {
+        await basePage.clickRow0();
+        await basePage.clickEdit();
+        await contractPage.selectEndDate2();
+        await basePage.clickChoose();
+        await basePage.clickSave();
+        await toastPage.getToastUpdateSuccess();
+    });
 
+    test('Create with collaborator contract ', async ({ page }) => {
         await basePage.clickAdd();
         await contractPage.fillEmployeeName();
         await contractPage.clickContractTypeDropdown();
@@ -85,5 +135,70 @@ test.describe.serial('Contract Tests', () => {
         await basePage.clickSave();
         await toastPage.getToastAddSuccess();
     });
-});
 
+    test('Search by contract type ', async ({ page }) => {
+        // Search by probation type
+        await contractPage.clickSearchByContractType();
+        await contractPage.clickProbationType();
+        await basePage.clickSearch();
+        await contractPage.verifyProbationType();
+        await basePage.clickClearSearch();
+
+        // Search by permanent type
+        await contractPage.clickSearchByContractType();
+        await contractPage.clickPermanentType();
+        await basePage.clickSearch();
+        await contractPage.verifyPermanentType();
+        await basePage.clickClearSearch();
+
+        // Search by temporary type
+        await contractPage.clickSearchByContractType();
+        await contractPage.clickTemporaryType();
+        await basePage.clickSearch();
+        await contractPage.verifyTemporaryType();
+        await basePage.clickClearSearch();
+
+        // Search by freelace type
+        await contractPage.clickSearchByContractType();
+        await contractPage.clickFreeLanceType();
+        await basePage.clickSearch();
+        await contractPage.verifyFreeLanceType();
+    });
+
+    test('Search by start date', async ({ page }) => {
+        await contractPage.clickStartDateSearch();
+        await basePage.clickTodayDatePicker();
+        await basePage.clickSearch();
+        await contractPage.verifyStartDateSearchResult();
+        await basePage.clickClearSearch();
+
+    });
+
+    test('Search by code', async ({ page }) => {
+        await contractPage.fillSearchByCode('HD0001');
+        await basePage.clickSearch();
+        await contractPage.verifySearchByCodeResult();
+
+        // search by code not exist
+        await contractPage.fillSearchByCode('Testttt258963');
+        await basePage.clickSearch();
+        await basePage.verifyNoExistData();
+    });
+
+    test('Search by name', async ({ page }) => {
+        await contractPage.fillSearchByName('Nguyễn Văn Minh');
+        await basePage.clickSearch();
+        await contractPage.verifySearchByNameResult();
+
+        // search by name not exist
+        await contractPage.fillSearchByName('Testttt258963');
+        await basePage.clickSearch();
+        await basePage.verifyNoExistData();
+    });
+
+    test('Delete contract', async ({ page }) => {
+        await basePage.clickRow0();
+        await basePage.clickDelete();
+        await toastPage.getToastDeleteSuccess();
+    });
+});

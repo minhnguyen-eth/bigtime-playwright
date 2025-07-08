@@ -46,7 +46,7 @@ test.describe.serial('Allowance Tests', () => {
         await allowancePage.checkValidationMoneyRequired();
     });
 
-    test('Create allowance type daily with valid data', async ({ page }) => {
+    test('E2E - Create allowance type daily with valid data and verify', async ({ page }) => {
         const randomString = Math.random().toString(36).substring(7);
         await basePage.clickAdd();
         await allowancePage.fillAllwanceName(randomString);

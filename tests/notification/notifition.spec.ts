@@ -7,18 +7,21 @@ import { allure } from 'allure-playwright';
 import { NotificationPage } from '../../pages/notification_page/NotificationPage';
 import { clearAllNotifications } from '../../utils/mysqlUtils';
 import { BasePage } from '../../pages/BasePage';
+import { LogoutPage } from '../../pages/LogoutPage';
 
 test.describe.serial('Notification Test Suite', () => {
     let loginPage: LoginPage;
     let notificationPage: NotificationPage;
     let toast: ToastPage;
     let basePage: BasePage;
+    let logoutPage: LogoutPage;
 
     test.beforeEach(async ({ page }) => {
         allure.feature('Notification Feature');
         allure.owner('Minh Nguyen');
         allure.severity('High');
 
+        logoutPage = new LogoutPage(page);
         basePage = new BasePage(page);
         toast = new ToastPage(page);
         loginPage = new LoginPage(page);
@@ -162,6 +165,19 @@ test.describe.serial('Notification Test Suite', () => {
             await notificationPage.clickOnSaveButton();
         });
         await toast.getToastSendNotificationSuccess();
+        await logoutPage.logout();
+
+        // Verify notification is sent to the employee
+        await allure.step('Verify notification is sent to the employee', async () => {
+            await loginPage.goto();
+            await loginPage.login(Config.employee_username, Config.employee_password);
+            await basePage.clickAdmin();
+            await notificationPage.clickOnListNotification();
+            await notificationPage.getVerifyNotificationCompany();
+            await notificationPage.getVerifyNotificationDepartment();
+            await notificationPage.getVerifyNotificationPersonnal();
+           
+        });
     });
 
     test('Delete notification', async ({ page }) => {
