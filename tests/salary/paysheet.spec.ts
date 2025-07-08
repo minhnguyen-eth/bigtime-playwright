@@ -16,7 +16,6 @@ test.describe.serial('Paysheet Tests', () => {
     let basePage: BasePage;
 
     test.beforeEach(async ({ page }) => {
-
         allure.feature('Paysheet Feature');
         allure.owner('Minh Nguyen');
         allure.severity('Critical');
@@ -33,23 +32,28 @@ test.describe.serial('Paysheet Tests', () => {
         await takeScreenshotOnFailure(page, testInfo);
     });
 
+    async function addPaysheet() {
+        await loginPage.login(Config.admin_username, Config.admin_password);
+        await basePage.clickSalary();
+        await paysheet.clickPaysheet();
+        await basePage.clickAdd();
+        await paysheet.setNamePaysheet('Automation test');
+        await paysheet.clickCheckBoxMonthly();
+        await paysheet.clickChooseMonth();
+        await paysheet.clickMonthOption();
+        await paysheet.setNote('Automation test');
+        await paysheet.clickAndSetDropDownEmployee('Nguyễn Văn Minh');
+        await paysheet.clickEmployeeOption();
+        await basePage.clickSave();
+        await toastPage.getToastAddSuccess();
+    };
+
     test('E2E Payroll and Payment Process', async ({ page }) => {
         allure.story('Complete Paysheet Process Story');
 
         await allure.step('Admin creates and sends paysheet', async () => {
-            await loginPage.login(Config.admin_username, Config.admin_password);
-            await basePage.clickSalary();
-            await paysheet.clickPaysheet();
-            await basePage.clickAdd();
-            await paysheet.setNamePaysheet('Automation test');
-            await paysheet.clickCheckBoxMonthly();
-            await paysheet.clickChooseMonth();
-            await paysheet.clickMonthOption();
-            await paysheet.setNote('Automation test');
-            await paysheet.clickAndSetDropDownEmployee('Nguyễn Văn Minh');
-            await paysheet.clickEmployeeOption();
-            await basePage.clickSave();
-            await toastPage.getToastAddSuccess();
+            await addPaysheet();
+
             await paysheet.clickLatestPaysheetRow();
             await paysheet.clickViewPayroll();
             await paysheet.clickSendAll();
@@ -99,19 +103,7 @@ test.describe.serial('Paysheet Tests', () => {
         allure.story('Complete Paysheet Process Story');
 
         await allure.step('Admin creates and sends paysheet', async () => {
-            await loginPage.login(Config.admin_username, Config.admin_password);
-            await basePage.clickSalary();
-            await paysheet.clickPaysheet();
-            await basePage.clickAdd();
-            await paysheet.setNamePaysheet('Automation test');
-            await paysheet.clickCheckBoxMonthly();
-            await paysheet.clickChooseMonth();
-            await paysheet.clickMonthOption();
-            await paysheet.setNote('Automation test');
-            await paysheet.clickAndSetDropDownEmployee('Nguyễn Văn Minh');
-            await paysheet.clickEmployeeOption();
-            await basePage.clickSave();
-            await toastPage.getToastAddSuccess();
+            await addPaysheet();
 
             await paysheet.clickLatestPaysheetRow();
             await paysheet.clickViewPayroll();
@@ -166,8 +158,6 @@ test.describe.serial('Paysheet Tests', () => {
             await paysheet.clickSalarySlipCodeRow1();
             await paysheet.clickBrowse();
             await toastPage.getToastBrowseSuccess();
-            await logoutPage.logout();
-
         });
 
     });
@@ -309,5 +299,48 @@ test.describe.serial('Paysheet Tests', () => {
             await paysheet.clickExportOnly1Paysheet();
             await toastPage.getToastExportSuccess();
         });
+    });
+
+    test('E2E update salary in paysheet', async ({ page }) => {
+        allure.story('Edit Paysheet Process Story');
+
+        await allure.step('Admin create paysheet', async () => {
+            await addPaysheet();
+        });
+
+        await allure.step('Edit paysheet', async () => {
+            await paysheet.clickLatestPaysheetRow();
+            await paysheet.clickViewPayroll();
+            await paysheet.clickbaseSalary();
+            await paysheet.fillNumberOfWorkingDays('31');
+            await basePage.clickSave();
+            await paysheet.fillOverTime('500000');
+            await paysheet.clickBonusButton();
+            await paysheet.clickAddBonusButton();
+            await paysheet.fillBonusType('Automation test');
+            await paysheet.fillBonusMoney('100000');
+            await paysheet.fillBonusTimes('2');
+            await basePage.clickSave();
+
+            await paysheet.clickDeduction();
+            await paysheet.clickAddDeduction();
+            await paysheet.fillDeductionType('Automation test');
+            await paysheet.fillTimes('2');
+            await paysheet.fillDeductionMoney('150000');
+            await basePage.clickSave();
+            await paysheet.clickTemporarySave();
+            await toastPage.getToastSaveSuccess();
+
+            // Verify update data
+            await paysheet.clickPaysheet();
+            await paysheet.clickLatestPaysheetRow();
+            await paysheet.clickViewPayroll();
+            await paysheet.expectBaseSalary();
+            await paysheet.expectOverTime();
+            await paysheet.expectBonusMoney();
+            await paysheet.expectDeduction();
+            await paysheet.expectAllowance();
+        });
+
     });
 });

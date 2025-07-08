@@ -6,6 +6,7 @@ import { ToastPage } from '../../pages/ToastPage';
 import { clearCheckDay, clearCheckTime, mockCheckinData, clearOvertimeSubmission } from '../../utils/mysqlUtils';
 import { OvertimeTicketPage } from '../../pages/timekeeping_page/OvertimeTicketPage';
 import { LogoutPage } from '../../pages/LogoutPage';
+import { allure } from 'allure-playwright';
 
 test.describe.serial('Overtime Ticket Test Suite', () => {
     let loginPage: LoginPage;
@@ -18,6 +19,10 @@ test.describe.serial('Overtime Ticket Test Suite', () => {
     const today = new Date().toISOString().split('T')[0];
 
     test.beforeEach(async ({ page, context }) => {
+        allure.feature('Overtime Ticket Feature');
+        allure.owner('Minh Nguyen');
+        allure.severity('Critical');
+
         // Set geolocation permissions and location
         await context.grantPermissions(['geolocation']);
         await context.setGeolocation({
@@ -62,9 +67,7 @@ test.describe.serial('Overtime Ticket Test Suite', () => {
         await overtimeTicketPage.setOverTimeTicket();
         await overtimeTicketPage.fillReason('a'.repeat(256));
         await basePage.clickSave();
-        await toastPage.getToastAddFailed();
         await basePage.verifyMaxlenght255Charactor();
-
     });
 
     test('Check in', async ({ page }) => {

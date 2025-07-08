@@ -2,7 +2,6 @@ import { test, expect } from '@playwright/test';
 import { LoginPage } from '../pages/LoginPage';
 import { allure } from 'allure-playwright';
 
-
 test.describe('Forgot Password Test Suite', () => {
     let loginPage: LoginPage;
 
@@ -54,4 +53,3 @@ test.describe('Forgot Password Test Suite', () => {
 
     });
 });
-

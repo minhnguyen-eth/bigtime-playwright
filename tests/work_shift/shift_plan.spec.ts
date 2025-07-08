@@ -15,10 +15,9 @@ test.describe.serial('Shift Plan Tests', () => {
     let basePage: BasePage;
 
     const randomSuffix = Math.random().toString(36).substring(2, 8);
-    const shiftPlanNameRanDom = `Phân ca tháng 7 ${randomSuffix}`;
+    const shiftPlanNameRanDom = `Automation test ${randomSuffix}`;
 
     test.beforeEach(async ({ page }) => {
-
         allure.feature('Shift Plan Feature');
         allure.owner('Minh Nguyen');
         allure.severity('Critical');
@@ -81,7 +80,7 @@ test.describe.serial('Shift Plan Tests', () => {
 
     test('Add shift plan for an employee', async ({ page }) => {
         allure.story('Add Shift Plan for Employee Story');
-        const shiftPlanNameRanDom = `Automation test add shift plan for an employee ${randomSuffix}`;
+        const shiftPlanNameRanDom = `Automation test ${randomSuffix}`;
 
         await allure.step('Fill Shift Plan form for employee', async () => {
             await basePage.clickAdd();

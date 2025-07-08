@@ -19,20 +19,23 @@ export class HolidayManagementPage {
     readonly chosseUserInput: Locator;
     readonly selectUser: Locator;
     readonly restHolidayHaveSalary: Locator;
+    readonly msgNameRequired: Locator;
+    readonly msgStartDateRequired: Locator;
+    readonly msgEndDateRequired: Locator;
+    readonly msgReasonRequired: Locator;
     
-
     constructor(page: Page) {
         this.page = page;
+        this.msgReasonRequired = page.locator("//div[contains(text(),'Nhập lý do')]");
+        this.msgEndDateRequired = page.locator("//div[contains(text(),'Nhập đến hết ngày')]");
+        this.msgStartDateRequired = page.locator("//div[contains(text(),'Nhập bắt đầu từ ngày')]");
+        this.msgNameRequired = page.locator("//div[contains(text(),'Nhập tên ngày nghỉ')]");
         this.restHolidayHaveSalary = page.locator("//td[contains(text(),'Ngày lễ có lương')]");
-        this.selectUser = page.locator("//div[text()='BAT810 - Nguyễn Văn Minh']");
-        this.chosseUserInput = page.locator("//div[3]/div/div[1]/div/div[1]/div/div[3]/div/input");
-        this.checkInOutHistory = page.locator("//div[contains(text(),'Lịch sử điểm danh')]");
-        this.timeKeeping = page.locator("//p[contains(text(),'Chấm công')]");
+        this.selectUser = page.locator("//div[text()='BAT810 - Nguyễn Văn Minh']")
+        this.chosseUserInput = page.locator("//div[3]/div/div[1]/div/div[1]/div/div[3]/div/input")
+        this.checkInOutHistory = page.locator("//div[contains(text(),'Lịch sử điểm danh')]")
+        this.timeKeeping = page.locator("//p[contains(text(),'Chấm công')]")
         this.totalHolidayResult = page.locator("//input[@type='number' and @value='1']")
-        this.reasonRequired = page.locator("//div[contains(text(),'Nhập lý do')]")
-        this.endDateRequired = page.locator("//div[contains(text(),'Nhập đến hết ngày')]")
-        this.startDateRequired = page.locator("//div[contains(text(),'Nhập bắt đầu từ ngày')]")
-        this.nameRequired = page.locator("//div[contains(text(),'Nhập tên ngày nghỉ')]")
         this.deleteButton = page.locator("//tr[@id='row-0']//span[contains(text(),'Xóa')]");
         this.yesButton = page.locator("//span[@class='v-btn__content'][normalize-space()='Có']");
         this.reason = page.locator("//textarea[@rows='2']");
@@ -40,7 +43,26 @@ export class HolidayManagementPage {
         this.startDate = page.locator("//div[4]/div/div/div/div/div[1]/div/div/div[3]/input");
         this.holidayButton = page.locator("//div[contains(text(),'Quản lý ngày nghỉ')]");
         this.holidayName = page.locator("//div[2]/div/div[1]/div/div/div/div[3]/div/input");
+    }
 
+    async expectNameRequired() {
+        await expect(this.msgNameRequired).toBeVisible();
+        await expect(this.msgNameRequired).toContainText("Nhập tên ngày nghỉ");
+    }
+
+    async expectStartDateRequired() {
+        await expect(this.msgStartDateRequired).toBeVisible();
+        await expect(this.msgStartDateRequired).toContainText("Nhập bắt đầu từ ngày");
+    }
+
+    async expectEndDateRequired() {
+        await expect(this.msgEndDateRequired).toBeVisible();
+        await expect(this.msgEndDateRequired).toContainText("Nhập đến hết ngày");
+    }
+
+    async expectReasonRequired() {
+        await expect(this.msgReasonRequired).toBeVisible();
+        await expect(this.msgReasonRequired).toContainText("Nhập lý do");
     }
 
     async verifyRestHolidayHaveSalary() {
@@ -96,6 +118,4 @@ export class HolidayManagementPage {
     async clickHolidayButton() {
         await this.holidayButton.click();
     }
-
-
 }

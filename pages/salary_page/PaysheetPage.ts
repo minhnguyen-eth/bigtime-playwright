@@ -52,9 +52,41 @@ export class PaysheetPage {
     readonly fillEmployeeName: Locator;
     readonly selectMoreEmployee: Locator;
     readonly salarySlipCodeRow1: Locator;
+    readonly baseSalary: Locator;
+    readonly numberOfWorkingDays: Locator;
+    readonly verifyBaseSalary: Locator;
+    readonly overTimeInput: Locator;
+    readonly bonusButton: Locator;
+    readonly addBonusButton: Locator;
+    readonly moneyInput: Locator;
+    readonly timesInput: Locator;
+    readonly typeInput: Locator;
+    readonly verifyBonus: Locator;
+    readonly deduction: Locator;
+    readonly addDeduction: Locator;
+    readonly temporarySaveButton: Locator;
+    readonly verifyOverTime: Locator;
+    readonly verifyAllowance: Locator;
+    readonly verifyDeduction: Locator;
 
     constructor(page: Page) {
         this.page = page;
+        this.verifyDeduction = page.locator("//p[contains(text(),'300.000 đ')]")
+        this.verifyAllowance = page.locator("//p[contains(text(),'50.000.000 đ')]")
+        this.verifyOverTime = page.locator("//input[contains(@value,'500.000')]")
+        this.temporarySaveButton = page.locator("//span[.=' Lưu tạm']")
+        this.addDeduction = page.locator("//span[.='Thêm khoản trừ khác']");
+        this.deduction = page.locator("//table/tbody/tr/td[8]/p");
+        this.verifyBonus = page.locator("//p[contains(text(),'200.000 đ')]")
+        this.typeInput = page.locator("//td[2]/div/div/div/div[3]/div/input")
+        this.timesInput = page.locator("//tr/td[3]/div/div/div/div[3]/div/input")
+        this.moneyInput = page.locator("//td[4]/div/div/div/div[3]/input")
+        this.addBonusButton = page.locator("//span[.='Thêm khoản thưởng khác']")
+        this.bonusButton = page.locator("//tbody/tr[@class='selected-row']/td[7]/p[1]")
+        this.overTimeInput = page.locator("//tr/td[5]/div/div/div/div[3]/input")
+        this.verifyBaseSalary = page.locator("//p[contains(text(),'20.000.000 đ')]")
+        this.numberOfWorkingDays = page.locator("//tr/td[4]/div/div/div/div[3]/div/input")
+        this.baseSalary = page.locator("//tbody/tr/td[4]/p[1]")
         this.selectMoreEmployee = page.locator("//span[contains(.,'Big App Tech')]")
         this.fillEmployeeName = page.locator("//div[3]/div[2]/div/div/div/div[3]/div/input")
         this.addMoreEmployee = page.locator("//span[normalize-space()='Thêm nhân viên']")
@@ -107,6 +139,86 @@ export class PaysheetPage {
 
     }
 
+    async expectAllowance() {
+        await expect(this.verifyAllowance).toBeVisible();
+        await expect(this.verifyAllowance).toContainText('50.000.000');
+    }
+
+    async expectDeduction() {
+        await expect(this.verifyDeduction).toBeVisible();
+        await expect(this.verifyDeduction).toContainText('300.000');
+    }
+
+    async expectOverTime() {
+        await expect(this.verifyOverTime).toBeVisible();
+        await expect(this.verifyOverTime).toHaveValue(/500\.000/);
+    }
+
+    async clickTemporarySave() {
+        await this.temporarySaveButton.click()
+    }
+
+    async fillDeductionMoney(money: string) {
+        await this.moneyInput.fill(money);
+    }
+
+    async fillTimes(times: string) {
+        await this.timesInput.fill(times);
+    }
+
+    async fillDeductionType(type: string) {
+        await this.typeInput.fill(type);
+    }
+
+    async clickAddDeduction() {
+        await this.addDeduction.click();
+    }
+
+    async clickDeduction() {
+        await this.deduction.click();
+    }
+
+    async expectBonusMoney() {
+        await expect(this.verifyBonus).toBeVisible();
+        await expect(this.verifyBonus).toHaveText('200.000 đ');
+    }
+
+    async fillBonusType(type: string) {
+        await this.typeInput.fill(type);
+    }
+
+    async fillBonusTimes(times: string) {
+        await this.timesInput.fill(times);
+    }
+
+    async fillBonusMoney(money: string) {
+        await this.moneyInput.fill(money);
+    }
+
+    async clickAddBonusButton() {
+        await this.addBonusButton.click();
+    }
+
+    async clickBonusButton() {
+        await this.bonusButton.click();
+    }
+
+    async fillOverTime(overtime: string) {
+        await this.overTimeInput.fill(overtime);
+    }
+
+    async expectBaseSalary() {
+        await expect(this.verifyBaseSalary).toBeVisible();
+        await expect(this.verifyBaseSalary).toContainText('20.000.000');
+    }
+
+    async fillNumberOfWorkingDays(number: string) {
+        await this.numberOfWorkingDays.fill(number);
+    }
+
+    async clickbaseSalary() {
+        await this.baseSalary.click();
+    }
     async clickSalarySlipCodeRow1() {
         await this.salarySlipCodeRow1.click();
     }
@@ -130,7 +242,6 @@ export class PaysheetPage {
     async clickExportOnly1Paysheet() {
         await this.exportOnly1Paysheet.click();
     }
-
     async clickChosseDatePicker() {
         await this.chosseDatePicker.click();
     }
@@ -153,9 +264,7 @@ export class PaysheetPage {
     }
 
     async verifyPaysheetId(text: string) {
-        await expect(this.verifyPaysheetIdCell).toHaveText((text)
-        );
-
+        await expect(this.verifyPaysheetIdCell).toHaveText((text));
     }
 
     async getRequiredEnterName(enterName: string) {
@@ -294,7 +403,6 @@ export class PaysheetPage {
         await this.waitForOverlayToDisappear();
         await this.latestPaysheetRow.click();
     }
-
 
     async clickViewPayroll() {
         await expect(this.viewPayrollButton).toBeVisible();

@@ -37,7 +37,6 @@ test.describe.serial('Allowance Tests', () => {
         await takeScreenshotOnFailure(page, testInfo);
     });
 
-
     test('Save with empty data', async ({ page }) => {
         await clearAllowanceType();
         await basePage.clickAdd();

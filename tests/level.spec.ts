@@ -8,9 +8,7 @@ import { ToastPage } from '../pages/ToastPage';
 import { LevelPage } from '../pages/LevelPage';
 import { clearLevel } from '../utils/mysqlUtils';
 
-
 test.describe.serial('Level Test Suite', () => {
-
     let loginPage: LoginPage;
     let levelPage: LevelPage;
     let basePage: BasePage;
@@ -108,7 +106,6 @@ test.describe.serial('Level Test Suite', () => {
     });
 
     test('Edit active status to lock status', async ({ page }) => {
-
         await basePage.clickEditRow0();
         await basePage.clickIconStatusDropdown();
         await basePage.clickLockStatus();
@@ -210,5 +207,4 @@ test.describe.serial('Level Test Suite', () => {
         await basePage.clickSearch();
         await basePage.verifyNoExistData();
     });
-
 });

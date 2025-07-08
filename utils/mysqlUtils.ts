@@ -17,7 +17,6 @@ async function getConnection() {
 
 export async function mockCheckinData(userId: string, date: string) {
   const conn = await getConnection();
-
   const checkDayId = uuidv4().slice(0, 10);
   const checkTimeIdIn = uuidv4().slice(0, 10);
   const checkTimeIdOut = uuidv4().slice(0, 10);
@@ -26,14 +25,13 @@ export async function mockCheckinData(userId: string, date: string) {
     // INSERT check_days
     await conn.execute(
       `INSERT INTO check_days (
-    id, user_id, day, late_time_in, early_time_out,
-    overtime, late_break_duration, total_work_time,
-    reason, type, type_working, status, created_at
-  )
-  VALUES (?, ?, ?, ?, ?, NULL, NULL, ?, NULL, 1, 1, 1, NOW())`,
+        id, user_id, day, late_time_in, early_time_out,
+        overtime, late_break_duration, total_work_time,
+        reason, type, type_working, status, created_at
+      )
+      VALUES (?, ?, ?, ?, ?, NULL, NULL, ?, NULL, 1, 1, 1, NOW())`,
       [checkDayId, userId, date, '00:00:00', '00:00:00', '09:00:00']
     );
-
 
     // INSERT check_times
     await conn.execute(
@@ -110,6 +108,7 @@ async function clearTable(tableName: string, condition?: string): Promise<void> 
 
 // Specific Clear functions preserved (for backward compatibility)
 
+
 export const clearOvertimeSubmission = async () => {
   await clearTable('overtime_submissions');
 };
@@ -134,23 +133,23 @@ export const clearLevel = async () => {
   await clearTable('levels', "name LIKE '%Automation test%'");
 }
 
-export async function clearBranch() {
+export const clearBranch = async () => {
   await clearTable('branches', "name LIKE '%Automation test%'");
 }
 
-export async function clearPosition() {
+export const clearPosition = async () => {
   await clearTable('positions', "name LIKE '%Automation test%'");
 }
 
-export async function clearEmploymentContract() {
+export const clearEmploymentContract = async () => {
   await clearTable('employment_contracts');
 }
 
-export async function clearResignation() {
+export const clearResignation = async () => {
   await clearTable('resignations', "reason NOT LIKE '%Test data%'");
 }
 
-export async function clearAllowanceType() {
+export const clearAllowanceType = async () => {
   await clearTable('allowance_types', "name NOT LIKE '%Phụ cấp%'");
 }
 

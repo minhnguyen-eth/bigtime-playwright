@@ -21,14 +21,14 @@ test.describe('Holiday Management', () => {
         toastPage = new ToastPage(page);
         holidayManagementPage = new HolidayManagementPage(page);
         await loginPage.goto();
-
-    });
-
-    test('E2E Holiday Management', async ({ page }) => {
-        await clearHolidayManagement();
         await loginPage.login(Config.admin_username, Config.admin_password);
         await basePage.clickAdmin();
         await holidayManagementPage.clickHolidayButton();
+
+    });
+
+    test('E2E - Add Holiday Management', async ({ page }) => {
+        await clearHolidayManagement();
         await basePage.clickAdd();
         await holidayManagementPage.fillHolidayName("Test");
         await holidayManagementPage.clickStartDate();
@@ -45,13 +45,18 @@ test.describe('Holiday Management', () => {
         await holidayManagementPage.verifyRestHolidayHaveSalary();
     });
 
+
+    test('Check validation required add with blank field', async ({ page }) => {
+        await basePage.clickAdd();
+        await basePage.clickSave();
+        await holidayManagementPage.expectNameRequired();
+        await holidayManagementPage.expectStartDateRequired();
+        await holidayManagementPage.expectEndDateRequired();
+        await holidayManagementPage.expectReasonRequired();
+    });
+
     test('Delete Holiday', async ({ page }) => {
-        await loginPage.login(Config.admin_username, Config.admin_password);
-        await basePage.clickAdmin();
-        await holidayManagementPage.clickHolidayButton();
         await holidayManagementPage.clickDeleteButton();
         await toastPage.getToastDeleteSuccess();
     });
-
-
 });

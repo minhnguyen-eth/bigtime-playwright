@@ -10,7 +10,6 @@ import { clearBranch } from '../utils/mysqlUtils';
 
 
 test.describe.serial('Branch Test', () => {
-
     let loginPage: LoginPage;
     let branchPage: BranchPage
     let basePage: BasePage;

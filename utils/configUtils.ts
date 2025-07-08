@@ -34,8 +34,6 @@ export class Config {
     return process.env.EMPLOYEE2_PASSWORD || '';
   }
 
-
-
   // Manager Account
   static get manager_username(): string {
     return process.env.MANAGER_USERNAME || '';
@@ -44,7 +42,6 @@ export class Config {
   static get manager_password(): string {
     return process.env.MANAGER_PASSWORD || '';
   }
-
 
   // Admin Account
   static get admin_username(): string {

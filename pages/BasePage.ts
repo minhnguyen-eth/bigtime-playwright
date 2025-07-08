@@ -35,6 +35,7 @@ export class BasePage {
     readonly noExistData: Locator;
     readonly iconStatusDropdown: Locator;
     readonly validationNameExist: Locator;
+  
 
 
     // Validatation
