@@ -17,10 +17,10 @@ export default defineConfig({
   ],
 
   use: {
-    headless: true,                 // ✅ Headless để chạy nhanh, không lag
-    viewport: { width: 1920, height: 1080 }, // ✅ Viewport lớn, đảm bảo giao diện desktop
+    headless: true,                 // Headless để chạy nhanh, không lag
+    viewport: { width: 1920, height: 1080 }, // Viewport lớn, đảm bảo giao diện desktop
     launchOptions: {
-      args: ['--start-maximized'],  // ✅ Bổ sung args cho Chromium
+      args: ['--start-maximized'],  // Bổ sung args cho Chromium
     },
     trace: 'on-first-retry',
     actionTimeout: 45000,
