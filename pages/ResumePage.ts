@@ -316,6 +316,5 @@ export class ResumePage {
         await this.clickToDayDatePicker();
         await this.clickChosseButton();
     }
-
 }
 
