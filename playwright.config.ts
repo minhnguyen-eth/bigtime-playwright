@@ -1,13 +1,13 @@
 import { defineConfig } from '@playwright/test';
 
+const isHeadless = process.env.HEADLESS !== 'false';
+
 export default defineConfig({
   testDir: './tests',
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: 2,
-
   workers: 1,
-
   timeout: 60000,
 
   reporter: [
@@ -17,10 +17,10 @@ export default defineConfig({
   ],
 
   use: {
-    headless: true,                 // Headless để chạy nhanh, không lag
-    viewport: { width: 1920, height: 1080 }, // Viewport lớn, đảm bảo giao diện desktop
+    headless: isHeadless, // true run in headless mode. false run with browser window opened.
+    viewport: isHeadless ? { width: 1920, height: 1080 } : null,
     launchOptions: {
-      args: ['--start-maximized'],  // Bổ sung args cho Chromium
+      args: ['--start-maximized'],
     },
     trace: 'on-first-retry',
     actionTimeout: 45000,
@@ -30,26 +30,5 @@ export default defineConfig({
     {
       name: 'chromium',
     },
-    // {
-    //   name: 'firefox',
-    //   use: {
-    //     headless: false,
-    //     viewport: null,
-    //     launchOptions: {
-    //       args: ['--start-maximized'],
-    //     },
-    //   },
-    // },
-    //   {
-    //     name: 'edge',
-    //     use: {
-    //       headless: false,
-    //       viewport: null,
-    //       channel: 'msedge',
-    //       launchOptions: {
-    //         args: ['--start-maximized'],
-    //       },
-    //     },
-    //   },
   ],
 });

@@ -1,7 +1,8 @@
 import { Locator, Page, expect } from 'playwright/test';
+import { BasePage } from '../BasePage';
 
-export class OvertimeTicketPage {
-    readonly page: Page;
+export class OvertimeTicketPage extends BasePage {
+
 
     // Check in/out
     readonly checkInOutButton: Locator;
@@ -44,8 +45,7 @@ export class OvertimeTicketPage {
     readonly validateWhenUserChosseWrongTime: Locator;
 
     constructor(page: Page) {
-        this.page = page;
-
+        super(page);
         this.cancelStatusInfo = page.locator("//div[contains(@class, 'text-body-2') and contains(text(), 'Hủy')]");
         this.hour19 = page.locator("//div[@class='dp__overlay_cell dp__overlay_cell_pad'][normalize-space()='19']");
         this.validateWhenUserChosseWrongTime = page.locator("//li[contains(text(),'Thời gian tăng ca phải nằm trong khung giờ đã chấm')]");
@@ -83,154 +83,135 @@ export class OvertimeTicketPage {
     }
 
     async verifyCancelStatus() {
-        await expect(this.cancelStatusInfo).toContainText('Hủy');
-        return this.cancelStatusInfo.textContent();
+        await this.safeVerifyTextContains(this.cancelStatusInfo, "Hủy");
     }
 
     async clickHour19() {
-        await this.hour19.click();
+        await this.safeClick(this.hour19);
     }
 
     async verifyValidateWhenUserChosseWrongTime() {
-        await expect(this.validateWhenUserChosseWrongTime).toContainText('Thời gian tăng ca phải nằm trong khung giờ đã chấm');
-        return this.validateWhenUserChosseWrongTime.textContent();
+        await this.safeVerifyTextContains(this.validateWhenUserChosseWrongTime, "Thời gian tăng ca phải nằm trong khung giờ đã chấm");
     }
 
     async verifyValidateReasonRequired() {
-        await expect(this.validateReasonRequired).toContainText('Nhập lý do');
-        return this.validateReasonRequired.textContent();
+        await this.safeVerifyTextContains(this.validateReasonRequired, "Nhập lý do");
     }
 
     async verifyValidateDateRequired() {
-        await expect(this.validateDateRequired).toContainText('Nhập ngày tăng ca');
-        return this.validateDateRequired.textContent();
+        await this.safeVerifyTextContains(this.validateDateRequired, "Nhập ngày tăng ca");
     }
 
     async clickSelectNewStatus() {
-        await this.selectNewStatus.click();
+        await this.safeClick(this.selectNewStatus);
     }
 
     async clickDropdownStatus() {
-        await this.dropdownStatus.click();
+        await this.safeClick(this.dropdownStatus);
     }
 
     async clickSelectPendingStatus() {
-        await this.selectPendingStatus.click();
+        await this.safeClick(this.selectPendingStatus);
     }
 
     async verifyRejectStatus() {
-        await expect(this.rejectStatusInfo).toContainText('Từ chối');
-        return this.rejectStatusInfo.textContent();
-    }
-
-    async verifyBrowsedStatus() {
-        await expect(this.browsedStatusInfo).toContainText('Đã duyệt');
-        return this.browsedStatusInfo.textContent();
+        await this.safeVerifyTextContains(this.rejectStatusInfo, "Từ chối");
     }
 
     async getToastBrowseSuccess() {
-        await expect(this.toastBrowseSuccess).toContainText('Phê duyệt thành công');
-        return this.toastBrowseSuccess.textContent();
+        await this.safeVerifyTextContains(this.toastBrowseSuccess, "Phê duyệt thành công")
     }
 
     async clickMinute10() {
-        await this.minute10.click();
-        await this.chosseButton.click();
+        await this.safeClick(this.minute10);
+        await this.safeClick(this.chosseButton);
     }
 
     async verifyPendingStatus() {
-        await expect(this.pendingStatusInfo).toContainText('Chờ duyệt');
-        return this.pendingStatusInfo.textContent();
+        await this.safeVerifyTextContains(this.pendingStatusInfo, "Chờ duyệt");
     }
 
     async clickOpenMinute() {
-        await this.openMinute.click();
+        await this.safeClick(this.openMinute);
     }
 
     async verifyEmployeeName() {
-        await expect(this.employeeNameInfo).toContainText('BAT810 - Nguyễn Văn Minh');
-        return this.employeeNameInfo.textContent();
+        await this.safeVerifyTextContains(this.employeeNameInfo, "BAT810 - Nguyễn Văn Minh");
     }
 
     async verifyWorkingTime() {
-        await expect(this.workingTimeInfo).toContainText('01:00');
-        return this.workingTimeInfo.textContent();
+        await this.safeVerifyTextContains(this.workingTimeInfo, "01:00");
     }
 
     async verifyEndTime() {
-        await expect(this.endTimeInfo).toContainText('18:00');
-        return this.endTimeInfo.textContent();
+        await this.safeVerifyTextContains(this.endTimeInfo, "18:00");
     }
 
     async verifyStartTime() {
-        await expect(this.startTimeInfo).toContainText('17:00');
-        return this.startTimeInfo.textContent();
+        await this.safeVerifyTextContains(this.startTimeInfo, "17:00");
     }
 
     async verifyReason() {
-        await expect(this.reasonInfo).toContainText('Automation test');
-        return this.reasonInfo.textContent();
+        await this.safeVerifyTextContains(this.reasonInfo, "Automation test");
     }
 
     async verifyNewStatus() {
-        await expect(this.newStatusInfo).toContainText('Mới');
-        return this.newStatusInfo.textContent();
+        await this.safeVerifyTextContains(this.newStatusInfo, "Mới");
     }
 
     async getToastSendSuccess() {
-        await expect(this.toastSendSuccess).toContainText('Gửi thành công');
-        return this.toastSendSuccess.textContent();
+        await this.safeVerifyTextContains(this.toastSendSuccess, "Gửi thành công");
     }
 
     async clickHour18() {
-        await this.hour18.click();
+        await this.safeClick(this.hour18);
     }
 
     async clickHour17() {
-        await this.hour17.click();
+        await this.safeClick(this.hour17);
     }
     async clickOpenHour() {
-        await this.openHour.click();
+        await this.safeClick(this.openHour);
     }
 
     async clickChosseButton() {
-        await this.chosseButton.click();
+        await this.safeClick(this.chosseButton);
     }
 
     async clickEndTime() {
-        await this.endTime.click();
+        await this.safeClick(this.endTime);
     }
 
     async clickStartTime() {
-        await this.startTime.click();
+        await this.safeClick(this.startTime);
     }
 
     async fillReason(reason: string) {
-        await this.reasonInput.fill(reason);
+        await this.safeFill(this.reasonInput, reason);
     }
 
     async clickOvertimeTicketDayButton() {
-        await this.overtimeTicketDayButton.click();
+        await this.safeClick(this.overtimeTicketDayButton);
     }
 
     async clickOvertimeTicketButton() {
-        await this.overtimeTicketButton.click();
+        await this.safeClick(this.overtimeTicketButton);
     }
 
     async clickCheckInOutHistoryButton() {
-        await this.checkInOutHistoryButton.click();
+        await this.safeClick(this.checkInOutHistoryButton);
     }
 
     async clickConfirmCheckInButton() {
-        await this.confirmCheckInButton.click();
+        await this.safeClick(this.confirmCheckInButton);
     }
 
     async clickCheckInOutButton() {
-        await this.checkInOutButton.click();
+        await this.safeClick(this.checkInOutButton);
     }
 
     async clickCheckInButton() {
-        await this.checkInButton.click();
+        await this.safeClick(this.checkInButton);
     }
 
 
@@ -255,7 +236,7 @@ export class OvertimeTicketPage {
         await this.verifyEmployeeName();
     }
 
-     async verifyOvertimeTicketPendingStatus() {
+    async verifyOvertimeTicketPendingStatus() {
         await this.verifyReason();
         await this.verifyStartTime();
         await this.verifyEndTime();
@@ -264,7 +245,7 @@ export class OvertimeTicketPage {
         await this.verifyEmployeeName();
     }
 
-     async verifyOvertimeTicketBrowsedStatus() {
+    async verifyOvertimeTicketBrowsedStatus() {
         await this.verifyReason();
         await this.verifyStartTime();
         await this.verifyEndTime();

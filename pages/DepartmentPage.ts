@@ -1,7 +1,8 @@
-import { Page, Locator ,expect} from "@playwright/test";
+import { Page, Locator, expect } from "@playwright/test";
+import { BasePage } from "./BasePage";
 
-export class DepartmentPage {
-    readonly page: Page;
+export class DepartmentPage extends BasePage {
+
     readonly departmentButton: Locator;
     readonly departmentNameInput: Locator;
     readonly noteInput: Locator;
@@ -9,11 +10,9 @@ export class DepartmentPage {
     readonly validateNameDepartment: Locator;
     readonly searchByNameDepartment: Locator;
     readonly searchByNameResult: Locator;
-    
-
 
     constructor(page: Page) {
-        this.page = page;
+        super(page);
         this.searchByNameResult = page.locator("//tr[@id='row-0']//span[contains(text(),'Bộ phận IT')]");
         this.searchByNameDepartment = page.locator("//form/div/div[1]/div/div/div/div[3]/div/input");
         this.validateNameDepartment = page.locator("//div[contains(text(),'Nhập tên bộ phận')]");
@@ -25,33 +24,32 @@ export class DepartmentPage {
 
 
     async verifySearchByNameResult() {
-        await expect(this.searchByNameResult).toBeVisible();
-        await expect(this.searchByNameResult).toHaveText("Bộ phận IT");
+        await this.safeVerifyToHaveText(this.searchByNameResult, "Bộ phận IT");
     }
 
     async fillSearchByNameDepartment(name: string) {
-        await this.searchByNameDepartment.fill(name);
+        await this.safeFill(this.searchByNameDepartment, name);
     }
 
     async verifyValidateNameDepartment() {
-        await expect(this.validateNameDepartment).toBeVisible();
-        await expect(this.validateNameDepartment).toHaveText("Nhập tên bộ phận");
+        await this.safeVerifyToHaveText(this.validateNameDepartment, "Nhập tên bộ phận");
     }
 
     async clickDateCreateDepartment() {
-        await this.dateCreateDepartment.click();
+        await this.safeClick(this.dateCreateDepartment);
     }
 
     async fillNote(note: string) {
-        await this.noteInput.fill(note);
+        await this.safeFill(this.noteInput, note);
     }
 
     async fillDepartmentName(department: string) {
-        await this.departmentNameInput.fill(department);
+        await this.safeFill(this.departmentNameInput, department);
     }
 
     async clickDepartment() {
-        await this.departmentButton.click();
+        await this.safeClick(this.departmentButton);
     }
+
 
 }

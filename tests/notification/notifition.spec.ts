@@ -40,10 +40,10 @@ test.describe.serial('Notification Test Suite', () => {
             await loginPage.login(Config.admin_username, Config.admin_password);
             await basePage.clickAdmin();
             await notificationPage.clickOnNotification();
-            await notificationPage.clickOnAddButton();
+            await basePage.clickAdd();
             await notificationPage.fillNotificationName('Thông báo');
             await notificationPage.fillDescription('Automation test');
-            await notificationPage.clickOnSaveButton();
+            await basePage.clickSave();
         });
         await toast.getToastAddSuccess();
     });
@@ -54,10 +54,10 @@ test.describe.serial('Notification Test Suite', () => {
             await loginPage.login(Config.admin_username, Config.admin_password);
             await basePage.clickAdmin();
             await notificationPage.clickOnNotification();
-            await notificationPage.clickOnAddButton();
+            await basePage.clickAdd();
             await notificationPage.fillNotificationName('Thông báo');
             await notificationPage.fillDescription('Automation test');
-            await notificationPage.clickOnSaveButton();
+                 await basePage.clickSave();
         });
         await notificationPage.getExistedName();
     });
@@ -68,8 +68,8 @@ test.describe.serial('Notification Test Suite', () => {
             await loginPage.login(Config.admin_username, Config.admin_password);
             await basePage.clickAdmin();
             await notificationPage.clickOnNotification();
-            await notificationPage.clickOnAddButton();
-            await notificationPage.clickOnSaveButton();
+            await basePage.clickAdd();
+                 await basePage.clickSave();
         });
         await notificationPage.getRequiredName();
         await notificationPage.getRequiredDescription();
@@ -81,12 +81,12 @@ test.describe.serial('Notification Test Suite', () => {
             await loginPage.login(Config.admin_username, Config.admin_password);
             await basePage.clickAdmin();
             await notificationPage.clickOnNotification();
-            await notificationPage.clickOnAddButton();
+            await basePage.clickAdd();
             await notificationPage.clickOnNotificationFormDropdown();
             await notificationPage.clickOnHoliday();
             await notificationPage.fillNotificationName('Thông báo');
             await notificationPage.fillDescription('Automation test');
-            await notificationPage.clickOnSaveButton();
+                 await basePage.clickSave();
         });
         await toast.getToastAddSuccess();
     });
@@ -97,12 +97,12 @@ test.describe.serial('Notification Test Suite', () => {
             await loginPage.login(Config.admin_username, Config.admin_password);
             await basePage.clickAdmin();
             await notificationPage.clickOnNotification();
-            await notificationPage.clickOnAddButton();
+            await basePage.clickAdd();
             await notificationPage.clickOnNotificationFormDropdown();
             await notificationPage.clickOnWorkSchedule();
             await notificationPage.fillNotificationName('Thông báo');
             await notificationPage.fillDescription('Automation test');
-            await notificationPage.clickOnSaveButton();
+                 await basePage.clickSave();
         });
         await toast.getToastAddSuccess();
     });
@@ -113,12 +113,12 @@ test.describe.serial('Notification Test Suite', () => {
             await loginPage.login(Config.admin_username, Config.admin_password);
             await basePage.clickAdmin();
             await notificationPage.clickOnNotification();
-            await notificationPage.clickOnAddButton();
+            await basePage.clickAdd();
             await notificationPage.clickOnNotificationFormDropdown();
             await notificationPage.clickOnUrgent();
             await notificationPage.fillNotificationName('Thông báo');
             await notificationPage.fillDescription('Automation test');
-            await notificationPage.clickOnSaveButton();
+                 await basePage.clickSave();
         });
         await toast.getToastAddSuccess();
     });
@@ -131,7 +131,7 @@ test.describe.serial('Notification Test Suite', () => {
             await notificationPage.clickOnNotification();
             await notificationPage.clickOnIconAction();
             await notificationPage.clickOnSendNotification();
-            await notificationPage.clickOnSaveButton();
+                 await basePage.clickSave();
         });
         await toast.getToastSendNotificationSuccess();
     });
@@ -146,7 +146,7 @@ test.describe.serial('Notification Test Suite', () => {
             await notificationPage.clickOnSendNotification();
             await notificationPage.clickOnDepartment();
             await notificationPage.clickOnDepartmentOption();
-            await notificationPage.clickOnSaveButton();
+                 await basePage.clickSave();
         });
         await toast.getToastSendNotificationSuccess();
     });
@@ -162,7 +162,7 @@ test.describe.serial('Notification Test Suite', () => {
             await notificationPage.clickOnPersonnal();
             await notificationPage.fillPersonnalSearch('Minh');
             await notificationPage.clickOnPersonnalSelect();
-            await notificationPage.clickOnSaveButton();
+                 await basePage.clickSave();
         });
         await toast.getToastSendNotificationSuccess();
         await logoutPage.logout();
@@ -176,7 +176,7 @@ test.describe.serial('Notification Test Suite', () => {
             await notificationPage.getVerifyNotificationCompany();
             await notificationPage.getVerifyNotificationDepartment();
             await notificationPage.getVerifyNotificationPersonnal();
-           
+
         });
     });
 

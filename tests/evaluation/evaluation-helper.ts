@@ -5,17 +5,13 @@ import { EvaluationCriteriaPage } from '../../pages/evaluation_page/EvaluationCr
 import { ToastPage } from '../../pages/ToastPage';
 import { BasePage } from '../../pages/BasePage';
 
-
-
 export async function createCriteria(page: Page) {
-
-
     const evaluationCriteriaPage = new EvaluationCriteriaPage(page);
     const toastPage = new ToastPage(page);
     const basePage = new BasePage(page);
-
     const randomSuffix = Math.random().toString(36).substring(2, 8);
     const EvaluationCriteriaNameRandom = `Automation test ${randomSuffix}`;
+    
     await basePage.clickAdmin();
     await evaluationCriteriaPage.clickEvaluationCriteria();
     await basePage.clickAdd();
@@ -27,5 +23,4 @@ export async function createCriteria(page: Page) {
     await evaluationCriteriaPage.clickEvaluationTypeOption();
     await basePage.clickSave();
     await toastPage.getToastAddSuccess();
-
 }

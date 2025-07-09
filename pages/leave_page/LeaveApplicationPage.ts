@@ -1,10 +1,7 @@
 import { Locator, Page, expect } from '@playwright/test';
+import { BasePage } from '../BasePage';
 
-export class LeaveApplicationPage {
-    readonly page: Page;
-    readonly toastAddSuccess: Locator;
-    readonly toastCancelSuccess: Locator;
-    readonly toastExportSuccess: Locator;
+export class LeaveApplicationPage extends BasePage {
     readonly searchButton: Locator;
     readonly leaveApplicationButton: Locator;
     readonly addButton: Locator;
@@ -39,9 +36,7 @@ export class LeaveApplicationPage {
     readonly verifyAnualLeave: Locator;
 
     constructor(page: Page) {
-        this.page = page;
-        this.logoutButton = this.page.locator('//div[contains(text(),"Đăng xuất")]');
-        this.logoutConfirmButton = this.page.locator('//span[normalize-space()="Có"]');
+        super(page);
         this.verifySpecialLeave = page.locator("//div[normalize-space()='Nghỉ đặc biệt']")
         this.verifyMaternityLeave = page.locator("//div[normalize-space()='Nghỉ thai sản']")
         this.verifySocialInsuranceLeave = page.locator("//div[normalize-space()='Nghỉ bảo hiểm xã hội']")
@@ -68,158 +63,103 @@ export class LeaveApplicationPage {
         this.addButton = page.locator("//span[normalize-space()='Thêm']")
         this.leaveApplicationButton = page.locator("//div[contains(text(),'Đơn nghỉ phép')]")
         this.searchButton = page.locator("//span[.=' Tìm kiếm']")
-
-        // Toasts
-        this.toastAddSuccess = page.locator('//div[contains(text(),"Thêm thành công")]');
-        this.toastSendSuccess = page.locator('//div[contains(text(),"Gửi duyệt thành công")]');
-        this.toastCancelSuccess = page.locator('//div[contains(text(),"Hủy thành công")]');
-        this.toastExportSuccess = page.locator('//div[contains(text(),"Xuất thành công")]');
-        this.toastBrowsedSuccess = page.locator('//div[contains(text(),"Phê duyệt thành công")]');
-    }
-
-    async Logout() {
-        await this.logoutButton.click();
-        await this.logoutConfirmButton.click();
-    }
-
-    async clickSpecialLeave() {
-        await this.specialLeave.click();
-    }
-
-    async clickMaternityLeave() {
-        await this.maternityLeave.click();
-    }
-
-    async clickSocialInsuranceLeave() {
-        await this.socialInsuranceLeave.click();
-    }
-
-    async clickRegularLeave() {
-        await this.regularLeave.click();
-    }
-
-    async clickBrowsedButton() {
-        await this.browsedButton.click();
-    }
-
-    async clickRow0() {
-        await this.Row0.click();
-    }
-
-
-
-    async clickSaveButton() {
-        await this.saveButton.click();
-    }
-
-    async fillNumberOfDaysOff(numberOfDaysOff: string) {
-        await this.numberOfDaysOff.fill(numberOfDaysOff);
-    }
-
-    async clickChosseButton() {
-        await this.chosseButton.click();
     }
 
     async clickTodayButton() {
-        await this.todayButton.click();
+        await this.safeClick(this.todayButton);
+        await this.safeClick(this.chosseButton);
+
+    }
+
+    async clickSpecialLeave() {
+        await this.safeClick(this.specialLeave);
+    }
+
+    async clickMaternityLeave() {
+        await this.safeClick(this.maternityLeave);
+    }
+
+    async clickSocialInsuranceLeave() {
+        await this.safeClick(this.socialInsuranceLeave);
+    }
+
+    async clickRegularLeave() {
+        await this.safeClick(this.leaveTypeDropDown);
+    }
+
+    async clickBrowsedButton() {
+        await this.safeClick(this.browsedButton);
+    }
+
+    async clickRow0() {
+        await this.safeClick(this.Row0);
+    }
+
+    async clickSaveButton() {
+        await this.safeClick(this.saveButton);
+    }
+
+    async fillNumberOfDaysOff(number: string) {
+        await this.safeFill(this.numberOfDaysOff, number);
+    }
+
+    async clickChosseButton() {
+        await this.safeClick(this.chosseButton);
     }
 
     async fillReason(reason: string) {
-        await this.reason.fill(reason);
+        await this.safeFill(this.reason, reason);
     }
 
     async clickEndDate() {
-        await this.endDate.click();
+        await this.safeClick(this.endDate);
     }
 
     async clickStartDate() {
-        await this.startDate.click();
+        await this.safeClick(this.startDate);
     }
 
     async clickAnualLeave() {
-        await this.anualLeave.click();
+        await this.safeClick(this.anualLeave);
     }
 
     async clickLeaveTypeDropDown() {
-        await this.leaveTypeDropDown.click();
+        await this.safeClick(this.leaveTypeDropDown);
     }
 
     async clickAddButton() {
-        await this.addButton.click();
+        await this.safeClick(this.leaveApplicationButton);
     }
 
     async clickLeaveApplicationButton() {
-        await this.leaveApplicationButton.click();
+        await this.safeClick(this.leaveApplicationButton);
     }
 
-    async clickSearchButton() {
-        await this.searchButton.click();
-    }
-
-    async getToastExport() {
-        await expect(this.toastExportSuccess).toBeVisible();
-        return this.toastExportSuccess.textContent();
-    }
-
-    async getToastCancel() {
-        await expect(this.toastCancelSuccess).toBeVisible();
-        return this.toastCancelSuccess.textContent();
-    }
-
-    async getToastSend(toast: string) {
-        await expect(this.toastSendSuccess).toHaveText(toast);
-        return this.toastSendSuccess.textContent();
-    }
-    async getToastBrowsedSuccess(toast: string) {
-        await expect(this.toastBrowsedSuccess).toHaveText(toast);
-        return this.toastBrowsedSuccess.textContent();
-    }
-
-    async getToastAdd(toast: string) {
-        await expect(this.toastAddSuccess).toHaveText(toast);
-        return this.toastAddSuccess.textContent();
+    async getVerifyMaternityLeave() {
+        return await this.getFirstVisibleText(this.verifyMaternityLeave, 'Maternity leave');
     }
 
     async getVerifySpecialLeave() {
-        await this.page.waitForLoadState('load');
-        await expect(this.verifySpecialLeave).toBeVisible();
-        const text = await this.verifySpecialLeave.textContent();
-        console.log("🔍 Special leave text found:", text);
-        return text;
-    }
-
-
-
-    async getVerifyMaternityLeave() {
-        await this.page.waitForLoadState('load');
-        await expect(this.verifyMaternityLeave).toBeVisible();
-        const text = await this.verifyMaternityLeave.textContent();
-        console.log("🔍 Maternity leave text found:", text);
-        return text;
+        return await this.getFirstVisibleText(this.verifySpecialLeave, 'Special leave');
     }
 
     async getVerifySocialInsuranceLeave() {
-        await this.page.waitForLoadState('load');
-        await expect(this.verifySocialInsuranceLeave).toBeVisible();
-        const text = await this.verifySocialInsuranceLeave.textContent();
-        console.log("🔍 Social insurance leave text found:", text);
-        return text;
+        return await this.getFirstVisibleText(this.verifySocialInsuranceLeave, 'Social insurance leave');
     }
 
     async getVerifyRegularLeave() {
-        await this.page.waitForLoadState('load');
-        await expect(this.verifyRegularLeave).toBeVisible();
-        const text = await this.verifyRegularLeave.textContent();
-        console.log("🔍 Regular leave text found:", text);
-        return text;
+        return await this.getFirstVisibleText(this.verifyRegularLeave, 'Regular leave');
     }
 
     async getVerifyAnualLeave() {
-        await this.page.waitForLoadState('load');
-        await expect(this.verifyAnualLeave).toBeVisible();
-        const text = await this.verifyAnualLeave.textContent();
-        console.log("🔍 Anual leave text found:", text);
-        return text;
+        return await this.getFirstVisibleText(this.verifyAnualLeave, 'Anual leave');
     }
 
+
+    async setDate() {
+        await this.clickStartDate();
+        await this.clickTodayButton();
+        await this.clickEndDate();
+        await this.clickTodayButton();
+    }
 }

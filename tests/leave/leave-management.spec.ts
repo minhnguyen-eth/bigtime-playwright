@@ -130,15 +130,12 @@ test.describe.serial('Leave Management Tests', () => {
         });
 
         await allure.step('Admin confirms each row and sets status to waiting for approval', async () => {
-
             await leaveManagementPage.fillSearchEmpployee('Nguyễn Văn Minh');
             await basePage.clickSearch();
             await leaveManagementPage.verifyResultEmployee('Nguyễn Văn Minh');
             await leaveManagementPage.clickIconActionRow0();
             await basePage.clickConfirm();
             await toastPage.getToastConfirmSuccess();
-
-        
         });
 
         await allure.step('Employee browses leave management', async () => {
@@ -156,7 +153,7 @@ test.describe.serial('Leave Management Tests', () => {
             await leaveManagementPage.fillSearchEmpployee('Nguyễn Văn Minh');
             await basePage.clickSearch();
             await leaveManagementPage.verifyResultEmployee('Nguyễn Văn Minh');
-            await leaveManagementPage.clickClearSearchButton();
+            await basePage.clickClearSearch();
         });
 
         await allure.step('Admin searches leave management by year', async () => {

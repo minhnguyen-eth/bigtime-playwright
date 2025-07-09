@@ -1,7 +1,8 @@
 import { Locator, Page, expect } from '@playwright/test';
+import { BasePage } from '../BasePage';
 
-export class LeaveManagementPage {
-    readonly page: Page;
+export class LeaveManagementPage extends BasePage {
+
     readonly toastAddSuccess: Locator;
     readonly toastCancelSuccess: Locator;
     readonly leaveManagementButton: Locator;
@@ -13,7 +14,6 @@ export class LeaveManagementPage {
     readonly reason: Locator;
     readonly todayButton: Locator;
     readonly chosseButton: Locator;
-    readonly searchButton: Locator;
     readonly saveButton: Locator;
     readonly cancelButton: Locator;
     readonly AddDepatment: Locator;
@@ -45,11 +45,9 @@ export class LeaveManagementPage {
     readonly searchByYear: Locator;
     readonly resultYear: Locator;
     readonly annualLeaveAlreadyExist: Locator;
-    readonly clearSearchButton: Locator;
 
     constructor(page: Page) {
-        this.page = page;
-
+        super(page);
         this.annualLeaveAlreadyExist = page.locator("//li[contains(text(),'Nghỉ phép năm đã tồn tại.')]")
         this.resultYear = page.locator("//tr[@id='row-0']//td[3]")
         this.searchByYear = page.locator("//form/div/div[2]/div/div/div/div[3]/div/input")
@@ -88,124 +86,78 @@ export class LeaveManagementPage {
         this.anualLeave = page.locator("//div[contains(text(),'Nghỉ theo phép năm')]")
         this.leaveTypeDropDown = page.locator("//div[@class='v-col-md-4 v-col-12']//div[@class='v-field__input']")
         this.addButton = page.locator("//span[normalize-space()='Thêm']")
-        this.searchButton = page.locator("//span[.=' Tìm kiếm']")
-        this.clearSearchButton = page.locator("//span[normalize-space()='Xóa']")
-    }
-
-    async clickClearSearchButton() {
-        await expect(this.clearSearchButton).toBeVisible();
-        await this.clearSearchButton.click();
     }
 
     async verifyAnnualLeaveAlreadyExist(expectedValue: string) {
-        await expect(this.annualLeaveAlreadyExist).toBeVisible();
-        const value = await this.annualLeaveAlreadyExist.textContent();
-        expect(value?.trim()).toBe(expectedValue);
-        return value;
+        await this.safeVerifyTextContains(this.annualLeaveAlreadyExist, expectedValue);
     }
 
     async verifyResultYear(expectedValue: string) {
-        const value = await this.resultYear.textContent();
-        expect(value?.trim()).toBe(expectedValue);
-        return value;
+        await this.safeVerifyTextContains(this.resultYear, expectedValue);
     }
 
     async fillSearchByYear(year: string) {
-        await expect(this.searchByYear).toBeVisible();
-        await this.searchByYear.fill(year);
+        await this.safeFill(this.searchByYear, year);
     }
 
     async verifyResultEmployee(expectedValue: string) {
-        await expect(this.resultEmployee).toBeVisible();
-        const value = await this.resultEmployee.textContent();
-        expect(value?.trim()).toBe(expectedValue);
-        return value;
+        await this.safeVerifyToHaveText(this.resultEmployee, expectedValue);
     }
 
     async fillSearchEmpployee(name: string) {
-        await expect(this.searchEmpployee).toBeVisible();
-        await this.searchEmpployee.fill(name);
+        await this.safeFill(this.searchEmpployee, name);
     }
 
     async clickIconActionRow1() {
-        await expect(this.iconActionRow1).toBeVisible();
-        await this.iconActionRow1.click();
+        await this.safeClick(this.iconActionRow1);
     }
 
     async clickIconActionRow2() {
-        await expect(this.iconActionRow2).toBeVisible();
-        await this.iconActionRow2.click();
+        await this.safeClick(this.iconActionRow2);
     }
 
     async verifyStatusApproved(expectedValue: string) {
-        await expect(this.checkStatusApproved).toBeVisible();
-        const value = await this.checkStatusApproved.textContent();
-        expect(value?.trim()).toBe(expectedValue);
-        return value;
+        await this.safeVerifyTextContains(this.checkStatusApproved, expectedValue);
     }
 
     async verifyStatusWaitingForApproval(expectedValue: string) {
-        await expect(this.checkStatusWaitingForApproval).toBeVisible();
-        const value = await this.checkStatusWaitingForApproval.textContent();
-        expect(value?.trim()).toBe(expectedValue);
-        return value;
+        await this.safeVerifyTextContains(this.checkStatusWaitingForApproval, expectedValue);
     }
 
     async verifyStatusNew(expectedValue: string) {
-        await expect(this.checkStatusNew).toBeVisible();
-        const value = await this.checkStatusNew.textContent();
-        expect(value?.trim()).toBe(expectedValue);
-        return value;
+        await this.safeVerifyTextContains(this.checkStatusNew, expectedValue);
     }
 
-    // Sample wait for other click/fill methods:
-
     async clickDepartmentOption() {
-        await expect(this.departmentOption).toBeVisible();
-        await this.departmentOption.click();
+        await this.safeClick(this.departmentOption);
     }
 
     async clickWaitingForApproval() {
-        await expect(this.waitingForApproval).toBeVisible();
-        await this.waitingForApproval.click();
+        await this.safeClick(this.waitingForApproval);
     }
 
     async clickStatusDropDown() {
-        await expect(this.statusDropDown).toBeVisible();
-        await this.statusDropDown.click();
+        await this.safeClick(this.statusDropDown);
     }
 
     async clickAddEmployee() {
-        await this.page.waitForLoadState('networkidle');
-        await expect(this.addEmployee).toBeVisible();
-        await this.addEmployee.click();
+        await this.safeClick(this.addEmployee);
     }
 
     async clickBrowsed() {
-        await expect(this.browsed).toBeVisible();
-        await this.browsed.click();
-    }
-
-    async Logout() {
-        await expect(this.logoutButton).toBeVisible();
-        await this.logoutButton.click();
-        await expect(this.logoutConfirmButton).toBeVisible();
-        await this.logoutConfirmButton.click();
+        await this.safeClick(this.browsed);
     }
 
     async clickOkButton() {
-        await expect(this.OkButton).toBeVisible();
-        await this.OkButton.click();
+        await this.safeClick(this.OkButton);
     }
 
     async clickComfirmButton() {
-        await expect(this.comfirmButton).toBeVisible();
-        await this.comfirmButton.click();
+        await this.safeClick(this.comfirmButton);
     }
 
     async clickIconActionRow0() {
-        await expect(this.iconActionRow0).toBeVisible();
-        await this.iconActionRow0.click();
+        await this.safeClick(this.iconActionRow0);
     }
 
     async clickSaveEmployee() {
@@ -227,53 +179,34 @@ export class LeaveManagementPage {
     }
 
     async clickSaveDepartmentAndTeam() {
-        await expect(this.saveDepartmentAndTeam).toBeVisible();
-        await this.saveDepartmentAndTeam.click();
+        await this.safeClick(this.saveDepartmentAndTeam);
     }
 
     async clickDepartmentIT() {
-        await expect(this.departmentIT).toBeVisible();
-        await this.departmentIT.click();
+        await this.safeClick(this.departmentIT);
     }
 
     async clickDepartmentAndTeam() {
-        await expect(this.departmentAndTeam).toBeVisible();
-        await this.departmentAndTeam.click();
+        await this.safeClick(this.departmentAndTeam);
     }
 
     async clickAddDepatment() {
-        await expect(this.AddDepatment).toBeVisible();
-        await this.AddDepatment.click();
+        await this.safeClick(this.AddDepatment);
     }
 
     async clickLeaveManagementButton() {
-        await this.leaveManagementButton.click();
+        await this.safeClick(this.leaveManagementButton);
     }
 
     async clickCancelButton() {
-        await expect(this.cancelButton).toBeVisible();
-        await this.cancelButton.click();
+        await this.safeClick(this.cancelButton);
     }
 
     async clickSaveButton() {
-        await expect(this.saveButton.first()).toBeVisible();
-        await this.saveButton.first().click();
+        await this.safeClickFirst(this.saveButton);
     }
 
     async clickAddButton() {
-        await expect(this.addButton.first()).toBeVisible();
-        await this.addButton.first().click();
-    }
-
-    async clickSearchButton() {
-        await expect(this.searchButton).toBeVisible();
-        await this.searchButton.click();
-    }
-
-
-    async getToastConfirm(toast: string) {
-        await expect(this.toastConfirmSuccess).toBeVisible();
-        await expect(this.toastConfirmSuccess).toHaveText(toast);
-        return this.toastConfirmSuccess.textContent();
+        await this.safeClick(this.addButton);
     }
 }

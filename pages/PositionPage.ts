@@ -1,7 +1,8 @@
 import { Locator, Page, expect } from 'playwright/test';
+import { BasePage } from './BasePage';
 
-export class PositionPage {
-    readonly page: Page;
+export class PositionPage extends BasePage {
+   
     readonly positionsButton: Locator;
     readonly nameInput: Locator;
     readonly noteInput: Locator;
@@ -12,9 +13,8 @@ export class PositionPage {
     readonly nameInputSearch: Locator;
     readonly searchNameResult: Locator;
 
-
     constructor(page: Page) {
-        this.page = page;
+        super(page);
         this.searchNameResult = page.locator("//tbody/tr[@id='row-0']/td[2]//span[.='Project manager']");
         this.nameInputSearch = page.locator("//form/div/div[1]/div/div/div/div[3]/div/input");
         this.nameExistError = page.locator("//li[contains(text(),'Tên đã tồn tại.')]");
@@ -27,40 +27,38 @@ export class PositionPage {
     }
 
     async checkSearchNameResult() {
-        await expect(this.searchNameResult).toBeVisible();
-        await expect(this.searchNameResult).toHaveText("Project manager");
-    }
-
-    async inputNameSearch(name: string) {
-        await this.nameInputSearch.fill(name);
+        await this.safeVerifyToHaveText(this.searchNameResult, "Project manager");
     }
 
     async checkNameExistError() {
-        await expect(this.nameExistError).toBeVisible();
-        await expect(this.nameExistError).toHaveText("Tên đã tồn tại.");
-    }
-
-    async clickLockStatus() {
-        await this.lockStatus.click();
+        await this.safeVerifyToHaveText(this.nameExistError, "Tên đã tồn tại.");
     }
 
     async checkMsgNameRequired() {
-        await expect(this.msgNameRequired).toBeVisible();
-        await expect(this.msgNameRequired).toHaveText("Nhập tên chức vụ");
+        await this.safeVerifyToHaveText(this.msgNameRequired, "Nhập tên chức vụ");
+    }
+
+    async inputNameSearch(name: string) {
+        await this.safeFill(this.nameInputSearch, name);
     }
 
     async inputName(name: string) {
-        await this.nameInput.fill(name);
+        await this.safeFill(this.nameInput, name);
     }
+
     async inputNote(note: string) {
-        await this.noteInput.fill(note);
+        await this.safeFill(this.noteInput, note);
+    }
+
+    async clickLockStatus() {
+        await this.safeClick(this.lockStatus);
     }
 
     async clickPositions() {
-        await this.positionsButton.click();
+        await this.safeClick(this.positionsButton);
     }
 
     async clickSatatusDropdown() {
-        await this.statusDropdown.click();
+        await this.safeClick(this.statusDropdown);
     }
 }

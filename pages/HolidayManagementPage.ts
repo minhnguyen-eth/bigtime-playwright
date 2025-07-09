@@ -1,7 +1,8 @@
 import { Page, Locator, expect } from 'playwright/test';
+import { BasePage } from './BasePage';
 
-export class HolidayManagementPage {
-    readonly page: Page;
+export class HolidayManagementPage extends BasePage {
+
     readonly holidayButton: Locator;
     readonly holidayName: Locator;
     readonly startDate: Locator
@@ -25,9 +26,9 @@ export class HolidayManagementPage {
     readonly msgEndDateRequired: Locator;
     readonly msgReasonRequired: Locator;
     readonly checkBox: Locator;
-    
+
     constructor(page: Page) {
-        this.page = page;
+        super(page)
         this.restHolidayNoSalary = page.locator("//td[contains(text(),'Ngày lễ không lương')]");
         this.checkBox = page.locator("//input[@type='checkbox']");
         this.msgReasonRequired = page.locator("//div[contains(text(),'Nhập lý do')]");
@@ -54,84 +55,79 @@ export class HolidayManagementPage {
         await this.checkBox.uncheck();
     }
 
+    // VERIFY
     async expectNameRequired() {
-        await expect(this.msgNameRequired).toBeVisible();
-        await expect(this.msgNameRequired).toContainText("Nhập tên ngày nghỉ");
+        await this.safeVerifyTextContains(this.msgNameRequired, "Nhập tên ngày nghỉ");
     }
 
     async expectStartDateRequired() {
-        await expect(this.msgStartDateRequired).toBeVisible();
-        await expect(this.msgStartDateRequired).toContainText("Nhập bắt đầu từ ngày");
+        await this.safeVerifyTextContains(this.msgStartDateRequired, "Nhập bắt đầu từ ngày");
     }
 
     async expectEndDateRequired() {
-        await expect(this.msgEndDateRequired).toBeVisible();
-        await expect(this.msgEndDateRequired).toContainText("Nhập đến hết ngày");
+        await this.safeVerifyTextContains(this.msgEndDateRequired, "Nhập đến hết ngày");
     }
 
     async expectReasonRequired() {
-        await expect(this.msgReasonRequired).toBeVisible();
-        await expect(this.msgReasonRequired).toContainText("Nhập lý do");
+        await this.safeVerifyTextContains(this.msgReasonRequired, "Nhập lý do");
     }
 
     async verifyRestHolidayHaveSalary() {
-        const text = await this.restHolidayHaveSalary.textContent();
-        console.log(` Rest Holiday Have Salary: ${text}`);
-        await expect(this.restHolidayHaveSalary).toContainText("Ngày lễ có lương");
+        await this.safeVerifyTextContains(this.restHolidayHaveSalary, "Ngày lễ có lương");
     }
 
     async verifyRestHolidayNoSalary() {
-        const text = await this.restHolidayNoSalary.textContent();
-        console.log(` Rest Holiday No Salary: ${text}`);
-        await expect(this.restHolidayNoSalary).toContainText("Ngày lễ không lương");
+        await this.safeVerifyTextContains(this.restHolidayNoSalary, "Ngày lễ không lương");
     }
 
+    // FILL
     async fillAndSelectUser() {
-        await this.chosseUserInput.fill('BAT810 - Nguyễn Văn Minh');
-        await this.selectUser.click();
-    }
-
-    async clickCheckInOutHistory() {
-        await this.checkInOutHistory.click();
-    }
-
-    async clickTimeKeeping() {
-        await this.timeKeeping.click();
-    }
-
-    async checkTotalHolidayResult() {
-        const value = await this.totalHolidayResult.inputValue();
-        console.log(` Total Holiday Result: ${value}`);
-        await expect(this.totalHolidayResult).toHaveValue('1');
-    }
-
-
-    async clickDeleteButton() {
-        await this.deleteButton.click();
-        await this.yesButton.click();
-    }
-
-    async clickYesButton() {
-        await this.yesButton.click();
+        await this.safeFill(this.chosseUserInput, 'BAT810 - Nguyễn Văn Minh');
+        await this.safeClick(this.selectUser);
     }
 
     async fillReason(reason: string) {
-        await this.reason.fill(reason);
-    }
-
-    async clickStartDate() {
-        await this.startDate.click();
-    }
-    async clickEndDate() {
-        await this.endDate.click();
+        await this.safeFill(this.reason, reason);
     }
 
     async fillHolidayName(name: string) {
-        await this.holidayName.fill(name);
+        await this.safeFill(this.holidayName, name);
+    }
+
+    // CLICK
+    async clickCheckInOutHistory() {
+        await this.safeClick(this.checkInOutHistory);
+    }
+
+    async clickTimeKeeping() {
+        await this.safeClick(this.timeKeeping);
+    }
+
+    async clickDeleteButton() {
+        await this.safeClick(this.deleteButton);
+        await this.safeClick(this.yesButton);
+    }
+
+    async clickYesButton() {
+        await this.safeClick(this.yesButton);
+    }
+
+    async clickStartDate() {
+        await this.safeClick(this.startDate);
+    }
+
+    async clickEndDate() {
+        await this.safeClick(this.endDate);
     }
 
     async clickHolidayButton() {
-        await this.holidayButton.click();
+        await this.safeClick(this.holidayButton);
     }
+
+    // VERIFY VALUE
+    async checkTotalHolidayResult() {
+        await this.safeVerifyToHaveValue(this.totalHolidayResult, '1');
+    }
+
 
 }

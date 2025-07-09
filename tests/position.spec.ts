@@ -109,6 +109,7 @@ test.describe.serial('Position Tests', () => {
         await positionPage.checkSearchNameResult();
         await basePage.clickClearSearch()
         await positionPage.inputNameSearch("Project")
+        await basePage.clickSearch()
         await positionPage.checkSearchNameResult();
     });
 

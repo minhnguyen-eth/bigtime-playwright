@@ -19,7 +19,6 @@ test.describe.serial('Leave Application Tests', () => {
     let logoutPage: LogoutPage;
 
     test.beforeEach(async ({ page }) => {
-
         allure.feature('Leave Application Feature');
         allure.owner('Minh Nguyen');
         allure.severity('Critical');
@@ -29,7 +28,6 @@ test.describe.serial('Leave Application Tests', () => {
         leaveApplicationPage = new LeaveApplicationPage(page);
         basePage = new BasePage(page);
         toastPage = new ToastPage(page);
-        await loginPage.goto();
     });
 
     test.afterEach(async ({ page }, testInfo: TestInfo) => {
@@ -48,18 +46,14 @@ test.describe.serial('Leave Application Tests', () => {
         allure.story('Annual Leave Application Flow');
         await allure.step('Employee applies for annual leave', async () => {
             await clearAllLeaveApplications();
+            await loginPage.goto();
             await loginPage.login(Config.employee_username, Config.employee_password);
             await basePage.clickTimeKeepingManagement();
             await leaveApplicationPage.clickLeaveApplicationButton();
             await basePage.clickAdd();
             await leaveApplicationPage.clickLeaveTypeDropDown();
             await leaveApplicationPage.clickAnualLeave();
-            await leaveApplicationPage.clickStartDate();
-            await leaveApplicationPage.clickTodayButton();
-            await leaveApplicationPage.clickChosseButton();
-            await leaveApplicationPage.clickEndDate();
-            await leaveApplicationPage.clickTodayButton();
-            await leaveApplicationPage.clickChosseButton();
+            await leaveApplicationPage.setDate();
             await leaveApplicationPage.fillReason('Automation test');
             await leaveApplicationPage.clickSaveButton();
             await toastPage.getToastAddSuccess();
@@ -74,18 +68,14 @@ test.describe.serial('Leave Application Tests', () => {
         allure.story('Admin Reject Annual Leave Application Flow');
         await allure.step('Employee applies for annual leave', async () => {
             await clearAllLeaveApplications();
+            await loginPage.goto();
             await loginPage.login(Config.employee_username, Config.employee_password);
             await basePage.clickTimeKeepingManagement();
             await leaveApplicationPage.clickLeaveApplicationButton();
             await basePage.clickAdd();
             await leaveApplicationPage.clickLeaveTypeDropDown();
             await leaveApplicationPage.clickAnualLeave();
-            await leaveApplicationPage.clickStartDate();
-            await leaveApplicationPage.clickTodayButton();
-            await leaveApplicationPage.clickChosseButton();
-            await leaveApplicationPage.clickEndDate();
-            await leaveApplicationPage.clickTodayButton();
-            await leaveApplicationPage.clickChosseButton();
+            await leaveApplicationPage.setDate();
             await leaveApplicationPage.fillReason('Automation test');
             await leaveApplicationPage.clickSaveButton();
             await toastPage.getToastAddSuccess();
@@ -94,7 +84,7 @@ test.describe.serial('Leave Application Tests', () => {
         await allure.step('Send to admin and admin reject leave application', async () => {
             await leaveApplicationPage.clickRow0();
             await basePage.clickSend();
-            await leaveApplicationPage.getToastSend('Gửi duyệt thành công');
+            await toastPage.getToastSendBrowseSuccess();
             await logoutPage.logout();
             await loginPage.login(Config.admin_username, Config.admin_password);
             await leaveApplicationPage.clickRow0();
@@ -108,21 +98,17 @@ test.describe.serial('Leave Application Tests', () => {
         allure.story('Regular Leave Application Flow');
         await allure.step('Employee applies for regular leave', async () => {
             await clearAllLeaveApplications();
+            await loginPage.goto();
             await loginPage.login(Config.employee_username, Config.employee_password);
             await basePage.clickTimeKeepingManagement();
             await leaveApplicationPage.clickLeaveApplicationButton();
             await basePage.clickAdd();
             await leaveApplicationPage.clickLeaveTypeDropDown();
             await leaveApplicationPage.clickRegularLeave();
-            await leaveApplicationPage.clickStartDate();
-            await leaveApplicationPage.clickTodayButton();
-            await leaveApplicationPage.clickChosseButton();
-            await leaveApplicationPage.clickEndDate();
-            await leaveApplicationPage.clickTodayButton();
-            await leaveApplicationPage.clickChosseButton();
+            await leaveApplicationPage.setDate();
             await leaveApplicationPage.fillReason('Automation test');
             await leaveApplicationPage.clickSaveButton();
-            await leaveApplicationPage.getToastAdd('Thêm thành công');
+            await toastPage.getToastAddSuccess();
             await leaveApplicationPage.getVerifyRegularLeave();
         });
         await allure.step('Send and approve leave application', async () => {
@@ -134,18 +120,14 @@ test.describe.serial('Leave Application Tests', () => {
         allure.story('Social Insurance Leave Application Flow');
         await allure.step('Employee applies for social insurance leave', async () => {
             await clearAllLeaveApplications();
+            await loginPage.goto();
             await loginPage.login(Config.employee_username, Config.employee_password);
             await basePage.clickTimeKeepingManagement();
             await leaveApplicationPage.clickLeaveApplicationButton();
             await basePage.clickAdd();
             await leaveApplicationPage.clickLeaveTypeDropDown();
             await leaveApplicationPage.clickSocialInsuranceLeave();
-            await leaveApplicationPage.clickStartDate();
-            await leaveApplicationPage.clickTodayButton();
-            await leaveApplicationPage.clickChosseButton();
-            await leaveApplicationPage.clickEndDate();
-            await leaveApplicationPage.clickTodayButton();
-            await leaveApplicationPage.clickChosseButton();
+            await leaveApplicationPage.setDate();
             await leaveApplicationPage.fillReason('Automation test');
             await leaveApplicationPage.clickSaveButton();
             await toastPage.getToastAddSuccess();
@@ -160,18 +142,14 @@ test.describe.serial('Leave Application Tests', () => {
         allure.story('Maternity Leave Application Flow');
         await allure.step('Employee applies for maternity leave', async () => {
             await clearAllLeaveApplications();
+            await loginPage.goto();
             await loginPage.login(Config.employee_username, Config.employee_password);
             await basePage.clickTimeKeepingManagement();
             await leaveApplicationPage.clickLeaveApplicationButton();
             await basePage.clickAdd();
             await leaveApplicationPage.clickLeaveTypeDropDown();
             await leaveApplicationPage.clickMaternityLeave();
-            await leaveApplicationPage.clickStartDate();
-            await leaveApplicationPage.clickTodayButton();
-            await leaveApplicationPage.clickChosseButton();
-            await leaveApplicationPage.clickEndDate();
-            await leaveApplicationPage.clickTodayButton();
-            await leaveApplicationPage.clickChosseButton();
+            await leaveApplicationPage.setDate();
             await leaveApplicationPage.fillReason('Automation test');
             await leaveApplicationPage.clickSaveButton();
             await toastPage.getToastAddSuccess();
@@ -186,18 +164,14 @@ test.describe.serial('Leave Application Tests', () => {
         allure.story('Special Leave Application Flow');
         await allure.step('Employee applies for special leave', async () => {
             await clearAllLeaveApplications();
+            await loginPage.goto();
             await loginPage.login(Config.employee_username, Config.employee_password);
             await basePage.clickTimeKeepingManagement();
             await leaveApplicationPage.clickLeaveApplicationButton();
             await basePage.clickAdd();
             await leaveApplicationPage.clickLeaveTypeDropDown();
             await leaveApplicationPage.clickSpecialLeave();
-            await leaveApplicationPage.clickStartDate();
-            await leaveApplicationPage.clickTodayButton();
-            await leaveApplicationPage.clickChosseButton();
-            await leaveApplicationPage.clickEndDate();
-            await leaveApplicationPage.clickTodayButton();
-            await leaveApplicationPage.clickChosseButton();
+            await leaveApplicationPage.setDate();
             await leaveApplicationPage.fillReason('Automation test');
             await leaveApplicationPage.clickSaveButton();
             await toastPage.getToastAddSuccess();

@@ -49,14 +49,14 @@ test.describe.serial('Reward Employee Tests', () => {
         await toast.getToastAddSuccess();
 
         // Send reward to admin
-        await rewardEmployeePage.clickRow0();
+        await basePage.clickRow0();
         await basePage.clickSend();
 
         await logoutPage.logout();
         await loginPage.login(Config.admin_username, Config.admin_password);
         await basePage.clickAdmin();
         await rewardEmployeePage.clickRewardEmployee();
-        await rewardEmployeePage.clickRow0();
+        await basePage.clickRow0();
         await basePage.clickBrowse();
         await toast.getToastBrowseSuccess();
         await basePage.verifyBrowsedStatus();
@@ -72,14 +72,14 @@ test.describe.serial('Reward Employee Tests', () => {
         await toast.getToastAddSuccess();
 
         // Send reward to admin
-        await rewardEmployeePage.clickRow0();
+        await basePage.clickRow0();
         await basePage.clickSend();
 
         await logoutPage.logout();
         await loginPage.login(Config.admin_username, Config.admin_password);
         await basePage.clickAdmin();
         await rewardEmployeePage.clickRewardEmployee();
-        await rewardEmployeePage.clickRow0();
+        await basePage.clickRow0();
         await basePage.clickReject();
         await rewardEmployeePage.fillReasonInput('Reason reject');
         await toast.getToastRejectSuccess();
@@ -138,11 +138,10 @@ test.describe.serial('Reward Employee Tests', () => {
         await loginPage.login(Config.admin_username, Config.admin_password);
         await basePage.clickAdmin();
         await rewardEmployeePage.clickRewardEmployee();
-        await rewardEmployeePage.clickRow0();
+        await basePage.clickRow0();
         await basePage.clickCancel();
         await rewardEmployeePage.fillReasonInput('Reason cancel');
         await toast.getToastCancelledSuccess();
-
     });
 
     test('Create reward with empty description and note ', async ({ page }) => {

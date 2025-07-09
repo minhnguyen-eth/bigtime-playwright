@@ -6,17 +6,20 @@ import { EvaluationCriteriaPage } from "../../pages/evaluation_page/EvaluationCr
 import { clearAllEvaluationCriterias } from "../../utils/mysqlUtils";
 import { allure } from "allure-playwright";
 import { BasePage } from "../../pages/BasePage";
+import { ToastPage } from "../../pages/ToastPage";
 
 test.describe.serial("Evaluation Criteria Tests", () => {
     let loginPage: LoginPage;
     let evaluationCriteriaPage: EvaluationCriteriaPage;
     let basePage: BasePage;
+    let toastPage: ToastPage;
 
     test.beforeEach(async ({ page }) => {
         allure.owner("Minh Nguyen");
         allure.feature("Evaluation Criteria Feature");
         allure.severity("Critical");
 
+        toastPage = new ToastPage(page);
         loginPage = new LoginPage(page);
         evaluationCriteriaPage = new EvaluationCriteriaPage(page);
         basePage = new BasePage(page);
@@ -53,7 +56,7 @@ test.describe.serial("Evaluation Criteria Tests", () => {
         await evaluationCriteriaPage.clickStatusDropDown();
         await evaluationCriteriaPage.clickLockStatus();
         await basePage.clickSave();
-        await evaluationCriteriaPage.verifyToastAddSuccessfull("Thêm thành công");
+        await toastPage.getToastAddSuccess();
         await evaluationCriteriaPage.getVerifyLockStatus();
     });
 
@@ -64,14 +67,12 @@ test.describe.serial("Evaluation Criteria Tests", () => {
         await basePage.clickAdmin();
         await evaluationCriteriaPage.clickEvaluationCriteria();
         await basePage.clickAdd();
-        await evaluationCriteriaPage.clickCancelAddButton();
-        await evaluationCriteriaPage.clickAddButton();
         await evaluationCriteriaPage.setEvaluationCriteriaName(EvaluationCriteriaNameRandom);
         await evaluationCriteriaPage.setDescription("Automation Test Description");
         await evaluationCriteriaPage.clickEvaluationCriteriaNameDropDown();
         await evaluationCriteriaPage.clickEvaluationTypeOption();
         await basePage.clickSave();
-        await evaluationCriteriaPage.verifyToastAddSuccessfull("Thêm thành công");
+        await toastPage.getToastAddSuccess();
     });
 
     test("Search Evaluation Criteria by status", async ({ page }) => {
@@ -79,28 +80,27 @@ test.describe.serial("Evaluation Criteria Tests", () => {
         await basePage.clickAdmin();
         await evaluationCriteriaPage.clickEvaluationCriteria();
         await evaluationCriteriaPage.searchEvaluationCriteriaName("Automation Test");
-        await evaluationCriteriaPage.clickSearchButton();
+        await basePage.clickSearch();
         await evaluationCriteriaPage.verifyResultSearchByName();
-        await evaluationCriteriaPage.clickDeleteSearch();
+        await basePage.clickClearSearch();
 
         await evaluationCriteriaPage.clickStatusDropDownSearch();
         await evaluationCriteriaPage.selectStatus("Hoạt động");
-        await evaluationCriteriaPage.clickSearchButton();
-        await evaluationCriteriaPage.getVerifyActivityStatus();
-        await evaluationCriteriaPage.clickDeleteSearch();
+        await basePage.clickSearch();
+        await basePage.verifyActivityStatusRow0();
+        await basePage.clickClearSearch();
 
         await evaluationCriteriaPage.clickStatusDropDownSearch();
         await evaluationCriteriaPage.selectStatus("Khóa");
-        await evaluationCriteriaPage.clickSearchButton();
-        await evaluationCriteriaPage.getVerifyLockStatusSearch();
-        await evaluationCriteriaPage.clickDeleteSearch();
+        await basePage.clickSearch();
+        await basePage.verifyLockStatusRow0();
+        await basePage.clickClearSearch();
 
         await evaluationCriteriaPage.clickStatusDropDownSearch();
         await evaluationCriteriaPage.selectStatus("Hoạt động");
         await evaluationCriteriaPage.selectStatus("Khóa");
-        await evaluationCriteriaPage.clickSearchButton();
-        await evaluationCriteriaPage.getVerifyActivityStatus();
-        await evaluationCriteriaPage.getVerifyLockStatusSearch();
+        await basePage.clickSearch();
+        await basePage.verifyActivityStatusRow0();
     });
 
     test("Edit Evaluation Criteria", async ({ page }) => {
@@ -113,20 +113,20 @@ test.describe.serial("Evaluation Criteria Tests", () => {
         await evaluationCriteriaPage.editEvaluationCriteriaName(EvaluationCriteriaNameEdited);
         await evaluationCriteriaPage.editDescription("Automation Test Description Edited");
         await basePage.clickSave();
-        await evaluationCriteriaPage.verifyToastEditSuccessfull("Cập nhật thành công");
+        await toastPage.getToastUpdateSuccess();
 
         await basePage.clickEditRow0();
         await evaluationCriteriaPage.clickStatusDropDown();
         await evaluationCriteriaPage.clickLockStatus();
         await basePage.clickSave();
-        await evaluationCriteriaPage.verifyToastEditSuccessfull("Cập nhật thành công");
-        await evaluationCriteriaPage.getVerifyLockStatus();
+        await toastPage.getToastUpdateSuccess();
+        await basePage.verifyLockStatusRow0();
 
         await basePage.clickEditRow0();
         await evaluationCriteriaPage.clickStatusDropDown();
         await evaluationCriteriaPage.selectStatus("Hoạt động");
         await basePage.clickSave();
-        await evaluationCriteriaPage.getVerifyActivityStatus();
+        await basePage.verifyActivityStatusRow0();
     });
 
     test("Delete Evaluation Criteria", async ({ page }) => {
@@ -134,6 +134,6 @@ test.describe.serial("Evaluation Criteria Tests", () => {
         await basePage.clickAdmin();
         await evaluationCriteriaPage.clickEvaluationCriteria();
         await basePage.clickDeleteRow0();
-        await evaluationCriteriaPage.verifyToastDeleteSuccessfull("Xóa thành công");
+        await toastPage.getToastDeleteSuccess();
     });
 });

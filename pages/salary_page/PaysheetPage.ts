@@ -1,7 +1,8 @@
 import { Locator, Page, expect } from '@playwright/test';
+import { BasePage } from '../BasePage';
 
-export class PaysheetPage {
-    readonly page: Page;
+export class PaysheetPage extends BasePage {
+
     readonly paysheetButton: Locator;
     readonly namePaysheetInput: Locator;
     readonly setNamePaysheetInput: Locator;
@@ -70,7 +71,7 @@ export class PaysheetPage {
     readonly verifyDeduction: Locator;
 
     constructor(page: Page) {
-        this.page = page;
+        super(page);
         this.verifyDeduction = page.locator("//p[contains(text(),'300.000 đ')]")
         this.verifyAllowance = page.locator("//p[contains(text(),'50.000.000 đ')]")
         this.verifyOverTime = page.locator("//input[contains(@value,'500.000')]")
@@ -140,13 +141,11 @@ export class PaysheetPage {
     }
 
     async expectAllowance() {
-        await expect(this.verifyAllowance).toBeVisible();
-        await expect(this.verifyAllowance).toContainText('50.000.000');
+        await this.safeVerifyTextContains(this.verifyAllowance, '50.000.000');
     }
 
     async expectDeduction() {
-        await expect(this.verifyDeduction).toBeVisible();
-        await expect(this.verifyDeduction).toContainText('300.000');
+        await this.safeVerifyTextContains(this.verifyDeduction, '300.000');
     }
 
     async expectOverTime() {
@@ -155,211 +154,202 @@ export class PaysheetPage {
     }
 
     async clickTemporarySave() {
-        await this.temporarySaveButton.click()
+        await this.safeClick(this.temporarySaveButton);
     }
 
     async fillDeductionMoney(money: string) {
-        await this.moneyInput.fill(money);
+        await this.safeFill(this.moneyInput, money);
     }
 
     async fillTimes(times: string) {
-        await this.timesInput.fill(times);
+        await this.safeFill(this.timesInput, times);
     }
 
     async fillDeductionType(type: string) {
-        await this.typeInput.fill(type);
+        await this.safeFill(this.typeInput, type);
     }
 
     async clickAddDeduction() {
-        await this.addDeduction.click();
+        await this.safeClick(this.addDeduction);
     }
 
     async clickDeduction() {
-        await this.deduction.click();
+        await this.safeClick(this.deduction);
     }
 
     async expectBonusMoney() {
-        await expect(this.verifyBonus).toBeVisible();
-        await expect(this.verifyBonus).toHaveText('200.000 đ');
+        await this.safeVerifyToHaveText(this.verifyBonus, '200.000 đ');
     }
 
     async fillBonusType(type: string) {
-        await this.typeInput.fill(type);
+        await this.safeFill(this.typeInput, type);
     }
 
     async fillBonusTimes(times: string) {
-        await this.timesInput.fill(times);
+        await this.safeFill(this.timesInput, times);
     }
 
     async fillBonusMoney(money: string) {
-        await this.moneyInput.fill(money);
+        await this.safeFill(this.moneyInput, money);
     }
 
     async clickAddBonusButton() {
-        await this.addBonusButton.click();
+        await this.safeClick(this.addBonusButton);
     }
 
     async clickBonusButton() {
-        await this.bonusButton.click();
+        await this.safeClick(this.bonusButton);
     }
 
     async fillOverTime(overtime: string) {
-        await this.overTimeInput.fill(overtime);
+        await this.safeFill(this.overTimeInput, overtime);
     }
 
     async expectBaseSalary() {
-        await expect(this.verifyBaseSalary).toBeVisible();
-        await expect(this.verifyBaseSalary).toContainText('20.000.000');
+        await this.safeVerifyTextContains(this.verifyBaseSalary, '20.000.000');
     }
 
     async fillNumberOfWorkingDays(number: string) {
-        await this.numberOfWorkingDays.fill(number);
+        await this.safeFill(this.numberOfWorkingDays, number);
     }
 
     async clickbaseSalary() {
-        await this.baseSalary.click();
+        await this.safeClick(this.baseSalary);
+
     }
     async clickSalarySlipCodeRow1() {
-        await this.salarySlipCodeRow1.click();
+        await this.safeClick(this.salarySlipCodeRow1);
     }
 
     async clickSelectMoreEmployee() {
-        await this.selectMoreEmployee.click();
+        await this.safeClick(this.selectMoreEmployee);
     }
 
     async fillEmployeeNameInput(name: string) {
-        await this.fillEmployeeName.fill(name);
+        await this.safeFill(this.fillEmployeeName, name);
     }
 
     async clickAddMoreEmployee() {
-        await this.addMoreEmployee.click();
+        await this.safeClick(this.addMoreEmployee);
     }
 
     async clickMonthOption05() {
-        await this.monthOption05.click();
+        await this.safeClick(this.monthOption05);
     }
 
     async clickExportOnly1Paysheet() {
-        await this.exportOnly1Paysheet.click();
+        await this.safeClick(this.exportOnly1Paysheet);
     }
     async clickChosseDatePicker() {
-        await this.chosseDatePicker.click();
+        await this.safeClick(this.chosseDatePicker);
     }
 
     async clickMonth05() {
-        await this.Month05.click();
+        await this.safeClick(this.Month05);
     }
 
     async clickChosseMonthExport() {
-        await this.chosseMonthExport.click();
+        await this.safeClick(this.chosseMonthExport);
     }
 
     async clickExportExcelByMonth() {
-        await this.exportExcelByMonth.click();
+        await this.safeClick(this.exportExcelByMonth);
     }
 
-
     async clickSearchButton() {
-        await this.searchButton.click();
+        await this.safeClick(this.searchButton);
     }
 
     async verifyPaysheetId(text: string) {
-        await expect(this.verifyPaysheetIdCell).toHaveText((text));
+        await this.safeVerifyToHaveText(this.verifyPaysheetIdCell, text);
     }
 
     async getRequiredEnterName(enterName: string) {
-        await expect(this.requiredEnterName).toHaveText(enterName);
-
+        await this.safeVerifyToHaveText(this.requiredEnterName, enterName);
     }
 
     async clickPayslipPayment() {
         await this.waitForOverlayToDisappear();
-        await this.payslipPayment.click();
+        await this.safeClick(this.payslipPayment);
     }
 
     async clickSalarySlipCode() {
-        await this.salarySlipCode.click();
+        await this.safeClick(this.salarySlipCode);
     }
 
     async clickPayslip() {
-        await this.payslipButton.click();
+        await this.safeClick(this.payslipButton);
     }
 
     async clickEmployeeOption() {
-        await this.employeeOption.click();
+        await this.safeClick(this.employeeOption);
     }
 
     async clickAndSetDropDownEmployee(name: string) {
-        await this.dropdownEmployee.click();
+        await this.safeClick(this.dropdownEmployee);
         await this.page.keyboard.type(name);
     }
 
     async setNote(note: string) {
-        await this.noteInput.fill(note);
+        await this.safeFill(this.noteInput, note);
     }
 
     async clickChooseMonth() {
-        await this.chooseMonth.click();
+        await this.safeClick(this.chooseMonth);
     }
 
     async clickCheckBoxMonthly() {
-        await this.checkBoxMonthly.click();
+        await this.safeClick(this.checkBoxMonthly);
     }
 
     async clickExportData() {
-        await this.exportDataButton.click();
+        await this.safeClick(this.exportDataButton);
     }
 
     async clickRefresh() {
-        await this.refreshButton.click();
+        await this.safeClick(this.refreshButton);
     }
 
     async clickOk() {
-        await this.okButton.click();
+        await this.safeClick(this.okButton);
     }
 
     async fillReason(reason: string) {
-        await this.reasonLabel.click();
-        await this.reasonInput.fill(reason);
+        await this.safeClick(this.reasonLabel);
+        await this.safeFill(this.reasonInput, reason);
     }
 
     async clickSelectAllEmployees() {
-        await this.selectAllEmployeesCheckbox.click({ force: true });
-    }
-
-    async isPaysheetIdDisplayed(id: string) {
-        const cell = this.page.locator(`//td[normalize-space()="${id}"]`);
-        return cell.isVisible();
+        await this.safeClick(this.selectAllEmployeesCheckbox, { force: true });
     }
 
     async fillSearchPaysheet(id: string) {
-        await this.searchInput.fill(id);
+        await this.safeFill(this.searchInput, id);
     }
 
     async clickCancelPaysheet() {
-        await this.cancelPaysheetButton.click();
+        await this.safeClick(this.cancelPaysheetButton);
     }
 
     async getEmployeeName(employeeName: string) {
-        await expect(this.employeeNameLabel).toHaveText(employeeName);
+        await this.safeVerifyToHaveText(this.employeeNameLabel, employeeName);
     }
 
     async clickHistoryPaymentCode() {
-        await expect(this.historyPaymentCodeButton).toBeVisible();
-        await this.historyPaymentCodeButton.click();
+        await this.safeClick(this.historyPaymentCodeButton);
     }
 
     async clickPaymentHistory() {
-        await this.paymentHistoryButton.click();
+        await this.safeClick(this.paymentHistoryButton);
     }
 
     async clickCreateTicket() {
-        await this.createTicketButton.click();
+        await this.safeClick(this.createTicketButton);
     }
 
     async clickPayment() {
         await this.waitForOverlayToDisappear();
-        await this.paymentButton.click();
+        await this.safeClick(this.paymentButton);
     }
 
     async waitForOverlayToDisappear() {
@@ -376,60 +366,57 @@ export class PaysheetPage {
     }
 
     async clickPaysheet() {
-        await this.paysheetButton.click();
+        await this.safeClick(this.paysheetButton);
     }
 
     async setNamePaysheet(name: string) {
-        await this.namePaysheetInput.fill(name);
+        await this.safeFill(this.namePaysheetInput, name);
     }
 
     async clickMonthlyRadio() {
-        await this.radioMonthly.click();
+        await this.safeClick(this.radioMonthly);
     }
 
     async clickDropdownMonth() {
-        await this.dropdownMonth.click();
+        await this.safeClick(this.dropdownMonth);
     }
 
     async clickMonthOption() {
-        await this.monthOption.click();
+        await this.safeClick(this.monthOption);
     }
 
     async setEmployeeName(name: string) {
-        await this.employeeNameInput.fill(name);
+        await this.safeFill(this.employeeNameInput, name);
+
     }
 
     async clickLatestPaysheetRow() {
         await this.waitForOverlayToDisappear();
-        await this.latestPaysheetRow.click();
+        await this.safeClick(this.latestPaysheetRow);
     }
 
     async clickViewPayroll() {
-        await expect(this.viewPayrollButton).toBeVisible();
-        await this.viewPayrollButton.click();
+        await this.safeClick(this.viewPayrollButton);
     }
 
     async clickSendAll() {
-        await this.sendAllButton.click();
+        await this.safeClick(this.sendAllButton);
     }
 
     async clickConfirm2() {
-        await this.confirm2Button.click();
+        await this.safeClick(this.confirm2Button);
     }
 
     async clickBrowse() {
-        await this.browseButton.click();
-        await this.okButton.click();
-
+        await this.safeClick(this.browseButton);
+        await this.safeClick(this.okButton);
     }
 
     async clickSalaryClosing() {
-        await this.salaryClosingButton.click();
+         await this.safeClick(this.salaryClosingButton);
     }
-
 
     async clickConfirm() {
-        await this.confirmButton.click();
+         await this.safeClick(this.confirmButton);
     }
-
 }

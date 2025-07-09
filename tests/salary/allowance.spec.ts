@@ -110,7 +110,7 @@ test.describe.serial('Allowance Tests', () => {
         await basePage.clickAdd();
         await allowancePage.fillAllwanceName('a'.repeat(256));
         await basePage.clickSave();
-        await allowancePage.checkValidationNameMaxLength255();
+        await basePage.verifyMaxlenght255Charactor();
     });
 
     test('Max length of note 500 characters', async ({ page }) => {
@@ -126,7 +126,7 @@ test.describe.serial('Allowance Tests', () => {
         await allowancePage.fillAllwanceName('Automation test');
         await allowancePage.fillNote('a'.repeat(501));
         await basePage.clickSave();
-        await allowancePage.checkValidationNoteMaxLength500();
+        await basePage.verifyMaxlenght500Charactor();
     });
 
     test('Edit allowance name', async ({ page }) => {

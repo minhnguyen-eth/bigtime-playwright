@@ -4,7 +4,7 @@ import { BasePage } from '../pages/BasePage';
 import Config from '../utils/configUtils';
 import { ToastPage } from '../pages/ToastPage';
 import { HolidayManagementPage } from '../pages/HolidayManagementPage';
-import { clearHolidayManagement } from '../utils/mysqlUtils';
+import { clearCheckDay, clearCheckTime, clearHolidayManagement } from '../utils/mysqlUtils';
 import { allure } from 'allure-playwright';
 
 test.describe('Holiday Management', () => {
@@ -30,6 +30,8 @@ test.describe('Holiday Management', () => {
 
     test('E2E - Add Holiday Management', async ({ page }) => {
         await clearHolidayManagement();
+        await clearCheckDay();
+        await clearCheckTime();
         await basePage.clickAdd();
         await holidayManagementPage.fillHolidayName("Test");
         await holidayManagementPage.clickStartDate();

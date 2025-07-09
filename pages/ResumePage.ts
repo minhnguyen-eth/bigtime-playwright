@@ -1,7 +1,8 @@
 import { expect, Locator, Page } from '@playwright/test';
+import { BasePage } from './BasePage';
 
-export class ResumePage {
-    readonly page: Page;
+export class ResumePage extends BasePage {
+
     readonly resumeButton: Locator;
     readonly identifier: Locator;
     readonly aliasName: Locator;
@@ -48,7 +49,7 @@ export class ResumePage {
     readonly msgReligionRequired: Locator;
 
     constructor(page: Page) {
-        this.page = page;
+        super(page);
         this.msgReligionRequired = page.locator("//div[contains(text(),'Nhập tôn giáo')]");
         this.msgEthnicityRequired = page.locator("//div[contains(text(),'Nhập dân tộc')]");
         this.msgHownTownRequired = page.locator("//div[contains(text(),'Nhập quê quán')]");
@@ -93,168 +94,182 @@ export class ResumePage {
         this.identifier = page.locator("//div[1]/div/div[2]/div/div[2]/div/div/div/div[3]/div/input");
         this.resumeButton = page.locator("//span[contains(.,'Sơ yếu lý lịch')]");
     }
-
+    // VERIFY REQUIRED MESSAGE
     async verifyMsgPlaceOfBirthRequired() {
-        await expect(this.msgPlaceOfBirthRequired).toBeVisible();
-        await expect(this.msgPlaceOfBirthRequired).toHaveText('Nhập nơi sinh');
-    }
-    async verifyMsgHownTownRequired() {
-        await expect(this.msgHownTownRequired).toBeVisible();
-        await expect(this.msgHownTownRequired).toHaveText('Nhập quê quán');
-    }
-    async verifyMsgEthnicityRequired() {
-        await expect(this.msgEthnicityRequired).toBeVisible();
-        await expect(this.msgEthnicityRequired).toHaveText('Nhập dân tộc');
-    }
-    async verifyMsgReligionRequired() {
-        await expect(this.msgReligionRequired).toBeVisible();
-        await expect(this.msgReligionRequired).toHaveText('Nhập tôn giáo');
+        await this.safeVerifyToHaveText(this.msgPlaceOfBirthRequired, 'Nhập nơi sinh');
     }
 
+    async verifyMsgHownTownRequired() {
+        await this.safeVerifyToHaveText(this.msgHownTownRequired, 'Nhập quê quán');
+    }
+
+    async verifyMsgEthnicityRequired() {
+        await this.safeVerifyToHaveText(this.msgEthnicityRequired, 'Nhập dân tộc');
+    }
+
+    async verifyMsgReligionRequired() {
+        await this.safeVerifyToHaveText(this.msgReligionRequired, 'Nhập tôn giáo');
+    }
+
+    // CLICK ACTIONS
     async clickEditButton() {
-        await this.editButton.nth(1).click();
+        await this.safeClick(this.editButton.nth(1));
     }
 
     async clickToDayDatePicker() {
-        await this.toDayDatePicker.click();
+        await this.safeClick(this.toDayDatePicker);
     }
+
     async clickChosseButton() {
-        await this.chosseButton.click();
+        await this.safeClick(this.chosseButton);
     }
 
     async clickContractSignDate() {
-        await this.contractSignDate.click();
+        await this.safeClick(this.contractSignDate);
     }
 
     async clickRecruitmentDate() {
-        await this.recruimentDate.click();
+        await this.safeClick(this.recruimentDate);
     }
 
     async clickStartWorkingDate() {
-        await this.startWorkingDate.click();
+        await this.safeClick(this.startWorkingDate);
     }
 
-    async fillPoliticalTheory(politicaltheory: string) {
-        await this.politicalTheoryInput.fill(politicaltheory);
-    }
-
-    async fillRecruitedPosition(position: string) {
-        await this.recruitedPosition.fill(position);
-    }
-    async fillRecruimentForm(form: string) {
-        await this.recruimentForm.fill(form);
-    }
-    async fillOrganizationJoined(joinedorganization: string) {
-        await this.organizationJoined.fill(joinedorganization);
-    }
-    async fillPreRecruitment(preRecruitment: string) {
-        await this.preRecruitment.fill(preRecruitment);
-    }
-    async fillCurrentJob(job: string) {
-        await this.currentJob.fill(job);
-    }
-    async fillBloodType(bloodtype: string) {
-        await this.bloodType.fill(bloodtype);
-    }
-    async fillHealthStatus(healthstatus: string) {
-        await this.healthStatus.fill(healthstatus);
-    }
-    async fillWeight(weight: string) {
-        await this.weight.fill(weight);
-    }
-    async fillHeight(height: string) {
-        await this.height.fill(height);
-    }
-
-    async fillInsuranceNumber(insurancenumber: string) {
-        await this.insuranceNumber.fill(insurancenumber);
-    }
-    async fillSocialSecurityNumber(socialsecuritynumber: string) {
-        await this.socialSecurityNumber.fill(socialsecuritynumber);
-    }
     async clickPassportIssuanceDate() {
-        await this.passportIssuanceDate.click();
+        await this.safeClick(this.passportIssuanceDate);
     }
 
     async clickPassportExpirationDate() {
-        await this.passportExpirationDate.click();
-    }
-
-    async fillWherePassportsAreIssued(issued: string) {
-        await this.wherePassportsAreIssued.fill(issued);
-    }
-
-    async fillPassportNumber(passportnumber: string) {
-        await this.passportNumber.fill(passportnumber);
-    }
-    async fillStateManagement(state: string) {
-        await this.stateManagement.fill(state);
-    }
-
-    async fillMajor(major: string) {
-        await this.major.fill(major);
-    }
-
-    async fillProfessionalQualifications(professionalqualifications: string) {
-        await this.professionalQualifications.fill(professionalqualifications);
-    }
-
-    async fillNationPeople(nationpeople: string) {
-        await this.nationPeople.fill(nationpeople);
-    }
-
-    async fillReligion(religion: string) {
-        await this.religion.fill(religion);
-    }
-
-    async fillNationality(nationality: string) {
-        await this.nationality.fill(nationality);
-    }
-
-    async fillMaritalStatus(status: string) {
-        await this.maritalStatus.fill(status);
-    }
-
-    async fillEducationalLevel(level: string) {
-        await this.educationalLevel.fill(level);
-    }
-
-    async fillHomePhoneNumber(homephoneNumber: string) {
-        await this.homePhoneNumber.fill(homephoneNumber);
-    }
-
-    async fillOfficePhoneNumber(officenumber: string) {
-        await this.officePhoneNumber.fill(officenumber);
-    }
-
-    async fillPermanentResidence(permanentresidence: string) {
-        await this.permanentResidence.fill(permanentresidence);
-    }
-
-    async fillCurrentResidence(currentresidence: string) {
-        await this.currentResidence.fill(currentresidence);
-    }
-
-    async fillHomeTown(hometown: string) {
-        await this.homeTown.fill(hometown);
-    }
-
-    async fillPlaceOfBirth(placeofbirth: string) {
-        await this.placeOfBirth.fill(placeofbirth);
-    }
-
-    async fillAliasName(aliasName: string) {
-        await this.aliasName.fill(aliasName);
-    }
-
-    async fillIdentifier(identifier: string) {
-        await this.identifier.fill(identifier);
+        await this.safeClick(this.passportExpirationDate);
     }
 
     async clickResume() {
-        await this.resumeButton.click();
+        await this.safeClick(this.resumeButton);
     }
 
+    // FILL FIELDS
+    async fillPoliticalTheory(text: string) {
+        await this.safeFill(this.politicalTheoryInput, text);
+    }
+
+    async fillRecruitedPosition(text: string) {
+        await this.safeFill(this.recruitedPosition, text);
+    }
+
+    async fillRecruimentForm(text: string) {
+        await this.safeFill(this.recruimentForm, text);
+    }
+
+    async fillOrganizationJoined(text: string) {
+        await this.safeFill(this.organizationJoined, text);
+    }
+
+    async fillPreRecruitment(text: string) {
+        await this.safeFill(this.preRecruitment, text);
+    }
+
+    async fillCurrentJob(text: string) {
+        await this.safeFill(this.currentJob, text);
+    }
+
+    async fillBloodType(text: string) {
+        await this.safeFill(this.bloodType, text);
+    }
+
+    async fillHealthStatus(text: string) {
+        await this.safeFill(this.healthStatus, text);
+    }
+
+    async fillWeight(text: string) {
+        await this.safeFill(this.weight, text);
+    }
+
+    async fillHeight(text: string) {
+        await this.safeFill(this.height, text);
+    }
+
+    async fillInsuranceNumber(text: string) {
+        await this.safeFill(this.insuranceNumber, text);
+    }
+
+    async fillSocialSecurityNumber(text: string) {
+        await this.safeFill(this.socialSecurityNumber, text);
+    }
+
+    async fillWherePassportsAreIssued(text: string) {
+        await this.safeFill(this.wherePassportsAreIssued, text);
+    }
+
+    async fillPassportNumber(text: string) {
+        await this.safeFill(this.passportNumber, text);
+    }
+
+    async fillStateManagement(text: string) {
+        await this.safeFill(this.stateManagement, text);
+    }
+
+    async fillMajor(text: string) {
+        await this.safeFill(this.major, text);
+    }
+
+    async fillProfessionalQualifications(text: string) {
+        await this.safeFill(this.professionalQualifications, text);
+    }
+
+    async fillNationPeople(text: string) {
+        await this.safeFill(this.nationPeople, text);
+    }
+
+    async fillReligion(text: string) {
+        await this.safeFill(this.religion, text);
+    }
+
+    async fillNationality(text: string) {
+        await this.safeFill(this.nationality, text);
+    }
+
+    async fillMaritalStatus(text: string) {
+        await this.safeFill(this.maritalStatus, text);
+    }
+
+    async fillEducationalLevel(text: string) {
+        await this.safeFill(this.educationalLevel, text);
+    }
+
+    async fillHomePhoneNumber(text: string) {
+        await this.safeFill(this.homePhoneNumber, text);
+    }
+
+    async fillOfficePhoneNumber(text: string) {
+        await this.safeFill(this.officePhoneNumber, text);
+    }
+
+    async fillPermanentResidence(text: string) {
+        await this.safeFill(this.permanentResidence, text);
+    }
+
+    async fillCurrentResidence(text: string) {
+        await this.safeFill(this.currentResidence, text);
+    }
+
+    async fillHomeTown(text: string) {
+        await this.safeFill(this.homeTown, text);
+    }
+
+    async fillPlaceOfBirth(text: string) {
+        await this.safeFill(this.placeOfBirth, text);
+    }
+
+    async fillAliasName(text: string) {
+        await this.safeFill(this.aliasName, text);
+    }
+
+    async fillIdentifier(text: string) {
+        await this.safeFill(this.identifier, text);
+    }
+
+    // ACTION COMBO
     async testSaveWithEmptyFieldsRequired() {
         await this.clickResume();
         await this.clickEditButton();

@@ -47,11 +47,8 @@ test.describe.serial("Evaluation Criteria Tests", () => {
             await evaluationProcess.clickEmployeeEvaluationOption();
             await evaluationProcess.clickEvaluationTypeDropDown();
             await evaluationProcess.clickEvaluationTypeOption1();
-            await evaluationProcess.clickStartTime();
-            await evaluationProcess.clickChosseButton();
             await evaluationProcess.clickEndTime();
-            await evaluationProcess.clickToDay();
-            await evaluationProcess.clickChosseButton();
+            await basePage.clickTodayDatePicker();
             await basePage.clickSave();
         });
         await toast.getToastAddSuccess();
@@ -92,11 +89,8 @@ test.describe.serial("Evaluation Criteria Tests", () => {
             await evaluationProcess.clickEmployeeEvaluationOption();
             await evaluationProcess.clickEvaluationTypeDropDown();
             await evaluationProcess.clickEvaluationTypeOption1();
-            await evaluationProcess.clickStartTime();
-            await evaluationProcess.clickChosseButton();
             await evaluationProcess.clickEndTime();
-            await evaluationProcess.clickToDay();
-            await evaluationProcess.clickChosseButton();
+            await basePage.clickTodayDatePicker();
             await evaluationProcess.clickEvaluationForm();
             await evaluationProcess.clickDepartmentForm();
             await basePage.clickSave();

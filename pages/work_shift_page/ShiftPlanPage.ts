@@ -1,43 +1,44 @@
 import { Locator, Page, expect } from '@playwright/test';
+import { BasePage } from '../BasePage';
 
-export class ShiftPlanPage {
+export class ShiftPlanPage extends BasePage {
 
-    readonly page: Page;
-    readonly  searchButton: Locator;
-    readonly  shiftPlanButton: Locator;
-    readonly  addButton: Locator;
-    readonly  shiftPlanNameInput: Locator;
-    readonly  workShiftInput: Locator;
-    readonly  startDateInput: Locator;
-    readonly  endDateInput: Locator;
-    readonly  saveButton: Locator;
-    readonly  departmentButton: Locator;
-    readonly  addDepartmentButton: Locator;
-    readonly  departmentDropDown: Locator;
-    readonly  departmentOption: Locator;
-    readonly  saveDepartmentButton: Locator;
-    readonly  saveWorkShiftButton: Locator;
-    readonly  Day1Button: Locator;
-    readonly  Day31Button: Locator;
-    readonly  chosseButton: Locator;
-    readonly  workShiftOption: Locator;
-    readonly  searchEmployeeInput: Locator;
-    readonly  employeeCheckbox: Locator;
-    readonly  saveEmployeeButton: Locator;
-    readonly  requiredFieldNameShift: Locator;
-    readonly  requiredFieldNameWorkShift: Locator;
-    readonly  logoutButton: Locator;
-    readonly  logoutConfirmButton: Locator;
-    readonly  editButton: Locator;
-    readonly  deleteButton: Locator;
-    readonly  chosseMonthButton: Locator;
-    readonly  Month07Button: Locator;
-    readonly  okButton: Locator;
-    readonly  getToastDeleteSuccess: Locator;
-    readonly  chooseMonthSearch: Locator;
+
+    readonly searchButton: Locator;
+    readonly shiftPlanButton: Locator;
+    readonly addButton: Locator;
+    readonly shiftPlanNameInput: Locator;
+    readonly workShiftInput: Locator;
+    readonly startDateInput: Locator;
+    readonly endDateInput: Locator;
+    readonly saveButton: Locator;
+    readonly departmentButton: Locator;
+    readonly addDepartmentButton: Locator;
+    readonly departmentDropDown: Locator;
+    readonly departmentOption: Locator;
+    readonly saveDepartmentButton: Locator;
+    readonly saveWorkShiftButton: Locator;
+    readonly Day1Button: Locator;
+    readonly Day31Button: Locator;
+    readonly chosseButton: Locator;
+    readonly workShiftOption: Locator;
+    readonly searchEmployeeInput: Locator;
+    readonly employeeCheckbox: Locator;
+    readonly saveEmployeeButton: Locator;
+    readonly requiredFieldNameShift: Locator;
+    readonly requiredFieldNameWorkShift: Locator;
+    readonly logoutButton: Locator;
+    readonly logoutConfirmButton: Locator;
+    readonly editButton: Locator;
+    readonly deleteButton: Locator;
+    readonly chosseMonthButton: Locator;
+    readonly Month07Button: Locator;
+    readonly okButton: Locator;
+    readonly getToastDeleteSuccess: Locator;
+    readonly chooseMonthSearch: Locator;
 
     constructor(page: Page) {
-        this.page = page;
+        super(page);
         this.chooseMonthSearch = page.locator("//div/div[1]/div/div/div/div/div[1]/div/div/div[3]/input")
         this.okButton = page.locator("//span[normalize-space()='Có']")
         this.Month07Button = page.locator("//div[@class='dp__overlay_cell dp__overlay_cell_pad'][normalize-space()='Thg 8']")
@@ -72,134 +73,123 @@ export class ShiftPlanPage {
 
     }
 
-    async clickChooseMonthSearch(){
-        await this.chooseMonthSearch.click()
-    }
-
-    async getToastDelete(text: string) {
-        await expect(this.getToastDeleteSuccess).toHaveText(text);
-        return this.getToastDeleteSuccess.textContent();
+    async clickChooseMonthSearch() {
+        await this.safeClick(this.chooseMonthSearch);
     }
 
     async clickOkButton() {
-        await this.okButton.click();
+        await this.safeClick(this.okButton);
     }
 
     async clickMonth07Button() {
-        await this.Month07Button.click();
+        await this.safeClick(this.Month07Button);
     }
 
     async clickChosseMonthButton() {
-        await this.chosseMonthButton.click();
+        await this.safeClick(this.chosseMonthButton);
     }
 
     async clickDeleteButton() {
-        await this.deleteButton.click();
+        await this.safeClick(this.deleteButton);
     }
 
     async clickEditButton() {
-        await this.editButton.click();
+        await this.safeClick(this.editButton);
     }
 
     async clickSaveEmployeeButton() {
-        await this.saveEmployeeButton.click();
+        await this.safeClick(this.saveEmployeeButton);
     }
 
     async clickEmployeeCheckbox() {
-        await this.employeeCheckbox.click();
+        await this.safeClick(this.employeeCheckbox);
     }
 
     async fillSearchEmployeeInput(employeeName: string) {
-        await this.searchEmployeeInput.fill(employeeName);
+        await this.safeFill(this.searchEmployeeInput, employeeName);
         await this.page.keyboard.press('Enter');
     }
 
     async clickWorkShiftOption() {
-        await this.workShiftOption.click();
+        await this.safeClick(this.workShiftOption);
     }
 
     async clickChosseButton() {
-        await this.chosseButton.click();
+        await this.safeClick(this.chosseButton);
     }
 
     async clickDay31Button() {
-        await this.Day31Button.click();
+        await this.safeClick(this.Day31Button);
     }
 
     async clickDay1Button() {
-        await this.Day1Button.click();
+        await this.safeClick(this.Day1Button);
     }
 
     async clickSearchButton() {
-        await this.searchButton.click();
+        await this.safeClick(this.searchButton);
     }
 
     async clickShiftPlanButton() {
-        await this.shiftPlanButton.click();
+        await this.safeClick(this.shiftPlanButton);
     }
 
     async clickAddButton() {
-        await this.addButton.click();
-    } 
+        await this.safeClick(this.addButton);
+    }
 
     async fillShiftPlanNameInput(shiftPlanName: string) {
-        await this.shiftPlanNameInput.fill(shiftPlanName);
+        await this.safeFill(this.shiftPlanNameInput, shiftPlanName);
     }
 
     async clickWorkShift() {
-        await this.workShiftInput.click();
-
+        await this.safeClick(this.workShiftInput);
     }
 
     async clickStartDateInput() {
-        await this.startDateInput.click();
+        await this.safeClick(this.startDateInput);
     }
 
     async clickEndDateInput() {
-        await this.endDateInput.click();
+        await this.safeClick(this.endDateInput);
     }
 
     async clickSaveButton() {
-        await this.saveButton.nth(0).click();
-
+        await this.safeClick(this.saveButton.nth(0));
     }
 
     async clickDepartmentButton() {
-        await this.departmentButton.click();
+        await this.safeClick(this.departmentButton);
     }
 
     async clickAddDepartmentButton() {
-        await this.addDepartmentButton.click();
+        await this.safeClick(this.addDepartmentButton);
     }
 
     async clickDepartmentDropDown() {
-        await this.departmentDropDown.click();
+        await this.safeClick(this.departmentDropDown);
     }
 
     async clickDepartmentOption() {
-        await this.departmentOption.click();
+        await this.safeClick(this.departmentOption);
     }
+
     async clickSaveDepartmentButton() {
-        await this.saveDepartmentButton.click();
+        await this.safeClick(this.saveDepartmentButton);
     }
 
     async clickSaveWorkShiftButton() {
-        await this.saveWorkShiftButton.click();
+        await this.safeClick(this.saveWorkShiftButton);
     }
 
-
     async getRequiredFieldNameShift(text: string) {
-        await expect(this.requiredFieldNameShift).toHaveText(text);
-        return this.requiredFieldNameShift.textContent();
+        await this.safeVerifyToHaveText(this.requiredFieldNameShift, text);
     }
 
     async getRequiredFieldNameWorkShift(text: string) {
-        await expect(this.requiredFieldNameWorkShift).toHaveText(text);
+        await this.safeVerifyToHaveText(this.requiredFieldNameWorkShift, text);
         return this.requiredFieldNameWorkShift.textContent();
     }
 
-    async Logout() {
-        await this.logoutButton.click();
-        await this.logoutConfirmButton.click();
-    }
+
 }

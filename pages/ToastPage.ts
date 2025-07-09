@@ -21,9 +21,12 @@ export class ToastPage {
     readonly toastUpdateFailed: Locator;
     readonly toastCheckinSuccess: Locator;
     readonly toastSaveSuccess: Locator;
+    readonly toastSendBrowseSuccess: Locator;
+    readonly toastBrowseSuccess2: Locator;
 
     constructor(page: Page) {
         this.page = page;
+        this.toastSendBrowseSuccess = page.locator('//div[contains(text(),"Gửi duyệt thành công")]');
         this.toastSaveSuccess = page.locator('//div[contains(text(),"Lưu thành công")]');
         this.toastCheckinSuccess = page.locator('//div[contains(text(),"Chấm công thành công")]');
         this.toastUpdateFailed = page.locator('//div[contains(text(),"Cập nhật không thành công")]');
@@ -43,6 +46,17 @@ export class ToastPage {
         this.toastUpdateSuccess = page.locator('//div[contains(text(),"Cập nhật thành công")]');
         this.toastDeleteSuccess = page.locator('//div[contains(text(),"Xóa thành công")]');
         this.toastBrowseSuccess = page.locator('//div[contains(text(),"Đã duyệt thành công")]');
+        this.toastBrowseSuccess2 = page.locator('//div[contains(text(),"Phê duyệt thành công")]');
+    }
+
+    async getToastBrowseSuccess2() {
+        await expect(this.toastBrowseSuccess2).toHaveText('Phê duyệt thành công');
+        return this.toastBrowseSuccess2.textContent();
+    }
+
+    async getToastSendBrowseSuccess() {
+        await expect(this.toastSendBrowseSuccess).toHaveText('Gửi duyệt thành công');
+        return this.toastSendBrowseSuccess.textContent();
     }
 
     async getToastSaveSuccess() {
@@ -109,7 +123,7 @@ export class ToastPage {
         await expect(this.toastConfirmSuccess).toHaveText('Xác nhận thành công');
         return this.toastConfirmSuccess.textContent();
     }
-   
+
     async getToastExportSuccess() {
         await expect(this.toastExportSuccess).toHaveText('Xuất thành công');
         return this.toastExportSuccess.textContent();

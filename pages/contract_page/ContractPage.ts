@@ -1,7 +1,7 @@
 import { Page, Locator, expect } from 'playwright/test';
+import { BasePage } from '../BasePage';
 
-export class ContractPage {
-    readonly page: Page;
+export class ContractPage extends BasePage {
     readonly contractButton: Locator;
     readonly EmployeeInput: Locator;
     readonly selectEmployee: Locator;
@@ -35,9 +35,7 @@ export class ContractPage {
     readonly selectDay2: Locator;
 
     constructor(page: Page) {
-
-
-        this.page = page;
+        super(page);
         this.selectDay2 = this.page.locator("//div[@class='dp__cell_inner dp__pointer dp__date_hover'][normalize-space()='30']");
         this.selectMonth2 = this.page.locator("//div[@class='dp__overlay_cell_active dp__overlay_cell_pad']")
         this.verifySearchByName = this.page.locator("//tr[@id='row-0']//span[contains(text(),'BAT810-Nguyễn Văn Minh')]");
@@ -69,152 +67,133 @@ export class ContractPage {
         this.contractButton = this.page.locator("//a[contains(.,'Hợp đồng')]");
         this.EmployeeInput = this.page.locator("//div[2]/div[1]/div[1]/div/div/div/div[3]/div/input");
         this.selectEmployee = this.page.locator("//span[normalize-space()='Minh']");
-
-
     }
 
     async clickSelectMonth2() {
-        await expect(this.selectMonth2).toBeVisible();
-        await this.selectMonth2.click();
+        await this.safeClick(this.selectMonth2);
     }
 
     async verifySearchByNameResult() {
-        await expect(this.verifySearchByName).toBeVisible();
-        await expect(this.verifySearchByName).toHaveText('BAT810-Nguyễn Văn Minh');
+        await this.safeVerifyToHaveText(this.verifySearchByName, 'BAT810-Nguyễn Văn Minh');
     }
 
     async verifySearchByCodeResult() {
-        await expect(this.verifySearchByCode).toBeVisible();
-        await expect(this.verifySearchByCode).toContainText('HD0001');
+        await this.safeVerifyTextContains(this.verifySearchByCode, 'HD0001');
+
     }
 
     async verifyStartDateSearchResult() {
         const firstResult = this.startDateSearchResult.nth(0);
-        await expect(firstResult).toBeVisible();
-        await expect(firstResult).toContainText('2025');
+        await this.safeVerifyTextContains(firstResult, '2025');
     }
 
-
     async clickStartDateSearch() {
-        await expect(this.startDateSearch).toBeVisible();
-        await this.startDateSearch.click();
+        await this.safeClick(this.startDateSearch);
     }
 
     async verifyProbationType() {
         const firstResult = this.verifyProbationTypeResult.first();
-        await expect(firstResult).toBeVisible();
-        await expect(firstResult).toHaveText('Thử việc');
+        await this.safeVerifyToHaveText(firstResult, 'Thử việc');
     }
 
     async verifyPermanentType() {
         const firstResult = this.verifyPermanentTypeResult.first();
-        await expect(firstResult).toBeVisible();
-        await expect(firstResult).toHaveText('Chính thức');
+        await this.safeVerifyToHaveText(firstResult, 'Chính thức');
     }
 
     async verifyTemporaryType() {
         const firstResult = this.verifyTemporaryTypeResult.first();
-        await expect(firstResult).toBeVisible();
-        await expect(firstResult).toHaveText('Thời vụ');
+        await this.safeVerifyToHaveText(firstResult, 'Thời vụ');
     }
 
     async verifyFreeLanceType() {
         const firstResult = this.verifyFreeLanceTypeResult.first();
-        await expect(firstResult).toBeVisible();
-        await expect(firstResult).toHaveText('Cộng tác viên');
+        await this.safeVerifyToHaveText(firstResult, 'Cộng tác viên');
     }
 
     async clickProbationType() {
-        await expect(this.probationType).toBeVisible();
-        await this.probationType.click();
+        await this.safeClick(this.probationType);
     }
+
     async clickPermanentType() {
-        await expect(this.permanentType).toBeVisible();
-        await this.permanentType.click();
+        await this.safeClick(this.permanentType);
     }
+
     async clickTemporaryType() {
-        await expect(this.temporaryType).toBeVisible();
-        await this.temporaryType.click();
+        await this.safeClick(this.temporaryType);
     }
+
     async clickFreeLanceType() {
-        await expect(this.freeLanceType).toBeVisible();
-        await this.freeLanceType.click();
+        await this.safeClick(this.freeLanceType);
     }
 
     async clickSearchByContractType() {
-        await expect(this.searchByContractType).toBeVisible();
-        await this.searchByContractType.click();
+        await this.safeClick(this.searchByContractType);
     }
 
     async fillSearchByName(name: string) {
-        await expect(this.searchByName).toBeVisible();
-        await this.searchByName.fill(name);
+        await this.safeFill(this.searchByName, name);
     }
 
     async fillSearchByCode(code: string) {
-        await expect(this.searchByCode).toBeVisible();
-        await this.searchByCode.fill(code);
+        await this.safeFill(this.searchByCode, code);
     }
 
     async clickContractTypeDropdown() {
-        await expect(this.contractTypeDropdown).toBeVisible();
-        await this.contractTypeDropdown.click();
+        await this.safeClick(this.contractTypeDropdown);
     }
 
     async checkSelectAllTerm() {
-        await expect(this.selectAllTerm).toBeVisible();
-        await this.selectAllTerm.click({ force: true });
+        await this.safeClick(this.selectAllTerm, { force: true });
     }
 
     async selectEndDate() {
-        await expect(this.endDateDropDown).toBeVisible();
-        await this.endDateDropDown.click();
-        await this.MonthButton.click();
-        await this.selectMonth.click();
-        await this.selectDay.click();
+        await this.safeClick(this.endDateDropDown);
+        await this.safeClick(this.MonthButton);
+        await this.safeClick(this.selectMonth);
+        await this.safeClick(this.selectDay);
     }
 
     async selectEndDate2() {
-        await expect(this.endDateDropDown).toBeVisible();
-        await this.endDateDropDown.click();
-        await this.MonthButton.click();
-        await this.selectMonth2.click();
-        await this.selectDay2.click();
+        await this.safeClick(this.endDateDropDown);
+        await this.safeClick(this.MonthButton);
+        await this.safeClick(this.selectMonth2);
+        await this.safeClick(this.selectDay2);
+    }
+
+    async selectStartDate() {
+        await this.safeClick(this.endDateDropDown);
+        await this.safeClick(this.MonthButton);
+        await this.safeClick(this.selectMonth);
+        await this.safeClick(this.selectDay2);
     }
 
     async fillSalary(salary: string) {
-        await expect(this.salaryInput).toBeVisible();
-        await this.salaryInput.fill(salary);
+        await this.safeFill(this.salaryInput, salary);
     }
 
     async clickCollaboratorContract() {
-        await expect(this.collaboratorContract).toBeVisible();
-        await this.collaboratorContract.click();
+        await this.safeClick(this.collaboratorContract);
     }
 
     async clickSeasonalContract() {
-        await expect(this.seasonalContract).toBeVisible();
-        await this.seasonalContract.click();
+        await this.safeClick(this.seasonalContract);
     }
 
     async clickFormalContract() {
-        await expect(this.formalContract).toBeVisible();
-        await this.formalContract.click();
+        await this.safeClick(this.formalContract);
     }
 
     async clickContract() {
-        await expect(this.contractButton).toBeVisible();
-        await this.contractButton.click();
+        await this.safeClick(this.contractButton);
     }
 
     async fillEmployeeName() {
-        await expect(this.EmployeeInput).toBeVisible();
-        await this.EmployeeInput.fill("Minh");
-        await this.selectEmployee.click();
+        await this.safeFill(this.EmployeeInput, "Minh");
+        await this.safeClick(this.selectEmployee);
     }
 
     async fillNote(note: string) {
-        await expect(this.noteInput).toBeVisible();
-        await this.noteInput.fill(note);
+        await this.safeFill(this.noteInput, note);
     }
 }

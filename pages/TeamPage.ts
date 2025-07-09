@@ -1,7 +1,7 @@
 import { expect, Page, Locator } from "@playwright/test";
+import { BasePage } from "./BasePage";
 
-export class TeamPage {
-  readonly page: Page;
+export class TeamPage extends BasePage {
   readonly teamButton: Locator;
   readonly teamNameInput: Locator;
   readonly teamCodeInput: Locator;
@@ -27,7 +27,7 @@ export class TeamPage {
   readonly resultMaxlenghtCode: Locator;
 
   constructor(page: Page) {
-    this.page = page;
+    super(page);
     this.resultMaxlenghtName = page.locator("//div[contains(text(),'Không nhập quá 255 kí tự.')]");
     this.resultMaxlenghtCode = page.locator("//div[contains(text(),'Không nhập quá 100 kí tự.')]");
     this.resultSearchByCode = page.locator("//tr[@id='row-0']//span[contains(text(),'T001')]");
@@ -54,103 +54,88 @@ export class TeamPage {
   }
 
   async getResultMaxlenghtName() {
-    await expect(this.resultMaxlenghtName).toBeVisible();
-    await expect(this.resultMaxlenghtName).toHaveText('Không nhập quá 255 kí tự.');
+    await this.safeVerifyToHaveText(this.resultMaxlenghtName, 'Không nhập quá 255 kí tự.');
   }
 
   async getResultMaxlenghtCode() {
-    await expect(this.resultMaxlenghtCode).toBeVisible();
-    await expect(this.resultMaxlenghtCode).toHaveText('Không nhập quá 100 kí tự.');
-
+    await this.safeVerifyToHaveText(this.resultMaxlenghtCode, 'Không nhập quá 100 kí tự.');
   }
 
   async clickDropdownFormAdd() {
-    await this.dropdownStatusFormAdd.click();
+    await this.safeClick(this.dropdownStatusFormAdd);
   }
 
   async getResultSearchByName() {
-    await expect(this.resultSearchByName).toBeVisible();
-    await expect(this.resultSearchByName).toHaveText('Nhóm It1');
+    await this.safeVerifyToHaveText(this.resultSearchByName, 'Nhóm It1');
   }
 
   async getResultSearchByCode() {
-    await expect(this.resultSearchByCode).toBeVisible();
-    await expect(this.resultSearchByCode).toHaveText('T001');
+    await this.safeVerifyToHaveText(this.resultSearchByCode, 'T001');
   }
 
   async getValidateNameExist() {
-    await expect(this.validateNameExist).toBeVisible();
-    await expect(this.validateNameExist).toHaveText('Tên đã tồn tại.');
+    await this.safeVerifyToHaveText(this.validateNameExist, 'Tên đã tồn tại.');
   }
 
   async getValidateCodeExist() {
-    await expect(this.validateCodeExist).toBeVisible();
-    await expect(this.validateCodeExist).toHaveText('Mã đã tồn tại.');
+    await this.safeVerifyToHaveText(this.validateCodeExist, 'Mã đã tồn tại.');
   }
 
   async getVerifyLockStatus() {
-    await expect(this.verifyLockStatus).toBeVisible();
-    await expect(this.verifyLockStatus).toHaveText('Khóa');
+    await this.safeVerifyToHaveText(this.verifyLockStatus, 'Khóa');
   }
 
   async getVerifyActivityStatus() {
-    await expect(this.verifyActivityStatus).toBeVisible();
-    await expect(this.verifyActivityStatus).toHaveText('Hoạt động');
+    await this.safeVerifyToHaveText(this.verifyActivityStatus, 'Hoạt động');
   }
 
   async clickLockStatus() {
-    await this.lockStatus.click();
+    await this.safeClick(this.lockStatus);
   }
 
   async clickActivityStatus() {
-    await this.activityStatus.click();
+    await this.safeClick(this.activityStatus);
   }
 
   async clickDropdownStatusSearch() {
-    await this.dropdownStatusSearch.click();
+    await this.safeClick(this.dropdownStatusSearch);
   }
 
   async searchByTeamCode(code: string) {
-    await this.inputSearchByCode.fill(code);
+    await this.safeFill(this.inputSearchByCode, code);
   }
 
   async searchByTeamName(name: string) {
-    await this.inputSerchByName.fill(name);
+    await this.safeFill(this.inputSerchByName, name);
   }
 
   async validateRequiredFields() {
-    await expect(this.validationName).toBeVisible();
-    await expect(this.validationName).toHaveText('Nhập tên nhóm');
-
-    await expect(this.validationCode).toBeVisible();
-    await expect(this.validationCode).toHaveText('Nhập mã nhóm');
-
-    await expect(this.validationDepartment).toBeVisible();
-    await expect(this.validationDepartment).toHaveText('Nhập thuộc bộ phận');
+    await this.safeVerifyToHaveText(this.validationName, 'Nhập tên nhóm');
+    await this.safeVerifyToHaveText(this.validationCode, 'Nhập mã nhóm');
+    await this.safeVerifyToHaveText(this.validationDepartment, 'Nhập thuộc bộ phận');
   }
 
   async fillTeamName(teamname: string) {
-    await this.teamNameInput.click();
+    await this.safeClick(this.teamNameInput);
     await this.teamNameInput.clear();
-    await this.teamNameInput.fill(teamname);
+    await this.safeFill(this.teamNameInput, teamname);
   }
 
   async fillTeamCode(teamcode: string) {
     await this.teamCodeInput.clear();
-    await this.teamCodeInput.fill(teamcode);
+    await this.safeFill(this.teamCodeInput, teamcode);
   }
 
   async clickSelectDepartment() {
-    await this.dropdownDepartment.click();
-    await this.selectDepartment.click();
+    await this.safeClick(this.dropdownDepartment);
+    await this.safeClick(this.selectDepartment);
   }
 
   async fillNote(note: string) {
-    await this.noteTextarea.fill(note);
+    await this.safeFill(this.noteTextarea, note);
   }
 
   async clickTeamButton() {
-    await this.teamButton.click();
+    await this.safeClick(this.teamButton);
   }
-
 }

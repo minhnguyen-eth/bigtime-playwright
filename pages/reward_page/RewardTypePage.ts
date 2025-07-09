@@ -1,7 +1,8 @@
 import { expect, Locator, Page } from "@playwright/test";
+import { BasePage } from "../BasePage";
 
-export class RewardTypePage {
-    readonly page: Page;
+export class RewardTypePage extends BasePage {
+
     readonly rewardTypeButton: Locator;
     readonly rewardTypeNameInput: Locator;
     readonly descriptionInput: Locator;
@@ -19,7 +20,7 @@ export class RewardTypePage {
     readonly verifyLockStatusRow1: Locator;
 
     constructor(page: Page) {
-        this.page = page;
+        super(page);
         this.verifyDuplicateNameError = page.locator("//li[contains(text(),'Tên đã tồn tại.')]");
         this.verifyLockStatus = page.locator("//tr[@id='row-0']//span[@class='custom-size'][normalize-space()='Khóa']");
         this.verifyLockStatusRow1 = page.locator("//tr[@id='row-1']//span[@class='custom-size'][contains(text(),'Khóa')]");
@@ -38,89 +39,60 @@ export class RewardTypePage {
     }
 
     async VerifyDuplicateNameError() {
-        await expect(this.verifyDuplicateNameError).toBeVisible();
-        const value = await this.verifyDuplicateNameError.textContent();
-        console.log("🔍 Error found:", value);
-        return value;
+        await this.safeVerifyToHaveText(this.verifyDuplicateNameError, 'Tên đã tồn tại.');
     }
 
 
 
     async VerifyActivityStatus() {
-        await expect(this.verifyActivityStatus).toBeVisible();
-        const value = await this.verifyActivityStatus.textContent();
-        console.log("🔍 Status found:", value);
-        return value;
+        await this.safeVerifyToHaveText(this.verifyActivityStatus, 'Hoạt động');
     }
 
     async VerifyLockStatus() {
-        await expect(this.verifyLockStatus).toBeVisible();
-        const value = await this.verifyLockStatus.textContent();
-        console.log("🔍 Status found:", value);
-        return value;
+        await this.safeVerifyToHaveText(this.verifyLockStatus, 'Khóa');
     }
 
-     async VerifyLockStatusRow1() {
-        await expect(this.verifyLockStatusRow1).toBeVisible();
-        const value = await this.verifyLockStatusRow1.textContent();
-        console.log("🔍 Status found:", value);
-        return value;
+    async VerifyLockStatusRow1() {
+        await this.safeVerifyToHaveText(this.verifyLockStatusRow1, 'Khóa');
     }
 
     async getResultSearch() {
-        await expect(this.resultSearch).toBeVisible();
-        await expect(this.resultSearch).toContainText('Khen thưởng');
-        return this.resultSearch;
+        await this.safeVerifyTextContains(this.resultSearch, 'Khen thưởng');
     }
 
     async clickStatusActivity() {
-        await expect(this.activityStatus).toBeVisible();
-        await this.activityStatus.click();
+        await this.safeClick(this.activityStatus);
     }
 
     async clickStatusDropdownSearch() {
-        await expect(this.statusDrodownSearch).toBeVisible();
-        await this.statusDrodownSearch.click();
+        await this.safeClick(this.statusDrodownSearch);
     }
 
     async getRequiredRewardTypeName() {
-        await expect(this.requiredRewardTypeName).toBeVisible();
-        await expect(this.requiredRewardTypeName).toHaveText('Nhập tên loại khen thưởng');
-        return this.requiredRewardTypeName;
+        await this.safeVerifyToHaveText(this.requiredRewardTypeName, 'Nhập tên loại khen thưởng');
     }
 
     async clickStatusLock() {
-        await expect(this.lockStatus).toBeVisible();
-        await this.lockStatus.click();
+        await this.safeClick(this.lockStatus);
     }
 
     async clickStatusDropdownFormAdd() {
-        await expect(this.statusDropdownFormAdd).toBeVisible();
-        await this.statusDropdownFormAdd.click();
-    }
-
-    async clickSaveButton() {
-        await expect(this.saveButton).toBeVisible();
-        await this.saveButton.click();
+        await this.safeClick(this.statusDropdownFormAdd);
     }
 
     async fillRewardTypeNameInput(rewardTypeName: string) {
-        await expect(this.rewardTypeNameInput).toBeVisible();
-        await this.rewardTypeNameInput.fill(rewardTypeName);
+        await this.safeFill(this.rewardTypeNameInput, rewardTypeName);
     }
 
     async fillDescriptionInput(description: string) {
-        await expect(this.descriptionInput).toBeVisible();
-        await this.descriptionInput.fill(description);
+        await this.safeFill(this.descriptionInput, description);
     }
 
     async fillInputSearch(search: string) {
-        await expect(this.inputSearch).toBeVisible();
-        await this.inputSearch.fill(search);
+        await this.safeFill(this.inputSearch, search);
     }
 
     async clickRewardTypeButton() {
-        await expect(this.rewardTypeButton).toBeVisible();
-        await this.rewardTypeButton.click();
+        await this.safeClick(this.rewardTypeButton);
     }
 }

@@ -1,7 +1,8 @@
-import { Page, Locator } from '@playwright/test';
+import { Page, Locator, expect } from '@playwright/test';
+import { BasePage } from '../BasePage';
 
-export class NotificationPage {
-    readonly page: Page;
+export class NotificationPage extends BasePage {
+
     readonly notificationButton: Locator;
     readonly addButton: Locator;
     readonly notificationName: Locator;
@@ -33,7 +34,7 @@ export class NotificationPage {
     readonly verifyNotificationPersonnal: Locator;
 
     constructor(page: Page) {
-        this.page = page;
+        super(page);
         this.verifyNotificationPersonnal = page.locator("//strong[contains(text(),'Gửi đến: Nhân viên BAT810-Nguyễn Văn Minh')]");
         this.verifyNotificationCompany = page.locator("//strong[contains(text(),'Gửi đến: Toàn công ty')]");
         this.verifyNotificationDepartment = page.locator("//strong[contains(text(),'Gửi đến: Bộ phận Bộ phận IT')]");
@@ -67,128 +68,113 @@ export class NotificationPage {
 
 
     async getVerifyNotificationPersonnal() {
-        const verifyNotificationPersonnal = await this.verifyNotificationPersonnal.textContent();
-        console.log("Verify notification personal is " + verifyNotificationPersonnal);
-        return verifyNotificationPersonnal;
+        await this.safeVerifyToHaveText(this.verifyNotificationPersonnal, "Gửi đến: Nhân viên BAT810-Nguyễn Văn Minh");
     }
 
     async getVerifyNotificationCompany() {
-        const verifyNotificationCompany = await this.verifyNotificationCompany.textContent();
-        console.log("Verify notification company is " + verifyNotificationCompany);
-        return verifyNotificationCompany;
+        await this.safeVerifyToHaveText(this.verifyNotificationCompany, "Gửi đến: Toàn công ty");
     }
 
     async getVerifyNotificationDepartment() {
-        const verifyNotificationDepartment = await this.verifyNotificationDepartment.textContent();
-        console.log("Verify notification department is " + verifyNotificationDepartment);
-        return verifyNotificationDepartment;
+        await this.safeVerifyToHaveText(this.verifyNotificationDepartment, "Gửi đến: Bộ phận Bộ phận IT");
     }
 
     async clickOnYesButton() {
-        await this.yesButton.click();
+        await this.safeClick(this.yesButton);
     }
 
     async clickOnDeleteButton() {
-        await this.deleteButton.first().click();
+        await this.safeClickFirst(this.deleteButton);
     }
 
     async clickOnListNotification() {
-        await this.listNotification.click();
+        await this.safeClick(this.listNotification);
     }
 
     async clickOnPersonnalSelect() {
-        await this.personnalSelect.click();
+        await this.safeClick(this.personnalSelect);
     }
 
     async fillPersonnalSearch(personnel: string) {
-        await this.page.waitForLoadState('networkidle');
-        await this.personnalSearch.fill(personnel);
+        await this.safeFill(this.personnalSearch, personnel);
         await this.page.keyboard.press('Enter');
     }
 
     async clickOnPersonnelOption() {
-        await this.personnalOption.click();
+        await this.safeClick(this.personnalOption);
     }
 
     async clickOnPersonnal() {
-        await this.personnal.click();
+        await this.safeClick(this.personnal);
     }
 
     async clickOnDepartmentOption() {
-        await this.departmentOption.check();
+        await this.safeClick(this.departmentOption);
     }
 
     async clickOnDepartment() {
-        await this.department.click();
+        await this.safeClick(this.department);
     }
 
     async clickOnSendNotification() {
-        await this.sendNotification.click();
+        await this.safeClick(this.sendNotification);
     }
 
     async clickOnIconAction() {
-        await this.iconAction.click();
+        await this.safeClick(this.iconAction);
     }
 
     async getRequiredName() {
-        const requiredName = await this.requiredName.textContent();
-        console.log("Required name is " + requiredName);
-        return requiredName;
+        await this.safeVerifyToHaveText(this.requiredName, "Nhập tên thông báo");
     }
 
     async getRequiredDescription() {
-        const requiredDescription = await this.requiredDescription.textContent();
-        console.log("Required description is " + requiredDescription);
-        return requiredDescription;
+        await this.safeVerifyToHaveText(this.requiredDescription, "Nhập nội dung chi tiết");
     }
 
     async getExistedName() {
-        const existedName = await this.existedName.textContent();
-        console.log("Existed name is " + existedName);
-        return existedName;
+        await this.safeVerifyToHaveText(this.existedName, "Tên đã tồn tại.");
     }
 
     async clickOnNotificationFormDropdown() {
-        await this.notificationFormDropdown.click();
+        await this.safeClick(this.notificationFormDropdown);
     }
     async clickOnStartDate() {
-        await this.startDate.click();
+        await this.safeClick(this.startDate);
     }
 
     async clickOnEndDate() {
-        await this.endDate.click();
+        await this.safeClick(this.endDate);
     }
+
     async clickOnWorkSchedule() {
-        await this.workSchedule.click();
+        await this.safeClick(this.workSchedule);
     }
+
     async clickOnUrgent() {
-        await this.urgent.click();
+        await this.safeClick(this.urgent);
     }
     async clickOnHoliday() {
-        await this.holiday.click();
+        await this.safeClick(this.holiday);
     }
 
     async fillNotificationName(name: string) {
-        await this.notificationName.fill(name);
+        await this.safeFill(this.notificationName, name);
     }
 
     async fillDescription(description: string) {
-        await this.description.fill(description);
+        await this.safeFill(this.description, description);
     }
 
     async clickOnSaveButton() {
-        await this.saveButton.click();
+        await this.safeClick(this.saveButton);
     }
 
     async clickOnCancelButton() {
-        await this.cancelButton.click();
-    }
-
-    async clickOnAddButton() {
-        await this.addButton.click();
+        await this.safeClick(this.cancelButton);
     }
 
     async clickOnNotification() {
-        await this.notificationButton.click();
+        await this.safeClick(this.notificationButton);
     }
 }

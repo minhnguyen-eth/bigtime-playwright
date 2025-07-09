@@ -1,7 +1,8 @@
 import { Locator, Page, expect } from '@playwright/test';
+import { BasePage } from './BasePage';
 
-export class RegisnationPage {
-    readonly page: Page;
+export class RegisnationPage extends BasePage {
+
     readonly addButton: Locator;
     readonly reasonInput: Locator;
     readonly saveButton: Locator;
@@ -41,7 +42,7 @@ export class RegisnationPage {
 
 
     constructor(page: Page) {
-        this.page = page;
+        super(page);
         this.month06Button = page.locator("//div[@class='dp__overlay_cell dp__overlay_cell_pad'][normalize-space()='Thg 6']");
         this.monthButton = page.locator("button[aria-label='Open months overlay']");
         this.Day16 = page.locator("//div[@class='dp__cell_inner dp__pointer dp__date_hover'][normalize-space()='16']");
@@ -65,7 +66,7 @@ export class RegisnationPage {
         this.submittedButton = page.locator("//div[contains(text(),'Đã gửi')]");
         this.newStatusOption = page.locator("//div[contains(text(),'Tạo mới')]");
         this.statusDropDown = page.locator("//div[@class='v-field v-field--appended v-field--center-affix v-field--variant-outlined v-theme--lightColor7 v-locale--is-ltr']");
-        this.Day09 = page.locator("//div[@class='dp__cell_inner dp__pointer dp__date_hover'][normalize-space()='9']");
+        this.Day09 = page.locator("//div[contains(@class, 'dp__cell_inner') and normalize-space()='9']");
         this.notificaOfLeave = page.locator("//form/div/div[2]/div/div/div/div/div[1]/div/div/div[3]/input");
         this.verifyEmployeeNameSearch = page.locator("//tr[@id='row-0']//span[contains(text(),'BAT810 - Nguyễn Văn Minh')]");
         this.searchButton = page.locator("//span[contains(normalize-space(),'Tìm kiếm')]");
@@ -78,115 +79,148 @@ export class RegisnationPage {
         this.reasonInput = page.locator("//div[2]/div/div[1]/div/div/div/div[3]/textarea");
         this.saveButton = page.locator("//span[contains(normalize-space(),'Lưu')]");
         this.regisnationButton = page.locator("//div[contains(text(),'Đơn thôi việc')]");
-    }
+    }// CLICK
     async clickMonth06Button() {
-        await this.month06Button.click();
+        await this.safeClick(this.month06Button);
     }
 
     async clickMonthButton() {
-        await this.monthButton.click();
+        await this.safeClick(this.monthButton);
     }
 
     async clickDay16() {
-        await this.Day16.click();
+        await this.safeClick(this.Day16);
     }
 
     async Logout() {
-        await this.logoutButton.click();
-        await this.logoutConfirmButton.click();
+        await this.safeClick(this.logoutButton);
+        await this.safeClick(this.logoutConfirmButton);
     }
+
     async clickDay06() {
-        await this.Day06.click();
+        await this.safeClick(this.Day06);
     }
 
     async clickEndDate() {
-        await this.endDate.click();
+        await this.safeClick(this.endDate);
     }
 
     async clickStartDate() {
-        await this.startDate.click();
+        await this.safeClick(this.startDate);
     }
 
     async clickExportButton() {
-        await this.exportButton.click();
-    }
-
-    async getVerifyNewStatusOption() {
-        await expect(this.verifyNewStatusOption).toBeVisible();
-        const value = await this.verifyNewStatusOption.textContent();
-        console.log("🔍 New status option value found:", value);
-        return value;
-    }
-
-    async getVerifyCancelStatusOption() {
-        await expect(this.verifyCancelStatusOption).toBeVisible();
-        const value = await this.verifyCancelStatusOption.textContent();
-        console.log("🔍 Cancel status option value found:", value);
-        return value;
-    }
-
-    async getVerifyRejectStatusOption() {
-        await expect(this.verifyRejectStatusOption).toBeVisible();
-        const value = await this.verifyRejectStatusOption.textContent();
-        console.log("🔍 Reject status option value found:", value);
-        return value;
-    }
-
-    async getVerifySubmittedButton() {
-        await expect(this.verifySubmittedButton).toBeVisible();
-        const value = await this.verifySubmittedButton.textContent();
-        console.log("🔍 Submitted button value found:", value);
-        return value;
-    }
-
-    async getVerifyBrowseStatusOption() {
-        await expect(this.verifyBrowseStatusOption).toBeVisible();
-        const value = await this.verifyBrowseStatusOption.textContent();
-        console.log("🔍 Browse status option value found:", value);
-        return value;
-    }
-
-    async getVerifyNotificationOfLeave() {
-        await expect(this.verifyNotificationOfLeave).toBeVisible();
-        const value = await this.verifyNotificationOfLeave.textContent();
-        console.log("🔍 Notification of leave value found:", value);
-        return value;
+        await this.safeClick(this.exportButton);
     }
 
     async clickChosseButton() {
-        await this.chosseButton.click();
+        await this.safeClick(this.chosseButton);
     }
 
     async clickClearSearchButton() {
-        await this.clearSearchButton.click();
+        await this.safeClick(this.clearSearchButton);
     }
 
     async clickStatusDropDown() {
-        await this.statusDropDown.click();
+        await this.safeClick(this.statusDropDown);
     }
 
     async clickNewStatusOption() {
-        await this.newStatusOption.click();
+        await this.safeClick(this.newStatusOption);
     }
+
     async clickBrowsedStatusOption() {
-        await this.browsedStatusOption.click();
+        await this.safeClick(this.browsedStatusOption);
     }
+
     async clickRejectStatusOption() {
-        await this.rejectStatusOption.click();
+        await this.safeClick(this.rejectStatusOption);
     }
+
     async clickCancelStatusOption() {
-        await this.cancelStatusOption.click();
+        await this.safeClick(this.cancelStatusOption);
     }
+
     async clickSubmittedButton() {
-        await this.submittedButton.click();
+        await this.safeClick(this.submittedButton);
     }
 
     async clickNotificaOfLeave() {
-        await this.notificaOfLeave.click();
+        await this.safeClick(this.notificaOfLeave);
     }
 
     async clickDay09() {
-        await this.Day09.click();
+        await this.safeClick(this.Day09);
+    }
+
+    async clickSearchButton() {
+        await this.safeClick(this.searchButton);
+    }
+
+    async clickBrowseButton() {
+        await this.safeClick(this.browseButton);
+    }
+
+    async clickSendButton() {
+        await this.safeClick(this.sendButton);
+    }
+
+    async clickOkButton() {
+        await this.safeClick(this.okButton);
+    }
+
+    async clickRow0() {
+        await this.safeClick(this.row0);
+    }
+
+    async clickRegisnationButton() {
+        await this.safeClick(this.regisnationButton);
+    }
+
+    async clickSaveButton() {
+        await this.safeClick(this.saveButton);
+    }
+
+    async clickAddButton() {
+        await this.safeClick(this.addButton);
+    }
+
+    // FILL
+    async fillReason(reason: string) {
+        await this.safeFill(this.reasonInput, reason);
+    }
+
+    async clearReason() {
+        await this.reasonInput.clear();
+    }
+
+    async searchEmployeeName(employeeName: string) {
+        await this.safeFill(this.employeeNameSearch, employeeName);
+    }
+
+    // VERIFY
+    async getVerifyNewStatusOption() {
+        await this.safeVerifyToHaveText(this.verifyNewStatusOption, "Tạo mới");
+    }
+
+    async getVerifyCancelStatusOption() {
+        await this.safeVerifyToHaveText(this.verifyCancelStatusOption, "Hủy");
+    }
+
+    async getVerifyRejectStatusOption() {
+        await this.safeVerifyToHaveText(this.verifyRejectStatusOption, "Từ chối");
+    }
+
+    async getVerifySubmittedButton() {
+        await this.safeVerifyToHaveText(this.verifySubmittedButton, "Đã gửi");
+    }
+
+    async getVerifyBrowseStatusOption() {
+        await this.safeVerifyToHaveText(this.verifyBrowseStatusOption, "Đã duyệt");
+    }
+
+    async getVerifyNotificationOfLeave() {
+        await this.safeVerifyToHaveText(this.verifyNotificationOfLeave, "16-06-2025");
     }
 
     async getVerifyEmployeeNameSearch() {
@@ -196,47 +230,5 @@ export class RegisnationPage {
         return value;
     }
 
-    async clickSearchButton() {
-        await this.searchButton.click();
-    }
-
-    async searchEmployeeName(employeeName: string) {
-        await this.employeeNameSearch.fill(employeeName);
-    }
-    async clickBrowseButton() {
-        await this.browseButton.click();
-    }
-
-    async clickSendButton() {
-        await this.sendButton.click();
-    }
-
-    async clickOkButton() {
-        await this.okButton.click();
-    }
-
-    async clickRow0() {
-        await this.row0.click();
-    }
-
-    async clickRegisnationButton() {
-        await this.regisnationButton.click();
-    }
-
-    async clickSaveButton() {
-        await this.saveButton.click();
-    }
-
-    async fillReason(reason: string) {
-        await this.reasonInput.fill(reason);
-    }
-
-    async clearReason() {
-        await this.reasonInput.clear();
-    }
-
-    async clickAddButton() {
-        await this.addButton.click();
-    }
 }
 

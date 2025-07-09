@@ -1,7 +1,8 @@
 import { Locator, Page, expect } from 'playwright/test';
+import { BasePage } from '../BasePage';
 
-export class AllowancePage {
-    readonly page: Page;
+export class AllowancePage extends BasePage {
+
     readonly allowanceButton: Locator;
     readonly allowanceNameInput: Locator;
     readonly allowanceMoneyInput: Locator;
@@ -14,8 +15,6 @@ export class AllowancePage {
     readonly validattionMaxLength: Locator;
     readonly validationMoney: Locator;
     readonly validationNameExist: Locator;
-    readonly validationNameMaxLength255: Locator;
-    readonly validationNoteMaxLength500: Locator;
     readonly activityStatus: Locator;
     readonly nameAllowanceSearch: Locator;
     readonly allowanceTypeDropdownSearch: Locator;
@@ -25,15 +24,13 @@ export class AllowancePage {
     readonly allowanceTypeMonthlyResult: Locator;
 
     constructor(page: Page) {
-        this.page = page;
+        super(page);
         this.allowanceTypeMonthlyResult = page.locator("//tr[@id='row-0']//div[@class='v-chip__content'][normalize-space()='Hàng tháng']");
         this.allowanceTypeDailyResult = page.locator("//tr[@id='row-0']//div[@class='v-chip__content'][normalize-space()='Hàng ngày']");
         this.allowanceTypeDaily = page.locator("//div[contains(text(),'Hàng ngày')]");
         this.searchNameResult = page.locator("//tr[@id='row-0']//span[contains(text(),'Phụ cấp tiền ăn')]");
         this.allowanceTypeDropdownSearch = page.locator("//div[@class='v-card-text master-table-search pb-0 pl-0']//div[2]//div[1]//div[1]//div[1]//div[4]//i[1]");
         this.nameAllowanceSearch = page.locator("//form/div/div[1]/div/div/div/div[3]/div/input");
-        this.validationNoteMaxLength500 = page.locator("//div[contains(text(),'Không nhập quá 500 kí tự.')]");
-        this.validationNameMaxLength255 = page.locator("//div[contains(text(),'Không nhập quá 255 kí tự.')]");
         this.activityStatus = page.locator("//div[contains(text(),'Hoạt động')]");
         this.validationNameExist = page.locator("//li[contains(text(),'Tên đã tồn tại.')]");
         this.validationMoney = page.locator("//div[contains(text(),'Nhập tiền phụ cấp')]");
@@ -51,100 +48,78 @@ export class AllowancePage {
 
 
     async checkAllowanceTypeMonthlyResult() {
-        await this.allowanceTypeMonthlyResult.isVisible();
-        await expect(this.allowanceTypeMonthlyResult).toHaveText('Hàng tháng');
+        await this.safeVerifyToHaveText(this.allowanceTypeMonthlyResult, 'Hàng tháng');
     }
 
     async checkAllowanceTypeDailyResult() {
-        await this.allowanceTypeDailyResult.isVisible();
-        await expect(this.allowanceTypeDailyResult).toHaveText('Hàng ngày');
+        await this.safeVerifyToHaveText(this.allowanceTypeDailyResult, 'Hàng ngày');
     }
 
     async clickAllowanceTypeDaily() {
-        await this.allowanceTypeDaily.click();
+        await this.safeClick(this.allowanceTypeDaily);
     }
 
     async checkSearchNameResult() {
-        await this.searchNameResult.isVisible();
-        await expect(this.searchNameResult).toHaveText('Phụ cấp tiền ăn');
+        await this.safeClick(this.searchNameResult);
     }
 
     async fillNameAllowanceSearch(name: string) {
-        await this.nameAllowanceSearch.fill(name);
+        await this.safeFill(this.nameAllowanceSearch, name);
     }
 
     async clickAllowanceTypeDropdownSearch() {
-        await this.allowanceTypeDropdownSearch.click();
+        await this.safeClick(this.allowanceTypeDropdownSearch);
     }
 
     async clickActivityStatus() {
-        await this.activityStatus.click();
+        await this.safeClick(this.activityStatus);
     }
 
     async clickMonthly() {
-        await this.allowanceTypeMonthly.click();
-    }
-
-    async checkValidationNoteMaxLength500() {
-        await this.validationNoteMaxLength500.isVisible();
-        await expect(this.validationNoteMaxLength500).toHaveText('Không nhập quá 500 kí tự.');
-    }
-
-    async checkValidationNameMaxLength255() {
-        await this.validationNameMaxLength255.isVisible();
-        await expect(this.validationNameMaxLength255).toHaveText('Không nhập quá 255 kí tự.');
+        await this.safeClick(this.allowanceTypeMonthly);
     }
 
     async checkValidationNameExist() {
-        await this.validationNameExist.isVisible();
-        await expect(this.validationNameExist).toHaveText('Tên đã tồn tại.');
+        await this.safeVerifyToHaveText(this.validationNameExist, 'Tên đã tồn tại.');
     }
 
     async checkValidationMoneyRequired() {
-        await this.validationMoney.isVisible();
-        await expect(this.validationMoney).toHaveText('Nhập tiền phụ cấp');
-    }
-
-    async checkValidationMaxLength() {
-        await this.validattionMaxLength.isVisible();
-        await expect(this.validattionMaxLength).toHaveText('Không nhập quá 255 kí tự.');
+        await this.safeVerifyToHaveText(this.validationMoney, 'Nhập tiền phụ cấp');
     }
 
     async checkMsgAllowanceNameRequired() {
-        await this.msgAllowanceNameRequired.isVisible();
-        await expect(this.msgAllowanceNameRequired).toHaveText('Nhập tên phụ cấp');
+        await this.safeVerifyToHaveText(this.msgAllowanceNameRequired, 'Nhập tên phụ cấp');
     }
 
     async clickAllowanceTypeMonthly() {
-        await this.allowanceTypeMonthly.click();
+        await this.safeClick(this.allowanceTypeMonthly);
     }
 
     async clickAllowanceTypeDropdown() {
-        await this.allowanceTypeDropdown.click();
+        await this.safeClick(this.allowanceTypeDropdown);
     }
 
     async clickLockStatus() {
-        await this.lockStatus.click();
+        await this.safeClick(this.lockStatus);
     }
 
     async clickStatusDropdown() {
-        await this.statusDropdown.click();
+        await this.safeClick(this.statusDropdown);
     }
 
     async fillNote(note: string) {
-        await this.noteInput.fill(note);
+        await this.safeFill(this.noteInput, note);
     }
 
     async fillAllwanceName(name: string) {
-        await this.allowanceNameInput.fill(name);
+        await this.safeFill(this.allowanceNameInput, name);
     }
 
     async fillAllwanceMoney(money: string) {
-        await this.allowanceMoneyInput.fill(money);
+        await this.safeFill(this.allowanceMoneyInput, money);
     }
 
     async clickAllowance() {
-        await this.allowanceButton.click();
+        await this.safeClick(this.allowanceButton);
     }
-
 }

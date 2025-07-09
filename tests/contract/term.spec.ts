@@ -18,7 +18,7 @@ test.describe.serial('Term Tests', () => {
         allure.owner("Minh Nguyen");
         allure.feature("Term Feature");
         allure.severity("Critical");
-        
+
         loginPage = new LoginPage(page);
         toastPage = new ToastPage(page);
         termPage = new TermPage(page);

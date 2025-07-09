@@ -1,28 +1,19 @@
 import { Locator, Page, expect } from "@playwright/test";
+import { BasePage } from "../BasePage";
 
-export class EvaluationCriteriaPage {
-    private page: Page;
+export class EvaluationCriteriaPage extends BasePage {
+
     readonly evaluationCriteria_Button: Locator;
-    readonly add_Button: Locator;
     readonly evaluationCriteriaName_Input: Locator;
-    readonly save_Button: Locator;
     readonly description_Input: Locator;
     readonly evaluationCriteriaName_DropDown: Locator;
     readonly evaluationType_Option: Locator;
-    readonly toastAddSuccessful: Locator;
-    readonly toastDeleteSuccessful: Locator;
-    readonly edit_Button: Locator;
-    readonly toastEditSuccessful: Locator;
-    readonly delete_Button: Locator;
-    readonly OK_Button: Locator;
     readonly evaluationName_inputSearch: Locator;
-    readonly search_Button: Locator;
     readonly rusult_SearchByName: Locator;
     readonly status_Search_Button: Locator;
     readonly activity_Status: Locator;
     readonly lock_Status: Locator;
     readonly result_SearchByStatus: Locator;
-    readonly delete_Search: Locator;
     readonly verifyLockStatusSearch: Locator;
     readonly verifyActivityStatus: Locator;
     readonly cancelAddButton: Locator;
@@ -32,8 +23,7 @@ export class EvaluationCriteriaPage {
     readonly requiredEvaluationTypeName: Locator;
 
     constructor(page: Page) {
-        this.page = page;
-
+        super(page);
         this.requiredEvaluationTypeName = page.locator("//div[contains(text(),'Nhập tên loại đánh giá')]");
         this.requiredCriteriaName = page.locator("//div[contains(text(),'Nhập tên tiêu chí')]");
         this.verifyLockStatus = page.locator("//tr[@id='row-0']//span[@class='custom-size'][contains(text(),'Khóa')]");
@@ -41,34 +31,20 @@ export class EvaluationCriteriaPage {
         this.cancelAddButton = page.locator("//span[contains(normalize-space(),'Hủy')]");
         this.verifyActivityStatus = page.locator("//tr[@id='row-0']//span[@class='custom-size'][normalize-space()='Hoạt động']");
         this.verifyLockStatusSearch = page.locator("//span[@class='custom-size'][normalize-space()='Khóa']");
-        this.delete_Search = page.locator("//span[.=' Xóa']");
-        this.result_SearchByStatus = page.locator("//tr[@id='row-0']//span[@class='custom-size'][contains(text(),'Hoạt động')]");
         this.lock_Status = page.locator("//div[contains(text(),'Khóa')]");
         this.activity_Status = page.locator("//div[contains(text(),'Hoạt động')]");
         this.status_Search_Button = page.locator("//div[@class='v-field v-field--appended v-field--center-affix v-field--variant-outlined v-theme--lightColor7 v-locale--is-ltr']//div[@class='v-field__input']");
         this.rusult_SearchByName = page.locator("//tbody/tr[@id='row-0']/td[2]/span[1]");
-        this.search_Button = page.locator("//span[.=' Tìm kiếm']");
         this.evaluationName_inputSearch = page.locator("//div[1]/div/div/div/div[3]/div/input");
-        this.OK_Button = page.locator("//span[normalize-space()='Có']");
-        this.delete_Button = page.locator("//tr[@id='row-0']//span[contains(text(),'Xóa')]");
-        this.toastEditSuccessful = page.locator("//div[contains(text(),'Cập nhật thành công')]");
-        this.edit_Button = page.locator("//tr[@id='row-0']//span[contains(text(),'Sửa')]");
-        this.toastDeleteSuccessful = page.locator("//div[contains(text(),'Xóa thành công')]");
-        this.toastAddSuccessful = page.locator("//div[contains(text(),'Thêm thành công')]");
         this.evaluationCriteria_Button = page.locator("//div[contains(text(),'Tiêu chí đánh giá')]");
-        this.add_Button = page.locator("//span[normalize-space()='Thêm']");
         this.evaluationCriteriaName_Input = page.locator("//div/div[1]/div/div[1]/div/div[4]/div/input");
         this.description_Input = page.locator("//div/div[2]/div/div/div/div[3]/textarea");
-        this.save_Button = page.locator("//span[normalize-space()='Lưu']");
         this.evaluationCriteriaName_DropDown = page.locator("//i[@title='Open']");
         this.evaluationType_Option = page.locator("//div/div[1]/div[1]/div[2]/div[2]/div[1]");
     }
 
     async getRequiredEvaluationTypeName() {
-        await expect(this.requiredEvaluationTypeName).toBeVisible();
-        const text = await this.requiredEvaluationTypeName.textContent();
-        console.log("🔍 Required evaluation type name text found:", text);
-        return text;
+        await this.safeVerifyToHaveText(this.requiredEvaluationTypeName, "Nhập tên loại đánh giá");
     }
 
     async getRequiredCriteriaName() {
@@ -79,50 +55,32 @@ export class EvaluationCriteriaPage {
     }
 
     async getVerifyLockStatus() {
-        await expect(this.verifyLockStatus).toBeVisible();
-        const text = await this.verifyLockStatus.textContent();
-        console.log("🔍 Lock status text found:", text);
-        return text;
+        await this.safeVerifyToHaveText(this.verifyLockStatus, "Khóa");
     }
 
     async clickStatusDropDown() {
-        await this.statusDropDown.click();
+        await this.safeClick(this.statusDropDown);
     }
 
     async clickLockStatus() {
-        await this.lock_Status.click();
+        await this.safeClick(this.lock_Status);
     }
-    
+
 
     async clickCancelAddButton() {
-        await this.cancelAddButton.click();
+        await this.safeClick(this.cancelAddButton);
     }
 
     async getVerifyActivityStatus() {
-        await expect(this.verifyActivityStatus).toBeVisible();
-        const text = await this.verifyActivityStatus.textContent();
-        console.log("🔍 Activity status text found:", text);
-        return text;
+        await this.safeVerifyToHaveText(this.verifyActivityStatus, "Hoạt động");
     }
 
     async getVerifyLockStatusSearch() {
-        await expect(this.verifyLockStatusSearch).toBeVisible();
-        const text = await this.verifyLockStatusSearch.textContent();
-        console.log("🔍 Lock status text found:", text);
-        return text;
-    }
-
-    async clickDeleteSearch() {
-        await this.delete_Search.click();
-    }
-
-    async verifyResultSearchByStatus(text: string) {
-        await expect(this.result_SearchByStatus).toHaveText(text);
-        console.log("Kết quả tìm kiếm: " + text);
+        await this.safeVerifyToHaveText(this.verifyLockStatusSearch, "Khóa");
     }
 
     async clickStatusDropDownSearch() {
-        await this.status_Search_Button.click();
+        await this.safeClick(this.status_Search_Button);
     }
 
     async selectStatus(status: string) {
@@ -134,80 +92,40 @@ export class EvaluationCriteriaPage {
     }
 
     async verifyResultSearchByName() {
-        await expect(this.rusult_SearchByName).toContainText('Automation test');
-    }
-
-
-    async clickSearchButton() {
-        await this.search_Button.click();
+        await this.safeVerifyTextContains(this.rusult_SearchByName, "Automation test");
     }
 
     async searchEvaluationCriteriaName(evaluationCriteriaName: string) {
-        await this.evaluationName_inputSearch.fill(evaluationCriteriaName);
-    }
-
-    async clickOKButton() {
-        await this.OK_Button.click();
-    }
-
-    async clickDelete() {
-        await this.delete_Button.click();
+        await this.safeFill(this.evaluationName_inputSearch, evaluationCriteriaName);
     }
 
     async editEvaluationCriteriaName(evaluationCriteriaName: string) {
-        await this.evaluationCriteriaName_Input.clear();
-        await this.evaluationCriteriaName_Input.fill(evaluationCriteriaName);
-        console.log("Đã sửa tên tiêu chí đánh giá: " + evaluationCriteriaName);
+        await this.safeFill(this.evaluationName_inputSearch, evaluationCriteriaName);
     }
 
     async editDescription(description: string) {
-        await this.description_Input.clear();
-        await this.description_Input.fill(description);
-        console.log("Đã sửa mô tả: " + description);
-    }
-
-    async clickEditButton() {
-        await this.edit_Button.click();
-    }
-    async verifyToastEditSuccessfull(text: string) {
-        await expect(this.toastEditSuccessful).toHaveText(text);
-    }
-
-    async verifyToastAddSuccessfull(text: string) {
-        await expect(this.toastAddSuccessful).toHaveText(text);
-        console.log("Đã thêm thành công: " + text);
-    }
-    async verifyToastDeleteSuccessfull(text: string) {
-        await expect(this.toastDeleteSuccessful).toHaveText(text);
-        console.log("Đã xóa thành công: " + text);
+        await this.safeFill(this.evaluationName_inputSearch, description);
+        console.log("Edited description : " + description);
     }
 
     async clickEvaluationTypeOption() {
-        await this.evaluationType_Option.click();
+        await this.safeClick(this.evaluationType_Option);
     }
 
     async setDescription(description: string) {
-        await this.description_Input.fill(description);
+        await this.safeFill(this.description_Input, description);
     }
 
-
     async clickEvaluationCriteriaNameDropDown() {
-        await this.evaluationCriteriaName_DropDown.click();
+        await this.safeClick(this.evaluationCriteriaName_DropDown);
     }
 
     async clickEvaluationCriteria() {
-        await this.evaluationCriteria_Button.click();
-    }
-    async clickAddButton() {
-        await this.add_Button.click();
+        await this.safeClick(this.evaluationCriteria_Button);
     }
 
     async setEvaluationCriteriaName(evaluationCriteriaName: string) {
-        await this.evaluationCriteriaName_Input.fill(evaluationCriteriaName);
-    }
-
-    async clickSave() {
-        await this.save_Button.click();
+        await this.safeFill(this.evaluationCriteriaName_Input, evaluationCriteriaName);
     }
 }
 

@@ -35,15 +35,15 @@ export class BasePage {
     readonly noExistData: Locator;
     readonly iconStatusDropdown: Locator;
     readonly validationNameExist: Locator;
-  
-
 
     // Validatation
     readonly requiredFillReason: Locator;
     readonly validateMaxlenght255Charactor: Locator
+    readonly validateMaxlenght500Charactor: Locator
 
     constructor(page: Page) {
         this.page = page;
+        this.validateMaxlenght500Charactor = page.locator("//div[contains(text(),'Không nhập quá 500 kí tự.')]");
         this.validateMaxlenght255Charactor = page.locator("//div[contains(text(),'Không nhập quá 255 kí tự.')]");
         this.validationNameExist = page.locator("//li[contains(text(),'Tên đã tồn tại.')]");
         this.iconStatusDropdown = page.locator("//i[@class='mdi-book-lock-open-outline mdi v-icon notranslate v-theme--lightColor7 v-icon--size-default']");
@@ -79,171 +79,243 @@ export class BasePage {
         this.clearSearchButton = page.locator("//span[.=' Xóa']");
         this.addButton = page.locator("//span[normalize-space()='Thêm']");
         this.searchButton = page.locator("//span[contains(normalize-space(),'Tìm kiếm')]");
-       
     }
 
+    /**
+   * Click an element safely after ensuring it's visible and enabled
+   */
+    async safeClick(locator: Locator, options?: { force?: boolean, timeout?: number }) {
+        const timeout = options?.timeout ?? 5000;
+        await expect(locator).toBeVisible({ timeout });
+        await expect(locator).toBeEnabled({ timeout });
+        await locator.click({ force: options?.force ?? false });
+    }
+
+    async safeClickFirst(locator: Locator, options?: { timeout?: number; force?: boolean }) {
+        const timeout = options?.timeout ?? 5000;
+        const first = locator.first();
+
+        await expect(first).toBeVisible({ timeout });
+        await expect(first).toBeEnabled({ timeout });
+
+        await first.click({ force: options?.force ?? false });
+    }
+
+    /**
+     * Fill a value into an input safely after ensuring it's visible and enabled
+     */
+    async safeFill(locator: Locator, value: string, timeout: number = 5000) {
+        await expect(locator).toBeVisible({ timeout });
+        await expect(locator).toBeEnabled({ timeout });
+        await locator.fill(value);
+    }
+
+    /**
+     * Optional: type value character by character (simulate real user input)
+     */
+    async safeType(locator: Locator, value: string, delayMs: number = 100, timeout: number = 5000) {
+        await expect(locator).toBeVisible({ timeout });
+        await expect(locator).toBeEnabled({ timeout });
+        await locator.type(value, { delay: delayMs });
+    }
+
+    /**
+     * Optional: wait until element disappears
+     */
+    async waitForElementToDisappear(locator: Locator, timeout: number = 5000) {
+        await expect(locator).toHaveCount(0, { timeout });
+    }
+
+    /**
+    * Verify element is visible and has exact expected text
+    */
+    async safeVerifyToHaveText(locator: Locator, expectedText: string, timeout: number = 5000) {
+        await expect(locator).toBeVisible({ timeout });
+        await expect(locator).toHaveText(expectedText, { timeout });
+    }
+
+    async safeVerifyTextContains(locator: Locator, expectedText: string, timeout: number = 5000) {
+        await expect(locator).toBeVisible({ timeout });
+        await expect(locator).toHaveText(new RegExp(expectedText), { timeout });
+    }
+
+    /**
+     * Get the first visible text of an element
+     */
+
+    async getFirstVisibleText(locator: Locator, label: string) {
+        const first = locator.nth(0);
+        await this.page.waitForLoadState('load');
+        await expect(first).toBeVisible();
+        const text = await first.textContent();
+        console.log(`🔍 ${label} found:`, text);
+        return text;
+    }
+
+    async safeVerifyToHaveValue(locator: Locator, expectedValue: string, timeout: number = 5000) {
+        await expect(locator).toBeVisible({ timeout });
+        await expect(locator).toHaveValue(expectedValue, { timeout });
+    }
+
+
     async verifyMaxlenght255Charactor() {
-        await expect(this.validateMaxlenght255Charactor).toBeVisible();
-        await expect(this.validateMaxlenght255Charactor).toHaveText('Không nhập quá 255 kí tự.');
+        await this.safeVerifyToHaveText(this.validateMaxlenght255Charactor, 'Không nhập quá 255 kí tự.');
+    }
+
+    async verifyMaxlenght500Charactor() {
+        await this.safeVerifyToHaveText(this.validateMaxlenght500Charactor, 'Không nhập quá 500 kí tự.');
     }
 
     async expectNameExist() {
-        await expect(this.validationNameExist).toBeVisible();
-        await expect(this.validationNameExist).toHaveText('Tên đã tồn tại.');
+        await this.safeVerifyToHaveText(this.validationNameExist, 'Tên đã tồn tại.');
     }
 
     async clickIconStatusDropdown() {
-        await this.iconStatusDropdown.click();
+        await this.safeClick(this.iconStatusDropdown);
     }
 
     async verifyNoExistData() {
-        await expect(this.noExistData).toBeVisible();
-        await expect(this.noExistData).toHaveText('Không có dữ liệu');
+        await this.safeVerifyToHaveText(this.noExistData, 'Không có dữ liệu');
     }
 
     async clickRow0() {
-        await this.row0.click();
+        await this.safeClick(this.row0);
     }
 
     async clickLockStatus() {
-        await this.lockStatus.click();
+        await this.safeClick(this.lockStatus);
     }
 
     async clickActivityStatus() {
-        await this.activityStatus.click();
+        await this.safeClick(this.activityStatus);
     }
 
     async clickDropdownStatusSearch() {
-        await this.dropdownStatusSearch.click();
+        await this.safeClick(this.dropdownStatusSearch);
     }
 
     async verifyActivityStatusRow0() {
-        await expect(this.activityStatusRow0).toBeVisible();
-        await expect(this.activityStatusRow0).toHaveText('Hoạt động');
+        await this.safeVerifyToHaveText(this.activityStatusRow0, 'Hoạt động');
     }
 
     async verifyLockStatusRow0() {
-        await expect(this.lockStatusRow0).toBeVisible();
-        await expect(this.lockStatusRow0).toHaveText('Khóa');
+        await this.safeVerifyToHaveText(this.lockStatusRow0, 'Khóa');
     }
 
     async clickNoButton() {
-        await this.noButton.click();
+        await this.safeClick(this.noButton);
     }
 
     async clickAdmin() {
-        await this.Admin_Button.click();
+        await this.safeClick(this.Admin_Button);
     }
 
     async clickTimeKeepingManagement() {
-        await this.TimeKeepingManagement_Button.click();
+        await this.safeClick(this.TimeKeepingManagement_Button);
     }
 
     async clickSalary() {
-        await this.Salary_Button.click();
+        await this.safeClick(this.Salary_Button);
     }
 
     async clickSetting() {
-        await this.Setting_Button.click();
+        await this.safeClick(this.Setting_Button);
     }
 
     async clickIconAction() {
-        await this.iconAction.click();
+        await this.safeClick(this.iconAction);
     }
 
     async verifyRequiredFillReason() {
-        await expect(this.requiredFillReason).toBeVisible();
-        await expect(this.requiredFillReason).toHaveText('Nhập lý do');
+        await this.safeVerifyToHaveText(this.requiredFillReason, 'Nhập lý do');
     }
 
     async clickTodayDatePicker() {
-        await this.toDayDatePicker.click();
-        await this.chosseButton.click();
+        await this.safeClick(this.toDayDatePicker);
+        await this.safeClick(this.chosseButton);
     }
 
     async clickDelete() {
-        await this.deleteButton.click();
-        await this.yesButton.click();
+        await this.safeClick(this.deleteButton);
+        await this.safeClick(this.yesButton);
     }
 
     async clickEdit() {
         await this.page.waitForLoadState('networkidle');
-        await this.editButton.click();
+        await this.safeClick(this.editButton);
     }
 
     async fillReason(reason: string) {
-        await this.reasonInput.fill(reason);
-        await this.yesButton.click();
+        await this.safeFill(this.reasonInput, reason);
+        await this.safeClick(this.yesButton);
     }
 
     async verifyBrowsedStatus() {
         await this.page.waitForLoadState('networkidle');
-        await expect(this.browsedStatus).toHaveText('Đã duyệt');
+        await this.safeVerifyToHaveText(this.browsedStatus, 'Đã duyệt');
     }
 
     async clickChoose() {
-        await this.chosseButton.click();
+        await this.safeClick(this.chosseButton);
     }
 
     async clickConfirm() {
-        await this.confirmButton.click();
-        await this.yesButton.click();
+        await this.safeClick(this.confirmButton);
+        await this.safeClick(this.yesButton);
     }
 
     async clickReject() {
-        await this.rejectButton.click();
+        await this.safeClick(this.rejectButton);
     }
 
     async clickBrowse() {
-        await this.browseButton.click();
-        await this.yesButton.click();
+        await this.safeClick(this.browseButton);
+        await this.safeClick(this.yesButton);
     }
 
     async clickSend() {
-        await this.sendButton.click();
-        await this.yesButton.click();
+        await this.safeClick(this.sendButton);
+        await this.safeClick(this.yesButton);
     }
 
     async clickYes() {
-        await this.yesButton.click();
-
+        await this.safeClick(this.yesButton);
     }
 
     async clickNo() {
-        await this.noButton.click();
+        await this.safeClick(this.noButton);
     }
 
     async clickCancel() {
-        await this.cancelButton.click();
+        await this.safeClick(this.cancelButton);
     }
 
     async clickSave() {
         await this.page.waitForLoadState('networkidle');
         await this.page.waitForLoadState('load');
-        await this.saveButton.click();
+        await this.safeClick(this.saveButton);
     }
 
     async clickDeleteRow0() {
-        await this.deleteRow0Button.click();
-        await this.yesButton.click();
+        await this.safeClick(this.deleteRow0Button);
+        await this.safeClick(this.yesButton);
     }
 
     async clickEditRow0() {
         await this.page.waitForLoadState('load');
-        await this.editRow0Button.click();
+        await this.safeClick(this.editRow0Button);
     }
 
     async clickClearSearch() {
-        await this.clearSearchButton.click();
+        await this.safeClick(this.clearSearchButton);
     }
 
     async clickAdd() {
         await this.page.waitForLoadState('networkidle');
-        await this.addButton.click();
+        await this.safeClick(this.addButton);
     }
 
     async clickSearch() {
-        await this.searchButton.click();
+        await this.safeClick(this.searchButton);
     }
-
 }

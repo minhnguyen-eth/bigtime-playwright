@@ -1,7 +1,7 @@
 import { Locator, Page, expect } from "@playwright/test";
+import { BasePage } from "../BasePage";
 
-export class TermPage {
-    readonly page: Page;
+export class TermPage extends BasePage {
     readonly termButton: Locator;
     readonly nameInput: Locator;
     readonly contentInput: Locator;
@@ -13,7 +13,7 @@ export class TermPage {
     readonly lockStatus: Locator;
 
     constructor(page: Page) {
-        this.page = page;
+        super(page);
         this.validateNameDuplicate = page.locator("//li[contains(text(),'Tiêu đề đã tồn tại.')]");
         this.validateMaxLengthName = page.locator("//div[contains(text(),'Không nhập quá 255 kí tự.')]");
         this.lockStatus = page.locator("//div[contains(text(),'Khóa')]");
@@ -26,48 +26,39 @@ export class TermPage {
     }
 
     async validateNameDuplicateError() {
-        await expect(this.validateNameDuplicate).toBeVisible();
-        await expect(this.validateNameDuplicate).toHaveText('Tiêu đề đã tồn tại.');
+        await this.safeVerifyToHaveText(this.validateNameDuplicate, 'Tiêu đề đã tồn tại.');
     }
 
     async validateMaxLengthNameError() {
-        await expect(this.validateMaxLengthName).toBeVisible();
-        await expect(this.validateMaxLengthName).toHaveText('Không nhập quá 255 kí tự.');
+        await this.safeVerifyToHaveText(this.validateMaxLengthName, 'Không nhập quá 255 kí tự.');
     }
 
     async validateNameError() {
-        await expect(this.validateName).toBeVisible();
-        await expect(this.validateName).toHaveText('Nhập tiêu đề');
+        await this.safeVerifyToHaveText(this.validateName, 'Nhập tiêu đề');
     }
 
     async validateContentError() {
-        await expect(this.validateContent).toBeVisible();
-        await expect(this.validateContent).toHaveText('Nhập nội dung');
+        await this.safeVerifyToHaveText(this.validateContent, 'Nhập nội dung');
     }
 
     async clickLockStatus() {
-        await expect(this.lockStatus).toBeVisible();
-        await this.lockStatus.click();
+        await this.safeClick(this.lockStatus);
     }
 
     async clickDropdownStatus() {
-        await expect(this.dropdownStatus).toBeVisible();
-        await this.dropdownStatus.click();
+        await this.safeClick(this.dropdownStatus);
     }
 
     async fillName(name: string) {
-        await expect(this.nameInput).toBeVisible();
-        await this.nameInput.fill(name);
+        await this.safeFill(this.nameInput, name);
     }
 
     async fillContent(content: string) {
-        await expect(this.contentInput).toBeVisible();
-        await this.contentInput.fill(content);
+        await this.safeFill(this.contentInput, content);
     }
 
     async clickTerm() {
-        await expect(this.termButton).toBeVisible();
-        await this.termButton.click();
+        await this.safeClick(this.termButton);  
     }
 }
 

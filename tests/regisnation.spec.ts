@@ -95,7 +95,7 @@ test.describe.serial('Resignation Tests', () => {
     allure.story('Full Resignation Reject Story');
 
     await allure.step('Employee logs in and creates resignation request', async () => {
-      await addResignation();    
+      await addResignation();
       await regisnationPage.clickRow0();
     });
 
@@ -274,7 +274,8 @@ test.describe.serial('Resignation Tests', () => {
     });
   });
 
-  test('Export resignation with no data', async ({ page }) => {
+  test.only('Export resignation with no data', async ({ page }) => {
+    await clearResignation();
     allure.story('Export resignation with no data Story');
 
     await loginPage.login(Config.admin_username, Config.admin_password);

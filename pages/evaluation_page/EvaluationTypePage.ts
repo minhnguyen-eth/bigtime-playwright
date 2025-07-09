@@ -1,7 +1,7 @@
 import { Locator, Page, expect } from "@playwright/test";
+import { BasePage } from "../BasePage";
 
-export class EvaluationTypePage {
-    readonly page: Page;
+export class EvaluationTypePage extends BasePage {
     readonly evaluationTypeButton: Locator;
     readonly evaluationTypeNameInput: Locator;
     readonly messageSuccess: Locator;
@@ -13,7 +13,7 @@ export class EvaluationTypePage {
     readonly lockStatus: Locator;
 
     constructor(page: Page) {
-        this.page = page;
+        super(page);
         this.lockStatus = page.locator("//div[contains(text(),'Khóa')]");
         this.statusDropdown = page.locator("//div[2]/div/div[2]/div/div/div/div[4]/div");
         this.desciptionInput = page.locator("//div[2]/div/div[3]/div/div/div/div[3]/textarea");
@@ -25,36 +25,33 @@ export class EvaluationTypePage {
         this.exptectedSearchEvaluationTypeName = page.locator("//tr[@id='row-0']//span[contains(text(),'Đánh giá chuyên cần')]");
     }
 
-    async clickLockStatus(){
-        await this.lockStatus.click();
+    async clickLockStatus() {
+        await this.safeClick(this.lockStatus);
     }
-    async clickStatusDropdown(){
-        await this.statusDropdown.click();
+
+    async clickStatusDropdown() {
+        await this.safeClick(this.statusDropdown);
     }
-    
 
     async fillDescription(description: string) {
-        await this.desciptionInput.fill(description);
+        await this.safeFill(this.desciptionInput, description);
     }
 
     async expectSearchEvaluationTypeName(SearchName: string) {
-        await expect(this.exptectedSearchEvaluationTypeName).toHaveText(SearchName);
+        await this.safeVerifyToHaveText(this.exptectedSearchEvaluationTypeName, SearchName);
     }
 
     async setSerachEvaluationTypeName(name: string) {
-        await this.searchEvaluationTypeInput.fill(name);
-        await expect(this.searchEvaluationTypeInput).toHaveValue(name);
+        await this.safeFill(this.searchEvaluationTypeInput, name);
     }
 
     async clickEvaluationType() {
-        await this.evaluationTypeButton.click();
+        await this.safeClick(this.evaluationTypeButton);
     }
 
     async setEvaluationTypeName(name: string) {
-        await this.evaluationTypeNameInput.fill(name);
+        await this.safeFill(this.evaluationTypeNameInput, name);
     }
-
-    
 }
 
 

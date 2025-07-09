@@ -14,9 +14,6 @@ test.describe.serial('Shift Plan Tests', () => {
     let toastPage: ToastPage;
     let basePage: BasePage;
 
-    const randomSuffix = Math.random().toString(36).substring(2, 8);
-    const shiftPlanNameRanDom = `Automation test ${randomSuffix}`;
-
     test.beforeEach(async ({ page }) => {
         allure.feature('Shift Plan Feature');
         allure.owner('Minh Nguyen');
@@ -38,6 +35,7 @@ test.describe.serial('Shift Plan Tests', () => {
     });
 
     test('Add shift plan for department', async ({ page }) => {
+        const randomName = Math.random().toString(36).substring(2, 8);
         allure.story('Add Shift Plan for Department Story');
 
         await allure.step('Clear existing shift plans from DB', async () => {
@@ -46,7 +44,7 @@ test.describe.serial('Shift Plan Tests', () => {
 
         await allure.step('Fill Shift Plan form for department', async () => {
             await basePage.clickAdd();
-            await shiftPlanPage.fillShiftPlanNameInput(shiftPlanNameRanDom);
+            await shiftPlanPage.fillShiftPlanNameInput(randomName);
             await shiftPlanPage.clickWorkShift();
             await shiftPlanPage.clickWorkShiftOption();
 
@@ -73,18 +71,18 @@ test.describe.serial('Shift Plan Tests', () => {
         });
 
         await allure.step('Verify shift plan added in DB', async () => {
-            const existsInDB = await checkShiftPlanExists(shiftPlanNameRanDom);
+            const existsInDB = await checkShiftPlanExists(randomName);
             expect(existsInDB).toBeTruthy();
         });
     });
 
     test('Add shift plan for an employee', async ({ page }) => {
+        const randomName = Math.random().toString(36).substring(2, 5);
         allure.story('Add Shift Plan for Employee Story');
-        const shiftPlanNameRanDom = `Automation test ${randomSuffix}`;
 
         await allure.step('Fill Shift Plan form for employee', async () => {
             await basePage.clickAdd();
-            await shiftPlanPage.fillShiftPlanNameInput(shiftPlanNameRanDom);
+            await shiftPlanPage.fillShiftPlanNameInput(randomName);
             await shiftPlanPage.clickWorkShift();
             await shiftPlanPage.clickWorkShiftOption();
 
@@ -110,7 +108,7 @@ test.describe.serial('Shift Plan Tests', () => {
         });
 
         await allure.step('Verify shift plan added in DB', async () => {
-            const existsInDB = await checkShiftPlanExists(shiftPlanNameRanDom);
+            const existsInDB = await checkShiftPlanExists(randomName);
             expect(existsInDB).toBeTruthy();
         });
     });

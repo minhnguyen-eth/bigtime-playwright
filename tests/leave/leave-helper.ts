@@ -5,6 +5,7 @@ import { LeaveApplicationPage } from '../../pages/leave_page/LeaveApplicationPag
 import Config from '../../utils/configUtils';
 import { clearAllLeaveManagements } from '../../utils/mysqlUtils';
 import { ToastPage } from '../../pages/ToastPage';
+import { LogoutPage } from '../../pages/LogoutPage';
 import { BasePage } from '../../pages/BasePage';
 
 export async function addAnnualLeaveForEmployeeAndAdmin(page: Page) {
@@ -12,6 +13,7 @@ export async function addAnnualLeaveForEmployeeAndAdmin(page: Page) {
     const leaveManagementPage = new LeaveManagementPage(page);
     const toastPage = new ToastPage(page);
     const basePage = new BasePage(page);
+    const logoutPage = new LogoutPage(page);
 
     await loginPage.goto();
     await loginPage.login(Config.admin_username, Config.admin_password);
@@ -22,7 +24,7 @@ export async function addAnnualLeaveForEmployeeAndAdmin(page: Page) {
     await leaveManagementPage.fillSearchByName();
     await leaveManagementPage.clickSelectAEmployee();
     await leaveManagementPage.clickSaveEmployee();
-     await page.waitForTimeout(1000);
+    await page.waitForTimeout(1000);
     await basePage.clickSave();
     await toastPage.getToastAddSuccess();
     await leaveManagementPage.verifyStatusNew('Mới');
@@ -31,8 +33,7 @@ export async function addAnnualLeaveForEmployeeAndAdmin(page: Page) {
     await basePage.clickConfirm();
     await toastPage.getToastAddSuccess();
     await leaveManagementPage.verifyStatusWaitingForApproval('Chờ duyệt');
-    await leaveManagementPage.Logout();
-    await page.waitForTimeout(1200);
+    await logoutPage.logout();
 
     await loginPage.goto();
     await loginPage.login(Config.employee_username, Config.employee_password);
@@ -40,7 +41,7 @@ export async function addAnnualLeaveForEmployeeAndAdmin(page: Page) {
     await leaveManagementPage.clickLeaveManagementButton();
     await leaveManagementPage.clickIconActionRow0();
     await basePage.clickBrowse();
-    await toastPage.getToastBrowseSuccess;
+    await toastPage.getToastBrowseSuccess2;
     await leaveManagementPage.verifyStatusApproved('Đã duyệt');
 }
 
@@ -49,13 +50,15 @@ export async function sendAndApproveLeave(page: Page) {
     const leaveApplicationPage = new LeaveApplicationPage(page);
     const toastPage = new ToastPage(page);
     const basePage = new BasePage(page);
+    const logoutPage = new LogoutPage(page);
 
     // Employee sends leave application
     await leaveApplicationPage.clickRow0();
     await basePage.clickSend();
-    await leaveApplicationPage.getToastSend('Gửi duyệt thành công');
-    await leaveApplicationPage.Logout();
-    await page.waitForTimeout(1200);
+    await toastPage.getToastSendBrowseSuccess();
+    await logoutPage.logout();
+
+
 
     // Admin approves leave application
     await loginPage.goto();
@@ -64,7 +67,7 @@ export async function sendAndApproveLeave(page: Page) {
     await leaveApplicationPage.clickLeaveApplicationButton();
     await leaveApplicationPage.clickRow0();
     await basePage.clickBrowse();
-    await leaveApplicationPage.getToastBrowsedSuccess('Phê duyệt thành công');
+    await toastPage.getToastBrowseSuccess2();
 }
 
 export async function employeeBrowseLeaveManagement(page: Page) {
@@ -72,15 +75,15 @@ export async function employeeBrowseLeaveManagement(page: Page) {
     const leaveManagementPage = new LeaveManagementPage(page);
     const toastPage = new ToastPage(page);
     const basePage = new BasePage(page);
+    const logoutPage = new LogoutPage(page);
 
-    await leaveManagementPage.Logout();
-    await page.waitForTimeout(1200);
+    await logoutPage.logout();
     await loginPage.goto();
     await loginPage.login(Config.employee_username, Config.employee_password);
     await basePage.clickAdmin();
     await leaveManagementPage.clickLeaveManagementButton();
     await leaveManagementPage.clickIconActionRow0();
     await basePage.clickBrowse();
-    await toastPage.getToastBrowseSuccess;
+    await toastPage.getToastBrowseSuccess2;
     await leaveManagementPage.verifyStatusApproved('Đã duyệt');
 }

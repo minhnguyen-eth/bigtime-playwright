@@ -1,10 +1,10 @@
 import { Page, Locator, expect } from "@playwright/test";
-export class DebtPage {
-    readonly page: Page;
+import { BasePage } from "../BasePage";
+export class DebtPage extends BasePage {
+
     readonly debtButton: Locator;
     readonly addButton: Locator;
     readonly editButton: Locator;
-    readonly deleteButton: Locator;
     readonly searchNameInput: Locator;
     readonly chosesearchName: Locator;
     readonly searchButton: Locator;
@@ -30,10 +30,11 @@ export class DebtPage {
     readonly iconAction: Locator;
     readonly sendButton: Locator;
     readonly browseButton: Locator;
+    readonly selectEmployee: Locator;
 
     constructor(page: Page) {
-        this.page = page;
-
+        super(page);
+        this.selectEmployee = page.locator("//div[@class='v-list-item__content']//span[contains(text(), 'Nguyễn Văn Minh')]");
         this.browseButton = page.locator("//span[contains(normalize-space(),'Duyệt')]");
         this.sendButton = page.locator("//span[contains(normalize-space(),'Gửi')]");
         this.iconAction = page.locator("//tr[@id='row-0']//i[@class='mdi mdi-format-list-group mdi v-icon notranslate v-theme--lightColor7 v-icon--size-default']");
@@ -46,7 +47,7 @@ export class DebtPage {
         this.requiredErrorAmountMessage = page.getByText("Nhập số tiền");
         this.requiredErrorNoteMessage = page.getByText("Nhập ghi chú");
         this.requiredErrorReasonMessage = page.getByText("Nhập lý do");
-        this.inputName = page.getByRole("textbox", {name: "Chọn nhân viên ※ Chọn nhân vi", });
+        this.inputName = page.locator("//div[2]/div/div[1]/div/div/div/div[3]/div/input");
         this.chosenName = page.getByText("BAT810-Nguyễn Văn Minh");
         this.inputAmount = page.locator("//div[2]/div/div[2]/div/div[2]/div/div/div/div[3]/input");
         this.inputNote = page.getByRole("textbox", { name: "Ghi chú ※ Ghi chú ※" });
@@ -63,109 +64,100 @@ export class DebtPage {
         this.actionRefusedButton = page.getByRole('button', { name: 'Từ chối' });
     }
 
+    async clickSelectEmployee() {
+        await this.safeClick(this.selectEmployee);
+    }
 
     async clickBrowseButton() {
-        await this.browseButton.click();
+        await this.safeClick(this.browseButton);
     }
 
     async clickIconAction() {
-        await this.iconAction.click();
+        await this.safeClick(this.iconAction);
+
     }
     async clickSendButton() {
-        await this.sendButton.click();
-    }
-
-    async clickAddButton() {
-        await this.addButton.click();
-    }
-
-    async clickSaveButton() {
-        await this.saveButton.click();
+        await this.safeClick(this.sendButton);
     }
 
     async clickCancelButton() {
-        await this.cancelButton.click();
+        await this.safeClick(this.cancelButton);
     }
 
     async expectFillNameError() {
-        await expect(this.requiredErrorNameMessage).toHaveText(
-            "Nhập chọn nhân viên"
-        );
+        await this.safeVerifyToHaveText(this.requiredErrorNameMessage, "Nhập chọn nhân viên");
     }
-    
+
     async clickDebtButton() {
-        await this.debtButton.click();
+        await this.safeClick(this.debtButton);
     }
 
     async expectFillNoteError() {
-        await expect(this.requiredErrorNoteMessage).toHaveText("Nhập ghi chú");
+        await this.safeVerifyToHaveText(this.requiredErrorNoteMessage, "Nhập ghi chú");
     }
 
     async fillName(name: string) {
-        await this.inputName.fill(name);
-        await this.chosenName.click();
+        await this.safeFill(this.inputName, name);
+        await this.safeClick(this.selectEmployee);
     }
 
     async fillAmount(amount: string) {
-        await this.inputAmount.fill(amount);
+        await this.safeFill(this.inputAmount, amount);
     }
 
     async fillNote(note: string) {
-        await this.inputNote.fill(note);
+        await this.safeFill(this.inputNote, note);
     }
 
     async clickEditButton() {
-        await this.searchNameInput.fill('BAT810 - Nguyễn Văn Minh');
-        await this.chosesearchName.click();
-        await this.searchButton.click();
+        await this.safeFill(this.searchNameInput, 'BAT810 - Nguyễn Văn Minh');
+        await this.safeClick(this.selectEmployee);
+        await this.safeClick(this.searchButton);
         await this.page.getByRole('row', { name: '1 BAT810 - Nguyễn Văn Minh 1.000.000 đ add debt test for edit Admin Tạo mới', exact: true }).getByRole('button').click();
-        await this.editButton.click();
+        await this.safeClick(this.editButton);
     }
 
     async expectFillAmountError() {
-        await expect(this.requiredErrorAmountMessage).toHaveText("Nhập số tiền");
+        await this.safeVerifyToHaveText(this.requiredErrorAmountMessage, "Nhập số tiền");
     }
 
     async clickActionCancelButton() {
-        await this.searchNameInput.fill('BAT810 - Nguyễn Văn Minh');
-        await this.chosesearchName.click();
-        await this.searchButton.click();
+        await this.safeFill(this.searchNameInput, 'BAT810 - Nguyễn Văn Minh');
+        await this.safeClick(this.selectEmployee);
+        await this.safeClick(this.searchButton);
         await this.page.getByRole('row', { name: '1 BAT810 - Nguyễn Văn Minh 1.000.000 đ add debt test for cancel Admin Tạo mới', exact: true }).getByRole('button').click();
-        await this.actionCancelButton.click();
+        await this.safeClick(this.actionCancelButton);
     }
 
     async fillReason(reason: string) {
-        await this.reasonInput.fill(reason);
+        await this.safeFill(this.reasonInput, reason);
     }
 
     async clickYesButton() {
-        await this.yesButton.click();
+        await this.safeClick(this.yesButton);
     }
 
     async clickActionSendButton() {
-       
+        await this.safeClick(this.actionSendButton);
     }
 
     async expectFillReasonError() {
-        await expect(this.requiredErrorReasonMessage).toHaveText("Nhập lý do");
-    }
-
-    async clickLogoutButton() {
-        await this.logoutButton.click();
+        await this.safeVerifyToHaveText(this.requiredErrorReasonMessage, "Nhập lý do");
     }
 
     async clickActionBrowsedButton() {
         await this.page.getByRole('row', { name: '1 BAT810 - Nguyễn Văn Minh 1.000.000 đ add debt test for send Admin Đã gửi', exact: true }).getByRole('button').click();
-        await this.actionBrowserButton.click();
+        await this.safeClick(this.actionBrowserButton);
+
     }
 
     async clickActionRefusedButton() {
         await this.page.getByRole('row', { name: '1 BAT810 - Nguyễn Văn Minh 1.000.000 đ add debt test for send Admin Đã gửi', exact: true }).getByRole('button').click();
-        await this.actionRefusedButton.click();
+        await this.safeClick(this.actionRefusedButton);
     }
 
     async clickActionSendCancelButton() {
         await this.page.getByRole('row', { name: '1 BAT810 - Nguyễn Văn Minh 1.000.000 đ add debt test for send Admin Đã gửi', exact: true }).getByRole('button').click();
-        await this.actionCancelButton.click();
+        await this.safeClick(this.actionCancelButton);
     }
 }

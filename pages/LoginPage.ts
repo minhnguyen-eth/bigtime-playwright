@@ -1,8 +1,9 @@
 import { Page, Locator, expect } from '@playwright/test';
 import Config from '../utils/configUtils';
+import { BasePage } from './BasePage';
 
-export class LoginPage {
-  readonly page: Page;
+export class LoginPage extends BasePage {
+
   readonly usernameInput: Locator;
   readonly passwordInput: Locator;
   readonly loginButton: Locator;
@@ -14,7 +15,7 @@ export class LoginPage {
   readonly validatePassword: Locator;
 
   constructor(page: Page) {
-    this.page = page;
+    super(page);
     this.validateUsername = page.locator("//div[contains(text(),'Nhập tên đăng nhập / email hoặc số điện thoại')]");
     this.validatePassword = page.locator("//div[contains(text(),'Nhập mật khẩu')]");
     this.dashBoard = page.locator("//div[contains(text(),'Bigtime')]");
@@ -32,29 +33,25 @@ export class LoginPage {
   }
 
   async expectUsernameValidate() {
-    await expect(this.validateUsername).toBeVisible();
-    await expect(this.validateUsername).toHaveText('Nhập tên đăng nhập / email hoặc số điện thoại');
+    await this.safeVerifyToHaveText(this.validateUsername, 'Nhập tên đăng nhập / email hoặc số điện thoại');
   }
 
   async expectPasswordValidate() {
-    await expect(this.validatePassword).toBeVisible();
-    await expect(this.validatePassword).toHaveText('Nhập mật khẩu');
+    await this.safeVerifyToHaveText(this.validatePassword, 'Nhập mật khẩu');
   }
 
   async login(username: string, password: string) {
     await this.page.waitForLoadState('domcontentloaded');
-    await this.usernameInput.fill(username);
-    await this.passwordInput.fill(password);
-    await this.loginButton.click();
+    await this.safeFill(this.usernameInput, username);
+    await this.safeFill(this.passwordInput, password);
+    await this.safeClick(this.loginButton);
   }
 
   async expectLoginSuccess() {
-    await expect(this.dashBoard).toBeVisible();
-    await expect(this.dashBoard).toHaveText('Bigtime');
+    await this.safeVerifyTextContains(this.dashBoard, 'Bigtime');
   }
 
-
   async expectLoginError() {
-    await expect(this.errorMessage).toHaveText('Tên đăng nhập hoặc mật khẩu không đúng');
+    await this.safeVerifyTextContains(this.errorMessage, 'Tên đăng nhập hoặc mật khẩu không đúng');
   }
 }

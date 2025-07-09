@@ -1,8 +1,9 @@
 import { expect, Locator, Page } from '@playwright/test';
 import { ToastPage } from './ToastPage';
+import { BasePage } from './BasePage';
 
-export class EmployeePage {
-  readonly page: Page;
+export class EmployeePage extends BasePage {
+
   readonly toastPage: ToastPage;
   readonly userButton: Locator;
   readonly addButton: Locator;
@@ -87,7 +88,7 @@ export class EmployeePage {
 
 
   constructor(page: Page) {
-    this.page = page;
+    super(page);
     this.verifyPosition = page.locator("//div[normalize-space()='QA']");
     this.verifyTeam = page.locator("//div[normalize-space()='Nhóm 1 Marketing']");
     this.verifyDepartment = page.locator("//div[contains(text(),'Bộ phận Marketing')]");
@@ -171,35 +172,28 @@ export class EmployeePage {
     this.userButton = page.locator("//div[contains(text(),'Nhân viên')]");
 
   }
-
   async expectTeamIsDisplayed() {
-    await expect(this.verifyTeam).toBeVisible();
-    await expect(this.verifyTeam).toContainText('Nhóm 1 Marketing');
+    await this.safeVerifyTextContains(this.verifyTeam, 'Nhóm 1 Marketing');
   }
 
   async expectDepartmentIsDisplayed() {
-    await expect(this.verifyDepartment).toBeVisible();
-    await expect(this.verifyDepartment).toContainText('Marketing');
+    await this.safeVerifyTextContains(this.verifyDepartment, 'Marketing');
   }
 
   async expectPositionIsDisplayed() {
-    await expect(this.verifyPosition).toBeVisible();
-    await expect(this.verifyPosition).toContainText('QA');
+    await this.safeVerifyTextContains(this.verifyPosition, 'QA');
   }
 
   async expectJoningTheCompanyIsDisplayed() {
-    await expect(this.verifyJoningTheCompany).toBeVisible();
-    await expect(this.verifyJoningTheCompany).toContainText('2025');
+    await this.safeVerifyTextContains(this.verifyJoningTheCompany, '2025');
   }
 
   async expectAddressIsDisplayed() {
-    await expect(this.verifyAddress).toBeVisible();
-    await expect(this.verifyAddress).toContainText('Bien Hoa, Dong Nai');
+    await this.safeVerifyTextContains(this.verifyAddress, 'Bien Hoa, Dong Nai');
   }
 
   async expectDateOfBirthIsDisplayed() {
-    await expect(this.verifyDataOfBirth).toBeVisible();
-    await expect(this.verifyDataOfBirth).toContainText('08-08-2014');
+    await this.safeVerifyTextContains(this.verifyDataOfBirth, '08-08-2014');
   }
 
   async selectMaleSearch() {
@@ -211,79 +205,79 @@ export class EmployeePage {
   }
 
   async clickDropdownGenderSearch() {
-    await this.dropdownGenderSearch.click();
+    await this.safeClick(this.dropdownGenderSearch);
   }
 
   async clickAdmin() {
-    await this.selectAdmin.click();
+    await this.safeClick(this.selectAdmin);
   }
 
   async clickDropdownSalaryType() {
-    await this.dropdownSalaryType.click();
+    await this.safeClick(this.dropdownSalaryType);
   }
 
   async clickDailySalary() {
-    await this.dailySalary.click();
+    await this.safeClick(this.dailySalary);
   }
 
   async clickCancelAdd() {
-    await this.cancelAdd.click();
+    await this.safeClick(this.cancelAdd);
   }
 
   async clickManagementDepartmentRole() {
-    await this.managementDepartmentRole.click();
+    await this.safeClick(this.managementDepartmentRole);
   }
 
   async clickDropdownRoleName() {
-    await this.dropdownRoleName.click();
+    await this.safeClick(this.dropdownRoleName);
   }
 
   async clickEditButton() {
-    await this.editButton.click();
+    await this.safeClick(this.editButton);
   }
 
   async clickClearSearch() {
-    await this.clearSearch.click();
+    await this.safeClick(this.clearSearch);
   }
 
   async clickSearchButton() {
-    await this.searchButton.click();
+    await this.safeClick(this.searchButton);
   }
 
   async fillSearchByCode(code: string) {
-    await this.searchByCode.fill(code);
+    await this.safeFill(this.searchByCode, code);
   }
 
   async fillSearchByName(name: string) {
-    await this.searchByName.fill(name);
+    await this.safeFill(this.searchByName, name);
   }
 
   async clickYesButton() {
-    await this.yesButton.click();
+    await this.safeClick(this.yesButton);
   }
 
   async clickDeleteUser() {
-    await this.deleteUser.click();
+    await this.safeClick(this.deleteUser);
   }
 
   async clickDropdownAllowance2() {
-    await this.dropdownAllowance2.click();
+    await this.safeClick(this.dropdownAllowance2);
   }
 
   async clickConfirm() {
-    await this.confirm.click();
+    await this.safeClick(this.confirm);
   }
 
   async fillMoneyAllowance(money: string) {
-    await this.moneyAllowance.fill(money);
+    await this.safeFill(this.moneyAllowance, money);
   }
 
   async fillAllowanceTypeName(typeName: string) {
-    await this.allowanceTypeName.fill(typeName);
+    await this.safeFill(this.allowanceTypeName, typeName);
   }
 
   async clickAddAllowanceTypeButton() {
-    await this.addAllowanceTypeButton.click();
+    await this.safeClick(this.addAllowanceTypeButton);
   }
 
   async clickSelectMale() {
@@ -291,121 +285,117 @@ export class EmployeePage {
   }
 
   async clickRow0() {
-    await this.row0.click();
+    await this.safeClick(this.row0);
   }
 
   async clickDateOfBirth() {
-    await this.dateOfBirth.click();
+    await this.safeClick(this.dateOfBirth);
   }
 
   async fillNote(note: string) {
-    await this.note.click();
-    await this.note.fill(note);
+    await this.safeFill(this.note, note);
   }
 
   async fillAddress(address: string) {
-    await this.address.fill(address);
+    await this.safeFill(this.address, address);
   }
 
   async clickToDay() {
-    await this.toDay.click();
+    await this.safeClick(this.toDay);
   }
 
   async clickDateOfJoiningTheCompany() {
-    await this.dateOfJoiningTheCompany.click();
+    await this.safeClick(this.dateOfJoiningTheCompany);
   }
 
   async fillPhoneNumber(phone: string) {
-    await this.phoneNumber.fill(phone);
+    await this.safeFill(this.phoneNumber, phone);
   }
 
   async fillBankAccountNumber(bankAccount: string) {
-    await this.bankAccountNumber.fill(bankAccount);
+    await this.safeFill(this.bankAccountNumber, bankAccount);
   }
 
   async fillBankName(bank: string) {
-    await this.bankName.fill(bank);
+    await this.safeFill(this.bankName, bank);
   }
 
   async fillPlaceOfIssueOfIdentityCard(place: string) {
-    await this.placeOfIssueOfIdentityCard.fill(place);
+    await this.safeFill(this.placeOfIssueOfIdentityCard, place);
   }
 
   async clickSelectRank() {
-    await this.selectRank.click();
+    await this.safeClick(this.selectRank);
   }
 
   async clickChosseButton() {
-    await this.chosseButton.click();
+    await this.safeClick(this.chosseButton);
   }
 
   async clickSelectDay() {
-    await this.selectDay.click();
+    await this.safeClick(this.selectDay);
   }
 
   async clickChosseYear() {
-    await this.chosseYear.click();
+    await this.safeClick(this.chosseYear);
   }
+
   async clickSelectYear() {
-    await this.selectYear.click();
+    await this.safeClick(this.selectYear);
   }
+
   async clickChosseMonth() {
-    await this.chosseMonth.click();
+    await this.safeClick(this.chosseMonth);
   }
+
   async clickSelectMonth() {
-    await this.selectMonth.click();
+    await this.safeClick(this.selectMonth);
   }
+
   async clickCitizenIdCardIssueDate() {
-    await this.citizenIdCardIssueDate.click();
+    await this.safeClick(this.citizenIdCardIssueDate);
   }
 
   async fillCitizenId(date: number) {
-    // Wait for element to be visible and enabled
     await this.citizenId.waitFor({ state: 'visible' });
-    await this.citizenId.click();
-
-    // Clear existing content first
     await this.citizenId.clear();
-
-    // Fill the new value
     await this.citizenId.fill(date.toString());
-
   }
 
   async clickDropdownRank() {
-    await this.dropdownRank.click();
+    await this.safeClick(this.dropdownRank);
   }
 
   async clickPosition() {
-    await this.selectPosition.click();
+    await this.safeClick(this.selectPosition);
   }
 
   async clickDropdownPosition() {
-    await this.dropdownPosition.click();
+    await this.safeClick(this.dropdownPosition);
   }
 
   async clickDropdownInfoMore() {
-    await this.dropdownInfoMore.click();
+    await this.safeClick(this.dropdownInfoMore);
   }
 
   async clickSelectBranch() {
-    await this.selectBranch.click();
+    await this.safeClick(this.selectBranch);
   }
 
   async clickDropdownBranch() {
-    await this.dropdownBranch.click();
+    await this.safeClick(this.dropdownBranch);
   }
 
   async clickSelectAllowance() {
-    await this.selectAllowance.click();
+    await this.safeClick(this.selectAllowance);
   }
 
   async clickDropdownAllowance() {
-    await this.dropdownAllowance.click();
+    await this.safeClick(this.dropdownAllowance);
   }
 
   async clickAddAllowance() {
-    await this.addAllowance.click();
+    await this.safeClick(this.addAllowance);
   }
 
   async clickOpenAllowance() {
@@ -413,106 +403,102 @@ export class EmployeePage {
   }
 
   async fillFillInsurance(insurance: string) {
-    await this.fillInsurance.fill(insurance);
+    await this.safeFill(this.fillInsurance, insurance);
   }
 
   async clickSaveButton() {
-    await this.saveButton.click();
+    await this.safeClick(this.saveButton);
   }
 
   async clickSetSalary() {
-    await this.setSalary.click();
+    await this.safeClick(this.setSalary);
   }
+
   async fillFillSalary(salary: string) {
-    await this.fillSalary.fill(salary);
+    await this.safeFill(this.fillSalary, salary);
   }
+
   async clickAddButton() {
-    await this.addButton.click();
+    await this.safeClick(this.addButton);
   }
 
   async fillEmail(email: string) {
-    await this.email.fill(email);
+    await this.safeFill(this.email, email);
   }
 
   async clickDropdownEmployeeType() {
-    await this.dropdownEmployeeType.click();
+    await this.safeClick(this.dropdownEmployeeType);
   }
 
   async clickStaff() {
-    await this.selectStaff.click();
+    await this.safeClick(this.selectStaff);
   }
 
   async clickDropdownDepartment() {
-    await this.dropdownDepartment.click();
+    await this.safeClick(this.dropdownDepartment);
   }
 
   async clickSelectDepartment() {
-    await this.selectDepartment.click();
+    await this.safeClick(this.selectDepartment);
   }
 
   async fillEmployeeName(name: string) {
     await this.employeeName.clear();
-    await this.employeeName.fill(name);
+    await this.safeFill(this.employeeName, name);
   }
 
   async fillEmployeeCode(code: string) {
-    await this.employeeCode.fill(code);
+    await this.safeFill(this.employeeCode, code);
   }
 
   async clickUser() {
-    await this.userButton.click();
+    await this.safeClick(this.userButton);
   }
+
 
 
   // FUNCTION VERIFY 
-  async validateRequiredFields() {
-    const validations = [
-      { locator: this.validateRoleName, expectedText: 'Nhập tên quyền' },
-      { locator: this.validateEmail, expectedText: 'Nhập email' },
-      { locator: this.validateEmployeeName, expectedText: 'Nhập tên nhân viên' },
-      { locator: this.validateEmployeeCode, expectedText: 'Nhập mã nhân viên' },
-    ];
+async validateRequiredFields() {
+  const validations = [
+    { locator: this.validateRoleName, expectedText: 'Nhập tên quyền' },
+    { locator: this.validateEmail, expectedText: 'Nhập email' },
+    { locator: this.validateEmployeeName, expectedText: 'Nhập tên nhân viên' },
+    { locator: this.validateEmployeeCode, expectedText: 'Nhập mã nhân viên' },
+  ];
 
-    for (const { locator, expectedText } of validations) {
-      await expect(locator).toBeVisible();
-      await expect(locator).toHaveText(expectedText);
-    }
+  for (const validation of validations) {
+    await this.safeVerifyToHaveText(validation.locator, validation.expectedText);
   }
+}
 
-  async verifyEmployeeCodeExisted() {
-    await expect(this.employeeCodeExisted).toBeVisible();
-    await expect(this.employeeCodeExisted).toHaveText("Mã nhân viên đã tồn tại.");
+async verifyEmployeeCodeExisted() {
+  await this.safeVerifyToHaveText(this.employeeCodeExisted, "Mã nhân viên đã tồn tại.");
+}
 
-  }
+async verifyEmailExisted() {
+  await this.safeVerifyToHaveText(this.emailAddressExisted, "Địa chỉ email đã tồn tại.");
+}
 
-  async verifyEmailExisted() {
-    await expect(this.emailAddressExisted).toBeVisible();
-    await expect(this.emailAddressExisted).toHaveText("Địa chỉ email đã tồn tại.");
-  }
+async verifyEmailError() {
+  await this.safeVerifyToHaveText(this.emailError, "Định dạng Địa chỉ email không hợp lệ.");
+}
 
-  async verifyEmailError() {
-    await expect(this.emailError).toBeVisible();
-    await expect(this.emailError).toHaveText("Định dạng Địa chỉ email không hợp lệ.");
-  }
+async verifySearchByCode() {
+  await this.safeVerifyToHaveText(this.resultSearchByCode, "BAT810");
+}
 
-  async verifySearchByCode() {
-    await expect(this.resultSearchByCode).toBeVisible();
-    await expect(this.resultSearchByCode).toHaveText("BAT810");
-  }
+async verifySearchByName() {
+  await this.safeVerifyToHaveText(this.resultSearchByName, "Nguyễn Văn Minh");
+}
 
-  async verifySearchByName() {
-    await expect(this.resultSearchByName).toBeVisible();
-    await expect(this.resultSearchByName).toHaveText("Nguyễn Văn Minh");
-  }
+async verifyVerifyMaleSearch() {
+  await this.safeVerifyToHaveText(this.verifyMaleSearch, "Nam");
+}
 
-  async verifyVerifyMaleSearch() {
-    await expect(this.verifyMaleSearch).toBeVisible();
-    await expect(this.verifyMaleSearch).toHaveText('Nam');
-  }
-  async verifyVerifyFemaleSearch() {
-    await expect(this.verifyFemaleSearch).toBeVisible();
-    await expect(this.verifyFemaleSearch).toHaveText('Nữ');
-  }
+async verifyVerifyFemaleSearch() {
+  await this.safeVerifyToHaveText(this.verifyFemaleSearch, "Nữ");
+}
+
 
 
   // FUNCTION HANDLE 

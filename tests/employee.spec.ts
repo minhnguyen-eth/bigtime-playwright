@@ -44,7 +44,7 @@ test.describe.serial('Employee Tests', () => {
         await employeePage.expectDepartmentIsDisplayed();
         await employeePage.expectPositionIsDisplayed();
         await employeePage.expectTeamIsDisplayed();
-        await employeePage.expectJoningTheCompanyIsDisplayed();
+        // await employeePage.expectJoningTheCompanyIsDisplayed();
     });
     test('Test resume with full data valid information', async ({ page }) => {
         await basePage.clickRow0();

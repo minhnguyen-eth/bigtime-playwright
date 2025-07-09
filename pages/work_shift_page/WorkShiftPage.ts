@@ -1,60 +1,56 @@
 import { Page, Locator, expect } from '@playwright/test';
-import Config from '../../utils/configUtils';
+import { BasePage } from '../BasePage';
 
-export class WorkShiftPage {
-    private page: Page;
-    readonly  workshiftButton: Locator;
-    readonly  addButton: Locator;
-    readonly  editButton: Locator;
-    readonly  deleteButton: Locator;
-    readonly  searchButton: Locator;
-    readonly  workshiftNameInput: Locator;
-    readonly  workshiftCodeInput: Locator;
-    readonly  workshiftDescriptionInput: Locator;
-    readonly  workshiftStartTimeInput: Locator;
-    readonly  workshiftEndTimeInput: Locator;
-    readonly  workshiftSaveButton: Locator;
-    readonly  chosseHourPicker: Locator;
-    readonly  chosseMinutePicker: Locator;
-    readonly  chosse12HourPicker: Locator;
-    readonly  chosse13HourPicker: Locator;
-    readonly  chosse00MinutePicker: Locator;
-    readonly  chosseButtonPicker: Locator;
-    readonly  restCheckBox: Locator;
-    readonly  timeStartRest: Locator;
-    readonly  timeEndRest: Locator;
-    readonly  chosseHourStartPicker: Locator;
-    readonly  saveButton: Locator;
-    readonly  chosse08HourPicker: Locator;
-    readonly  chosse17HourPicker: Locator;
-    readonly  branchDropdown: Locator;
-    readonly  branchBienHoa: Locator;
-    readonly  toastAddSuccess: Locator;
-    readonly  toastCancelSuccess: Locator;
-    readonly  toastUpdateSuccess: Locator;
-    readonly  statusDropdown: Locator;
-    readonly  lockStatus: Locator;
-    readonly  toastDeleteSuccess: Locator;
-    readonly  okButton: Locator;
-    readonly  verifyLockStatus: Locator;
-    readonly  workshiftNameSearchField: Locator;
-    readonly  workshiftCodeSearchField: Locator;
-    readonly  branchDropdownSearch: Locator;
-    readonly  statusDropdownSearch: Locator;
-    readonly  statusActive: Locator;
-    readonly  statusLock: Locator;
-    readonly  branchBienHoaSearch: Locator;
-    readonly  clearSearchButton: Locator;
-    readonly  verifyWorkShiftName: Locator;
-    readonly  verifyWorkShiftCode: Locator;
-    readonly  verifyBranchBienHoaSearch: Locator;
-    readonly  verifyAtiveStatusSearch: Locator;
-    readonly  verifyLockStatusSearch: Locator;
-    readonly  verifyLockStatusSearchRow1: Locator;
-    readonly  verifyWorkingTime: Locator;
+export class WorkShiftPage extends BasePage {
+
+    readonly workshiftButton: Locator;
+    readonly addButton: Locator;
+    readonly editButton: Locator;
+    readonly deleteButton: Locator;
+    readonly searchButton: Locator;
+    readonly workshiftNameInput: Locator;
+    readonly workshiftCodeInput: Locator;
+    readonly workshiftDescriptionInput: Locator;
+    readonly workshiftStartTimeInput: Locator;
+    readonly workshiftEndTimeInput: Locator;
+    readonly workshiftSaveButton: Locator;
+    readonly chosseHourPicker: Locator;
+    readonly chosseMinutePicker: Locator;
+    readonly chosse12HourPicker: Locator;
+    readonly chosse13HourPicker: Locator;
+    readonly chosse00MinutePicker: Locator;
+    readonly chosseButtonPicker: Locator;
+    readonly restCheckBox: Locator;
+    readonly timeStartRest: Locator;
+    readonly timeEndRest: Locator;
+    readonly chosseHourStartPicker: Locator;
+    readonly saveButton: Locator;
+    readonly chosse08HourPicker: Locator;
+    readonly chosse17HourPicker: Locator;
+    readonly branchDropdown: Locator;
+    readonly branchBienHoa: Locator;
+    readonly statusDropdown: Locator;
+    readonly lockStatus: Locator;
+    readonly okButton: Locator;
+    readonly verifyLockStatus: Locator;
+    readonly workshiftNameSearchField: Locator;
+    readonly workshiftCodeSearchField: Locator;
+    readonly branchDropdownSearch: Locator;
+    readonly statusDropdownSearch: Locator;
+    readonly statusActive: Locator;
+    readonly statusLock: Locator;
+    readonly branchBienHoaSearch: Locator;
+    readonly clearSearchButton: Locator;
+    readonly verifyWorkShiftName: Locator;
+    readonly verifyWorkShiftCode: Locator;
+    readonly verifyBranchBienHoaSearch: Locator;
+    readonly verifyAtiveStatusSearch: Locator;
+    readonly verifyLockStatusSearch: Locator;
+    readonly verifyLockStatusSearchRow1: Locator;
+    readonly verifyWorkingTime: Locator;
 
     constructor(page: Page) {
-        this.page = page;
+        super(page);
 
         this.verifyWorkingTime = page.locator("//div[3]/div/input[@value='08:00']");
         this.verifyLockStatusSearchRow1 = page.locator("//tr[@id='row-2']//span[@class='custom-size'][contains(text(),'Khóa')]");
@@ -98,88 +94,62 @@ export class WorkShiftPage {
         this.addButton = page.locator("//span[normalize-space()='Thêm']");
         this.editButton = page.locator("//tr[@id='row-0']//span[contains(text(),'Sửa')]");
         this.deleteButton = page.locator("//tr[@id='row-0']//span[contains(text(),'Xóa')]");
-        this.toastAddSuccess = page.locator('//div[contains(text(),"Thêm thành công")]');
-        this.toastUpdateSuccess = page.locator('//div[contains(text(),"Cập nhật thành công")]');
-        this.toastCancelSuccess = page.locator('//div[contains(text(),"Hủy thành công")]');
-        this.toastDeleteSuccess = page.locator('//div[contains(text(),"Xóa thành công")]');
 
     }
     async getVerifyWorkingTime() {
-        await expect(this.verifyWorkingTime).toBeVisible();
-        const value = await this.verifyWorkingTime.inputValue();
-        console.log("🔍 Working time value found:", value);
-        return value;
+        await this.safeVerifyToHaveValue(this.verifyWorkingTime, "08:00");
     }
 
     async getVerifyLockStatusSearchRow1() {
-        await expect(this.verifyLockStatusSearchRow1).toBeVisible();
-        const text = await this.verifyLockStatusSearchRow1.textContent();
-        console.log("🔍 Lock status text found:", text);
-        return text;
+        await this.safeVerifyTextContains(this.verifyLockStatusSearchRow1, "Khóa");
     }
 
     async getVerifyLockStatusSearch() {
-        await expect(this.verifyLockStatusSearch).toBeVisible();
-        const text = await this.verifyLockStatusSearch.textContent();
-        console.log("🔍 Lock status text found:", text);
-        return text;
+        await this.safeVerifyTextContains(this.verifyLockStatusSearch, "Khóa");
     }
 
     async getVerifyAtiveStatusSearch() {
-        const element = this.verifyAtiveStatusSearch.first();
-        await expect(element).toBeVisible();
-        const text = await element.textContent();
-        console.log("🔍 Active status text found:", text);
-        return text;
+        await this.safeVerifyTextContains(this.verifyAtiveStatusSearch, "Hoạt động");
     }
 
     async getVerifyBranchBienHoaSearch() {
-        await expect(this.verifyBranchBienHoaSearch).toBeVisible();
-        const text = await this.verifyBranchBienHoaSearch.textContent();
-        console.log("🔍 Branch Bien Hoa text found:", text);
-        return text;
+        await this.safeVerifyTextContains(this.verifyBranchBienHoaSearch, "Biên Hòa");
     }
 
     async getVerifyWorkShiftCode() {
-        await expect(this.verifyWorkShiftCode).toBeVisible();
-        const text = await this.verifyWorkShiftCode.textContent();
-        console.log("🔍 Workshift code text found:", text);
-        return text;
+        await this.safeVerifyTextContains(this.verifyWorkShiftCode, "CN");
     }
 
     async getVerifyWorkShiftName() {
-        await expect(this.verifyWorkShiftName).toBeVisible();
-        const text = await this.verifyWorkShiftName.textContent();
-        console.log("🔍 Workshift name text found:", text);
-        return text;
+        await this.safeVerifyTextContains(this.verifyWorkShiftName, "Ca ngày");
     }
 
     async clickOnClearSearchButton() {
-        await this.clearSearchButton.click();
+        await this.safeClick(this.clearSearchButton);
     }
 
     async fillWorkShiftCodeSearchField(code: string) {
-        await this.workshiftCodeSearchField.fill(code);
+        await this.safeFill(this.workshiftCodeSearchField, code);
     }
 
     async fillWorkShiftNameSearchField(name: string) {
-        await this.workshiftNameSearchField.fill(name);
+        await this.safeFill(this.workshiftNameSearchField, name);
     }
 
     async clickOnBranchBienHoaSearch() {
-        await this.branchBienHoaSearch.click();
+        await this.safeClick(this.branchBienHoaSearch);
     }
 
     async clickOnBranchDropdownSearch() {
-        await this.branchDropdownSearch.click();
+        await this.safeClick(this.branchDropdownSearch);
     }
 
     async clickOnStatus(status: 'Active' | 'Lock') {
         if (status === 'Active') {
-            await this.statusActive.click();
+            await this.safeClick(this.statusActive);
             console.log('Clicked on status: Active');
         } else if (status === 'Lock') {
-            await this.statusLock.click();
+            await this.safeClick(this.statusLock);
             console.log('Clicked on status: Lock');
         } else {
             console.log('Invalid status value:', status);
@@ -187,136 +157,118 @@ export class WorkShiftPage {
     }
 
     async clickOnStatusDropdownSearch() {
-        await this.statusDropdownSearch.click();
+        await this.safeClick(this.statusDropdownSearch);
     }
 
     async getVerifyLockStatus() {
-        await expect(this.verifyLockStatus).toBeVisible();
-        const text = await this.verifyLockStatus.textContent();
-        console.log("🔍 Lock status text found:", text);
-        return text;
+        await this.safeVerifyTextContains(this.verifyLockStatus, "Khóa");
     }
 
     async clickOkButton() {
-        await this.okButton.click();
-    }
-
-    async getToastDelete(text: string) {
-        await expect(this.toastDeleteSuccess).toHaveText(text);
-        return this.toastDeleteSuccess.textContent();
+        await this.safeClick(this.okButton);
     }
 
     async clickOnLockStatus() {
-        await this.lockStatus.click();
+        await this.safeClick(this.lockStatus);
     }
 
     async clickOnStatusDropdown() {
-        await this.statusDropdown.click();
-    }
-
-
-    async getToastUpdate(toast: string) {
-        await expect(this.toastUpdateSuccess).toHaveText(toast);
-        return this.toastUpdateSuccess.textContent();
-    }
-
-    async getToastAdd(toast: string) {
-        await expect(this.toastAddSuccess).toHaveText(toast);
-        return this.toastAddSuccess.textContent();
+        await this.safeClick(this.statusDropdown);
     }
 
     async clickOnBranchBienHoa() {
-        await this.branchBienHoa.click();
+        await this.safeClick(this.branchBienHoa);
     }
 
     async clickOnSaveButton() {
-        await this.saveButton.click();
+        await this.safeClick(this.saveButton);
     }
 
     async clickOnBranchDropdown() {
-        await this.branchDropdown.click();
+        await this.safeClick(this.branchDropdown);
     }
 
     async clickOnChosse08HourPicker() {
-        await this.chosse08HourPicker.click();
+        await this.safeClick(this.chosse08HourPicker);
     }
 
     async clickOnChosse17HourPicker() {
-        await this.chosse17HourPicker.click();
+        await this.safeClick(this.chosse17HourPicker);
     }
 
     async clickChosse13HourPicker() {
-        await this.chosse13HourPicker.click();
+        await this.safeClick(this.chosse13HourPicker);
     }
 
     async clickChosseHourPicker() {
-        await this.chosseHourPicker.click();
+        await this.safeClick(this.chosseHourPicker);
     }
 
     async fillWorkShiftName(workshiftName: string) {
-        await this.workshiftNameInput.fill(workshiftName);
+        await this.safeFill(this.workshiftNameInput, workshiftName);
     }
 
     async fillWorkShiftCode(workshiftCode: string) {
-        await this.workshiftCodeInput.fill(workshiftCode);
+        await this.safeFill(this.workshiftCodeInput, workshiftCode);
     }
 
     async clickOnTimeEndRest() {
-        await this.timeEndRest.click();
+        await this.safeClick(this.timeEndRest);
     }
 
     async clickOnTimeStartRest() {
-        await this.timeStartRest.click();
+        await this.safeClick(this.timeStartRest);
     }
 
     async clickOnRestCheckBox() {
-        await this.restCheckBox.click();
+        await this.safeClick(this.restCheckBox);
     }
 
     async clickOnChosseButtonPicker() {
-        await this.chosseButtonPicker.click();
+        await this.safeClick(this.chosseButtonPicker);
     }
 
     async clickOnChosse00MinutePicker() {
-        await this.chosse00MinutePicker.click();
+        await this.safeClick(this.chosse00MinutePicker);
     }
 
     async clickOnChosse12HourPicker() {
-        await this.chosse12HourPicker.click();
+        await this.safeClick(this.chosse12HourPicker);
     }
 
     async clickOnChosseMinutePicker() {
-        await this.chosseMinutePicker.click();
+        await this.safeClick(this.chosseMinutePicker);
     }
 
     async clickOnChosseHourStartPicker() {
-        await this.chosseHourStartPicker.click();
+        await this.safeClick(this.chosseHourStartPicker);
     }
 
     async clickEndTime() {
-        await this.workshiftEndTimeInput.click();
+        await this.safeClick(this.workshiftEndTimeInput);
     }
 
     async clickStartTime() {
-        await this.workshiftStartTimeInput.click();
+        await this.safeClick(this.workshiftStartTimeInput);
     }
 
     async clickOnSearchButton() {
-        await this.searchButton.click();
+        await this.safeClick(this.searchButton);
     }
 
     async clickOnEditButton() {
-        await this.editButton.click();
+        await this.safeClick(this.editButton);
     }
+
     async clickOnDeleteButton() {
-        await this.deleteButton.click();
+        await this.safeClick(this.deleteButton);
     }
 
     async clickOnWorkShiftButton() {
-        await this.workshiftButton.click();
+        await this.safeClick(this.workshiftButton);
     }
 
     async clickOnAddButton() {
-        await this.addButton.click();
+        await this.safeClick(this.addButton);
     }
 }
