@@ -274,7 +274,7 @@ test.describe.serial('Resignation Tests', () => {
     });
   });
 
-  test.only('Export resignation with no data', async ({ page }) => {
+  test('Export resignation with no data', async ({ page }) => {
     await clearResignation();
     allure.story('Export resignation with no data Story');
 
