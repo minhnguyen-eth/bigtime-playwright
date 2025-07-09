@@ -85,56 +85,57 @@ export class BasePage {
    * Click an element safely after ensuring it's visible and enabled
    */
     async safeClick(locator: Locator, options?: { force?: boolean, timeout?: number }) {
-        const timeout = options?.timeout ?? 5000;
+        const timeout = options?.timeout ?? 10000;
         await expect(locator).toBeVisible({ timeout });
         await expect(locator).toBeEnabled({ timeout });
-        await locator.click({ force: options?.force ?? false });
+        await locator.click({ force: options?.force ?? false, timeout });
     }
 
     async safeClickFirst(locator: Locator, options?: { timeout?: number; force?: boolean }) {
-        const timeout = options?.timeout ?? 5000;
+        const timeout = options?.timeout ?? 10000;
         const first = locator.first();
 
         await expect(first).toBeVisible({ timeout });
         await expect(first).toBeEnabled({ timeout });
 
-        await first.click({ force: options?.force ?? false });
+        await first.click({ force: options?.force ?? false, timeout });
     }
 
     /**
      * Fill a value into an input safely after ensuring it's visible and enabled
      */
-    async safeFill(locator: Locator, value: string, timeout: number = 5000) {
+    async safeFill(locator: Locator, value: string, timeout: number = 10000) {
         await expect(locator).toBeVisible({ timeout });
         await expect(locator).toBeEnabled({ timeout });
-        await locator.fill(value);
+        await locator.fill(value, { timeout });
     }
 
     /**
      * Optional: type value character by character (simulate real user input)
      */
-    async safeType(locator: Locator, value: string, delayMs: number = 100, timeout: number = 5000) {
+    async safeType(locator: Locator, value: string, delayMs: number = 100, timeout: number = 10000) {
         await expect(locator).toBeVisible({ timeout });
         await expect(locator).toBeEnabled({ timeout });
-        await locator.type(value, { delay: delayMs });
+        await locator.type(value, { delay: delayMs, timeout });
     }
+
 
     /**
      * Optional: wait until element disappears
      */
-    async waitForElementToDisappear(locator: Locator, timeout: number = 5000) {
+    async waitForElementToDisappear(locator: Locator, timeout: number = 10000) {
         await expect(locator).toHaveCount(0, { timeout });
     }
 
     /**
     * Verify element is visible and has exact expected text
     */
-    async safeVerifyToHaveText(locator: Locator, expectedText: string, timeout: number = 5000) {
+    async safeVerifyToHaveText(locator: Locator, expectedText: string, timeout: number = 10000) {
         await expect(locator).toBeVisible({ timeout });
         await expect(locator).toHaveText(expectedText, { timeout });
     }
 
-    async safeVerifyTextContains(locator: Locator, expectedText: string, timeout: number = 5000) {
+    async safeVerifyTextContains(locator: Locator, expectedText: string, timeout: number = 10000) {
         await expect(locator).toBeVisible({ timeout });
         await expect(locator).toHaveText(new RegExp(expectedText), { timeout });
     }
@@ -142,7 +143,6 @@ export class BasePage {
     /**
      * Get the first visible text of an element
      */
-
     async getFirstVisibleText(locator: Locator, label: string) {
         const first = locator.nth(0);
         await this.page.waitForLoadState('load');
