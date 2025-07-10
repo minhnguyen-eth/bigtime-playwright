@@ -127,12 +127,21 @@ test.describe.serial('Shift Plan Tests', () => {
         });
     });
 
+    test('Edit with remove employee', async ({ page }) => {
+        await shiftPlanPage.clickChooseMonthSearch();
+        await shiftPlanPage.clickMonth08();
+        await shiftPlanPage.clickChosseButton();
+        await shiftPlanPage.clickSearchButton();
+
+        await basePage.clickEditRow0();
+    });
+
     test('Edit name of shift plan', async ({ page }) => {
         const randomName = "Edited name" + Math.random().toString(36).substring(2, 5);
         allure.story('Edit Name of Shift Plan Story');
 
         await allure.step('Edit name of shift plan', async () => {
-             await shiftPlanPage.clickChooseMonthSearch();
+            await shiftPlanPage.clickChooseMonthSearch();
             await shiftPlanPage.clickMonth08();
             await shiftPlanPage.clickChosseButton();
             await shiftPlanPage.clickSearchButton();
@@ -161,7 +170,7 @@ test.describe.serial('Shift Plan Tests', () => {
         await allure.step('Verify search results', async () => {
             await shiftPlanPage.expectSearchByNameResult();
         });
-    });    
+    });
 
     test('Search by work shift', async ({ page }) => {
         allure.story('Search by Work Shift Story');

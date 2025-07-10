@@ -14,12 +14,7 @@ test.describe.serial('Work Shift Tests', () => {
     let toastPage: ToastPage;
     let basePage: BasePage;
 
-    const randomSuffix = Math.random().toString(36).substring(2, 8);
-    const workShiftName = `Automation test ${randomSuffix}`;
-    const workShiftCode = 'AT' + randomSuffix;
-
     test.beforeEach(async ({ page }) => {
-
         allure.feature('Work Shift Feature');
         allure.owner('Minh Nguyen');
         allure.severity('Critical');
@@ -36,6 +31,10 @@ test.describe.serial('Work Shift Tests', () => {
     });
 
     test('Create new work shift', async ({ page }) => {
+        const randomSuffix = Math.random().toString(36).substring(2, 8);
+        const workShiftName = `Automation test ${randomSuffix}`;
+        const workShiftCode = 'AT' + randomSuffix;
+
         allure.story('Create Work Shift Story');
         await clearAllWorkingShift();
 
@@ -66,7 +65,6 @@ test.describe.serial('Work Shift Tests', () => {
             await workShiftPage.clickOnChosseMinutePicker();
             await workShiftPage.clickOnChosse00MinutePicker();
             await workShiftPage.clickOnChosseButtonPicker();
-
             await workShiftPage.clickOnRestCheckBox();
 
             await workShiftPage.clickOnTimeStartRest();

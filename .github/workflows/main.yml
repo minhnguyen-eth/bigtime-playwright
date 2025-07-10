@@ -81,5 +81,8 @@ jobs:
           name: playwright-artifacts
           path: |
             test-results/
-            **/screenshots/
-            **/trace.zip
+            **/screenshots/**
+            **/*.png
+            **/*.webm
+            **/*.zip
+            playwright-report/
