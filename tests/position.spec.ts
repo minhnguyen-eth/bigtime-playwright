@@ -4,7 +4,7 @@ import { PositionPage } from '../pages/PositionPage';
 import { ToastPage } from '../pages/ToastPage';
 import { LoginPage } from '../pages/LoginPage';
 import { Config } from '../utils/configUtils';
-import { clearPosition } from '../utils/mysqlUtils';
+import { clearPosition } from '../db/DBHelper';
 import { takeScreenshotOnFailure } from '../utils/screenshotUtils';
 import { allure } from 'allure-playwright';
 

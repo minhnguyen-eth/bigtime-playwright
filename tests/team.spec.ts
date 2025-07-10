@@ -6,7 +6,7 @@ import { ToastPage } from '../pages/ToastPage';
 import { BasePage } from '../pages/BasePage';
 import { takeScreenshotOnFailure } from '../utils/screenshotUtils';
 import { Config } from '../utils/configUtils';
-import { clearTeam } from '../utils/mysqlUtils';
+import { clearTeam } from '../db/DBHelper';
 
 test.describe.serial('Team', () => {
     let loginPage: LoginPage;
@@ -24,7 +24,6 @@ test.describe.serial('Team', () => {
         toastPage = new ToastPage(page);
         basePage = new BasePage(page);
         await loginPage.goto();
-
     });
 
     test.afterEach(async ({ page }, testInfo: TestInfo) => {
@@ -46,7 +45,6 @@ test.describe.serial('Team', () => {
         await teamPage.fillNote('This is a note');
         await basePage.clickSave();
         await toastPage.getToastAddSuccess();
-
     });
 
     test('Create a new team with existing team name', async ({ page }) => {

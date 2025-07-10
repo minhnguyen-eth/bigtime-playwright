@@ -6,7 +6,7 @@ import { allure } from 'allure-playwright';
 import { BasePage } from '../pages/BasePage';
 import { ToastPage } from '../pages/ToastPage';
 import { LevelPage } from '../pages/LevelPage';
-import { clearLevel } from '../utils/mysqlUtils';
+import { clearLevel } from '../db/DBHelper';
 
 test.describe.serial('Level Test Suite', () => {
     let loginPage: LoginPage;

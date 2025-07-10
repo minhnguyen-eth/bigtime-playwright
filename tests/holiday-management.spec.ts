@@ -1,11 +1,12 @@
-import { test, expect } from '@playwright/test';
+import { test, expect, TestInfo } from '@playwright/test';
 import { LoginPage } from '../pages/LoginPage';
 import { BasePage } from '../pages/BasePage';
 import Config from '../utils/configUtils';
 import { ToastPage } from '../pages/ToastPage';
 import { HolidayManagementPage } from '../pages/HolidayManagementPage';
-import { clearCheckDay, clearCheckTime, clearHolidayManagement } from '../utils/mysqlUtils';
+import { clearCheckDay, clearCheckTime, clearHolidayManagement } from '../db/DBHelper';
 import { allure } from 'allure-playwright';
+import { takeScreenshotOnFailure } from '../utils/screenshotUtils';
 
 test.describe('Holiday Management', () => {
     let loginPage: LoginPage;
@@ -27,6 +28,10 @@ test.describe('Holiday Management', () => {
         await basePage.clickAdmin();
         await holidayManagementPage.clickHolidayButton();
     });
+
+     test.afterEach(async ({ page }, testInfo: TestInfo) => {
+        await takeScreenshotOnFailure(page, testInfo);
+      });
 
     test('E2E - Add Holiday Management', async ({ page }) => {
         await clearHolidayManagement();

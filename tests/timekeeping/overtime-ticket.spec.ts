@@ -1,12 +1,13 @@
-import { test, expect } from '@playwright/test';
+import { test, expect , TestInfo } from '@playwright/test';
 import { LoginPage } from '../../pages/LoginPage';
 import { BasePage } from '../../pages/BasePage';
 import Config from '../../utils/configUtils';
 import { ToastPage } from '../../pages/ToastPage';
-import { clearCheckDay, clearCheckTime, mockCheckinData, clearOvertimeSubmission } from '../../utils/mysqlUtils';
+import { clearCheckDay, clearCheckTime, mockCheckinData, clearOvertimeSubmission } from '../../db/DBHelper';
 import { OvertimeTicketPage } from '../../pages/timekeeping_page/OvertimeTicketPage';
 import { LogoutPage } from '../../pages/LogoutPage';
 import { allure } from 'allure-playwright';
+import { takeScreenshotOnFailure } from '../../utils/screenshotUtils';
 
 test.describe.serial('Overtime Ticket Test Suite', () => {
     let loginPage: LoginPage;
@@ -45,6 +46,10 @@ test.describe.serial('Overtime Ticket Test Suite', () => {
         await clearCheckTime();
         await clearOvertimeSubmission();
     });
+
+     test.afterEach(async ({ page }, testInfo: TestInfo) => {
+        await takeScreenshotOnFailure(page, testInfo);
+      });
 
     async function addOverTimeTicket() {
         await mockCheckinData(userId, today);

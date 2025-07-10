@@ -5,7 +5,7 @@ import { BasePage } from '../../pages/BasePage';
 import { takeScreenshotOnFailure } from '../../utils/screenshotUtils';
 import Config from '../../utils/configUtils';
 import { TermPage } from '../../pages/contract_page/TermPage';
-import { clearTerm } from '../../utils/mysqlUtils';
+import { clearTerm } from '../../db/DBHelper';
 import { allure } from "allure-playwright";
 
 test.describe.serial('Term Tests', () => {

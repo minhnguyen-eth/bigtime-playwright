@@ -3,7 +3,7 @@ import { LoginPage } from '../../pages/LoginPage';
 import { LeaveManagementPage } from '../../pages/leave_page/LeaveManagementPage';
 import { LeaveApplicationPage } from '../../pages/leave_page/LeaveApplicationPage';
 import Config from '../../utils/configUtils';
-import { clearAllLeaveManagements } from '../../utils/mysqlUtils';
+import { clearAllLeaveManagements } from '../../db/DBHelper';
 import { ToastPage } from '../../pages/ToastPage';
 import { LogoutPage } from '../../pages/LogoutPage';
 import { BasePage } from '../../pages/BasePage';

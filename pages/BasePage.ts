@@ -119,7 +119,6 @@ export class BasePage {
         await locator.type(value, { delay: delayMs, timeout });
     }
 
-
     /**
      * Optional: wait until element disappears
      */

@@ -6,7 +6,7 @@ import { allure } from 'allure-playwright';
 import { BasePage } from '../pages/BasePage';
 import { ToastPage } from '../pages/ToastPage';
 import { BranchPage } from '../pages/BranchPage';
-import { clearBranch } from '../utils/mysqlUtils';
+import { clearBranch } from '../db/DBHelper';
 
 
 test.describe.serial('Branch Test', () => {

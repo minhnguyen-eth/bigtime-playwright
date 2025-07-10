@@ -6,7 +6,7 @@ import { RewardTypePage } from '../../pages/reward_page/RewardTypePage';
 import Config from '../../utils/configUtils';
 import { allure } from 'allure-playwright';
 import { RewardEmployeePage } from '../../pages/reward_page/RewardEmployeePage';
-import { clearAllRewardUsers } from '../../utils/mysqlUtils';
+import { clearAllRewardUsers } from '../../db/DBHelper';
 import { BasePage } from '../../pages/BasePage';
 import { LogoutPage } from '../../pages/LogoutPage';
 

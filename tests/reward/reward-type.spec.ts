@@ -4,7 +4,7 @@ import { LoginPage } from '../../pages/LoginPage';
 import { RewardTypePage } from '../../pages/reward_page/RewardTypePage';
 import Config from '../../utils/configUtils';
 import { ToastPage } from '../../pages/ToastPage';
-import { clearAllRewardType } from '../../utils/mysqlUtils';
+import { clearAllRewardType } from '../../db/DBHelper';
 import { allure } from 'allure-playwright';
 import { BasePage } from '../../pages/BasePage';
 

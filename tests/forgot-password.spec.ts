@@ -1,6 +1,7 @@
-import { test, expect } from '@playwright/test';
+import { test, expect, TestInfo } from '@playwright/test';
 import { LoginPage } from '../pages/LoginPage';
 import { allure } from 'allure-playwright';
+import { takeScreenshotOnFailure } from '../utils/screenshotUtils';
 
 test.describe('Forgot Password Test Suite', () => {
   let loginPage: LoginPage;
@@ -12,6 +13,10 @@ test.describe('Forgot Password Test Suite', () => {
 
     loginPage = new LoginPage(page);
     await loginPage.goto();
+  });
+
+  test.afterEach(async ({ page }, testInfo: TestInfo) => {
+    await takeScreenshotOnFailure(page, testInfo);
   });
 
   test('Test forgot password with empty email', async ({ page }) => {

@@ -5,7 +5,7 @@ import Config from '../../utils/configUtils';
 import { ToastPage } from '../../pages/ToastPage';
 import { allure } from 'allure-playwright';
 import { NotificationPage } from '../../pages/notification_page/NotificationPage';
-import { clearAllNotifications } from '../../utils/mysqlUtils';
+import { clearAllNotifications } from '../../db/DBHelper';
 import { BasePage } from '../../pages/BasePage';
 import { LogoutPage } from '../../pages/LogoutPage';
 

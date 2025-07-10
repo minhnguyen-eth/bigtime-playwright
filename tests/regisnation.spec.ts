@@ -1,5 +1,5 @@
 import { test, expect, Page, TestInfo } from '@playwright/test';
-import { clearResignation } from '../utils/mysqlUtils';
+import { clearResignation } from '../db/DBHelper';
 import { LoginPage } from '../pages/LoginPage';
 import { takeScreenshotOnFailure } from '../utils/screenshotUtils';
 import Config from '../utils/configUtils';

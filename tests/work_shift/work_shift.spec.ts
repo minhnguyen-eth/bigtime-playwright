@@ -4,7 +4,7 @@ import { takeScreenshotOnFailure } from '../../utils/screenshotUtils';
 import Config from '../../utils/configUtils';
 import { WorkShiftPage } from '../../pages/work_shift_page/WorkShiftPage';
 import { allure } from 'allure-playwright';
-import { clearAllWorkingShift } from '../../utils/mysqlUtils';
+import { clearAllWorkingShift } from '../../db/DBHelper';
 import { ToastPage } from '../../pages/ToastPage';
 import { BasePage } from '../../pages/BasePage';
 

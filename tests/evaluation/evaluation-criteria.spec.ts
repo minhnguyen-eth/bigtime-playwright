@@ -3,7 +3,7 @@ import { LoginPage } from "../../pages/LoginPage";
 import { takeScreenshotOnFailure } from "../../utils/screenshotUtils";
 import Config from "../../utils/configUtils";
 import { EvaluationCriteriaPage } from "../../pages/evaluation_page/EvaluationCriteriaPage";
-import { clearAllEvaluationCriterias } from "../../utils/mysqlUtils";
+import { clearAllEvaluationCriterias } from '../../db/DBHelper';
 import { allure } from "allure-playwright";
 import { BasePage } from "../../pages/BasePage";
 import { ToastPage } from "../../pages/ToastPage";

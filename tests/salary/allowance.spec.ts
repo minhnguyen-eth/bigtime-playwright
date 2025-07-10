@@ -7,7 +7,7 @@ import { allure } from 'allure-playwright';
 import { takeScreenshotOnFailure } from "../../utils/screenshotUtils";
 import Config from '../../utils/configUtils';
 import { AllowancePage } from '../../pages/salary_page/AllowancePage';
-import { clearAllowanceType } from '../../utils/mysqlUtils';
+import { clearAllowanceType } from '../../db/DBHelper';
 
 test.describe.serial('Allowance Tests', () => {
     let loginPage: LoginPage;

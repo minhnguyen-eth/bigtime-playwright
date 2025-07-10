@@ -4,7 +4,7 @@ import { LoginPage } from '../../pages/LoginPage';
 import { BasePage } from '../../pages/BasePage';
 import { takeScreenshotOnFailure } from '../../utils/screenshotUtils';
 import Config from '../../utils/configUtils';
-import { clearEmploymentContract } from '../../utils/mysqlUtils';
+import { clearEmploymentContract } from '../../db/DBHelper';
 import { ContractPage } from '../../pages/contract_page/ContractPage';
 import { allure } from "allure-playwright";
 

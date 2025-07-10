@@ -7,9 +7,8 @@ The project is built using **Playwright** and follows the Page Object Model stru
 👉 [Click to view Allure Report](https://minhnguyen-eth.github.io/bigtime-playwright/)
 
 ## 📦 Tech Stack
-
-- ✅ Playwright with TypeScript
-- ✅ Page Object Model design pattern
-- ✅ Allure Report for test results
-- ✅ MySQL for test data handling
-- ✅ GitHub Pages for report hosting
+-  Playwright with TypeScript
+-  Page Object Model design pattern
+-  Allure Report for test results
+-  MySQL for test data handling
+-  GitHub Pages for report hosting

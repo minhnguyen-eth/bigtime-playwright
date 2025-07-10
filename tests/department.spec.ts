@@ -6,11 +6,10 @@ import { allure } from 'allure-playwright';
 import { BasePage } from '../pages/BasePage';
 import { ToastPage } from '../pages/ToastPage';
 import { DepartmentPage } from '../pages/DepartmentPage';
-import { clearDepartment } from '../utils/mysqlUtils'
+import { clearDepartment } from '../db/DBHelper';
 
 
 test.describe.serial('Department Test', () => {
-
     let loginPage: LoginPage;
     let departmentPage: DepartmentPage;
     let basePage: BasePage;

@@ -3,8 +3,8 @@ import { LoginPage } from "../../pages/LoginPage";
 import { takeScreenshotOnFailure } from "../../utils/screenshotUtils";
 import Config from "../../utils/configUtils";
 import { EvaluationTypePage } from "../../pages/evaluation_page/EvaluationTypePage";
-import { checkEvaluationTypeExists, deleteEvaluationType } from "../../utils/mysqlUtils";
-import { clearAllEluationTypes } from "../../utils/mysqlUtils";
+import { checkEvaluationTypeExists, deleteEvaluationType, clearAllEluationTypes} from '../../db/DBHelper';
+
 import { allure } from "allure-playwright";
 import { ToastPage } from "../../pages/ToastPage";
 import { BasePage } from "../../pages/BasePage";

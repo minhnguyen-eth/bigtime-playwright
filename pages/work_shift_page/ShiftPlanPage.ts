@@ -3,7 +3,6 @@ import { BasePage } from '../BasePage';
 
 export class ShiftPlanPage extends BasePage {
 
-
     readonly searchButton: Locator;
     readonly shiftPlanButton: Locator;
     readonly addButton: Locator;
@@ -27,26 +26,32 @@ export class ShiftPlanPage extends BasePage {
     readonly saveEmployeeButton: Locator;
     readonly requiredFieldNameShift: Locator;
     readonly requiredFieldNameWorkShift: Locator;
-    readonly logoutButton: Locator;
-    readonly logoutConfirmButton: Locator;
     readonly editButton: Locator;
     readonly deleteButton: Locator;
     readonly chosseMonthButton: Locator;
-    readonly Month07Button: Locator;
+    readonly Month08: Locator;
     readonly okButton: Locator;
     readonly getToastDeleteSuccess: Locator;
     readonly chooseMonthSearch: Locator;
+    readonly searchByNameInput: Locator;
+    readonly searchByNameResult:Locator
+    readonly workShiftDropDown: Locator;
+    readonly searchWorkShiftResult: Locator;
+    readonly editNameResult: Locator;
 
     constructor(page: Page) {
         super(page);
+        this.editNameResult = page.locator("//tr[@id='row-0']//span[contains(text(),'Edited ')]")
+        this.searchWorkShiftResult = page.locator("//tr[@id='row-0']//span[contains(text(),'Ca ngày')]")
+        this.workShiftDropDown = page.locator("//div[@class='v-field v-field--appended v-field--center-affix v-field--variant-outlined v-theme--lightColor7 v-locale--is-ltr']//i[@class='mdi-menu-down mdi v-icon notranslate v-theme--lightColor7 v-icon--size-default v-select__menu-icon']")
+        this.searchByNameResult = page.locator("//tr[@id='row-0']//span[contains(text(),'Phân ca tháng 7')]")
+        this.searchByNameInput = page.locator("//div[2]/div/div[2]/div/div/div/div[3]/div/input")
         this.chooseMonthSearch = page.locator("//div/div[1]/div/div/div/div/div[1]/div/div/div[3]/input")
         this.okButton = page.locator("//span[normalize-space()='Có']")
-        this.Month07Button = page.locator("//div[@class='dp__overlay_cell dp__overlay_cell_pad'][normalize-space()='Thg 8']")
+        this.Month08 = page.locator("//div[@class='dp__overlay_cell dp__overlay_cell_pad'][normalize-space()='Thg 8']")
         this.chosseMonthButton = page.locator("button[aria-label='Open months overlay']")
         this.deleteButton = page.locator("//tr[@id='row-0']//span[contains(text(),'Xóa')]")
         this.editButton = page.locator("//span[contains(text(),'Sửa')]")
-        this.logoutButton = page.locator('//div[contains(text(),"Đăng xuất")]');
-        this.logoutConfirmButton = page.locator('//span[normalize-space()="Có"]');
         this.requiredFieldNameWorkShift = page.locator("//div[contains(text(),'Nhập ca làm việc')]")
         this.requiredFieldNameShift = page.locator("//div[contains(text(),'Nhập tên bảng phân ca')]")
         this.saveEmployeeButton = page.locator("//body/div[@class='v-overlay-container']/div[@role='dialog']/div[@class='v-overlay__content']/div[@class='v-card v-theme--lightColor7 v-card--density-default rounded-lg v-card--variant-elevated']/div[@class='v-card-actions justify-center']/button[1]/span[3]")
@@ -73,6 +78,26 @@ export class ShiftPlanPage extends BasePage {
 
     }
 
+    async expectEditNameResult() {
+        await this.safeVerifyTextContains(this.editNameResult, "Edited ");
+    }
+
+    async expectSearchWorkShiftResult() {
+        await this.safeVerifyToHaveText(this.searchWorkShiftResult, "Ca ngày");
+    }
+
+    async clickWorkShiftDropDown() {
+        await this.safeClick(this.workShiftDropDown);
+    }
+
+    async expectSearchByNameResult() {
+        await this.safeVerifyToHaveText(this.searchByNameResult, "Phân ca tháng 7");
+    }
+
+    async fillSearchByNameInput(shiftPlanName: string) {
+        await this.safeFill(this.searchByNameInput, shiftPlanName);
+    }
+
     async clickChooseMonthSearch() {
         await this.safeClick(this.chooseMonthSearch);
     }
@@ -81,8 +106,8 @@ export class ShiftPlanPage extends BasePage {
         await this.safeClick(this.okButton);
     }
 
-    async clickMonth07Button() {
-        await this.safeClick(this.Month07Button);
+    async clickMonth08() {
+        await this.safeClick(this.Month08);
     }
 
     async clickChosseMonthButton() {

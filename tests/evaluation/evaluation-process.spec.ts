@@ -4,7 +4,7 @@ import { takeScreenshotOnFailure } from "../../utils/screenshotUtils";
 import Config from "../../utils/configUtils";
 import { EvaluationProcessPage } from "../../pages/evaluation_page/EvaluationProcessPage";
 import { ToastPage } from "../../pages/ToastPage";
-import { clearAllEvaluationProgress } from "../../utils/mysqlUtils";
+import { clearAllEvaluationProgress } from '../../db/DBHelper';
 import { allure } from "allure-playwright";
 import { createCriteria } from "../evaluation/evaluation-helper";
 import { BasePage } from "../../pages/BasePage";

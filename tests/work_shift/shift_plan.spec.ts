@@ -3,7 +3,7 @@ import { LoginPage } from '../../pages/LoginPage';
 import { takeScreenshotOnFailure } from '../../utils/screenshotUtils';
 import Config from '../../utils/configUtils';
 import { ShiftPlanPage } from '../../pages/work_shift_page/ShiftPlanPage';
-import { clearAllShiftPlan, checkShiftPlanExists } from '../../utils/mysqlUtils';
+import { clearAllShiftPlan, checkShiftPlanExists } from '../../db/DBHelper';
 import { allure } from 'allure-playwright';
 import { ToastPage } from '../../pages/ToastPage';
 import { BasePage } from '../../pages/BasePage';
@@ -50,13 +50,13 @@ test.describe.serial('Shift Plan Tests', () => {
 
             await shiftPlanPage.clickStartDateInput();
             await shiftPlanPage.clickChosseMonthButton();
-            await shiftPlanPage.clickMonth07Button();
+            await shiftPlanPage.clickMonth08();
             await shiftPlanPage.clickDay1Button();
             await shiftPlanPage.clickChosseButton();
 
             await shiftPlanPage.clickEndDateInput();
             await shiftPlanPage.clickChosseMonthButton();
-            await shiftPlanPage.clickMonth07Button();
+            await shiftPlanPage.clickMonth08();
             await shiftPlanPage.clickDay31Button();
             await shiftPlanPage.clickChosseButton();
 
@@ -88,13 +88,13 @@ test.describe.serial('Shift Plan Tests', () => {
 
             await shiftPlanPage.clickStartDateInput();
             await shiftPlanPage.clickChosseMonthButton();
-            await shiftPlanPage.clickMonth07Button();
+            await shiftPlanPage.clickMonth08();
             await shiftPlanPage.clickDay1Button();
             await shiftPlanPage.clickChosseButton();
 
             await shiftPlanPage.clickEndDateInput();
             await shiftPlanPage.clickChosseMonthButton();
-            await shiftPlanPage.clickMonth07Button();
+            await shiftPlanPage.clickMonth08();
             await shiftPlanPage.clickDay31Button();
             await shiftPlanPage.clickChosseButton();
 
@@ -127,12 +127,62 @@ test.describe.serial('Shift Plan Tests', () => {
         });
     });
 
+    test('Edit name of shift plan', async ({ page }) => {
+        const randomName = "Edited name" + Math.random().toString(36).substring(2, 5);
+        allure.story('Edit Name of Shift Plan Story');
+
+        await allure.step('Edit name of shift plan', async () => {
+             await shiftPlanPage.clickChooseMonthSearch();
+            await shiftPlanPage.clickMonth08();
+            await shiftPlanPage.clickChosseButton();
+            await shiftPlanPage.clickSearchButton();
+
+            await basePage.clickEditRow0();
+            await shiftPlanPage.fillShiftPlanNameInput(randomName);
+            await basePage.clickSave();
+            await toastPage.getToastUpdateSuccess();
+            await shiftPlanPage.expectEditNameResult();
+        });
+
+        await allure.step('Verify name changed in DB', async () => {
+            const existsInDB = await checkShiftPlanExists(randomName);
+            expect(existsInDB).toBeTruthy();
+        });
+    });
+
+    test('Search by name', async ({ page }) => {
+        allure.story('Search by Name Story');
+
+        await allure.step('Search by name', async () => {
+            await shiftPlanPage.fillSearchByNameInput('Phân ca tháng 7');
+            await basePage.clickSearch();
+        });
+
+        await allure.step('Verify search results', async () => {
+            await shiftPlanPage.expectSearchByNameResult();
+        });
+    });    
+
+    test('Search by work shift', async ({ page }) => {
+        allure.story('Search by Work Shift Story');
+
+        await allure.step('Search by work shift', async () => {
+            await shiftPlanPage.clickWorkShiftDropDown();
+            await shiftPlanPage.clickWorkShiftOption();
+            await shiftPlanPage.clickSearchButton();
+        });
+
+        await allure.step('Verify search results', async () => {
+            await shiftPlanPage.expectSearchWorkShiftResult();
+        });
+    });
+
     test('Delete shift plan', async ({ page }) => {
         allure.story('Delete Shift Plan Story');
 
         await allure.step('Search and delete shift plan', async () => {
             await shiftPlanPage.clickChooseMonthSearch();
-            await shiftPlanPage.clickMonth07Button();
+            await shiftPlanPage.clickMonth08();
             await shiftPlanPage.clickChosseButton();
             await shiftPlanPage.clickSearchButton();
             await basePage.clickDeleteRow0();
