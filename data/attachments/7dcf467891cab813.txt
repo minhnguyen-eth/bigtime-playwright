@@ -1,5 +1,0 @@
-🔍 Workshift name text found: Ca ngày
-🔍 Workshift code text found: CN
-🔍 Workshift name text found: Ca ngày
-🔍 Workshift code text found: CN
-📸 Screenshot saved: D:\BigAppTech\playwright-typescripts\screenshots\search_work_shift.png

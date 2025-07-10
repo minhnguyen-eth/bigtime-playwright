@@ -1,0 +1,2 @@
+Cleared 3 rows in evaluation_criterias with condition.
+🔍 Required criteria name text found: Nhập tên tiêu chí
