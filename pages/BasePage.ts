@@ -72,7 +72,7 @@ export class BasePage {
         this.sendButton = page.locator("//span[contains(text(),'Gửi')]");
         this.noButton = page.locator("//span[normalize-space()='Không']");
         this.yesButton = page.locator("//span[normalize-space()='Có']");
-        this.cancelButton = page.locator("//span[contains(.,'Hủy')]");
+        this.cancelButton = page.getByRole('button', { name: 'Hủy' })
         this.saveButton = page.locator("//span[normalize-space()='Lưu']");//span[contains(normalize-space(),'Lưu')]
         this.deleteRow0Button = page.locator("//tr[@id='row-0']//span[contains(text(),'Xóa')]");
         this.editRow0Button = page.locator("//tr[@id='row-0']//span[contains(text(),'Sửa')]");

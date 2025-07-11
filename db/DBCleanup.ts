@@ -161,5 +161,3 @@ export async function clearAllTables() {
         await clearFunc();
     }
 }
-
-

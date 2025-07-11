@@ -1,7 +1,8 @@
 import { Page, Locator, expect } from '@playwright/test';
+import { BasePage } from './BasePage';
 
-export class ToastPage {
-    readonly page: Page;
+export class ToastPage extends BasePage{
+   
     readonly toastAddSuccess: Locator;
     readonly toastUpdateSuccess: Locator;
     readonly toastDeleteSuccess: Locator;
@@ -25,7 +26,7 @@ export class ToastPage {
     readonly toastBrowseSuccess2: Locator;
 
     constructor(page: Page) {
-        this.page = page;
+        super(page);
         this.toastSendBrowseSuccess = page.locator('//div[contains(text(),"Gửi duyệt thành công")]');
         this.toastSaveSuccess = page.locator('//div[contains(text(),"Lưu thành công")]');
         this.toastCheckinSuccess = page.locator('//div[contains(text(),"Chấm công thành công")]');
@@ -50,108 +51,86 @@ export class ToastPage {
     }
 
     async getToastBrowseSuccess2() {
-        await expect(this.toastBrowseSuccess2).toHaveText('Phê duyệt thành công');
-        return this.toastBrowseSuccess2.textContent();
+        await this.safeVerifyToHaveText(this.toastBrowseSuccess2, 'Phê duyệt thành công');
     }
 
     async getToastSendBrowseSuccess() {
-        await expect(this.toastSendBrowseSuccess).toHaveText('Gửi duyệt thành công');
-        return this.toastSendBrowseSuccess.textContent();
+        await this.safeVerifyToHaveText(this.toastSendBrowseSuccess, 'Gửi duyệt thành công');
     }
 
     async getToastSaveSuccess() {
-        await expect(this.toastSaveSuccess).toHaveText('Lưu thành công');
-        return this.toastSaveSuccess.textContent();
+        await this.safeVerifyToHaveText(this.toastSaveSuccess, 'Lưu thành công');
     }
 
     async getToastCheckinSuccess() {
-        await expect(this.toastCheckinSuccess).toHaveText('Chấm công thành công.');
-        return this.toastCheckinSuccess.textContent();
+        await this.safeVerifyToHaveText(this.toastCheckinSuccess, 'Chấm công thành công.');
     }
 
     async getToastUpdateFailed() {
-        await expect(this.toastUpdateFailed).toHaveText('Cập nhật không thành công');
-        return this.toastUpdateFailed.textContent();
+        await this.safeVerifyToHaveText(this.toastUpdateFailed, 'Cập nhật không thành công');
     }
 
     async getToastPaymentSuccess() {
-        await expect(this.toastPaymentSuccess).toHaveText('Thêm thanh toán phiếu lương thành công');
-        return this.toastPaymentSuccess.textContent();
+        await this.safeVerifyToHaveText(this.toastPaymentSuccess, 'Thêm thanh toán phiếu lương thành công');
     }
 
     async getToastExportHaveNoData() {
-        await expect(this.toastExportHaveNoData).toHaveText('Không có dữ liệu');
-        return this.toastExportHaveNoData.textContent();
+        await this.safeVerifyToHaveText(this.toastExportHaveNoData, 'Không có dữ liệu');
     }
 
     async getToastEditSuccess() {
-        await expect(this.toastEditSuccess).toHaveText('Chỉnh sửa thành công');
-        return this.toastEditSuccess.textContent();
+        await this.safeVerifyToHaveText(this.toastEditSuccess, 'Chỉnh sửa thành công');
     }
 
     async getToastCancelledSuccess() {
-        await expect(this.toastCancelledSuccess).toHaveText('Đã hủy thành công');
-        return this.toastCancelledSuccess.textContent();
+        await this.safeVerifyToHaveText(this.toastCancelledSuccess, 'Đã hủy thành công');
     }
 
     async getToastRejectSuccess() {
-        await expect(this.toastRejectSuccess).toHaveText('Từ chối thành công');
-        return this.toastRejectSuccess.textContent();
+        await this.safeVerifyToHaveText(this.toastRejectSuccess, 'Từ chối thành công');
     }
 
     async getToastCancelSuccess() {
-        await expect(this.toastCancelSuccess).toHaveText('Hủy thành công');
-        return this.toastCancelSuccess.textContent();
+        await this.safeVerifyToHaveText(this.toastCancelSuccess, 'Hủy thành công');
     }
 
     async getToastSendNotificationSuccess() {
-        await expect(this.toastSendNotificationSuccess).toHaveText('Gửi thông báo thành công');
-        return this.toastSendNotificationSuccess.textContent();
+        await this.safeVerifyToHaveText(this.toastSendNotificationSuccess, 'Gửi thông báo thành công');
     }
 
     async getToastAddFailed() {
-        await expect(this.toastAddFailed).toHaveText('Thêm không thành công');
-        return this.toastAddFailed.textContent();
+        await this.safeVerifyToHaveText(this.toastAddFailed, 'Thêm không thành công');
     }
 
     async getToastEvaluationSuccess() {
-        await expect(this.toastEvaluationSuccess).toHaveText('Đánh giá thành công');
-        return this.toastEvaluationSuccess.textContent();
+        await this.safeVerifyToHaveText(this.toastEvaluationSuccess, 'Đánh giá thành công');
     }
 
     async getToastConfirmSuccess() {
-        await expect(this.toastConfirmSuccess).toHaveText('Xác nhận thành công');
-        return this.toastConfirmSuccess.textContent();
+        await this.safeVerifyToHaveText(this.toastConfirmSuccess, 'Xác nhận thành công');
     }
 
     async getToastExportSuccess() {
-        await expect(this.toastExportSuccess).toHaveText('Xuất thành công');
-        return this.toastExportSuccess.textContent();
+        await this.safeVerifyToHaveText(this.toastExportSuccess, 'Xuất thành công');
     }
 
     async getToastBrowseSuccess() {
-        await expect(this.toastBrowseSuccess).toHaveText('Đã duyệt thành công');
-        return this.toastBrowseSuccess.textContent();
+        await this.safeVerifyToHaveText(this.toastBrowseSuccess, 'Đã duyệt thành công');
     }
 
     async getToastSendSuccess() {
-        await expect(this.toastSendSuccess).toContainText('Đã gửi thành công');
-        return this.toastSendSuccess.textContent();
+        await this.safeVerifyTextContains(this.toastSendSuccess, 'Đã gửi thành công');
     }
 
     async getToastAddSuccess() {
-        await expect(this.toastAddSuccess).toHaveText('Thêm thành công');
-        return this.toastAddSuccess.textContent();
+        await this.safeVerifyToHaveText(this.toastAddSuccess, 'Thêm thành công');
     }
 
     async getToastUpdateSuccess() {
-        await expect(this.toastUpdateSuccess).toHaveText('Cập nhật thành công');
-        return this.toastUpdateSuccess.textContent();
+        await this.safeVerifyToHaveText(this.toastUpdateSuccess, 'Cập nhật thành công');
     }
 
     async getToastDeleteSuccess() {
-        await expect(this.toastDeleteSuccess).toHaveText('Xóa thành công');
-        return this.toastDeleteSuccess.textContent();
+        await this.safeVerifyToHaveText(this.toastDeleteSuccess, 'Xóa thành công');
     }
 }
-

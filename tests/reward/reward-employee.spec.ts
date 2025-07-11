@@ -139,7 +139,7 @@ test.describe.serial('Reward Employee Tests', () => {
         await basePage.clickAdmin();
         await rewardEmployeePage.clickRewardEmployee();
         await basePage.clickRow0();
-        await basePage.clickCancel();
+        await rewardEmployeePage.clickCancelButton();
         await rewardEmployeePage.fillReasonInput('Reason cancel');
         await toast.getToastCancelledSuccess();
     });

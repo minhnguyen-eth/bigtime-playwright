@@ -39,10 +39,12 @@ export class RegisnationPage extends BasePage {
     readonly Day16: Locator;
     readonly monthButton: Locator;
     readonly month06Button: Locator;
+    readonly cancelButton: Locator;
 
 
     constructor(page: Page) {
         super(page);
+        this.cancelButton = page.locator("//span[contains(text(),'Hủy')]");
         this.month06Button = page.locator("//div[@class='dp__overlay_cell dp__overlay_cell_pad'][normalize-space()='Thg 6']");
         this.monthButton = page.locator("button[aria-label='Open months overlay']");
         this.Day16 = page.locator("//div[@class='dp__cell_inner dp__pointer dp__date_hover'][normalize-space()='16']");
@@ -80,6 +82,13 @@ export class RegisnationPage extends BasePage {
         this.saveButton = page.locator("//span[contains(normalize-space(),'Lưu')]");
         this.regisnationButton = page.locator("//div[contains(text(),'Đơn thôi việc')]");
     }// CLICK
+
+
+
+    async clickCancelButton() {
+        await this.safeClick(this.cancelButton);
+    }
+
     async clickMonth06Button() {
         await this.safeClick(this.month06Button);
     }

@@ -192,7 +192,7 @@ test.describe.serial('Resignation Tests', () => {
       await basePage.clickAdmin();
       await regisnationPage.clickRegisnationButton();
       await regisnationPage.clickRow0();
-      await basePage.clickCancel();
+      await regisnationPage.clickCancelButton();
       await basePage.fillReason('Automation test cancel');
       await toastPage.getToastCancelSuccess();
     });

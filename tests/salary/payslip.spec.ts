@@ -34,6 +34,20 @@ test.describe.serial('Payslip Tests', () => {
         await takeScreenshotOnFailure(page, testInfo);
     });
 
+    test('Export only one a employee', async ({ page }) => {
+        await clearAllPaysheets();
+        await clearAllPayslips();
+        await payslipPage.handleExportOnlyOneEmployee();
+        await toastPage.getToastExportSuccess();
+    });
+
+    test('Export by month', async ({ page }) => {
+        await clearAllPaysheets();
+        await clearAllPayslips();
+        await payslipPage.handleExportByMonth();
+        await toastPage.getToastExportSuccess();
+    });
+
     test('Cancel payslip', async ({ page }) => {
         await clearAllPaysheets();
         await clearAllPayslips();
@@ -43,6 +57,5 @@ test.describe.serial('Payslip Tests', () => {
         await logoutPage.logout();
         await loginPage.login(Config.employee_username, Config.employee_password);
         await payslipPage.expectVerifyCancelledStatus();
-    
     });
 });

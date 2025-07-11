@@ -43,12 +43,13 @@ export class RewardEmployeePage extends BasePage {
     readonly selectApproved: Locator;
     readonly monthButton: Locator;
     readonly month06Button: Locator;
-
+    readonly cancelButton: Locator;
 
 
 
     constructor(page: Page) {
         super(page);
+        this.cancelButton = page.locator("//span[contains(text(),'Hủy')]");
         this.yesButton = page.locator("//span[normalize-space()='Có']");
         this.dayRewardAdd = page.locator("//div[7]/div/div/div/div/div[1]/div/div/div[3]/input");
         this.reasonInput = page.locator("//textarea");
@@ -89,6 +90,10 @@ export class RewardEmployeePage extends BasePage {
         this.rewardEmployee = page.locator("//div[contains(text(),'Khen thưởng nhân viên')]");
         this.month06Button = page.locator("//div[@class='dp__overlay_cell dp__overlay_cell_pad'][normalize-space()='Thg 6']");
         this.monthButton = page.locator("button[aria-label='Open months overlay']");
+    }
+
+    async clickCancelButton() {
+        await this.safeClick(this.cancelButton);
     }
 
     async clickMonth06Button() {

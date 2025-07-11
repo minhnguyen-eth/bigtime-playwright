@@ -19,9 +19,9 @@ export class LoginPage extends BasePage {
     this.validateUsername = page.locator("//div[contains(text(),'Nhập tên đăng nhập / email hoặc số điện thoại')]");
     this.validatePassword = page.locator("//div[contains(text(),'Nhập mật khẩu')]");
     this.dashBoard = page.locator("//div[contains(text(),'Bigtime')]");
-    this.usernameInput = page.locator('#input-0');
-    this.passwordInput = page.locator('#input-2');
-    this.loginButton = page.locator('span.v-btn__content');
+    this.usernameInput = page.getByRole('textbox', { name: 'Tên đăng nhập' });
+    this.passwordInput = page.getByRole('textbox', { name: 'Mật khẩu' });
+    this.loginButton = page.getByRole('button', { name: 'Đăng nhập' });
     this.profileBadgeAdmin = page.locator("//div[@class='v-chip__content']//span[contains(text(),'Admin')]");
     this.profileBadgeEmployee = page.locator("//div[@class='v-chip__content']//span[contains(text(),'Nguyễn Văn Minh')]");
     this.errorMessage = page.locator("//li[contains(text(),'Tên đăng nhập hoặc mật khẩu không đúng')]");

@@ -113,7 +113,7 @@ export class PaysheetPage extends BasePage {
         this.employeeOption = page.locator("//div[@role='option']//div[@class='v-list-item-title']");
         this.submitButton = page.locator('//button[@type="submit"]');
         this.latestPaysheetRow = page.locator("//tr[@id='row-0']");
-        this.viewPayrollButton = page.locator("//span[.='Xem bảng lương']");
+        this.viewPayrollButton = page.getByRole('button', { name: 'Xem bảng lương' });
         this.sendAllButton = page.locator('//span[contains(normalize-space(),"Gửi tất cả")]');
         this.confirm2Button = page.locator('//span[.="Xác nhận"]');
         this.noteInput = page.locator('//textarea[@class="v-field__input"]');
@@ -122,8 +122,8 @@ export class PaysheetPage extends BasePage {
         this.salarySlipCodeRow1 = page.locator('//tr[@id="row-1"]//td[2]');
         this.browseButton = page.locator('//span[contains(normalize-space(),"Duyệt")]');
         this.okButton = page.locator('//span[normalize-space()="Có"]');
-        this.salaryClosingButton = page.locator('//span[contains(normalize-space(),"Chốt lương")]');
-        this.confirmButton = page.locator('//span[.="Xác nhận"]');
+        this.salaryClosingButton = page.getByRole('button', { name: 'Chốt lương' });
+        this.confirmButton = page.getByRole('button', { name: 'Xác nhận' });
         this.exportDataButton = page.locator('//span[contains(normalize-space(),"Xuất dữ liệu")]');
         this.refreshButton = page.locator('//span[normalize-space()="Làm mới"]');
         this.paymentHistoryButton = page.locator('//span[normalize-space()="Lịch sử thanh toán"]');
@@ -135,7 +135,7 @@ export class PaysheetPage extends BasePage {
         this.selectAllEmployeesCheckbox = page.locator("//div[@class='v-col-md-12 v-col-12']//i[@class='mdi-radiobox-blank mdi v-icon notranslate v-theme--lightColor7 v-icon--size-default']");
         this.reasonLabel = page.locator('//form//div[3]//textarea');
         this.reasonInput = page.locator('//form//div[3]//div[3]//textarea');
-        this.paymentButton = page.locator('//span[contains(normalize-space(),"Thanh toán")]');
+        this.paymentButton = page.getByRole('button', { name: 'Thanh toán' });
         this.createTicketButton = page.locator('//span[contains(normalize-space(),"Tạo phiếu")]');
 
     }
@@ -413,10 +413,10 @@ export class PaysheetPage extends BasePage {
     }
 
     async clickSalaryClosing() {
-         await this.safeClick(this.salaryClosingButton);
+        await this.safeClick(this.salaryClosingButton);
     }
 
     async clickConfirm() {
-         await this.safeClick(this.confirmButton);
+        await this.safeClick(this.confirmButton);
     }
 }
