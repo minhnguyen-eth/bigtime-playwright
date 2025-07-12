@@ -1,4 +1,4 @@
-import { Page, Locator, expect } from "@playwright/test";
+import { ElementHandle, Page, Locator, expect } from "@playwright/test";
 
 export class BasePage {
     readonly page: Page;
@@ -76,86 +76,159 @@ export class BasePage {
         this.saveButton = page.locator("//span[normalize-space()='Lưu']");//span[contains(normalize-space(),'Lưu')]
         this.deleteRow0Button = page.locator("//tr[@id='row-0']//span[contains(text(),'Xóa')]");
         this.editRow0Button = page.locator("//tr[@id='row-0']//span[contains(text(),'Sửa')]");
-        this.clearSearchButton = page.locator("//span[.=' Xóa']");
+        this.clearSearchButton = page.locator('form').getByRole('button', { name: 'Xóa' })
         this.addButton = page.locator("//span[normalize-space()='Thêm']");
         this.searchButton = page.locator("//span[contains(normalize-space(),'Tìm kiếm')]");
     }
 
+    // BasePage.ts
+
+    // BasePage.ts
+
     /**
-   * Click an element safely after ensuring it's visible and enabled
-   */
-    async safeClick(locator: Locator, options?: { force?: boolean, timeout?: number }) {
-        const timeout = options?.timeout ?? 10000;
-        await expect(locator).toBeVisible({ timeout });
-        await expect(locator).toBeEnabled({ timeout });
-        await locator.click({ force: options?.force ?? false, timeout });
+     * Chờ page đã hoàn toàn load network (xong API, tài nguyên)
+     * Gọi 1 lần ở đầu mỗi test hoặc sau navigation
+     */
+    async waitForPageReady(timeout: number = 30000) {
+        // Chờ tất cả network request xong, DOM sẵn sàng
+        await this.page.waitForLoadState('networkidle', { timeout });
     }
 
-    async safeClickFirst(locator: Locator, options?: { timeout?: number; force?: boolean }) {
-        const timeout = options?.timeout ?? 10000;
-        const first = locator.first();
+    /**
+     * Click một element
+     */
+    async safeClick(locator: Locator, options?: { force?: boolean; timeout?: number }): Promise<void> {
+        const timeout = options?.timeout ?? 30000; // Increased default timeout to 30s
 
+        if (this.page.isClosed()) {
+            console.warn("safeClick: Page is already closed before click.");
+            return;
+        }
+
+        try {
+            await this.page.waitForLoadState('domcontentloaded', { timeout }); // Use the increased timeout
+            await this.waitForOverlayToDisappear(undefined, timeout);
+
+            if (this.page.isClosed()) {
+                console.warn("safeClick: Page closed during overlay wait.");
+                return;
+            }
+
+            await locator.waitFor({ state: 'attached', timeout }); // Use the increased timeout
+            await locator.waitFor({ state: 'visible', timeout }); // Use the increased timeout
+
+            const elementHandle = await locator.elementHandle({ timeout });
+            if (!elementHandle) {
+                throw new Error("Element not found for checking 'enabled' state.");
+            }
+
+            await this.page.waitForFunction(
+                (el: SVGElement | HTMLElement) => el instanceof HTMLElement && !el.hasAttribute('disabled'),
+                elementHandle,
+                { timeout }
+            );
+
+            if (this.page.isClosed()) {
+                console.warn("safeClick: Page closed before actual click.");
+                return;
+            }
+
+            await locator.click({ force: options?.force ?? false, timeout });
+        } catch (error) {
+            if (!this.page.isClosed()) {
+                try {
+                    await this.page.screenshot({ path: 'safeClick-error.png', fullPage: true });
+                } catch {
+                    console.warn("Không thể chụp ảnh lỗi vì page đã đóng.");
+                }
+            }
+            console.error("safeClick error:", (error as Error).message);
+            throw error;
+        }
+    }
+
+    async waitForOverlayToDisappear(selector: string = '.overlay', timeout: number = 30000): Promise<void> {
+        const overlay = this.page.locator(selector);
+        try {
+            await overlay.waitFor({ state: 'hidden', timeout });
+            // console.log('Overlay đã biến mất.');
+        } catch (e) {
+            const overlayCount = await overlay.count();
+            if (overlayCount === 0) {
+                // console.log('Không tìm thấy overlay. Bỏ qua.');
+                return;
+            }
+            await this.page.screenshot({ path: 'overlay-blocking-click.png', fullPage: true });
+            throw new Error(`Một số overlay không biến mất sau ${timeout}ms: ${(e as Error).message}`);
+        }
+    }
+
+    async safeClickFirst(locator: Locator, options?: { force?: boolean; timeout?: number }) {
+        const timeout = options?.timeout ?? 30000; // Increased default timeout to 30s
+        await this.waitForPageReady(timeout);
+        const first = locator.first();
         await expect(first).toBeVisible({ timeout });
         await expect(first).toBeEnabled({ timeout });
-
         await first.click({ force: options?.force ?? false, timeout });
     }
 
     /**
-     * Fill a value into an input safely after ensuring it's visible and enabled
+     * Fill input
      */
-    async safeFill(locator: Locator, value: string, timeout: number = 10000) {
-        await expect(locator).toBeVisible({ timeout });
-        await expect(locator).toBeEnabled({ timeout });
+    async safeFill(locator: Locator, value: string, timeout: number = 30000) {
+        await locator.waitFor({ state: 'visible', timeout });
         await locator.fill(value, { timeout });
     }
 
     /**
-     * Optional: type value character by character (simulate real user input)
+     * Type từng ký tự
      */
-    async safeType(locator: Locator, value: string, delayMs: number = 100, timeout: number = 10000) {
-        await expect(locator).toBeVisible({ timeout });
-        await expect(locator).toBeEnabled({ timeout });
+    async safeType(locator: Locator, value: string, delayMs: number = 100, timeout: number = 30000) {
+        await locator.waitFor({ state: 'visible', timeout });
         await locator.type(value, { delay: delayMs, timeout });
     }
 
     /**
-     * Optional: wait until element disappears
+     * Đợi element biến mất
      */
-    async waitForElementToDisappear(locator: Locator, timeout: number = 10000) {
-        await expect(locator).toHaveCount(0, { timeout });
+    async waitForElementToDisappear(locator: Locator, timeout: number = 30000) {
+        await locator.waitFor({ state: 'detached', timeout });
     }
 
     /**
-    * Verify element is visible and has exact expected text
-    */
+     * Verify text chính xác
+     */
     async safeVerifyToHaveText(locator: Locator, expectedText: string, timeout: number = 10000) {
-        await expect(locator).toBeVisible({ timeout });
+        await locator.waitFor({ state: 'visible', timeout });
         await expect(locator).toHaveText(expectedText, { timeout });
     }
 
+    /**
+     * Verify chứa substring
+     */
     async safeVerifyTextContains(locator: Locator, expectedText: string, timeout: number = 10000) {
-        await expect(locator).toBeVisible({ timeout });
+        await locator.waitFor({ state: 'visible', timeout });
         await expect(locator).toHaveText(new RegExp(expectedText), { timeout });
     }
 
     /**
-     * Get the first visible text of an element
+     * Lấy text đầu tiên
      */
     async getFirstVisibleText(locator: Locator, label: string) {
-        const first = locator.nth(0);
-        await this.page.waitForLoadState('load');
-        await expect(first).toBeVisible();
+        const first = locator.first();
+        await first.waitFor({ state: 'visible' });
         const text = await first.textContent();
-        console.log(`🔍 ${label} found:`, text);
+        console.log(`🔍 ${label}:`, text);
         return text;
     }
 
+    /**
+     * Verify input/select value
+     */
     async safeVerifyToHaveValue(locator: Locator, expectedValue: string, timeout: number = 5000) {
-        await expect(locator).toBeVisible({ timeout });
+        await locator.waitFor({ state: 'visible', timeout });
         await expect(locator).toHaveValue(expectedValue, { timeout });
     }
-
 
     async verifyMaxlenght255Charactor() {
         await this.safeVerifyToHaveText(this.validateMaxlenght255Charactor, 'Không nhập quá 255 kí tự.');

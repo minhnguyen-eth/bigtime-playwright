@@ -34,7 +34,6 @@ export class LeaveManagementPage extends BasePage {
     readonly browsed: Locator;
     readonly toastBrowsedSuccess: Locator;
     readonly addEmployee: Locator;
-    readonly statusDropDown: Locator;
     readonly waitingForApproval: Locator;
     readonly departmentOption: Locator;
     readonly checkStatusNew: Locator;
@@ -45,12 +44,36 @@ export class LeaveManagementPage extends BasePage {
     readonly searchByYear: Locator;
     readonly resultYear: Locator;
     readonly annualLeaveAlreadyExist: Locator;
+    readonly searchByEmployeeName: Locator;
+    readonly searchByEmployeeNameResult: Locator;
+    readonly comboBoxStatus: Locator;
+    readonly searchPendingButton: Locator;
+    readonly searchRejectButton: Locator;
+    readonly searchBrowsedButton: Locator;
+    readonly searchNewButton: Locator;
+    readonly searchByNewResult: Locator;
+    readonly searchByPendingResult: Locator;
+    readonly searchByRejectResult: Locator;
+    readonly searchByBrowsedResult: Locator;
+    readonly comboBoxStatusFormAdd: Locator;
 
     constructor(page: Page) {
         super(page);
+        this.comboBoxStatusFormAdd = page.getByRole('combobox').filter({ hasText: 'Trạng thái ※MớiTrạng thái ※' })
+        this.searchNewButton = page.getByRole('option', { name: 'Mới' })
+        this.searchByNewResult = page.locator('#row-0').getByRole('cell', { name: 'Mới' })
+        this.searchBrowsedButton = page.getByRole('option', { name: 'Đã duyệt' })
+        this.searchByBrowsedResult = page.locator('#row-0').getByRole('cell', { name: 'Đã duyệt' })
+        this.searchByRejectResult = page.locator('#row-0').getByRole('cell', { name: 'Từ chối' })
+        this.searchRejectButton = page.getByRole('option', { name: 'Từ chối' })
+        this.searchByPendingResult = page.locator('#row-0').getByRole('cell', { name: 'Chờ duyệt' })
+        this.searchPendingButton = page.getByRole('option', { name: 'Chờ duyệt' })
+        this.comboBoxStatus = page.getByRole('combobox').filter({ hasText: 'Trạng thái' })
+        this.searchByYear = page.getByRole('spinbutton', { name: 'Năm Năm' })
+        this.searchByEmployeeNameResult = page.locator('#row-0').getByRole('cell', { name: 'Nguyễn Văn Minh' })
+        this.searchByEmployeeName = page.getByRole('textbox', { name: 'Tên nhân viên Tên nhân viên' })
         this.annualLeaveAlreadyExist = page.locator("//li[contains(text(),'Nghỉ phép năm đã tồn tại.')]")
         this.resultYear = page.locator("//tr[@id='row-0']//td[3]")
-        this.searchByYear = page.locator("//form/div/div[2]/div/div/div/div[3]/div/input")
         this.resultEmployee = page.locator("//tr[@id='row-0']//span[contains(text(),'Nguyễn Văn Minh')]")
         this.searchEmpployee = page.locator("//form/div/div[1]/div/div/div/div[3]/div/input")
         this.checkStatusApproved = page.locator("//tr[@id='row-0']//div[contains(.,'Đã duyệt')]")
@@ -58,7 +81,6 @@ export class LeaveManagementPage extends BasePage {
         this.checkStatusNew = page.locator("//tr[@id='row-0']//div[contains(.,'Mới')]")
         this.departmentOption = page.locator("//div[text()='Bộ phận IT']")
         this.waitingForApproval = page.locator("//div[contains(text(),'Chờ duyệt')]")
-        this.statusDropDown = page.locator("//div[@class='v-field v-field--active v-field--appended v-field--center-affix v-field--dirty v-field--variant-outlined v-theme--lightColor7 v-locale--is-ltr']")
         this.addEmployee = page.locator("div[class='v-slide-group__content'] div span[class='v-btn__content']")
         this.browsed = page.locator("//span[contains(text(),'Duyệt')]")
         this.logoutButton = page.locator('//div[contains(text(),"Đăng xuất")]');
@@ -86,6 +108,54 @@ export class LeaveManagementPage extends BasePage {
         this.anualLeave = page.locator("//div[contains(text(),'Nghỉ theo phép năm')]")
         this.leaveTypeDropDown = page.locator("//div[@class='v-col-md-4 v-col-12']//div[@class='v-field__input']")
         this.addButton = page.locator("//span[normalize-space()='Thêm']")
+    }
+
+    async clickComboBoxStatusFormAdd() {
+        await this.safeClick(this.comboBoxStatusFormAdd);
+    }
+
+    async clickSearchNewButton() {
+        await this.safeClick(this.searchNewButton);
+    }
+
+    async expectSearchByNewResult() {
+        await this.safeVerifyTextContains(this.searchByNewResult, 'Mới');
+    }
+
+    async clickSearchBrowsedButton() {
+        await this.safeClick(this.searchBrowsedButton);
+    }
+
+    async expectSearchByBrowsedResult() {
+        await this.safeVerifyTextContains(this.searchByBrowsedResult, 'Đã duyệt');
+    }
+
+    async expectSearchByRejectResult() {
+        await this.safeVerifyTextContains(this.searchByRejectResult, 'Từ chối');
+    }
+
+    async clickSearchRejectButton() {
+        await this.safeClick(this.searchRejectButton);
+    }
+
+    async expectSearchByPendingResult() {
+        await this.safeVerifyTextContains(this.searchByPendingResult, 'Chờ duyệt');
+    }
+
+    async clicksearchPendingButton() {
+        await this.safeClick(this.searchPendingButton);
+    }
+
+    async clickComboBoxStatus() {
+        await this.safeClick(this.comboBoxStatus);
+    }
+
+    async expectNameExist() {
+        await this.safeVerifyTextContains(this.searchByEmployeeNameResult, 'Nguyễn Văn Minh');
+    }
+
+    async fillSearchByEmployeeName() {
+        await this.safeFill(this.searchByEmployeeName, 'Minh');
     }
 
     async verifyAnnualLeaveAlreadyExist(expectedValue: string) {
@@ -134,10 +204,6 @@ export class LeaveManagementPage extends BasePage {
 
     async clickWaitingForApproval() {
         await this.safeClick(this.waitingForApproval);
-    }
-
-    async clickStatusDropDown() {
-        await this.safeClick(this.statusDropDown);
     }
 
     async clickAddEmployee() {

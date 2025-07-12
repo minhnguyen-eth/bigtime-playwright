@@ -75,7 +75,7 @@ test.describe.serial('Leave Management Tests', () => {
             await basePage.clickAdmin();
             await leaveManagementPage.clickLeaveManagementButton();
             await basePage.clickAdd();
-            await leaveManagementPage.clickStatusDropDown();
+            await leaveManagementPage.clickComboBoxStatusFormAdd();
             await leaveManagementPage.clickWaitingForApproval();
             await leaveManagementPage.clickAddEmployee();
             await leaveManagementPage.fillSearchByName();
@@ -95,7 +95,7 @@ test.describe.serial('Leave Management Tests', () => {
             await basePage.clickAdmin();
             await leaveManagementPage.clickLeaveManagementButton();
             await basePage.clickAdd();
-            await leaveManagementPage.clickStatusDropDown();
+            await leaveManagementPage.clickComboBoxStatusFormAdd();
             await leaveManagementPage.clickWaitingForApproval();
             await leaveManagementPage.clickAddEmployee();
             await leaveManagementPage.fillSearchByName();
@@ -143,13 +143,19 @@ test.describe.serial('Leave Management Tests', () => {
         });
     });
 
+    // SEARCH TESTS
+
+    async function beforeSearchTest() {
+        await loginPage.login(Config.admin_username, Config.admin_password);
+        await basePage.clickAdmin();
+        await leaveManagementPage.clickLeaveManagementButton();
+    }
+
     test('Search by employee name and year', async ({ page }) => {
         allure.story('Search Leave Management');
 
         await allure.step('Admin searches leave management by employee name', async () => {
-            await loginPage.login(Config.admin_username, Config.admin_password);
-            await basePage.clickAdmin();
-            await leaveManagementPage.clickLeaveManagementButton();
+            await beforeSearchTest();
             await leaveManagementPage.fillSearchEmpployee('Nguyễn Văn Minh');
             await basePage.clickSearch();
             await leaveManagementPage.verifyResultEmployee('Nguyễn Văn Minh');
@@ -162,4 +168,52 @@ test.describe.serial('Leave Management Tests', () => {
             await leaveManagementPage.verifyResultYear('2025');
         });
     });
-});
+
+    test('Search by pending status', async ({ page }) => {
+        allure.story('Search Leave Management by Status');
+
+        await allure.step('Admin searches leave management by status', async () => {
+            await beforeSearchTest();
+            await leaveManagementPage.clickComboBoxStatus();
+            await leaveManagementPage.clicksearchPendingButton();
+            await basePage.clickSearch();
+            await leaveManagementPage.expectSearchByPendingResult();
+        });
+    });
+
+    test('Search by reject status', async ({ page }) => {
+        allure.story('Search Leave Management by Status');
+
+        await allure.step('Admin searches leave management by status', async () => {
+            await beforeSearchTest();
+            await leaveManagementPage.clickComboBoxStatus();
+            await leaveManagementPage.clickSearchRejectButton();
+            await basePage.clickSearch();
+            await leaveManagementPage.expectSearchByRejectResult();
+        });
+    });
+
+    test('Search by approve status', async ({ page }) => {
+        allure.story('Search Leave Management by Status');
+
+        await allure.step('Admin searches leave management by status', async () => {
+            await beforeSearchTest();
+            await leaveManagementPage.clickComboBoxStatus();
+            await leaveManagementPage.clickSearchBrowsedButton();
+            await basePage.clickSearch();
+            await leaveManagementPage.expectSearchByBrowsedResult();
+        });
+    });
+
+    test('Search by new status', async ({ page }) => {
+        allure.story('Search Leave Management by Status');
+
+        await allure.step('Admin searches leave management by status', async () => {
+            await beforeSearchTest();
+            await leaveManagementPage.clickComboBoxStatus();
+            await leaveManagementPage.clickSearchNewButton();
+            await basePage.clickSearch();
+            await leaveManagementPage.expectSearchByNewResult();
+        });
+    });
+}); 

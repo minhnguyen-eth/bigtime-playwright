@@ -8,7 +8,7 @@ import { clearCheckDay, clearCheckTime, clearHolidayManagement } from '../db/DBH
 import { allure } from 'allure-playwright';
 import { takeScreenshotOnFailure } from '../utils/screenshotUtils';
 
-test.describe('Holiday Management', () => {
+test.describe.serial('Holiday Management', () => {
     let loginPage: LoginPage;
     let basePage: BasePage;
     let holidayManagementPage: HolidayManagementPage;

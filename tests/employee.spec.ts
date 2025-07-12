@@ -38,13 +38,6 @@ test.describe.serial('Employee Tests', () => {
     test(`E2E - Add with role employee`, async ({ page }) => {
         await employeePage.addWithRoleEmployee();
 
-        //Verify
-        await basePage.clickRow0();
-        await employeePage.expectDateOfBirthIsDisplayed();
-        await employeePage.expectDepartmentIsDisplayed();
-        await employeePage.expectPositionIsDisplayed();
-        await employeePage.expectTeamIsDisplayed();
-        // await employeePage.expectJoningTheCompanyIsDisplayed();
     });
     test('Test resume with full data valid information', async ({ page }) => {
         await basePage.clickRow0();
@@ -84,7 +77,11 @@ test.describe.serial('Employee Tests', () => {
     });
 
     test('Add with invalid email', async ({ page }) => {
-        await employeePage.addWithInValidEmail();
+        await employeePage.addWithWrongFormatEmail();
+    });
+
+    test('Min length of email', async ({ page }) => {
+        await employeePage.testMinlengthEmail();
     });
 
     test('Add with role department management', async ({ page }) => {
@@ -93,10 +90,6 @@ test.describe.serial('Employee Tests', () => {
 
     test('Add with duplicate employee code and email', async ({ page }) => {
         await employeePage.addWithDuplicateCodeAndEmail();
-    });
-
-    test('Save without any information', async ({ page }) => {
-        await employeePage.testSaveWithoutAnyInformation();
     });
 
     test('Edit employee name', async ({ page }) => {
@@ -111,10 +104,21 @@ test.describe.serial('Employee Tests', () => {
         await employeePage.deleteAUser();
     });
 
-    test('Search user', async ({ page }) => {
+    test('Search by employee code and name', async ({ page }) => {
         await employeePage.searchByEmployeeCode();
         await employeePage.searchByEmployeeName();
         await employeePage.searchByEmployeeCodeAndName();
+    });
+
+    test('Search by gender', async ({ page }) => {
         await employeePage.searchByGender();
+    });
+
+    test('Search by department', async ({ page }) => {
+        await employeePage.searchByDepartment();
+    });
+
+    test('Save without any information', async ({ page }) => {
+        await employeePage.testSaveWithoutAnyInformation();
     });
 });

@@ -2,7 +2,6 @@ import { test, TestInfo } from '@playwright/test';
 import { LoginPage } from '../../pages/LoginPage';
 import { takeScreenshotOnFailure } from '../../utils/screenshotUtils';
 import { ToastPage } from '../../pages/ToastPage';
-import { RewardTypePage } from '../../pages/reward_page/RewardTypePage';
 import Config from '../../utils/configUtils';
 import { allure } from 'allure-playwright';
 import { RewardEmployeePage } from '../../pages/reward_page/RewardEmployeePage';
@@ -18,7 +17,6 @@ test.describe.serial('Reward Employee Tests', () => {
     let logoutPage: LogoutPage;
 
     test.beforeEach(async ({ page }) => {
-
         allure.feature('Reward Employee Feature');
         allure.owner('Minh Nguyen');
         allure.severity('Critical');
@@ -84,7 +82,6 @@ test.describe.serial('Reward Employee Tests', () => {
         await rewardEmployeePage.fillReasonInput('Reason reject');
         await toast.getToastRejectSuccess();
     });
-
 
     test('Create reward with valid information', async ({ page }) => {
         await loginPage.login(Config.admin_username, Config.admin_password);

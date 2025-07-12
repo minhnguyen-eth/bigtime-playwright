@@ -112,7 +112,7 @@ export class PaysheetPage extends BasePage {
         this.dropdownEmployee = page.locator("//div[@class='v-field v-field--appended v-field--center-affix v-field--variant-outlined v-theme--lightColor7 v-locale--is-ltr']//div[@class='v-field__input']");
         this.employeeOption = page.locator("//div[@role='option']//div[@class='v-list-item-title']");
         this.submitButton = page.locator('//button[@type="submit"]');
-        this.latestPaysheetRow = page.locator("//tr[@id='row-0']");
+        this.latestPaysheetRow = page.locator('#row-0').getByText('Automation test 7/')
         this.viewPayrollButton = page.getByRole('button', { name: 'Xem bảng lương' });
         this.sendAllButton = page.locator('//span[contains(normalize-space(),"Gửi tất cả")]');
         this.confirm2Button = page.locator('//span[.="Xác nhận"]');
@@ -120,7 +120,7 @@ export class PaysheetPage extends BasePage {
         this.payslipButton = page.locator('//a[@href="/salary/payslip"]');
         this.salarySlipCode = page.locator('//tr[@id="row-0"]//td[2]');
         this.salarySlipCodeRow1 = page.locator('//tr[@id="row-1"]//td[2]');
-        this.browseButton = page.locator('//span[contains(normalize-space(),"Duyệt")]');
+        this.browseButton = page.getByRole('button', { name: /Duyệt/ }).first()
         this.okButton = page.locator('//span[normalize-space()="Có"]');
         this.salaryClosingButton = page.getByRole('button', { name: 'Chốt lương' });
         this.confirmButton = page.getByRole('button', { name: 'Xác nhận' });
@@ -348,21 +348,7 @@ export class PaysheetPage extends BasePage {
     }
 
     async clickPayment() {
-        await this.waitForOverlayToDisappear();
         await this.safeClick(this.paymentButton);
-    }
-
-    async waitForOverlayToDisappear() {
-        await this.page.waitForFunction(() => {
-            return [...document.querySelectorAll('.v-overlay__scrim')].every(el => {
-                const style = window.getComputedStyle(el);
-                return (
-                    (el as HTMLElement).offsetParent === null ||
-                    style.visibility === 'hidden' ||
-                    style.opacity === '0'
-                );
-            });
-        }, { timeout: 10000 });
     }
 
     async clickPaysheet() {
@@ -391,7 +377,6 @@ export class PaysheetPage extends BasePage {
     }
 
     async clickLatestPaysheetRow() {
-        await this.waitForOverlayToDisappear();
         await this.safeClick(this.latestPaysheetRow);
     }
 

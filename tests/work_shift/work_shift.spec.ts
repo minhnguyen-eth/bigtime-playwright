@@ -115,13 +115,17 @@ test.describe.serial('Work Shift Tests', () => {
 
     });
 
-    test('Search work shift', async ({ page }) => {
-        allure.story('Search Work Shift Story');
-
-        await allure.step('Login to system and navigate to Work Shift page', async () => { })
+    async function beforeSearch() {
         await loginPage.login(Config.admin_username, Config.admin_password);
         await basePage.clickTimeKeepingManagement();
         await workShiftPage.clickOnWorkShiftButton();
+        await workShiftPage.clickOnBranchDropdownSearch();
+
+    }
+
+    test('Search by name and code of a work shift', async ({ page }) => {
+
+        await beforeSearch();
 
         await allure.step('Search by name and code', async () => {
             await workShiftPage.fillWorkShiftNameSearchField('Ca ngày');
@@ -143,14 +147,6 @@ test.describe.serial('Work Shift Tests', () => {
             await workShiftPage.fillWorkShiftCodeSearchField('CN');
             await workShiftPage.clickOnSearchButton();
             await workShiftPage.getVerifyWorkShiftCode();
-            await workShiftPage.clickOnClearSearchButton();
-        });
-
-        await allure.step('Search by branch', async () => {
-            await workShiftPage.clickOnBranchDropdownSearch();
-            await workShiftPage.clickOnBranchBienHoaSearch();
-            await workShiftPage.clickOnSearchButton();
-            await workShiftPage.getVerifyBranchBienHoaSearch();
             await workShiftPage.clickOnClearSearchButton();
         });
 
@@ -179,6 +175,44 @@ test.describe.serial('Work Shift Tests', () => {
             // await workShiftPage.getVerifyLockStatusSearchRow1();
         });
     });
+
+    test('Search by status', async ({ page }) => {
+        await beforeSearch();
+        await allure.step('Search by Active status', async () => {
+            await workShiftPage.clickOnStatusDropdownSearch();
+            await workShiftPage.clickOnStatus('Active');
+            await workShiftPage.clickOnSearchButton();
+            await workShiftPage.getVerifyAtiveStatusSearch();
+            await workShiftPage.clickOnClearSearchButton();
+        });
+
+        await allure.step('Search by Lock status', async () => {
+            await workShiftPage.clickOnStatusDropdownSearch();
+            await workShiftPage.clickOnStatus('Lock');
+            await workShiftPage.clickOnSearchButton();
+            await workShiftPage.getVerifyLockStatusSearch();
+            await workShiftPage.clickOnClearSearchButton();
+        });
+
+        await allure.step('Search by Active & Lock status', async () => {
+            await workShiftPage.clickOnStatusDropdownSearch();
+            await workShiftPage.clickOnStatus('Active');
+            await workShiftPage.clickOnStatus('Lock');
+            await workShiftPage.clickOnSearchButton();
+            await workShiftPage.getVerifyAtiveStatusSearch();
+            // await workShiftPage.getVerifyLockStatusSearchRow1();
+        });
+    });
+
+    test('Search by branch ', async ({ page }) => {
+        await beforeSearch();
+        await workShiftPage.clickOnBranchBienHoaSearch();
+        await workShiftPage.clickOnSearchButton();
+        await workShiftPage.getVerifyBranchBienHoaSearch();
+        await workShiftPage.clickOnClearSearchButton();
+
+    });
 });
+
 
 

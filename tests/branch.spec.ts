@@ -8,7 +8,6 @@ import { ToastPage } from '../pages/ToastPage';
 import { BranchPage } from '../pages/BranchPage';
 import { clearBranch } from '../db/DBHelper';
 
-
 test.describe.serial('Branch Test', () => {
     let loginPage: LoginPage;
     let branchPage: BranchPage

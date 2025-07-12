@@ -70,7 +70,7 @@ export async function clearAllEmployees() {
 }
 
 export async function clearAllLeaveApplications() {
-    await clearTable('leave_applications');
+    await clearTable('leave_applications', "reason NOT LIKE '%Test data%'");
 }
 
 export async function clearTeam() {
@@ -78,7 +78,7 @@ export async function clearTeam() {
 }
 
 export async function clearAllLeaveManagements() {
-    await clearTable('leave_managements');
+    await clearTable('leave_managements', "year NOT LIKE '%2024%'");
 }
 
 export async function clearAllPaysheets() {
@@ -98,7 +98,7 @@ export async function clearAllShiftPlan() {
 }
 
 export async function clearAllEvaluationProgress() {
-    await clearTable('evaluation_progress');
+    await clearTable('evaluation_progress', "id NOT LIKE '%Testdata%'");
 }
 
 export async function clearAllEvaluationCriterias() {

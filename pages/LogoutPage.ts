@@ -7,8 +7,8 @@ export class LogoutPage extends BasePage {
 
     constructor(page: Page) {
         super(page);
-        this.logoutButton = this.page.locator('//div[contains(text(),"Đăng xuất")]');
-        this.logoutConfirmButton = this.page.locator('//span[normalize-space()="Có"]');
+        this.logoutButton = page.getByRole('button', { name: 'Đăng xuất' })
+        this.logoutConfirmButton = page.getByRole('button', { name: 'Có' })
     }
 
     async logout() {

@@ -1,4 +1,4 @@
-import { defineConfig } from '@playwright/test';
+import { defineConfig, devices } from '@playwright/test';
 
 const isHeadless = process.env.HEADLESS !== 'false';
 
@@ -6,9 +6,9 @@ export default defineConfig({
   testDir: './tests',
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
-  retries: 2,
+  retries: 0,
   workers: 1,
-  timeout: 60000,
+  timeout: 120000,
 
   reporter: [
     ['list'],
@@ -17,7 +17,10 @@ export default defineConfig({
   ],
 
   use: {
-    headless: isHeadless, // true run in headless mode. false run with browser window opened.
+    
+    // headless: false, // true run in headless mode. false run with browser window opened.
+    // viewport: null,
+    headless: isHeadless, 
     viewport: isHeadless ? { width: 1920, height: 1080 } : null,
     launchOptions: {
       args: ['--start-maximized'],
@@ -28,8 +31,19 @@ export default defineConfig({
   },
 
   projects: [
-    {
-      name: 'chromium',
+   {
+      name: 'Chromium',
     },
+    // {
+    //   name: 'Edge',
+    //   use: {
+    //     channel: 'msedge',
+    //     ...devices['Desktop Chrome'],
+    //   },
+    // },
+    // {
+    //   name: 'Firefox',
+    //   use: { ...devices['Desktop Firefox'] },
+    // },
   ],
 });

@@ -85,10 +85,18 @@ export class EmployeePage extends BasePage {
   readonly verifyDepartment: Locator;
   readonly verifyTeam: Locator;
   readonly verifyPosition: Locator;
+  readonly verifyMinlenghtEmail: Locator;
+  readonly dropdownDepartmentSearch: Locator;
+  readonly departmentOption: Locator;
+  readonly verifyDepartmentSearch: Locator;
 
 
   constructor(page: Page) {
     super(page);
+    this.verifyDepartmentSearch = page.locator('#row-0').getByText('Bộ phận IT', { exact: true })
+    this.departmentOption = page.getByRole('option', { name: 'Bộ phận IT' })
+    this.dropdownDepartmentSearch = page.getByRole('combobox').filter({ hasText: 'Bộ phận' })
+    this.verifyMinlenghtEmail = page.locator("//li[contains(text(),'Tên email của bạn phải có từ 6 đến 30 ký tự.')]");
     this.verifyPosition = page.locator("//div[normalize-space()='QA']");
     this.verifyTeam = page.locator("//div[normalize-space()='Nhóm 1 Marketing']");
     this.verifyDepartment = page.locator("//div[contains(text(),'Bộ phận Marketing')]");
@@ -96,10 +104,10 @@ export class EmployeePage extends BasePage {
     this.verifyAddress = page.locator("//div[normalize-space()='Bien Hoa, Dong Nai']");
     this.verifyDataOfBirth = page.locator("//div[normalize-space()='08-08-2014']");
     this.toastPage = new ToastPage(page);
-    this.verifyFemaleSearch = page.locator("//tr[@id='row-0']//div[contains(text(),'Nữ')]");
-    this.verifyMaleSearch = page.locator("//tr[@id='row-0']//div[contains(text(),'Nam')]");
+    this.verifyFemaleSearch = page.locator("//tr[@id='row-0']//div[contains(text(),'Nữ')]").first();
+    this.verifyMaleSearch = page.locator("//tr[@id='row-0']//div[contains(text(),'Nam')]").first();
     this.checkBoxGender = page.locator("//input[@type='checkbox']");
-    this.dropdownGenderSearch = page.locator("//div[@class='v-field v-field--appended v-field--center-affix v-field--variant-outlined v-theme--lightColor7 v-locale--is-ltr']//i[@class='mdi-menu-down mdi v-icon notranslate v-theme--lightColor7 v-icon--size-default v-select__menu-icon']");
+    this.dropdownGenderSearch = page.getByRole('combobox').filter({ hasText: 'Giới tính' })
     this.validateRoleName = page.locator("//div[contains(text(),'Nhập tên quyền')]");
     this.validateEmail = page.locator("//div[contains(text(),'Nhập email')]");
     this.validateEmployeeName = page.locator("//div[contains(text(),'Nhập tên nhân viên')]");
@@ -172,6 +180,15 @@ export class EmployeePage extends BasePage {
     this.userButton = page.locator("//div[contains(text(),'Nhân viên')]");
 
   }
+
+  async expectDepartmentSearch() {
+    await this.safeVerifyTextContains(this.verifyDepartmentSearch, 'Bộ phận IT');
+  }
+
+  async expectValidateMinLengthEmail() {
+    await this.safeVerifyToHaveText(this.verifyMinlenghtEmail, 'Tên email của bạn phải có từ 6 đến 30 ký tự.');
+  }
+
   async expectTeamIsDisplayed() {
     await this.safeVerifyTextContains(this.verifyTeam, 'Nhóm 1 Marketing');
   }
@@ -262,6 +279,10 @@ export class EmployeePage extends BasePage {
 
   async clickDropdownAllowance2() {
     await this.safeClick(this.dropdownAllowance2);
+  }
+
+  async clickDropdownDepartmentSearch() {
+    await this.safeClick(this.dropdownDepartmentSearch);
   }
 
   async clickConfirm() {
@@ -378,6 +399,10 @@ export class EmployeePage extends BasePage {
     await this.safeClick(this.dropdownInfoMore);
   }
 
+  async clickDepartmentOptions() {
+    await this.safeClick(this.departmentOption);
+  }
+
   async clickSelectBranch() {
     await this.safeClick(this.selectBranch);
   }
@@ -458,46 +483,46 @@ export class EmployeePage extends BasePage {
 
 
   // FUNCTION VERIFY 
-async validateRequiredFields() {
-  const validations = [
-    { locator: this.validateRoleName, expectedText: 'Nhập tên quyền' },
-    { locator: this.validateEmail, expectedText: 'Nhập email' },
-    { locator: this.validateEmployeeName, expectedText: 'Nhập tên nhân viên' },
-    { locator: this.validateEmployeeCode, expectedText: 'Nhập mã nhân viên' },
-  ];
+  async validateRequiredFields() {
+    const validations = [
+      { locator: this.validateRoleName, expectedText: 'Nhập tên quyền' },
+      { locator: this.validateEmail, expectedText: 'Nhập email' },
+      { locator: this.validateEmployeeName, expectedText: 'Nhập tên nhân viên' },
+      { locator: this.validateEmployeeCode, expectedText: 'Nhập mã nhân viên' },
+    ];
 
-  for (const validation of validations) {
-    await this.safeVerifyToHaveText(validation.locator, validation.expectedText);
+    for (const validation of validations) {
+      await this.safeVerifyToHaveText(validation.locator, validation.expectedText);
+    }
   }
-}
 
-async verifyEmployeeCodeExisted() {
-  await this.safeVerifyToHaveText(this.employeeCodeExisted, "Mã nhân viên đã tồn tại.");
-}
+  async verifyEmployeeCodeExisted() {
+    await this.safeVerifyToHaveText(this.employeeCodeExisted, "Mã nhân viên đã tồn tại.");
+  }
 
-async verifyEmailExisted() {
-  await this.safeVerifyToHaveText(this.emailAddressExisted, "Địa chỉ email đã tồn tại.");
-}
+  async verifyEmailExisted() {
+    await this.safeVerifyToHaveText(this.emailAddressExisted, "Địa chỉ email đã tồn tại.");
+  }
 
-async verifyEmailError() {
-  await this.safeVerifyToHaveText(this.emailError, "Định dạng Địa chỉ email không hợp lệ.");
-}
+  async verifyEmailError() {
+    await this.safeVerifyToHaveText(this.emailError, "Định dạng Địa chỉ email không hợp lệ.");
+  }
 
-async verifySearchByCode() {
-  await this.safeVerifyToHaveText(this.resultSearchByCode, "BAT810");
-}
+  async verifySearchByCode() {
+    await this.safeVerifyToHaveText(this.resultSearchByCode, "BAT810");
+  }
 
-async verifySearchByName() {
-  await this.safeVerifyToHaveText(this.resultSearchByName, "Nguyễn Văn Minh");
-}
+  async verifySearchByName() {
+    await this.safeVerifyToHaveText(this.resultSearchByName, "Nguyễn Văn Minh");
+  }
 
-async verifyVerifyMaleSearch() {
-  await this.safeVerifyToHaveText(this.verifyMaleSearch, "Nam");
-}
+  async verifyVerifyMaleSearch() {
+    await this.safeVerifyToHaveText(this.verifyMaleSearch, "Nam");
+  }
 
-async verifyVerifyFemaleSearch() {
-  await this.safeVerifyToHaveText(this.verifyFemaleSearch, "Nữ");
-}
+  async verifyVerifyFemaleSearch() {
+    await this.safeVerifyToHaveText(this.verifyFemaleSearch, "Nữ");
+  }
 
 
 
@@ -561,11 +586,19 @@ async verifyVerifyFemaleSearch() {
     await this.toastPage.getToastAddSuccess();
   }
 
-  async addWithInValidEmail() {
+  async addWithWrongFormatEmail() {
     await this.testAddEmployee();
-    await this.fillEmail('Tét');
+    await this.fillEmail('Tét123456');
     await this.clickSaveButton();
     await this.verifyEmailError();
+    await this.toastPage.getToastAddFailed();
+  }
+
+  async testMinlengthEmail() {
+    await this.testAddEmployee();
+    await this.fillEmail('minh');
+    await this.clickSaveButton();
+    await this.expectValidateMinLengthEmail();
     await this.toastPage.getToastAddFailed();
   }
 
@@ -630,6 +663,14 @@ async verifyVerifyFemaleSearch() {
     await this.clickClearSearch();
   }
 
+  async searchByDepartment() {
+    await this.clickDropdownDepartmentSearch();
+    await this.clickDepartmentOptions();
+    await this.clickSearchButton();
+    await this.expectDepartmentSearch();
+    
+  }
+
   async searchByEmployeeName() {
     await this.fillSearchByName('Nguyễn Văn Minh');
     await this.clickSearchButton();
@@ -663,11 +704,7 @@ async verifyVerifyFemaleSearch() {
     await this.clickSelectRank();
     await this.fillCitizenId(random10Digits);
     await this.clickCitizenIdCardIssueDate();
-    await this.clickChosseYear();
-    await this.clickSelectYear();
-    await this.clickChosseMonth();
-    await this.clickSelectMonth();
-    await this.clickSelectDay();
+    await this.clickToDay();
     await this.clickChosseButton();
 
     await this.fillPlaceOfIssueOfIdentityCard('Bien Hoa, Dong Nai');

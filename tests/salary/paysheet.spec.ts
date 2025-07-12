@@ -135,47 +135,17 @@ test.describe.serial('Paysheet Tests', () => {
             await logoutPage.logout();
         });
 
-        await allure.step('Manager approves payslip', async () => {
-            await loginPage.login(Config.manager_username, Config.manager_password);
-            await basePage.clickSalary();
-            await paysheet.clickPayslip();
-            await paysheet.clickSalarySlipCode();
-            await paysheet.clickBrowse();
-            await paysheet.clickSalarySlipCodeRow1();
-            await paysheet.clickBrowse();
-            await toastPage.getToastBrowseSuccess();
-            await logoutPage.logout();
-        });
-
-        await allure.step('Admin approves payslip', async () => {
-            await loginPage.login(Config.admin_username, Config.admin_password);
-            await basePage.clickSalary();
-            await paysheet.clickPayslip();
-            await paysheet.clickSalarySlipCode();
-            await paysheet.clickBrowse();
-            await paysheet.clickSalarySlipCodeRow1();
-            await paysheet.clickBrowse();
-            await toastPage.getToastBrowseSuccess();
-        });
-
     });
 
-    test('Admin closes paysheet and completes payment', async ({ page }) => {
-        await allure.step('Admin closes paysheet and completes payment', async () => {
-            await loginPage.login(Config.admin_username, Config.admin_password);
-            await basePage.clickSalary();
-            await paysheet.clickPaysheet();
-            await paysheet.clickLatestPaysheetRow();
-            await paysheet.clickViewPayroll();
-            await paysheet.clickSalaryClosing();
-            await paysheet.clickConfirm();
-            await paysheet.clickLatestPaysheetRow();
-            await paysheet.clickPayslipPayment();
-            await paysheet.clickPayment();
-            await paysheet.clickCreateTicket();
-            await toastPage.getToastPaymentSuccess();
-        });
-
+    test('Test close salary but not browse', async ({ page }) => {
+        await loginPage.login(Config.admin_username, Config.admin_password);
+        await basePage.clickSalary();
+        await paysheet.clickPaysheet();
+        await paysheet.clickLatestPaysheetRow();
+        await paysheet.clickViewPayroll();
+        await paysheet.clickSalaryClosing();
+        await paysheet.clickConfirm();
+        await toastPage.getToastValidateCloseSalary();
     });
 
     test('Search Paysheet', async ({ page }) => {
@@ -256,6 +226,21 @@ test.describe.serial('Paysheet Tests', () => {
         });
     });
 
+    test('Export excel by only one paysheet', async ({ page }) => {
+        allure.story('Export Excel by 1 Paysheet Story');
+
+        await loginPage.login(Config.admin_username, Config.admin_password);
+        await basePage.clickSalary();
+        await paysheet.clickPaysheet();
+
+        await allure.step('Click export button of the lastest paysheet ', async () => {
+
+            await paysheet.clickLatestPaysheetRow();
+            await paysheet.clickExportOnly1Paysheet();
+            await toastPage.getToastExportSuccess();
+        });
+    });
+
     test('Export excel by all month 05', async ({ page }) => {
         allure.story('Export Excel by Month 05 Story');
 
@@ -280,21 +265,6 @@ test.describe.serial('Paysheet Tests', () => {
             await paysheet.clickMonth05();
             await paysheet.clickChosseDatePicker();
             await paysheet.clickOk();
-            await toastPage.getToastExportSuccess();
-        });
-    });
-
-    test('Export excel by only one paysheet', async ({ page }) => {
-        allure.story('Export Excel by 1 Paysheet Story');
-
-        await loginPage.login(Config.admin_username, Config.admin_password);
-        await basePage.clickSalary();
-        await paysheet.clickPaysheet();
-
-        await allure.step('Click export button of the lastest paysheet ', async () => {
-
-            await paysheet.clickLatestPaysheetRow();
-            await paysheet.clickExportOnly1Paysheet();
             await toastPage.getToastExportSuccess();
         });
     });
@@ -339,8 +309,8 @@ test.describe.serial('Paysheet Tests', () => {
             await paysheet.expectDeduction();
             await paysheet.expectAllowance();
 
-            // await paysheet.clickPaysheet();
-            // await sendAndApprovePaysheet();
+            await paysheet.clickPaysheet();
+            await sendAndApprovePaysheet();
         });
     });
 });

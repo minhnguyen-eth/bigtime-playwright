@@ -33,6 +33,92 @@ test.describe.serial('Leave Application Tests', () => {
         await takeScreenshotOnFailure(page, testInfo);
     });
 
+
+    async function addLeaveApplication() {
+        await basePage.clickAdd();
+        await leaveApplicationPage.clickLeaveTypeDropDown();
+        await leaveApplicationPage.clickAnualLeave();
+        await leaveApplicationPage.setDate();
+        await leaveApplicationPage.fillReason('Automation test');
+        await leaveApplicationPage.clickSaveButton();
+        await toastPage.getToastAddSuccess();
+    }
+    async function beforeSearchTest() {
+        await loginPage.goto();
+        await loginPage.login(Config.admin_username, Config.employee_password);
+        await basePage.clickTimeKeepingManagement();
+        await leaveApplicationPage.clickLeaveApplicationButton();
+    }
+
+    async function beforeTest() {
+        await clearAllLeaveApplications();
+        await loginPage.goto();
+        await loginPage.login(Config.employee_username, Config.employee_password);
+        await basePage.clickTimeKeepingManagement();
+        await leaveApplicationPage.clickLeaveApplicationButton();
+    }
+
+    test('Search by month', async ({ page }) => {
+        await clearAllLeaveApplications();
+        await beforeSearchTest();
+        await leaveApplicationPage.searchByMonth();
+        await leaveApplicationPage.expectSearchByMonthResult();
+    });
+
+    test('Search by cancel status', async ({ page }) => {
+        await beforeSearchTest();
+        await leaveApplicationPage.clickCancelButtonSearch();
+        await leaveApplicationPage.expectSearchByCancelResult();
+    });
+
+    test('Search by pending status', async ({ page }) => {
+        await beforeSearchTest();
+        await leaveApplicationPage.clickWaitForBrowsedButtonSearch();
+        await leaveApplicationPage.expectSearchByWaitForBrowsedResult();
+    });
+
+    test('Search by approved status', async ({ page }) => {
+        await beforeSearchTest();
+        await leaveApplicationPage.clickBrowsedButtonSearch();
+        await leaveApplicationPage.expectSearchByBrowsedResult();
+    });
+
+    test('Search by rejected status', async ({ page }) => {
+        await beforeSearchTest();
+        await leaveApplicationPage.clickRejectButtonSearch();
+        await leaveApplicationPage.expectSearchByRejectedResult();
+    });
+
+    test('Search by regular leave application', async ({ page }) => {
+        await beforeSearchTest();
+        await leaveApplicationPage.clickSearchByRegularLeave();
+        await leaveApplicationPage.getVerifyRegularLeave();
+    });
+
+    test('Search by social insurance leave application', async ({ page }) => {
+        await beforeSearchTest();
+        await leaveApplicationPage.clickSearchBySocialInsuranceLeave();
+        await leaveApplicationPage.getVerifySocialInsuranceLeave();
+    });
+
+    test('Search by anual leave application', async ({ page }) => {
+        await beforeSearchTest();
+        await leaveApplicationPage.clickSearchByAnualLeave();
+        await leaveApplicationPage.getVerifyAnualLeave();
+    });
+
+    test('Search by special leave application', async ({ page }) => {
+        await beforeSearchTest();
+        await leaveApplicationPage.clickSearchBySpecialLeave();
+        await leaveApplicationPage.getVerifySpecialLeave();
+    });
+
+    test('Search by maternity leave application', async ({ page }) => {
+        await beforeSearchTest();
+        await leaveApplicationPage.clickSearchByMaternityLeave();
+        await leaveApplicationPage.getVerifyMaternityLeave();
+    });
+
     test('Add annual leave for a employee and manager browsed', async ({ page }) => {
         allure.story('Setup Annual Leave');
         await allure.step('Clear all leave management and add annual leave for employee and admin', async () => {
@@ -41,21 +127,51 @@ test.describe.serial('Leave Application Tests', () => {
         });
     });
 
+    test('Delete leave application', async ({ page }) => {
+        await beforeTest();
+        await addLeaveApplication();
+        await basePage.clickRow0();
+        await basePage.clickDelete();
+        await toastPage.getToastDeleteSuccess();
+    });
+
+    test('Edit reason of leave application', async ({ page }) => {
+        await beforeTest();
+        await addLeaveApplication();
+        await basePage.clickRow0();
+        await basePage.clickEdit();
+        await leaveApplicationPage.fillReason('Automation test edited');
+        await leaveApplicationPage.clickSaveButton();
+        await toastPage.getToastUpdateSuccess();
+    });
+
+    test('Edit day of leave application', async ({ page }) => {
+        await beforeTest();
+        await addLeaveApplication();
+        await basePage.clickRow0();
+        await basePage.clickEdit();
+        await leaveApplicationPage.setDateForEdit();
+        await leaveApplicationPage.clickSaveButton();
+        await toastPage.getToastUpdateSuccess();
+    });
+
+    test('Edit leave type of leave application', async ({ page }) => {
+        await beforeTest();
+        await addLeaveApplication();
+        await basePage.clickRow0();
+        await basePage.clickEdit();
+        await leaveApplicationPage.clickLeaveTypeDropDown();
+        await leaveApplicationPage.clickSocialInsuranceLeave();
+        await leaveApplicationPage.clickSaveButton();
+        await toastPage.getToastUpdateSuccess();
+    });
+
     test('Add leave application with annual leave and send to admin -> admin approve', async ({ page }) => {
         allure.story('Annual Leave Application Flow');
         await allure.step('Employee applies for annual leave', async () => {
-            await clearAllLeaveApplications();
-            await loginPage.goto();
-            await loginPage.login(Config.employee_username, Config.employee_password);
-            await basePage.clickTimeKeepingManagement();
-            await leaveApplicationPage.clickLeaveApplicationButton();
-            await basePage.clickAdd();
-            await leaveApplicationPage.clickLeaveTypeDropDown();
-            await leaveApplicationPage.clickAnualLeave();
-            await leaveApplicationPage.setDate();
-            await leaveApplicationPage.fillReason('Automation test');
-            await leaveApplicationPage.clickSaveButton();
-            await toastPage.getToastAddSuccess();
+
+            await beforeTest();
+            await addLeaveApplication();
             await leaveApplicationPage.getVerifyAnualLeave();
         });
         await allure.step('Send and approve leave application', async () => {
@@ -66,19 +182,10 @@ test.describe.serial('Leave Application Tests', () => {
     test('Admin reject leave application', async ({ page }) => {
         allure.story('Admin Reject Annual Leave Application Flow');
         await allure.step('Employee applies for annual leave', async () => {
-            await clearAllLeaveApplications();
-            await loginPage.goto();
-            await loginPage.login(Config.employee_username, Config.employee_password);
-            await basePage.clickTimeKeepingManagement();
-            await leaveApplicationPage.clickLeaveApplicationButton();
-            await basePage.clickAdd();
-            await leaveApplicationPage.clickLeaveTypeDropDown();
-            await leaveApplicationPage.clickAnualLeave();
-            await leaveApplicationPage.setDate();
-            await leaveApplicationPage.fillReason('Automation test');
-            await leaveApplicationPage.clickSaveButton();
-            await toastPage.getToastAddSuccess();
-            await leaveApplicationPage.getVerifyAnualLeave();
+
+            await beforeTest();
+            await addLeaveApplication();
+
         });
         await allure.step('Send to admin and admin reject leave application', async () => {
             await leaveApplicationPage.clickRow0();
@@ -96,11 +203,8 @@ test.describe.serial('Leave Application Tests', () => {
     test('Add leave application with regular leave and send to admin -> admin approve', async ({ page }) => {
         allure.story('Regular Leave Application Flow');
         await allure.step('Employee applies for regular leave', async () => {
-            await clearAllLeaveApplications();
-            await loginPage.goto();
-            await loginPage.login(Config.employee_username, Config.employee_password);
-            await basePage.clickTimeKeepingManagement();
-            await leaveApplicationPage.clickLeaveApplicationButton();
+
+            await beforeTest();
             await basePage.clickAdd();
             await leaveApplicationPage.clickLeaveTypeDropDown();
             await leaveApplicationPage.clickRegularLeave();
@@ -108,7 +212,6 @@ test.describe.serial('Leave Application Tests', () => {
             await leaveApplicationPage.fillReason('Automation test');
             await leaveApplicationPage.clickSaveButton();
             await toastPage.getToastAddSuccess();
-            await leaveApplicationPage.getVerifyRegularLeave();
         });
         await allure.step('Send and approve leave application', async () => {
             await sendAndApproveLeave(page);
@@ -118,11 +221,8 @@ test.describe.serial('Leave Application Tests', () => {
     test('Add leave application with social insurance leave and send to admin -> admin approve', async ({ page }) => {
         allure.story('Social Insurance Leave Application Flow');
         await allure.step('Employee applies for social insurance leave', async () => {
-            await clearAllLeaveApplications();
-            await loginPage.goto();
-            await loginPage.login(Config.employee_username, Config.employee_password);
-            await basePage.clickTimeKeepingManagement();
-            await leaveApplicationPage.clickLeaveApplicationButton();
+
+            await beforeTest();
             await basePage.clickAdd();
             await leaveApplicationPage.clickLeaveTypeDropDown();
             await leaveApplicationPage.clickSocialInsuranceLeave();
@@ -140,11 +240,8 @@ test.describe.serial('Leave Application Tests', () => {
     test('Add leave application with maternity leave and send to admin -> admin approve', async ({ page }) => {
         allure.story('Maternity Leave Application Flow');
         await allure.step('Employee applies for maternity leave', async () => {
-            await clearAllLeaveApplications();
-            await loginPage.goto();
-            await loginPage.login(Config.employee_username, Config.employee_password);
-            await basePage.clickTimeKeepingManagement();
-            await leaveApplicationPage.clickLeaveApplicationButton();
+
+            await beforeTest();
             await basePage.clickAdd();
             await leaveApplicationPage.clickLeaveTypeDropDown();
             await leaveApplicationPage.clickMaternityLeave();
@@ -162,11 +259,8 @@ test.describe.serial('Leave Application Tests', () => {
     test('Add leave application with special leave and send to admin -> admin approve', async ({ page }) => {
         allure.story('Special Leave Application Flow');
         await allure.step('Employee applies for special leave', async () => {
-            await clearAllLeaveApplications();
-            await loginPage.goto();
-            await loginPage.login(Config.employee_username, Config.employee_password);
-            await basePage.clickTimeKeepingManagement();
-            await leaveApplicationPage.clickLeaveApplicationButton();
+
+            await beforeTest();
             await basePage.clickAdd();
             await leaveApplicationPage.clickLeaveTypeDropDown();
             await leaveApplicationPage.clickSpecialLeave();
