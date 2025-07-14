@@ -64,7 +64,7 @@ test.describe.serial('Overtime Ticket Test Suite', () => {
 
     }
 
-    test('Maxlength of reason', async ({ page }) => {
+    test('Maxlength of reason over 255 characters', async ({ page }) => {
         await overtimeTicketPage.clickOvertimeTicketButton();
         await basePage.clickAdd();
         await overtimeTicketPage.clickOvertimeTicketDayButton();
@@ -73,6 +73,20 @@ test.describe.serial('Overtime Ticket Test Suite', () => {
         await overtimeTicketPage.fillReason('a'.repeat(256));
         await basePage.clickSave();
         await basePage.verifyMaxlenght255Charactor();
+    });
+
+      test('Maxlength of reason 255 characters', async ({ page }) => {
+        await mockCheckinData(userId, today);
+        await overtimeTicketPage.clickOvertimeTicketButton();
+        await basePage.clickAdd();
+        await overtimeTicketPage.clickOvertimeTicketDayButton();
+        await basePage.clickTodayDatePicker();
+        await overtimeTicketPage.setOverTimeTicket();
+        await overtimeTicketPage.fillReason('a'.repeat(255));
+        await overtimeTicketPage.clickDropdownStatus();
+        await overtimeTicketPage.clickSelectPendingStatus();
+        await basePage.clickSave();
+        await toastPage.getToastAddSuccess();
     });
 
     test('Check in', async ({ page }) => {

@@ -33,6 +33,30 @@ test.describe.serial("Debt Tests", () => {
     await takeScreenshotOnFailure(page, testInfo);
   });
 
+  test("Max length of note 255 characters", async ({ page }) => {
+    await loginPage.login(Config.admin_username, Config.admin_password);
+    await basePage.clickSalary();
+    await debtPage.clickDebtButton();
+    await basePage.clickAdd();
+    await debtPage.fillName("BAT810-Nguyễn Văn Minh");
+    await debtPage.fillAmount("10000000");
+    await debtPage.fillNote("a".repeat(255));
+    await basePage.clickSave();
+    await toastPage.getToastAddSuccess();
+  });
+
+   test("Max length of note over 255 characters", async ({ page }) => {
+    await loginPage.login(Config.admin_username, Config.admin_password);
+    await basePage.clickSalary();
+    await debtPage.clickDebtButton();
+    await basePage.clickAdd();
+    await debtPage.fillName("BAT810-Nguyễn Văn Minh");
+    await debtPage.fillAmount("10000000");
+    await debtPage.fillNote("a".repeat(256));
+    await basePage.clickSave();
+    await basePage.verifyMaxlenght255Charactor();
+  });
+
   test("Add debt with empty value ", async ({ page }) => {
     allure.story('Validation Debt Creation');
     await allure.step('Admin logs in and attempts to add debt with empty values', async () => {

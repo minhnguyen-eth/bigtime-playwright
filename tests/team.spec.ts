@@ -186,6 +186,36 @@ test.describe.serial('Team', () => {
         await teamPage.getResultMaxlenghtCode();
     });
 
+    test('Maxlenght note 255 characters', async ({ page }) => {
+        const randomSuffix = Math.random().toString(36).substring(2, 8);
+        const teamNameRandom = `team${randomSuffix}`;
+        await loginPage.login(Config.admin_username, Config.admin_password);
+        await basePage.clickAdmin();
+        await teamPage.clickTeamButton();
+        await basePage.clickAdd();
+        await teamPage.fillTeamCode(teamNameRandom);
+        await teamPage.fillTeamName(teamNameRandom);
+        await teamPage.fillNote('a'.repeat(255));
+        await teamPage.clickSelectDepartment();
+        await basePage.clickSave();
+        await toastPage.getToastAddSuccess();
+    });
+
+    test('Maxlenght note over 255 characters', async ({ page }) => {
+        const randomSuffix = Math.random().toString(36).substring(2, 8);
+        const teamNameRandom = `team${randomSuffix}`;
+        await loginPage.login(Config.admin_username, Config.admin_password);
+        await basePage.clickAdmin();
+        await teamPage.clickTeamButton();
+        await basePage.clickAdd();
+        await teamPage.fillTeamCode(teamNameRandom);
+        await teamPage.fillTeamName(teamNameRandom);
+        await teamPage.fillNote('a'.repeat(256));
+        await teamPage.clickSelectDepartment();
+        await basePage.clickSave();
+        await toastPage.verifyMaxlenght255Charactor();
+    });
+
     test('Delete team', async ({ page }) => {
         await loginPage.login(Config.admin_username, Config.admin_password);
         await basePage.clickAdmin();

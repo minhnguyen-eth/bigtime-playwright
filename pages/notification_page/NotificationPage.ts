@@ -35,9 +35,9 @@ export class NotificationPage extends BasePage {
 
     constructor(page: Page) {
         super(page);
-        this.verifyNotificationPersonnal = page.locator("//strong[contains(text(),'Gửi đến: Nhân viên BAT810-Nguyễn Văn Minh')]");
-        this.verifyNotificationCompany = page.locator("//strong[contains(text(),'Gửi đến: Toàn công ty')]");
-        this.verifyNotificationDepartment = page.locator("//strong[contains(text(),'Gửi đến: Bộ phận Bộ phận IT')]");
+        this.verifyNotificationPersonnal = page.locator("//strong[contains(text(),'Gửi đến: Nhân viên BAT810-Nguyễn Văn Minh')]").first();
+        this.verifyNotificationCompany = page.locator("//strong[contains(text(),'Gửi đến: Toàn công ty')]").first();
+        this.verifyNotificationDepartment = page.locator("//strong[contains(text(),'Gửi đến: Bộ phận Bộ phận IT')]").first();
         this.yesButton = page.locator("//span[normalize-space()='Có']");
         this.deleteButton = page.locator("//span[normalize-space()='Xóa']");
         this.listNotification = page.locator("//div[contains(text(),'Danh sách thông báo')]");
@@ -45,7 +45,7 @@ export class NotificationPage extends BasePage {
         this.personnalSearch = page.locator("//div[2]/div/div/div/div[4]/div/input");
         this.personnalOption = page.locator("//tbody/tr[1]/td[1]/div[1]/div[1]/div[1]/i[1]");
         this.personnal = page.locator("//span[contains(normalize-space(),'Cá nhân')]");
-        this.departmentOption = page.locator("//table/tbody/tr[1]/td[1]/div/div/div/input");
+        this.departmentOption = page.locator("//tr[2]/td[1]/div/div/div/input");
         this.department = page.locator("//span[contains(normalize-space(),'Bộ phận')]");
         this.sendNotification = page.locator("//span[contains(text(),'Gửi')]");
         this.iconAction = page.locator("//tr[@id='row-0']//i[@class='mdi mdi-format-list-group mdi v-icon notranslate v-theme--lightColor7 v-icon--size-default']");

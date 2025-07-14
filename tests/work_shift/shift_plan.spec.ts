@@ -34,6 +34,45 @@ test.describe.serial('Shift Plan Tests', () => {
         await takeScreenshotOnFailure(page, testInfo);
     });
 
+    async function testBody() {
+        await shiftPlanPage.clickWorkShift();
+        await shiftPlanPage.clickWorkShiftOption();
+        await shiftPlanPage.clickStartDateInput();
+        await shiftPlanPage.clickChosseMonthButton();
+        await shiftPlanPage.clickMonth08();
+        await shiftPlanPage.clickDay1Button();
+        await shiftPlanPage.clickChosseButton();
+        await shiftPlanPage.clickEndDateInput();
+        await shiftPlanPage.clickChosseMonthButton();
+        await shiftPlanPage.clickMonth08();
+        await shiftPlanPage.clickDay31Button();
+        await shiftPlanPage.clickChosseButton();
+        await shiftPlanPage.clickAddDepartmentButton();
+        await shiftPlanPage.fillSearchEmployeeInput('Nguyễn Văn Minh');
+        await shiftPlanPage.clickEmployeeCheckbox();
+        await shiftPlanPage.clickSaveEmployeeButton();;
+        await shiftPlanPage.clickSaveButton();
+    }
+
+    test("Max lengh of name 255 character", async ({ page }) => {
+        await clearAllShiftPlan();
+        await basePage.clickAdd();
+        await shiftPlanPage.fillShiftPlanNameInput('z'.repeat(255));
+        // Test body
+        await testBody();
+
+        await toastPage.getToastAddSuccess();
+    });
+
+    test("Max lengh of name over 255 character", async ({ page }) => {
+        await basePage.clickAdd();
+        await shiftPlanPage.fillShiftPlanNameInput('z'.repeat(256));
+        // Test body
+        await testBody();
+
+        await basePage.verifyMaxlenght255Charactor();
+    });
+
     test('Add shift plan for department', async ({ page }) => {
         const randomName = Math.random().toString(36).substring(2, 8);
         allure.story('Add Shift Plan for Department Story');
@@ -83,27 +122,9 @@ test.describe.serial('Shift Plan Tests', () => {
         await allure.step('Fill Shift Plan form for employee', async () => {
             await basePage.clickAdd();
             await shiftPlanPage.fillShiftPlanNameInput(randomName);
-            await shiftPlanPage.clickWorkShift();
-            await shiftPlanPage.clickWorkShiftOption();
+            // Test body
+            await testBody();
 
-            await shiftPlanPage.clickStartDateInput();
-            await shiftPlanPage.clickChosseMonthButton();
-            await shiftPlanPage.clickMonth08();
-            await shiftPlanPage.clickDay1Button();
-            await shiftPlanPage.clickChosseButton();
-
-            await shiftPlanPage.clickEndDateInput();
-            await shiftPlanPage.clickChosseMonthButton();
-            await shiftPlanPage.clickMonth08();
-            await shiftPlanPage.clickDay31Button();
-            await shiftPlanPage.clickChosseButton();
-
-            await shiftPlanPage.clickAddDepartmentButton();
-            await shiftPlanPage.fillSearchEmployeeInput('Nguyễn Văn Minh');
-            await shiftPlanPage.clickEmployeeCheckbox();
-            await shiftPlanPage.clickSaveEmployeeButton();
-
-            await shiftPlanPage.clickSaveButton();
             await toastPage.getToastAddSuccess();
         });
 

@@ -28,8 +28,8 @@ test.describe.serial('Term Tests', () => {
         await loginPage.login(Config.admin_username, Config.admin_password);
         await basePage.clickAdmin();
         await termPage.clickTerm();
-
     });
+
     test.afterEach(async ({ page }, testInfo: TestInfo) => {
         await takeScreenshotOnFailure(page, testInfo);
     });
@@ -76,7 +76,7 @@ test.describe.serial('Term Tests', () => {
         await toastPage.getToastAddSuccess();
     });
 
-    test('Max length name 255', async ({ page }) => {
+    test('Max length name 255 character', async ({ page }) => {
         await basePage.clickAdd();
         await termPage.fillName('a'.repeat(255));
         await termPage.fillContent('Automatic created term');
@@ -84,12 +84,28 @@ test.describe.serial('Term Tests', () => {
         await toastPage.getToastAddSuccess();
     });
 
-    test('Max length name over 255', async ({ page }) => {
+    test('Max length name over 255 character', async ({ page }) => {
         await basePage.clickAdd();
         await termPage.fillName('a'.repeat(256));
         await termPage.fillContent('Automatic created term');
         await basePage.clickSave();
         await termPage.validateMaxLengthNameError();
+    });
+
+    test('Max length note 255 character', async ({ page }) => {
+        await basePage.clickAdd();
+        await termPage.fillName('Automatic created term max length note');
+        await termPage.fillContent('a'.repeat(255));
+        await basePage.clickSave();
+        await toastPage.getToastAddSuccess();
+    });
+
+    test('Max length note over 255 character', async ({ page }) => {
+        await basePage.clickAdd();
+        await termPage.fillName('Automatic created term max length note');
+        await termPage.fillContent('a'.repeat(256));
+        await basePage.clickSave();
+        await basePage.verifyMaxlenght255Charactor();
     });
 
     test('Edit status', async ({ page }) => {

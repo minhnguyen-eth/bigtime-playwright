@@ -7,6 +7,7 @@ import { EmployeePage } from '../pages/EmployeePage';
 import { BasePage } from '../pages/BasePage';
 import { ResumePage } from '../pages/ResumePage';
 import { ToastPage } from '../pages/ToastPage';
+import { clearEmployees } from '../db/DBHelper';
 
 test.describe.serial('Employee Tests', () => {
     let loginPage: LoginPage;
@@ -35,10 +36,98 @@ test.describe.serial('Employee Tests', () => {
         await takeScreenshotOnFailure(page, testInfo);
     });
 
+
+    test("Max length of all fields", async ({ page }) => {
+        await clearEmployees();
+        const randomSuffix = Math.random().toString(36).substring(2, 8);
+        const emailRandom = `email${randomSuffix}`;
+        const phoneNumber = `09${Math.floor(100000000 + Math.random() * 900000000)}`;
+        await basePage.clickAdd();
+
+        // Fill information
+        await employeePage.fillEmployeeCode("z".repeat(20));
+        await employeePage.fillEmployeeName('z'.repeat(255));
+        await employeePage.fillEmail(emailRandom);
+        await employeePage.clickSelectMale();
+        await employeePage.clickDropdownBranch();
+        await employeePage.clickSelectBranch();
+        await employeePage.clickDropdownDepartment();
+        await employeePage.clickSelectDepartment();
+        await employeePage.clickDropdownEmployeeType();
+        await employeePage.clickStaff();
+
+
+        // Fill more information
+        await employeePage.clickDropdownPosition();
+        await employeePage.clickPosition();
+        await employeePage.clickDropdownRank();
+        await employeePage.clickSelectRank();
+        await employeePage.fillCitizenIdMaxlength("9".repeat(20));
+        await employeePage.clickCitizenIdCardIssueDate();
+        await employeePage.clickToDay();
+        await employeePage.fillPlaceOfIssueOfIdentityCard("z".repeat(255));
+        await employeePage.fillBankName('Vietcombank');
+        await employeePage.fillBankAccountNumber("9".repeat(20));
+        await employeePage.fillPhoneNumber(phoneNumber);
+        await employeePage.clickDateOfBirth();
+        await employeePage.clickChosseYear();
+        await employeePage.clickSelectYear();
+        await employeePage.clickChosseMonth();
+        await employeePage.clickSelectMonth();
+        await employeePage.clickSelectDay();
+        await employeePage.clickDateOfJoiningTheCompany();
+        await employeePage.clickToDay();
+        await employeePage.fillAddress("z".repeat(255));
+        await employeePage.fillNote("z".repeat(500));
+        await employeePage.clickSaveButton();
+        await toastPage.getToastAddSuccess();
+    });
+
+    
+    test('Test max length of resume', async ({ page }) => {
+        const random10Digits = Math.floor(1000000000 + Math.random() * 9000000000);
+        const phoneNumber = `09${Math.floor(100000000 + Math.random() * 900000000)}`;
+        await employeePage.fillSearchByName("Test max length resume");
+        await basePage.clickSearch();
+        await basePage.clickRow0();
+        await resumePage.clickResume();
+        await resumePage.clickEditButton();
+        await resumePage.fillAliasName("z".repeat(255));
+        await resumePage.fillPlaceOfBirth("z".repeat(255));
+        await resumePage.fillHomeTown("z".repeat(255));
+        await resumePage.fillPermanentResidence("z".repeat(255));
+        await resumePage.fillHomePhoneNumber(phoneNumber);
+        await resumePage.fillOfficePhoneNumber(phoneNumber);
+        await resumePage.fillNationPeople("z".repeat(100));
+        await resumePage.fillReligion("z".repeat(100));
+        await resumePage.fillNationality("z".repeat(100));
+        await resumePage.fillMaritalStatus("z".repeat(100));
+        await resumePage.fillEducationalLevel("z".repeat(100));
+        await resumePage.fillProfessionalQualifications("z".repeat(100));
+        await resumePage.fillMajor("z".repeat(255));
+        await resumePage.fillPoliticalTheory("z".repeat(100));
+        await resumePage.fillStateManagement("z".repeat(100));
+        await resumePage.fillPassportNumber(random10Digits.toString());
+        await resumePage.fillWherePassportsAreIssued("z".repeat(100));
+        await resumePage.fillSocialSecurityNumber(random10Digits.toString());
+        await resumePage.fillInsuranceNumber(random10Digits.toString());
+        await resumePage.fillHeight("170");
+        await resumePage.fillWeight("60");
+        await resumePage.fillHealthStatus("K".repeat(100));
+        await resumePage.fillBloodType("A".repeat(10));
+        await resumePage.fillCurrentJob("z".repeat(255));
+        await resumePage.fillPreRecruitment("C".repeat(255));
+        await resumePage.fillOrganizationJoined("z".repeat(255));
+        await resumePage.fillRecruimentForm("T".repeat(100));
+        await resumePage.fillRecruitedPosition("C".repeat(255));
+        await basePage.clickSave();
+        await toastPage.getToastEditSuccess();
+    });
+
     test(`E2E - Add with role employee`, async ({ page }) => {
         await employeePage.addWithRoleEmployee();
-
     });
+
     test('Test resume with full data valid information', async ({ page }) => {
         await basePage.clickRow0();
         await resumePage.testResumeWithValidData();

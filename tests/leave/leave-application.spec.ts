@@ -58,6 +58,29 @@ test.describe.serial('Leave Application Tests', () => {
         await leaveApplicationPage.clickLeaveApplicationButton();
     }
 
+    test("Max lenght of reason is 255 characters", async ({ page }) => {
+        await clearAllLeaveApplications();
+        await beforeTest();
+        await basePage.clickAdd();
+        await leaveApplicationPage.clickLeaveTypeDropDown();
+        await leaveApplicationPage.clickAnualLeave();
+        await leaveApplicationPage.setDate();
+        await leaveApplicationPage.fillReason('a'.repeat(255));
+        await basePage.clickSave();
+        await toastPage.getToastAddSuccess();
+    });
+
+    test("Max lenght of reason over 255 characters", async ({ page }) => {
+        await beforeTest();
+        await basePage.clickAdd();
+        await leaveApplicationPage.clickLeaveTypeDropDown();
+        await leaveApplicationPage.clickAnualLeave();
+        await leaveApplicationPage.setDate();
+        await leaveApplicationPage.fillReason('a'.repeat(256));
+        await basePage.clickSave();
+        await basePage.verifyMaxlenght255Charactor();
+    });
+
     test('Search by month', async ({ page }) => {
         await clearAllLeaveApplications();
         await beforeSearchTest();

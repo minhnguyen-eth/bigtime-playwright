@@ -162,6 +162,21 @@ test.describe.serial('Paysheet Tests', () => {
         });
     });
 
+    test('Search with data not exist', async ({ page }) => {
+        allure.story('Search Paysheet Story');
+
+        await loginPage.login(Config.admin_username, Config.admin_password);
+        await basePage.clickSalary();
+        await paysheet.clickPaysheet();
+
+        await allure.step('Search paysheet by ID', async () => {
+            await paysheet.fillSearchPaysheet('BL0000000000');
+            await paysheet.clickSearchButton();
+            await basePage.verifyNoExistData();
+        });
+    });
+
+
     test('Add Paysheet Without Name', async ({ page }) => {
         allure.story('Validation Paysheet Creation Story');
 
@@ -311,6 +326,84 @@ test.describe.serial('Paysheet Tests', () => {
 
             await paysheet.clickPaysheet();
             await sendAndApprovePaysheet();
+        });
+    });
+
+    test('Maxlength name paysheet over 255 characters', async ({ page }) => {
+        allure.story('Validation Paysheet Creation Story');
+
+        await loginPage.login(Config.admin_username, Config.admin_password);
+        await basePage.clickSalary();
+        await paysheet.clickPaysheet();
+
+        await allure.step('Add paysheet with name length 256 characters', async () => {
+            await basePage.clickAdd();
+            await paysheet.setNamePaysheet('a'.repeat(256));
+            await paysheet.clickCheckBoxMonthly();
+            await paysheet.clickChooseMonth();
+            await paysheet.clickMonthOption();
+            await paysheet.setNote('Automation test');
+            await paysheet.clickAndSetDropDownEmployee('Nguyễn Văn Minh');
+            await paysheet.clickEmployeeOption();
+            await basePage.clickSave();
+            await basePage.verifyMaxlenght255Charactor();
+        });
+    });
+
+    test('Maxlength note paysheet over 255 characters', async ({ page }) => {
+        allure.story('Validation Paysheet Creation Story');
+
+        await loginPage.login(Config.admin_username, Config.admin_password);
+        await basePage.clickSalary();
+        await paysheet.clickPaysheet();
+
+        await allure.step('Add paysheet with note length over 255 characters', async () => {
+            await basePage.clickAdd();
+            await paysheet.setNamePaysheet('Automation test');
+            await paysheet.clickCheckBoxMonthly();
+            await paysheet.clickChooseMonth();
+            await paysheet.clickMonthOption();
+            await paysheet.clickAndSetDropDownEmployee('Nguyễn Văn Minh');
+            await paysheet.clickEmployeeOption();
+            await paysheet.setNote('a'.repeat(256));
+            await basePage.clickSave();
+            await basePage.verifyMaxlenght255Charactor();
+        });
+    });
+
+    test('Maxlength note paysheet 255 characters', async ({ page }) => {
+        allure.story('Validation Paysheet Creation Story');
+
+        await loginPage.login(Config.admin_username, Config.admin_password);
+        await basePage.clickSalary();
+        await paysheet.clickPaysheet();
+
+        await allure.step('Add paysheet with note length 255 characters', async () => {
+            await basePage.clickAdd();
+            await paysheet.setNamePaysheet('Automation test');
+            await paysheet.clickCheckBoxMonthly();
+            await paysheet.clickChooseMonth();
+            await paysheet.clickMonthOption();
+            await paysheet.clickAndSetDropDownEmployee('Nguyễn Văn Minh');
+            await paysheet.clickEmployeeOption();
+            await paysheet.setNote('a'.repeat(255));
+            await basePage.clickSave();
+            await toastPage.getToastAddSuccess();
+        });
+    });
+
+    test('Maxlengt name paysheet 255 characters', async ({ page }) => {
+        allure.story('Validation Paysheet Creation Story');
+
+        await loginPage.login(Config.admin_username, Config.admin_password);
+        await basePage.clickSalary();
+        await paysheet.clickPaysheet();
+
+        await allure.step('Add paysheet with name length 255 characters', async () => {
+            await basePage.clickAdd();
+            await paysheet.setNamePaysheet('a'.repeat(255));
+            await basePage.clickSave();
+            await toastPage.getToastAddSuccess();
         });
     });
 });

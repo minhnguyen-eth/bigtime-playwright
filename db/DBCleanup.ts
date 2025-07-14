@@ -34,11 +34,11 @@ export const clearHolidayManagement = async () => {
 };
 
 export const clearDepartment = async () => {
-    await clearTable('departments', "name LIKE '%Automation test%'");
+    await clearTable('departments', "name LIKE '%Automation test%' OR name LIKE '%z%'");
 }
 
 export const clearLevel = async () => {
-    await clearTable('levels', "name LIKE '%Automation test%'");
+    await clearTable('levels', "name LIKE '%Automation test%' OR name LIKE '%z%'");
 }
 
 export const clearBranch = async () => {
@@ -46,7 +46,7 @@ export const clearBranch = async () => {
 }
 
 export const clearPosition = async () => {
-    await clearTable('positions', "name LIKE '%Automation test%'");
+    await clearTable('positions', "name LIKE '%Automation test%' or name LIKE '%z%'");
 }
 
 export const clearEmploymentContract = async () => {
@@ -65,8 +65,8 @@ export async function clearTerm() {
     await clearTable('terms', "title NOT LIKE '%Điều khoản%'");
 }
 
-export async function clearAllEmployees() {
-    await clearTable('users', "name LIKE '%user%'");
+export async function clearEmployees() {
+    await clearTable('users', "name LIKE '%user%' or name LIKE '%z%'");
 }
 
 export async function clearAllLeaveApplications() {

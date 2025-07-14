@@ -188,8 +188,8 @@ test.describe.serial('Level Test Suite', () => {
         await levelPage.expectSearchByCodeResult();
     });
 
-     test('Search by status', async ({ page }) => {
-   
+    test('Search by status', async ({ page }) => {
+
         await basePage.clickDropdownStatusSearch();
         await basePage.clickLockStatus();
         await basePage.clickSearch();
@@ -206,5 +206,64 @@ test.describe.serial('Level Test Suite', () => {
         await levelPage.fillSearchByName("ksafjjasnfjas");
         await basePage.clickSearch();
         await basePage.verifyNoExistData();
+    });
+
+    test("Max length of name", async ({ page }) => {
+        const random = "Automation test" + Math.random().toString(36).substring(2, 7);
+        await basePage.clickAdd();
+        await levelPage.fillLevelName("z".repeat(255));
+        await levelPage.fillCode(random);
+        await levelPage.fillNote("Automation test");
+        await basePage.clickSave();
+        await toastPage.getToastAddSuccess();
+    });
+
+    test("Max length of code", async ({ page }) => {
+        const random = "Automation test" + Math.random().toString(36).substring(2, 7);
+        await basePage.clickAdd();
+        await levelPage.fillLevelName("zzzzzzzz");
+        await levelPage.fillCode("z".repeat(100));
+        await levelPage.fillNote("Automation test");
+        await basePage.clickSave();
+        await toastPage.getToastAddSuccess();
+    });
+
+    test("Max length of note", async ({ page }) => {
+        const random = "Automation test" + Math.random().toString(36).substring(2, 7);
+        await basePage.clickAdd();
+        await levelPage.fillLevelName("zzzzz");
+        await levelPage.fillCode(random);
+        await levelPage.fillNote("z".repeat(255));
+        await basePage.clickSave();
+        await toastPage.getToastAddSuccess();
+    });
+
+    test("Max length of note over 255", async ({ page }) => {
+        const random = "Automation test" + Math.random().toString(36).substring(2, 7);
+        await basePage.clickAdd();
+        await levelPage.fillLevelName("zzzzz12");
+        await levelPage.fillCode(random);
+        await levelPage.fillNote("z".repeat(256));
+        await basePage.clickSave();
+        await basePage.verifyMaxlenght255Charactor();
+    });
+
+     test("Max length of name over 255", async ({ page }) => {
+        const random = "Automation test" + Math.random().toString(36).substring(2, 7);
+        await basePage.clickAdd();
+        await levelPage.fillLevelName("z".repeat(256));
+        await levelPage.fillCode(random);
+        await levelPage.fillNote("Automation test");
+        await basePage.clickSave();
+        await basePage.verifyMaxlenght255Charactor();
+    });
+
+    test("Max length of code over 100", async ({ page }) => {
+        await basePage.clickAdd();
+        await levelPage.fillLevelName("zzzzzzzz");
+        await levelPage.fillCode("z".repeat(101));
+        await levelPage.fillNote("Automation test");
+        await basePage.clickSave();
+        await basePage.verifyMaxlenght100Charactor();
     });
 });

@@ -34,8 +34,42 @@ test.describe.serial('Department Test', () => {
         await takeScreenshotOnFailure(page, testInfo);
     });
 
-    test('Create with lock status', async ({ page }) => {
+    test('Maxlenght name with 255 characters', async ({ page }) => {
         await clearDepartment();
+        await basePage.clickAdd();
+        await departmentPage.fillDepartmentName("z".repeat(255));
+        await departmentPage.fillNote("Automation test");
+        await basePage.clickSave();
+        await toastPage.getToastAddSuccess();
+    });
+
+    test('Maxlenght name with over 255 characters', async ({ page }) => {
+        await basePage.clickAdd();
+        await departmentPage.fillDepartmentName("z".repeat(256));
+        await departmentPage.fillNote("Automation test");
+        await basePage.clickSave();
+        await basePage.verifyMaxlenght255Charactor();
+    });
+
+    test('Maxlenght note with 255 characters', async ({ page }) => {
+        const randomName = "Automation test" + Math.random().toString(36).substring(2, 7);
+        await basePage.clickAdd();
+        await departmentPage.fillDepartmentName(randomName);
+        await departmentPage.fillNote("z".repeat(255));
+        await basePage.clickSave();
+        await toastPage.getToastAddSuccess();
+    });
+
+    test('Maxlenght note with over 255 characters', async ({ page }) => {
+        const randomName = "Automation test" + Math.random().toString(36).substring(2, 7);
+        await basePage.clickAdd();
+        await departmentPage.fillDepartmentName(randomName);
+        await departmentPage.fillNote("z".repeat(256));
+        await basePage.clickSave();
+        await basePage.verifyMaxlenght255Charactor();
+    });
+
+    test('Create with lock status', async ({ page }) => {
         const randomName = "Automation test" + Math.random().toString(36).substring(2, 7);
         await basePage.clickAdd();
         await departmentPage.fillDepartmentName(randomName);
@@ -155,8 +189,7 @@ test.describe.serial('Department Test', () => {
         await basePage.verifyNoExistData();
     });
 
-     test('Search by status', async ({ page }) => {
-       
+    test('Search by status', async ({ page }) => {
         await basePage.clickDropdownStatusSearch();
         await basePage.clickLockStatus();
         await basePage.clickSearch();

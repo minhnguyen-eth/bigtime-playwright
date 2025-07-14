@@ -3,7 +3,7 @@ import { LoginPage } from "../../pages/LoginPage";
 import { takeScreenshotOnFailure } from "../../utils/screenshotUtils";
 import Config from "../../utils/configUtils";
 import { EvaluationTypePage } from "../../pages/evaluation_page/EvaluationTypePage";
-import { checkEvaluationTypeExists, deleteEvaluationType, clearAllEluationTypes} from '../../db/DBHelper';
+import { checkEvaluationTypeExists, deleteEvaluationType, clearAllEluationTypes } from '../../db/DBHelper';
 
 import { allure } from "allure-playwright";
 import { ToastPage } from "../../pages/ToastPage";
@@ -33,10 +33,57 @@ test.describe.serial("Evaluation Type Tests", () => {
         await takeScreenshotOnFailure(page, testInfo);
     });
 
+    test("Max lenghth of evaluation type name is 255 characters", async ({ page }) => {
+        await clearAllEluationTypes();
+        allure.story("Evaluation Type Name Length Validation");
+        
+        await basePage.clickAdmin();
+        await evaluationtype.clickEvaluationType();
+        await basePage.clickAdd();
+        await evaluationtype.setEvaluationTypeName('a'.repeat(255));
+        await basePage.clickSave();
+        await toastPage.getToastAddSuccess();
+    });
+
+     test("Max lenghth of evaluation type name over 255 characters", async ({ page }) => {
+        allure.story("Evaluation Type Name Length Validation");
+        
+        await basePage.clickAdmin();
+        await evaluationtype.clickEvaluationType();
+        await basePage.clickAdd();
+        await evaluationtype.setEvaluationTypeName('a'.repeat(256));
+        await basePage.clickSave();
+        await basePage.verifyMaxlenght255Charactor();
+    });
+
+    test("Max lenghth of evaluation type description is 500 characters", async ({ page }) => {
+        allure.story("Evaluation Type Description Length Validation");
+        
+        await basePage.clickAdmin();
+        await evaluationtype.clickEvaluationType();
+        await basePage.clickAdd();
+        await evaluationtype.setEvaluationTypeName('Automation test max length description');
+        await evaluationtype.fillDescription('a'.repeat(500));
+        await basePage.clickSave();
+        await toastPage.getToastAddSuccess();
+    });
+
+    test("Max lenghth of evaluation type description over 500 characters", async ({ page }) => {
+        allure.story("Evaluation Type Description Length Validation");
+        
+        await basePage.clickAdmin();
+        await evaluationtype.clickEvaluationType();
+        await basePage.clickAdd();
+        await evaluationtype.setEvaluationTypeName('Automation test max length description');
+        await evaluationtype.fillDescription('a'.repeat(501));
+        await basePage.clickSave();
+        await basePage.verifyMaxlenght500Charactor();
+    });
+
+
     test("Add evaluation type with valid data and check in database", async ({ page }) => {
         allure.story("Create Evaluation Type with Valid Data");
-        allure.description("Tạo loại đánh giá hợp lệ và kiểm tra tồn tại trong database.");
-
+        allure.description("Create Evaluation Type with Valid Data and Check Existence in Database.");
         await clearAllEluationTypes();
 
         const randomSuffix = Math.random().toString(36).substring(2, 8);
@@ -77,7 +124,7 @@ test.describe.serial("Evaluation Type Tests", () => {
         expect(existsInDB).toBeTruthy();
     });
 
-    
+
     test("Edit activity to lock status", async ({ page }) => {
         allure.story("Edit Evaluation Type Status");
         allure.description("Chỉnh sửa loại đánh giá từ trạng thái hoạt động sang trạng thái khóa.");

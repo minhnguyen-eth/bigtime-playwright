@@ -47,6 +47,32 @@ test.describe.serial('Contract Tests', () => {
         await toastPage.getToastAddSuccess();
     }
 
+    test('Max lenghth of note is 255 characters', async ({ page }) => {
+        await clearEmploymentContract();
+        await basePage.clickAdd();
+        await contractPage.fillEmployeeName();
+        await contractPage.fillSalary("10000000");
+        await contractPage.selectEndDate();
+        await basePage.clickChoose();
+        await contractPage.fillNote('A'.repeat(255));
+        await contractPage.checkSelectAllTerm();
+        await basePage.clickSave();
+        await toastPage.getToastAddSuccess();
+    });
+
+    test('Max lenghth of note over 255 characters', async ({ page }) => {
+        await clearEmploymentContract();
+        await basePage.clickAdd();
+        await contractPage.fillEmployeeName();
+        await contractPage.fillSalary("10000000");
+        await contractPage.selectEndDate();
+        await basePage.clickChoose();
+        await contractPage.fillNote('A'.repeat(256));
+        await contractPage.checkSelectAllTerm();
+        await basePage.clickSave();
+        await basePage.verifyMaxlenght255Charactor();
+    });
+
     test('Create contract with no select term and blank note', async ({ page }) => {
         await clearEmploymentContract();
         await basePage.clickAdd();

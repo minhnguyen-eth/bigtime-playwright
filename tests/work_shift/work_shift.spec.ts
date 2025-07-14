@@ -30,6 +30,64 @@ test.describe.serial('Work Shift Tests', () => {
         await takeScreenshotOnFailure(page, testInfo);
     });
 
+    async function testBody() {
+        await workShiftPage.clickStartTime();
+        await workShiftPage.clickChosseHourPicker();
+        await workShiftPage.clickOnChosse08HourPicker();
+        await workShiftPage.clickOnChosseMinutePicker();
+        await workShiftPage.clickOnChosse00MinutePicker();
+        await workShiftPage.clickOnChosseButtonPicker();
+        await workShiftPage.clickEndTime();
+        await workShiftPage.clickChosseHourPicker();
+        await workShiftPage.clickOnChosse17HourPicker();
+        await workShiftPage.clickOnChosseMinutePicker();
+        await workShiftPage.clickOnChosse00MinutePicker();
+        await workShiftPage.clickOnChosseButtonPicker();
+        await workShiftPage.clickOnRestCheckBox();
+        await workShiftPage.clickOnTimeStartRest();
+        await workShiftPage.clickChosseHourPicker();
+        await workShiftPage.clickOnChosse12HourPicker();
+        await workShiftPage.clickOnChosseMinutePicker();
+        await workShiftPage.clickOnChosse00MinutePicker();
+        await workShiftPage.clickOnChosseButtonPicker();
+        await workShiftPage.clickOnTimeEndRest();
+        await workShiftPage.clickChosseHourPicker();
+        await workShiftPage.clickChosse13HourPicker();
+        await workShiftPage.clickOnChosseMinutePicker();
+        await workShiftPage.clickOnChosse00MinutePicker();
+        await workShiftPage.clickOnChosseButtonPicker();
+        await workShiftPage.getVerifyWorkingTime();
+    }
+
+    test("Max length of work shift name is 255 characters", async ({ page }) => {
+        await clearAllWorkingShift();
+        const workShiftCode = 'AT' + Math.random().toString(36).substring(2, 8);
+        allure.story('Work Shift Name Length Story');
+        await loginPage.login(Config.admin_username, Config.admin_password);
+        await basePage.clickTimeKeepingManagement();
+        await workShiftPage.clickOnWorkShiftButton();
+        await workShiftPage.clickOnAddButton();
+        await workShiftPage.fillWorkShiftName('a'.repeat(255));
+        await workShiftPage.fillWorkShiftCode(workShiftCode);
+        await testBody();
+        await workShiftPage.clickOnSaveButton();
+        await toastPage.getToastAddSuccess();
+    });
+
+    test("Max length of work shift name over 255 characters", async ({ page }) => {
+        const workShiftCode = 'AT' + Math.random().toString(36).substring(2, 8);
+        allure.story('Work Shift Name Length Story');
+        await loginPage.login(Config.admin_username, Config.admin_password);
+        await basePage.clickTimeKeepingManagement();
+        await workShiftPage.clickOnWorkShiftButton();
+        await workShiftPage.clickOnAddButton();
+        await workShiftPage.fillWorkShiftName('a'.repeat(256));
+        await workShiftPage.fillWorkShiftCode(workShiftCode);
+        await testBody();
+        await workShiftPage.clickOnSaveButton();
+        await basePage.verifyMaxlenght255Charactor();
+    });
+
     test('Create new work shift', async ({ page }) => {
         const randomSuffix = Math.random().toString(36).substring(2, 8);
         const workShiftName = `Automation test ${randomSuffix}`;
@@ -52,35 +110,7 @@ test.describe.serial('Work Shift Tests', () => {
             await workShiftPage.fillWorkShiftName(workShiftName);
             await workShiftPage.fillWorkShiftCode(workShiftCode);
 
-            await workShiftPage.clickStartTime();
-            await workShiftPage.clickChosseHourPicker();
-            await workShiftPage.clickOnChosse08HourPicker();
-            await workShiftPage.clickOnChosseMinutePicker();
-            await workShiftPage.clickOnChosse00MinutePicker();
-            await workShiftPage.clickOnChosseButtonPicker();
-
-            await workShiftPage.clickEndTime();
-            await workShiftPage.clickChosseHourPicker();
-            await workShiftPage.clickOnChosse17HourPicker();
-            await workShiftPage.clickOnChosseMinutePicker();
-            await workShiftPage.clickOnChosse00MinutePicker();
-            await workShiftPage.clickOnChosseButtonPicker();
-            await workShiftPage.clickOnRestCheckBox();
-
-            await workShiftPage.clickOnTimeStartRest();
-            await workShiftPage.clickChosseHourPicker();
-            await workShiftPage.clickOnChosse12HourPicker();
-            await workShiftPage.clickOnChosseMinutePicker();
-            await workShiftPage.clickOnChosse00MinutePicker();
-            await workShiftPage.clickOnChosseButtonPicker();
-
-            await workShiftPage.clickOnTimeEndRest();
-            await workShiftPage.clickChosseHourPicker();
-            await workShiftPage.clickChosse13HourPicker();
-            await workShiftPage.clickOnChosseMinutePicker();
-            await workShiftPage.clickOnChosse00MinutePicker();
-            await workShiftPage.clickOnChosseButtonPicker();
-            await workShiftPage.getVerifyWorkingTime();
+            await testBody();
         });
 
         await allure.step('Select branch and save', async () => {

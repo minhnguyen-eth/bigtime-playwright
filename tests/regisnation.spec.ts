@@ -48,6 +48,27 @@ test.describe.serial('Resignation Tests', () => {
     await toastPage.getToastAddSuccess();
   }
 
+  async function beforTestMaxLength() {
+    await loginPage.login(Config.employee_username, Config.employee_password);
+    await basePage.clickAdmin();
+    await regisnationPage.clickRegisnationButton();
+    await regisnationPage.clickAddButton();
+  }
+
+  test("Max length of reason ", async ({ page }) => {
+    await beforTestMaxLength();
+    await regisnationPage.fillReason("z".repeat(255));
+    await regisnationPage.clickSaveButton();
+    await toastPage.getToastAddSuccess();
+  });
+
+  test("Max length of reason over 255 characters", async ({ page }) => {
+    await beforTestMaxLength();
+    await regisnationPage.fillReason("z".repeat(256));
+    await regisnationPage.clickSaveButton();
+    await basePage.verifyMaxlenght255Charactor();
+  });
+
   test('Add new resignation and send', async ({ page }) => {
     await clearResignation();
     allure.story('Add new resignation Story');

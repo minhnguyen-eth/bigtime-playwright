@@ -36,6 +36,8 @@ test.describe.serial("Evaluation Criteria Tests", () => {
         await takeScreenshotOnFailure(page, testInfo);
     });
 
+    
+
     test("Add a new evaluation process company form", async ({ page }) => {
         allure.story("Add Evaluation Process - Company Form");
         await allure.step("Clear data and add new company evaluation process", async () => {

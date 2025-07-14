@@ -29,9 +29,51 @@ test.describe.serial('Holiday Management', () => {
         await holidayManagementPage.clickHolidayButton();
     });
 
-     test.afterEach(async ({ page }, testInfo: TestInfo) => {
+    test.afterEach(async ({ page }, testInfo: TestInfo) => {
         await takeScreenshotOnFailure(page, testInfo);
-      });
+    });
+
+    test("Max length name and reason holiday management 255 characters", async ({ page }) => {
+        await clearHolidayManagement();
+        await clearCheckDay();
+        await clearCheckTime();
+        await basePage.clickAdd();
+        await holidayManagementPage.fillHolidayName("z".repeat(255));
+        await holidayManagementPage.clickStartDate();
+        await basePage.clickTodayDatePicker();
+        await holidayManagementPage.clickEndDate();
+        await basePage.clickTodayDatePicker();
+        await holidayManagementPage.fillReason("z".repeat(255));
+        await holidayManagementPage.checkTotalHolidayResult();
+        await basePage.clickSave();
+        await toastPage.getToastAddSuccess();
+    });
+
+    test("Max length name holiday management over 255 characters", async ({ page }) => {
+        await basePage.clickAdd();
+        await holidayManagementPage.fillHolidayName("z".repeat(256));
+        await holidayManagementPage.clickStartDate();
+        await basePage.clickTodayDatePicker();
+        await holidayManagementPage.clickEndDate();
+        await basePage.clickTodayDatePicker();
+        await holidayManagementPage.checkTotalHolidayResult();
+        await holidayManagementPage.fillReason("Test reason");
+        await basePage.clickSave();
+        await basePage.verifyMaxlenght255Charactor();
+    });
+
+    test("Max length reason holiday management over 255 characters", async ({ page }) => {
+        await basePage.clickAdd();
+        await holidayManagementPage.fillHolidayName("Test max length reason");
+        await holidayManagementPage.clickStartDate();
+        await basePage.clickTodayDatePicker();
+        await holidayManagementPage.clickEndDate();
+        await basePage.clickTodayDatePicker();
+        await holidayManagementPage.checkTotalHolidayResult();
+        await holidayManagementPage.fillReason("z".repeat(256));
+        await basePage.clickSave();
+        await basePage.verifyMaxlenght255Charactor();
+    });
 
     test('E2E - Add Holiday Management', async ({ page }) => {
         await clearHolidayManagement();

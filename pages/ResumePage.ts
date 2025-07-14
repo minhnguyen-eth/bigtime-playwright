@@ -54,44 +54,44 @@ export class ResumePage extends BasePage {
         this.msgEthnicityRequired = page.locator("//div[contains(text(),'Nhập dân tộc')]");
         this.msgHownTownRequired = page.locator("//div[contains(text(),'Nhập quê quán')]");
         this.msgPlaceOfBirthRequired = page.locator("//div[contains(text(),'Nhập nơi sinh')]");
-        this.politicalTheoryInput = page.locator("//div[1]/div/div[2]/div/div[26]/div/div/div/div[3]/div/input");
+        this.politicalTheoryInput = page.getByRole('textbox', { name: 'Lý luận chính trị' })
         this.editButton = page.locator("//span[contains(text(),'Sửa')]");
         this.chosseButton = page.locator("//button[contains(text(),'Chọn')]");
         this.toDayDatePicker = page.locator("//div[@class='dp__cell_inner dp__pointer dp__today dp__date_hover']");
-        this.recruitedPosition = page.locator("//div[2]/div/div[2]/div/div[24]/div/div/div/div[3]/div/input");
-        this.recruimentForm = page.locator("//div[2]/div/div[2]/div/div[23]/div/div/div/div[3]/div/input");
-        this.contractSignDate = page.locator("//div[2]/div/div[22]/div/div/div/div/div[1]/div/div/div[3]/input");
-        this.startWorkingDate = page.locator("//div[2]/div/div[21]/div/div/div/div/div[1]/div/div/div[3]/input");
-        this.organizationJoined = page.locator("//div[2]/div/div[2]/div/div[20]/div/div/div/div[3]/div/input");
-        this.recruimentDate = page.locator("//div[2]/div/div[19]/div/div/div/div/div[1]/div/div/div[3]/input");
-        this.preRecruitment = page.locator("//div[2]/div/div[2]/div/div[18]/div/div/div/div[3]/div/input");
-        this.currentJob = page.locator("//div[2]/div/div[17]/div/div/div/div[3]/div/input");
-        this.bloodType = page.locator("//div[2]/div/div[2]/div/div[15]/div/div/div/div[3]/div/input");
-        this.healthStatus = page.locator("//div[2]/div/div[2]/div/div[13]/div/div/div/div[3]/div/input");
-        this.weight = page.locator("//div[2]/div/div[2]/div/div[14]/div/div/div/div[3]/div/input");
-        this.height = page.locator("//div[2]/div/div[12]/div/div/div/div[3]/div/input");
-        this.socialSecurityNumber = page.locator("//div[2]/div/div[2]/div/div[11]/div/div/div/div[3]/div/input");
-        this.insuranceNumber = page.locator("//div[2]/div/div[2]/div/div[10]/div/div/div/div[3]/div/input");
-        this.passportIssuanceDate = page.locator("//div[2]/div/div[7]/div/div/div/div/div[1]/div/div/div[3]/input");
-        this.passportExpirationDate = page.locator("//div[2]/div/div[8]/div/div/div/div/div[1]/div/div/div[3]/input");
-        this.wherePassportsAreIssued = page.locator("//div[2]/div/div[6]/div/div/div/div[3]/div/input");
-        this.passportNumber = page.locator("//div[2]/div/div[2]/div/div[5]/div/div/div/div[3]/div/input");
-        this.stateManagement = page.locator("//div[1]/div/div[2]/div/div[27]/div/div/div/div[3]/div/input");
+        this.recruitedPosition = page.getByRole('textbox', { name: 'Chức danh tuyển dụng' })
+        this.recruimentForm = page.getByRole('textbox', { name: 'Hình thức tuyển dụng' })
+        this.contractSignDate = page.getByRole('textbox', { name: 'Ngày ký hợp đồng' })
+        this.startWorkingDate = page.getByRole('textbox', { name: 'Ngày bắt đầu làm việc' })
+        this.organizationJoined = page.getByRole('textbox', { name: 'Tổ chức đã vào' })
+        this.recruimentDate = page.getByRole('textbox', { name: 'Ngày tuyển dụng' })
+        this.preRecruitment = page.getByRole('textbox', { name: 'Nghề nghiệp trước tuyển dụng' });
+        this.currentJob = page.getByRole('textbox', { name: 'Công việc hiện tại' });
+        this.bloodType = page.getByRole('textbox', { name: 'Nhóm máu' })
+        this.healthStatus = page.getByRole('textbox', { name: 'Tình trạng sức khỏe' })
+        this.weight = page.getByRole('spinbutton', { name: 'Cân nặng' })
+        this.height = page.getByRole('spinbutton', { name: 'Chiều cao' })
+        this.socialSecurityNumber = page.getByRole('textbox', { name: 'Số BHXH' })
+        this.insuranceNumber = page.getByRole('textbox', { name: 'Số bảo hiểm' })
+        this.passportIssuanceDate = page.getByRole('textbox', { name: 'Ngày cấp hộ chiếu' })
+        this.passportExpirationDate = page.getByRole('textbox', { name: 'Ngày hết hạn hộ chiếu' })
+        this.wherePassportsAreIssued = page.getByRole('textbox', { name: 'Nơi cấp hộ chiếu' })
+        this.passportNumber = page.getByRole('textbox', { name: 'Số hộ chiếu' })
+        this.stateManagement = page.getByRole('textbox', { name: 'Quản lý nhà nước' })
         this.major = page.locator("//div[1]/div/div[2]/div/div[25]/div/div/div/div[3]/div/input");
-        this.professionalQualifications = page.locator("//div[1]/div/div[2]/div/div[24]/div/div/div/div[3]/div/input");
-        this.maritalStatus = page.locator("//div[1]/div/div[2]/div/div[21]/div/div/div/div[3]/div/input");
-        this.educationalLevel = page.locator("//div[1]/div/div[2]/div/div[23]/div/div/div/div[3]/div/input");
-        this.religion = page.locator("//div[1]/div/div[2]/div/div[19]/div/div/div/div[3]/div/input");
-        this.nationality = page.locator("//div[1]/div/div[2]/div/div[20]/div/div/div/div[3]/div/input");
-        this.nationPeople = page.locator("//div[1]/div/div[2]/div/div[18]/div/div/div/div[3]/div/input");
-        this.officePhoneNumber = page.locator("//div/div[1]/div/div[2]/div/div[16]/div/div/div/div[3]/div/input");
-        this.homePhoneNumber = page.locator("//div[1]/div/div[2]/div/div[14]/div/div/div/div[3]/div/input");
-        this.permanentResidence = page.locator("//div[1]/div/div[2]/div/div[11]/div/div/div/div[3]/div/input");
-        this.currentResidence = page.locator("//div[1]/div/div[2]/div/div[10]/div/div/div/div[3]/div/input");
-        this.homeTown = page.locator("//div[1]/div/div[2]/div/div[9]/div/div/div/div[3]/div/input");
-        this.placeOfBirth = page.locator("//div[1]/div/div[2]/div/div[7]/div/div[1]/div/div[3]/div/input");
-        this.aliasName = page.locator("//div[1]/div/div[2]/div/div[4]/div/div/div/div[3]/div/input");
-        this.identifier = page.locator("//div[1]/div/div[2]/div/div[2]/div/div/div/div[3]/div/input");
+        this.professionalQualifications = page.getByRole('textbox', { name: 'Trình độ chuyên môn' })
+        this.maritalStatus = page.getByRole('textbox', { name: 'Tình trạng hôn nhân' })
+        this.educationalLevel = page.getByRole('textbox', { name: 'Trình độ học vấn' })
+        this.religion = page.getByRole('textbox', { name: 'Tôn giáo ※' })
+        this.nationality = page.getByRole('textbox', { name: 'Quốc tịch' })
+        this.nationPeople = page.getByRole('textbox', { name: 'Dân tộc ※' })
+        this.officePhoneNumber = page.getByRole('spinbutton', { name: 'SĐT cơ quan' })
+        this.homePhoneNumber = page.getByRole('spinbutton', { name: 'SĐT nhà riêng' })
+        this.permanentResidence = page.getByRole('textbox', { name: 'Hộ khẩu thường trú' })
+        this.currentResidence = page.getByRole('textbox', { name: 'Nơi ở hiện tại' })
+        this.homeTown = page.getByRole('textbox', { name: 'Quê quán ※' })
+        this.placeOfBirth = page.getByRole('textbox', { name: 'Nơi sinh ※' })
+        this.aliasName = page.getByRole('textbox', { name: 'Tên gọi khác' })
+        this.identifier = page.getByRole('spinbutton', { name: 'Mã định danh' })
         this.resumeButton = page.locator("//span[contains(.,'Sơ yếu lý lịch')]");
     }
     // VERIFY REQUIRED MESSAGE
@@ -118,6 +118,7 @@ export class ResumePage extends BasePage {
 
     async clickToDayDatePicker() {
         await this.safeClick(this.toDayDatePicker);
+        await this.clickChosseButton();
     }
 
     async clickChosseButton() {
@@ -277,9 +278,6 @@ export class ResumePage extends BasePage {
 
     async testResumeWithValidData() {
         const randomSuffix = Math.random().toString(36).substring(2, 8);
-        const randomAllowanceName = `Phụ cấp${randomSuffix}`;
-        const userCode = `userCode${randomSuffix}`;
-        const emailRandom = `email${randomSuffix}`;
         const random10Digits = Math.floor(1000000000 + Math.random() * 9000000000);
         const phoneNumber = `09${Math.floor(100000000 + Math.random() * 900000000)}`;
 
@@ -305,11 +303,11 @@ export class ResumePage extends BasePage {
         await this.fillWherePassportsAreIssued("Hà Nội");
         await this.clickPassportIssuanceDate();
         await this.clickToDayDatePicker();
-        await this.clickChosseButton();
+
 
         await this.clickPassportExpirationDate();
         await this.clickToDayDatePicker();
-        await this.clickChosseButton();
+
         await this.fillSocialSecurityNumber(random10Digits.toString());
         await this.fillInsuranceNumber(random10Digits.toString());
         await this.fillHeight("170");
@@ -323,13 +321,10 @@ export class ResumePage extends BasePage {
         await this.fillRecruitedPosition("Công nghệ thông tin");
         await this.clickStartWorkingDate();
         await this.clickToDayDatePicker();
-        await this.clickChosseButton();
         await this.clickRecruitmentDate();
         await this.clickToDayDatePicker();
-        await this.clickChosseButton();
         await this.clickContractSignDate();
         await this.clickToDayDatePicker();
-        await this.clickChosseButton();
     }
 }
 

@@ -1,6 +1,6 @@
 import { defineConfig, devices } from '@playwright/test';
 
-const isHeadless = process.env.HEADLESS !== 'false';
+// const isHeadless = process.env.HEADLESS !== 'false';
 
 export default defineConfig({
   testDir: './tests',
@@ -18,10 +18,10 @@ export default defineConfig({
 
   use: {
     
-    // headless: false, // true run in headless mode. false run with browser window opened.
-    // viewport: null,
-    headless: isHeadless, 
-    viewport: isHeadless ? { width: 1920, height: 1080 } : null,
+    headless: false, // true run in headless mode. false run with browser window opened.
+    viewport: null,
+    // headless: isHeadless, 
+    // viewport: isHeadless ? { width: 1920, height: 1080 } : null,
     launchOptions: {
       args: ['--start-maximized'],
     },

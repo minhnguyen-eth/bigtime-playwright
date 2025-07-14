@@ -40,9 +40,13 @@ export class BasePage {
     readonly requiredFillReason: Locator;
     readonly validateMaxlenght255Charactor: Locator
     readonly validateMaxlenght500Charactor: Locator
+    readonly validateMaxlenght20Charactor: Locator
+    readonly validateMaxlenght100Charactor: Locator
 
     constructor(page: Page) {
         this.page = page;
+        this.validateMaxlenght100Charactor = page.locator("//div[contains(text(),'Không nhập quá 100 kí tự.')]");
+        this.validateMaxlenght20Charactor = page.locator("//div[contains(text(),'Không nhập quá 20 kí tự.')]");
         this.validateMaxlenght500Charactor = page.locator("//div[contains(text(),'Không nhập quá 500 kí tự.')]");
         this.validateMaxlenght255Charactor = page.locator("//div[contains(text(),'Không nhập quá 255 kí tự.')]");
         this.validationNameExist = page.locator("//li[contains(text(),'Tên đã tồn tại.')]");
@@ -76,27 +80,18 @@ export class BasePage {
         this.saveButton = page.locator("//span[normalize-space()='Lưu']");//span[contains(normalize-space(),'Lưu')]
         this.deleteRow0Button = page.locator("//tr[@id='row-0']//span[contains(text(),'Xóa')]");
         this.editRow0Button = page.locator("//tr[@id='row-0']//span[contains(text(),'Sửa')]");
-        this.clearSearchButton = page.locator('form').getByRole('button', { name: 'Xóa' })
+        this.clearSearchButton = page.locator("//span[normalize-space()='Xóa']").first();
         this.addButton = page.locator("//span[normalize-space()='Thêm']");
         this.searchButton = page.locator("//span[contains(normalize-space(),'Tìm kiếm')]");
     }
 
-    // BasePage.ts
+    
 
-    // BasePage.ts
-
-    /**
-     * Chờ page đã hoàn toàn load network (xong API, tài nguyên)
-     * Gọi 1 lần ở đầu mỗi test hoặc sau navigation
-     */
+   
     async waitForPageReady(timeout: number = 30000) {
-        // Chờ tất cả network request xong, DOM sẵn sàng
         await this.page.waitForLoadState('networkidle', { timeout });
     }
 
-    /**
-     * Click một element
-     */
     async safeClick(locator: Locator, options?: { force?: boolean; timeout?: number }): Promise<void> {
         const timeout = options?.timeout ?? 30000; // Increased default timeout to 30s
 
@@ -172,48 +167,30 @@ export class BasePage {
         await first.click({ force: options?.force ?? false, timeout });
     }
 
-    /**
-     * Fill input
-     */
     async safeFill(locator: Locator, value: string, timeout: number = 30000) {
         await locator.waitFor({ state: 'visible', timeout });
         await locator.fill(value, { timeout });
     }
 
-    /**
-     * Type từng ký tự
-     */
     async safeType(locator: Locator, value: string, delayMs: number = 100, timeout: number = 30000) {
         await locator.waitFor({ state: 'visible', timeout });
         await locator.type(value, { delay: delayMs, timeout });
     }
 
-    /**
-     * Đợi element biến mất
-     */
     async waitForElementToDisappear(locator: Locator, timeout: number = 30000) {
         await locator.waitFor({ state: 'detached', timeout });
     }
 
-    /**
-     * Verify text chính xác
-     */
     async safeVerifyToHaveText(locator: Locator, expectedText: string, timeout: number = 10000) {
         await locator.waitFor({ state: 'visible', timeout });
         await expect(locator).toHaveText(expectedText, { timeout });
     }
 
-    /**
-     * Verify chứa substring
-     */
     async safeVerifyTextContains(locator: Locator, expectedText: string, timeout: number = 10000) {
         await locator.waitFor({ state: 'visible', timeout });
         await expect(locator).toHaveText(new RegExp(expectedText), { timeout });
     }
 
-    /**
-     * Lấy text đầu tiên
-     */
     async getFirstVisibleText(locator: Locator, label: string) {
         const first = locator.first();
         await first.waitFor({ state: 'visible' });
@@ -222,9 +199,6 @@ export class BasePage {
         return text;
     }
 
-    /**
-     * Verify input/select value
-     */
     async safeVerifyToHaveValue(locator: Locator, expectedValue: string, timeout: number = 5000) {
         await locator.waitFor({ state: 'visible', timeout });
         await expect(locator).toHaveValue(expectedValue, { timeout });
@@ -232,6 +206,14 @@ export class BasePage {
 
     async verifyMaxlenght255Charactor() {
         await this.safeVerifyToHaveText(this.validateMaxlenght255Charactor, 'Không nhập quá 255 kí tự.');
+    }
+
+    async verifyMaxlenght100Charactor() {
+        await this.safeVerifyToHaveText(this.validateMaxlenght100Charactor, 'Không nhập quá 100 kí tự.');
+    }
+
+    async verifyMaxlenght20Charactor() {
+        await this.safeVerifyToHaveText(this.validateMaxlenght20Charactor, 'Không nhập quá 20 kí tự.');
     }
 
     async verifyMaxlenght500Charactor() {
@@ -313,7 +295,6 @@ export class BasePage {
     }
 
     async clickEdit() {
-        await this.page.waitForLoadState('networkidle');
         await this.safeClick(this.editButton);
     }
 

@@ -34,6 +34,30 @@ test.describe.serial('Position Tests', () => {
         await takeScreenshotOnFailure(page, testInfo);
     });
 
+    test("Max length of name and note ", async ({ page }) => {
+        await basePage.clickAdd();
+        await positionPage.inputName("z".repeat(255));
+        await positionPage.inputNote("A".repeat(255));
+        await basePage.clickSave()
+        await toastPage.getToastAddSuccess()
+    });
+
+    test("Max length of over 255 charactor of name ", async ({ page }) => {
+        await basePage.clickAdd();
+        await positionPage.inputName("z".repeat(256));
+        await positionPage.inputNote("a");
+        await basePage.clickSave()
+        await toastPage.getToastAddSuccess()
+    });
+
+      test("Max length of over 255 charactor of note ", async ({ page }) => {
+        await basePage.clickAdd();
+        await positionPage.inputName("zzzzza");
+        await positionPage.inputNote("a".repeat(256));
+        await basePage.clickSave()
+        await toastPage.getToastAddSuccess()
+    });
+
     test('Create with empty name', async ({ page }) => {
         await clearPosition();
         await basePage.clickAdd();

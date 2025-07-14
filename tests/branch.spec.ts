@@ -32,6 +32,7 @@ test.describe.serial('Branch Test', () => {
         await takeScreenshotOnFailure(page, testInfo);
     });
 
+
     test('Create branch with valid information', async ({ page }) => {
         await clearBranch();
         const randomString = "Automation test branch " + Math.random().toString(36).substring(7);
@@ -265,6 +266,127 @@ test.describe.serial('Branch Test', () => {
         await basePage.clickActivityStatus();
         await basePage.clickSearch();
         await basePage.verifyActivityStatusRow0();
+    });
+
+    test("Max length of branch name 255 characters", async ({ page }) => {
+        await clearBranch();
+        const randomString = "Automation test branch " + Math.random().toString(36).substring(7);
+        const phoneNumber = `09${Math.floor(100000000 + Math.random() * 900000000)}`;
+        await branchPage.clickBranchButton();
+        await basePage.clickAdd();
+        await branchPage.fillBranchName("z".repeat(255));
+        await branchPage.fillShortName(randomString);
+        await branchPage.fillNumberOfEmployee("999");
+        await branchPage.fillPhoneNumber(phoneNumber.toString());
+        await branchPage.fillBranchAddress(randomString);
+        await branchPage.fillNoteInput(randomString);
+        await basePage.clickSave();
+        await toastPage.getToastAddSuccess();
+    });
+
+    test("Max length of branch name over 255 characters", async ({ page }) => {
+        const randomString = "Automation test branch " + Math.random().toString(36).substring(7);
+        const phoneNumber = `09${Math.floor(100000000 + Math.random() * 900000000)}`;
+        await branchPage.clickBranchButton();
+        await basePage.clickAdd();
+        await branchPage.fillBranchName("z".repeat(256));
+        await branchPage.fillShortName(randomString);
+        await branchPage.fillNumberOfEmployee("999");
+        await branchPage.fillPhoneNumber(phoneNumber.toString());
+        await branchPage.fillBranchAddress(randomString);
+        await branchPage.fillNoteInput(randomString);
+        await basePage.clickSave();
+        await basePage.verifyMaxlenght255Charactor();
+    });
+
+    test("Max length of short name 50 characters", async ({ page }) => {
+        const randomString = "Automation test branch " + Math.random().toString(36).substring(7);
+        const phoneNumber = `09${Math.floor(100000000 + Math.random() * 900000000)}`;
+        await branchPage.clickBranchButton();
+        await basePage.clickAdd();
+        await branchPage.fillBranchName(randomString);
+        await branchPage.fillShortName("z".repeat(50));
+        await branchPage.fillNumberOfEmployee("999");
+        await branchPage.fillPhoneNumber(phoneNumber.toString());
+        await branchPage.fillBranchAddress(randomString);
+        await branchPage.fillNoteInput(randomString);
+        await basePage.clickSave();
+        await toastPage.getToastAddSuccess();
+    });
+
+    test("Max length of short name over 50 characters", async ({ page }) => {
+        const randomString = "Automation test branch " + Math.random().toString(36).substring(7);
+        const phoneNumber = `09${Math.floor(100000000 + Math.random() * 900000000)}`;
+        await branchPage.clickBranchButton();
+        await basePage.clickAdd();
+        await branchPage.fillBranchName(randomString);
+        await branchPage.fillShortName("z".repeat(51));
+        await branchPage.fillNumberOfEmployee("999");
+        await branchPage.fillPhoneNumber(phoneNumber.toString());
+        await branchPage.fillBranchAddress(randomString);
+        await branchPage.fillNoteInput(randomString);
+        await basePage.clickSave();
+        await branchPage.verifyMaxLengthShortName();
+    });
+
+    test("Max length of note 500 characters", async ({ page }) => {
+        const randomString = "Automation test branch " + Math.random().toString(36).substring(7);
+        const phoneNumber = `09${Math.floor(100000000 + Math.random() * 900000000)}`;
+        await branchPage.clickBranchButton();
+        await basePage.clickAdd();
+        await branchPage.fillBranchName(randomString);
+        await branchPage.fillShortName(randomString);
+        await branchPage.fillNumberOfEmployee("999");
+        await branchPage.fillPhoneNumber(phoneNumber.toString());
+        await branchPage.fillBranchAddress(randomString);
+        await branchPage.fillNoteInput("z".repeat(500));
+        await basePage.clickSave();
+        await toastPage.getToastAddSuccess();
+    });
+
+    test("Max length of branch address 500 characters", async ({ page }) => {
+        const randomString = "Automation test branch " + Math.random().toString(36).substring(7);
+        const phoneNumber = `09${Math.floor(100000000 + Math.random() * 900000000)}`;
+        await branchPage.clickBranchButton();
+        await basePage.clickAdd();
+        await branchPage.fillBranchName(randomString);
+        await branchPage.fillShortName(randomString);
+        await branchPage.fillNumberOfEmployee("999");
+        await branchPage.fillPhoneNumber(phoneNumber.toString());
+        await branchPage.fillBranchAddress("z".repeat(500));
+        await branchPage.fillNoteInput(randomString);
+        await basePage.clickSave();
+        await toastPage.getToastAddSuccess();
+    });
+
+    test("Max length of note over 500 characters", async ({ page }) => {
+        const randomString = "Automation test branch " + Math.random().toString(36).substring(7);
+        const phoneNumber = `09${Math.floor(100000000 + Math.random() * 900000000)}`;
+        await branchPage.clickBranchButton();
+        await basePage.clickAdd();
+        await branchPage.fillBranchName(randomString);
+        await branchPage.fillShortName(randomString);
+        await branchPage.fillNumberOfEmployee("999");
+        await branchPage.fillPhoneNumber(phoneNumber.toString());
+        await branchPage.fillBranchAddress(randomString);
+        await branchPage.fillNoteInput("z".repeat(501));
+        await basePage.clickSave();
+        await toastPage.getToastAddFailed();
+    });
+
+    test("Max length of branch address over 500 characters", async ({ page }) => {
+        const randomString = "Automation test branch " + Math.random().toString(36).substring(7);
+        const phoneNumber = `09${Math.floor(100000000 + Math.random() * 900000000)}`;
+        await branchPage.clickBranchButton();
+        await basePage.clickAdd();
+        await branchPage.fillBranchName(randomString);
+        await branchPage.fillShortName(randomString);
+        await branchPage.fillNumberOfEmployee("999");
+        await branchPage.fillPhoneNumber(phoneNumber.toString());
+        await branchPage.fillBranchAddress("z".repeat(501));
+        await branchPage.fillNoteInput(randomString);
+        await basePage.clickSave();
+        await basePage.verifyMaxlenght500Charactor();
     });
 
 });

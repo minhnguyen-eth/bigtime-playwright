@@ -12,7 +12,7 @@ import { LogoutPage } from '../../pages/LogoutPage';
 test.describe.serial('Reward Employee Tests', () => {
     let loginPage: LoginPage;
     let rewardEmployeePage: RewardEmployeePage;
-    let toast: ToastPage;
+    let toastPage: ToastPage;
     let basePage: BasePage;
     let logoutPage: LogoutPage;
 
@@ -25,13 +25,104 @@ test.describe.serial('Reward Employee Tests', () => {
         logoutPage = new LogoutPage(page);
         loginPage = new LoginPage(page);
         rewardEmployeePage = new RewardEmployeePage(page);
-        toast = new ToastPage(page);
+        toastPage = new ToastPage(page);
         await loginPage.goto();
 
     });
 
     test.afterEach(async ({ page }, testInfo: TestInfo) => {
         await takeScreenshotOnFailure(page, testInfo);
+    });
+
+    async function beforeTest() {
+        await loginPage.login(Config.admin_username, Config.admin_password);
+        await basePage.clickAdmin();
+        await rewardEmployeePage.clickRewardEmployee();
+        await basePage.clickAdd();
+    }
+
+    test("Max length of reward name is 255 characters", async ({ page }) => {
+        await beforeTest();
+        await rewardEmployeePage.fillRewardName('a'.repeat(255));
+        await rewardEmployeePage.fillChosseEmployee('Minh');
+        await rewardEmployeePage.clickSelectEmployee();
+        await rewardEmployeePage.clickChosseRewardType();
+        await rewardEmployeePage.clickSelectRewardType();
+        await rewardEmployeePage.fillMoneyInput('1000000');
+        await rewardEmployeePage.fillDescriptionInput('Description');
+        await rewardEmployeePage.fillNoteInput('Note');
+        await basePage.clickSave();
+        await toastPage.getToastAddSuccess();
+    });
+
+    test("Max length of reward name over 255 characters", async ({ page }) => {
+        await beforeTest();
+        await rewardEmployeePage.fillRewardName('z'.repeat(256));
+        await rewardEmployeePage.fillChosseEmployee('Minh');
+        await rewardEmployeePage.clickSelectEmployee();
+        await rewardEmployeePage.clickChosseRewardType();
+        await rewardEmployeePage.clickSelectRewardType();
+        await rewardEmployeePage.fillMoneyInput('1000000');
+        await rewardEmployeePage.fillDescriptionInput('Description');
+        await rewardEmployeePage.fillNoteInput('Note');
+        await basePage.clickSave();
+        await basePage.verifyMaxlenght255Charactor();
+    });
+
+    test("Max length of description is 500 characters", async ({ page }) => {
+        await beforeTest();
+        await rewardEmployeePage.fillRewardName('Test max length of description');
+        await rewardEmployeePage.fillChosseEmployee('Minh');
+        await rewardEmployeePage.clickSelectEmployee();
+        await rewardEmployeePage.clickChosseRewardType();
+        await rewardEmployeePage.clickSelectRewardType();
+        await rewardEmployeePage.fillMoneyInput('1000000');
+        await rewardEmployeePage.fillDescriptionInput('a'.repeat(500));
+        await rewardEmployeePage.fillNoteInput('Note');
+        await basePage.clickSave();
+        await toastPage.getToastAddSuccess();
+    });
+
+    test("Max length of description over 500 characters", async ({ page }) => {
+        await beforeTest();
+        await rewardEmployeePage.fillRewardName('Test max length of description');
+        await rewardEmployeePage.fillChosseEmployee('Minh');
+        await rewardEmployeePage.clickSelectEmployee();
+        await rewardEmployeePage.clickChosseRewardType();
+        await rewardEmployeePage.clickSelectRewardType();
+        await rewardEmployeePage.fillMoneyInput('1000000');
+        await rewardEmployeePage.fillDescriptionInput('z'.repeat(501));
+        await rewardEmployeePage.fillNoteInput('Note');
+        await basePage.clickSave();
+        await basePage.verifyMaxlenght500Charactor();
+    });
+
+    test("Max length of note is 500 characters", async ({ page }) => {
+        await beforeTest();
+        await rewardEmployeePage.fillRewardName('Test max length of note');
+        await rewardEmployeePage.fillChosseEmployee('Minh');
+        await rewardEmployeePage.clickSelectEmployee();
+        await rewardEmployeePage.clickChosseRewardType();
+        await rewardEmployeePage.clickSelectRewardType();
+        await rewardEmployeePage.fillMoneyInput('1000000');
+        await rewardEmployeePage.fillDescriptionInput('Description');
+        await rewardEmployeePage.fillNoteInput('a'.repeat(500));
+        await basePage.clickSave();
+        await toastPage.getToastAddSuccess();
+    });
+
+    test("Max length of note over 500 characters", async ({ page }) => {
+        await beforeTest();
+        await rewardEmployeePage.fillRewardName('Test max length of note');
+        await rewardEmployeePage.fillChosseEmployee('Minh');
+        await rewardEmployeePage.clickSelectEmployee();
+        await rewardEmployeePage.clickChosseRewardType();
+        await rewardEmployeePage.clickSelectRewardType();
+        await rewardEmployeePage.fillMoneyInput('1000000');
+        await rewardEmployeePage.fillDescriptionInput('Description');
+        await rewardEmployeePage.fillNoteInput('z'.repeat(501));
+        await basePage.clickSave();
+        await basePage.verifyMaxlenght500Charactor();
     });
 
     test('E2E reward employee - manager send reward to admin approve', async ({ page }) => {
@@ -44,7 +135,7 @@ test.describe.serial('Reward Employee Tests', () => {
         await basePage.clickAdd();
         await rewardEmployeePage.CreateReward();
         await basePage.clickSave();
-        await toast.getToastAddSuccess();
+        await toastPage.getToastAddSuccess();
 
         // Send reward to admin
         await basePage.clickRow0();
@@ -56,7 +147,7 @@ test.describe.serial('Reward Employee Tests', () => {
         await rewardEmployeePage.clickRewardEmployee();
         await basePage.clickRow0();
         await basePage.clickBrowse();
-        await toast.getToastBrowseSuccess();
+        await toastPage.getToastBrowseSuccess();
         await basePage.verifyBrowsedStatus();
     });
 
@@ -67,7 +158,7 @@ test.describe.serial('Reward Employee Tests', () => {
         await basePage.clickAdd();
         await rewardEmployeePage.CreateReward();
         await basePage.clickSave();
-        await toast.getToastAddSuccess();
+        await toastPage.getToastAddSuccess();
 
         // Send reward to admin
         await basePage.clickRow0();
@@ -80,17 +171,14 @@ test.describe.serial('Reward Employee Tests', () => {
         await basePage.clickRow0();
         await basePage.clickReject();
         await rewardEmployeePage.fillReasonInput('Reason reject');
-        await toast.getToastRejectSuccess();
+        await toastPage.getToastRejectSuccess();
     });
 
     test('Create reward with valid information', async ({ page }) => {
-        await loginPage.login(Config.admin_username, Config.admin_password);
-        await basePage.clickAdmin();
-        await rewardEmployeePage.clickRewardEmployee();
-        await basePage.clickAdd();
+        await beforeTest();
         await rewardEmployeePage.CreateReward();
         await basePage.clickSave();
-        await toast.getToastAddSuccess();
+        await toastPage.getToastAddSuccess();
     });
 
     test('Manager create reward with approved status', async ({ page }) => {
@@ -109,14 +197,11 @@ test.describe.serial('Reward Employee Tests', () => {
         await rewardEmployeePage.clickStatusDropdownAdd();
         await rewardEmployeePage.clickSeclectWaitingForApproved();
         await basePage.clickSave();
-        await toast.getToastAddSuccess();
+        await toastPage.getToastAddSuccess();
     });
 
     test('Admin create reward with approved status', async ({ page }) => {
-        await loginPage.login(Config.admin_username, Config.admin_password);
-        await basePage.clickAdmin();
-        await rewardEmployeePage.clickRewardEmployee();
-        await basePage.clickAdd();
+        await beforeTest();
         await rewardEmployeePage.fillRewardName('Reward Employee 2');
         await rewardEmployeePage.fillChosseEmployee('Minh');
         await rewardEmployeePage.clickSelectEmployee();
@@ -128,7 +213,7 @@ test.describe.serial('Reward Employee Tests', () => {
         await rewardEmployeePage.clickStatusDropdownAdd();
         await rewardEmployeePage.clickSelectApproved();
         await basePage.clickSave();
-        await toast.getToastAddSuccess();
+        await toastPage.getToastAddSuccess();
     });
 
     test('Cancel reward', async ({ page }) => {
@@ -138,14 +223,11 @@ test.describe.serial('Reward Employee Tests', () => {
         await basePage.clickRow0();
         await rewardEmployeePage.clickCancelButton();
         await rewardEmployeePage.fillReasonInput('Reason cancel');
-        await toast.getToastCancelledSuccess();
+        await toastPage.getToastCancelledSuccess();
     });
 
     test('Create reward with empty description and note ', async ({ page }) => {
-        await loginPage.login(Config.admin_username, Config.admin_password);
-        await basePage.clickAdmin();
-        await rewardEmployeePage.clickRewardEmployee();
-        await basePage.clickAdd();
+        await beforeTest();
         await rewardEmployeePage.fillRewardName('Reward Employee 3');
         await rewardEmployeePage.fillChosseEmployee('Minh');
         await rewardEmployeePage.clickSelectEmployee();
@@ -153,14 +235,11 @@ test.describe.serial('Reward Employee Tests', () => {
         await rewardEmployeePage.clickSelectRewardType();
         await rewardEmployeePage.fillMoneyInput('1000000');
         await basePage.clickSave();
-        await toast.getToastAddSuccess();
+        await toastPage.getToastAddSuccess();
     });
 
     test('Create reward with chosse day reward', async ({ page }) => {
-        await loginPage.login(Config.admin_username, Config.admin_password);
-        await basePage.clickAdmin();
-        await rewardEmployeePage.clickRewardEmployee();
-        await basePage.clickAdd();
+        await beforeTest();
         await rewardEmployeePage.fillRewardName('Reward Employee 4');
         await rewardEmployeePage.fillChosseEmployee('Minh');
         await rewardEmployeePage.clickSelectEmployee();
@@ -173,15 +252,12 @@ test.describe.serial('Reward Employee Tests', () => {
         await rewardEmployeePage.clickDay19();
         await rewardEmployeePage.clickChosseButton();
         await basePage.clickSave();
-        await toast.getToastAddSuccess();
+        await toastPage.getToastAddSuccess();
 
     });
 
     test('Save with empty reward name, employee, reward type, money', async ({ page }) => {
-        await loginPage.login(Config.admin_username, Config.admin_password);
-        await basePage.clickAdmin();
-        await rewardEmployeePage.clickRewardEmployee();
-        await basePage.clickAdd();
+        await beforeTest();
         await rewardEmployeePage.clearMoneyInput();
         await basePage.clickSave();
         await rewardEmployeePage.validateValidationRewardName();
@@ -190,10 +266,14 @@ test.describe.serial('Reward Employee Tests', () => {
         await rewardEmployeePage.validateValidationMoney();
     });
 
-    test('Search with reward name', async ({ page }) => {
+    async function beforeTestSearch() {
         await loginPage.login(Config.admin_username, Config.admin_password);
         await basePage.clickAdmin();
         await rewardEmployeePage.clickRewardEmployee();
+    }
+
+    test('Search with reward name', async ({ page }) => {
+        await beforeTestSearch();
         await rewardEmployeePage.fillSearchByRewardName('Reward Employee');
         await basePage.clickSearch();
         await rewardEmployeePage.verifySearchByRewardNameSearch();
@@ -201,27 +281,21 @@ test.describe.serial('Reward Employee Tests', () => {
     });
 
     test('Search by employee name', async ({ page }) => {
-        await loginPage.login(Config.admin_username, Config.admin_password);
-        await basePage.clickAdmin();
-        await rewardEmployeePage.clickRewardEmployee();
+        await beforeTestSearch();
         await rewardEmployeePage.fillSearchByEmployee('Nguyễn Văn Minh');
         await basePage.clickSearch();
         await rewardEmployeePage.verifySearchByEmployeeSearch();
     });
 
     test('Search by reward type', async ({ page }) => {
-        await loginPage.login(Config.admin_username, Config.admin_password);
-        await basePage.clickAdmin();
-        await rewardEmployeePage.clickRewardEmployee();
+        await beforeTestSearch();
         await rewardEmployeePage.fillSearchByRewardType('Khen thưởng 2');
         await basePage.clickSearch();
         await rewardEmployeePage.verifySearchByRewardTypeSearch();
     });
 
     test('Search by date', async ({ page }) => {
-        await loginPage.login(Config.admin_username, Config.admin_password);
-        await basePage.clickAdmin();
-        await rewardEmployeePage.clickRewardEmployee();
+        await beforeTestSearch();
         await rewardEmployeePage.clickDayReward();
         await rewardEmployeePage.clickMonthButton();
         await rewardEmployeePage.clickMonth06Button();
@@ -233,9 +307,7 @@ test.describe.serial('Reward Employee Tests', () => {
     });
 
     test('Search by status', async ({ page }) => {
-        await loginPage.login(Config.admin_username, Config.admin_password);
-        await basePage.clickAdmin();
-        await rewardEmployeePage.clickRewardEmployee();
+        await beforeTestSearch();
 
         // Search with approved status
         await rewardEmployeePage.clickStatusDropdownSearch();

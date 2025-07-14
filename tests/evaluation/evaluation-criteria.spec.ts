@@ -31,6 +31,58 @@ test.describe.serial("Evaluation Criteria Tests", () => {
         await takeScreenshotOnFailure(page, testInfo);
     });
 
+    test("Max length of Evaluation Criteria Name is 255 characters", async ({ page }) => {
+        allure.story("Validation on Create Criteria");
+        await clearAllEvaluationCriterias();
+        await basePage.clickAdmin();
+        await evaluationCriteriaPage.clickEvaluationCriteria();
+        await basePage.clickAdd();
+        await evaluationCriteriaPage.setEvaluationCriteriaName("a".repeat(255));
+        await evaluationCriteriaPage.clickEvaluationCriteriaNameDropDown();
+        await evaluationCriteriaPage.clickEvaluationTypeOption();
+        await basePage.clickSave();
+        await toastPage.getToastAddSuccess();
+    });
+
+    test("Max length of Evaluation Criteria Name over 255 characters", async ({ page }) => {
+        allure.story("Validation on Create Criteria");
+        await basePage.clickAdmin();
+        await evaluationCriteriaPage.clickEvaluationCriteria();
+        await basePage.clickAdd();
+        await evaluationCriteriaPage.setEvaluationCriteriaName("a".repeat(256));
+        await evaluationCriteriaPage.clickEvaluationCriteriaNameDropDown();
+        await evaluationCriteriaPage.clickEvaluationTypeOption();
+        await basePage.clickSave();
+        await basePage.verifyMaxlenght255Charactor();
+    });
+
+    test("Max length of Evaluation Criteria Description is 500 characters", async ({ page }) => {
+        allure.story("Validation on Create Criteria");
+        await basePage.clickAdmin();
+        await evaluationCriteriaPage.clickEvaluationCriteria();
+        await basePage.clickAdd();
+        await evaluationCriteriaPage.setEvaluationCriteriaName("Automation Test");
+        await evaluationCriteriaPage.setDescription("a".repeat(500));
+        await evaluationCriteriaPage.clickEvaluationCriteriaNameDropDown();
+        await evaluationCriteriaPage.clickEvaluationTypeOption();
+        await basePage.clickSave();
+        await toastPage.getToastAddSuccess();
+    });
+
+    test("Max length of Evaluation Criteria Description over 500 characters", async ({ page }) => {
+        allure.story("Validation on Create Criteria");
+        await basePage.clickAdmin();
+        await evaluationCriteriaPage.clickEvaluationCriteria();
+        await basePage.clickAdd();
+        await evaluationCriteriaPage.setEvaluationCriteriaName("Automation Test");
+        await evaluationCriteriaPage.setDescription("a".repeat(501));
+        await evaluationCriteriaPage.clickEvaluationCriteriaNameDropDown();
+        await evaluationCriteriaPage.clickEvaluationTypeOption();
+        await basePage.clickSave();
+        await basePage.verifyMaxlenght500Charactor();
+    });
+
+
     test("Create Criteria without any field", async ({ page }) => {
         allure.story("Validation on Create Criteria");
         await clearAllEvaluationCriterias();
