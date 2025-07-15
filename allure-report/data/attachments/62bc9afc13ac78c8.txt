@@ -1,0 +1,117 @@
+# Page snapshot
+
+```yaml
+- banner:
+  - button
+  - text: Bigtime
+  - button "Quản lý":
+    - paragraph: Quản lý
+  - button "Chấm công":
+    - paragraph: Chấm công
+  - button "Lương":
+    - paragraph: Lương
+  - button "Cài đặt":
+    - paragraph: Cài đặt
+  - img
+  - text: Admin
+  - button "Badge":
+    - status "Badge"
+  - button
+  - button "Đăng xuất"
+- banner:
+  - text: Version 1.1.1
+  - list:
+    - listitem "English":
+      - img
+    - listitem "Tiếng Việt":
+      - img
+  - button
+- navigation:
+  - listbox:
+    - link "Trung tâm":
+      - /url: /dashboard-salary
+    - separator
+    - text: Lương
+    - link "Loại phụ cấp":
+      - /url: /salary/allowance-type
+    - link "Bảng lương":
+      - /url: /salary/pay-sheet
+    - link "Phiếu lương":
+      - /url: /salary/payslip
+    - link "Tạm ứng":
+      - /url: /salary/debt
+    - separator
+    - text: Thống kê
+    - link "Thống kê lương":
+      - /url: /salary/salary-statistic
+    - link "Thống kê thuế":
+      - /url: /tax-statistic
+- main:
+  - text: Bảng lương
+  - button "Làm mới"
+  - button "Xuất dữ liệu"
+  - button "Thêm"
+  - text: Tìm kiếm theo mã hoặc tên bảng lương
+  - textbox "Tìm kiếm theo mã hoặc tên bảng lương Tìm kiếm theo mã hoặc tên bảng lương"
+  - button "Tìm kiếm"
+  - table:
+    - rowgroup:
+      - row "# Mã bảng lương Tên bảng lương Loại kì lương Trạng thái Tổng lương Đã thanh toán":
+        - columnheader "#"
+        - columnheader "Mã bảng lương"
+        - columnheader "Tên bảng lương"
+        - columnheader "Loại kì lương"
+        - columnheader "Trạng thái"
+        - columnheader "Tổng lương"
+        - columnheader "Đã thanh toán"
+    - rowgroup:
+      - row "1 BL000001 Automation test 7/2025 Hàng tháng Tạm tính 0 đ":
+        - cell "1"
+        - cell "BL000001"
+        - cell "Automation test 7/2025"
+        - cell "Hàng tháng"
+        - cell "Tạm tính"
+        - cell
+        - cell "0 đ"
+  - text: Tổng 1, Hiển thị
+  - combobox:
+    - text: "20"
+    - textbox "Open": "20"
+  - navigation "Pagination Navigation":
+    - list:
+      - listitem:
+        - button "Previous page" [disabled]
+      - listitem:
+        - button "Page 1, Current page" [disabled]: "1"
+      - listitem:
+        - button "Next page" [disabled]
+- tooltip
+- tooltip
+- dialog:
+  - text: Thêm bảng lương
+  - alert:
+    - list:
+      - listitem: "SQLSTATE[22001]: String data, right truncated: 1406 Data too long for column 'name' at row 1 (Connection: mysql, SQL: insert into `paysheets` (`id`, `name`, `start_date`, `end_date`, `note`, `type`, `status`, `code`, `created_at`, `updated_at`, `deleted_by`, `deleted_at`, `created_by`, `updated_by`) values (lzbb3QZx2J, aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa 7/2025, 2025-07-01, 2025-07-31, Automation test, 0, 0, BL000002, 2025-07-15 11:11:41, 2025-07-15 11:11:41, ?, ?, 0000000000, 0000000000))"
+  - textbox "Tên ※ Tên ※": aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+  - radiogroup:
+    - radio "Tùy chọn"
+    - text: Tùy chọn
+    - radio "Hàng tháng" [checked]
+    - text: Hàng tháng
+  - combobox:
+    - text: 1/7/2025 - 31/7/2025
+    - textbox "Khoảng thời gian hàng tháng ※ Khoảng thời gian hàng tháng ※": 1/7/2025 - 31/7/2025
+    - button "Open": 󰍝
+  - radiogroup:
+    - radio "Tùy chọn nhân viên" [checked]
+    - text: Tùy chọn nhân viên
+    - radio "Chọn tất cả nhân viên"
+    - text: Chọn tất cả nhân viên
+  - combobox:
+    - text: BAT810-Nguyễn Văn Minh
+    - textbox "Nhân viên ※ Nhân viên ※"
+    - button "Open": 󰍝
+  - textbox "Ghi chú Ghi chú": Automation test
+  - button "Lưu"
+  - button "Hủy"
+```

@@ -1,6 +1,7 @@
+import { Page, TestInfo } from '@playwright/test';
+import { allure } from 'allure-playwright';
 import fs from 'fs';
 import path from 'path';
-import { Page, TestInfo } from '@playwright/test';
 
 export async function takeScreenshotOnFailure(page: Page, testInfo: TestInfo): Promise<void> {
   if (testInfo.status !== testInfo.expectedStatus) {
@@ -9,11 +10,13 @@ export async function takeScreenshotOnFailure(page: Page, testInfo: TestInfo): P
       fs.mkdirSync(screenshotsDir);
     }
 
-    // Tạo tên file từ tên test, an toàn cho hệ thống tệp
     const safeTitle = testInfo.title.replace(/[^a-z0-9\-]/gi, '_').toLowerCase();
     const filePath = path.join(screenshotsDir, `${safeTitle}.png`);
 
-    await page.screenshot({ path: filePath, fullPage: true });
+    const buffer = await page.screenshot({ path: filePath, fullPage: true });
     console.log(`📸 Screenshot saved: ${filePath}`);
+
+    // Đính kèm ảnh vào Allure report
+    allure.attachment('Failure Screenshot', buffer, 'image/png');
   }
 }

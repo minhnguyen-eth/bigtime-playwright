@@ -119,7 +119,7 @@ test.describe.serial('Reward Type Tests', () => {
             await basePage.clickSave();
         });
         await rewardTypePage.VerifyDuplicateNameError();
-        await toastPage.getToastAddSuccess();
+        await toastPage.getToastAddFailed();
     });
 
 

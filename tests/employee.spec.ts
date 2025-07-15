@@ -38,6 +38,7 @@ test.describe.serial('Employee Tests', () => {
 
 
     test("Max length of all fields", async ({ page }) => {
+        allure.severity('Critical');
         await clearEmployees();
         const randomSuffix = Math.random().toString(36).substring(2, 8);
         const emailRandom = `email${randomSuffix}`;
@@ -83,8 +84,9 @@ test.describe.serial('Employee Tests', () => {
         await toastPage.getToastAddSuccess();
     });
 
-    
+
     test('Test max length of resume', async ({ page }) => {
+        allure.severity('Critical');
         const random10Digits = Math.floor(1000000000 + Math.random() * 9000000000);
         const phoneNumber = `09${Math.floor(100000000 + Math.random() * 900000000)}`;
         await employeePage.fillSearchByName("Test max length resume");
@@ -125,10 +127,12 @@ test.describe.serial('Employee Tests', () => {
     });
 
     test(`E2E - Add with role employee`, async ({ page }) => {
+        allure.severity('Critical');
         await employeePage.addWithRoleEmployee();
     });
 
     test('Test resume with full data valid information', async ({ page }) => {
+        allure.severity('Critical');
         await basePage.clickRow0();
         await resumePage.testResumeWithValidData();
         await basePage.clickSave();

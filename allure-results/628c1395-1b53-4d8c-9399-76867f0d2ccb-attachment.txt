@@ -1,0 +1,3 @@
+Cleared 0 rows in holiday_managements .
+Cleared 0 rows in check_days .
+Cleared 0 rows in check_times .

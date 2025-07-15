@@ -1,0 +1,1 @@
+Cleared 5 rows in teams with condition.

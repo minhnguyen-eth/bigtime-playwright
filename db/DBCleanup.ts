@@ -16,6 +16,27 @@ async function clearTable(tableName: string, condition?: string): Promise<void> 
     }
 }
 
+// Clear all tables
+export async function clearAllTables() {
+    const tables = [
+        clearAllLeaveApplications,
+        clearAllLeaveManagements,
+        clearAllPaysheets,
+        clearAllPayslips,
+        clearAllTimeWorkings,
+        clearAllShiftPlan,
+        clearAllEvaluationProgress,
+        clearAllEvaluationCriterias,
+        clearAllNotifications,
+        clearAllRewardUsers,
+        clearAllAllowanceTypes
+    ];
+
+    for (const clearFunc of tables) {
+        await clearFunc();
+    }
+}
+
 // Specific Clear functions preserved (for backward compatibility)
 export const clearOvertimeSubmission = async () => {
     await clearTable('overtime_submissions');
@@ -42,7 +63,7 @@ export const clearLevel = async () => {
 }
 
 export const clearBranch = async () => {
-    await clearTable('branches', "name LIKE '%Automation test%'");
+    await clearTable('branches', "name LIKE '%Automation test%' OR name LIKE '%z%'");
 }
 
 export const clearPosition = async () => {
@@ -66,7 +87,7 @@ export async function clearTerm() {
 }
 
 export async function clearEmployees() {
-    await clearTable('users', "name LIKE '%user%' or name LIKE '%z%'");
+    await clearTable('users', "name LIKE '%Automation test%' or name LIKE '%z%'");
 }
 
 export async function clearAllLeaveApplications() {
@@ -139,25 +160,4 @@ export async function deleteEvaluationType(name: string) {
     const result = await executeQuery("DELETE FROM evaluation_types WHERE name LIKE ?", [`%${name}%`]) as mysql.ResultSetHeader;
     console.info(`Deleted ${result.affectedRows} rows from evaluation_types where name like '${name}'`);
     return result.affectedRows > 0;
-}
-
-// Clear all tables
-export async function clearAllTables() {
-    const tables = [
-        clearAllLeaveApplications,
-        clearAllLeaveManagements,
-        clearAllPaysheets,
-        clearAllPayslips,
-        clearAllTimeWorkings,
-        clearAllShiftPlan,
-        clearAllEvaluationProgress,
-        clearAllEvaluationCriterias,
-        clearAllNotifications,
-        clearAllRewardUsers,
-        clearAllAllowanceTypes
-    ];
-
-    for (const clearFunc of tables) {
-        await clearFunc();
-    }
 }

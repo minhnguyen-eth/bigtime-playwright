@@ -64,7 +64,7 @@ export class BasePage {
         this.Setting_Button = page.locator("//span[normalize-space()='Cài đặt']");
         this.iconAction = page.locator("//tr[@id='row-0']//i[@class='mdi mdi-format-list-group mdi v-icon notranslate v-theme--lightColor7 v-icon--size-default']");
         this.requiredFillReason = page.locator("//div[contains(text(),'Nhập lý do')]");
-        this.toDayDatePicker = page.locator("//div[@class='dp__cell_inner dp__pointer dp__today dp__date_hover']");
+        this.toDayDatePicker = page.locator("//div[contains(@class, 'dp__cell_inner') and contains(@class, 'dp__pointer') and contains(@class, 'dp__today')]");
         this.deleteButton = page.locator("//span[contains(text(),'Xóa')]");
         this.editButton = page.locator("//span[contains(text(),'Sửa')]");
         this.reasonInput = page.locator("//textarea");

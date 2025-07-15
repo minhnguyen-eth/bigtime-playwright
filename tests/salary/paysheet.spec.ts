@@ -402,6 +402,12 @@ test.describe.serial('Paysheet Tests', () => {
         await allure.step('Add paysheet with name length 255 characters', async () => {
             await basePage.clickAdd();
             await paysheet.setNamePaysheet('a'.repeat(255));
+            await paysheet.clickCheckBoxMonthly();
+            await paysheet.clickChooseMonth();
+            await paysheet.clickMonthOption();
+            await paysheet.setNote('Automation test');
+            await paysheet.clickAndSetDropDownEmployee('Nguyễn Văn Minh');
+            await paysheet.clickEmployeeOption();
             await basePage.clickSave();
             await toastPage.getToastAddSuccess();
         });

@@ -379,7 +379,7 @@ export class EmployeePage extends BasePage {
     await this.safeClick(this.citizenIdCardIssueDate);
   }
 
-   async fillCitizenIdMaxlength(id: string) {
+  async fillCitizenIdMaxlength(id: string) {
     await this.safeFill(this.citizenId, id);
   }
 
@@ -674,7 +674,7 @@ export class EmployeePage extends BasePage {
     await this.clickDepartmentOptions();
     await this.clickSearchButton();
     await this.expectDepartmentSearch();
-    
+
   }
 
   async searchByEmployeeName() {
@@ -710,12 +710,14 @@ export class EmployeePage extends BasePage {
     await this.clickSelectRank();
     await this.fillCitizenId(random10Digits);
     await this.clickCitizenIdCardIssueDate();
-    await this.clickToDay();
+    await this.clickTodayDatePicker();
 
     await this.fillPlaceOfIssueOfIdentityCard('Bien Hoa, Dong Nai');
     await this.fillBankName('Vietcombank');
     await this.fillBankAccountNumber('02847182497124');
     await this.fillPhoneNumber(phoneNumber);
+    await this.fillAddress('Bien Hoa, Dong Nai');
+    await this.fillNote('Automation testing');
     await this.clickDateOfBirth();
     await this.clickChosseYear();
     await this.clickSelectYear();
@@ -723,9 +725,7 @@ export class EmployeePage extends BasePage {
     await this.clickSelectMonth();
     await this.clickSelectDay();
     await this.clickDateOfJoiningTheCompany();
-    await this.clickToDay();
-    await this.fillAddress('Bien Hoa, Dong Nai');
-    await this.fillNote('Automation testing');
+    await this.clickTodayDatePicker();
   }
 
   async testSetSalary() {

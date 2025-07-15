@@ -202,6 +202,7 @@ test.describe.serial('Notification Test Suite', () => {
             await notificationPage.clickOnIconAction();
             await notificationPage.clickOnSendNotification();
             await notificationPage.clickOnDepartment();
+             await notificationPage.fillPersonnalSearch('IT');
             await notificationPage.clickOnDepartmentOption();
             await basePage.clickSave();
         });
