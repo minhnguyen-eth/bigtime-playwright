@@ -1,1 +1,0 @@
-Cleared 2 rows in shift_plans with condition.

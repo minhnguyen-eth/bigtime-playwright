@@ -1,1 +1,0 @@
-Cleared 154 rows in users with condition.
