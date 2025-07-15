@@ -1,2 +1,0 @@
-Cleared 0 rows in leave_applications .
-🔍 Regular leave found: Nghỉ thường

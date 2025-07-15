@@ -1,0 +1,1 @@
+Cleared 2 rows in branches with condition.

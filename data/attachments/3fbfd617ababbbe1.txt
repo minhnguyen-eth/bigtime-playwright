@@ -1,0 +1,2 @@
+Cleared 0 rows in holiday_managements .
+📸 Screenshot saved: D:\BigAppTech\playwright-typescripts\screenshots\unpaid_leave.png

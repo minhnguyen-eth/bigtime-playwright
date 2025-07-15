@@ -1,0 +1,2 @@
+Cleared 1 rows in leave_managements with condition.
+📸 Screenshot saved: D:\BigAppTech\playwright-typescripts\screenshots\add_annual_leave_for_an_employee_and_employee_browsed.png
