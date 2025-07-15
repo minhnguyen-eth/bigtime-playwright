@@ -1,2 +1,0 @@
-Cleared 1 rows in shift_plans with condition.
-Found 1 records in shift_plans with name like 'zc0k2e'

@@ -1,4 +1,0 @@
-Clicked on status: Active
-Clicked on status: Lock
-Clicked on status: Active
-Clicked on status: Lock

@@ -1,4 +1,0 @@
-Cleared 2 rows in evaluation_types with condition.
-Found 1 records in evaluation_types with name like 'Automation test nvi20g'
-Deleted 1 rows from evaluation_types where name like 'Automation test nvi20g'
-Đã xóa loại đánh giá "Automation test nvi20g": true
