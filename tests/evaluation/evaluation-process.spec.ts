@@ -1,6 +1,5 @@
-import { test, expect, Page, TestInfo } from "@playwright/test";
+import { test, } from '../base-test';
 import { LoginPage } from "../../pages/LoginPage";
-import { takeScreenshotOnFailure } from "../../utils/screenshotUtils";
 import Config from "../../utils/configUtils";
 import { EvaluationProcessPage } from "../../pages/evaluation_page/EvaluationProcessPage";
 import { ToastPage } from "../../pages/ToastPage";
@@ -30,13 +29,7 @@ test.describe.serial("Evaluation Criteria Tests", () => {
         basePage = new BasePage(page);
         await loginPage.goto();
         await loginPage.login(Config.admin_username, Config.admin_password);
-    });
-
-    test.afterEach(async ({ page }, testInfo: TestInfo) => {
-        await takeScreenshotOnFailure(page, testInfo);
-    });
-
-    
+    }); 
 
     test("Add a new evaluation process company form", async ({ page }) => {
         allure.story("Add Evaluation Process - Company Form");

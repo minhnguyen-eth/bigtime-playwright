@@ -1,8 +1,7 @@
-import { test, TestInfo } from '@playwright/test';
+import { test, } from '../base-test';
 import { ToastPage } from '../../pages/ToastPage';
 import { LoginPage } from '../../pages/LoginPage';
 import { BasePage } from '../../pages/BasePage';
-import { takeScreenshotOnFailure } from '../../utils/screenshotUtils';
 import Config from '../../utils/configUtils';
 import { clearEmploymentContract } from '../../db/DBHelper';
 import { ContractPage } from '../../pages/contract_page/ContractPage';
@@ -28,10 +27,6 @@ test.describe.serial('Contract Tests', () => {
         await loginPage.login(Config.admin_username, Config.admin_password);
         await basePage.clickAdmin();
         await contractPage.clickContract();
-    });
-
-    test.afterEach(async ({ page }, testInfo: TestInfo) => {
-        await takeScreenshotOnFailure(page, testInfo);
     });
 
     async function CreateContractWithProbation() {

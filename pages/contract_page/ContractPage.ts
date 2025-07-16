@@ -53,7 +53,7 @@ export class ContractPage extends BasePage {
         this.searchByContractType = page.getByRole('combobox').filter({ hasText: 'Loại hợp đồng' }).locator('i')
         this.searchByName = page.getByRole('textbox', { name: 'Mã - tên nhân viên' })
         this.searchByCode = page.getByRole('textbox', { name: 'Mã hợp đồng' })
-        this.contractTypeDropdown = this.page.locator("//div[contains(@class, 'v-field') and contains(@class, 'v-field--active')]//i[@title='Open']");
+        this.contractTypeDropdown = this.page.locator("(//div[contains(@class, 'v-field') and contains(@class, 'v-field--active')]//i[@title='Open'])[2]");
         this.selectAllTerm = this.page.locator("//th[contains(@class, 'v-data-table__th')]//i[contains(@class, 'mdi-checkbox-blank-outline')]");
         this.noteInput = page.getByRole('textbox', { name: 'Ghi chú' });
         this.selectDay = this.page.locator("//div[@class='dp__cell_inner dp__pointer dp__date_hover'][normalize-space()='31']");

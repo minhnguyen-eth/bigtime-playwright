@@ -1,6 +1,5 @@
-import { test, TestInfo } from '@playwright/test';
+import { test, } from '../base-test';
 import { LoginPage } from '../../pages/LoginPage';
-import { takeScreenshotOnFailure } from '../../utils/screenshotUtils';
 import { ToastPage } from '../../pages/ToastPage';
 import Config from '../../utils/configUtils';
 import { allure } from 'allure-playwright';
@@ -28,10 +27,6 @@ test.describe.serial('Reward Employee Tests', () => {
         toastPage = new ToastPage(page);
         await loginPage.goto();
 
-    });
-
-    test.afterEach(async ({ page }, testInfo: TestInfo) => {
-        await takeScreenshotOnFailure(page, testInfo);
     });
 
     async function beforeTest() {

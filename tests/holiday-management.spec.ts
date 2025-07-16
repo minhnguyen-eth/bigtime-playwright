@@ -1,4 +1,4 @@
-import { test, expect, TestInfo } from '@playwright/test';
+import { test, } from './base-test';
 import { LoginPage } from '../pages/LoginPage';
 import { BasePage } from '../pages/BasePage';
 import Config from '../utils/configUtils';
@@ -6,7 +6,6 @@ import { ToastPage } from '../pages/ToastPage';
 import { HolidayManagementPage } from '../pages/HolidayManagementPage';
 import { clearCheckDay, clearCheckTime, clearHolidayManagement } from '../db/DBHelper';
 import { allure } from 'allure-playwright';
-import { takeScreenshotOnFailure } from '../utils/screenshotUtils';
 
 test.describe.serial('Holiday Management', () => {
     let loginPage: LoginPage;
@@ -27,10 +26,6 @@ test.describe.serial('Holiday Management', () => {
         await loginPage.login(Config.admin_username, Config.admin_password);
         await basePage.clickAdmin();
         await holidayManagementPage.clickHolidayButton();
-    });
-
-    test.afterEach(async ({ page }, testInfo: TestInfo) => {
-        await takeScreenshotOnFailure(page, testInfo);
     });
 
     test("Max length name and reason holiday management 255 characters", async ({ page }) => {

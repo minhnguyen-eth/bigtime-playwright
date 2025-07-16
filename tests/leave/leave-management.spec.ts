@@ -1,6 +1,5 @@
-import { test, expect, Page, TestInfo } from '@playwright/test';
+import { test, } from '../base-test';
 import { LoginPage } from '../../pages/LoginPage';
-import { takeScreenshotOnFailure } from '../../utils/screenshotUtils';
 import Config from '../../utils/configUtils';
 import { LeaveManagementPage } from '../../pages/leave_page/LeaveManagementPage';
 import { clearAllLeaveManagements } from '../../db/DBHelper';
@@ -29,10 +28,6 @@ test.describe.serial('Leave Management Tests', () => {
         leaveManagementPage = new LeaveManagementPage(page);
         basePage = new BasePage(page);
         await loginPage.goto();
-    });
-
-    test.afterEach(async ({ page }, testInfo: TestInfo) => {
-        await takeScreenshotOnFailure(page, testInfo);
     });
 
     test('Add annual leave for an employee and employee browsed', async ({ page }) => {

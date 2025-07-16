@@ -1,6 +1,5 @@
-import { test, TestInfo } from "@playwright/test";
+import { test, } from '../base-test';
 import { LoginPage } from "../../pages/LoginPage";
-import { takeScreenshotOnFailure } from "../../utils/screenshotUtils";
 import Config from "../../utils/configUtils";
 import { ToastPage } from "../../pages/ToastPage";
 import { DebtPage } from "../../pages/salary_page/DebtPage";
@@ -29,10 +28,6 @@ test.describe.serial("Debt Tests", () => {
     await loginPage.goto();
   });
 
-  test.afterEach(async ({ page }, testInfo: TestInfo) => {
-    await takeScreenshotOnFailure(page, testInfo);
-  });
-
   test("Max length of note 255 characters", async ({ page }) => {
     await loginPage.login(Config.admin_username, Config.admin_password);
     await basePage.clickSalary();
@@ -45,7 +40,7 @@ test.describe.serial("Debt Tests", () => {
     await toastPage.getToastAddSuccess();
   });
 
-   test("Max length of note over 255 characters", async ({ page }) => {
+  test("Max length of note over 255 characters", async ({ page }) => {
     await loginPage.login(Config.admin_username, Config.admin_password);
     await basePage.clickSalary();
     await debtPage.clickDebtButton();

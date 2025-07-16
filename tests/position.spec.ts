@@ -1,11 +1,10 @@
-import { test, TestInfo } from '@playwright/test';
+import { test, } from './base-test';
 import { BasePage } from '../pages/BasePage';
 import { PositionPage } from '../pages/PositionPage';
 import { ToastPage } from '../pages/ToastPage';
 import { LoginPage } from '../pages/LoginPage';
 import { Config } from '../utils/configUtils';
 import { clearPosition } from '../db/DBHelper';
-import { takeScreenshotOnFailure } from '../utils/screenshotUtils';
 import { allure } from 'allure-playwright';
 
 test.describe.serial('Position Tests', () => {
@@ -28,10 +27,6 @@ test.describe.serial('Position Tests', () => {
         await loginPage.login(Config.admin_username, Config.admin_password);
         await basePage.clickAdmin()
         await positionPage.clickPositions()
-    });
-
-    test.afterEach(async ({ page }, testInfo: TestInfo) => {
-        await takeScreenshotOnFailure(page, testInfo);
     });
 
     test("Max length of name and note ", async ({ page }) => {

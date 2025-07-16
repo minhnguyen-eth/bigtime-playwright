@@ -1,10 +1,9 @@
-import { test, TestInfo } from '@playwright/test';
+import { test, } from './base-test';
 import { allure } from 'allure-playwright';
 import { LoginPage } from '../pages/LoginPage';
 import { TeamPage } from '../pages/TeamPage';
 import { ToastPage } from '../pages/ToastPage';
 import { BasePage } from '../pages/BasePage';
-import { takeScreenshotOnFailure } from '../utils/screenshotUtils';
 import { Config } from '../utils/configUtils';
 import { clearTeam } from '../db/DBHelper';
 
@@ -24,10 +23,6 @@ test.describe.serial('Team', () => {
         toastPage = new ToastPage(page);
         basePage = new BasePage(page);
         await loginPage.goto();
-    });
-
-    test.afterEach(async ({ page }, testInfo: TestInfo) => {
-        await takeScreenshotOnFailure(page, testInfo);
     });
 
     test('Create a new team', async ({ page }) => {

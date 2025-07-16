@@ -1,6 +1,5 @@
-import { test, expect, Page, TestInfo } from "@playwright/test";
+import { test, } from '../base-test';
 import { LoginPage } from "../../pages/LoginPage";
-import { takeScreenshotOnFailure } from "../../utils/screenshotUtils";
 import Config from "../../utils/configUtils";
 import { EvaluationCriteriaPage } from "../../pages/evaluation_page/EvaluationCriteriaPage";
 import { clearAllEvaluationCriterias } from '../../db/DBHelper';
@@ -25,10 +24,6 @@ test.describe.serial("Evaluation Criteria Tests", () => {
         basePage = new BasePage(page);
         await loginPage.goto();
         await loginPage.login(Config.admin_username, Config.admin_password);
-    });
-
-    test.afterEach(async ({ page }, testInfo: TestInfo) => {
-        await takeScreenshotOnFailure(page, testInfo);
     });
 
     test("Max length of Evaluation Criteria Name is 255 characters", async ({ page }) => {

@@ -1,6 +1,5 @@
-import { test, expect, Page, TestInfo } from '@playwright/test';
+import { test, } from './base-test';
 import { LoginPage } from '../pages/LoginPage';
-import { takeScreenshotOnFailure } from '../utils/screenshotUtils';
 import Config from '../utils/configUtils';
 import { allure } from 'allure-playwright';
 
@@ -15,10 +14,6 @@ test.describe.serial('Login Tests', () => {
 
     loginPage = new LoginPage(page);
     await loginPage.goto();
-  });
-
-  test.afterEach(async ({ page }, testInfo: TestInfo) => {
-    await takeScreenshotOnFailure(page, testInfo);
   });
 
   test('Login Successful With Valid Credentials', async () => {

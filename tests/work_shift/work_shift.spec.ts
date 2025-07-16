@@ -1,6 +1,5 @@
-import { test, expect, Page, TestInfo } from '@playwright/test';
+import { test, } from '../base-test';
 import { LoginPage } from '../../pages/LoginPage';
-import { takeScreenshotOnFailure } from '../../utils/screenshotUtils';
 import Config from '../../utils/configUtils';
 import { WorkShiftPage } from '../../pages/work_shift_page/WorkShiftPage';
 import { allure } from 'allure-playwright';
@@ -24,10 +23,6 @@ test.describe.serial('Work Shift Tests', () => {
         loginPage = new LoginPage(page);
         workShiftPage = new WorkShiftPage(page);
         await loginPage.goto();
-    });
-
-    test.afterEach(async ({ page }, testInfo: TestInfo) => {
-        await takeScreenshotOnFailure(page, testInfo);
     });
 
     async function testBody() {

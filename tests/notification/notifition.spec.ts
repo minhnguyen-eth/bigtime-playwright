@@ -1,5 +1,4 @@
-import { test, TestInfo } from '@playwright/test';
-import { takeScreenshotOnFailure } from '../../utils/screenshotUtils';
+import { test, } from '../base-test';
 import { LoginPage } from '../../pages/LoginPage';
 import Config from '../../utils/configUtils';
 import { ToastPage } from '../../pages/ToastPage';
@@ -27,10 +26,6 @@ test.describe.serial('Notification Test Suite', () => {
         loginPage = new LoginPage(page);
         notificationPage = new NotificationPage(page);
         await loginPage.goto();
-    });
-
-    test.afterEach(async ({ page }, testInfo: TestInfo) => {
-        await takeScreenshotOnFailure(page, testInfo);
     });
 
     test("Max length of notification name is 255 characters", async ({ page }) => {

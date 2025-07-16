@@ -1,6 +1,5 @@
-import { test, TestInfo } from '@playwright/test';
+import { test, } from './base-test';
 import { LoginPage } from '../pages/LoginPage';
-import { takeScreenshotOnFailure } from '../utils/screenshotUtils';
 import Config from '../utils/configUtils';
 import { allure } from 'allure-playwright';
 import { EmployeePage } from '../pages/EmployeePage';
@@ -31,11 +30,6 @@ test.describe.serial('Employee Tests', () => {
         await basePage.clickAdmin();
         await employeePage.clickUser();
     });
-
-    test.afterEach(async ({ page }, testInfo: TestInfo) => {
-        await takeScreenshotOnFailure(page, testInfo);
-    });
-
 
     test("Max length of all fields", async ({ page }) => {
         allure.severity('Critical');

@@ -1,6 +1,5 @@
-import { test, TestInfo, expect } from '@playwright/test';
+import { test, } from './base-test';
 import { LoginPage } from '../pages/LoginPage';
-import { takeScreenshotOnFailure } from '../utils/screenshotUtils';
 import Config from '../utils/configUtils';
 import { allure } from 'allure-playwright';
 import { BasePage } from '../pages/BasePage';
@@ -29,10 +28,6 @@ test.describe.serial('Level Test Suite', () => {
         await levelPage.clickLevel();
 
     })
-
-    test.afterEach(async ({ page }, testInfo: TestInfo) => {
-        await takeScreenshotOnFailure(page, testInfo);
-    });
 
     test('Create with lock status', async ({ page }) => {
         await clearLevel();

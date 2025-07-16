@@ -1,5 +1,4 @@
-import { test, expect, TestInfo } from '@playwright/test';
-import { takeScreenshotOnFailure } from '../../utils/screenshotUtils';
+import { test, } from '../base-test';
 import { LoginPage } from '../../pages/LoginPage';
 import { RewardTypePage } from '../../pages/reward_page/RewardTypePage';
 import Config from '../../utils/configUtils';
@@ -29,10 +28,6 @@ test.describe.serial('Reward Type Tests', () => {
         await loginPage.login(Config.admin_username, Config.admin_password);
         await basePage.clickAdmin();
         await rewardTypePage.clickRewardTypeButton();
-    });
-
-    test.afterEach(async ({ page }, testInfo: TestInfo) => {
-        await takeScreenshotOnFailure(page, testInfo);
     });
 
     test("Max length of reward type name is 255 characters", async ({ page }) => {

@@ -1,8 +1,7 @@
-import { test, TestInfo } from '@playwright/test';
+import { test, } from '../base-test';
 import { ToastPage } from '../../pages/ToastPage';
 import { LoginPage } from '../../pages/LoginPage';
 import { BasePage } from '../../pages/BasePage';
-import { takeScreenshotOnFailure } from '../../utils/screenshotUtils';
 import Config from '../../utils/configUtils';
 import { TermPage } from '../../pages/contract_page/TermPage';
 import { clearTerm } from '../../db/DBHelper';
@@ -28,10 +27,6 @@ test.describe.serial('Term Tests', () => {
         await loginPage.login(Config.admin_username, Config.admin_password);
         await basePage.clickAdmin();
         await termPage.clickTerm();
-    });
-
-    test.afterEach(async ({ page }, testInfo: TestInfo) => {
-        await takeScreenshotOnFailure(page, testInfo);
     });
 
     test('Create term with empty name', async ({ page }) => {

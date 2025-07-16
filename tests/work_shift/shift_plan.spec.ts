@@ -1,6 +1,5 @@
-import { test, expect, Page, TestInfo } from '@playwright/test';
+import { expect, test, } from '../base-test';
 import { LoginPage } from '../../pages/LoginPage';
-import { takeScreenshotOnFailure } from '../../utils/screenshotUtils';
 import Config from '../../utils/configUtils';
 import { ShiftPlanPage } from '../../pages/work_shift_page/ShiftPlanPage';
 import { clearAllShiftPlan, checkShiftPlanExists } from '../../db/DBHelper';
@@ -28,10 +27,6 @@ test.describe.serial('Shift Plan Tests', () => {
         await loginPage.login(Config.admin_username, Config.admin_password);
         await basePage.clickTimeKeepingManagement();
         await shiftPlanPage.clickShiftPlanButton();
-    });
-
-    test.afterEach(async ({ page }, testInfo: TestInfo) => {
-        await takeScreenshotOnFailure(page, testInfo);
     });
 
     async function testBody() {

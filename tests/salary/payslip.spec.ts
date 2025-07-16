@@ -1,6 +1,5 @@
-import { test, TestInfo } from '@playwright/test';
+import { test, } from '../base-test';
 import { LoginPage } from '../../pages/LoginPage';
-import { takeScreenshotOnFailure } from '../../utils/screenshotUtils';
 import Config from '../../utils/configUtils';
 import { PayslipPage } from '../../pages/salary_page/PayslipPage';
 import { allure } from 'allure-playwright';
@@ -30,9 +29,6 @@ test.describe.serial('Payslip Tests', () => {
         await loginPage.login(Config.admin_username, Config.admin_password);
     });
 
-    test.afterEach(async ({ page }, testInfo: TestInfo) => {
-        await takeScreenshotOnFailure(page, testInfo);
-    });
 
     test('Export only one a employee', async ({ page }) => {
         await clearAllPaysheets();

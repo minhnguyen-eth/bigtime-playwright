@@ -1,6 +1,5 @@
-import { test, TestInfo, expect } from '@playwright/test';
+import { test, } from './base-test';
 import { LoginPage } from '../pages/LoginPage';
-import { takeScreenshotOnFailure } from '../utils/screenshotUtils';
 import Config from '../utils/configUtils';
 import { allure } from 'allure-playwright';
 import { BasePage } from '../pages/BasePage';
@@ -27,11 +26,6 @@ test.describe.serial('Branch Test', () => {
         await loginPage.login(Config.admin_username, Config.admin_password)
         await basePage.clickAdmin();
     })
-
-    test.afterEach(async ({ page }, testInfo: TestInfo) => {
-        await takeScreenshotOnFailure(page, testInfo);
-    });
-
 
     test('Create branch with valid information', async ({ page }) => {
         await clearBranch();

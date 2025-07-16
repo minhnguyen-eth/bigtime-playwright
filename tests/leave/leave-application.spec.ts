@@ -1,6 +1,5 @@
-import { test, expect, Page, TestInfo } from '@playwright/test';
+import { test, } from '../base-test';
 import { LoginPage } from '../../pages/LoginPage';
-import { takeScreenshotOnFailure } from '../../utils/screenshotUtils';
 import Config from '../../utils/configUtils';
 import { LeaveApplicationPage } from '../../pages/leave_page/LeaveApplicationPage';
 import { clearAllLeaveApplications, clearAllLeaveManagements } from '../../db/DBHelper';
@@ -28,11 +27,6 @@ test.describe.serial('Leave Application Tests', () => {
         basePage = new BasePage(page);
         toastPage = new ToastPage(page);
     });
-
-    test.afterEach(async ({ page }, testInfo: TestInfo) => {
-        await takeScreenshotOnFailure(page, testInfo);
-    });
-
 
     async function addLeaveApplication() {
         await basePage.clickAdd();

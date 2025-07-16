@@ -1,7 +1,6 @@
-import { test, expect, Page, TestInfo } from '@playwright/test';
+import { test, } from './base-test';
 import { clearResignation } from '../db/DBHelper';
 import { LoginPage } from '../pages/LoginPage';
-import { takeScreenshotOnFailure } from '../utils/screenshotUtils';
 import Config from '../utils/configUtils';
 import { RegisnationPage } from '../pages/RegisnationPage';
 import { ToastPage } from '../pages/ToastPage';
@@ -32,10 +31,6 @@ test.describe.serial('Resignation Tests', () => {
     logoutPage = new LogoutPage(page);
 
     await loginPage.goto();
-  });
-
-  test.afterEach(async ({ page }, testInfo: TestInfo) => {
-    await takeScreenshotOnFailure(page, testInfo);
   });
 
   async function addResignation() {

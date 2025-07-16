@@ -1,6 +1,5 @@
-import { test, expect, Page, TestInfo } from "@playwright/test";
+import { expect, test, } from '../base-test';
 import { LoginPage } from "../../pages/LoginPage";
-import { takeScreenshotOnFailure } from "../../utils/screenshotUtils";
 import Config from "../../utils/configUtils";
 import { EvaluationTypePage } from "../../pages/evaluation_page/EvaluationTypePage";
 import { checkEvaluationTypeExists, deleteEvaluationType, clearAllEluationTypes } from '../../db/DBHelper';
@@ -27,10 +26,6 @@ test.describe.serial("Evaluation Type Tests", () => {
 
         await loginPage.goto();
         await loginPage.login(Config.admin_username, Config.admin_password);
-    });
-
-    test.afterEach(async ({ page }, testInfo: TestInfo) => {
-        await takeScreenshotOnFailure(page, testInfo);
     });
 
     test("Max lenghth of evaluation type name is 255 characters", async ({ page }) => {

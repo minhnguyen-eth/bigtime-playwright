@@ -1,10 +1,9 @@
-import { test, TestInfo } from '@playwright/test';
+import { test, } from '../base-test';
 import { LoginPage } from '../../pages/LoginPage';
 import { ToastPage } from '../../pages/ToastPage';
 import { LogoutPage } from '../../pages/LogoutPage';
 import { BasePage } from '../../pages/BasePage';
 import { allure } from 'allure-playwright';
-import { takeScreenshotOnFailure } from "../../utils/screenshotUtils";
 import Config from '../../utils/configUtils';
 import { AllowancePage } from '../../pages/salary_page/AllowancePage';
 import { clearAllowanceType } from '../../db/DBHelper';
@@ -31,10 +30,6 @@ test.describe.serial('Allowance Tests', () => {
         await loginPage.login(Config.admin_username, Config.admin_password);
         await basePage.clickSalary();
         await allowancePage.clickAllowance();
-    });
-
-    test.afterEach(async ({ page }, testInfo: TestInfo) => {
-        await takeScreenshotOnFailure(page, testInfo);
     });
 
     test('Save with empty data', async ({ page }) => {
