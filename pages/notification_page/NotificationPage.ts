@@ -4,10 +4,8 @@ import { BasePage } from '../BasePage';
 export class NotificationPage extends BasePage {
 
     readonly notificationButton: Locator;
-    readonly addButton: Locator;
     readonly notificationName: Locator;
     readonly description: Locator;
-    readonly saveButton: Locator;
     readonly cancelButton: Locator;
     readonly notificationFormDropdown: Locator;
     readonly startDate: Locator;
@@ -18,9 +16,9 @@ export class NotificationPage extends BasePage {
     readonly existedName: Locator;
     readonly requiredName: Locator;
     readonly requiredDescription: Locator;
-    readonly iconAction: Locator;
     readonly sendNotification: Locator;
     readonly department: Locator;
+    readonly checkBoxPersonalOrDepartment: Locator;
     readonly departmentOption: Locator;
     readonly personnal: Locator;
     readonly personnalOption: Locator;
@@ -43,12 +41,10 @@ export class NotificationPage extends BasePage {
         this.listNotification = page.locator("//div[contains(text(),'Danh sách thông báo')]");
         this.personnalSelect = page.locator("//div[3]/div/div[1]/table/tbody/tr/td[1]/div/div/div/input");
         this.personnalSearch = page.locator("//div[2]/div/div/div/div[4]/div/input");
-        this.personnalOption = page.locator("//tbody/tr[1]/td[1]/div[1]/div[1]/div[1]/i[1]");
         this.personnal = page.locator("//span[contains(normalize-space(),'Cá nhân')]");
-        this.departmentOption = page.locator("//tr/td[1]/div/div/div/input");
+        this.checkBoxPersonalOrDepartment = page.locator("//td[contains(@class, 'v-data-table__td--select-row')]//input[@type='checkbox']");
         this.department = page.locator("//span[contains(normalize-space(),'Bộ phận')]");
         this.sendNotification = page.locator("//span[contains(text(),'Gửi')]");
-        this.iconAction = page.locator("//tr[@id='row-0']//i[@class='mdi mdi-format-list-group mdi v-icon notranslate v-theme--lightColor7 v-icon--size-default']");
         this.requiredName = page.locator("//div[contains(text(),'Nhập tên thông báo')]");
         this.requiredDescription = page.locator("//div[contains(text(),'Nhập nội dung chi tiết')]");
         this.existedName = page.locator("//li[contains(text(),'Tên đã tồn tại.')]");
@@ -56,16 +52,13 @@ export class NotificationPage extends BasePage {
         this.urgent = page.locator("//div[text()='Khẩn cấp']");
         this.holiday = page.locator("//div[text()='Ngày nghỉ']");
         this.notificationFormDropdown = page.locator("//div[2]/div/div[2]/div/div/div/div[3]/div/input");
-        this.startDate = page.locator("//div[3]/div/div/div/div/div[1]/div/div/div[3]/input");
-        this.endDate = page.locator("//div[4]/div/div/div/div/div[1]/div/div/div[3]/input");
+        this.startDate = page.getByRole('textbox', { name: 'Thời gian bắt đầu ※' })
+        this.endDate = page.getByRole('textbox', { name: 'Thời gian kết thúc ※' })
         this.notificationButton = page.locator("//div[contains(text(),'Quản lý thông báo')]");
-        this.addButton = page.locator("//span[normalize-space()='Thêm']");
-        this.notificationName = page.locator("//div[2]/div/div[1]/div/div/div/div[3]/div/input");
-        this.description = page.locator("//div[2]/div/div[5]/div/div/div/div[3]/textarea");
-        this.saveButton = page.locator("//span[contains(normalize-space(),'Lưu')]");
+        this.notificationName = page.getByRole('textbox', { name: 'Tên thông báo ※' })
+        this.description = page.getByRole('textbox', { name: 'Nội dung chi tiết ※' })
         this.cancelButton = page.locator("//span[contains(normalize-space(),'Hủy')]");
     }
-
 
     async getVerifyNotificationPersonnal() {
         await this.safeVerifyToHaveText(this.verifyNotificationPersonnal, "Gửi đến: Nhân viên BAT810-Nguyễn Văn Minh");
@@ -85,6 +78,7 @@ export class NotificationPage extends BasePage {
 
     async clickOnDeleteButton() {
         await this.safeClickFirst(this.deleteButton);
+        await this.clickOnYesButton();
     }
 
     async clickOnListNotification() {
@@ -101,7 +95,7 @@ export class NotificationPage extends BasePage {
     }
 
     async clickOnPersonnelOption() {
-        await this.safeClick(this.personnalOption);
+        await this.safeClick(this.checkBoxPersonalOrDepartment);
     }
 
     async clickOnPersonnal() {
@@ -109,7 +103,7 @@ export class NotificationPage extends BasePage {
     }
 
     async clickOnDepartmentOption() {
-        await this.safeClick(this.departmentOption);
+        await this.safeClick(this.checkBoxPersonalOrDepartment);
     }
 
     async clickOnDepartment() {
@@ -121,7 +115,7 @@ export class NotificationPage extends BasePage {
     }
 
     async clickOnIconAction() {
-        await this.safeClick(this.iconAction);
+        await this.clickIconAction();
     }
 
     async getRequiredName() {
@@ -164,10 +158,6 @@ export class NotificationPage extends BasePage {
 
     async fillDescription(description: string) {
         await this.safeFill(this.description, description);
-    }
-
-    async clickOnSaveButton() {
-        await this.safeClick(this.saveButton);
     }
 
     async clickOnCancelButton() {

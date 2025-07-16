@@ -27,7 +27,7 @@ export class EvaluationCriteriaPage extends BasePage {
         this.requiredEvaluationTypeName = page.locator("//div[contains(text(),'Nhập tên loại đánh giá')]");
         this.requiredCriteriaName = page.locator("//div[contains(text(),'Nhập tên tiêu chí')]");
         this.verifyLockStatus = page.locator("//tr[@id='row-0']//span[@class='custom-size'][contains(text(),'Khóa')]");
-        this.statusDropDown = page.locator("//div[@class='v-field v-field--active v-field--appended v-field--center-affix v-field--dirty v-field--prepended v-field--variant-outlined v-theme--lightColor7 v-locale--is-ltr']//div[@class='v-field__input']");
+        this.statusDropDown = page.locator("(//div[contains(@class, 'v-field') and contains(@class, 'v-field--active')]//i[contains(@class, 'mdi-menu-down')])[3]");
         this.cancelAddButton = page.locator("//span[contains(normalize-space(),'Hủy')]");
         this.verifyActivityStatus = page.locator("//tr[@id='row-0']//span[@class='custom-size'][normalize-space()='Hoạt động']");
         this.verifyLockStatusSearch = page.locator("//span[@class='custom-size'][normalize-space()='Khóa']");

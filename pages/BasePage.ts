@@ -35,6 +35,9 @@ export class BasePage {
     readonly noExistData: Locator;
     readonly iconStatusDropdown: Locator;
     readonly validationNameExist: Locator;
+    readonly noteInput: Locator;
+    readonly iconActions: Locator;
+    readonly statusDropDownInForm: Locator;
 
     // Validatation
     readonly requiredFillReason: Locator;
@@ -45,6 +48,8 @@ export class BasePage {
 
     constructor(page: Page) {
         this.page = page;
+        this.statusDropDownInForm = page.getByRole('combobox').filter({ hasText: 'Trạng thái ※' }).locator('i').nth(1)
+        this.noteInput = page.getByRole('textbox', { name: 'Ghi chú' });
         this.validateMaxlenght100Charactor = page.locator("//div[contains(text(),'Không nhập quá 100 kí tự.')]");
         this.validateMaxlenght20Charactor = page.locator("//div[contains(text(),'Không nhập quá 20 kí tự.')]");
         this.validateMaxlenght500Charactor = page.locator("//div[contains(text(),'Không nhập quá 500 kí tự.')]");
@@ -55,20 +60,20 @@ export class BasePage {
         this.row0 = page.locator("//tr[@id='row-0']");
         this.lockStatus = page.locator("//div[contains(text(),'Khóa')]");
         this.activityStatus = page.locator("//div[contains(text(),'Hoạt động')]");
-        this.dropdownStatusSearch = page.locator("//div[@class='v-field v-field--appended v-field--center-affix v-field--variant-outlined v-theme--lightColor7 v-locale--is-ltr']//i[@class='mdi-menu-down mdi v-icon notranslate v-theme--lightColor7 v-icon--size-default v-select__menu-icon']");
+        this.dropdownStatusSearch = page.getByRole('combobox').filter({ hasText: 'Trạng thái' }).locator('i')
         this.activityStatusRow0 = page.locator("//tr[@id='row-0']//span[@class='custom-size'][contains(text(),'Hoạt động')]");
         this.lockStatusRow0 = page.locator("//tr[@id='row-0']//span[@class='custom-size'][normalize-space()='Khóa']");
         this.Admin_Button = page.locator("//span[normalize-space()='Quản lý']");
         this.TimeKeepingManagement_Button = page.locator("//span[normalize-space()='Quản lý chấm công']");
         this.Salary_Button = page.locator("//span[normalize-space()='Lương']");
         this.Setting_Button = page.locator("//span[normalize-space()='Cài đặt']");
-        this.iconAction = page.locator("//tr[@id='row-0']//i[@class='mdi mdi-format-list-group mdi v-icon notranslate v-theme--lightColor7 v-icon--size-default']");
+        this.iconAction = page.locator("//tr[@id='row-0']//i[contains(@class, 'mdi mdi-format-list-group ')]");
         this.requiredFillReason = page.locator("//div[contains(text(),'Nhập lý do')]");
         this.toDayDatePicker = page.locator("//div[contains(@class, 'dp__cell_inner') and contains(@class, 'dp__pointer') and contains(@class, 'dp__today')]");
         this.deleteButton = page.locator("//span[contains(text(),'Xóa')]");
         this.editButton = page.locator("//span[contains(text(),'Sửa')]");
         this.reasonInput = page.locator("//textarea");
-        this.chosseButton = page.locator("//button[contains(text(),'Chọn')]");
+        this.chosseButton = page.getByRole('button', { name: 'Chọn' })
         this.confirmButton = page.locator("//span[contains(text(),'Xác nhận')]");
         this.rejectButton = page.locator("//span[contains(text(),'Từ chối')]");
         this.browsedStatus = page.locator("//tr[@id='row-0']//div[text()='Đã duyệt']");
@@ -85,9 +90,7 @@ export class BasePage {
         this.searchButton = page.locator("//span[contains(normalize-space(),'Tìm kiếm')]");
     }
 
-    
 
-   
     async waitForPageReady(timeout: number = 30000) {
         await this.page.waitForLoadState('networkidle', { timeout });
     }
@@ -370,5 +373,13 @@ export class BasePage {
 
     async clickSearch() {
         await this.safeClick(this.searchButton);
+    }
+
+    async fillNote(note: string) {
+        await this.safeFill(this.noteInput, note);
+    }
+
+    async clickDropdownStatusInForm() {
+        await this.safeClick(this.statusDropDownInForm);
     }
 }

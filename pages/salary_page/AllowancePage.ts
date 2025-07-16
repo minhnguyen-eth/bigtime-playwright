@@ -29,23 +29,22 @@ export class AllowancePage extends BasePage {
         this.allowanceTypeDailyResult = page.locator("//tr[@id='row-0']//div[@class='v-chip__content'][normalize-space()='Hàng ngày']");
         this.allowanceTypeDaily = page.locator("//div[contains(text(),'Hàng ngày')]");
         this.searchNameResult = page.locator("//tr[@id='row-0']//span[contains(text(),'Phụ cấp tiền ăn')]");
-        this.allowanceTypeDropdownSearch = page.locator("//div[@class='v-card-text master-table-search pb-0 pl-0']//div[2]//div[1]//div[1]//div[1]//div[4]//i[1]");
-        this.nameAllowanceSearch = page.locator("//form/div/div[1]/div/div/div/div[3]/div/input");
+        this.allowanceTypeDropdownSearch = page.getByRole('combobox').filter({ hasText: 'Loại phụ cấp' }).locator('i');
+        this.nameAllowanceSearch = page.getByRole('textbox', { name: 'Tên phụ cấp' });
         this.activityStatus = page.locator("//div[contains(text(),'Hoạt động')]");
         this.validationNameExist = page.locator("//li[contains(text(),'Tên đã tồn tại.')]");
         this.validationMoney = page.locator("//div[contains(text(),'Nhập tiền phụ cấp')]");
         this.validattionMaxLength = page.locator("//div[contains(text(),'Không nhập quá 255 kí tự.')]");
         this.allowanceTypeMonthly = page.locator("//div[contains(text(),'Hàng tháng')]");
         this.msgAllowanceNameRequired = page.locator("//div[contains(text(),'Nhập tên phụ cấp')]");
-        this.allowanceTypeDropdown = page.locator("//i[@class='mdi mdi-form-select mdi v-icon notranslate v-theme--lightColor7 v-icon--size-default']");
+        this.allowanceTypeDropdown = page.getByRole('combobox').filter({ hasText: 'Loại phụ cấp ※Hàng ngàyLoại' }).locator('i').nth(1);
         this.lockStatus = page.locator("//div[contains(text(),'Khóa')]");
-        this.statusDropdown = page.locator("//i[@class='mdi-book-lock-open-outline mdi v-icon notranslate v-theme--lightColor7 v-icon--size-default']");
+        this.statusDropdown = page.getByRole('combobox').filter({ hasText: 'Trạng thái ※' }).locator('i').nth(1);
         this.noteInput = page.locator("//div[2]/div/div[5]/div/div/div/div[4]/textarea");
-        this.allowanceNameInput = page.locator("//div[2]/div/div[1]/div/div/div/div[4]/div/input");
-        this.allowanceMoneyInput = page.locator("//div[2]/div/div[2]/div/div/div/div[4]/input");
+        this.allowanceNameInput = page.getByRole('textbox', { name: 'Tên phụ cấp ※' })
+        this.allowanceMoneyInput = page.getByRole('textbox', { name: 'Tiền phụ cấp ※' })
         this.allowanceButton = page.locator("//div[contains(text(),'Loại phụ cấp')]");
     }
-
 
     async checkAllowanceTypeMonthlyResult() {
         await this.safeVerifyToHaveText(this.allowanceTypeMonthlyResult, 'Hàng tháng');

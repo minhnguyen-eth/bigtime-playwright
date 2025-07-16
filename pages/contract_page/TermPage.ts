@@ -17,7 +17,7 @@ export class TermPage extends BasePage {
         this.validateNameDuplicate = page.locator("//li[contains(text(),'Tiêu đề đã tồn tại.')]");
         this.validateMaxLengthName = page.locator("//div[contains(text(),'Không nhập quá 255 kí tự.')]");
         this.lockStatus = page.locator("//div[contains(text(),'Khóa')]");
-        this.dropdownStatus = page.locator("//div[@class='v-field v-field--active v-field--appended v-field--center-affix v-field--dirty v-field--prepended v-field--variant-outlined v-theme--lightColor7 v-locale--is-ltr']//i[@class='mdi-menu-down mdi v-icon notranslate v-theme--lightColor7 v-icon--size-default v-select__menu-icon']");
+        this.dropdownStatus = page.locator("(//div[contains(@class, 'v-field') and contains(@class, 'v-field--active')]//i[contains(@class, 'mdi-menu-down')])[3]");
         this.validateName = page.locator("//div[contains(text(),'Nhập tiêu đề')]");
         this.validateContent = page.locator("//div[contains(text(),'Nhập nội dung')]");
         this.contentInput = page.locator("//div[2]/div/div[2]/div/div/div/div[3]/textarea");
@@ -61,4 +61,3 @@ export class TermPage extends BasePage {
         await this.safeClick(this.termButton);  
     }
 }
-

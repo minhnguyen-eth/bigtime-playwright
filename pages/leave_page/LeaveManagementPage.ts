@@ -9,8 +9,6 @@ export class LeaveManagementPage extends BasePage {
     readonly addButton: Locator;
     readonly leaveTypeDropDown: Locator;
     readonly anualLeave: Locator;
-    readonly startDate: Locator;
-    readonly endDate: Locator;
     readonly reason: Locator;
     readonly todayButton: Locator;
     readonly chosseButton: Locator;
@@ -87,24 +85,22 @@ export class LeaveManagementPage extends BasePage {
         this.logoutConfirmButton = page.locator('//span[normalize-space()="Có"]');
         this.OkButton = page.locator("//span[normalize-space()='Có']")
         this.comfirmButton = page.locator("//span[contains(text(),'Xác nhận')]")
-        this.iconActionRow0 = page.locator("//tr[@id='row-0']//i[@class='mdi mdi-format-list-group mdi v-icon notranslate v-theme--lightColor7 v-icon--size-default']")
-        this.iconActionRow1 = page.locator("//tr[@id='row-1']//i[@class='mdi mdi-format-list-group mdi v-icon notranslate v-theme--lightColor7 v-icon--size-default']")
-        this.iconActionRow2 = page.locator("//tr[@id='row-2']//i[@class='mdi mdi-format-list-group mdi v-icon notranslate v-theme--lightColor7 v-icon--size-default']")
+        this.iconActionRow0 = page.locator("//tr[@id='row-0']//i[contains(@class, 'mdi-format-list-group')]")
+        this.iconActionRow1 = page.locator("//tr[@id='row-1']//i[contains(@class, 'mdi-format-list-group')]")
+        this.iconActionRow2 = page.locator("//tr[@id='row-2']//i[contains(@class, 'mdi-format-list-group')]")
         this.saveEmployee = page.locator("//span[contains(normalize-space(),'Lưu')]")
-        this.selectAEmployee = page.locator("//td[@class='v-data-table__td v-data-table-column--no-padding v-data-table-column--align-start v-data-table__td--select-row']")
+        this.selectAEmployee = page.locator("//td[contains(@class, 'v-data-table__td') and contains(@class, 'v-data-table__td--select-row')]")
         this.searchByName = page.locator("//div[1]/div/div/div/div[4]/div/input")
         this.saveDepartmentAndTeam = page.locator("//button[@type='submit']//span[@class='v-btn__content']")
         this.departmentIT = page.locator("//div[text()='Bộ phận IT']")
         this.departmentAndTeam = page.locator("//span[.='Bộ phận/Nhóm']")
-        this.AddDepatment = page.locator("//button[@class='v-btn v-btn--elevated v-theme--lightColor7 bg-primary v-btn--density-default rounded-lg v-btn--size-x-small v-btn--variant-elevated']//span[@class='v-btn__content'][normalize-space()='Thêm']")
+        this.AddDepatment = page.locator("(//button[contains(@class, 'v-btn') and .//span[normalize-space()='Thêm']])[2]")
         this.leaveManagementButton = page.locator("//div[contains(text(),'Quản lý nghỉ phép năm')]")
         this.cancelButton = page.locator("//span[.=' Hủy']")
         this.saveButton = page.locator("//span[contains(normalize-space(),'Lưu')]")
         this.chosseButton = page.locator("//button[contains(text(),'Chọn')]")
         this.todayButton = page.locator("//div[@class='dp__cell_inner dp__pointer dp__today dp__date_hover']")
         this.reason = page.locator("//div/div[2]/div/div[5]/div/div/div/div[4]/textarea")
-        this.endDate = page.locator("//div[2]/div/div[4]/div/div/div/div/div[1]/div/div/div[3]/input")
-        this.startDate = page.locator("//div[2]/div/div[2]/div/div[3]/div/div/div/div/div[1]/div/div/div[3]/input")
         this.anualLeave = page.locator("//div[contains(text(),'Nghỉ theo phép năm')]")
         this.leaveTypeDropDown = page.locator("//div[@class='v-col-md-4 v-col-12']//div[@class='v-field__input']")
         this.addButton = page.locator("//span[normalize-space()='Thêm']")

@@ -29,14 +29,12 @@ export class WorkShiftPage extends BasePage {
     readonly chosse17HourPicker: Locator;
     readonly branchDropdown: Locator;
     readonly branchBienHoa: Locator;
-    readonly statusDropdown: Locator;
     readonly lockStatus: Locator;
     readonly okButton: Locator;
     readonly verifyLockStatus: Locator;
     readonly workshiftNameSearchField: Locator;
     readonly workshiftCodeSearchField: Locator;
     readonly branchDropdownSearch: Locator;
-    readonly statusDropdownSearch: Locator;
     readonly statusActive: Locator;
     readonly statusLock: Locator;
     readonly branchBienHoaSearch: Locator;
@@ -54,41 +52,39 @@ export class WorkShiftPage extends BasePage {
 
         this.verifyWorkingTime = page.locator("//div[3]/div/input[@value='08:00']");
         this.verifyLockStatusSearchRow1 = page.locator("//tr[@id='row-2']//span[@class='custom-size'][contains(text(),'Khóa')]");
-        this.statusDropdownSearch = page.locator("//div[@class='v-input v-input--horizontal v-input--center-affix v-input--density-compact v-theme--lightColor7 v-locale--is-ltr v-text-field v-select v-select--multiple custom-select multi-select-grid']");
         this.verifyLockStatusSearch = page.locator("//span[@class='custom-size'][normalize-space()='Khóa']");
         this.verifyAtiveStatusSearch = page.locator("//tr[@id='row-0']//span[@class='custom-size'][contains(text(),'Hoạt động')]");
         this.verifyBranchBienHoaSearch = page.locator("//tr[@id='row-0']//span[contains(text(),'Biên Hòa')]");
         this.verifyWorkShiftCode = page.locator("//tr[@id='row-0']//span[contains(text(),'CN')]");
         this.verifyWorkShiftName = page.locator("//a[@class='ml-2']//span[contains(text(),'Ca ngày')]");
         this.clearSearchButton = page.locator("//span[.=' Xóa']");
-        this.workshiftCodeSearchField = page.locator("//form/div/div[2]/div/div/div/div[3]/div/input");
-        this.workshiftNameSearchField = page.locator("//form/div/div[1]/div/div/div/div[3]/div/input");
+        this.workshiftCodeSearchField = page.getByRole('textbox', { name: 'Mã ca' });
+        this.workshiftNameSearchField = page.getByRole('textbox', { name: 'Tên ca' });
         this.branchBienHoaSearch = page.locator("//div[contains(text(),'Biên Hòa')]");
-        this.branchDropdownSearch = page.locator("//div[@class='v-field v-field--active v-field--appended v-field--center-affix v-field--dirty v-field--variant-outlined v-theme--lightColor7 v-locale--is-ltr']");
+        this.branchDropdownSearch = page.getByRole('combobox').filter({ hasText: 'Chi nhánh' }).locator('i');
         this.statusActive = page.locator("//div[text()='Hoạt động']");
         this.statusLock = page.locator("//div[text()='Khóa']");
         this.verifyLockStatus = page.locator("//tr[@id='row-0']//span[@class='custom-size'][normalize-space()='Khóa']");
         this.okButton = page.locator("//span[normalize-space()='Có']");
         this.lockStatus = page.locator("//div[contains(text(),'Khóa')]");
-        this.statusDropdown = page.locator("//div[@class='v-field v-field--active v-field--appended v-field--center-affix v-field--dirty v-field--prepended v-field--variant-outlined v-theme--lightColor7 v-locale--is-ltr']//div[@class='v-field__input']");
         this.branchBienHoa = page.locator("//div[text()='Biên Hòa']");
         this.branchDropdown = page.locator("//i[@title='Open']");
-        this.chosse17HourPicker = page.locator("//div[@class='dp__overlay_cell dp__overlay_cell_pad'][normalize-space()='17']");
-        this.chosse08HourPicker = page.locator("//div[@class='dp__overlay_cell dp__overlay_cell_pad'][normalize-space()='08']");
-        this.chosse13HourPicker = page.locator("//div[@class='dp__overlay_cell dp__overlay_cell_pad'][normalize-space()='13']");
+        this.chosse17HourPicker = page.locator("//div[contains(@class, 'dp__overlay_cell') and normalize-space()='17']");
+        this.chosse08HourPicker = page.locator("//div[contains(@class, 'dp__overlay_cell') and normalize-space()='08']");
+        this.chosse13HourPicker = page.locator("//div[contains(@class, 'dp__overlay_cell') and normalize-space()='13']");
         this.saveButton = page.locator("//span[.=' Lưu']");
-        this.timeEndRest = page.locator("//div[7]/div/div/div/div/div[1]/div/div/div[3]/input");
-        this.timeStartRest = page.locator("//div[6]/div/div/div/div/div[1]/div/div/div[3]/input");
+        this.timeEndRest = page.getByRole('textbox', { name: 'Thời gian kết thúc nghỉ ※' });
+        this.timeStartRest = page.getByRole('textbox', { name: 'Thời gian bắt đầu nghỉ ※' });
         this.restCheckBox = page.locator("//input[@type='checkbox']");
         this.chosseButtonPicker = page.locator("//button[contains(text(),'Chọn')]");
         this.chosse00MinutePicker = page.locator("//div[@class='dp__overlay_cell dp__overlay_cell_pad'][normalize-space()='00']");
         this.chosse12HourPicker = page.locator("//div[@class='dp__overlay_cell dp__overlay_cell_pad'][normalize-space()='12']");
-        this.chosseMinutePicker = page.locator("//div/div/div/div/div/div[3]/button[2]");
-        this.chosseHourPicker = page.locator("//div/div/div/div/div/div[1]/button[2]");
-        this.workshiftEndTimeInput = page.locator("//div[4]/div/div/div/div/div[1]/div/div/div[3]/input");
-        this.workshiftStartTimeInput = page.locator("//div[3]/div/div/div/div/div[1]/div/div/div[3]/input");
-        this.workshiftNameInput = page.locator("//div[2]/div/div[1]/div/div[1]/div/div[4]/div/input");
-        this.workshiftCodeInput = page.locator("//div[2]/div/div[2]/div/div[1]/div/div[4]/div/input");
+        this.chosseMinutePicker = page.getByRole('button', { name: 'Open minutes overlay' });
+        this.chosseHourPicker = page.getByRole('button', { name: 'Open hours overlay' });
+        this.workshiftEndTimeInput = page.getByRole('textbox', { name: 'Giờ kết thúc ※' });
+        this.workshiftStartTimeInput = page.getByRole('textbox', { name: 'Giờ bắt đầu ※' });
+        this.workshiftNameInput = page.getByRole('textbox', { name: 'Tên ca ※' });
+        this.workshiftCodeInput = page.getByRole('textbox', { name: 'Mã ca ※' });
         this.searchButton = page.locator("//span[.=' Tìm kiếm']");
         this.workshiftButton = page.locator("//a[.='Ca làm việc']");
         this.addButton = page.locator("//span[normalize-space()='Thêm']");
@@ -156,9 +152,6 @@ export class WorkShiftPage extends BasePage {
         }
     }
 
-    async clickOnStatusDropdownSearch() {
-        await this.safeClick(this.statusDropdownSearch);
-    }
 
     async getVerifyLockStatus() {
         await this.safeVerifyTextContains(this.verifyLockStatus, "Khóa");
@@ -172,9 +165,6 @@ export class WorkShiftPage extends BasePage {
         await this.safeClick(this.lockStatus);
     }
 
-    async clickOnStatusDropdown() {
-        await this.safeClick(this.statusDropdown);
-    }
 
     async clickOnBranchBienHoa() {
         await this.safeClick(this.branchBienHoa);

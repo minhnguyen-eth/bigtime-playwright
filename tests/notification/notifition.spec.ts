@@ -9,7 +9,6 @@ import { clearAllNotifications } from '../../db/DBHelper';
 import { BasePage } from '../../pages/BasePage';
 import { LogoutPage } from '../../pages/LogoutPage';
 
-
 test.describe.serial('Notification Test Suite', () => {
     let loginPage: LoginPage;
     let notificationPage: NotificationPage;
@@ -245,7 +244,6 @@ test.describe.serial('Notification Test Suite', () => {
             await basePage.clickAdmin();
             await notificationPage.clickOnListNotification();
             await notificationPage.clickOnDeleteButton();
-            await notificationPage.clickOnYesButton();
         });
         await toast.getToastDeleteSuccess();
     });

@@ -30,7 +30,7 @@ export class LevelPage extends BasePage{
         this.levelButton = page.locator("//div[contains(text(),'Cấp bậc')]");
     }
 
-    // ✅ VERIFY
+    // VERIFY
     async expectSearchByNameResult() {
         await this.safeVerifyToHaveText(this.searchByNameResult, "Fresher");
     }
@@ -51,7 +51,7 @@ export class LevelPage extends BasePage{
         await this.safeVerifyToHaveText(this.validateName, "Nhập tên cấp bậc");
     }
 
-    // ✅ FILL
+    // FILL
     async fillSearchByName(name: string) {
         await this.safeFill(this.searchByName, name);
     }
@@ -72,7 +72,7 @@ export class LevelPage extends BasePage{
         await this.safeFill(this.levelName, level);
     }
 
-    // ✅ CLICK
+    // CLICK
     async clickLevel() {
         await this.safeClick(this.levelButton);
     }

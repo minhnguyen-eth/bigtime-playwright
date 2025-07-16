@@ -5,7 +5,6 @@ export class PaysheetPage extends BasePage {
 
     readonly paysheetButton: Locator;
     readonly namePaysheetInput: Locator;
-    readonly setNamePaysheetInput: Locator;
     readonly radioMonthly: Locator;
     readonly dropdownMonth: Locator;
     readonly monthOption: Locator;
@@ -41,7 +40,6 @@ export class PaysheetPage extends BasePage {
     readonly employeeNameInput: Locator;
     readonly payslipPayment: Locator;
     readonly requiredEnterName: Locator;
-    readonly searchButton: Locator;
     readonly searchEmployeeName: Locator;
     readonly exportExcelByMonth: Locator;
     readonly chosseMonthExport: Locator;
@@ -69,6 +67,7 @@ export class PaysheetPage extends BasePage {
     readonly verifyOverTime: Locator;
     readonly verifyAllowance: Locator;
     readonly verifyDeduction: Locator;
+    readonly selectMoreEmployee2: Locator;
 
     constructor(page: Page) {
         super(page);
@@ -86,30 +85,29 @@ export class PaysheetPage extends BasePage {
         this.bonusButton = page.locator("//tbody/tr[@class='selected-row']/td[7]/p[1]")
         this.overTimeInput = page.locator("//tr/td[5]/div/div/div/div[3]/input")
         this.verifyBaseSalary = page.locator("//p[contains(text(),'20.000.000 đ')]")
-        this.numberOfWorkingDays = page.locator("//tr/td[4]/div/div/div/div[3]/div/input")
+        this.numberOfWorkingDays = page.locator("//tr/td[4]/div/div/div/div[3]/div/input");
         this.baseSalary = page.locator("//tbody/tr/td[4]/p[1]")
         this.selectMoreEmployee = page.locator("//span[contains(.,'Big App Tech')]")
+        this.selectMoreEmployee2 = page.getByRole('option', { name: 'BAT810 - Nguyễn Văn Minh' });
         this.fillEmployeeName = page.locator("//div[3]/div[2]/div/div/div/div[3]/div/input")
         this.addMoreEmployee = page.locator("//span[normalize-space()='Thêm nhân viên']")
-        this.exportOnly1Paysheet = page.locator("//button[@class='v-btn v-theme--lightColor7 bg-success v-btn--density-default rounded-lg v-btn--size-x-small v-btn--variant-flat mr-2']//span[@class='v-btn__content']")
+        this.exportOnly1Paysheet = page.getByRole('table').getByRole('button', { name: 'Xuất dữ liệu' });
         this.chosseDatePicker = page.locator("//button[contains(text(),'Chọn')]")
         this.Month05 = page.locator("//div[@class='dp__overlay_cell dp__overlay_cell_pad'][normalize-space()='Thg 5']")
-        this.chosseMonthExport = page.locator("//div[2]/div/div/div/div/div[1]/div/div/div[3]/input")
-        this.exportExcelByMonth = page.locator("//span[.=' Xuất dữ liệu']")
-        this.searchButton = page.locator("//span[.=' Tìm kiếm']")
+        this.chosseMonthExport = page.getByLabel('', { exact: true });
+        this.exportExcelByMonth = page.getByRole('main').locator('header').getByRole('button', { name: 'Xuất dữ liệu' });
         this.requiredEnterName = page.locator("//div[contains(text(),'Nhập tên')]")
         this.payslipPayment = page.locator("//span[normalize-space()='Phiếu lương']")
-        this.employeeNameInput = page.locator("//form[1]/div[1]/div[3]/div[1]/div[2]/div[1]/div[2]/div[1]/div[6]/div[1]/div[1]/div[1]/div[3]/div[1]/input[1]")
-        this.chooseMonth = page.locator("//div[@class='v-field v-field--active v-field--appended v-field--center-affix v-field--dirty v-field--variant-outlined v-theme--lightColor7 v-locale--is-ltr']//i[@title='Open']")
-        this.checkBoxMonthly = page.locator('//div/div[2]/div/div[2]/div/div/div/div/div[2]/div/div/input')
+        this.employeeNameInput = page.getByRole('textbox', { name: 'Nhân viên ※' })
+        this.chooseMonth = page.getByRole('textbox', { name: 'Khoảng thời gian hàng tháng' });
+        this.checkBoxMonthly = page.getByRole('radio', { name: 'Hàng tháng' });
         this.paysheetButton = page.locator('//a[@href="/salary/pay-sheet"]');
-        this.namePaysheetInput = page.locator('//form/div/div[3]/div/div[2]/div/div[2]/div/div[1]/div/div/div/div[3]/div/input');
-        this.setNamePaysheetInput = page.locator('//form//div[3]//div[2]//div//div[1]//div//div[1]//div//input');
-        this.radioMonthly = page.locator('//i[contains(@class,"mdi-radiobox-blank")]');
+        this.namePaysheetInput = page.getByRole('textbox', { name: 'Tên ※' });
+        this.radioMonthly = page.getByRole('radio', { name: 'Hàng tháng' });
         this.dropdownMonth = page.locator('//i[@title="Open"]');
         this.monthOption = page.locator('//div[@class="v-list-item-title"][normalize-space()="1/7/2025 - 31/7/2025"]');
         this.monthOption05 = page.locator('//div[@class="v-list-item-title"][normalize-space()="1/5/2025 - 31/5/2025"]');
-        this.dropdownEmployee = page.locator("//div[@class='v-field v-field--appended v-field--center-affix v-field--variant-outlined v-theme--lightColor7 v-locale--is-ltr']//div[@class='v-field__input']");
+        this.dropdownEmployee = page.getByRole('textbox', { name: 'Nhân viên ※' });
         this.employeeOption = page.locator("//div[@role='option']//div[@class='v-list-item-title']");
         this.submitButton = page.locator('//button[@type="submit"]');
         this.latestPaysheetRow = page.locator('#row-0').getByText('Automation test 7/')
@@ -130,14 +128,18 @@ export class PaysheetPage extends BasePage {
         this.historyPaymentCodeButton = page.locator('//td[@class="text-left cursor-pointer"]');
         this.employeeNameLabel = page.locator('//div[contains(text(),"Nguyễn Văn Minh")]');
         this.cancelPaysheetButton = page.locator('//span[normalize-space()="Hủy"]');
-        this.searchInput = page.locator("//div[1]/div/div/div/div[4]/div/input");
+        this.searchInput = page.getByRole('textbox', { name: 'Tìm kiếm theo mã hoặc tên bảng lương' });
         this.verifyPaysheetIdCell = page.locator("//td[.='BL000001']");
-        this.selectAllEmployeesCheckbox = page.locator("//div[@class='v-col-md-12 v-col-12']//i[@class='mdi-radiobox-blank mdi v-icon notranslate v-theme--lightColor7 v-icon--size-default']");
+        this.selectAllEmployeesCheckbox = page.getByRole('radio', { name: 'Chọn tất cả nhân viên' });
         this.reasonLabel = page.locator('//form//div[3]//textarea');
         this.reasonInput = page.locator('//form//div[3]//div[3]//textarea');
         this.paymentButton = page.getByRole('button', { name: 'Thanh toán' });
         this.createTicketButton = page.locator('//span[contains(normalize-space(),"Tạo phiếu")]');
 
+    }
+
+    async clickSelectEmployee2() {
+        await this.safeClick(this.selectMoreEmployee2);
     }
 
     async expectAllowance() {

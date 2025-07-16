@@ -103,7 +103,7 @@ export class LeaveApplicationPage extends BasePage {
         this.cancelButton = page.locator("//span[.=' Hủy']")
         this.saveButton = page.locator("//span[.=' Lưu']")
         this.numberOfDaysOff = page.getByRole('spinbutton', { name: 'Số ngày nghỉ Số ngày nghỉ' })
-        this.reason = page.locator("//div/div[2]/div/div[5]/div/div/div/div[4]/textarea")
+        this.reason = page.getByRole('textbox', { name: 'Lý do ※' })
         this.endDate = page.getByRole('textbox', { name: 'Đến hết ngày ※' })
         this.startDate = page.getByRole('textbox', { name: 'Nghỉ từ ngày ※ Nghỉ từ ngày ※' })
         this.anualLeave = page.locator("//div[contains(text(),'Nghỉ theo phép năm')]")
@@ -344,7 +344,6 @@ export class LeaveApplicationPage extends BasePage {
     }
 
     async setDateForEdit() {
-
         await this.clickCloseDatePicker();
         await this.clickEndDate();
         await this.clickTodayDatePicker();

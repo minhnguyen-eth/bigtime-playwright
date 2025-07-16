@@ -118,5 +118,4 @@ export class BranchPage extends BasePage {
     async clickBranchButton() {
         await this.safeClick(this.branchButton);
     }
-
 }

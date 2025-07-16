@@ -22,7 +22,6 @@ export class DepartmentPage extends BasePage {
         this.noteInput = page.locator("//textarea");
     }
 
-
     async verifySearchByNameResult() {
         await this.safeVerifyToHaveText(this.searchByNameResult, "Bộ phận IT");
     }
@@ -50,6 +49,4 @@ export class DepartmentPage extends BasePage {
     async clickDepartment() {
         await this.safeClick(this.departmentButton);
     }
-
-
 }

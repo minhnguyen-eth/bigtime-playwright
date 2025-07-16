@@ -15,12 +15,12 @@ export class EvaluationTypePage extends BasePage {
     constructor(page: Page) {
         super(page);
         this.lockStatus = page.locator("//div[contains(text(),'Khóa')]");
-        this.statusDropdown = page.locator("//div[2]/div/div[2]/div/div/div/div[4]/div");
-        this.desciptionInput = page.locator("//div[2]/div/div[3]/div/div/div/div[3]/textarea");
+        this.statusDropdown = page.getByRole('combobox').filter({ hasText: 'Trạng thái ※' }).locator('i');
+        this.desciptionInput = page.getByRole('textbox', { name: 'Mô tả chi tiết' })
         this.evaluationTypeButton = page.locator("//div[contains(text(),'Phân loại đánh giá')]");
-        this.evaluationTypeNameInput = page.locator("//div/div[1]/div/div[1]/div/div[4]/div/input");
+        this.evaluationTypeNameInput = page.getByRole('textbox', { name: 'Tên loại đánh giá ※' })
         this.messageSuccess = page.locator("//div[contains(text(),'Thêm thành công')]")
-        this.searchEvaluationTypeInput = page.locator("//div/div[1]/div/div/div/div[3]/div/input");
+        this.searchEvaluationTypeInput = page.getByRole('textbox', { name: 'Tên loại đánh giá ' })
         this.searchButton = page.locator("//span[.=' Tìm kiếm']");
         this.exptectedSearchEvaluationTypeName = page.locator("//tr[@id='row-0']//span[contains(text(),'Đánh giá chuyên cần')]");
     }

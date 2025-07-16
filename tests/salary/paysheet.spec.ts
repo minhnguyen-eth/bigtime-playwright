@@ -87,13 +87,25 @@ test.describe.serial('Paysheet Tests', () => {
         await toastPage.getToastAddSuccess();
     };
 
-
     test('E2E Payroll and Payment Process', async ({ page }) => {
         allure.story('Complete Paysheet Process Story');
 
         await allure.step('Admin creates and sends paysheet and completes payment', async () => {
             await addPaysheet();
             await sendAndApprovePaysheet();
+        });
+    });
+
+    test('Add duplicate employee in paysheet', async ({ page }) => {
+        await allure.step('Admin creates and sends paysheet', async () => {
+            await addPaysheet();
+            await paysheet.clickLatestPaysheetRow();
+            await paysheet.clickViewPayroll();
+            await paysheet.clickAddMoreEmployee();
+            await paysheet.fillEmployeeNameInput('Nguyễn Văn Minh');
+            await paysheet.clickSelectEmployee2();
+            await basePage.clickSave();
+            await toastPage.getToastEmployeeExisted();
         });
     });
 
@@ -113,7 +125,6 @@ test.describe.serial('Paysheet Tests', () => {
             await paysheet.clickSendAll();
             await paysheet.clickConfirm();
             await logoutPage.logout();
-
         });
 
         await allure.step('Employee 1 approves payslip', async () => {
@@ -125,7 +136,6 @@ test.describe.serial('Paysheet Tests', () => {
             await logoutPage.logout();
         });
 
-
         await allure.step('Employee 2 approves payslip', async () => {
             await loginPage.login(Config.employee2_username, Config.employee2_password);
             await basePage.clickSalary();
@@ -134,7 +144,6 @@ test.describe.serial('Paysheet Tests', () => {
             await paysheet.clickBrowse();
             await logoutPage.logout();
         });
-
     });
 
     test('Test close salary but not browse', async ({ page }) => {
@@ -295,7 +304,7 @@ test.describe.serial('Paysheet Tests', () => {
             await paysheet.clickLatestPaysheetRow();
             await paysheet.clickViewPayroll();
             await paysheet.clickbaseSalary();
-            await paysheet.fillNumberOfWorkingDays('31');
+            await paysheet.fillNumberOfWorkingDays('30');
             await basePage.clickSave();
             await paysheet.fillOverTime('500000');
             await paysheet.clickBonusButton();

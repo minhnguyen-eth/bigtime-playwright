@@ -3,7 +3,6 @@ import { BasePage } from '../BasePage';
 
 export class OvertimeTicketPage extends BasePage {
 
-
     // Check in/out
     readonly checkInOutButton: Locator;
     readonly checkInButton: Locator;
@@ -53,7 +52,7 @@ export class OvertimeTicketPage extends BasePage {
         this.validateDateRequired = page.locator("//div[contains(text(),'Nhập ngày tăng ca')]");
         this.selectNewStatus = page.locator("//div[contains(text(),'Mới')]");
         this.selectPendingStatus = page.locator("//div[contains(text(),'Chờ duyệt')]");
-        this.dropdownStatus = page.locator("//div[@class='v-input v-input--horizontal v-input--center-affix v-input--density-compact v-theme--lightColor7 v-locale--is-ltr v-input--dirty v-text-field v-select v-select--single v-select--selected custom-select']//i[@class='mdi-menu-down mdi v-icon notranslate v-theme--lightColor7 v-icon--size-default v-select__menu-icon']");
+        this.dropdownStatus = page.getByRole('combobox').filter({ hasText: 'Trạng thái ※' }).locator('i');
         this.rejectStatusInfo = page.locator("//div[contains(@class, 'text-body-2') and contains(text(), 'Từ chối')]");
         this.browsedStatusInfo = page.locator("//div[contains(text(),'Đã duyệt')]");
         this.toastBrowseSuccess = page.locator("//div[contains(text(),'Phê duyệt thành công')]");
@@ -71,10 +70,10 @@ export class OvertimeTicketPage extends BasePage {
         this.chosseButton = page.locator("//button[contains(text(),'Chọn')]");
         this.hour17 = page.locator("//div[@class='dp__overlay_cell dp__overlay_cell_pad'][normalize-space()='17']");
         this.openHour = page.locator("//button[@aria-label='Open hours overlay']");
-        this.endTime = page.locator("//div[4]/div/div/div/div/div[1]/div/div/div[3]/input");
-        this.startTime = page.locator("//div[3]/div/div/div/div/div[1]/div/div/div[3]/input");
+        this.endTime = page.getByRole('textbox', { name: 'Giờ kết thúc ※' });
+        this.startTime = page.getByRole('textbox', { name: 'Giờ bắt đầu ※' });
         this.reasonInput = page.locator("//textarea");
-        this.overtimeTicketDayButton = page.locator("//div[2]/div/div/div/div/div[1]/div/div/div[3]/input");
+        this.overtimeTicketDayButton = page.getByRole('textbox', { name: 'Ngày tăng ca ※' });
         this.overtimeTicketButton = page.locator("//div[contains(text(),'Phiếu tăng ca')]");
         this.checkInOutHistoryButton = page.locator("//div[@class='v-list-item-title'][contains(text(),'Lịch sử điểm danh')]");
         this.confirmCheckInButton = page.locator("//span[.='Đồng ý']");
@@ -213,7 +212,6 @@ export class OvertimeTicketPage extends BasePage {
     async clickCheckInButton() {
         await this.safeClick(this.checkInButton);
     }
-
 
     // Functions for testing
     async setOverTimeTicket() {

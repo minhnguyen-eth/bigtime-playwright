@@ -8,15 +8,15 @@ node_modules/
 /playwright/.cache/
 
 # Allure reports
-.allure-results/
-.allure-report/
+allure-results/
+allure-report/
 
 # Screenshot and video
-.screenshots/
-.videos/
+screenshots/
+videos/
 
 # Vs Code
-.vscode/
+vscode/
 
 # Environment variables
 .env

@@ -27,7 +27,6 @@ export class DebtPage extends BasePage {
     readonly logoutButton: Locator;
     readonly actionBrowserButton: Locator;
     readonly actionRefusedButton: Locator;
-    readonly iconAction: Locator;
     readonly sendButton: Locator;
     readonly browseButton: Locator;
     readonly selectEmployee: Locator;
@@ -37,7 +36,6 @@ export class DebtPage extends BasePage {
         this.selectEmployee = page.locator("//div[@class='v-list-item__content']//span[contains(text(), 'Nguyễn Văn Minh')]");
         this.browseButton = page.locator("//span[contains(normalize-space(),'Duyệt')]");
         this.sendButton = page.locator("//span[contains(normalize-space(),'Gửi')]");
-        this.iconAction = page.locator("//tr[@id='row-0']//i[@class='mdi mdi-format-list-group mdi v-icon notranslate v-theme--lightColor7 v-icon--size-default']");
         this.debtButton = page.locator("//div[contains(text(),'Tạm ứng')]");
         this.addButton = page.locator("//span[normalize-space()='Thêm']");
         this.searchButton = page.locator("//span[normalize-space()='Tìm kiếm']");
@@ -72,10 +70,6 @@ export class DebtPage extends BasePage {
         await this.safeClick(this.browseButton);
     }
 
-    async clickIconAction() {
-        await this.safeClick(this.iconAction);
-
-    }
     async clickSendButton() {
         await this.safeClick(this.sendButton);
     }

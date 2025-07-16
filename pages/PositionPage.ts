@@ -16,13 +16,13 @@ export class PositionPage extends BasePage {
     constructor(page: Page) {
         super(page);
         this.searchNameResult = page.locator("//tbody/tr[@id='row-0']/td[2]//span[.='Project manager']");
-        this.nameInputSearch = page.locator("//form/div/div[1]/div/div/div/div[3]/div/input");
+        this.nameInputSearch =  page.getByRole('textbox', { name: 'Tên chức vụ' })
         this.nameExistError = page.locator("//li[contains(text(),'Tên đã tồn tại.')]");
         this.lockStatus = page.locator("//div[contains(text(),'Khóa')]");
         this.statusDropdown = page.locator("//i[@class='mdi-book-lock-open-outline mdi v-icon notranslate v-theme--lightColor7 v-icon--size-default']");
         this.msgNameRequired = page.locator("//div[contains(text(),'Nhập tên chức vụ')]");
         this.noteInput = page.locator("//textarea");
-        this.nameInput = page.locator("//div/div[1]/div/div/div/div[4]/div/input");
+        this.nameInput =  page.getByRole('textbox', { name: 'Tên chức vụ' }).first();
         this.positionsButton = page.locator("//div[contains(text(),'Chức vụ')]");
     }
 

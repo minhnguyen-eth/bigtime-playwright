@@ -25,9 +25,11 @@ export class ToastPage extends BasePage{
     readonly toastSendBrowseSuccess: Locator;
     readonly toastBrowseSuccess2: Locator;
     readonly toastValidateCloseSalary: Locator;
+    readonly toastEmployeeExisted: Locator;
 
     constructor(page: Page) {
         super(page);
+        this.toastEmployeeExisted = page.locator('//div[contains(text(),"Nhân viên đã tồn tại")]');
         this.toastValidateCloseSalary = page.locator('//div[contains(text(),"Vui lòng duyệt hết tất cả phiếu lương")]');
         this.toastSendBrowseSuccess = page.locator('//div[contains(text(),"Gửi duyệt thành công")]');
         this.toastSaveSuccess = page.locator('//div[contains(text(),"Lưu thành công")]');
@@ -50,6 +52,10 @@ export class ToastPage extends BasePage{
         this.toastDeleteSuccess = page.locator('//div[contains(text(),"Xóa thành công")]');
         this.toastBrowseSuccess = page.locator('//div[contains(text(),"Đã duyệt thành công")]');
         this.toastBrowseSuccess2 = page.locator('//div[contains(text(),"Phê duyệt thành công")]');
+    }
+
+    async getToastEmployeeExisted() {
+        await this.safeVerifyToHaveText(this.toastEmployeeExisted, 'Nhân viên đã tồn tại');
     }
 
     async getToastValidateCloseSalary() {

@@ -194,6 +194,8 @@ test.describe.serial('Employee Tests', () => {
     });
 
     test('Delete user', async ({ page }) => {
+        await employeePage.fillSearchByName("Automation");
+        await basePage.clickSearch();
         await employeePage.deleteAUser();
     });
 

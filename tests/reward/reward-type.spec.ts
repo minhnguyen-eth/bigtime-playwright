@@ -200,7 +200,7 @@ test.describe.serial('Reward Type Tests', () => {
         });
 
         await allure.step('Search by lock status', async () => {
-            await rewardTypePage.clickStatusDropdownSearch();
+            await basePage.clickDropdownStatusSearch();
             await rewardTypePage.clickStatusLock();
             await basePage.clickSearch();
             await rewardTypePage.VerifyLockStatus();
@@ -208,7 +208,7 @@ test.describe.serial('Reward Type Tests', () => {
         });
 
         await allure.step('Search by activity status', async () => {
-            await rewardTypePage.clickStatusDropdownSearch();
+            await basePage.clickDropdownStatusSearch();
             await rewardTypePage.clickStatusActivity();
             await basePage.clickSearch();
             await rewardTypePage.VerifyActivityStatus();
@@ -217,7 +217,7 @@ test.describe.serial('Reward Type Tests', () => {
 
         await allure.step('Search by lock & activity status', async () => {
             await clearAllRewardType();
-            await rewardTypePage.clickStatusDropdownSearch();
+            await basePage.clickDropdownStatusSearch();
             await rewardTypePage.clickStatusLock();
             await rewardTypePage.clickStatusActivity();
             await basePage.clickSearch();
