@@ -1,4 +1,4 @@
-import { ElementHandle, Page, Locator, expect } from "@playwright/test";
+import { Page, Locator, expect } from "@playwright/test";
 
 export class BasePage {
     readonly page: Page;
@@ -22,9 +22,9 @@ export class BasePage {
     readonly deleteButton: Locator;
     readonly toDayDatePicker: Locator;
     readonly iconAction: Locator;
-    readonly Admin_Button: Locator;
-    readonly TimeKeepingManagement_Button: Locator;
-    readonly Salary_Button: Locator;
+    readonly adminButton: Locator;
+    readonly timeKeepingManagementButton: Locator;
+    readonly salaryButton: Locator;
     readonly Setting_Button: Locator;
     readonly lockStatusRow0: Locator;
     readonly activityStatusRow0: Locator;
@@ -63,9 +63,9 @@ export class BasePage {
         this.dropdownStatusSearch = page.getByRole('combobox').filter({ hasText: 'Trạng thái' }).locator('i')
         this.activityStatusRow0 = page.locator("//tr[@id='row-0']//span[@class='custom-size'][contains(text(),'Hoạt động')]");
         this.lockStatusRow0 = page.locator("//tr[@id='row-0']//span[@class='custom-size'][normalize-space()='Khóa']");
-        this.Admin_Button = page.locator("//span[normalize-space()='Quản lý']");
-        this.TimeKeepingManagement_Button = page.locator("//span[normalize-space()='Quản lý chấm công']");
-        this.Salary_Button = page.locator("//span[normalize-space()='Lương']");
+        this.adminButton = page.locator("//span[normalize-space()='Quản lý']");
+        this.timeKeepingManagementButton = page.locator("//span[normalize-space()='Quản lý chấm công']");
+        this.salaryButton = page.locator("//span[normalize-space()='Lương']");
         this.Setting_Button = page.locator("//span[normalize-space()='Cài đặt']");
         this.iconAction = page.locator("//tr[@id='row-0']//i[contains(@class, 'mdi mdi-format-list-group ')]");
         this.requiredFillReason = page.locator("//div[contains(text(),'Nhập lý do')]");
@@ -82,7 +82,7 @@ export class BasePage {
         this.noButton = page.locator("//span[normalize-space()='Không']");
         this.yesButton = page.locator("//span[normalize-space()='Có']");
         this.cancelButton = page.getByRole('button', { name: 'Hủy' })
-        this.saveButton = page.locator("//span[normalize-space()='Lưu']");//span[contains(normalize-space(),'Lưu')]
+        this.saveButton = page.locator("//span[normalize-space()='Lưu']");
         this.deleteRow0Button = page.locator("//tr[@id='row-0']//span[contains(text(),'Xóa')]");
         this.editRow0Button = page.locator("//tr[@id='row-0']//span[contains(text(),'Sửa')]");
         this.clearSearchButton = page.locator("//span[normalize-space()='Xóa']").first();
@@ -104,7 +104,7 @@ export class BasePage {
         }
 
         try {
-            await this.page.waitForLoadState('domcontentloaded', { timeout }); // Use the increased timeout
+            await this.page.waitForLoadState('domcontentloaded', { timeout });
             await this.waitForOverlayToDisappear(undefined, timeout);
 
             if (this.page.isClosed()) {
@@ -112,8 +112,8 @@ export class BasePage {
                 return;
             }
 
-            await locator.waitFor({ state: 'attached', timeout }); // Use the increased timeout
-            await locator.waitFor({ state: 'visible', timeout }); // Use the increased timeout
+            await locator.waitFor({ state: 'attached', timeout });
+            await locator.waitFor({ state: 'visible', timeout });
 
             const elementHandle = await locator.elementHandle({ timeout });
             if (!elementHandle) {
@@ -133,13 +133,6 @@ export class BasePage {
 
             await locator.click({ force: options?.force ?? false, timeout });
         } catch (error) {
-            if (!this.page.isClosed()) {
-                try {
-                    await this.page.screenshot({ path: 'safeClick-error.png', fullPage: true });
-                } catch {
-                    console.warn("Không thể chụp ảnh lỗi vì page đã đóng.");
-                }
-            }
             console.error("safeClick error:", (error as Error).message);
             throw error;
         }
@@ -264,15 +257,15 @@ export class BasePage {
     }
 
     async clickAdmin() {
-        await this.safeClick(this.Admin_Button);
+        await this.safeClick(this.adminButton);
     }
 
     async clickTimeKeepingManagement() {
-        await this.safeClick(this.TimeKeepingManagement_Button);
+        await this.safeClick(this.timeKeepingManagementButton);
     }
 
     async clickSalary() {
-        await this.safeClick(this.Salary_Button);
+        await this.safeClick(this.salaryButton);
     }
 
     async clickSetting() {
