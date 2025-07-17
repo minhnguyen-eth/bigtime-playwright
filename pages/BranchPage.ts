@@ -43,9 +43,9 @@ export class BranchPage extends BasePage {
         this.validateMaxNumberOfEmployee = page.locator("//div[contains(text(),'Giá trị phải nhỏ hơn hoặc bằng 1000.')]");
         this.validateMinNumberOfEmployee = page.locator("//div[contains(text(),'Giá trị phải lớn hơn hoặc bằng 100.')]");
         this.numberOfEmployee = page.getByRole('spinbutton', { name: 'Số lượng nhân viên tối đa ※' });
-        this.phoneNumber = page.getByRole('textbox', { name: 'Điện thoại' });
+        this.phoneNumber = page.getByRole('spinbutton', { name: 'Điện thoại ※' });
         this.branchButton = page.locator("//div[contains(text(),'Chi nhánh')]");
-        this.branchName = page.getByRole('textbox', { name: 'Tên chi nhánh' });
+        this.branchName = page.getByRole('textbox', { name: 'Tên chi nhánh' }).nth(1);
         this.shortName = page.getByRole('textbox', { name: 'Tên ngắn' });
         this.branchAddress = page.getByRole('textbox', { name: 'Địa chỉ' });
         this.noteInput = page.locator("//textarea");

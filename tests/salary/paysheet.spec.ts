@@ -27,7 +27,9 @@ test.describe.serial('Paysheet Tests', () => {
         await loginPage.goto();
     });
 
-    async function sendAndApprovePaysheet() {
+
+    // Employee -> Manager -> Admin
+    async function sendAndBrowse1() {
         await paysheet.clickLatestPaysheetRow();
         await paysheet.clickViewPayroll();
         await paysheet.clickSendAll();
@@ -47,6 +49,39 @@ test.describe.serial('Paysheet Tests', () => {
         await paysheet.clickPayslip();
         await paysheet.clickSalarySlipCode();
         await paysheet.clickBrowse();
+        await logoutPage.logout();
+
+        await loginPage.login(Config.admin_username, Config.admin_password);
+        await basePage.clickSalary();
+        await paysheet.clickPayslip();
+        await paysheet.clickSalarySlipCode();
+        await paysheet.clickBrowse();
+        await paysheet.clickPaysheet();
+        await paysheet.clickLatestPaysheetRow();
+        await paysheet.clickViewPayroll();
+        await paysheet.clickSalaryClosing();
+        await paysheet.clickConfirm();
+        await paysheet.clickLatestPaysheetRow();
+        await paysheet.clickPayslipPayment();
+        await paysheet.clickPayment();
+        await paysheet.clickCreateTicket();
+        await toastPage.getToastPaymentSuccess();
+    }
+
+     // Employee -> Admin
+    async function sendAndBrowse2() {
+        await paysheet.clickLatestPaysheetRow();
+        await paysheet.clickViewPayroll();
+        await paysheet.clickSendAll();
+        await paysheet.clickConfirm();
+        await logoutPage.logout();
+
+        await loginPage.login(Config.employee_username, Config.employee_password);
+        await basePage.clickSalary();
+        await paysheet.clickPayslip();
+        await paysheet.clickSalarySlipCode();
+        await paysheet.clickBrowse();
+        await toastPage.getToastBrowseSuccess();
         await logoutPage.logout();
 
         await loginPage.login(Config.admin_username, Config.admin_password);
@@ -87,7 +122,7 @@ test.describe.serial('Paysheet Tests', () => {
 
         await allure.step('Admin creates and sends paysheet and completes payment', async () => {
             await addPaysheet();
-            await sendAndApprovePaysheet();
+            await sendAndBrowse1();
         });
     });
 
@@ -329,7 +364,7 @@ test.describe.serial('Paysheet Tests', () => {
             await paysheet.expectAllowance();
 
             await paysheet.clickPaysheet();
-            await sendAndApprovePaysheet();
+            await sendAndBrowse1();
         });
     });
 

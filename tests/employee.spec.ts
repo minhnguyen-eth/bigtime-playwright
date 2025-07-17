@@ -6,7 +6,7 @@ import { EmployeePage } from '../pages/EmployeePage';
 import { BasePage } from '../pages/BasePage';
 import { ResumePage } from '../pages/ResumePage';
 import { ToastPage } from '../pages/ToastPage';
-import { clearEmployees } from '../db/DBHelper';
+import { clearAllAllowanceTypes, clearEmployees } from '../db/DBHelper';
 
 test.describe.serial('Employee Tests', () => {
     let loginPage: LoginPage;
@@ -33,6 +33,7 @@ test.describe.serial('Employee Tests', () => {
 
     test("Max length of all fields", async ({ page }) => {
         allure.severity('Critical');
+        await clearAllAllowanceTypes();
         await clearEmployees();
         const randomSuffix = Math.random().toString(36).substring(2, 8);
         const emailRandom = `email${randomSuffix}`;

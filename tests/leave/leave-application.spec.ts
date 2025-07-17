@@ -1,8 +1,8 @@
-import { test, } from '../base-test';
+import { expect, test, } from '../base-test';
 import { LoginPage } from '../../pages/LoginPage';
 import Config from '../../utils/configUtils';
 import { LeaveApplicationPage } from '../../pages/leave_page/LeaveApplicationPage';
-import { clearAllLeaveApplications, clearAllLeaveManagements } from '../../db/DBHelper';
+import { checkEvaluationTypeExists, checkLeaveApplicationExists, clearAllLeaveApplications, clearAllLeaveManagements } from '../../db/DBHelper';
 import { addAnnualLeaveForEmployeeAndAdmin, sendAndApproveLeave } from './leave-helper';
 import { allure } from 'allure-playwright';
 import { BasePage } from '../../pages/BasePage';
@@ -33,7 +33,7 @@ test.describe.serial('Leave Application Tests', () => {
         await leaveApplicationPage.clickLeaveTypeDropDown();
         await leaveApplicationPage.clickAnualLeave();
         await leaveApplicationPage.setDate();
-        await leaveApplicationPage.fillReason('Automation test');
+        await leaveApplicationPage.fillReason('Automation test leave application');
         await leaveApplicationPage.clickSaveButton();
         await toastPage.getToastAddSuccess();
     }
@@ -226,12 +226,21 @@ test.describe.serial('Leave Application Tests', () => {
             await leaveApplicationPage.clickLeaveTypeDropDown();
             await leaveApplicationPage.clickRegularLeave();
             await leaveApplicationPage.setDate();
-            await leaveApplicationPage.fillReason('Automation test');
+            await leaveApplicationPage.fillReason('Automation test reason');
             await leaveApplicationPage.clickSaveButton();
             await toastPage.getToastAddSuccess();
+
+            // Check leave application exits in DB with reason and new status = 0
+            const existsInDB = await checkLeaveApplicationExists('Automation test reason', 0);
+            expect(existsInDB).toBeTruthy();
+
         });
         await allure.step('Send and approve leave application', async () => {
             await sendAndApproveLeave(page);
+            
+            // Check approved status = 2
+            const checkApprovedStatus = await checkLeaveApplicationExists('Automation test reason', 2);
+            expect(checkApprovedStatus).toBeTruthy();
         });
     });
 

@@ -1,9 +1,9 @@
-import { test, } from '../base-test';
+import { test, expect } from '../base-test';
 import { ToastPage } from '../../pages/ToastPage';
 import { LoginPage } from '../../pages/LoginPage';
 import { BasePage } from '../../pages/BasePage';
 import Config from '../../utils/configUtils';
-import { clearEmploymentContract } from '../../db/DBHelper';
+import { checkContractExists, clearEmploymentContract } from '../../db/DBHelper';
 import { ContractPage } from '../../pages/contract_page/ContractPage';
 import { allure } from "allure-playwright";
 
@@ -36,10 +36,14 @@ test.describe.serial('Contract Tests', () => {
         await contractPage.fillSalary("10000000");
         await contractPage.selectEndDate();
         await basePage.clickChoose();
-        await contractPage.fillNote('Automation test');
+        await contractPage.fillNote('Automation test contract');
         await contractPage.checkSelectAllTerm();
         await basePage.clickSave();
         await toastPage.getToastAddSuccess();
+
+        // Check in DB, type 0 is probation, status 0 is new 
+        const existsInDB = await checkContractExists('Automation test contract', 0 , 0);
+        expect(existsInDB).toBeTruthy();
     }
 
     test('Max lenghth of note is 255 characters', async ({ page }) => {
@@ -108,7 +112,6 @@ test.describe.serial('Contract Tests', () => {
 
     test('Create contract with probation', async ({ page }) => {
         await CreateContractWithProbation();
-
     });
 
     test('Create with formal contract ', async ({ page }) => {

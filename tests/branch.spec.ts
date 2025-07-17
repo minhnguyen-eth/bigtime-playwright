@@ -382,5 +382,4 @@ test.describe.serial('Branch Test', () => {
         await basePage.clickSave();
         await basePage.verifyMaxlenght500Charactor();
     });
-
 });
