@@ -1,8 +1,7 @@
-import { Page, Locator, expect } from 'playwright/test';
+import { Page, Locator } from 'playwright/test';
 import { BasePage } from './BasePage';
 
 export class HolidayManagementPage extends BasePage {
-
     readonly holidayButton: Locator;
     readonly holidayName: Locator;
     readonly startDate: Locator
@@ -37,18 +36,17 @@ export class HolidayManagementPage extends BasePage {
         this.msgNameRequired = page.locator("//div[contains(text(),'Nhập tên ngày nghỉ')]");
         this.restHolidayHaveSalary = page.locator("//td[contains(text(),'Ngày lễ có lương')]");
         this.selectUser = page.locator("//div[text()='BAT810 - Nguyễn Văn Minh']")
-        this.chosseUserInput = page.locator("//div[3]/div/div[1]/div/div[1]/div/div[3]/div/input")
+        this.chosseUserInput = page.getByRole('textbox', { name: 'Chọn nhân viên' });
         this.checkInOutHistory = page.locator("//div[contains(text(),'Lịch sử điểm danh')]")
         this.timeKeeping = page.locator("//p[contains(text(),'Chấm công')]")
         this.totalHolidayResult = page.locator("//input[@type='number' and @value='1']")
         this.deleteButton = page.locator("//tr[@id='row-0']//span[contains(text(),'Xóa')]");
         this.yesButton = page.locator("//span[@class='v-btn__content'][normalize-space()='Có']");
         this.reason = page.locator("//textarea[@rows='2']");
-        this.endDate = page.locator("//div[5]/div/div/div/div/div[1]/div/div/div[3]/input");
-        this.startDate = page.locator("//div[4]/div/div/div/div/div[1]/div/div/div[3]/input");
+        this.endDate = page.getByRole('textbox', { name: 'Đến hết ngày ※' })
+        this.startDate = page.getByRole('textbox', { name: 'Bắt đầu từ ngày ※' })
         this.holidayButton = page.locator("//div[contains(text(),'Quản lý ngày nghỉ')]");
-        this.holidayName = page.locator("//div[2]/div/div[1]/div/div/div/div[3]/div/input");
-
+        this.holidayName = page.getByRole('textbox', { name: 'Tên ngày nghỉ ※' });
     }
 
     async unCheckBox() {

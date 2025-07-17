@@ -34,7 +34,7 @@ export class BranchPage extends BasePage {
         super(page);
         this.validateMaxlengthShortName = page.locator("//li[contains(text(),'Tên ngắn không được lớn hơn 50')]");
         this.searchByNameResult = page.locator("//tr[@id='row-0']//span[contains(text(),'Biên Hòa')]");
-        this.searchByBranchName = page.locator("//form/div/div[1]/div/div/div/div[3]/div/input");
+        this.searchByBranchName = page.getByRole('textbox', { name: 'Tên chi nhánh' });
         this.validateShortNameExist = page.locator("//li[contains(text(),'Tên ngắn đã tồn tại.')]");
         this.validatePhoneNumber = page.locator("//div[contains(text(),'Không nhập dưới 10 kí tự.')]");
         this.validateBranchName = page.locator("//div[contains(text(),'Nhập tên chi nhánh')]");
@@ -42,12 +42,12 @@ export class BranchPage extends BasePage {
         this.validateBranchExist = page.locator("//li[contains(text(),'Tên chi nhánh đã tồn tại.')]");
         this.validateMaxNumberOfEmployee = page.locator("//div[contains(text(),'Giá trị phải nhỏ hơn hoặc bằng 1000.')]");
         this.validateMinNumberOfEmployee = page.locator("//div[contains(text(),'Giá trị phải lớn hơn hoặc bằng 100.')]");
-        this.numberOfEmployee = page.locator("//div[2]/div/div[4]/div/div/div/div[4]/div/input");
-        this.phoneNumber = page.locator("//div[2]/div/div[3]/div/div/div/div[4]/div/input");
+        this.numberOfEmployee = page.getByRole('spinbutton', { name: 'Số lượng nhân viên tối đa ※' });
+        this.phoneNumber = page.getByRole('textbox', { name: 'Điện thoại' });
         this.branchButton = page.locator("//div[contains(text(),'Chi nhánh')]");
-        this.branchName = page.locator("//div[2]/div/div[1]/div/div/div/div[4]/div/input");
-        this.shortName = page.locator("//div[2]/div/div[2]/div/div/div/div[4]/div/input");
-        this.branchAddress = page.locator("//div[2]/div/div[6]/div/div/div/div[3]/div/input");
+        this.branchName = page.getByRole('textbox', { name: 'Tên chi nhánh' });
+        this.shortName = page.getByRole('textbox', { name: 'Tên ngắn' });
+        this.branchAddress = page.getByRole('textbox', { name: 'Địa chỉ' });
         this.noteInput = page.locator("//textarea");
     }
 

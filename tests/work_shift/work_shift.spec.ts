@@ -23,6 +23,9 @@ test.describe.serial('Work Shift Tests', () => {
         loginPage = new LoginPage(page);
         workShiftPage = new WorkShiftPage(page);
         await loginPage.goto();
+        await loginPage.login(Config.admin_username, Config.admin_password);
+        await basePage.clickTimeKeepingManagement();
+        await workShiftPage.clickOnWorkShiftButton();
     });
 
     async function testBody() {
@@ -57,11 +60,7 @@ test.describe.serial('Work Shift Tests', () => {
     test("Max length of work shift name is 255 characters", async ({ page }) => {
         await clearAllWorkingShift();
         const workShiftCode = 'AT' + Math.random().toString(36).substring(2, 8);
-        allure.story('Work Shift Name Length Story');
-        await loginPage.login(Config.admin_username, Config.admin_password);
-        await basePage.clickTimeKeepingManagement();
-        await workShiftPage.clickOnWorkShiftButton();
-        await workShiftPage.clickOnAddButton();
+        await workShiftPage.clickAdd();
         await workShiftPage.fillWorkShiftName('a'.repeat(255));
         await workShiftPage.fillWorkShiftCode(workShiftCode);
         await testBody();
@@ -71,11 +70,7 @@ test.describe.serial('Work Shift Tests', () => {
 
     test("Max length of work shift name over 255 characters", async ({ page }) => {
         const workShiftCode = 'AT' + Math.random().toString(36).substring(2, 8);
-        allure.story('Work Shift Name Length Story');
-        await loginPage.login(Config.admin_username, Config.admin_password);
-        await basePage.clickTimeKeepingManagement();
-        await workShiftPage.clickOnWorkShiftButton();
-        await workShiftPage.clickOnAddButton();
+        await workShiftPage.clickAdd();
         await workShiftPage.fillWorkShiftName('a'.repeat(256));
         await workShiftPage.fillWorkShiftCode(workShiftCode);
         await testBody();
@@ -88,20 +83,9 @@ test.describe.serial('Work Shift Tests', () => {
         const workShiftName = `Automation test ${randomSuffix}`;
         const workShiftCode = 'AT' + randomSuffix;
 
-        allure.story('Create Work Shift Story');
         await clearAllWorkingShift();
-
-        await allure.step('Login to system', async () => {
-            await loginPage.login(Config.admin_username, Config.admin_password);
-        });
-
-        await allure.step('Navigate to Work Shift page', async () => {
-            await basePage.clickTimeKeepingManagement();
-            await workShiftPage.clickOnWorkShiftButton();
-        });
-
         await allure.step('Fill work shift form', async () => {
-            await workShiftPage.clickOnAddButton();
+            await workShiftPage.clickAdd();
             await workShiftPage.fillWorkShiftName(workShiftName);
             await workShiftPage.fillWorkShiftCode(workShiftCode);
 
@@ -117,14 +101,9 @@ test.describe.serial('Work Shift Tests', () => {
     });
 
     test('Edit and delete work shift', async ({ page }) => {
-        allure.story('Edit & Delete Work Shift Story');
-        allure.step('Login to system and navigate to Work Shift page', async () => { })
-        await loginPage.login(Config.admin_username, Config.admin_password);
-        await basePage.clickTimeKeepingManagement();
-        await workShiftPage.clickOnWorkShiftButton();
 
         await allure.step('Edit work shift status', async () => {
-            await workShiftPage.clickOnEditButton();
+            await workShiftPage.clickEditRow0();
             await basePage.clickDropdownStatusInForm();
             await workShiftPage.clickOnLockStatus();
             await workShiftPage.clickOnSaveButton();
@@ -133,108 +112,95 @@ test.describe.serial('Work Shift Tests', () => {
         });
 
         await allure.step('Delete work shift', async () => {
-            await workShiftPage.clickOnDeleteButton();
-            await workShiftPage.clickOkButton();
+            await workShiftPage.clickDeleteRow0();
             await toastPage.getToastDeleteSuccess();
         });
 
     });
 
-    async function beforeSearch() {
-        await loginPage.login(Config.admin_username, Config.admin_password);
-        await basePage.clickTimeKeepingManagement();
-        await workShiftPage.clickOnWorkShiftButton();
-        await workShiftPage.clickOnBranchDropdownSearch();
-
-    }
-
     test('Search by name and code of a work shift', async ({ page }) => {
-
-        await beforeSearch();
-
         await allure.step('Search by name and code', async () => {
             await workShiftPage.fillWorkShiftNameSearchField('Ca ngày');
             await workShiftPage.fillWorkShiftCodeSearchField('CN');
-            await workShiftPage.clickOnSearchButton();
+            await workShiftPage.clickSearch();
             await workShiftPage.getVerifyWorkShiftName();
             await workShiftPage.getVerifyWorkShiftCode();
-            await workShiftPage.clickOnClearSearchButton();
+            await workShiftPage.clickClearSearch();
         });
 
         await allure.step('Search by name only', async () => {
             await workShiftPage.fillWorkShiftNameSearchField('Ca ngày');
-            await workShiftPage.clickOnSearchButton();
+            await workShiftPage.clickSearch();
             await workShiftPage.getVerifyWorkShiftName();
-            await workShiftPage.clickOnClearSearchButton();
+            await workShiftPage.clickClearSearch();
         });
 
         await allure.step('Search by code only', async () => {
             await workShiftPage.fillWorkShiftCodeSearchField('CN');
-            await workShiftPage.clickOnSearchButton();
+            await workShiftPage.clickSearch();
             await workShiftPage.getVerifyWorkShiftCode();
-            await workShiftPage.clickOnClearSearchButton();
+            await workShiftPage.clickClearSearch();
         });
 
         await allure.step('Search by Active status', async () => {
             await basePage.clickDropdownStatusSearch();
             await workShiftPage.clickOnStatus('Active');
-            await workShiftPage.clickOnSearchButton();
+            await workShiftPage.clickSearch();
             await workShiftPage.getVerifyAtiveStatusSearch();
-            await workShiftPage.clickOnClearSearchButton();
+            await workShiftPage.clickClearSearch();
         });
 
         await allure.step('Search by Lock status', async () => {
-             await basePage.clickDropdownStatusSearch();
+            await basePage.clickDropdownStatusSearch();
             await workShiftPage.clickOnStatus('Lock');
-            await workShiftPage.clickOnSearchButton();
+            await workShiftPage.clickSearch();
             await workShiftPage.getVerifyLockStatusSearch();
-            await workShiftPage.clickOnClearSearchButton();
+            await workShiftPage.clickClearSearch();
         });
 
         await allure.step('Search by Active & Lock status', async () => {
-             await basePage.clickDropdownStatusSearch();
+            await basePage.clickDropdownStatusSearch();
             await workShiftPage.clickOnStatus('Active');
             await workShiftPage.clickOnStatus('Lock');
-            await workShiftPage.clickOnSearchButton();
+            await workShiftPage.clickSearch();
             await workShiftPage.getVerifyAtiveStatusSearch();
             // await workShiftPage.getVerifyLockStatusSearchRow1();
         });
     });
 
     test('Search by status', async ({ page }) => {
-        await beforeSearch();
         await allure.step('Search by Active status', async () => {
-             await basePage.clickDropdownStatusSearch();
+            await basePage.clickDropdownStatusSearch();
             await workShiftPage.clickOnStatus('Active');
-            await workShiftPage.clickOnSearchButton();
+            await workShiftPage.clickSearch();
             await workShiftPage.getVerifyAtiveStatusSearch();
-            await workShiftPage.clickOnClearSearchButton();
+            await workShiftPage.clickClearSearch();
         });
 
         await allure.step('Search by Lock status', async () => {
-             await basePage.clickDropdownStatusSearch();
+            await basePage.clickDropdownStatusSearch();
             await workShiftPage.clickOnStatus('Lock');
-            await workShiftPage.clickOnSearchButton();
+            await workShiftPage.clickSearch();
             await workShiftPage.getVerifyLockStatusSearch();
-            await workShiftPage.clickOnClearSearchButton();
+            await workShiftPage.clickClearSearch();
         });
 
         await allure.step('Search by Active & Lock status', async () => {
-             await basePage.clickDropdownStatusSearch();
+            await basePage.clickDropdownStatusSearch();
             await workShiftPage.clickOnStatus('Active');
             await workShiftPage.clickOnStatus('Lock');
-            await workShiftPage.clickOnSearchButton();
+            await workShiftPage.clickSearch();
             await workShiftPage.getVerifyAtiveStatusSearch();
             // await workShiftPage.getVerifyLockStatusSearchRow1();
         });
     });
 
     test('Search by branch ', async ({ page }) => {
-        await beforeSearch();
+        await workShiftPage.clickOnBranchDropdownSearch();
         await workShiftPage.clickOnBranchBienHoaSearch();
-        await workShiftPage.clickOnSearchButton();
+        await workShiftPage.clickSearch();
         await workShiftPage.getVerifyBranchBienHoaSearch();
-        await workShiftPage.clickOnClearSearchButton();
+        await workShiftPage.clickClearSearch();
 
     });
 });

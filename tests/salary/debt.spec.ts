@@ -6,6 +6,7 @@ import { DebtPage } from "../../pages/salary_page/DebtPage";
 import { LogoutPage } from "../../pages/LogoutPage";
 import { allure } from 'allure-playwright';
 import { BasePage } from "../../pages/BasePage";
+import { clearDebts } from '../../db/DBHelper';
 
 test.describe.serial("Debt Tests", () => {
   let loginPage: LoginPage;
@@ -15,7 +16,6 @@ test.describe.serial("Debt Tests", () => {
   let basePage: BasePage;
 
   test.beforeEach(async ({ page }) => {
-
     allure.feature('Debt Feature');
     allure.owner('Minh Nguyen');
     allure.severity('Critical');
@@ -29,6 +29,7 @@ test.describe.serial("Debt Tests", () => {
   });
 
   test("Max length of note 255 characters", async ({ page }) => {
+    await clearDebts();
     await loginPage.login(Config.admin_username, Config.admin_password);
     await basePage.clickSalary();
     await debtPage.clickDebtButton();
@@ -117,7 +118,7 @@ test.describe.serial("Debt Tests", () => {
       await debtPage.clickDebtButton();
       await basePage.clickIconAction();
       await basePage.clickEdit();
-      await debtPage.inputNote.fill("edit valid value");
+      await debtPage.fillNote("edit valid value");
       await basePage.clickSave();
     });
     await toastPage.getToastUpdateSuccess();
@@ -136,8 +137,7 @@ test.describe.serial("Debt Tests", () => {
       await basePage.clickSave();
       await toastPage.getToastAddSuccess();
       await debtPage.clickIconAction();
-      await debtPage.clickSendButton();
-      await debtPage.clickYesButton();
+      await debtPage.clickSend();
       await toastPage.getToastSendSuccess();
 
       await logoutPage.logout();
@@ -145,8 +145,7 @@ test.describe.serial("Debt Tests", () => {
       await basePage.clickSalary();
       await debtPage.clickDebtButton();
       await debtPage.clickIconAction();
-      await debtPage.clickBrowseButton();
-      await debtPage.clickYesButton();
+      await debtPage.clickBrowse();
     });
     await toastPage.getToastBrowseSuccess();
   });
@@ -164,17 +163,16 @@ test.describe.serial("Debt Tests", () => {
       await basePage.clickSave();
       await toastPage.getToastAddSuccess();
       await debtPage.clickIconAction();
-      await debtPage.clickSendButton();
-      await debtPage.clickYesButton();
+      await debtPage.clickSend();
       await toastPage.getToastSendSuccess();
 
       await logoutPage.logout();
       await loginPage.login(Config.employee_username, Config.employee_password);
       await basePage.clickSalary();
       await debtPage.clickDebtButton();
-      await debtPage.clickActionRefusedButton();
+      await debtPage.clickIconAction();
+      await debtPage.clickReject();
       await debtPage.fillReason("refused debt test");
-      await debtPage.clickYesButton();
     });
     await toastPage.getToastRejectSuccess();
   });
@@ -192,12 +190,11 @@ test.describe.serial("Debt Tests", () => {
       await basePage.clickSave();
       await toastPage.getToastAddSuccess();
       await debtPage.clickIconAction();
-      await debtPage.clickSendButton();
-      await debtPage.clickYesButton();
+      await debtPage.clickSend();
       await toastPage.getToastSendSuccess();
-      await debtPage.clickActionSendCancelButton();
+      await debtPage.clickIconAction();
+      await debtPage.clickCancelNth1();
       await debtPage.fillReason("cancel debt test");
-      await debtPage.clickYesButton();
     });
     await toastPage.getToastCancelSuccess();
   });
@@ -217,7 +214,6 @@ test.describe.serial("Debt Tests", () => {
       await basePage.clickIconAction();
       await basePage.clickCancel();
       await debtPage.fillReason("cancel debt test");
-      await debtPage.clickYesButton();
     });
     await toastPage.getToastCancelSuccess();
   });
@@ -237,7 +233,6 @@ test.describe.serial("Debt Tests", () => {
       await basePage.clickIconAction();
       await basePage.clickCancel();
       await debtPage.fillReason("");
-      await debtPage.clickYesButton();
     });
     await debtPage.expectFillReasonError();
   });

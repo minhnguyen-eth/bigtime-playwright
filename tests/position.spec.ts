@@ -32,7 +32,7 @@ test.describe.serial('Position Tests', () => {
     test("Max length of name and note ", async ({ page }) => {
         await basePage.clickAdd();
         await positionPage.inputName("z".repeat(255));
-        await positionPage.inputNote("A".repeat(255));
+        await positionPage.fillNote("A".repeat(255));
         await basePage.clickSave()
         await toastPage.getToastAddSuccess()
     });
@@ -40,7 +40,7 @@ test.describe.serial('Position Tests', () => {
     test("Max length of over 255 charactor of name ", async ({ page }) => {
         await basePage.clickAdd();
         await positionPage.inputName("z".repeat(256));
-        await positionPage.inputNote("a");
+        await positionPage.fillNote("a");
         await basePage.clickSave()
         await toastPage.getToastAddSuccess()
     });
@@ -48,7 +48,7 @@ test.describe.serial('Position Tests', () => {
       test("Max length of over 255 charactor of note ", async ({ page }) => {
         await basePage.clickAdd();
         await positionPage.inputName("zzzzza");
-        await positionPage.inputNote("a".repeat(256));
+        await positionPage.fillNote("a".repeat(256));
         await basePage.clickSave()
         await toastPage.getToastAddSuccess()
     });
@@ -64,8 +64,8 @@ test.describe.serial('Position Tests', () => {
         const randomName = "Automation test position " + Math.floor(Math.random() * 1000000);
         await basePage.clickAdd();
         await positionPage.inputName(randomName)
-        await positionPage.inputNote("Automation test note")
-        await positionPage.clickSatatusDropdown()
+        await positionPage.fillNote("Automation test note")
+        await positionPage.clickDropdownStatusInForm()
         await positionPage.clickLockStatus()
         await basePage.clickSave()
         await toastPage.getToastAddSuccess()
@@ -75,14 +75,14 @@ test.describe.serial('Position Tests', () => {
     test('Create New Position Successfully', async ({ page }) => {
         await basePage.clickAdd();
         await positionPage.inputName("Automation test position")
-        await positionPage.inputNote("Automation test note")
+        await positionPage.fillNote("Automation test note")
         await basePage.clickSave()
         await toastPage.getToastAddSuccess()
     });
 
     test('Edit position active to lock status', async ({ page }) => {
         await basePage.clickEditRow0();
-        await positionPage.clickSatatusDropdown()
+        await positionPage.clickDropdownStatusInForm()
         await positionPage.clickLockStatus()
         await basePage.clickSave()
         await toastPage.getToastUpdateSuccess()
@@ -91,7 +91,7 @@ test.describe.serial('Position Tests', () => {
 
     test('Edit position lock to active status', async ({ page }) => {
         await basePage.clickEditRow0();
-        await positionPage.clickSatatusDropdown()
+        await positionPage.clickDropdownStatusInForm()
         await basePage.clickActivityStatus()
         await basePage.clickSave()
         await toastPage.getToastUpdateSuccess()
@@ -108,7 +108,7 @@ test.describe.serial('Position Tests', () => {
     test('Create position with existed name', async ({ page }) => {
         await basePage.clickAdd();
         await positionPage.inputName("Project Manager")
-        await positionPage.inputNote("Automation test note")
+        await positionPage.fillNote("Automation test note")
         await basePage.clickSave()
         await positionPage.checkNameExistError()
         await toastPage.getToastAddFailed()
@@ -117,7 +117,7 @@ test.describe.serial('Position Tests', () => {
     test('Edit position name and note successfully', async ({ page }) => {
         await basePage.clickEditRow0()
         await positionPage.inputName("Automation test edit position")
-        await positionPage.inputNote("Automation test edit note")
+        await positionPage.fillNote("Automation test edit note")
         await basePage.clickSave()
         await toastPage.getToastUpdateSuccess()
     });

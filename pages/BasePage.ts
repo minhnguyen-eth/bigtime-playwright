@@ -38,6 +38,9 @@ export class BasePage {
     readonly noteInput: Locator;
     readonly iconActions: Locator;
     readonly statusDropDownInForm: Locator;
+    readonly lock_Status: Locator;
+    readonly activity_Status: Locator;
+    readonly descriptionInput: Locator;
 
     // Validatation
     readonly requiredFillReason: Locator;
@@ -46,8 +49,11 @@ export class BasePage {
     readonly validateMaxlenght20Charactor: Locator
     readonly validateMaxlenght100Charactor: Locator
 
+
     constructor(page: Page) {
         this.page = page;
+        this.lock_Status = page.locator("//div[contains(text(),'Khóa')]");
+        this.activity_Status = page.locator("//div[contains(text(),'Hoạt động')]");
         this.statusDropDownInForm = page.getByRole('combobox').filter({ hasText: 'Trạng thái ※' }).locator('i').nth(1)
         this.noteInput = page.getByRole('textbox', { name: 'Ghi chú' });
         this.validateMaxlenght100Charactor = page.locator("//div[contains(text(),'Không nhập quá 100 kí tự.')]");
@@ -75,19 +81,20 @@ export class BasePage {
         this.reasonInput = page.locator("//textarea");
         this.chosseButton = page.getByRole('button', { name: 'Chọn' })
         this.confirmButton = page.locator("//span[contains(text(),'Xác nhận')]");
-        this.rejectButton = page.locator("//span[contains(text(),'Từ chối')]");
+        this.rejectButton = page.getByRole('button', { name: 'Từ chối' });
         this.browsedStatus = page.locator("//tr[@id='row-0']//div[text()='Đã duyệt']");
-        this.browseButton = page.locator("//span[contains(text(),'Duyệt')]");
-        this.sendButton = page.locator("//span[contains(text(),'Gửi')]");
+        this.browseButton = page.getByRole('button', { name: 'Duyệt' });
+        this.sendButton = page.getByRole('button', { name: 'Gửi' });
         this.noButton = page.locator("//span[normalize-space()='Không']");
         this.yesButton = page.locator("//span[normalize-space()='Có']");
-        this.cancelButton = page.getByRole('button', { name: 'Hủy' })
+        this.cancelButton = page.getByRole('button', { name: 'Hủy' });
         this.saveButton = page.locator("//span[normalize-space()='Lưu']");
         this.deleteRow0Button = page.locator("//tr[@id='row-0']//span[contains(text(),'Xóa')]");
         this.editRow0Button = page.locator("//tr[@id='row-0']//span[contains(text(),'Sửa')]");
         this.clearSearchButton = page.locator("//span[normalize-space()='Xóa']").first();
         this.addButton = page.locator("//span[normalize-space()='Thêm']");
         this.searchButton = page.locator("//span[contains(normalize-space(),'Tìm kiếm')]");
+        this.descriptionInput = page.locator("//div/div[2]/div/div/div/div[3]/textarea");
     }
 
 
@@ -95,8 +102,16 @@ export class BasePage {
         await this.page.waitForLoadState('networkidle', { timeout });
     }
 
-    async safeClick(locator: Locator, options?: { force?: boolean; timeout?: number }): Promise<void> {
-        const timeout = options?.timeout ?? 30000; // Increased default timeout to 30s
+    async safeClick(
+        locator: Locator,
+        options?: {
+            force?: boolean;
+            timeout?: number;
+            first?: boolean;
+            nth?: number;
+        }
+    ): Promise<void> {
+        const timeout = options?.timeout ?? 30000;
 
         if (this.page.isClosed()) {
             console.warn("safeClick: Page is already closed before click.");
@@ -110,6 +125,13 @@ export class BasePage {
             if (this.page.isClosed()) {
                 console.warn("safeClick: Page closed during overlay wait.");
                 return;
+            }
+
+            // Apply .first() or .nth()
+            if (options?.first) {
+                locator = locator.first();
+            } else if (typeof options?.nth === 'number') {
+                locator = locator.nth(options.nth);
             }
 
             await locator.waitFor({ state: 'attached', timeout });
@@ -137,6 +159,7 @@ export class BasePage {
             throw error;
         }
     }
+
 
     async waitForOverlayToDisappear(selector: string = '.overlay', timeout: number = 30000): Promise<void> {
         const overlay = this.page.locator(selector);
@@ -339,8 +362,20 @@ export class BasePage {
         await this.safeClick(this.cancelButton);
     }
 
+    async clickCancelNth1() {
+        await this.safeClick(this.cancelButton, { nth: 1 });
+    }
+
+    async selectStatus(status: string) {
+        if (status == "Hoạt động") {
+            await this.activity_Status.click();
+        } else if (status == "Khóa") {
+            await this.lock_Status.click();
+        }
+    }
+
+
     async clickSave() {
-        await this.page.waitForLoadState('networkidle');
         await this.page.waitForLoadState('load');
         await this.safeClick(this.saveButton);
     }
@@ -370,6 +405,10 @@ export class BasePage {
 
     async fillNote(note: string) {
         await this.safeFill(this.noteInput, note);
+    }
+
+    async fillDescription(description: string) {
+        await this.safeFill(this.descriptionInput, description);
     }
 
     async clickDropdownStatusInForm() {

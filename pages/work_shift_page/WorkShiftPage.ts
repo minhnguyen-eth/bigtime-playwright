@@ -2,12 +2,7 @@ import { Page, Locator, expect } from '@playwright/test';
 import { BasePage } from '../BasePage';
 
 export class WorkShiftPage extends BasePage {
-
     readonly workshiftButton: Locator;
-    readonly addButton: Locator;
-    readonly editButton: Locator;
-    readonly deleteButton: Locator;
-    readonly searchButton: Locator;
     readonly workshiftNameInput: Locator;
     readonly workshiftCodeInput: Locator;
     readonly workshiftDescriptionInput: Locator;
@@ -30,7 +25,6 @@ export class WorkShiftPage extends BasePage {
     readonly branchDropdown: Locator;
     readonly branchBienHoa: Locator;
     readonly lockStatus: Locator;
-    readonly okButton: Locator;
     readonly verifyLockStatus: Locator;
     readonly workshiftNameSearchField: Locator;
     readonly workshiftCodeSearchField: Locator;
@@ -38,7 +32,6 @@ export class WorkShiftPage extends BasePage {
     readonly statusActive: Locator;
     readonly statusLock: Locator;
     readonly branchBienHoaSearch: Locator;
-    readonly clearSearchButton: Locator;
     readonly verifyWorkShiftName: Locator;
     readonly verifyWorkShiftCode: Locator;
     readonly verifyBranchBienHoaSearch: Locator;
@@ -49,7 +42,6 @@ export class WorkShiftPage extends BasePage {
 
     constructor(page: Page) {
         super(page);
-
         this.verifyWorkingTime = page.locator("//div[3]/div/input[@value='08:00']");
         this.verifyLockStatusSearchRow1 = page.locator("//tr[@id='row-2']//span[@class='custom-size'][contains(text(),'Khóa')]");
         this.verifyLockStatusSearch = page.locator("//span[@class='custom-size'][normalize-space()='Khóa']");
@@ -57,7 +49,6 @@ export class WorkShiftPage extends BasePage {
         this.verifyBranchBienHoaSearch = page.locator("//tr[@id='row-0']//span[contains(text(),'Biên Hòa')]");
         this.verifyWorkShiftCode = page.locator("//tr[@id='row-0']//span[contains(text(),'CN')]");
         this.verifyWorkShiftName = page.locator("//a[@class='ml-2']//span[contains(text(),'Ca ngày')]");
-        this.clearSearchButton = page.locator("//span[.=' Xóa']");
         this.workshiftCodeSearchField = page.getByRole('textbox', { name: 'Mã ca' });
         this.workshiftNameSearchField = page.getByRole('textbox', { name: 'Tên ca' });
         this.branchBienHoaSearch = page.locator("//div[contains(text(),'Biên Hòa')]");
@@ -65,7 +56,6 @@ export class WorkShiftPage extends BasePage {
         this.statusActive = page.locator("//div[text()='Hoạt động']");
         this.statusLock = page.locator("//div[text()='Khóa']");
         this.verifyLockStatus = page.locator("//tr[@id='row-0']//span[@class='custom-size'][normalize-space()='Khóa']");
-        this.okButton = page.locator("//span[normalize-space()='Có']");
         this.lockStatus = page.locator("//div[contains(text(),'Khóa')]");
         this.branchBienHoa = page.locator("//div[text()='Biên Hòa']");
         this.branchDropdown = page.locator("//i[@title='Open']");
@@ -85,13 +75,9 @@ export class WorkShiftPage extends BasePage {
         this.workshiftStartTimeInput = page.getByRole('textbox', { name: 'Giờ bắt đầu ※' });
         this.workshiftNameInput = page.getByRole('textbox', { name: 'Tên ca ※' });
         this.workshiftCodeInput = page.getByRole('textbox', { name: 'Mã ca ※' });
-        this.searchButton = page.locator("//span[.=' Tìm kiếm']");
         this.workshiftButton = page.locator("//a[.='Ca làm việc']");
-        this.addButton = page.locator("//span[normalize-space()='Thêm']");
-        this.editButton = page.locator("//tr[@id='row-0']//span[contains(text(),'Sửa')]");
-        this.deleteButton = page.locator("//tr[@id='row-0']//span[contains(text(),'Xóa')]");
-
     }
+
     async getVerifyWorkingTime() {
         await this.safeVerifyToHaveValue(this.verifyWorkingTime, "08:00");
     }
@@ -118,10 +104,6 @@ export class WorkShiftPage extends BasePage {
 
     async getVerifyWorkShiftName() {
         await this.safeVerifyTextContains(this.verifyWorkShiftName, "Ca ngày");
-    }
-
-    async clickOnClearSearchButton() {
-        await this.safeClick(this.clearSearchButton);
     }
 
     async fillWorkShiftCodeSearchField(code: string) {
@@ -155,10 +137,6 @@ export class WorkShiftPage extends BasePage {
 
     async getVerifyLockStatus() {
         await this.safeVerifyTextContains(this.verifyLockStatus, "Khóa");
-    }
-
-    async clickOkButton() {
-        await this.safeClick(this.okButton);
     }
 
     async clickOnLockStatus() {
@@ -242,23 +220,7 @@ export class WorkShiftPage extends BasePage {
         await this.safeClick(this.workshiftStartTimeInput);
     }
 
-    async clickOnSearchButton() {
-        await this.safeClick(this.searchButton);
-    }
-
-    async clickOnEditButton() {
-        await this.safeClick(this.editButton);
-    }
-
-    async clickOnDeleteButton() {
-        await this.safeClick(this.deleteButton);
-    }
-
     async clickOnWorkShiftButton() {
         await this.safeClick(this.workshiftButton);
-    }
-
-    async clickOnAddButton() {
-        await this.safeClick(this.addButton);
     }
 }

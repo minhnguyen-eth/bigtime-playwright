@@ -42,6 +42,10 @@ export const clearOvertimeSubmission = async () => {
     await clearTable('overtime_submissions');
 };
 
+export const clearDebts = async () => {
+    await clearTable('debts', "note NOT LIKE '%Test data%'");
+};
+
 export const clearCheckDay = async () => {
     await clearTable('check_days');
 };

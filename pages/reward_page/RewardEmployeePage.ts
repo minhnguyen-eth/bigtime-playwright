@@ -67,7 +67,7 @@ export class RewardEmployeePage extends BasePage {
         this.searchByRewardName = page.getByRole('textbox', { name: 'Tên khen thưởng' });
         this.chosseButton = page.locator("//button[contains(text(),'Chọn')]");
         this.day19 = page.locator("//div[@class='dp__cell_inner dp__pointer dp__date_hover'][normalize-space()='19']");
-        this.dayReward = page.locator("//form/div/div[4]/div/div/div/div/div[1]/div/div/div[3]/input");
+        this.dayReward = page.getByRole('textbox', { name: 'Ngày khen thưởng' });
         this.validationMoney = page.locator("//div[contains(text(),'Nhập tiền thưởng')]");
         this.validationRewardType = page.locator("//div[contains(text(),'Nhập chọn loại khen thưởng')]");
         this.validationEmployee = page.locator("//div[contains(text(),'Nhập chọn nhân viên')]");
@@ -82,7 +82,7 @@ export class RewardEmployeePage extends BasePage {
         this.chosseRewardType = page.getByRole('textbox', { name: 'Chọn loại khen thưởng ※' });
         this.selectEmployee = page.locator("//span[@class='v-autocomplete__unmask'][contains(text(),'BAT810 - Nguyễn Văn')]");
         this.chosseEmployeeInput = page.getByRole('textbox', { name: 'Chọn nhân viên ※' });
-        this.rewardNameInput = page.locator("//div[2]/div/div[1]/div/div/div/div[3]/div/input");
+        this.rewardNameInput = page.getByRole('textbox', { name: 'Tên khen thưởng ※' });
         this.rewardEmployee = page.locator("//div[contains(text(),'Khen thưởng nhân viên')]");
         this.month06Button = page.locator("//div[@class='dp__overlay_cell dp__overlay_cell_pad'][normalize-space()='Thg 6']");
         this.monthButton = page.locator("button[aria-label='Open months overlay']");

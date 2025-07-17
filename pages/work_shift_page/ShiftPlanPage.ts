@@ -1,8 +1,7 @@
-import { Locator, Page, expect } from '@playwright/test';
+import { Locator, Page } from '@playwright/test';
 import { BasePage } from '../BasePage';
 
 export class ShiftPlanPage extends BasePage {
-
     readonly searchButton: Locator;
     readonly shiftPlanButton: Locator;
     readonly addButton: Locator;
@@ -208,6 +207,4 @@ export class ShiftPlanPage extends BasePage {
         await this.safeVerifyToHaveText(this.requiredFieldNameWorkShift, text);
         return this.requiredFieldNameWorkShift.textContent();
     }
-
-
 }

@@ -86,7 +86,7 @@ test.describe.serial('Team', () => {
         await basePage.clickAdmin();
         await teamPage.clickTeamButton();
         await basePage.clickEditRow0();
-        await teamPage.clickDropdownFormAdd();
+        await teamPage.clickDropdownStatusInForm();
         await teamPage.clickLockStatus();
         await basePage.clickSave();
         await toastPage.getToastUpdateSuccess();

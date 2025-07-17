@@ -5,7 +5,6 @@ export class DepartmentPage extends BasePage {
 
     readonly departmentButton: Locator;
     readonly departmentNameInput: Locator;
-    readonly noteInput: Locator;
     readonly dateCreateDepartment: Locator;
     readonly validateNameDepartment: Locator;
     readonly searchByNameDepartment: Locator;
@@ -14,12 +13,11 @@ export class DepartmentPage extends BasePage {
     constructor(page: Page) {
         super(page);
         this.searchByNameResult = page.locator("//tr[@id='row-0']//span[contains(text(),'Bộ phận IT')]");
-        this.searchByNameDepartment = page.locator("//form/div/div[1]/div/div/div/div[3]/div/input");
+        this.searchByNameDepartment = page.getByRole('textbox', { name: 'Tên bộ phận' });
         this.validateNameDepartment = page.locator("//div[contains(text(),'Nhập tên bộ phận')]");
-        this.dateCreateDepartment = page.locator("//div[2]/div/div/div/div/div[1]/div/div/div[3]/input");
-        this.departmentNameInput = page.locator("//div[2]/div/div[1]/div/div/div/div[4]/div/input");
+        this.dateCreateDepartment = page.getByRole('textbox', { name: 'Ngày thành lập ※' });
+        this.departmentNameInput = page.getByRole('textbox', { name: 'Tên bộ phận ※' });
         this.departmentButton = page.locator("//div[contains(text(),'Bộ phận')]");
-        this.noteInput = page.locator("//textarea");
     }
 
     async verifySearchByNameResult() {
@@ -36,10 +34,6 @@ export class DepartmentPage extends BasePage {
 
     async clickDateCreateDepartment() {
         await this.safeClick(this.dateCreateDepartment);
-    }
-
-    async fillNote(note: string) {
-        await this.safeFill(this.noteInput, note);
     }
 
     async fillDepartmentName(department: string) {

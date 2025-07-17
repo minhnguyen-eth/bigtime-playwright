@@ -27,8 +27,6 @@ export class LeaveManagementPage extends BasePage {
     readonly comfirmButton: Locator;
     readonly OkButton: Locator;
     readonly toastConfirmSuccess: Locator;
-    readonly logoutButton: Locator;
-    readonly logoutConfirmButton: Locator;
     readonly browsed: Locator;
     readonly toastBrowsedSuccess: Locator;
     readonly addEmployee: Locator;
@@ -81,8 +79,6 @@ export class LeaveManagementPage extends BasePage {
         this.waitingForApproval = page.locator("//div[contains(text(),'Chờ duyệt')]")
         this.addEmployee = page.locator("div[class='v-slide-group__content'] div span[class='v-btn__content']")
         this.browsed = page.locator("//span[contains(text(),'Duyệt')]")
-        this.logoutButton = page.locator('//div[contains(text(),"Đăng xuất")]');
-        this.logoutConfirmButton = page.locator('//span[normalize-space()="Có"]');
         this.OkButton = page.locator("//span[normalize-space()='Có']")
         this.comfirmButton = page.locator("//span[contains(text(),'Xác nhận')]")
         this.iconActionRow0 = page.locator("//tr[@id='row-0']//i[contains(@class, 'mdi-format-list-group')]")

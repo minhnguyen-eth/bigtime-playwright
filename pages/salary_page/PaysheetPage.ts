@@ -2,7 +2,6 @@ import { Locator, Page, expect } from '@playwright/test';
 import { BasePage } from '../BasePage';
 
 export class PaysheetPage extends BasePage {
-
     readonly paysheetButton: Locator;
     readonly namePaysheetInput: Locator;
     readonly radioMonthly: Locator;

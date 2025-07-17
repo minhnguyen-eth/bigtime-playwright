@@ -23,8 +23,6 @@ export class LeaveApplicationPage extends BasePage {
     readonly specialLeave: Locator;
     readonly socialInsuranceLeave: Locator;
     readonly maternityLeave: Locator;
-    readonly logoutButton: Locator;
-    readonly logoutConfirmButton: Locator;
     readonly closeDatePicker1: Locator;
     readonly closeDatePicker2: Locator;
 

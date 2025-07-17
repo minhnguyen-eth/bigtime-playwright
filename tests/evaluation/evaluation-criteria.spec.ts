@@ -57,7 +57,7 @@ test.describe.serial("Evaluation Criteria Tests", () => {
         await evaluationCriteriaPage.clickEvaluationCriteria();
         await basePage.clickAdd();
         await evaluationCriteriaPage.setEvaluationCriteriaName("Automation Test");
-        await evaluationCriteriaPage.setDescription("a".repeat(500));
+        await evaluationCriteriaPage.fillDescription("a".repeat(500));
         await evaluationCriteriaPage.clickEvaluationCriteriaNameDropDown();
         await evaluationCriteriaPage.clickEvaluationTypeOption();
         await basePage.clickSave();
@@ -70,7 +70,7 @@ test.describe.serial("Evaluation Criteria Tests", () => {
         await evaluationCriteriaPage.clickEvaluationCriteria();
         await basePage.clickAdd();
         await evaluationCriteriaPage.setEvaluationCriteriaName("Automation Test");
-        await evaluationCriteriaPage.setDescription("a".repeat(501));
+        await evaluationCriteriaPage.fillDescription("a".repeat(501));
         await evaluationCriteriaPage.clickEvaluationCriteriaNameDropDown();
         await evaluationCriteriaPage.clickEvaluationTypeOption();
         await basePage.clickSave();
@@ -97,10 +97,10 @@ test.describe.serial("Evaluation Criteria Tests", () => {
         await evaluationCriteriaPage.clickEvaluationCriteria();
         await basePage.clickAdd();
         await evaluationCriteriaPage.setEvaluationCriteriaName(EvaluationCriteriaNameRandom);
-        await evaluationCriteriaPage.setDescription("Automation Test Description");
+        await evaluationCriteriaPage.fillDescription("Automation Test Description");
         await evaluationCriteriaPage.clickEvaluationCriteriaNameDropDown();
         await evaluationCriteriaPage.clickEvaluationTypeOption();
-        await evaluationCriteriaPage.clickStatusDropDown();
+        await evaluationCriteriaPage.clickDropdownStatusInForm();
         await evaluationCriteriaPage.clickLockStatus();
         await basePage.clickSave();
         await toastPage.getToastAddSuccess();
@@ -115,7 +115,7 @@ test.describe.serial("Evaluation Criteria Tests", () => {
         await evaluationCriteriaPage.clickEvaluationCriteria();
         await basePage.clickAdd();
         await evaluationCriteriaPage.setEvaluationCriteriaName(EvaluationCriteriaNameRandom);
-        await evaluationCriteriaPage.setDescription("Automation Test Description");
+        await evaluationCriteriaPage.fillDescription("Automation Test Description");
         await evaluationCriteriaPage.clickEvaluationCriteriaNameDropDown();
         await evaluationCriteriaPage.clickEvaluationTypeOption();
         await basePage.clickSave();
@@ -131,19 +131,19 @@ test.describe.serial("Evaluation Criteria Tests", () => {
         await evaluationCriteriaPage.verifyResultSearchByName();
         await basePage.clickClearSearch();
 
-        await evaluationCriteriaPage.clickStatusDropDownSearch();
+        await evaluationCriteriaPage.clickDropdownStatusSearch();
         await evaluationCriteriaPage.selectStatus("Hoạt động");
         await basePage.clickSearch();
         await basePage.verifyActivityStatusRow0();
         await basePage.clickClearSearch();
 
-        await evaluationCriteriaPage.clickStatusDropDownSearch();
+        await evaluationCriteriaPage.clickDropdownStatusSearch();
         await evaluationCriteriaPage.selectStatus("Khóa");
         await basePage.clickSearch();
         await basePage.verifyLockStatusRow0();
         await basePage.clickClearSearch();
 
-        await evaluationCriteriaPage.clickStatusDropDownSearch();
+        await evaluationCriteriaPage.clickDropdownStatusSearch();
         await evaluationCriteriaPage.selectStatus("Hoạt động");
         await evaluationCriteriaPage.selectStatus("Khóa");
         await basePage.clickSearch();
@@ -163,14 +163,14 @@ test.describe.serial("Evaluation Criteria Tests", () => {
         await toastPage.getToastUpdateSuccess();
 
         await basePage.clickEditRow0();
-        await evaluationCriteriaPage.clickStatusDropDown();
+        await evaluationCriteriaPage.clickDropdownStatusInForm();
         await evaluationCriteriaPage.clickLockStatus();
         await basePage.clickSave();
         await toastPage.getToastUpdateSuccess();
         await basePage.verifyLockStatusRow0();
 
         await basePage.clickEditRow0();
-        await evaluationCriteriaPage.clickStatusDropDown();
+        await evaluationCriteriaPage.clickDropdownStatusInForm();
         await evaluationCriteriaPage.selectStatus("Hoạt động");
         await basePage.clickSave();
         await basePage.verifyActivityStatusRow0();

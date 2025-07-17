@@ -1,12 +1,10 @@
-import { Locator, Page, expect } from 'playwright/test';
+import { Locator, Page } from 'playwright/test';
 import { BasePage } from './BasePage';
 
-export class LevelPage extends BasePage{
-   
+export class LevelPage extends BasePage {
     readonly levelButton: Locator
     readonly levelName: Locator
     readonly levelCode: Locator
-    readonly noteInput: Locator
     readonly validateName: Locator
     readonly validateCode: Locator
     readonly validateCodeExist: Locator
@@ -17,16 +15,15 @@ export class LevelPage extends BasePage{
 
     constructor(page: Page) {
         super(page);
-        this.searchByCode = page.locator("//form/div/div[2]/div/div/div/div[3]/div/input");
+        this.searchByCode = page.getByRole('textbox', { name: 'Mã cấp bậc' });
+        this.searchByName = page.getByRole('textbox', { name: 'Tên cấp bậc' });
         this.searchByCodeResult = page.locator("//tr[@id='row-0']/td[3]//span[contains(text(),'Fresher')]");
         this.searchByNameResult = page.locator("//tr[@id='row-0']/td[2]//span[contains(text(),'Fresher')]");
-        this.searchByName = page.locator("//form/div/div[1]/div/div/div/div[3]/div/input");
         this.validateCode = page.locator("//div[contains(text(),'Nhập mã cấp bậc')]");
         this.validateCodeExist = page.locator("//li[contains(text(),'Mã cấp bậc đã tồn tại.')]");
         this.validateName = page.locator("//div[contains(text(),'Nhập tên cấp bậc')]");
-        this.noteInput = page.locator("//textarea");
-        this.levelCode = page.locator("//div[2]/div/div/div/div[4]/div/input");
-        this.levelName = page.locator("//div[1]/div/div/div/div[4]/div/input");
+        this.levelCode = page.getByRole('textbox', { name: 'Mã cấp bậc ※' });
+        this.levelName = page.getByRole('textbox', { name: 'Tên cấp bậc ※' });
         this.levelButton = page.locator("//div[contains(text(),'Cấp bậc')]");
     }
 
@@ -60,10 +57,6 @@ export class LevelPage extends BasePage{
         await this.safeFill(this.searchByCode, code);
     }
 
-    async fillNote(note: string) {
-        await this.safeFill(this.noteInput, note);
-    }
-
     async fillCode(code: string) {
         await this.safeFill(this.levelCode, code);
     }
@@ -76,5 +69,4 @@ export class LevelPage extends BasePage{
     async clickLevel() {
         await this.safeClick(this.levelButton);
     }
-
 }

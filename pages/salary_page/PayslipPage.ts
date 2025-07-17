@@ -2,11 +2,9 @@ import { Page, Locator } from '@playwright/test';
 import { PaysheetPage } from './PaysheetPage';
 
 export class PayslipPage extends PaysheetPage {
-
     readonly verifyCancelledStatus: Locator;
     readonly exportButton: Locator;
     readonly exportAllButton: Locator;
-
 
     constructor(page: Page) {
         super(page);
