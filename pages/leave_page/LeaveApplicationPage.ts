@@ -2,22 +2,11 @@ import { Locator, Page, expect } from '@playwright/test';
 import { BasePage } from '../BasePage';
 
 export class LeaveApplicationPage extends BasePage {
-    readonly searchButton: Locator;
-    readonly leaveApplicationButton: Locator;
-    readonly addButton: Locator;
+    readonly leaveApplicationButton: Locator;  
     readonly leaveTypeDropDown: Locator;
     readonly startDate: Locator;
     readonly endDate: Locator;
-    readonly reason: Locator;
     readonly numberOfDaysOff: Locator;
-    readonly saveButton: Locator;
-    readonly cancelButton: Locator;
-    readonly sendButton: Locator;
-    readonly OKButton: Locator;
-    readonly Row0: Locator;
-    readonly toastSendSuccess: Locator;
-    readonly browsedButton: Locator;
-    readonly toastBrowsedSuccess: Locator;
     readonly anualLeave: Locator;
     readonly regularLeave: Locator;
     readonly specialLeave: Locator;
@@ -41,7 +30,6 @@ export class LeaveApplicationPage extends BasePage {
     readonly searchBySocialInsuranceLeave: Locator;
     readonly searchByRegularLeave: Locator;
     readonly closeSearchByMonth: Locator;
-    readonly statusComboBoxSearch: Locator;
     readonly cancelButtonSearch: Locator;
     readonly browsedButtonSearch: Locator;
     readonly waitForBrowsedButtonSearch: Locator;
@@ -67,9 +55,8 @@ export class LeaveApplicationPage extends BasePage {
         this.cancelButtonSearch = page.getByRole('option', { name: 'Hủy' })
         this.waitForBrowsedButtonSearch = page.getByRole('option', { name: 'Chờ duyệt' })
         this.browsedButtonSearch = page.getByRole('option', { name: 'Đã duyệt' })
-        this.statusComboBoxSearch = page.getByRole('combobox').filter({ hasText: 'Trạng thái Trạng thái' })
         this.closeSearchByMonth = page.locator('svg')
-        this.restTypeComboBox = page.getByRole('combobox').filter({ hasText: 'Loại ngày nghỉ Loại ngày nghỉ' })
+        this.restTypeComboBox = page.getByRole('combobox').filter({ hasText: 'Loại ngày nghỉ' })
 
         // SEARCH
         this.searchByBrowsedResult = page.locator('#row-0').getByRole('cell', { name: 'Đã duyệt' })
@@ -94,21 +81,12 @@ export class LeaveApplicationPage extends BasePage {
         this.maternityLeave = page.locator("//div[contains(text(),'Nghỉ thai sản')]")
         this.socialInsuranceLeave = page.locator("//div[contains(text(),'Nghỉ bảo hiểm xã hội')]")
         this.regularLeave = page.locator("//div[contains(text(),'Nghỉ thường')]")
-        this.browsedButton = page.locator("//span[contains(text(),'Duyệt')]")
-        this.Row0 = page.locator("//tr[@id='row-0']")
-        this.OKButton = page.locator("//span[normalize-space()='Có']")
-        this.sendButton = page.locator("//span[contains(text(),'Gửi')]")
-        this.cancelButton = page.locator("//span[.=' Hủy']")
-        this.saveButton = page.locator("//span[.=' Lưu']")
         this.numberOfDaysOff = page.getByRole('spinbutton', { name: 'Số ngày nghỉ Số ngày nghỉ' })
-        this.reason = page.getByRole('textbox', { name: 'Lý do ※' })
         this.endDate = page.getByRole('textbox', { name: 'Đến hết ngày ※' })
         this.startDate = page.getByRole('textbox', { name: 'Nghỉ từ ngày ※ Nghỉ từ ngày ※' })
         this.anualLeave = page.locator("//div[contains(text(),'Nghỉ theo phép năm')]")
         this.leaveTypeDropDown = page.getByRole('combobox').filter({ hasText: 'Loại ngày nghỉ ※Nghỉ' })
-        this.addButton = page.locator("//span[normalize-space()='Thêm']")
         this.leaveApplicationButton = page.locator("//div[contains(text(),'Đơn nghỉ phép')]")
-        this.searchButton = page.getByRole('button', { name: 'Tìm kiếm' })
     }
 
     async clickCloseDatePicker2() {
@@ -169,7 +147,7 @@ export class LeaveApplicationPage extends BasePage {
 
     async clickCancelButtonSearch() {
         await this.clickClearSearch();
-        await this.clickStatusComboBoxSearch();
+        await this.clickDropdownStatusSearch();
         await this.safeClick(this.cancelButtonSearch);
         await this.clickLabelLeaveApplication();
         await this.clickSearchButton();
@@ -177,7 +155,7 @@ export class LeaveApplicationPage extends BasePage {
 
     async clickRejectButtonSearch() {
         await this.clickClearSearch();
-        await this.clickStatusComboBoxSearch();
+        await this.clickDropdownStatusSearch();
         await this.safeClick(this.rejectButtonSearch);
         await this.clickLabelLeaveApplication();
         await this.clickSearchButton();
@@ -185,7 +163,7 @@ export class LeaveApplicationPage extends BasePage {
 
     async clickBrowsedButtonSearch() {
         await this.clickClearSearch();
-        await this.clickStatusComboBoxSearch();
+        await this.clickDropdownStatusSearch();
         await this.safeClick(this.browsedButtonSearch);
         await this.clickLabelLeaveApplication();
         await this.clickSearchButton();
@@ -193,14 +171,10 @@ export class LeaveApplicationPage extends BasePage {
 
     async clickWaitForBrowsedButtonSearch() {
         await this.clickClearSearch();
-        await this.clickStatusComboBoxSearch();
+        await this.clickDropdownStatusSearch();
         await this.safeClick(this.waitForBrowsedButtonSearch);
         await this.clickLabelLeaveApplication();
         await this.clickSearchButton();
-    }
-
-    async clickStatusComboBoxSearch() {
-        await this.safeClick(this.statusComboBoxSearch);
     }
 
     async clickCloseSearchByMonth() {
@@ -261,28 +235,8 @@ export class LeaveApplicationPage extends BasePage {
         await this.safeClick(this.leaveTypeDropDown);
     }
 
-    async clickBrowsedButton() {
-        await this.safeClick(this.browsedButton);
-    }
-
-    async clickRow0() {
-        await this.safeClick(this.Row0);
-    }
-
-    async clickSaveButton() {
-        await this.safeClick(this.saveButton);
-    }
-
     async fillNumberOfDaysOff(number: string) {
         await this.safeFill(this.numberOfDaysOff, number);
-    }
-
-    async clickChosseButton() {
-        await this.safeClick(this.chosseButton);
-    }
-
-    async fillReason(reason: string) {
-        await this.safeFill(this.reason, reason);
     }
 
     async clickEndDate() {
@@ -299,10 +253,6 @@ export class LeaveApplicationPage extends BasePage {
 
     async clickLeaveTypeDropDown() {
         await this.safeClick(this.leaveTypeDropDown);
-    }
-
-    async clickAddButton() {
-        await this.safeClick(this.leaveApplicationButton);
     }
 
     async clickLeaveApplicationButton() {

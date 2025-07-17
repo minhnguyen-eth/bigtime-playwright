@@ -2,29 +2,30 @@ import { test, } from './base-test';
 import { LoginPage } from '../pages/LoginPage';
 import Config from '../utils/configUtils';
 import { allure } from 'allure-playwright';
-import { BasePage } from '../pages/BasePage';
 import { ToastPage } from '../pages/ToastPage';
 import { LevelPage } from '../pages/LevelPage';
 import { clearLevel } from '../db/DBHelper';
+import { ValidationPage } from '../pages/ValidationPage';
 
 test.describe.serial('Level Test Suite', () => {
     let loginPage: LoginPage;
     let levelPage: LevelPage;
-    let basePage: BasePage;
     let toastPage: ToastPage;
+    let validation: ValidationPage;
 
     test.beforeEach(async ({ page }) => {
         allure.feature('Level Feature');
         allure.owner('Minh Nguyen');
         allure.severity('Critical');
 
+        validation = new ValidationPage(page);
         toastPage = new ToastPage(page);
         levelPage = new LevelPage(page);
         loginPage = new LoginPage(page);
-        basePage = new BasePage(page);
+        
         await loginPage.goto();
         await loginPage.login(Config.admin_username, Config.admin_password)
-        await basePage.clickAdmin();
+        await levelPage.clickAdmin();
         await levelPage.clickLevel();
 
     })
@@ -32,233 +33,233 @@ test.describe.serial('Level Test Suite', () => {
     test('Create with lock status', async ({ page }) => {
         await clearLevel();
         const random = "Automation test" + Math.random().toString(36).substring(2, 7);
-        await basePage.clickAdd();
+        await levelPage.clickAdd();
         await levelPage.fillLevelName(random);
         await levelPage.fillCode(random);
-        await basePage.clickIconStatusDropdown();
-        await basePage.clickLockStatus();
-        await basePage.clickSave();
+        await levelPage.clickIconStatusDropdown();
+        await levelPage.clickLockStatus();
+        await levelPage.clickSave();
         await toastPage.getToastAddSuccess();
-        await basePage.verifyLockStatusRow0();
+        await levelPage.verifyLockStatusRow0();
     });
 
     test('Create level successfully', async ({ page }) => {
         const random = "Automation test" + Math.random().toString(36).substring(2, 7);
-        await basePage.clickAdd();
+        await levelPage.clickAdd();
         await levelPage.fillLevelName(random);
         await levelPage.fillCode(random);
         await levelPage.fillNote("Automation test");
-        await basePage.clickSave();
+        await levelPage.clickSave();
         await toastPage.getToastAddSuccess();
     });
 
     test('Create level with blank name', async ({ page }) => {
         const random = "Automation test" + Math.random().toString(36).substring(2, 7);
-        await basePage.clickAdd();
+        await levelPage.clickAdd();
         await levelPage.fillCode(random);
         await levelPage.fillNote("Automation test");
-        await basePage.clickSave();
+        await levelPage.clickSave();
         await levelPage.expectValidateNameRequired();
     });
 
     test('Create level with blank note', async ({ page }) => {
         const random = "Automation test" + Math.random().toString(36).substring(2, 7);
-        await basePage.clickAdd();
+        await levelPage.clickAdd();
         await levelPage.fillLevelName(random);
         await levelPage.fillCode(random);
-        await basePage.clickSave();
+        await levelPage.clickSave();
         await toastPage.getToastAddSuccess();
     });
 
     test('Create with duplicate name', async ({ page }) => {
         const random = "Automation test" + Math.random().toString(36).substring(2, 7);
-        await basePage.clickAdd();
+        await levelPage.clickAdd();
         await levelPage.fillLevelName("Intern");
         await levelPage.fillCode(random);
         await levelPage.fillNote("Automation test");
-        await basePage.clickSave();
-        await basePage.expectNameExist();
+        await levelPage.clickSave();
+        await validation.validateNameAlreadyExists();
         await toastPage.getToastAddFailed();
     });
 
     test('Create with duplicate code', async ({ page }) => {
         const random = "Automation test" + Math.random().toString(36).substring(2, 7);
-        await basePage.clickAdd();
+        await levelPage.clickAdd();
         await levelPage.fillLevelName(random);
         await levelPage.fillCode("Intern");
         await levelPage.fillNote("Automation test");
-        await basePage.clickSave();
+        await levelPage.clickSave();
         await levelPage.expectValidateCodeExist();
         await toastPage.getToastAddFailed();
     });
 
     test('Edit note successfully', async ({ page }) => {
         const random = "Automation test" + Math.random().toString(36).substring(2, 7);
-        await basePage.clickEditRow0();
+        await levelPage.clickEditRow0();
         await levelPage.fillNote("Automation test edit");
-        await basePage.clickSave();
+        await levelPage.clickSave();
         await toastPage.getToastUpdateSuccess();
     });
 
     test('Edit active status to lock status', async ({ page }) => {
-        await basePage.clickEditRow0();
-        await basePage.clickIconStatusDropdown();
-        await basePage.clickLockStatus();
-        await basePage.clickSave();
+        await levelPage.clickEditRow0();
+        await levelPage.clickIconStatusDropdown();
+        await levelPage.clickLockStatus();
+        await levelPage.clickSave();
         await toastPage.getToastUpdateSuccess();
-        await basePage.verifyLockStatusRow0();
+        await levelPage.verifyLockStatusRow0();
     });
 
     test('Edit lock status to active status', async ({ page }) => {
 
-        await basePage.clickEditRow0();
-        await basePage.clickIconStatusDropdown();
-        await basePage.clickActivityStatus();
-        await basePage.clickSave();
+        await levelPage.clickEditRow0();
+        await levelPage.clickIconStatusDropdown();
+        await levelPage.clickActivityStatus();
+        await levelPage.clickSave();
         await toastPage.getToastUpdateSuccess();
-        await basePage.verifyActivityStatusRow0();
+        await levelPage.verifyActivityStatusRow0();
     });
 
 
     test('Edit name successfully', async ({ page }) => {
         const random = "Automation test" + Math.random().toString(36).substring(2, 7);
-        await basePage.clickEditRow0();
+        await levelPage.clickEditRow0();
         await levelPage.fillLevelName("Automation test edit name");
-        await basePage.clickSave();
+        await levelPage.clickSave();
         await toastPage.getToastUpdateSuccess();
     });
 
     test('Edit code successfully', async ({ page }) => {
         const random = "Automation test" + Math.random().toString(36).substring(2, 7);
-        await basePage.clickEditRow0();
+        await levelPage.clickEditRow0();
         await levelPage.fillCode(random);
-        await basePage.clickSave();
+        await levelPage.clickSave();
         await toastPage.getToastUpdateSuccess();
     });
 
     test('Edit name with duplicate name', async ({ page }) => {
-        await basePage.clickEditRow0();
+        await levelPage.clickEditRow0();
         await levelPage.fillLevelName("Intern");
-        await basePage.clickSave();
-        await basePage.expectNameExist();
+        await levelPage.clickSave();
+        await validation.validateNameAlreadyExists();
         await toastPage.getToastUpdateFailed();
     });
 
     test('Edit code with duplicate code', async ({ page }) => {
-        await basePage.clickEditRow0();
+        await levelPage.clickEditRow0();
         await levelPage.fillCode("Intern");
-        await basePage.clickSave();
+        await levelPage.clickSave();
         await levelPage.expectValidateCodeExist();
         await toastPage.getToastUpdateFailed();
     });
 
     test('Edit name with blank name', async ({ page }) => {
-        await basePage.clickEditRow0();
+        await levelPage.clickEditRow0();
         await levelPage.fillLevelName("");
-        await basePage.clickSave();
+        await levelPage.clickSave();
         await levelPage.expectValidateNameRequired();
     });
 
     test('Edit code with blank code', async ({ page }) => {
-        await basePage.clickEditRow0();
+        await levelPage.clickEditRow0();
         await levelPage.fillCode("");
-        await basePage.clickSave();
+        await levelPage.clickSave();
         await levelPage.expectValidateCodeRequired();
     });
 
     test('Delete level successfully', async ({ page }) => {
-        await basePage.clickDeleteRow0();
+        await levelPage.clickDeleteRow0();
         await toastPage.getToastDeleteSuccess();
     });
 
     test('Search by name', async ({ page }) => {
         await levelPage.fillSearchByName("Fresher");
-        await basePage.clickSearch();
+        await levelPage.clickSearch();
         await levelPage.expectSearchByNameResult();
     });
 
     test('Search by code', async ({ page }) => {
         await levelPage.fillSearchByCode("Fresher");
-        await basePage.clickSearch();
+        await levelPage.clickSearch();
         await levelPage.expectSearchByCodeResult();
     });
 
     test('Search by status', async ({ page }) => {
 
-        await basePage.clickDropdownStatusSearch();
-        await basePage.clickLockStatus();
-        await basePage.clickSearch();
-        await basePage.verifyLockStatusRow0();
-        await basePage.clickClearSearch();
+        await levelPage.clickDropdownStatusSearch();
+        await levelPage.clickLockStatus();
+        await levelPage.clickSearch();
+        await levelPage.verifyLockStatusRow0();
+        await levelPage.clickClearSearch();
 
-        await basePage.clickDropdownStatusSearch();
-        await basePage.clickActivityStatus();
-        await basePage.clickSearch();
-        await basePage.verifyActivityStatusRow0();
+        await levelPage.clickDropdownStatusSearch();
+        await levelPage.clickActivityStatus();
+        await levelPage.clickSearch();
+        await levelPage.verifyActivityStatusRow0();
     });
 
     test('Search with no data', async ({ page }) => {
         await levelPage.fillSearchByName("ksafjjasnfjas");
-        await basePage.clickSearch();
-        await basePage.verifyNoExistData();
+        await levelPage.clickSearch();
+        await validation.validateNoExistData();
     });
 
     test("Max length of name", async ({ page }) => {
         const random = "Automation test" + Math.random().toString(36).substring(2, 7);
-        await basePage.clickAdd();
+        await levelPage.clickAdd();
         await levelPage.fillLevelName("z".repeat(255));
         await levelPage.fillCode(random);
         await levelPage.fillNote("Automation test");
-        await basePage.clickSave();
+        await levelPage.clickSave();
         await toastPage.getToastAddSuccess();
     });
 
     test("Max length of code", async ({ page }) => {
         const random = "Automation test" + Math.random().toString(36).substring(2, 7);
-        await basePage.clickAdd();
+        await levelPage.clickAdd();
         await levelPage.fillLevelName("zzzzzzzz");
         await levelPage.fillCode("z".repeat(100));
         await levelPage.fillNote("Automation test");
-        await basePage.clickSave();
+        await levelPage.clickSave();
         await toastPage.getToastAddSuccess();
     });
 
     test("Max length of note", async ({ page }) => {
         const random = "Automation test" + Math.random().toString(36).substring(2, 7);
-        await basePage.clickAdd();
+        await levelPage.clickAdd();
         await levelPage.fillLevelName("zzzzz");
         await levelPage.fillCode(random);
         await levelPage.fillNote("z".repeat(255));
-        await basePage.clickSave();
+        await levelPage.clickSave();
         await toastPage.getToastAddSuccess();
     });
 
     test("Max length of note over 255", async ({ page }) => {
         const random = "Automation test" + Math.random().toString(36).substring(2, 7);
-        await basePage.clickAdd();
+        await levelPage.clickAdd();
         await levelPage.fillLevelName("zzzzz12");
         await levelPage.fillCode(random);
         await levelPage.fillNote("z".repeat(256));
-        await basePage.clickSave();
-        await basePage.verifyMaxlenght255Charactor();
+        await levelPage.clickSave();
+        await validation.validateMaxLength255Characters();
     });
 
      test("Max length of name over 255", async ({ page }) => {
         const random = "Automation test" + Math.random().toString(36).substring(2, 7);
-        await basePage.clickAdd();
+        await levelPage.clickAdd();
         await levelPage.fillLevelName("z".repeat(256));
         await levelPage.fillCode(random);
         await levelPage.fillNote("Automation test");
-        await basePage.clickSave();
-        await basePage.verifyMaxlenght255Charactor();
+        await levelPage.clickSave();
+        await validation.validateMaxLength255Characters();
     });
 
     test("Max length of code over 100", async ({ page }) => {
-        await basePage.clickAdd();
+        await levelPage.clickAdd();
         await levelPage.fillLevelName("zzzzzzzz");
         await levelPage.fillCode("z".repeat(101));
         await levelPage.fillNote("Automation test");
-        await basePage.clickSave();
-        await basePage.verifyMaxlenght100Charactor();
+        await levelPage.clickSave();
+        await validation.validateMaxLength100Characters();
     });
 });

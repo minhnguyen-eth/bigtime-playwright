@@ -18,9 +18,7 @@ export class PaysheetPage extends BasePage {
     readonly payslipButton: Locator;
     readonly salarySlipCode: Locator;
     readonly browseButton: Locator;
-    readonly okButton: Locator;
     readonly salaryClosingButton: Locator;
-    readonly confirmButton: Locator;
     readonly exportDataButton: Locator;
     readonly refreshButton: Locator;
     readonly paymentHistoryButton: Locator;
@@ -43,7 +41,6 @@ export class PaysheetPage extends BasePage {
     readonly exportExcelByMonth: Locator;
     readonly chosseMonthExport: Locator;
     readonly Month05: Locator;
-    readonly chosseDatePicker: Locator;
     readonly exportOnly1Paysheet: Locator;
     readonly monthOption05: Locator;
     readonly addMoreEmployee: Locator;
@@ -91,7 +88,6 @@ export class PaysheetPage extends BasePage {
         this.fillEmployeeName = page.locator("//div[3]/div[2]/div/div/div/div[3]/div/input")
         this.addMoreEmployee = page.locator("//span[normalize-space()='Thêm nhân viên']")
         this.exportOnly1Paysheet = page.getByRole('table').getByRole('button', { name: 'Xuất dữ liệu' });
-        this.chosseDatePicker = page.locator("//button[contains(text(),'Chọn')]")
         this.Month05 = page.locator("//div[@class='dp__overlay_cell dp__overlay_cell_pad'][normalize-space()='Thg 5']")
         this.chosseMonthExport = page.getByLabel('', { exact: true });
         this.exportExcelByMonth = page.getByRole('main').locator('header').getByRole('button', { name: 'Xuất dữ liệu' });
@@ -118,15 +114,12 @@ export class PaysheetPage extends BasePage {
         this.salarySlipCode = page.locator('//tr[@id="row-0"]//td[2]');
         this.salarySlipCodeRow1 = page.locator('//tr[@id="row-1"]//td[2]');
         this.browseButton = page.getByRole('button', { name: /Duyệt/ }).first()
-        this.okButton = page.locator('//span[normalize-space()="Có"]');
         this.salaryClosingButton = page.getByRole('button', { name: 'Chốt lương' });
-        this.confirmButton = page.getByRole('button', { name: 'Xác nhận' });
         this.exportDataButton = page.locator('//span[contains(normalize-space(),"Xuất dữ liệu")]');
         this.refreshButton = page.locator('//span[normalize-space()="Làm mới"]');
         this.paymentHistoryButton = page.locator('//span[normalize-space()="Lịch sử thanh toán"]');
         this.historyPaymentCodeButton = page.locator('//td[@class="text-left cursor-pointer"]');
         this.employeeNameLabel = page.locator('//div[contains(text(),"Nguyễn Văn Minh")]');
-        this.cancelPaysheetButton = page.locator('//span[normalize-space()="Hủy"]');
         this.searchInput = page.getByRole('textbox', { name: 'Tìm kiếm theo mã hoặc tên bảng lương' });
         this.verifyPaysheetIdCell = page.locator("//td[.='BL000001']");
         this.selectAllEmployeesCheckbox = page.getByRole('radio', { name: 'Chọn tất cả nhân viên' });
@@ -241,9 +234,6 @@ export class PaysheetPage extends BasePage {
     async clickExportOnly1Paysheet() {
         await this.safeClick(this.exportOnly1Paysheet);
     }
-    async clickChosseDatePicker() {
-        await this.safeClick(this.chosseDatePicker);
-    }
 
     async clickMonth05() {
         await this.safeClick(this.Month05);
@@ -311,13 +301,10 @@ export class PaysheetPage extends BasePage {
         await this.safeClick(this.refreshButton);
     }
 
-    async clickOk() {
-        await this.safeClick(this.okButton);
-    }
-
     async fillReason(reason: string) {
         await this.safeClick(this.reasonLabel);
         await this.safeFill(this.reasonInput, reason);
+        await this.clickYes();
     }
 
     async clickSelectAllEmployees() {
@@ -395,14 +382,10 @@ export class PaysheetPage extends BasePage {
 
     async clickBrowse() {
         await this.safeClick(this.browseButton);
-        await this.safeClick(this.okButton);
+        await this.clickYes();
     }
 
     async clickSalaryClosing() {
         await this.safeClick(this.salaryClosingButton);
-    }
-
-    async clickConfirm() {
-        await this.safeClick(this.confirmButton);
     }
 }

@@ -32,9 +32,7 @@ export class BasePage {
     readonly lockStatus: Locator;
     readonly activityStatus: Locator;
     readonly row0: Locator;
-    readonly noExistData: Locator;
     readonly iconStatusDropdown: Locator;
-    readonly validationNameExist: Locator;
     readonly noteInput: Locator;
     readonly iconActions: Locator;
     readonly statusDropDownInForm: Locator;
@@ -42,27 +40,13 @@ export class BasePage {
     readonly activity_Status: Locator;
     readonly descriptionInput: Locator;
 
-    // Validatation
-    readonly requiredFillReason: Locator;
-    readonly validateMaxlenght255Charactor: Locator
-    readonly validateMaxlenght500Charactor: Locator
-    readonly validateMaxlenght20Charactor: Locator
-    readonly validateMaxlenght100Charactor: Locator
-
-
     constructor(page: Page) {
         this.page = page;
         this.lock_Status = page.locator("//div[contains(text(),'Khóa')]");
         this.activity_Status = page.locator("//div[contains(text(),'Hoạt động')]");
         this.statusDropDownInForm = page.getByRole('combobox').filter({ hasText: 'Trạng thái ※' }).locator('i').nth(1)
         this.noteInput = page.getByRole('textbox', { name: 'Ghi chú' });
-        this.validateMaxlenght100Charactor = page.locator("//div[contains(text(),'Không nhập quá 100 kí tự.')]");
-        this.validateMaxlenght20Charactor = page.locator("//div[contains(text(),'Không nhập quá 20 kí tự.')]");
-        this.validateMaxlenght500Charactor = page.locator("//div[contains(text(),'Không nhập quá 500 kí tự.')]");
-        this.validateMaxlenght255Charactor = page.locator("//div[contains(text(),'Không nhập quá 255 kí tự.')]");
-        this.validationNameExist = page.locator("//li[contains(text(),'Tên đã tồn tại.')]");
         this.iconStatusDropdown = page.locator("//i[@class='mdi-book-lock-open-outline mdi v-icon notranslate v-theme--lightColor7 v-icon--size-default']");
-        this.noExistData = page.locator("//td[.='Không có dữ liệu']");
         this.row0 = page.locator("//tr[@id='row-0']");
         this.lockStatus = page.locator("//div[contains(text(),'Khóa')]");
         this.activityStatus = page.locator("//div[contains(text(),'Hoạt động')]");
@@ -74,13 +58,12 @@ export class BasePage {
         this.salaryButton = page.locator("//span[normalize-space()='Lương']");
         this.Setting_Button = page.locator("//span[normalize-space()='Cài đặt']");
         this.iconAction = page.locator("//tr[@id='row-0']//i[contains(@class, 'mdi mdi-format-list-group ')]");
-        this.requiredFillReason = page.locator("//div[contains(text(),'Nhập lý do')]");
         this.toDayDatePicker = page.locator("//div[contains(@class, 'dp__cell_inner') and contains(@class, 'dp__pointer') and contains(@class, 'dp__today')]");
         this.deleteButton = page.locator("//span[contains(text(),'Xóa')]");
         this.editButton = page.locator("//span[contains(text(),'Sửa')]");
         this.reasonInput = page.locator("//textarea");
-        this.chosseButton = page.getByRole('button', { name: 'Chọn' })
-        this.confirmButton = page.locator("//span[contains(text(),'Xác nhận')]");
+        this.chosseButton = page.getByRole('button', { name: 'Chọn' });
+        this.confirmButton = page.getByRole('button', { name: 'Xác nhận' });
         this.rejectButton = page.getByRole('button', { name: 'Từ chối' });
         this.browsedStatus = page.locator("//tr[@id='row-0']//div[text()='Đã duyệt']");
         this.browseButton = page.getByRole('button', { name: 'Duyệt' });
@@ -96,7 +79,6 @@ export class BasePage {
         this.searchButton = page.locator("//span[contains(normalize-space(),'Tìm kiếm')]");
         this.descriptionInput = page.locator("//div/div[2]/div/div/div/div[3]/textarea");
     }
-
 
     async waitForPageReady(timeout: number = 30000) {
         await this.page.waitForLoadState('networkidle', { timeout });
@@ -223,32 +205,8 @@ export class BasePage {
         await expect(locator).toHaveValue(expectedValue, { timeout });
     }
 
-    async verifyMaxlenght255Charactor() {
-        await this.safeVerifyToHaveText(this.validateMaxlenght255Charactor, 'Không nhập quá 255 kí tự.');
-    }
-
-    async verifyMaxlenght100Charactor() {
-        await this.safeVerifyToHaveText(this.validateMaxlenght100Charactor, 'Không nhập quá 100 kí tự.');
-    }
-
-    async verifyMaxlenght20Charactor() {
-        await this.safeVerifyToHaveText(this.validateMaxlenght20Charactor, 'Không nhập quá 20 kí tự.');
-    }
-
-    async verifyMaxlenght500Charactor() {
-        await this.safeVerifyToHaveText(this.validateMaxlenght500Charactor, 'Không nhập quá 500 kí tự.');
-    }
-
-    async expectNameExist() {
-        await this.safeVerifyToHaveText(this.validationNameExist, 'Tên đã tồn tại.');
-    }
-
     async clickIconStatusDropdown() {
         await this.safeClick(this.iconStatusDropdown);
-    }
-
-    async verifyNoExistData() {
-        await this.safeVerifyToHaveText(this.noExistData, 'Không có dữ liệu');
     }
 
     async clickRow0() {
@@ -299,10 +257,6 @@ export class BasePage {
         await this.safeClick(this.iconAction);
     }
 
-    async verifyRequiredFillReason() {
-        await this.safeVerifyToHaveText(this.requiredFillReason, 'Nhập lý do');
-    }
-
     async clickTodayDatePicker() {
         await this.safeClick(this.toDayDatePicker);
         await this.safeClick(this.chosseButton);
@@ -310,6 +264,11 @@ export class BasePage {
 
     async clickDelete() {
         await this.safeClick(this.deleteButton);
+        await this.safeClick(this.yesButton);
+    }
+
+    async clickDeleteFirst() {
+        await this.safeClick(this.deleteButton, { first: true });
         await this.safeClick(this.yesButton);
     }
 

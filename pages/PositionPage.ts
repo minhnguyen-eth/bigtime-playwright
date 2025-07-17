@@ -6,7 +6,6 @@ export class PositionPage extends BasePage {
     readonly positionsButton: Locator;
     readonly nameInput: Locator;
     readonly msgNameRequired: Locator;
-    readonly lockStatus: Locator;
     readonly nameExistError: Locator;
     readonly nameInputSearch: Locator;
     readonly searchNameResult: Locator;
@@ -15,8 +14,6 @@ export class PositionPage extends BasePage {
         super(page);
         this.searchNameResult = page.locator("//tbody/tr[@id='row-0']/td[2]//span[.='Project manager']");
         this.nameInputSearch =  page.getByRole('textbox', { name: 'Tên chức vụ' })
-        this.nameExistError = page.locator("//li[contains(text(),'Tên đã tồn tại.')]");
-        this.lockStatus = page.locator("//div[contains(text(),'Khóa')]");
         this.msgNameRequired = page.locator("//div[contains(text(),'Nhập tên chức vụ')]");
         this.nameInput =  page.getByRole('textbox', { name: 'Tên chức vụ' }).first();
         this.positionsButton = page.locator("//div[contains(text(),'Chức vụ')]");
@@ -24,10 +21,6 @@ export class PositionPage extends BasePage {
 
     async checkSearchNameResult() {
         await this.safeVerifyToHaveText(this.searchNameResult, "Project manager");
-    }
-
-    async checkNameExistError() {
-        await this.safeVerifyToHaveText(this.nameExistError, "Tên đã tồn tại.");
     }
 
     async checkMsgNameRequired() {
@@ -40,10 +33,6 @@ export class PositionPage extends BasePage {
 
     async inputName(name: string) {
         await this.safeFill(this.nameInput, name);
-    }
-
-    async clickLockStatus() {
-        await this.safeClick(this.lockStatus);
     }
 
     async clickPositions() {

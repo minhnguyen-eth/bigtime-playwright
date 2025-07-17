@@ -6,14 +6,13 @@ import { clearAllLeaveManagements } from '../../db/DBHelper';
 import { employeeBrowseLeaveManagement } from './leave-helper';
 import { allure } from 'allure-playwright';
 import { ToastPage } from '../../pages/ToastPage';
-import { BasePage } from '../../pages/BasePage';
 import { LogoutPage } from '../../pages/LogoutPage';
 
 test.describe.serial('Leave Management Tests', () => {
     let loginPage: LoginPage;
     let leaveManagementPage: LeaveManagementPage;
     let toastPage: ToastPage;
-    let basePage: BasePage;
+    
     let logoutPage: LogoutPage;
 
     test.beforeEach(async ({ page }) => {
@@ -26,7 +25,6 @@ test.describe.serial('Leave Management Tests', () => {
         toastPage = new ToastPage(page);
         loginPage = new LoginPage(page);
         leaveManagementPage = new LeaveManagementPage(page);
-        basePage = new BasePage(page);
         await loginPage.goto();
     });
 
@@ -39,20 +37,20 @@ test.describe.serial('Leave Management Tests', () => {
 
         await allure.step('Admin adds annual leave for employee and browses it', async () => {
             await loginPage.login(Config.admin_username, Config.admin_password);
-            await basePage.clickAdmin();
+            await leaveManagementPage.clickAdmin();
             await leaveManagementPage.clickLeaveManagementButton();
-            await basePage.clickAdd();
+            await leaveManagementPage.clickAdd();
             await leaveManagementPage.clickAddEmployee();
             await leaveManagementPage.fillSearchByName();
             await leaveManagementPage.clickSelectAEmployee();
             await leaveManagementPage.clickSaveEmployee();
             await page.waitForTimeout(1000); // Wait for 3 seconds
-            await basePage.clickSave();
+            await leaveManagementPage.clickSave();
             await toastPage.getToastAddSuccess();
             await leaveManagementPage.verifyStatusNew('Mới');
 
             await leaveManagementPage.clickIconActionRow0();
-            await basePage.clickConfirm();
+            await leaveManagementPage.clickConfirm();
             await toastPage.getToastConfirmSuccess();
             await leaveManagementPage.verifyStatusWaitingForApproval('Chờ duyệt');
         });
@@ -67,9 +65,9 @@ test.describe.serial('Leave Management Tests', () => {
 
         await allure.step('Admin tries to add existing annual leave record', async () => {
             await loginPage.login(Config.admin_username, Config.admin_password);
-            await basePage.clickAdmin();
+            await leaveManagementPage.clickAdmin();
             await leaveManagementPage.clickLeaveManagementButton();
-            await basePage.clickAdd();
+            await leaveManagementPage.clickAdd();
             await leaveManagementPage.clickComboBoxStatusFormAdd();
             await leaveManagementPage.clickWaitingForApproval();
             await leaveManagementPage.clickAddEmployee();
@@ -87,9 +85,9 @@ test.describe.serial('Leave Management Tests', () => {
         await allure.step('Clear previous data and add leave in "Waiting for approval" status', async () => {
             await clearAllLeaveManagements();
             await loginPage.login(Config.admin_username, Config.admin_password);
-            await basePage.clickAdmin();
+            await leaveManagementPage.clickAdmin();
             await leaveManagementPage.clickLeaveManagementButton();
-            await basePage.clickAdd();
+            await leaveManagementPage.clickAdd();
             await leaveManagementPage.clickComboBoxStatusFormAdd();
             await leaveManagementPage.clickWaitingForApproval();
             await leaveManagementPage.clickAddEmployee();
@@ -112,9 +110,9 @@ test.describe.serial('Leave Management Tests', () => {
         await allure.step('Clear previous leave management and add department leave', async () => {
             await clearAllLeaveManagements();
             await loginPage.login(Config.admin_username, Config.admin_password);
-            await basePage.clickAdmin();
+            await leaveManagementPage.clickAdmin();
             await leaveManagementPage.clickLeaveManagementButton();
-            await basePage.clickAdd();
+            await leaveManagementPage.clickAdd();
             await leaveManagementPage.clickDepartmentAndTeam();
             await leaveManagementPage.clickAddDepatment();
             await leaveManagementPage.clickDepartmentOption();
@@ -126,10 +124,10 @@ test.describe.serial('Leave Management Tests', () => {
 
         await allure.step('Admin confirms each row and sets status to waiting for approval', async () => {
             await leaveManagementPage.fillSearchEmpployee('Nguyễn Văn Minh');
-            await basePage.clickSearch();
+            await leaveManagementPage.clickSearch();
             await leaveManagementPage.verifyResultEmployee('Nguyễn Văn Minh');
             await leaveManagementPage.clickIconActionRow0();
-            await basePage.clickConfirm();
+            await leaveManagementPage.clickConfirm();
             await toastPage.getToastConfirmSuccess();
         });
 
@@ -142,7 +140,7 @@ test.describe.serial('Leave Management Tests', () => {
 
     async function beforeSearchTest() {
         await loginPage.login(Config.admin_username, Config.admin_password);
-        await basePage.clickAdmin();
+        await leaveManagementPage.clickAdmin();
         await leaveManagementPage.clickLeaveManagementButton();
     }
 
@@ -152,14 +150,14 @@ test.describe.serial('Leave Management Tests', () => {
         await allure.step('Admin searches leave management by employee name', async () => {
             await beforeSearchTest();
             await leaveManagementPage.fillSearchEmpployee('Nguyễn Văn Minh');
-            await basePage.clickSearch();
+            await leaveManagementPage.clickSearch();
             await leaveManagementPage.verifyResultEmployee('Nguyễn Văn Minh');
-            await basePage.clickClearSearch();
+            await leaveManagementPage.clickClearSearch();
         });
 
         await allure.step('Admin searches leave management by year', async () => {
             await leaveManagementPage.fillSearchByYear('2025');
-            await basePage.clickSearch();
+            await leaveManagementPage.clickSearch();
             await leaveManagementPage.verifyResultYear('2025');
         });
     });
@@ -171,7 +169,7 @@ test.describe.serial('Leave Management Tests', () => {
             await beforeSearchTest();
             await leaveManagementPage.clickComboBoxStatus();
             await leaveManagementPage.clicksearchPendingButton();
-            await basePage.clickSearch();
+            await leaveManagementPage.clickSearch();
             await leaveManagementPage.expectSearchByPendingResult();
         });
     });
@@ -183,7 +181,7 @@ test.describe.serial('Leave Management Tests', () => {
             await beforeSearchTest();
             await leaveManagementPage.clickComboBoxStatus();
             await leaveManagementPage.clickSearchRejectButton();
-            await basePage.clickSearch();
+            await leaveManagementPage.clickSearch();
             await leaveManagementPage.expectSearchByRejectResult();
         });
     });
@@ -195,7 +193,7 @@ test.describe.serial('Leave Management Tests', () => {
             await beforeSearchTest();
             await leaveManagementPage.clickComboBoxStatus();
             await leaveManagementPage.clickSearchBrowsedButton();
-            await basePage.clickSearch();
+            await leaveManagementPage.clickSearch();
             await leaveManagementPage.expectSearchByBrowsedResult();
         });
     });
@@ -207,7 +205,7 @@ test.describe.serial('Leave Management Tests', () => {
             await beforeSearchTest();
             await leaveManagementPage.clickComboBoxStatus();
             await leaveManagementPage.clickSearchNewButton();
-            await basePage.clickSearch();
+            await leaveManagementPage.clickSearch();
             await leaveManagementPage.expectSearchByNewResult();
         });
     });

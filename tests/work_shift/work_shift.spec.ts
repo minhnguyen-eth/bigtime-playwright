@@ -5,26 +5,26 @@ import { WorkShiftPage } from '../../pages/work_shift_page/WorkShiftPage';
 import { allure } from 'allure-playwright';
 import { clearAllWorkingShift } from '../../db/DBHelper';
 import { ToastPage } from '../../pages/ToastPage';
-import { BasePage } from '../../pages/BasePage';
+import { ValidationPage } from '../../pages/ValidationPage';
 
 test.describe.serial('Work Shift Tests', () => {
     let loginPage: LoginPage;
     let workShiftPage: WorkShiftPage;
     let toastPage: ToastPage;
-    let basePage: BasePage;
+    let validation: ValidationPage;
 
     test.beforeEach(async ({ page }) => {
         allure.feature('Work Shift Feature');
         allure.owner('Minh Nguyen');
         allure.severity('Critical');
 
-        basePage = new BasePage(page);
+        validation = new ValidationPage(page);
         toastPage = new ToastPage(page);
         loginPage = new LoginPage(page);
         workShiftPage = new WorkShiftPage(page);
         await loginPage.goto();
         await loginPage.login(Config.admin_username, Config.admin_password);
-        await basePage.clickTimeKeepingManagement();
+        await workShiftPage.clickTimeKeepingManagement();
         await workShiftPage.clickOnWorkShiftButton();
     });
 
@@ -75,7 +75,7 @@ test.describe.serial('Work Shift Tests', () => {
         await workShiftPage.fillWorkShiftCode(workShiftCode);
         await testBody();
         await workShiftPage.clickOnSaveButton();
-        await basePage.verifyMaxlenght255Charactor();
+        await validation.validateMaxLength255Characters();
     });
 
     test('Create new work shift', async ({ page }) => {
@@ -104,7 +104,7 @@ test.describe.serial('Work Shift Tests', () => {
 
         await allure.step('Edit work shift status', async () => {
             await workShiftPage.clickEditRow0();
-            await basePage.clickDropdownStatusInForm();
+            await workShiftPage.clickDropdownStatusInForm();
             await workShiftPage.clickOnLockStatus();
             await workShiftPage.clickOnSaveButton();
             await toastPage.getToastUpdateSuccess();
@@ -143,7 +143,7 @@ test.describe.serial('Work Shift Tests', () => {
         });
 
         await allure.step('Search by Active status', async () => {
-            await basePage.clickDropdownStatusSearch();
+            await workShiftPage.clickDropdownStatusSearch();
             await workShiftPage.clickOnStatus('Active');
             await workShiftPage.clickSearch();
             await workShiftPage.getVerifyAtiveStatusSearch();
@@ -151,7 +151,7 @@ test.describe.serial('Work Shift Tests', () => {
         });
 
         await allure.step('Search by Lock status', async () => {
-            await basePage.clickDropdownStatusSearch();
+            await workShiftPage.clickDropdownStatusSearch();
             await workShiftPage.clickOnStatus('Lock');
             await workShiftPage.clickSearch();
             await workShiftPage.getVerifyLockStatusSearch();
@@ -159,7 +159,7 @@ test.describe.serial('Work Shift Tests', () => {
         });
 
         await allure.step('Search by Active & Lock status', async () => {
-            await basePage.clickDropdownStatusSearch();
+            await workShiftPage.clickDropdownStatusSearch();
             await workShiftPage.clickOnStatus('Active');
             await workShiftPage.clickOnStatus('Lock');
             await workShiftPage.clickSearch();
@@ -170,7 +170,7 @@ test.describe.serial('Work Shift Tests', () => {
 
     test('Search by status', async ({ page }) => {
         await allure.step('Search by Active status', async () => {
-            await basePage.clickDropdownStatusSearch();
+            await workShiftPage.clickDropdownStatusSearch();
             await workShiftPage.clickOnStatus('Active');
             await workShiftPage.clickSearch();
             await workShiftPage.getVerifyAtiveStatusSearch();
@@ -178,7 +178,7 @@ test.describe.serial('Work Shift Tests', () => {
         });
 
         await allure.step('Search by Lock status', async () => {
-            await basePage.clickDropdownStatusSearch();
+            await workShiftPage.clickDropdownStatusSearch();
             await workShiftPage.clickOnStatus('Lock');
             await workShiftPage.clickSearch();
             await workShiftPage.getVerifyLockStatusSearch();
@@ -186,7 +186,7 @@ test.describe.serial('Work Shift Tests', () => {
         });
 
         await allure.step('Search by Active & Lock status', async () => {
-            await basePage.clickDropdownStatusSearch();
+            await workShiftPage.clickDropdownStatusSearch();
             await workShiftPage.clickOnStatus('Active');
             await workShiftPage.clickOnStatus('Lock');
             await workShiftPage.clickSearch();

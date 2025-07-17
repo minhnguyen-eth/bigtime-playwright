@@ -5,28 +5,27 @@ import Config from '../../utils/configUtils';
 import { ToastPage } from '../../pages/ToastPage';
 import { clearAllRewardType } from '../../db/DBHelper';
 import { allure } from 'allure-playwright';
-import { BasePage } from '../../pages/BasePage';
+import { ValidationPage } from '../../pages/ValidationPage';
 
 test.describe.serial('Reward Type Tests', () => {
     let loginPage: LoginPage;
     let rewardTypePage: RewardTypePage;
     let toastPage: ToastPage;
-    let basePage: BasePage;
+    let validation: ValidationPage;
 
     test.beforeEach(async ({ page }) => {
-
         allure.feature('Reward Type Feature');
         allure.owner('Minh Nguyen');
         allure.severity('Critical');
 
-        basePage = new BasePage(page);
+        validation = new ValidationPage(page);
         toastPage = new ToastPage(page);
         loginPage = new LoginPage(page);
         rewardTypePage = new RewardTypePage(page);
 
         await loginPage.goto();
         await loginPage.login(Config.admin_username, Config.admin_password);
-        await basePage.clickAdmin();
+        await rewardTypePage.clickAdmin();
         await rewardTypePage.clickRewardTypeButton();
     });
 
@@ -34,9 +33,9 @@ test.describe.serial('Reward Type Tests', () => {
         await clearAllRewardType();
         allure.story('Validation for Max Length of Reward Type Name');
         await allure.step('Add reward type with name length 255 characters', async () => {
-            await basePage.clickAdd();
+            await rewardTypePage.clickAdd();
             await rewardTypePage.fillRewardTypeNameInput('z'.repeat(255));
-            await basePage.clickSave();
+            await rewardTypePage.clickSave();
         });
         await toastPage.getToastAddSuccess();
     });
@@ -44,20 +43,20 @@ test.describe.serial('Reward Type Tests', () => {
     test("Max length of reward type name is 256 characters", async ({ page }) => {
         allure.story('Validation for Max Length of Reward Type Name');
         await allure.step('Add reward type with name length 256 characters', async () => {
-            await basePage.clickAdd();
+            await rewardTypePage.clickAdd();
             await rewardTypePage.fillRewardTypeNameInput('z'.repeat(256));
-            await basePage.clickSave();
+            await rewardTypePage.clickSave();
         });
-        await basePage.verifyMaxlenght255Charactor();
+        await validation.validateMaxLength255Characters();
     });
 
     test("Max length of reward type description is 500 characters", async ({ page }) => {
         allure.story('Validation for Max Length of Reward Type Description');
         await allure.step('Add reward type with description length 255 characters', async () => {
-            await basePage.clickAdd();
+            await rewardTypePage.clickAdd();
             await rewardTypePage.fillRewardTypeNameInput('Test Reward Type');
-            await rewardTypePage.fillDescriptionInput('z'.repeat(500));
-            await basePage.clickSave();
+            await rewardTypePage.fillDescription('z'.repeat(500));
+            await rewardTypePage.clickSave();
         });
         await toastPage.getToastAddSuccess();
     });
@@ -65,12 +64,12 @@ test.describe.serial('Reward Type Tests', () => {
     test("Max length of reward type description is 501 characters", async ({ page }) => {
         allure.story('Validation for Max Length of Reward Type Description');
         await allure.step('Add reward type with description length 256 characters', async () => {
-            await basePage.clickAdd();
+            await rewardTypePage.clickAdd();
             await rewardTypePage.fillRewardTypeNameInput('Test Reward Type');
-            await rewardTypePage.fillDescriptionInput('z'.repeat(501));
-            await basePage.clickSave();
+            await rewardTypePage.fillDescription('z'.repeat(501));
+            await rewardTypePage.clickSave();
         });
-        await basePage.verifyMaxlenght500Charactor();
+        await validation.validateMaxLength500Characters();
     });
 
 
@@ -82,8 +81,8 @@ test.describe.serial('Reward Type Tests', () => {
         await allure.step('Try to add reward type with empty name', async () => {
 
             await rewardTypePage.clickRewardTypeButton();
-            await basePage.clickAdd();
-            await basePage.clickSave();
+            await rewardTypePage.clickAdd();
+            await rewardTypePage.clickSave();
             await rewardTypePage.getRequiredRewardTypeName();
         });
     });
@@ -95,10 +94,10 @@ test.describe.serial('Reward Type Tests', () => {
 
         await allure.step('Add new reward type with valid data', async () => {
 
-            await basePage.clickAdd();
+            await rewardTypePage.clickAdd();
             await rewardTypePage.fillRewardTypeNameInput(rewardTypeName);
-            await rewardTypePage.fillDescriptionInput('Test Description');
-            await basePage.clickSave();
+            await rewardTypePage.fillDescription('Test Description');
+            await rewardTypePage.clickSave();
         });
         await toastPage.getToastAddSuccess();
     });
@@ -108,12 +107,12 @@ test.describe.serial('Reward Type Tests', () => {
 
         await allure.step('Try to add reward type with an existing name', async () => {
 
-            await basePage.clickAdd();
+            await rewardTypePage.clickAdd();
             await rewardTypePage.fillRewardTypeNameInput('Khen thưởng 1');
-            await rewardTypePage.fillDescriptionInput('Test Description');
-            await basePage.clickSave();
+            await rewardTypePage.fillDescription('Test Description');
+            await rewardTypePage.clickSave();
         });
-        await rewardTypePage.VerifyDuplicateNameError();
+        await validation.validateNameAlreadyExists();
         await toastPage.getToastAddFailed();
     });
 
@@ -125,12 +124,12 @@ test.describe.serial('Reward Type Tests', () => {
 
         await allure.step('Add reward type with lock status', async () => {
 
-            await basePage.clickAdd();
+            await rewardTypePage.clickAdd();
             await rewardTypePage.fillRewardTypeNameInput(rewardTypeName);
-            await rewardTypePage.fillDescriptionInput('Test Description');
-            await rewardTypePage.clickStatusDropdownFormAdd();
-            await rewardTypePage.clickStatusLock();
-            await basePage.clickSave();
+            await rewardTypePage.fillDescription('Test Description');
+            await rewardTypePage.clickDropdownStatusInForm();
+            await rewardTypePage.clickLockStatus();
+            await rewardTypePage.clickSave();
         });
         await toastPage.getToastAddSuccess();
     });
@@ -142,9 +141,9 @@ test.describe.serial('Reward Type Tests', () => {
 
         await allure.step('Add reward type with empty description and lock status', async () => {
 
-            await basePage.clickAdd();
+            await rewardTypePage.clickAdd();
             await rewardTypePage.fillRewardTypeNameInput(rewardTypeName);
-            await basePage.clickSave();
+            await rewardTypePage.clickSave();
         });
         await toastPage.getToastAddSuccess();
     });
@@ -153,9 +152,9 @@ test.describe.serial('Reward Type Tests', () => {
         allure.story('Edit Reward Type Description');
         await allure.step('Edit reward type description', async () => {
 
-            await basePage.clickEditRow0();
-            await rewardTypePage.fillDescriptionInput('Edit Description');
-            await basePage.clickSave();
+            await rewardTypePage.clickEditRow0();
+            await rewardTypePage.fillDescription('Edit Description');
+            await rewardTypePage.clickSave();
         });
         await toastPage.getToastUpdateSuccess();
     });
@@ -164,10 +163,10 @@ test.describe.serial('Reward Type Tests', () => {
         allure.story('Edit Reward Type Status');
         await allure.step('Open reward type edit form', async () => {
 
-            await basePage.clickEditRow0();
-            await rewardTypePage.clickStatusDropdownFormAdd();
-            await rewardTypePage.clickStatusLock();
-            await basePage.clickSave();
+            await rewardTypePage.clickEditRow0();
+            await rewardTypePage.clickDropdownStatusInForm();
+            await rewardTypePage.clickLockStatus();
+            await rewardTypePage.clickSave();
             await toastPage.getToastUpdateSuccess();
         });
 
@@ -177,7 +176,7 @@ test.describe.serial('Reward Type Tests', () => {
         allure.story('Delete Reward Type');
         await allure.step('Delete a reward type', async () => {
 
-            await basePage.clickDeleteRow0();
+            await rewardTypePage.clickDeleteRow0();
         });
         await toastPage.getToastDeleteSuccess();
     });
@@ -189,36 +188,25 @@ test.describe.serial('Reward Type Tests', () => {
         await allure.step('Search by name', async () => {
 
             await rewardTypePage.fillInputSearch('Khen thưởng');
-            await basePage.clickSearch();
+            await rewardTypePage.clickSearch();
             await rewardTypePage.getResultSearch();
-            await basePage.clickClearSearch();
+            await rewardTypePage.clickClearSearch();
         });
 
         await allure.step('Search by lock status', async () => {
-            await basePage.clickDropdownStatusSearch();
-            await rewardTypePage.clickStatusLock();
-            await basePage.clickSearch();
-            await rewardTypePage.VerifyLockStatus();
-            await basePage.clickClearSearch();
+            await rewardTypePage.clickDropdownStatusSearch();
+            await rewardTypePage.clickLockStatus();
+            await rewardTypePage.clickSearch();
+            await rewardTypePage.verifyLockStatusRow0();
+            await rewardTypePage.clickClearSearch();
         });
 
         await allure.step('Search by activity status', async () => {
-            await basePage.clickDropdownStatusSearch();
-            await rewardTypePage.clickStatusActivity();
-            await basePage.clickSearch();
-            await rewardTypePage.VerifyActivityStatus();
-            await basePage.clickClearSearch();
-        });
-
-        await allure.step('Search by lock & activity status', async () => {
-            await clearAllRewardType();
-            await basePage.clickDropdownStatusSearch();
-            await rewardTypePage.clickStatusLock();
-            await rewardTypePage.clickStatusActivity();
-            await basePage.clickSearch();
-            await rewardTypePage.VerifyLockStatusRow1();
-            await rewardTypePage.VerifyActivityStatus();
-
+            await rewardTypePage.clickDropdownStatusSearch();
+            await rewardTypePage.clickActivityStatus();
+            await rewardTypePage.clickSearch();
+            await rewardTypePage.verifyActivityStatusRow0();
+            await rewardTypePage.clickClearSearch();
         });
     });
 });

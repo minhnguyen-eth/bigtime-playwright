@@ -6,15 +6,15 @@ import { ToastPage } from "../../pages/ToastPage";
 import { clearAllEvaluationProgress } from '../../db/DBHelper';
 import { allure } from "allure-playwright";
 import { createCriteria } from "../evaluation/evaluation-helper";
-import { BasePage } from "../../pages/BasePage";
+import { ValidationPage } from "../../pages/ValidationPage";
 
 test.describe.serial("Evaluation Criteria Tests", () => {
 
     let loginPage: LoginPage;
     let evaluationProcess: EvaluationProcessPage;
     let toast: ToastPage;
-    let basePage: BasePage;
-
+    let validation: ValidationPage;
+    
     const randomSuffix = Date.now();
     const random = `Automation test ${randomSuffix}`;
 
@@ -26,7 +26,7 @@ test.describe.serial("Evaluation Criteria Tests", () => {
         loginPage = new LoginPage(page);
         evaluationProcess = new EvaluationProcessPage(page);
         toast = new ToastPage(page);
-        basePage = new BasePage(page);
+        validation = new ValidationPage(page);
         await loginPage.goto();
         await loginPage.login(Config.admin_username, Config.admin_password);
     }); 
@@ -35,16 +35,16 @@ test.describe.serial("Evaluation Criteria Tests", () => {
         allure.story("Add Evaluation Process - Company Form");
         await allure.step("Clear data and add new company evaluation process", async () => {
             await clearAllEvaluationProgress();
-            await basePage.clickAdmin();
+            await evaluationProcess.clickAdmin();
             await evaluationProcess.clickEvaluationProcessButton();
-            await basePage.clickAdd();
+            await evaluationProcess.clickAdd();
             await evaluationProcess.fillEmployeeEvaluationInput("Nguyễn Văn Minh");
             await evaluationProcess.clickEmployeeEvaluationOption();
             await evaluationProcess.clickEvaluationTypeDropDown();
             await evaluationProcess.clickEvaluationTypeOption1();
             await evaluationProcess.clickEndTime();
-            await basePage.clickTodayDatePicker();
-            await basePage.clickSave();
+            await evaluationProcess.clickTodayDatePicker();
+            await evaluationProcess.clickSave();
         });
         await toast.getToastAddSuccess();
     });
@@ -52,13 +52,13 @@ test.describe.serial("Evaluation Criteria Tests", () => {
     test("Edit evaluation type", async ({ page }) => {
         allure.story("Edit Evaluation Type");
         await allure.step("Edit evaluation process type", async () => {
-            await basePage.clickAdmin();
+            await evaluationProcess.clickAdmin();
             await evaluationProcess.clickEvaluationProcessButton();
             await evaluationProcess.clickIconAction();
-            await basePage.clickEdit();
+            await evaluationProcess.clickEdit();
             await evaluationProcess.clickEvaluationTypeDropDown();
             await evaluationProcess.clickEvaluationTypeOption2();
-            await basePage.clickSave();
+            await evaluationProcess.clickSave();
         });
         await toast.getToastUpdateSuccess();
     });
@@ -66,27 +66,27 @@ test.describe.serial("Evaluation Criteria Tests", () => {
     test("Delete evaluation type", async ({ page }) => {
         allure.story("Delete Evaluation Process");
         await allure.step("Delete evaluation process", async () => {
-            await basePage.clickAdmin();
+            await evaluationProcess.clickAdmin();
             await evaluationProcess.clickEvaluationProcessButton();
             await evaluationProcess.clickIconAction();
-            await basePage.clickDelete();
+            await evaluationProcess.clickDelete();
         });
         await toast.getToastDeleteSuccess();
     });
 
     async function addEvaluationProcessDepartmentForm() {
-        await basePage.clickAdmin();
+        await evaluationProcess.clickAdmin();
         await evaluationProcess.clickEvaluationProcessButton();
-        await basePage.clickAdd();
+        await evaluationProcess.clickAdd();
         await evaluationProcess.fillEmployeeEvaluationInput("Nguyễn Văn Minh");
         await evaluationProcess.clickEmployeeEvaluationOption();
         await evaluationProcess.clickEvaluationTypeDropDown();
         await evaluationProcess.clickEvaluationTypeOption1();
         await evaluationProcess.clickEndTime();
-        await basePage.clickTodayDatePicker();
+        await evaluationProcess.clickTodayDatePicker();
         await evaluationProcess.clickEvaluationForm();
         await evaluationProcess.clickDepartmentForm();
-        await basePage.clickSave();
+        await evaluationProcess.clickSave();
     }
 
     test("Add a new evaluation process department form", async ({ page }) => {
@@ -105,10 +105,10 @@ test.describe.serial("Evaluation Criteria Tests", () => {
     test("Confirm evaluation type", async ({ page }) => {
         allure.story("Confirm Evaluation Process");
         await allure.step("Confirm evaluation process", async () => {
-            await basePage.clickAdmin();
+            await evaluationProcess.clickAdmin();
             await evaluationProcess.clickEvaluationProcessButton();
             await evaluationProcess.clickIconAction();
-            await basePage.clickConfirm();
+            await evaluationProcess.clickConfirm();
         });
         await toast.getToastConfirmSuccess();
     });
@@ -116,35 +116,35 @@ test.describe.serial("Evaluation Criteria Tests", () => {
     test("Evaluation employee", async ({ page }) => {
         allure.story("Employee Evaluation");
         await allure.step("Employee performs evaluation", async () => {
-            await basePage.clickAdmin();
+            await evaluationProcess.clickAdmin();
             await evaluationProcess.clickListEvaluationButton();
             await evaluationProcess.fillListEvaluationSearchByName('Nguyễn Văn Minh');
-            await basePage.clickSearch();
+            await evaluationProcess.clickSearch();
             await evaluationProcess.clickEvaluationButton();
-            await basePage.clickSave();
-            await basePage.clickYes();
+            await evaluationProcess.clickSave();
+            await evaluationProcess.clickYes();
         });
         await toast.getToastEvaluationSuccess();
     });
 
     async function cancelEvalaution() {
-        await basePage.clickAdmin();
+        await evaluationProcess.clickAdmin();
         await evaluationProcess.clickEvaluationProcessButton();
-        await basePage.clickAdd();
+        await evaluationProcess.clickAdd();
         await evaluationProcess.fillEmployeeEvaluationInput("Nguyễn Văn Minh");
         await evaluationProcess.clickEmployeeEvaluationOption();
         await evaluationProcess.clickEvaluationTypeDropDown();
         await evaluationProcess.clickEvaluationTypeOption1();
         await evaluationProcess.clickEndTime();
-        await basePage.clickTodayDatePicker();
+        await evaluationProcess.clickTodayDatePicker();
         await evaluationProcess.clickEvaluationForm();
         await evaluationProcess.clickDepartmentForm();
-        await basePage.clickSave();
+        await evaluationProcess.clickSave();
         await evaluationProcess.clickIconAction();
-        await basePage.clickConfirm();
+        await evaluationProcess.clickConfirm();
         await evaluationProcess.clickIconAction();
-        await basePage.clickCancel();
-        await basePage.fillReason('Cancel evaluation');
+        await evaluationProcess.clickCancel();
+        await evaluationProcess.fillReason('Cancel evaluation');
         await toast.getToastCancelledSuccess();
     }
 
@@ -164,91 +164,90 @@ test.describe.serial("Evaluation Criteria Tests", () => {
         await toast.getToastAddSuccess();
     });
 
-    test('Search by status', async ({ page }) => {
+    test('Evaluation process - Search by status', async ({ page }) => {
         await clearAllEvaluationProgress();
 
         await allure.step("Search by new status", async () => {
             // Search by new status
-            await basePage.clickAdmin();
+            await evaluationProcess.clickAdmin();
             await evaluationProcess.clickEvaluationProcessButton();
-            await evaluationProcess.clickSeachByStatusComboBox();
+            await evaluationProcess.clickDropdownStatusSearch();
             await evaluationProcess.clickNewStatusOption();
-            await basePage.clickSearch();
+            await evaluationProcess.clickSearch();
 
             // verify search result
             await evaluationProcess.expectNewStatusOption();
-            await basePage.clickClearSearch();
+            await evaluationProcess.clickClearSearch();
         });
 
         await allure.step("Search by wait for evaluation status", async () => {
             // Search by pending status
-            await evaluationProcess.clickSeachByStatusComboBox();
+            await evaluationProcess.clickDropdownStatusSearch();
             await evaluationProcess.clickwaitForEvaluationOption();
-            await basePage.clickSearch();
+            await evaluationProcess.clickSearch();
 
             // verify search result
             await evaluationProcess.expectwaitForEvaluationStatus();
-            await basePage.clickClearSearch();
+            await evaluationProcess.clickClearSearch();
         });
 
         await allure.step("Search by cancel status", async () => {
             // Search by cancel status
-            await evaluationProcess.clickSeachByStatusComboBox();
+            await evaluationProcess.clickDropdownStatusSearch();
             await evaluationProcess.clickCancelStatusOption();
-            await basePage.clickSearch();
+            await evaluationProcess.clickSearch();
 
             // verify search result
             await evaluationProcess.expectCancelStatusOption();
-            await basePage.clickClearSearch();
+            await evaluationProcess.clickClearSearch();
         });
 
         await allure.step("Search by complete status", async () => {
             // Search by complete status
-            await evaluationProcess.clickSeachByStatusComboBox();
+            await evaluationProcess.clickDropdownStatusSearch();
             await evaluationProcess.clickCompleteStatusOption();
-            await basePage.clickSearch();
+            await evaluationProcess.clickSearch();
 
             // verify search result
             await evaluationProcess.expectCompleteStatusOption();
-            await basePage.clickClearSearch();
+            await evaluationProcess.clickClearSearch();
         });
 
         await allure.step("Search by wait for approval status", async () => {
             // Search by wait for approval status
-            await evaluationProcess.clickSeachByStatusComboBox();
+            await evaluationProcess.clickDropdownStatusSearch();
             await evaluationProcess.clickwaitForApprovalOption();
-            await basePage.clickSearch();
+            await evaluationProcess.clickSearch();
 
             // verify search result
             await evaluationProcess.expectwaitForApprovalStatus();
-            await basePage.clickClearSearch();
         });
     });
 
     test('Search by employee name', async ({ page }) => {
-        await basePage.clickAdmin();
+        await evaluationProcess.clickAdmin();
         await evaluationProcess.clickEvaluationProcessButton();
         await evaluationProcess.fillSearchByEmployeeNameInput('Big app');
-        await basePage.clickSearch();
+        await evaluationProcess.clickSearch();
         await evaluationProcess.expectSearchByEmployeeName();
     });
 
     test('Search by evaluation type', async ({ page }) => {
-        await basePage.clickAdmin();
+        await evaluationProcess.clickAdmin();
         await evaluationProcess.clickEvaluationProcessButton();
         await evaluationProcess.fillSearchByEvaluationTypeInput('Đánh giá nhân viên');
-        await basePage.clickSearch();
+        await evaluationProcess.clickSearch();
         await evaluationProcess.expectSearchByEvaluationType();
     });
 
     test('List evaluation - Search by status', async ({ page }) => {
         await allure.step("Search by new status", async () => {
             // Search by new status
-            await basePage.clickAdmin();
+            await evaluationProcess.clickAdmin();
             await evaluationProcess.clickListEvaluationButton();
-            await evaluationProcess.clickSeachByStatusComboBox();
+            await evaluationProcess.clickDropdownStatusSearch();
             await evaluationProcess.clickNewStatusOption();
-            await basePage.clickSearch();
+            await evaluationProcess.clickSearch();
 
             // verify search result
             await evaluationProcess.expectListEvaluationVerifyNewStatus();
@@ -257,9 +256,9 @@ test.describe.serial("Evaluation Criteria Tests", () => {
 
         await allure.step("Search by wait for evaluation status", async () => {
             // Search by pending status
-            await evaluationProcess.clickSeachByStatusComboBox();
+            await evaluationProcess.clickDropdownStatusSearch();
             await evaluationProcess.clickwaitForEvaluationOption();
-            await basePage.clickSearch();
+            await evaluationProcess.clickSearch();
 
             // verify search result
             await evaluationProcess.expectListEvaluationVerifywaitForEvaluationStatus();
@@ -268,9 +267,9 @@ test.describe.serial("Evaluation Criteria Tests", () => {
 
         await allure.step("Search by cancel status", async () => {
             // Search by cancel status
-            await evaluationProcess.clickSeachByStatusComboBox();
+            await evaluationProcess.clickDropdownStatusSearch();
             await evaluationProcess.clickCancelStatusOption();
-            await basePage.clickSearch();
+            await evaluationProcess.clickSearch();
 
             // verify search result
             await evaluationProcess.expectListEvaluationVerifyCancelStatus();
@@ -279,9 +278,9 @@ test.describe.serial("Evaluation Criteria Tests", () => {
 
         await allure.step("Search by complete status", async () => {
             // Search by complete status
-            await evaluationProcess.clickSeachByStatusComboBox();
+            await evaluationProcess.clickDropdownStatusSearch();
             await evaluationProcess.clickCompleteStatusOption();
-            await basePage.clickSearch();
+            await evaluationProcess.clickSearch();
 
             // verify search result
             await evaluationProcess.expectListEvaluationVerifyCompleteStatus();
@@ -290,9 +289,9 @@ test.describe.serial("Evaluation Criteria Tests", () => {
 
         await allure.step("Search by wait for approval status", async () => {
             // Search by wait for approval status
-            await evaluationProcess.clickSeachByStatusComboBox();
+            await evaluationProcess.clickDropdownStatusSearch();
             await evaluationProcess.clickwaitForApprovalOption();
-            await basePage.clickSearch();
+            await evaluationProcess.clickSearch();
 
             // verify search result
             await evaluationProcess.expectListEvaluationVerifywaitForApprovalStatus();

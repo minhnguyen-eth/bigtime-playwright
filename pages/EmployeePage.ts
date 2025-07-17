@@ -6,7 +6,6 @@ export class EmployeePage extends BasePage {
 
   readonly toastPage: ToastPage;
   readonly userButton: Locator;
-  readonly addButton: Locator;
   readonly employeeName: Locator;
   readonly employeeCode: Locator;
   readonly email: Locator;
@@ -17,7 +16,6 @@ export class EmployeePage extends BasePage {
   readonly setSalary: Locator;
   readonly fillSalary: Locator;
   readonly fillInsurance: Locator;
-  readonly saveButton: Locator;
   readonly openAllowance: Locator;
   readonly addAllowance: Locator;
   readonly dropdownAllowance: Locator;
@@ -36,32 +34,23 @@ export class EmployeePage extends BasePage {
   readonly chosseYear: Locator;
   readonly selectYear: Locator;
   readonly selectDay: Locator;
-  readonly chosseButton: Locator;
   readonly placeOfIssueOfIdentityCard: Locator;
   readonly bankName: Locator;
   readonly bankAccountNumber: Locator;
   readonly phoneNumber: Locator;
   readonly dateOfJoiningTheCompany: Locator;
-  readonly toDay: Locator;
   readonly address: Locator;
-  readonly note: Locator;
   readonly dateOfBirth: Locator;
-  readonly row0: Locator;
   readonly selectMale: Locator;
   readonly addAllowanceTypeButton: Locator;
   readonly allowanceTypeName: Locator;
   readonly moneyAllowance: Locator;
   readonly confirm: Locator;
   readonly dropdownAllowance2: Locator;
-  readonly deleteUser: Locator;
-  readonly yesButton: Locator;
   readonly searchByCode: Locator;
   readonly searchByName: Locator;
-  readonly searchButton: Locator;
-  readonly clearSearch: Locator;
   readonly resultSearchByCode: Locator;
   readonly resultSearchByName: Locator;
-  readonly editButton: Locator;
   readonly dropdownRoleName: Locator;
   readonly managementDepartmentRole: Locator;
   readonly cancelAdd: Locator;
@@ -116,35 +105,24 @@ export class EmployeePage extends BasePage {
     this.dropdownSalaryType = page.getByRole('combobox').filter({ hasText: 'Loại lương Cố định' }).locator('i');
     this.dailySalary = page.locator("//div[contains(text(),'Theo ngày')]");
     this.emailError = page.locator("//li[contains(text(),'Định dạng Địa chỉ email không hợp lệ.')]");
-    this.cancelAdd = page.locator("//span[contains(normalize-space(),'Hủy')]");
     this.managementDepartmentRole = page.locator("//div[text()='Trưởng bộ phận']");
     this.dropdownRoleName = page.getByRole('textbox', { name: 'Tên quyền ※' });
-    this.editButton = page.locator("//span[contains(text(),'Sửa')]");
     this.resultSearchByName = page.locator("//tr[@id='row-0']//span[contains(text(),'Nguyễn Văn Minh')]");
     this.resultSearchByCode = page.locator("//a[normalize-space()='BAT810']");
-    this.clearSearch = page.locator("//span[normalize-space()='Xóa']");
-    this.searchButton = page.locator("//span[contains(normalize-space(),'Tìm kiếm')]");
     this.searchByName = page.getByRole('textbox', { name: 'Tên nhân viên' });
     this.searchByCode = page.getByRole('textbox', { name: 'Mã nhân viên' });
-    this.yesButton = page.locator("//span[normalize-space()='Có']");
-    this.deleteUser = page.locator("//span[contains(text(),'Xóa')]");
-    this.confirm = page.locator("//span[contains(.,'Xác nhận')]");
     this.moneyAllowance = page.getByRole('textbox', { name: 'Phụ cấp thụ hưởng ※' });
     this.allowanceTypeName = page.getByRole('textbox', { name: 'Tên phụ cấp ※' });
     this.addAllowanceTypeButton = page.locator("//span[contains(normalize-space(),'+ Thêm loại phụ cấp')]");
     this.selectMale = page.locator("//input[@aria-label='Nam']");
-    this.row0 = page.locator("//tr[@id='row-0']");
     this.dateOfBirth = page.getByRole('textbox', { name: 'Ngày sinh' });
-    this.note = page.getByRole('textbox', { name: 'Ghi chú' });
     this.address = page.getByRole('textbox', { name: 'Địa chỉ' });
-    this.toDay = page.locator("//div[@class='dp__cell_inner dp__pointer dp__today dp__date_hover']");
     this.dateOfJoiningTheCompany = page.getByRole('textbox', { name: 'Ngày vào công ty' });
     this.phoneNumber = page.getByRole('spinbutton', { name: 'Số điện thoại' });
     this.bankAccountNumber = page.getByRole('spinbutton', { name: 'Số tài khoản ngân hàng' });
     this.bankName = page.getByRole('textbox', { name: 'Tên ngân hàng' })
     this.placeOfIssueOfIdentityCard = page.getByRole('textbox', { name: 'Nơi cấp CCCD' })
     this.selectRank = page.locator("//div[@class='v-list-item-title'][normalize-space()='Intern']");
-    this.chosseButton = page.locator("//button[contains(text(),'Chọn')]");
     this.selectDay = page.locator("//div[@class='dp__cell_inner dp__pointer dp__date_hover'][normalize-space()='8']");
     this.selectMonth = page.locator("//div[@class='dp__overlay_cell dp__overlay_cell_pad'][normalize-space()='Thg 8']");
     this.selectYear = page.locator("//div[@class='dp__overlay_cell dp__overlay_cell_pad'][normalize-space()='2014']");
@@ -163,7 +141,6 @@ export class EmployeePage extends BasePage {
     this.dropdownAllowance2 = page.getByRole('combobox').filter({ hasText: /^$/ }).locator('i');
     this.addAllowance = page.locator("//span[contains(.,'+Thêm phụ cấp')]");
     this.openAllowance = page.locator("//input[@type='checkbox']");
-    this.saveButton = page.locator("//span[contains(normalize-space(),'Lưu')]");
     this.fillInsurance = page.getByRole('textbox', { name: 'Mức bảo hiểm' })
     this.fillSalary = page.getByRole('textbox', { name: 'Mức lương' })
     this.setSalary = page.locator("//span[contains(normalize-space(),'Thiết lập lương')]");
@@ -175,9 +152,7 @@ export class EmployeePage extends BasePage {
     this.email = page.getByRole('textbox', { name: 'Email ※' })
     this.employeeName = page.getByRole('textbox', { name: 'Tên nhân viên ※' })
     this.employeeCode = page.getByRole('textbox', { name: 'Mã nhân viên ※' })
-    this.addButton = page.locator("//span[normalize-space()='Thêm']");
     this.userButton = page.locator("//div[contains(text(),'Nhân viên')]");
-
   }
 
   async expectDepartmentSearch() {
@@ -236,28 +211,12 @@ export class EmployeePage extends BasePage {
     await this.safeClick(this.dailySalary);
   }
 
-  async clickCancelAdd() {
-    await this.safeClick(this.cancelAdd);
-  }
-
   async clickManagementDepartmentRole() {
     await this.safeClick(this.managementDepartmentRole);
   }
 
   async clickDropdownRoleName() {
     await this.safeClick(this.dropdownRoleName);
-  }
-
-  async clickEditButton() {
-    await this.safeClick(this.editButton);
-  }
-
-  async clickClearSearch() {
-    await this.safeClick(this.clearSearch);
-  }
-
-  async clickSearchButton() {
-    await this.safeClick(this.searchButton);
   }
 
   async fillSearchByCode(code: string) {
@@ -268,24 +227,12 @@ export class EmployeePage extends BasePage {
     await this.safeFill(this.searchByName, name);
   }
 
-  async clickYesButton() {
-    await this.safeClick(this.yesButton);
-  }
-
-  async clickDeleteUser() {
-    await this.safeClick(this.deleteUser);
-  }
-
   async clickDropdownAllowance2() {
     await this.safeClick(this.dropdownAllowance2);
   }
 
   async clickDropdownDepartmentSearch() {
     await this.safeClick(this.dropdownDepartmentSearch);
-  }
-
-  async clickConfirm() {
-    await this.safeClick(this.confirm);
   }
 
   async fillMoneyAllowance(money: string) {
@@ -304,25 +251,12 @@ export class EmployeePage extends BasePage {
     await this.selectMale.check();
   }
 
-  async clickRow0() {
-    await this.safeClick(this.row0);
-  }
-
   async clickDateOfBirth() {
     await this.safeClick(this.dateOfBirth);
   }
 
-  async fillNote(note: string) {
-    await this.safeFill(this.note, note);
-  }
-
   async fillAddress(address: string) {
     await this.safeFill(this.address, address);
-  }
-
-  async clickToDay() {
-    await this.safeClick(this.toDay);
-    await this.clickChosseButton();
   }
 
   async clickDateOfJoiningTheCompany() {
@@ -349,13 +283,9 @@ export class EmployeePage extends BasePage {
     await this.safeClick(this.selectRank);
   }
 
-  async clickChosseButton() {
-    await this.safeClick(this.chosseButton);
-  }
-
   async clickSelectDay() {
     await this.safeClick(this.selectDay);
-    await this.clickChosseButton();
+    await this.clickChoose();
   }
 
   async clickChosseYear() {
@@ -534,8 +464,7 @@ export class EmployeePage extends BasePage {
   // FUNCTION HANDLE 
   async deleteAUser() {
     await this.clickRow0();
-    await this.clickDeleteUser();
-    await this.clickYesButton();
+    await this.clickDelete();
     await this.toastPage.getToastDeleteSuccess();
   }
 
@@ -547,7 +476,7 @@ export class EmployeePage extends BasePage {
 
   async testEditEmployeeName() {
     await this.clickRow0();
-    await this.clickEditButton();
+    await this.clickEdit();
     await this.fillEmployeeName('Automation test edit');
     await this.clickSaveButton();
     await this.toastPage.getToastUpdateSuccess();
@@ -558,7 +487,7 @@ export class EmployeePage extends BasePage {
     const userEditCode = `userEditCode${randomSuffix}`;
 
     await this.clickRow0();
-    await this.clickEditButton();
+    await this.clickEdit();
     await this.fillEmployeeCode(userEditCode);
     await this.clickSaveButton();
     await this.toastPage.getToastUpdateSuccess();
@@ -654,7 +583,7 @@ export class EmployeePage extends BasePage {
 
   async searchByEmployeeCode() {
     await this.fillSearchByCode('BAT810');
-    await this.clickSearchButton();
+    await this.clickSearch();
     await this.verifySearchByCode();
     await this.clickClearSearch();
   }
@@ -662,7 +591,7 @@ export class EmployeePage extends BasePage {
   async searchByEmployeeCodeAndName() {
     await this.fillSearchByCode('BAT810');
     await this.fillSearchByName('Nguyễn Văn Minh');
-    await this.clickSearchButton();
+    await this.clickSearch();
     await this.verifySearchByCode();
     await this.verifySearchByName();
     await this.clickClearSearch();
@@ -671,14 +600,14 @@ export class EmployeePage extends BasePage {
   async searchByDepartment() {
     await this.clickDropdownDepartmentSearch();
     await this.clickDepartmentOptions();
-    await this.clickSearchButton();
+    await this.clickSearch();
     await this.expectDepartmentSearch();
 
   }
 
   async searchByEmployeeName() {
     await this.fillSearchByName('Nguyễn Văn Minh');
-    await this.clickSearchButton();
+    await this.clickSearch();
     await this.verifySearchByName();
     await this.clickClearSearch();
   }
@@ -687,13 +616,13 @@ export class EmployeePage extends BasePage {
     // Search by gender
     await this.clickDropdownGenderSearch();
     await this.selectMaleSearch();
-    await this.clickSearchButton();
+    await this.clickSearch();
     await this.verifyVerifyMaleSearch();
     await this.clickClearSearch();
 
     await this.clickDropdownGenderSearch();
     await this.selectFemaleSearch();
-    await this.clickSearchButton();
+    await this.clickSearch();
     await this.verifyVerifyFemaleSearch();
     await this.clickClearSearch();
   }

@@ -6,14 +6,12 @@ export class NotificationPage extends BasePage {
     readonly notificationButton: Locator;
     readonly notificationName: Locator;
     readonly description: Locator;
-    readonly cancelButton: Locator;
     readonly notificationFormDropdown: Locator;
     readonly startDate: Locator;
     readonly endDate: Locator;
     readonly holiday: Locator;
     readonly workSchedule: Locator;
     readonly urgent: Locator;
-    readonly existedName: Locator;
     readonly requiredName: Locator;
     readonly requiredDescription: Locator;
     readonly sendNotification: Locator;
@@ -25,8 +23,6 @@ export class NotificationPage extends BasePage {
     readonly personnalSearch: Locator;
     readonly personnalSelect: Locator;
     readonly listNotification: Locator;
-    readonly deleteButton: Locator;
-    readonly yesButton: Locator;
     readonly verifyNotificationDepartment: Locator;
     readonly verifyNotificationCompany: Locator;
     readonly verifyNotificationPersonnal: Locator;
@@ -36,18 +32,14 @@ export class NotificationPage extends BasePage {
         this.verifyNotificationPersonnal = page.locator("//strong[contains(text(),'Gửi đến: Nhân viên BAT810-Nguyễn Văn Minh')]").first();
         this.verifyNotificationCompany = page.locator("//strong[contains(text(),'Gửi đến: Toàn công ty')]").first();
         this.verifyNotificationDepartment = page.locator("//strong[contains(text(),'Gửi đến: Bộ phận Bộ phận IT')]").first();
-        this.yesButton = page.locator("//span[normalize-space()='Có']");
-        this.deleteButton = page.locator("//span[normalize-space()='Xóa']");
         this.listNotification = page.locator("//div[contains(text(),'Danh sách thông báo')]");
         this.personnalSelect = page.locator("//div[3]/div/div[1]/table/tbody/tr/td[1]/div/div/div/input");
         this.personnalSearch = page.locator("//div[2]/div/div/div/div[4]/div/input");
         this.personnal = page.locator("//span[contains(normalize-space(),'Cá nhân')]");
         this.checkBoxPersonalOrDepartment = page.locator("//td[contains(@class, 'v-data-table__td--select-row')]//input[@type='checkbox']");
         this.department = page.locator("//span[contains(normalize-space(),'Bộ phận')]");
-        this.sendNotification = page.locator("//span[contains(text(),'Gửi')]");
         this.requiredName = page.locator("//div[contains(text(),'Nhập tên thông báo')]");
         this.requiredDescription = page.locator("//div[contains(text(),'Nhập nội dung chi tiết')]");
-        this.existedName = page.locator("//li[contains(text(),'Tên đã tồn tại.')]");
         this.workSchedule = page.locator("//div[text()='Lịch làm việc']");
         this.urgent = page.locator("//div[text()='Khẩn cấp']");
         this.holiday = page.locator("//div[text()='Ngày nghỉ']");
@@ -57,7 +49,6 @@ export class NotificationPage extends BasePage {
         this.notificationButton = page.locator("//div[contains(text(),'Quản lý thông báo')]");
         this.notificationName = page.getByRole('textbox', { name: 'Tên thông báo ※' })
         this.description = page.getByRole('textbox', { name: 'Nội dung chi tiết ※' })
-        this.cancelButton = page.locator("//span[contains(normalize-space(),'Hủy')]");
     }
 
     async getVerifyNotificationPersonnal() {
@@ -70,15 +61,6 @@ export class NotificationPage extends BasePage {
 
     async getVerifyNotificationDepartment() {
         await this.safeVerifyToHaveText(this.verifyNotificationDepartment, "Gửi đến: Bộ phận Bộ phận IT");
-    }
-
-    async clickOnYesButton() {
-        await this.safeClick(this.yesButton);
-    }
-
-    async clickOnDeleteButton() {
-        await this.safeClickFirst(this.deleteButton);
-        await this.clickOnYesButton();
     }
 
     async clickOnListNotification() {
@@ -110,24 +92,12 @@ export class NotificationPage extends BasePage {
         await this.safeClick(this.department);
     }
 
-    async clickOnSendNotification() {
-        await this.safeClick(this.sendNotification);
-    }
-
-    async clickOnIconAction() {
-        await this.clickIconAction();
-    }
-
     async getRequiredName() {
         await this.safeVerifyToHaveText(this.requiredName, "Nhập tên thông báo");
     }
 
     async getRequiredDescription() {
         await this.safeVerifyToHaveText(this.requiredDescription, "Nhập nội dung chi tiết");
-    }
-
-    async getExistedName() {
-        await this.safeVerifyToHaveText(this.existedName, "Tên đã tồn tại.");
     }
 
     async clickOnNotificationFormDropdown() {
@@ -158,10 +128,6 @@ export class NotificationPage extends BasePage {
 
     async fillDescription(description: string) {
         await this.safeFill(this.description, description);
-    }
-
-    async clickOnCancelButton() {
-        await this.safeClick(this.cancelButton);
     }
 
     async clickOnNotification() {

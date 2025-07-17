@@ -1,6 +1,5 @@
-import { expect, Locator, Page } from "@playwright/test";
+import { Locator, Page } from "@playwright/test";
 import { BasePage } from "../BasePage";
-
 export class EvaluationProcessPage extends BasePage {
     readonly evaluationProcessButton: Locator;
     readonly employyeEvaluationInput: Locator;
@@ -19,7 +18,6 @@ export class EvaluationProcessPage extends BasePage {
     readonly validateDuplicateEvaluation: Locator;
     readonly searchByEmployeeNameInput: Locator;
     readonly searchByEvaluationTypeInput: Locator;
-    readonly seachByStatusComboBox: Locator;
     readonly newStatusOption: Locator;
     readonly pendingStatusOption: Locator;
     readonly cancelStatusOption: Locator;
@@ -40,7 +38,6 @@ export class EvaluationProcessPage extends BasePage {
     readonly listEvaluationVerifywaitForApprovalStatus: Locator;
     readonly listEvaluationVerifywaitForEvaluationStatus: Locator;
     readonly listEvaluationSearchByName: Locator;
-
     constructor(page: Page) {
 
         super(page);
@@ -66,7 +63,6 @@ export class EvaluationProcessPage extends BasePage {
         this.cancelStatusOption = page.getByRole('option', { name: 'Đã hủy' })
         this.pendingStatusOption = page.getByRole('option', { name: 'Chờ duyệt' })
         this.newStatusOption = page.getByRole('option', { name: 'Mới tạo' })
-        this.seachByStatusComboBox = page.getByRole('combobox').filter({ hasText: 'Trạng thái' })
         this.searchByEvaluationTypeInput = page.getByRole('textbox', { name: 'Loại đánh giá' })
         this.searchByEmployeeNameInput = page.getByRole('textbox', { name: 'Nhân viên được đánh giá' })
         this.validateDuplicateEvaluation = page.locator("//li[contains(text(),'Nhân viên này đang được đánh giá, vui lòng hoàn th')]");
@@ -85,7 +81,6 @@ export class EvaluationProcessPage extends BasePage {
         this.employyeEvaluationInput = page.getByRole('textbox', { name: 'Nhân viên được đánh giá ※' })
         this.evaluationProcessButton = page.locator("//div[contains(text(),'Quy trình đánh giá')]");
     }
-
     async fillListEvaluationSearchByName(Text: string) {
         await this.safeFill(this.listEvaluationSearchByName, Text);
     }
@@ -168,9 +163,6 @@ export class EvaluationProcessPage extends BasePage {
 
     async clickwaitForEvaluationOption() {
         await this.safeClick(this.waitForEvaluationOption);
-    }
-    async clickSeachByStatusComboBox() {
-        await this.safeClick(this.seachByStatusComboBox);
     }
 
     async getValidateDuplicateEvaluation() {

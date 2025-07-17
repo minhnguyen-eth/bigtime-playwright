@@ -3,7 +3,6 @@ import { LoginPage } from '../pages/LoginPage';
 import Config from '../utils/configUtils';
 import { allure } from 'allure-playwright';
 import { EmployeePage } from '../pages/EmployeePage';
-import { BasePage } from '../pages/BasePage';
 import { ResumePage } from '../pages/ResumePage';
 import { ToastPage } from '../pages/ToastPage';
 import { clearAllAllowanceTypes, clearEmployees } from '../db/DBHelper';
@@ -11,7 +10,6 @@ import { clearAllAllowanceTypes, clearEmployees } from '../db/DBHelper';
 test.describe.serial('Employee Tests', () => {
     let loginPage: LoginPage;
     let employeePage: EmployeePage
-    let basePage: BasePage;
     let resumePage: ResumePage;
     let toastPage: ToastPage;
 
@@ -23,11 +21,10 @@ test.describe.serial('Employee Tests', () => {
         toastPage = new ToastPage(page);
         employeePage = new EmployeePage(page);
         loginPage = new LoginPage(page);
-        basePage = new BasePage(page);
         resumePage = new ResumePage(page);
         await loginPage.goto();
         await loginPage.login(Config.admin_username, Config.admin_password);
-        await basePage.clickAdmin();
+        await employeePage.clickAdmin();
         await employeePage.clickUser();
     });
 
@@ -38,7 +35,7 @@ test.describe.serial('Employee Tests', () => {
         const randomSuffix = Math.random().toString(36).substring(2, 8);
         const emailRandom = `email${randomSuffix}`;
         const phoneNumber = `09${Math.floor(100000000 + Math.random() * 900000000)}`;
-        await basePage.clickAdd();
+        await employeePage.clickAdd();
 
         // Fill information
         await employeePage.fillEmployeeCode("z".repeat(20));
@@ -60,7 +57,7 @@ test.describe.serial('Employee Tests', () => {
         await employeePage.clickSelectRank();
         await employeePage.fillCitizenIdMaxlength("9".repeat(20));
         await employeePage.clickCitizenIdCardIssueDate();
-        await employeePage.clickToDay();
+        await employeePage.clickTodayDatePicker();
         await employeePage.fillPlaceOfIssueOfIdentityCard("z".repeat(255));
         await employeePage.fillBankName('Vietcombank');
         await employeePage.fillBankAccountNumber("9".repeat(20));
@@ -72,7 +69,7 @@ test.describe.serial('Employee Tests', () => {
         await employeePage.clickSelectMonth();
         await employeePage.clickSelectDay();
         await employeePage.clickDateOfJoiningTheCompany();
-        await employeePage.clickToDay();
+        await employeePage.clickTodayDatePicker();
         await employeePage.fillAddress("z".repeat(255));
         await employeePage.fillNote("z".repeat(500));
         await employeePage.clickSaveButton();
@@ -85,8 +82,8 @@ test.describe.serial('Employee Tests', () => {
         const random10Digits = Math.floor(1000000000 + Math.random() * 9000000000);
         const phoneNumber = `09${Math.floor(100000000 + Math.random() * 900000000)}`;
         await employeePage.fillSearchByName("Test max length resume");
-        await basePage.clickSearch();
-        await basePage.clickRow0();
+        await employeePage.clickSearch();
+        await employeePage.clickRow0();
         await resumePage.clickResume();
         await resumePage.clickEditButton();
         await resumePage.fillAliasName("z".repeat(255));
@@ -117,7 +114,7 @@ test.describe.serial('Employee Tests', () => {
         await resumePage.fillOrganizationJoined("z".repeat(255));
         await resumePage.fillRecruimentForm("T".repeat(100));
         await resumePage.fillRecruitedPosition("C".repeat(255));
-        await basePage.clickSave();
+        await employeePage.clickSave();
         await toastPage.getToastEditSuccess();
     });
 
@@ -128,9 +125,9 @@ test.describe.serial('Employee Tests', () => {
 
     test('Test resume with full data valid information', async ({ page }) => {
         allure.severity('Critical');
-        await basePage.clickRow0();
+        await employeePage.clickRow0();
         await resumePage.testResumeWithValidData();
-        await basePage.clickSave();
+        await employeePage.clickSave();
         await toastPage.getToastEditSuccess();
     });
 
@@ -144,19 +141,19 @@ test.describe.serial('Employee Tests', () => {
 
     test('Add with basic information and edit information', async ({ page }) => {
         await employeePage.testAddEmployee();
-        await basePage.clickSave();
+        await employeePage.clickSave();
         await toastPage.getToastAddSuccess();
-        await basePage.clickRow0();
-        await basePage.clickEdit();
+        await employeePage.clickRow0();
+        await employeePage.clickEdit();
         await employeePage.testFillMoreInformation();
-        await basePage.clickSave();
+        await employeePage.clickSave();
         await toastPage.getToastUpdateSuccess();
     });
 
     test('Save resume with empty information required', async ({ page }) => {
-        await basePage.clickRow0();
+        await employeePage.clickRow0();
         await resumePage.testSaveWithEmptyFieldsRequired();
-        await basePage.clickSave();
+        await employeePage.clickSave();
         await resumePage.verifyMsgEthnicityRequired();
         await resumePage.verifyMsgPlaceOfBirthRequired();
         await resumePage.verifyMsgReligionRequired();
@@ -190,7 +187,7 @@ test.describe.serial('Employee Tests', () => {
 
     test('Delete user', async ({ page }) => {
         await employeePage.fillSearchByName("Automation");
-        await basePage.clickSearch();
+        await employeePage.clickSearch();
         await employeePage.deleteAUser();
     });
 

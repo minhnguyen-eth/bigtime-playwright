@@ -14,14 +14,13 @@ export class OvertimeTicketPage extends BasePage {
     // Overtime ticket
     readonly overtimeTicketButton: Locator;
     readonly overtimeTicketDayButton: Locator;
-    readonly reasonInput: Locator;
     readonly startTime: Locator;
     readonly endTime: Locator;
     readonly openHour: Locator;
     readonly hour17: Locator;
     readonly hour18: Locator;
     readonly hour19: Locator;
-    readonly chosseButton: Locator;
+    
     readonly toastSendSuccess: Locator;
     readonly newStatusInfo: Locator;
     readonly reasonInfo: Locator;
@@ -48,7 +47,6 @@ export class OvertimeTicketPage extends BasePage {
         this.cancelStatusInfo = page.locator("//div[contains(@class, 'text-body-2') and contains(text(), 'Hủy')]");
         this.hour19 = page.locator("//div[@class='dp__overlay_cell dp__overlay_cell_pad'][normalize-space()='19']");
         this.validateWhenUserChosseWrongTime = page.locator("//li[contains(text(),'Thời gian tăng ca phải nằm trong khung giờ đã chấm')]");
-        this.validateReasonRequired = page.locator("//div[contains(text(),'Nhập lý do')]");
         this.validateDateRequired = page.locator("//div[contains(text(),'Nhập ngày tăng ca')]");
         this.selectNewStatus = page.locator("//div[contains(text(),'Mới')]");
         this.selectPendingStatus = page.locator("//div[contains(text(),'Chờ duyệt')]");
@@ -67,12 +65,10 @@ export class OvertimeTicketPage extends BasePage {
         this.newStatusInfo = page.locator("//div[contains(text(),'Mới')]");
         this.toastSendSuccess = page.locator("//div[contains(text(),'Gửi thành công')]");
         this.hour18 = page.locator("//div[@class='dp__overlay_cell dp__overlay_cell_pad'][normalize-space()='18']");
-        this.chosseButton = page.locator("//button[contains(text(),'Chọn')]");
         this.hour17 = page.locator("//div[@class='dp__overlay_cell dp__overlay_cell_pad'][normalize-space()='17']");
         this.openHour = page.locator("//button[@aria-label='Open hours overlay']");
         this.endTime = page.getByRole('textbox', { name: 'Giờ kết thúc ※' });
         this.startTime = page.getByRole('textbox', { name: 'Giờ bắt đầu ※' });
-        this.reasonInput = page.locator("//textarea");
         this.overtimeTicketDayButton = page.getByRole('textbox', { name: 'Ngày tăng ca ※' });
         this.overtimeTicketButton = page.locator("//div[contains(text(),'Phiếu tăng ca')]");
         this.checkInOutHistoryButton = page.locator("//div[@class='v-list-item-title'][contains(text(),'Lịch sử điểm danh')]");
@@ -93,20 +89,12 @@ export class OvertimeTicketPage extends BasePage {
         await this.safeVerifyTextContains(this.validateWhenUserChosseWrongTime, "Thời gian tăng ca phải nằm trong khung giờ đã chấm");
     }
 
-    async verifyValidateReasonRequired() {
-        await this.safeVerifyTextContains(this.validateReasonRequired, "Nhập lý do");
-    }
-
     async verifyValidateDateRequired() {
         await this.safeVerifyTextContains(this.validateDateRequired, "Nhập ngày tăng ca");
     }
 
     async clickSelectNewStatus() {
         await this.safeClick(this.selectNewStatus);
-    }
-
-    async clickDropdownStatus() {
-        await this.safeClick(this.dropdownStatus);
     }
 
     async clickSelectPendingStatus() {
@@ -173,20 +161,12 @@ export class OvertimeTicketPage extends BasePage {
         await this.safeClick(this.openHour);
     }
 
-    async clickChosseButton() {
-        await this.safeClick(this.chosseButton);
-    }
-
     async clickEndTime() {
         await this.safeClick(this.endTime);
     }
 
     async clickStartTime() {
         await this.safeClick(this.startTime);
-    }
-
-    async fillReason(reason: string) {
-        await this.safeFill(this.reasonInput, reason);
     }
 
     async clickOvertimeTicketDayButton() {
@@ -218,11 +198,11 @@ export class OvertimeTicketPage extends BasePage {
         await this.clickStartTime();
         await this.clickOpenHour();
         await this.clickHour17();
-        await this.clickChosseButton();
+        await this.clickChoose();
         await this.clickEndTime();
         await this.clickOpenHour();
         await this.clickHour18();
-        await this.clickChosseButton();
+        await this.clickChoose();
     }
 
     async verifyOvertimeTicketNewStatus() {

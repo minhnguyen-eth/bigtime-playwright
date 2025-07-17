@@ -2,7 +2,6 @@ import { Page, Locator, expect } from '@playwright/test';
 import { BasePage } from './BasePage';
 
 export class ToastPage extends BasePage{
-   
     readonly toastAddSuccess: Locator;
     readonly toastUpdateSuccess: Locator;
     readonly toastDeleteSuccess: Locator;

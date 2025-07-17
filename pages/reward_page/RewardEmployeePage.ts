@@ -10,9 +10,6 @@ export class RewardEmployeePage extends BasePage {
     readonly chosseRewardType: Locator;
     readonly selectRewardType: Locator;
     readonly moneyInput: Locator;
-    readonly descriptionInput: Locator;
-    readonly noteInput: Locator;
-    readonly statusDropdownAdd: Locator;
     readonly seclectWaitingForApproved: Locator;
     readonly validationRewardName: Locator;
     readonly validationEmployee: Locator;
@@ -20,7 +17,6 @@ export class RewardEmployeePage extends BasePage {
     readonly validationMoney: Locator;
     readonly dayReward: Locator;
     readonly day19: Locator;
-    readonly chosseButton: Locator;
     readonly searchByRewardName: Locator;
     readonly searchByEmployee: Locator;
     readonly searchByRewardType: Locator;
@@ -35,22 +31,14 @@ export class RewardEmployeePage extends BasePage {
     readonly verifyNewStatus: Locator;
     readonly verifyApprovedStatus: Locator;
     readonly verifyCancelledStatus: Locator;
-    readonly row0: Locator;
-    readonly reasonInput: Locator;
     readonly dayRewardAdd: Locator;
-    readonly yesButton: Locator;
     readonly selectApproved: Locator;
     readonly monthButton: Locator;
     readonly month06Button: Locator;
-    readonly cancelButton: Locator;
-
+   
     constructor(page: Page) {
         super(page);
-        this.cancelButton = page.locator("//span[contains(text(),'Hủy')]");
-        this.yesButton = page.locator("//span[normalize-space()='Có']");
         this.dayRewardAdd = page.locator("//div[7]/div/div/div/div/div[1]/div/div/div[3]/input");
-        this.reasonInput = page.locator("//textarea");
-        this.row0 = page.locator("//tr[@id='row-0']");
         this.verifyCancelledStatus = page.locator("//tr[@id='row-0']//div[text()='Đã hủy']");
         this.verifyApprovedStatus = page.locator("//tr[@id='row-0']//div[text()='Đã duyệt']");
         this.verifyNewStatus = page.locator("//tr[@id='row-0']//div[text()='Mới tạo']");
@@ -65,7 +53,6 @@ export class RewardEmployeePage extends BasePage {
         this.searchByRewardType = page.getByRole('textbox', { name: 'Tên loại khen thưởng' });
         this.searchByEmployee = page.getByRole('textbox', { name: 'Nhân viên được khen thưởng' });
         this.searchByRewardName = page.getByRole('textbox', { name: 'Tên khen thưởng' });
-        this.chosseButton = page.locator("//button[contains(text(),'Chọn')]");
         this.day19 = page.locator("//div[@class='dp__cell_inner dp__pointer dp__date_hover'][normalize-space()='19']");
         this.dayReward = page.getByRole('textbox', { name: 'Ngày khen thưởng' });
         this.validationMoney = page.locator("//div[contains(text(),'Nhập tiền thưởng')]");
@@ -74,9 +61,6 @@ export class RewardEmployeePage extends BasePage {
         this.validationRewardName = page.locator("//div[contains(text(),'Nhập tên khen thưởng')]");
         this.seclectWaitingForApproved = page.locator("//div[contains(text(),'Chờ duyệt')]");
         this.selectApproved = page.locator("//div[contains(text(),'Đã duyệt')]");
-        this.statusDropdownAdd = page.getByRole('combobox').filter({ hasText: 'Trạng thái ※' }).locator('i')
-        this.noteInput = page.getByRole('textbox', { name: 'Ghi chú' });
-        this.descriptionInput = page.getByRole('textbox', { name: 'Mô tả' });
         this.moneyInput = page.getByRole('textbox', { name: 'Tiền thưởng ※' });
         this.selectRewardType = page.locator("//div[text()='Khen thưởng 2']");
         this.chosseRewardType = page.getByRole('textbox', { name: 'Chọn loại khen thưởng ※' });
@@ -86,10 +70,6 @@ export class RewardEmployeePage extends BasePage {
         this.rewardEmployee = page.locator("//div[contains(text(),'Khen thưởng nhân viên')]");
         this.month06Button = page.locator("//div[@class='dp__overlay_cell dp__overlay_cell_pad'][normalize-space()='Thg 6']");
         this.monthButton = page.locator("button[aria-label='Open months overlay']");
-    }
-
-    async clickCancelButton() {
-        await this.safeClick(this.cancelButton);
     }
 
     async clickMonth06Button() {
@@ -108,15 +88,6 @@ export class RewardEmployeePage extends BasePage {
         await this.safeClick(this.dayRewardAdd);
     }
 
-    async fillReasonInput(reasonInput: string) {
-        await this.safeFill(this.reasonInput, reasonInput);
-        await this.safeClick(this.yesButton);
-    }
-
-    async clickYesButton() {
-        await this.safeClick(this.yesButton);
-    }
-
     async clickApprovedStatus() {
         await this.safeClick(this.approvedStatus);
     }
@@ -127,10 +98,6 @@ export class RewardEmployeePage extends BasePage {
 
     async clickNewStatus() {
         await this.safeClick(this.newStatus);
-    }
-
-    async clickStatusDropdownSearch() {
-        await this.clickDropdownStatusSearch();
     }
 
     async verifySearchByRewardNameSearch() {
@@ -176,10 +143,6 @@ export class RewardEmployeePage extends BasePage {
         await this.safeClick(this.searchByDate);
     }
 
-    async clickChosseButton() {
-        await this.safeClick(this.chosseButton);
-    }
-
     async clickDay19() {
         await this.safeClick(this.day19);
     }
@@ -208,17 +171,6 @@ export class RewardEmployeePage extends BasePage {
         await this.safeClick(this.seclectWaitingForApproved);
     }
 
-    async clickStatusDropdownAdd() {
-        await this.safeClick(this.statusDropdownAdd);
-    }
-
-    async fillNoteInput(note: string) {
-        await this.safeFill(this.noteInput, note);
-    }
-
-    async fillDescriptionInput(description: string) {
-        await this.safeFill(this.descriptionInput, description);
-    }
 
     async fillMoneyInput(money: string) {
         await this.safeFill(this.moneyInput, money);
@@ -259,8 +211,8 @@ export class RewardEmployeePage extends BasePage {
         await this.clickChosseRewardType();
         await this.clickSelectRewardType();
         await this.fillMoneyInput('1000000');
-        await this.fillDescriptionInput('Description');
-        await this.fillNoteInput('Note');
+        await this.fillDescription('Description');
+        await this.fillNote('Note');
 
     }
 

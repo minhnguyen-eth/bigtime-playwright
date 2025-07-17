@@ -5,7 +5,7 @@ import Config from '../utils/configUtils';
 import { RegisnationPage } from '../pages/RegisnationPage';
 import { ToastPage } from '../pages/ToastPage';
 import { allure } from 'allure-playwright';
-import { BasePage } from '../pages/BasePage';
+import { ValidationPage } from '../pages/ValidationPage';
 import { LogoutPage } from '../pages/LogoutPage';
 
 
@@ -13,7 +13,7 @@ test.describe.serial('Resignation Tests', () => {
   let loginPage: LoginPage;
   let regisnationPage: RegisnationPage;
   let toastPage: ToastPage;
-  let basePage: BasePage;
+  let validation: ValidationPage;
   let logoutPage: LogoutPage;
 
   const randomSuffix = Math.random().toString(36).substring(2, 8);
@@ -24,7 +24,7 @@ test.describe.serial('Resignation Tests', () => {
     allure.severity('Critical');
 
     loginPage = new LoginPage(page);
-    basePage = new BasePage(page);
+    validation = new ValidationPage(page);
     loginPage = new LoginPage(page);
     regisnationPage = new RegisnationPage(page);
     toastPage = new ToastPage(page);
@@ -35,7 +35,7 @@ test.describe.serial('Resignation Tests', () => {
 
   async function addResignation() {
     await loginPage.login(Config.employee_username, Config.employee_password);
-    await basePage.clickAdmin();
+    await regisnationPage.clickAdmin();
     await regisnationPage.clickRegisnationButton();
     await regisnationPage.clickAdd();
     await regisnationPage.fillReason('Automation test');
@@ -45,7 +45,7 @@ test.describe.serial('Resignation Tests', () => {
 
   async function beforTestMaxLength() {
     await loginPage.login(Config.employee_username, Config.employee_password);
-    await basePage.clickAdmin();
+    await regisnationPage.clickAdmin();
     await regisnationPage.clickRegisnationButton();
     await regisnationPage.clickAdd();
   }
@@ -61,7 +61,7 @@ test.describe.serial('Resignation Tests', () => {
     await beforTestMaxLength();
     await regisnationPage.fillReason("z".repeat(256));
     await regisnationPage.clickSave();
-    await basePage.verifyMaxlenght255Charactor();
+    await validation.validateMaxLength255Characters();
   });
 
   test('Add new resignation and send', async ({ page }) => {
@@ -86,7 +86,7 @@ test.describe.serial('Resignation Tests', () => {
     await allure.step('Employee edits resignation reason with valid data', async () => {
       await addResignation();
       await regisnationPage.clickRow0();
-      await basePage.clickEdit();
+      await regisnationPage.clickEdit();
       await regisnationPage.fillReason('Automation test edit');
       await regisnationPage.clickSave();
       await toastPage.getToastUpdateSuccess();
@@ -97,13 +97,13 @@ test.describe.serial('Resignation Tests', () => {
     allure.story('Edit resignation reason with blank reason Story');
     await allure.step('Edit with blank reason', async () => {
       await loginPage.login(Config.employee_username, Config.employee_password);
-      await basePage.clickAdmin();
+      await regisnationPage.clickAdmin();
       await regisnationPage.clickRegisnationButton();
       await regisnationPage.clickRow0();
-      await basePage.clickEdit();
+      await regisnationPage.clickEdit();
       await regisnationPage.fillReason('');
       await regisnationPage.clickSave();
-      await basePage.verifyRequiredFillReason();
+      await validation.validateRequiredFillReason();
     });
   });
 
@@ -133,7 +133,7 @@ test.describe.serial('Resignation Tests', () => {
     await allure.step('Manager approves resignation request', async () => {
       await loginPage.goto();
       await loginPage.login(Config.manager_username, Config.manager_password);
-      await basePage.clickAdmin();
+      await regisnationPage.clickAdmin();
       await regisnationPage.clickRegisnationButton();
       await regisnationPage.clickRow0();
       await regisnationPage.clickBrowse();
@@ -145,11 +145,11 @@ test.describe.serial('Resignation Tests', () => {
     await allure.step('Admin rejects resignation request', async () => {
       await loginPage.goto();
       await loginPage.login(Config.admin_username, Config.admin_password);
-      await basePage.clickAdmin();
+      await regisnationPage.clickAdmin();
       await regisnationPage.clickRegisnationButton();
       await regisnationPage.clickRow0();
-      await basePage.clickReject();
-      await basePage.fillReason('Automation test reject');
+      await regisnationPage.clickReject();
+      await regisnationPage.fillReason('Automation test reject');
       await toastPage.getToastRejectSuccess();
     });
   });
@@ -180,7 +180,7 @@ test.describe.serial('Resignation Tests', () => {
     await allure.step('Manager approves resignation request', async () => {
       await loginPage.goto();
       await loginPage.login(Config.manager_username, Config.manager_password);
-      await basePage.clickAdmin();
+      await regisnationPage.clickAdmin();
       await regisnationPage.clickRegisnationButton();
       await regisnationPage.clickRow0();
       await regisnationPage.clickBrowse();
@@ -192,7 +192,7 @@ test.describe.serial('Resignation Tests', () => {
     await allure.step('Admin approves resignation request', async () => {
       await loginPage.goto();
       await loginPage.login(Config.admin_username, Config.admin_password);
-      await basePage.clickAdmin();
+      await regisnationPage.clickAdmin();
       await regisnationPage.clickRegisnationButton();
       await regisnationPage.clickRow0();
       await regisnationPage.clickBrowse();
@@ -205,11 +205,11 @@ test.describe.serial('Resignation Tests', () => {
     allure.story('Cancel Resignation Story');
     await allure.step('Employee cancels resignation request', async () => {
       await loginPage.login(Config.admin_username, Config.admin_password);
-      await basePage.clickAdmin();
+      await regisnationPage.clickAdmin();
       await regisnationPage.clickRegisnationButton();
       await regisnationPage.clickRow0();
       await regisnationPage.clickCancelButton();
-      await basePage.fillReason('Automation test cancel');
+      await regisnationPage.fillReason('Automation test cancel');
       await toastPage.getToastCancelSuccess();
     });
   });
@@ -218,7 +218,7 @@ test.describe.serial('Resignation Tests', () => {
     allure.story('Search Resignation Story');
 
     await loginPage.login(Config.admin_username, Config.admin_password);
-    await basePage.clickAdmin();
+    await regisnationPage.clickAdmin();
     await regisnationPage.clickRegisnationButton();
 
     await allure.step('Search by employee name', async () => {
@@ -276,15 +276,15 @@ test.describe.serial('Resignation Tests', () => {
     allure.story('Export Resignation to Excel Story');
 
     await loginPage.login(Config.admin_username, Config.admin_password);
-    await basePage.clickAdmin();
+    await regisnationPage.clickAdmin();
     await regisnationPage.clickRegisnationButton();
 
     await allure.step('Export resignation requests by date range', async () => {
       await regisnationPage.clickExportButton();
       await regisnationPage.clickStartDate();
-      await basePage.clickTodayDatePicker();
+      await regisnationPage.clickTodayDatePicker();
       await regisnationPage.clickEndDate();
-      await basePage.clickTodayDatePicker();
+      await regisnationPage.clickTodayDatePicker();
       await regisnationPage.clickYes();
       await toastPage.getToastExportSuccess();
     });
@@ -295,7 +295,7 @@ test.describe.serial('Resignation Tests', () => {
     allure.story('Export resignation with no data Story');
 
     await loginPage.login(Config.admin_username, Config.admin_password);
-    await basePage.clickAdmin();
+    await regisnationPage.clickAdmin();
     await regisnationPage.clickRegisnationButton();
 
     await allure.step('Choose day with no data to export', async () => {

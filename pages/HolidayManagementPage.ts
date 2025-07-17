@@ -6,13 +6,9 @@ export class HolidayManagementPage extends BasePage {
     readonly holidayName: Locator;
     readonly startDate: Locator
     readonly endDate: Locator
-    readonly reason: Locator
-    readonly yesButton: Locator;
-    readonly deleteButton: Locator;
     readonly nameRequired: Locator;
     readonly startDateRequired: Locator;
     readonly endDateRequired: Locator;
-    readonly reasonRequired: Locator;
     readonly totalHolidayResult: Locator;
     readonly timeKeeping: Locator;
     readonly checkInOutHistory: Locator;
@@ -30,7 +26,6 @@ export class HolidayManagementPage extends BasePage {
         super(page)
         this.restHolidayNoSalary = page.locator("//td[contains(text(),'Ngày lễ không lương')]");
         this.checkBox = page.locator("//input[@type='checkbox']");
-        this.msgReasonRequired = page.locator("//div[contains(text(),'Nhập lý do')]");
         this.msgEndDateRequired = page.locator("//div[contains(text(),'Nhập đến hết ngày')]");
         this.msgStartDateRequired = page.locator("//div[contains(text(),'Nhập bắt đầu từ ngày')]");
         this.msgNameRequired = page.locator("//div[contains(text(),'Nhập tên ngày nghỉ')]");
@@ -40,9 +35,6 @@ export class HolidayManagementPage extends BasePage {
         this.checkInOutHistory = page.locator("//div[contains(text(),'Lịch sử điểm danh')]")
         this.timeKeeping = page.locator("//p[contains(text(),'Chấm công')]")
         this.totalHolidayResult = page.locator("//input[@type='number' and @value='1']")
-        this.deleteButton = page.locator("//tr[@id='row-0']//span[contains(text(),'Xóa')]");
-        this.yesButton = page.locator("//span[@class='v-btn__content'][normalize-space()='Có']");
-        this.reason = page.locator("//textarea[@rows='2']");
         this.endDate = page.getByRole('textbox', { name: 'Đến hết ngày ※' })
         this.startDate = page.getByRole('textbox', { name: 'Bắt đầu từ ngày ※' })
         this.holidayButton = page.locator("//div[contains(text(),'Quản lý ngày nghỉ')]");
@@ -66,10 +58,6 @@ export class HolidayManagementPage extends BasePage {
         await this.safeVerifyTextContains(this.msgEndDateRequired, "Nhập đến hết ngày");
     }
 
-    async expectReasonRequired() {
-        await this.safeVerifyTextContains(this.msgReasonRequired, "Nhập lý do");
-    }
-
     async verifyRestHolidayHaveSalary() {
         await this.safeVerifyTextContains(this.restHolidayHaveSalary, "Ngày lễ có lương");
     }
@@ -84,10 +72,6 @@ export class HolidayManagementPage extends BasePage {
         await this.safeClick(this.selectUser);
     }
 
-    async fillReason(reason: string) {
-        await this.safeFill(this.reason, reason);
-    }
-
     async fillHolidayName(name: string) {
         await this.safeFill(this.holidayName, name);
     }
@@ -99,15 +83,6 @@ export class HolidayManagementPage extends BasePage {
 
     async clickTimeKeeping() {
         await this.safeClick(this.timeKeeping);
-    }
-
-    async clickDeleteButton() {
-        await this.safeClick(this.deleteButton);
-        await this.safeClick(this.yesButton);
-    }
-
-    async clickYesButton() {
-        await this.safeClick(this.yesButton);
     }
 
     async clickStartDate() {
@@ -126,6 +101,4 @@ export class HolidayManagementPage extends BasePage {
     async checkTotalHolidayResult() {
         await this.safeVerifyToHaveValue(this.totalHolidayResult, '1');
     }
-
-
 }

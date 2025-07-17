@@ -2,7 +2,6 @@ import { expect, Locator, Page } from '@playwright/test';
 import { BasePage } from './BasePage';
 
 export class BranchPage extends BasePage {
-
     readonly branchButton: Locator;
     readonly branchName: Locator;
     readonly shortName: Locator;

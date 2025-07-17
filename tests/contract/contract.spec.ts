@@ -1,23 +1,28 @@
 import { test, expect } from '../base-test';
+import { allure } from "allure-playwright";
+import Config from '../../utils/configUtils';
+import { checkContractExists, clearEmploymentContract } from '../../db/DBHelper';
+import { ValidationPage } from '../../pages/ValidationPage';
 import { ToastPage } from '../../pages/ToastPage';
 import { LoginPage } from '../../pages/LoginPage';
 import { BasePage } from '../../pages/BasePage';
-import Config from '../../utils/configUtils';
-import { checkContractExists, clearEmploymentContract } from '../../db/DBHelper';
 import { ContractPage } from '../../pages/contract_page/ContractPage';
-import { allure } from "allure-playwright";
+import { createContractWithProbation } from './contractHelper';
+
 
 test.describe.serial('Contract Tests', () => {
     let contractPage: ContractPage;
     let toastPage: ToastPage;
     let loginPage: LoginPage;
     let basePage: BasePage;
+    let validationPage: ValidationPage;
 
     test.beforeEach(async ({ page }) => {
         allure.owner("Minh Nguyen");
         allure.feature("Contract Feature");
         allure.severity("Critical");
 
+        validationPage = new ValidationPage(page);
         loginPage = new LoginPage(page);
         toastPage = new ToastPage(page);
         contractPage = new ContractPage(page);
@@ -29,22 +34,6 @@ test.describe.serial('Contract Tests', () => {
         await contractPage.clickContract();
     });
 
-    async function CreateContractWithProbation() {
-        await clearEmploymentContract();
-        await basePage.clickAdd();
-        await contractPage.fillEmployeeName();
-        await contractPage.fillSalary("10000000");
-        await contractPage.selectEndDate();
-        await basePage.clickChoose();
-        await contractPage.fillNote('Automation test contract');
-        await contractPage.checkSelectAllTerm();
-        await basePage.clickSave();
-        await toastPage.getToastAddSuccess();
-
-        // Check in DB, type 0 is probation, status 0 is new 
-        const existsInDB = await checkContractExists('Automation test contract', 0 , 0);
-        expect(existsInDB).toBeTruthy();
-    }
 
     test('Max lenghth of note is 255 characters', async ({ page }) => {
         await clearEmploymentContract();
@@ -69,7 +58,7 @@ test.describe.serial('Contract Tests', () => {
         await contractPage.fillNote('A'.repeat(256));
         await contractPage.checkSelectAllTerm();
         await basePage.clickSave();
-        await basePage.verifyMaxlenght255Charactor();
+        await validationPage.validateMaxLength255Characters();
     });
 
     test('Create contract with no select term and blank note', async ({ page }) => {
@@ -78,25 +67,26 @@ test.describe.serial('Contract Tests', () => {
         await contractPage.fillEmployeeName();
         await contractPage.fillSalary("10000000");
         await contractPage.selectEndDate();
-        await basePage.clickChoose();
-        await basePage.clickSave();
+        await contractPage.clickChoose();
+        await contractPage.clickSave();
         await toastPage.getToastAddSuccess();
     });
 
     test('Edit contract type - Probation to Permanent', async ({ page }) => {
-        await CreateContractWithProbation();
-        await basePage.clickRow0();
-        await basePage.clickEdit();
+        await createContractWithProbation(basePage, contractPage, toastPage);
+        await contractPage.clickRow0();
+        await contractPage.clickEdit();
         await contractPage.clickContractTypeDropdown();
         await contractPage.clickFormalContract();
         await basePage.clickSave();
         await toastPage.getToastUpdateSuccess();
         await contractPage.verifyPermanentType();
+
     });
 
     test('Edit base salary', async ({ page }) => {
-        await basePage.clickRow0();
-        await basePage.clickEdit();
+        await contractPage.clickRow0();
+        await contractPage.clickEdit();
         await contractPage.fillSalary("20000000");
         await basePage.clickSave();
         await toastPage.getToastUpdateSuccess();
@@ -110,12 +100,19 @@ test.describe.serial('Contract Tests', () => {
         await toastPage.getToastUpdateSuccess();
     });
 
-    test('Create contract with probation', async ({ page }) => {
-        await CreateContractWithProbation();
+    test('E2E - Create contract with probation and confirm contract', async ({ page }) => {
+        await createContractWithProbation(basePage, contractPage, toastPage);
+        await contractPage.clickRow0();
+        await contractPage.clickConfirm();
+        await toastPage.getToastConfirmSuccess();
+
+        // Check in DB, type 0 is probation, status 1 is confirmed
+        const existsInDB = await checkContractExists('Automation test contract', 0, 1);
+        expect(existsInDB).toBeTruthy();
     });
 
     test('Create with formal contract ', async ({ page }) => {
-        await basePage.clickAdd();
+        await contractPage.clickAdd();
         await contractPage.fillEmployeeName();
         await contractPage.clickContractTypeDropdown();
         await contractPage.clickFormalContract();
@@ -123,9 +120,36 @@ test.describe.serial('Contract Tests', () => {
         await contractPage.checkSelectAllTerm();
         await basePage.clickSave();
         await toastPage.getToastAddSuccess();
+
+        const exitsInDB = await checkContractExists('Automation test', 1, 0);
+        expect(exitsInDB).toBeTruthy();
+
+        await contractPage.clickRow0();
+        await contractPage.clickConfirm();
+        await toastPage.getToastConfirmSuccess();
+
+        // Check in DB, type 0 is probation, status 1 is confirmed
+        const existsInDB = await checkContractExists('Automation test contract', 1, 1);
+        expect(existsInDB).toBeTruthy();
     });
 
-    test('Create with seasonal contract ', async ({ page }) => {
+    test('E2E - Create a contract when there is an approved contract', async ({ page }) => {
+        await basePage.clickAdd();
+        await contractPage.fillEmployeeName();
+        await contractPage.clickContractTypeDropdown();
+        await contractPage.clickSeasonalContract();
+        await contractPage.selectEndDate();
+        await basePage.clickChoose();
+        await contractPage.fillNote('Automation test');
+        await contractPage.checkSelectAllTerm();
+        await basePage.clickSave();
+        await toastPage.getToastAddFailed();
+        await validationPage.validateContractAlreadyApproved();
+
+    });
+
+    test('E2E - Create with seasonal contract and confirm contract', async ({ page }) => {
+        await clearEmploymentContract();
         await basePage.clickAdd();
         await contractPage.fillEmployeeName();
         await contractPage.clickContractTypeDropdown();
@@ -136,6 +160,17 @@ test.describe.serial('Contract Tests', () => {
         await contractPage.checkSelectAllTerm();
         await basePage.clickSave();
         await toastPage.getToastAddSuccess();
+
+        const exitsInDB = await checkContractExists('Automation test', 2, 0);
+        expect(exitsInDB).toBeTruthy();
+
+        await contractPage.clickRow0();
+        await contractPage.clickConfirm();
+        await toastPage.getToastConfirmSuccess();
+
+        // Check in DB, type 0 is probation, status 1 is confirmed
+        const existsInDB = await checkContractExists('Automation test contract', 2, 1);
+        expect(existsInDB).toBeTruthy();
     });
 
     test('Edit end date', async ({ page }) => {
@@ -158,6 +193,9 @@ test.describe.serial('Contract Tests', () => {
         await contractPage.checkSelectAllTerm();
         await basePage.clickSave();
         await toastPage.getToastAddSuccess();
+
+        const exitsInDB = await checkContractExists('Automation test', 3, 0);
+        expect(exitsInDB).toBeTruthy();
     });
 
     test('Search by contract type ', async ({ page }) => {
@@ -206,7 +244,7 @@ test.describe.serial('Contract Tests', () => {
         // search by code not exist
         await contractPage.fillSearchByCode('Testttt258963');
         await basePage.clickSearch();
-        await basePage.verifyNoExistData();
+        await validationPage.validateNoExistData();
     });
 
     test('Search by name', async ({ page }) => {
@@ -217,7 +255,7 @@ test.describe.serial('Contract Tests', () => {
         // search by name not exist
         await contractPage.fillSearchByName('Testttt258963');
         await basePage.clickSearch();
-        await basePage.verifyNoExistData();
+        await validationPage.validateNoExistData();
     });
 
     test('Delete contract', async ({ page }) => {

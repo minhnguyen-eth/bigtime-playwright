@@ -74,7 +74,7 @@ export class PayslipPage extends PaysheetPage {
         await this.clickSalarySlipCode();
         await this.clickCancel();
         await this.fillReason('test');
-        await this.clickOk();
+        await this.clickYes();
         await this.expectVerifyCancelledStatus();
     }
 }

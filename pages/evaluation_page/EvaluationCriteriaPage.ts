@@ -7,11 +7,7 @@ export class EvaluationCriteriaPage extends BasePage {
     readonly evaluationCriteriaName_DropDown: Locator;
     readonly evaluationType_Option: Locator;
     readonly evaluationName_inputSearch: Locator;
-    readonly rusult_SearchByName: Locator;
-    readonly result_SearchByStatus: Locator;
-    readonly verifyLockStatusSearch: Locator;
-    readonly verifyActivityStatus: Locator;
-    readonly verifyLockStatus: Locator;
+    readonly resultSearchByName: Locator;
     readonly requiredCriteriaName: Locator;
     readonly requiredEvaluationTypeName: Locator;
 
@@ -19,7 +15,7 @@ export class EvaluationCriteriaPage extends BasePage {
         super(page);
         this.requiredEvaluationTypeName = page.locator("//div[contains(text(),'Nhập tên loại đánh giá')]");
         this.requiredCriteriaName = page.locator("//div[contains(text(),'Nhập tên tiêu chí')]");
-        this.rusult_SearchByName = page.locator("//tbody/tr[@id='row-0']/td[2]/span[1]");
+        this.resultSearchByName = page.locator("//tbody/tr[@id='row-0']/td[2]/span[1]");
         this.evaluationName_inputSearch = page.locator("//div[1]/div/div/div/div[3]/div/input");
         this.evaluationCriteria_Button = page.locator("//div[contains(text(),'Tiêu chí đánh giá')]");
         this.evaluationCriteriaName_Input = page.locator("//div/div[1]/div/div[1]/div/div[4]/div/input");
@@ -38,33 +34,8 @@ export class EvaluationCriteriaPage extends BasePage {
         return text;
     }
 
-    async getVerifyLockStatus() {
-        await this.safeVerifyToHaveText(this.verifyLockStatus, "Khóa");
-    }
-
-
-    async clickLockStatus() {
-        await this.safeClick(this.lock_Status);
-    }
-
-    async getVerifyActivityStatus() {
-        await this.safeVerifyToHaveText(this.verifyActivityStatus, "Hoạt động");
-    }
-
-    async getVerifyLockStatusSearch() {
-        await this.safeVerifyToHaveText(this.verifyLockStatusSearch, "Khóa");
-    }
-
-    async selectStatus(status: string) {
-        if (status == "Hoạt động") {
-            await this.activity_Status.click();
-        } else if (status == "Khóa") {
-            await this.lock_Status.click();
-        }
-    }
-
     async verifyResultSearchByName() {
-        await this.safeVerifyTextContains(this.rusult_SearchByName, "Automation test");
+        await this.safeVerifyTextContains(this.resultSearchByName, "Automation test");
     }
 
     async searchEvaluationCriteriaName(evaluationCriteriaName: string) {
@@ -73,11 +44,6 @@ export class EvaluationCriteriaPage extends BasePage {
 
     async editEvaluationCriteriaName(evaluationCriteriaName: string) {
         await this.safeFill(this.evaluationName_inputSearch, evaluationCriteriaName);
-    }
-
-    async editDescription(description: string) {
-        await this.safeFill(this.evaluationName_inputSearch, description);
-        console.log("Edited description : " + description);
     }
 
     async clickEvaluationTypeOption() {
@@ -96,7 +62,3 @@ export class EvaluationCriteriaPage extends BasePage {
         await this.safeFill(this.evaluationCriteriaName_Input, evaluationCriteriaName);
     }
 }
-
-
-
-

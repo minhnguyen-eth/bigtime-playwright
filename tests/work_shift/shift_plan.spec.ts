@@ -5,27 +5,27 @@ import { ShiftPlanPage } from '../../pages/work_shift_page/ShiftPlanPage';
 import { clearAllShiftPlan, checkShiftPlanExists } from '../../db/DBHelper';
 import { allure } from 'allure-playwright';
 import { ToastPage } from '../../pages/ToastPage';
-import { BasePage } from '../../pages/BasePage';
+import { ValidationPage } from '../../pages/ValidationPage';
 
 test.describe.serial('Shift Plan Tests', () => {
     let loginPage: LoginPage;
     let shiftPlanPage: ShiftPlanPage;
     let toastPage: ToastPage;
-    let basePage: BasePage;
+    let validation: ValidationPage;
 
     test.beforeEach(async ({ page }) => {
         allure.feature('Shift Plan Feature');
         allure.owner('Minh Nguyen');
         allure.severity('Critical');
 
+        validation = new ValidationPage(page);
         toastPage = new ToastPage(page);
-        basePage = new BasePage(page);
         loginPage = new LoginPage(page);
         shiftPlanPage = new ShiftPlanPage(page);
 
         await loginPage.goto();
         await loginPage.login(Config.admin_username, Config.admin_password);
-        await basePage.clickTimeKeepingManagement();
+        await shiftPlanPage.clickTimeKeepingManagement();
         await shiftPlanPage.clickShiftPlanButton();
     });
 
@@ -51,7 +51,7 @@ test.describe.serial('Shift Plan Tests', () => {
 
     test("Max lengh of name 255 character", async ({ page }) => {
         await clearAllShiftPlan();
-        await basePage.clickAdd();
+        await shiftPlanPage.clickAdd();
         await shiftPlanPage.fillShiftPlanNameInput('z'.repeat(255));
         // Test body
         await testBody();
@@ -60,12 +60,12 @@ test.describe.serial('Shift Plan Tests', () => {
     });
 
     test("Max lengh of name over 255 character", async ({ page }) => {
-        await basePage.clickAdd();
+        await shiftPlanPage.clickAdd();
         await shiftPlanPage.fillShiftPlanNameInput('z'.repeat(256));
         // Test body
         await testBody();
 
-        await basePage.verifyMaxlenght255Charactor();
+        await validation.validateMaxLength255Characters();
     });
 
     test('Add shift plan for department', async ({ page }) => {
@@ -77,7 +77,7 @@ test.describe.serial('Shift Plan Tests', () => {
         });
 
         await allure.step('Fill Shift Plan form for department', async () => {
-            await basePage.clickAdd();
+            await shiftPlanPage.clickAdd();
             await shiftPlanPage.fillShiftPlanNameInput(randomName);
             await shiftPlanPage.clickWorkShift();
             await shiftPlanPage.clickWorkShiftOption();
@@ -115,7 +115,7 @@ test.describe.serial('Shift Plan Tests', () => {
         allure.story('Add Shift Plan for Employee Story');
 
         await allure.step('Fill Shift Plan form for employee', async () => {
-            await basePage.clickAdd();
+            await shiftPlanPage.clickAdd();
             await shiftPlanPage.fillShiftPlanNameInput(randomName);
             // Test body
             await testBody();
@@ -133,8 +133,8 @@ test.describe.serial('Shift Plan Tests', () => {
         allure.story('Validate Required Fields Story');
 
         await allure.step('Try saving empty shift plan', async () => {
-            await basePage.clickAdd();
-            await basePage.clickSave();
+            await shiftPlanPage.clickAdd();
+            await shiftPlanPage.clickSave();
         });
 
         await allure.step('Verify required field warnings', async () => {
@@ -149,7 +149,7 @@ test.describe.serial('Shift Plan Tests', () => {
         await shiftPlanPage.clickChosseButton();
         await shiftPlanPage.clickSearchButton();
 
-        await basePage.clickEditRow0();
+        await shiftPlanPage.clickEditRow0();
     });
 
     test('Edit name of shift plan', async ({ page }) => {
@@ -162,9 +162,9 @@ test.describe.serial('Shift Plan Tests', () => {
             await shiftPlanPage.clickChosseButton();
             await shiftPlanPage.clickSearchButton();
 
-            await basePage.clickEditRow0();
+            await shiftPlanPage.clickEditRow0();
             await shiftPlanPage.fillShiftPlanNameInput(randomName);
-            await basePage.clickSave();
+            await shiftPlanPage.clickSave();
             await toastPage.getToastUpdateSuccess();
             await shiftPlanPage.expectEditNameResult();
         });
@@ -180,7 +180,7 @@ test.describe.serial('Shift Plan Tests', () => {
 
         await allure.step('Search by name', async () => {
             await shiftPlanPage.fillSearchByNameInput('Phân ca tháng 7');
-            await basePage.clickSearch();
+            await shiftPlanPage.clickSearch();
         });
 
         await allure.step('Verify search results', async () => {
@@ -210,7 +210,7 @@ test.describe.serial('Shift Plan Tests', () => {
             await shiftPlanPage.clickMonth08();
             await shiftPlanPage.clickChosseButton();
             await shiftPlanPage.clickSearchButton();
-            await basePage.clickDeleteRow0();
+            await shiftPlanPage.clickDeleteRow0();
             await toastPage.getToastDeleteSuccess();
         });
     });

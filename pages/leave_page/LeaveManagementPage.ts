@@ -2,18 +2,10 @@ import { Locator, Page, expect } from '@playwright/test';
 import { BasePage } from '../BasePage';
 
 export class LeaveManagementPage extends BasePage {
-
-    readonly toastAddSuccess: Locator;
-    readonly toastCancelSuccess: Locator;
     readonly leaveManagementButton: Locator;
-    readonly addButton: Locator;
+    
     readonly leaveTypeDropDown: Locator;
     readonly anualLeave: Locator;
-    readonly reason: Locator;
-    readonly todayButton: Locator;
-    readonly chosseButton: Locator;
-    readonly saveButton: Locator;
-    readonly cancelButton: Locator;
     readonly AddDepatment: Locator;
     readonly departmentAndTeam: Locator;
     readonly departmentIT: Locator;
@@ -24,11 +16,6 @@ export class LeaveManagementPage extends BasePage {
     readonly iconActionRow0: Locator;
     readonly iconActionRow1: Locator;
     readonly iconActionRow2: Locator;
-    readonly comfirmButton: Locator;
-    readonly OkButton: Locator;
-    readonly toastConfirmSuccess: Locator;
-    readonly browsed: Locator;
-    readonly toastBrowsedSuccess: Locator;
     readonly addEmployee: Locator;
     readonly waitingForApproval: Locator;
     readonly departmentOption: Locator;
@@ -78,9 +65,6 @@ export class LeaveManagementPage extends BasePage {
         this.departmentOption = page.locator("//div[text()='Bộ phận IT']")
         this.waitingForApproval = page.locator("//div[contains(text(),'Chờ duyệt')]")
         this.addEmployee = page.locator("div[class='v-slide-group__content'] div span[class='v-btn__content']")
-        this.browsed = page.locator("//span[contains(text(),'Duyệt')]")
-        this.OkButton = page.locator("//span[normalize-space()='Có']")
-        this.comfirmButton = page.locator("//span[contains(text(),'Xác nhận')]")
         this.iconActionRow0 = page.locator("//tr[@id='row-0']//i[contains(@class, 'mdi-format-list-group')]")
         this.iconActionRow1 = page.locator("//tr[@id='row-1']//i[contains(@class, 'mdi-format-list-group')]")
         this.iconActionRow2 = page.locator("//tr[@id='row-2']//i[contains(@class, 'mdi-format-list-group')]")
@@ -92,14 +76,8 @@ export class LeaveManagementPage extends BasePage {
         this.departmentAndTeam = page.locator("//span[.='Bộ phận/Nhóm']")
         this.AddDepatment = page.locator("(//button[contains(@class, 'v-btn') and .//span[normalize-space()='Thêm']])[2]")
         this.leaveManagementButton = page.locator("//div[contains(text(),'Quản lý nghỉ phép năm')]")
-        this.cancelButton = page.locator("//span[.=' Hủy']")
-        this.saveButton = page.locator("//span[contains(normalize-space(),'Lưu')]")
-        this.chosseButton = page.locator("//button[contains(text(),'Chọn')]")
-        this.todayButton = page.locator("//div[@class='dp__cell_inner dp__pointer dp__today dp__date_hover']")
-        this.reason = page.locator("//div/div[2]/div/div[5]/div/div/div/div[4]/textarea")
         this.anualLeave = page.locator("//div[contains(text(),'Nghỉ theo phép năm')]")
         this.leaveTypeDropDown = page.locator("//div[@class='v-col-md-4 v-col-12']//div[@class='v-field__input']")
-        this.addButton = page.locator("//span[normalize-space()='Thêm']")
     }
 
     async clickComboBoxStatusFormAdd() {
@@ -200,18 +178,6 @@ export class LeaveManagementPage extends BasePage {
 
     async clickAddEmployee() {
         await this.safeClick(this.addEmployee);
-    }
-
-    async clickBrowsed() {
-        await this.safeClick(this.browsed);
-    }
-
-    async clickOkButton() {
-        await this.safeClick(this.OkButton);
-    }
-
-    async clickComfirmButton() {
-        await this.safeClick(this.comfirmButton);
     }
 
     async clickIconActionRow0() {
