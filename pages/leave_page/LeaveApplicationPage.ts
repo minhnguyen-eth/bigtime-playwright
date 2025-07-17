@@ -14,15 +14,11 @@ export class LeaveApplicationPage extends BasePage {
     readonly maternityLeave: Locator;
     readonly closeDatePicker1: Locator;
     readonly closeDatePicker2: Locator;
-
-    // verify type of leave
     readonly verifySpecialLeave: Locator;
     readonly verifyMaternityLeave: Locator;
     readonly verifySocialInsuranceLeave: Locator;
     readonly verifyRegularLeave: Locator;
     readonly verifyAnualLeave: Locator;
-
-    //Search 
     readonly restTypeComboBox: Locator;
     readonly searchByAnualLeave: Locator;
     readonly searchBySpecialLeave: Locator;
@@ -57,8 +53,6 @@ export class LeaveApplicationPage extends BasePage {
         this.browsedButtonSearch = page.getByRole('option', { name: 'Đã duyệt' })
         this.closeSearchByMonth = page.locator('svg')
         this.restTypeComboBox = page.getByRole('combobox').filter({ hasText: 'Loại ngày nghỉ' })
-
-        // SEARCH
         this.searchByBrowsedResult = page.locator('#row-0').getByRole('cell', { name: 'Đã duyệt' })
         this.searchByRejectedResult = page.locator('#row-0').getByRole('cell', { name: 'Từ chối' })
         this.searchByCancelResult = page.locator('#row-0').getByRole('cell', { name: 'Hủy' })
@@ -68,15 +62,11 @@ export class LeaveApplicationPage extends BasePage {
         this.searchBySpecialLeave = page.getByRole('option', { name: 'Nghỉ đặc biệt' })
         this.searchByRegularLeave = page.getByRole('option', { name: 'Nghỉ thường' })
         this.searchByAnualLeave = page.getByRole('option', { name: 'Nghỉ theo phép năm' })
-
-        // VERYFICATION
         this.verifySpecialLeave = page.getByText('Nghỉ đặc biệt', { exact: true }).first()
         this.verifyMaternityLeave = page.getByText('Nghỉ thai sản', { exact: true }).first()
         this.verifySocialInsuranceLeave = page.getByText('Nghỉ bảo hiểm xã hội ', { exact: true }).first()
         this.verifyRegularLeave = page.getByText('Nghỉ thường', { exact: true }).first()
         this.verifyAnualLeave = page.getByText('Nghỉ theo phép năm', { exact: true }).first()
-
-        // ELEMENTS
         this.specialLeave = page.locator("//div[contains(text(),'Nghỉ đặc biệt')]")
         this.maternityLeave = page.locator("//div[contains(text(),'Nghỉ thai sản')]")
         this.socialInsuranceLeave = page.locator("//div[contains(text(),'Nghỉ bảo hiểm xã hội')]")
@@ -114,7 +104,7 @@ export class LeaveApplicationPage extends BasePage {
         await this.clickClearSearch();
         await this.clickTexboxSearchByMonth();
         await this.clickMonthOption();
-        await this.clickSearchButton();
+        await this.clickSearch();
     }
 
     async clickTexboxSearchByMonth() {
@@ -123,10 +113,6 @@ export class LeaveApplicationPage extends BasePage {
 
     async clickMonthOption() {
         await this.safeClick(this.monthOption);
-    }
-
-    async clickSearchButton() {
-        await this.safeClick(this.searchButton);
     }
 
     async expectSearchByCancelResult() {
@@ -150,7 +136,7 @@ export class LeaveApplicationPage extends BasePage {
         await this.clickDropdownStatusSearch();
         await this.safeClick(this.cancelButtonSearch);
         await this.clickLabelLeaveApplication();
-        await this.clickSearchButton();
+        await this.clickSearch();
     }
 
     async clickRejectButtonSearch() {
@@ -158,7 +144,7 @@ export class LeaveApplicationPage extends BasePage {
         await this.clickDropdownStatusSearch();
         await this.safeClick(this.rejectButtonSearch);
         await this.clickLabelLeaveApplication();
-        await this.clickSearchButton();
+        await this.clickSearch();
     }
 
     async clickBrowsedButtonSearch() {
@@ -166,7 +152,7 @@ export class LeaveApplicationPage extends BasePage {
         await this.clickDropdownStatusSearch();
         await this.safeClick(this.browsedButtonSearch);
         await this.clickLabelLeaveApplication();
-        await this.clickSearchButton();
+        await this.clickSearch();
     }
 
     async clickWaitForBrowsedButtonSearch() {
@@ -174,7 +160,7 @@ export class LeaveApplicationPage extends BasePage {
         await this.clickDropdownStatusSearch();
         await this.safeClick(this.waitForBrowsedButtonSearch);
         await this.clickLabelLeaveApplication();
-        await this.clickSearchButton();
+        await this.clickSearch();
     }
 
     async clickCloseSearchByMonth() {
@@ -189,34 +175,34 @@ export class LeaveApplicationPage extends BasePage {
         await this.clickClearSearch();
         await this.clickRestTypeComboBox();
         await this.safeClick(this.searchByAnualLeave);
-        await this.clickSearchButton();
+        await this.clickSearch();
     }
 
     async clickSearchBySpecialLeave() {
         await this.clickClearSearch();
         await this.clickRestTypeComboBox();
         await this.safeClick(this.searchBySpecialLeave);
-        await this.clickSearchButton();
+        await this.clickSearch();
     }
 
     async clickSearchByMaternityLeave() {
         await this.clickClearSearch();
         await this.clickRestTypeComboBox();
         await this.safeClick(this.searchByMaternityLeave);
-        await this.clickSearchButton();
+        await this.clickSearch();
     }
 
     async clickSearchBySocialInsuranceLeave() {
         await this.clickClearSearch();
         await this.clickRestTypeComboBox();
         await this.safeClick(this.searchBySocialInsuranceLeave);
-        await this.clickSearchButton();
+        await this.clickSearch();
     }
 
     async clickSearchByRegularLeave() {
         await this.clickRestTypeComboBox();
         await this.safeClick(this.searchByRegularLeave);
-        await this.clickSearchButton();
+        await this.clickSearch();
     }
 
     async clickSpecialLeave() {

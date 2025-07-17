@@ -2,7 +2,6 @@ import { expect, Locator, Page } from '@playwright/test';
 import { BasePage } from './BasePage';
 
 export class ResumePage extends BasePage {
-
     readonly resumeButton: Locator;
     readonly identifier: Locator;
     readonly aliasName: Locator;
@@ -39,9 +38,6 @@ export class ResumePage extends BasePage {
     readonly contractSignDate: Locator;
     readonly recruimentForm: Locator;
     readonly recruitedPosition: Locator;
-    readonly toDayDatePicker: Locator;
-    readonly chosseButton: Locator;
-    readonly editButton: Locator;
     readonly politicalTheoryInput: Locator;
     readonly msgPlaceOfBirthRequired: Locator;
     readonly msgHownTownRequired: Locator;
@@ -55,9 +51,6 @@ export class ResumePage extends BasePage {
         this.msgHownTownRequired = page.locator("//div[contains(text(),'Nhập quê quán')]");
         this.msgPlaceOfBirthRequired = page.locator("//div[contains(text(),'Nhập nơi sinh')]");
         this.politicalTheoryInput = page.getByRole('textbox', { name: 'Lý luận chính trị' })
-        this.editButton = page.locator("//span[contains(text(),'Sửa')]");
-        this.chosseButton = page.locator("//button[contains(text(),'Chọn')]");
-        this.toDayDatePicker = page.locator("//div[@class='dp__cell_inner dp__pointer dp__today dp__date_hover']");
         this.recruitedPosition = page.getByRole('textbox', { name: 'Chức danh tuyển dụng' })
         this.recruimentForm = page.getByRole('textbox', { name: 'Hình thức tuyển dụng' })
         this.contractSignDate = page.getByRole('textbox', { name: 'Ngày ký hợp đồng' })
@@ -112,19 +105,6 @@ export class ResumePage extends BasePage {
     }
 
     // CLICK ACTIONS
-    async clickEditButton() {
-        await this.safeClick(this.editButton.nth(1));
-    }
-
-    async clickToDayDatePicker() {
-        await this.safeClick(this.toDayDatePicker);
-        await this.clickChosseButton();
-    }
-
-    async clickChosseButton() {
-        await this.safeClick(this.chosseButton);
-    }
-
     async clickContractSignDate() {
         await this.safeClick(this.contractSignDate);
     }
@@ -273,20 +253,18 @@ export class ResumePage extends BasePage {
     // ACTION COMBO
     async testSaveWithEmptyFieldsRequired() {
         await this.clickResume();
-        await this.clickEditButton();
+        await this.clickEdit();
     }
 
     async testResumeWithValidData() {
         const randomSuffix = Math.random().toString(36).substring(2, 8);
         const random10Digits = Math.floor(1000000000 + Math.random() * 9000000000);
         const phoneNumber = `09${Math.floor(100000000 + Math.random() * 900000000)}`;
-
         await this.clickResume();
-        await this.clickEditButton();
+        await this.clickEdit();
         await this.fillAliasName("Nguyễn Văn B");
         await this.fillPlaceOfBirth("Hà Nội");
         await this.fillHomeTown("Hà Nội");
-        // await this.fillCurrentResidence("Hà Nội");
         await this.fillPermanentResidence("Hà Nội");
         await this.fillHomePhoneNumber(phoneNumber);
         await this.fillOfficePhoneNumber(phoneNumber);
@@ -302,12 +280,9 @@ export class ResumePage extends BasePage {
         await this.fillPassportNumber(random10Digits.toString());
         await this.fillWherePassportsAreIssued("Hà Nội");
         await this.clickPassportIssuanceDate();
-        await this.clickToDayDatePicker();
-
-
+        await this.clickTodayDatePicker();
         await this.clickPassportExpirationDate();
-        await this.clickToDayDatePicker();
-
+        await this.clickTodayDatePicker();
         await this.fillSocialSecurityNumber(random10Digits.toString());
         await this.fillInsuranceNumber(random10Digits.toString());
         await this.fillHeight("170");
@@ -320,11 +295,10 @@ export class ResumePage extends BasePage {
         await this.fillRecruimentForm("Testing");
         await this.fillRecruitedPosition("Công nghệ thông tin");
         await this.clickStartWorkingDate();
-        await this.clickToDayDatePicker();
+        await this.clickTodayDatePicker();
         await this.clickRecruitmentDate();
-        await this.clickToDayDatePicker();
+        await this.clickTodayDatePicker();
         await this.clickContractSignDate();
-        await this.clickToDayDatePicker();
+        await this.clickTodayDatePicker();
     }
 }
-

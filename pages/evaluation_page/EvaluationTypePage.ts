@@ -33,7 +33,3 @@ export class EvaluationTypePage extends BasePage {
         await this.safeFill(this.evaluationTypeNameInput, name);
     }
 }
-
-
-
-

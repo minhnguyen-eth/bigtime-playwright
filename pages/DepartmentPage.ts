@@ -1,8 +1,7 @@
-import { Page, Locator, expect } from "@playwright/test";
+import { Page, Locator } from "@playwright/test";
 import { BasePage } from "./BasePage";
 
 export class DepartmentPage extends BasePage {
-
     readonly departmentButton: Locator;
     readonly departmentNameInput: Locator;
     readonly dateCreateDepartment: Locator;

@@ -1,8 +1,7 @@
-import { Locator, Page, expect } from 'playwright/test';
+import { Locator, Page } from 'playwright/test';
 import { BasePage } from './BasePage';
 
 export class PositionPage extends BasePage {
-   
     readonly positionsButton: Locator;
     readonly nameInput: Locator;
     readonly msgNameRequired: Locator;

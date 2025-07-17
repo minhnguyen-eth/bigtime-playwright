@@ -3,7 +3,6 @@ import { ToastPage } from './ToastPage';
 import { BasePage } from './BasePage';
 
 export class EmployeePage extends BasePage {
-
   readonly toastPage: ToastPage;
   readonly userButton: Locator;
   readonly employeeName: Locator;
@@ -81,6 +80,7 @@ export class EmployeePage extends BasePage {
 
   constructor(page: Page) {
     super(page);
+    this.toastPage = new ToastPage(page);
     this.verifyDepartmentSearch = page.locator('#row-0').getByText('Bộ phận IT', { exact: true })
     this.departmentOption = page.getByRole('option', { name: 'Bộ phận IT' })
     this.dropdownDepartmentSearch = page.getByRole('combobox').filter({ hasText: 'Bộ phận Bộ phận' }).locator('i');
@@ -91,7 +91,6 @@ export class EmployeePage extends BasePage {
     this.verifyJoningTheCompany = page.locator("//div[normalize-space()='08-07-2025']");
     this.verifyAddress = page.locator("//div[normalize-space()='Bien Hoa, Dong Nai']");
     this.verifyDataOfBirth = page.locator("//div[normalize-space()='08-08-2014']");
-    this.toastPage = new ToastPage(page);
     this.verifyFemaleSearch = page.locator("//tr[@id='row-0']//div[contains(text(),'Nữ')]").first();
     this.verifyMaleSearch = page.locator("//tr[@id='row-0']//div[contains(text(),'Nam')]").first();
     this.checkBoxGender = page.locator("//input[@type='checkbox']");
@@ -415,8 +414,6 @@ export class EmployeePage extends BasePage {
     await this.safeClick(this.userButton);
   }
 
-
-
   // FUNCTION VERIFY 
   async validateRequiredFields() {
     const validations = [
@@ -458,8 +455,6 @@ export class EmployeePage extends BasePage {
   async verifyVerifyFemaleSearch() {
     await this.safeVerifyToHaveText(this.verifyFemaleSearch, "Nữ");
   }
-
-
 
   // FUNCTION HANDLE 
   async deleteAUser() {

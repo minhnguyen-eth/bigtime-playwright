@@ -1,4 +1,4 @@
-import { expect, Locator, Page } from '@playwright/test';
+import { Locator, Page } from '@playwright/test';
 import { BasePage } from './BasePage';
 
 export class BranchPage extends BasePage {
@@ -6,18 +6,8 @@ export class BranchPage extends BasePage {
     readonly branchName: Locator;
     readonly shortName: Locator;
     readonly branchAddress: Locator;
-    readonly branchCity: Locator;
-    readonly branchState: Locator;
-    readonly branchZip: Locator;
-    readonly branchPhone: Locator;
-    readonly branchEmail: Locator;
-    readonly branchWebsite: Locator;
-    readonly branchSaveButton: Locator;
-    readonly branchCancelButton: Locator;
-    readonly branchDeleteButton: Locator;
     readonly phoneNumber: Locator;
     readonly numberOfEmployee: Locator;
-    readonly noteInput: Locator;
     readonly validateMaxNumberOfEmployee: Locator;
     readonly validateMinNumberOfEmployee: Locator;
     readonly validateBranchExist: Locator;
@@ -47,7 +37,6 @@ export class BranchPage extends BasePage {
         this.branchName = page.getByRole('textbox', { name: 'Tên chi nhánh' }).nth(1);
         this.shortName = page.getByRole('textbox', { name: 'Tên ngắn' });
         this.branchAddress = page.getByRole('textbox', { name: 'Địa chỉ' });
-        this.noteInput = page.locator("//textarea");
     }
 
     async verifyMaxLengthShortName() {

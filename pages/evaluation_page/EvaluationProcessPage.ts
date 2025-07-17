@@ -38,8 +38,8 @@ export class EvaluationProcessPage extends BasePage {
     readonly listEvaluationVerifywaitForApprovalStatus: Locator;
     readonly listEvaluationVerifywaitForEvaluationStatus: Locator;
     readonly listEvaluationSearchByName: Locator;
-    constructor(page: Page) {
 
+    constructor(page: Page) {
         super(page);
         // List Evaluation
         this.listEvaluationSearchByName = page.getByRole('textbox', { name: 'Mã - tên nhân viên' })

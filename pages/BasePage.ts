@@ -34,16 +34,11 @@ export class BasePage {
     readonly row0: Locator;
     readonly iconStatusDropdown: Locator;
     readonly noteInput: Locator;
-    readonly iconActions: Locator;
     readonly statusDropDownInForm: Locator;
-    readonly lock_Status: Locator;
-    readonly activity_Status: Locator;
     readonly descriptionInput: Locator;
 
     constructor(page: Page) {
         this.page = page;
-        this.lock_Status = page.locator("//div[contains(text(),'Khóa')]");
-        this.activity_Status = page.locator("//div[contains(text(),'Hoạt động')]");
         this.statusDropDownInForm = page.getByRole('combobox').filter({ hasText: 'Trạng thái ※' }).locator('i').nth(1)
         this.noteInput = page.getByRole('textbox', { name: 'Ghi chú' });
         this.iconStatusDropdown = page.locator("//i[@class='mdi-book-lock-open-outline mdi v-icon notranslate v-theme--lightColor7 v-icon--size-default']");
@@ -141,7 +136,6 @@ export class BasePage {
             throw error;
         }
     }
-
 
     async waitForOverlayToDisappear(selector: string = '.overlay', timeout: number = 30000): Promise<void> {
         const overlay = this.page.locator(selector);
@@ -324,15 +318,6 @@ export class BasePage {
     async clickCancelNth1() {
         await this.safeClick(this.cancelButton, { nth: 1 });
     }
-
-    async selectStatus(status: string) {
-        if (status == "Hoạt động") {
-            await this.activity_Status.click();
-        } else if (status == "Khóa") {
-            await this.lock_Status.click();
-        }
-    }
-
 
     async clickSave() {
         await this.page.waitForLoadState('load');

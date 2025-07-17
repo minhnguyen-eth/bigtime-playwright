@@ -2,7 +2,6 @@ import { Locator, Page, expect } from '@playwright/test';
 import { BasePage } from './BasePage';
 
 export class RegisnationPage extends BasePage {
-
     readonly regisnationButton: Locator;
     readonly employeeNameSearch: Locator;
     readonly verifyEmployeeNameSearch: Locator;
@@ -159,4 +158,3 @@ export class RegisnationPage extends BasePage {
     }
 
 }
-

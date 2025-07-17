@@ -34,7 +34,7 @@ test.describe.serial('Leave Application Tests', () => {
         await leaveApplicationPage.clickAnualLeave();
         await leaveApplicationPage.setDate();
         await leaveApplicationPage.fillReason('Automation test leave application');
-        await leaveApplicationPage.clickSaveButton();
+        await leaveApplicationPage.clickSave();
         await toastPage.getToastAddSuccess();
     }
     async function beforeSearchTest() {
@@ -158,7 +158,7 @@ test.describe.serial('Leave Application Tests', () => {
         await leaveApplicationPage.clickRow0();
         await leaveApplicationPage.clickEdit();
         await leaveApplicationPage.fillReason('Automation test edited');
-        await leaveApplicationPage.clickSaveButton();
+        await leaveApplicationPage.clickSave();
         await toastPage.getToastUpdateSuccess();
     });
 
@@ -168,7 +168,7 @@ test.describe.serial('Leave Application Tests', () => {
         await leaveApplicationPage.clickRow0();
         await leaveApplicationPage.clickEdit();
         await leaveApplicationPage.setDateForEdit();
-        await leaveApplicationPage.clickSaveButton();
+        await leaveApplicationPage.clickSave();
         await toastPage.getToastUpdateSuccess();
     });
 
@@ -179,7 +179,7 @@ test.describe.serial('Leave Application Tests', () => {
         await leaveApplicationPage.clickEdit();
         await leaveApplicationPage.clickLeaveTypeDropDown();
         await leaveApplicationPage.clickSocialInsuranceLeave();
-        await leaveApplicationPage.clickSaveButton();
+        await leaveApplicationPage.clickSave();
         await toastPage.getToastUpdateSuccess();
     });
 
@@ -227,7 +227,7 @@ test.describe.serial('Leave Application Tests', () => {
             await leaveApplicationPage.clickRegularLeave();
             await leaveApplicationPage.setDate();
             await leaveApplicationPage.fillReason('Automation test reason');
-            await leaveApplicationPage.clickSaveButton();
+            await leaveApplicationPage.clickSave();
             await toastPage.getToastAddSuccess();
 
             // Check leave application exits in DB with reason and new status = 0
@@ -254,7 +254,7 @@ test.describe.serial('Leave Application Tests', () => {
             await leaveApplicationPage.clickSocialInsuranceLeave();
             await leaveApplicationPage.setDate();
             await leaveApplicationPage.fillReason('Automation test');
-            await leaveApplicationPage.clickSaveButton();
+            await leaveApplicationPage.clickSave();
             await toastPage.getToastAddSuccess();
             await leaveApplicationPage.getVerifySocialInsuranceLeave();
         });
@@ -273,7 +273,7 @@ test.describe.serial('Leave Application Tests', () => {
             await leaveApplicationPage.clickMaternityLeave();
             await leaveApplicationPage.setDate();
             await leaveApplicationPage.fillReason('Automation test');
-            await leaveApplicationPage.clickSaveButton();
+            await leaveApplicationPage.clickSave();
             await toastPage.getToastAddSuccess();
             await leaveApplicationPage.getVerifyMaternityLeave();
         });
@@ -292,7 +292,7 @@ test.describe.serial('Leave Application Tests', () => {
             await leaveApplicationPage.clickSpecialLeave();
             await leaveApplicationPage.setDate();
             await leaveApplicationPage.fillReason('Automation test');
-            await leaveApplicationPage.clickSaveButton();
+            await leaveApplicationPage.clickSave();
             await toastPage.getToastAddSuccess();
             await leaveApplicationPage.getVerifySpecialLeave();
         });
