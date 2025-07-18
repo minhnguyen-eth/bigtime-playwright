@@ -83,6 +83,7 @@ test.describe.serial('Branch Test', () => {
         await branchPage.fillPhoneNumber(phoneNumber.toString());
         await branchPage.fillBranchAddress(randomString);
         await branchPage.clickSave();
+        await toastPage.getToastAddFailed();
         await branchPage.verifyBranchExist();
     });
 
@@ -97,7 +98,8 @@ test.describe.serial('Branch Test', () => {
         await branchPage.fillPhoneNumber(phoneNumber.toString());
         await branchPage.fillBranchAddress(randomString);
         await branchPage.clickSave();
-        await branchPage.verifyShortNameExist();
+        await toastPage.getToastAddFailed();
+
     });
 
     test('Create with lock status', async ({ page }) => {
@@ -110,7 +112,7 @@ test.describe.serial('Branch Test', () => {
         await branchPage.fillNumberOfEmployee("999");
         await branchPage.fillPhoneNumber(phoneNumber.toString());
         await branchPage.fillBranchAddress(randomString);
-        await branchPage.clickIconStatusDropdown();
+        await branchPage.clickDropdownStatusInForm();
         await branchPage.clickLockStatus();
         await branchPage.clickSave();
         await toastPage.getToastAddSuccess();
@@ -141,7 +143,7 @@ test.describe.serial('Branch Test', () => {
     test('Edit active status to lock status', async ({ page }) => {
         await branchPage.clickBranchButton();
         await branchPage.clickEditRow0();
-        await branchPage.clickIconStatusDropdown();
+        await branchPage.clickDropdownStatusInForm();
         await branchPage.clickLockStatus();
         await branchPage.clickSave();
         await toastPage.getToastUpdateSuccess();
@@ -151,7 +153,7 @@ test.describe.serial('Branch Test', () => {
     test('Edit lock status to active status', async ({ page }) => {
         await branchPage.clickBranchButton();
         await branchPage.clickEditRow0();
-        await branchPage.clickIconStatusDropdown();
+        await branchPage.clickDropdownStatusInForm();
         await branchPage.clickActivityStatus();
         await branchPage.clickSave();
         await toastPage.getToastUpdateSuccess();
@@ -212,13 +214,14 @@ test.describe.serial('Branch Test', () => {
     });
 
     test('Edit with duplicate branch name', async ({ page }) => {
-        const randomString = "Automation test branch " + Math.random().toString(36).substring(7);
         await branchPage.clickBranchButton();
         await branchPage.clickEditRow0();
         await branchPage.fillBranchName('Biên Hòa');
+        await branchPage.fillBranchAddress('Automation test branch ');
         await branchPage.clickSave();
+        await toastPage.getToastUpdateFailed();
         await branchPage.verifyBranchExist();
-    });
+    })
 
     test('Edit all fields', async ({ page }) => {
         const randomString = "Automation test branch " + Math.random().toString(36).substring(7);

@@ -27,8 +27,8 @@ export class BranchPage extends BasePage {
         this.validateShortNameExist = page.locator("//li[contains(text(),'Tên ngắn đã tồn tại.')]");
         this.validatePhoneNumber = page.locator("//div[contains(text(),'Không nhập dưới 10 kí tự.')]");
         this.validateBranchName = page.locator("//div[contains(text(),'Nhập tên chi nhánh')]");
-        this.validateShortnameRequired = page.locator("//div[contains(text(),'Nhập tên ngắn')]");
-        this.validateBranchExist = page.locator("//li[contains(text(),'Tên chi nhánh đã tồn tại.')]");
+        this.validateShortnameRequired = page.getByText("Nhập tên ngắn")
+        this.validateBranchExist = page.getByText('Tên chi nhánh đã tồn tại.')
         this.validateMaxNumberOfEmployee = page.locator("//div[contains(text(),'Giá trị phải nhỏ hơn hoặc bằng 1000.')]");
         this.validateMinNumberOfEmployee = page.locator("//div[contains(text(),'Giá trị phải lớn hơn hoặc bằng 100.')]");
         this.numberOfEmployee = page.getByRole('spinbutton', { name: 'Số lượng nhân viên tối đa ※' });

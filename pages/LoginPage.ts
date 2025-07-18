@@ -41,7 +41,6 @@ export class LoginPage extends BasePage {
   }
 
   async login(username: string, password: string) {
-    await this.page.waitForLoadState('domcontentloaded');
     await this.safeFill(this.usernameInput, username);
     await this.safeFill(this.passwordInput, password);
     await this.safeClick(this.loginButton);

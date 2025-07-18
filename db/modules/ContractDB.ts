@@ -11,5 +11,5 @@ export async function checkContractExists(note: string, type: number, status: nu
 
 // clear data 
 export const clearEmploymentContract = async () => {
-    await clearTable('employment_contracts');
+    await clearTable('employment_contracts', "id NOT LIKE '%testData%'");
 }

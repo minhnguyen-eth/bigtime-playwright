@@ -9,7 +9,6 @@ import { BasePage } from '../../pages/BasePage';
 import { ContractPage } from '../../pages/contract_page/ContractPage';
 import { createContractWithProbation } from './contractHelper';
 
-
 test.describe.serial('Contract Tests', () => {
     let contractPage: ContractPage;
     let toastPage: ToastPage;
@@ -101,6 +100,7 @@ test.describe.serial('Contract Tests', () => {
     });
 
     test('E2E - Create contract with probation and confirm contract', async ({ page }) => {
+        await clearEmploymentContract();
         await createContractWithProbation(basePage, contractPage, toastPage);
         await contractPage.clickRow0();
         await contractPage.clickConfirm();
@@ -112,24 +112,25 @@ test.describe.serial('Contract Tests', () => {
     });
 
     test('Create with formal contract ', async ({ page }) => {
+        await clearEmploymentContract();
         await contractPage.clickAdd();
         await contractPage.fillEmployeeName();
         await contractPage.clickContractTypeDropdown();
         await contractPage.clickFormalContract();
-        await contractPage.fillNote('Automation test');
+        await contractPage.fillNote('Automation test formal');
         await contractPage.checkSelectAllTerm();
         await basePage.clickSave();
         await toastPage.getToastAddSuccess();
 
-        const exitsInDB = await checkContractExists('Automation test', 1, 0);
+        const exitsInDB = await checkContractExists('Automation test formal', 1, 0);
         expect(exitsInDB).toBeTruthy();
 
         await contractPage.clickRow0();
         await contractPage.clickConfirm();
         await toastPage.getToastConfirmSuccess();
 
-        // Check in DB, type 0 is probation, status 1 is confirmed
-        const existsInDB = await checkContractExists('Automation test contract', 1, 1);
+        // Check in DB, type 1 is probation, status 1 is confirmed
+        const existsInDB = await checkContractExists('Automation test formal', 1, 1);
         expect(existsInDB).toBeTruthy();
     });
 
@@ -156,12 +157,12 @@ test.describe.serial('Contract Tests', () => {
         await contractPage.clickSeasonalContract();
         await contractPage.selectEndDate();
         await basePage.clickChoose();
-        await contractPage.fillNote('Automation test');
+        await contractPage.fillNote('Automation test seasonal');
         await contractPage.checkSelectAllTerm();
         await basePage.clickSave();
         await toastPage.getToastAddSuccess();
 
-        const exitsInDB = await checkContractExists('Automation test', 2, 0);
+        const exitsInDB = await checkContractExists('Automation test seasonal', 2, 0);
         expect(exitsInDB).toBeTruthy();
 
         await contractPage.clickRow0();
@@ -169,11 +170,13 @@ test.describe.serial('Contract Tests', () => {
         await toastPage.getToastConfirmSuccess();
 
         // Check in DB, type 0 is probation, status 1 is confirmed
-        const existsInDB = await checkContractExists('Automation test contract', 2, 1);
+        const existsInDB = await checkContractExists('Automation test seasonal', 2, 1);
         expect(existsInDB).toBeTruthy();
     });
 
     test('Edit end date', async ({ page }) => {
+        await clearEmploymentContract();
+        await createContractWithProbation(basePage, contractPage, toastPage);
         await basePage.clickRow0();
         await basePage.clickEdit();
         await contractPage.selectEndDate2();
@@ -189,12 +192,12 @@ test.describe.serial('Contract Tests', () => {
         await contractPage.clickCollaboratorContract();
         await contractPage.selectEndDate();
         await basePage.clickChoose();
-        await contractPage.fillNote('Automation test');
+        await contractPage.fillNote('Automation test collaborator');
         await contractPage.checkSelectAllTerm();
         await basePage.clickSave();
         await toastPage.getToastAddSuccess();
 
-        const exitsInDB = await checkContractExists('Automation test', 3, 0);
+        const exitsInDB = await checkContractExists('Automation test collaborator', 3, 0);
         expect(exitsInDB).toBeTruthy();
     });
 
@@ -229,7 +232,7 @@ test.describe.serial('Contract Tests', () => {
 
     test('Search by start date', async ({ page }) => {
         await contractPage.clickStartDateSearch();
-        await basePage.clickTodayDatePicker();
+        await basePage.clicktodayDatePicker();
         await basePage.clickSearch();
         await contractPage.verifyStartDateSearchResult();
         await basePage.clickClearSearch();

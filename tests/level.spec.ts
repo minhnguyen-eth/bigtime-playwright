@@ -36,7 +36,7 @@ test.describe.serial('Level Test Suite', () => {
         await levelPage.clickAdd();
         await levelPage.fillLevelName(random);
         await levelPage.fillCode(random);
-        await levelPage.clickIconStatusDropdown();
+        await levelPage.clickDropdownStatusInForm();
         await levelPage.clickLockStatus();
         await levelPage.clickSave();
         await toastPage.getToastAddSuccess();
@@ -103,7 +103,7 @@ test.describe.serial('Level Test Suite', () => {
 
     test('Edit active status to lock status', async ({ page }) => {
         await levelPage.clickEditRow0();
-        await levelPage.clickIconStatusDropdown();
+        await levelPage.clickDropdownStatusInForm();
         await levelPage.clickLockStatus();
         await levelPage.clickSave();
         await toastPage.getToastUpdateSuccess();
@@ -113,7 +113,7 @@ test.describe.serial('Level Test Suite', () => {
     test('Edit lock status to active status', async ({ page }) => {
 
         await levelPage.clickEditRow0();
-        await levelPage.clickIconStatusDropdown();
+        await levelPage.clickDropdownStatusInForm();
         await levelPage.clickActivityStatus();
         await levelPage.clickSave();
         await toastPage.getToastUpdateSuccess();

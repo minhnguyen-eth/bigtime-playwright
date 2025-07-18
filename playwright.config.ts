@@ -6,7 +6,7 @@ export default defineConfig({
   testDir: './tests',
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
-  retries: 1,
+  retries: 0,
   workers: 1,
   timeout: 120000,
 
@@ -17,7 +17,7 @@ export default defineConfig({
   ],
 
   use: {
-    
+
     // headless: false, // true run in headless mode. false run with browser window opened.
     // viewport: null,
     headless: isHeadless, 
@@ -25,13 +25,14 @@ export default defineConfig({
     launchOptions: {
       args: ['--start-maximized'],
     },
+    video: 'on',
     trace: 'on-first-retry',
     screenshot: 'only-on-failure',
     actionTimeout: 45000,
   },
 
   projects: [
-   {
+    {
       name: 'Chromium',
     },
     // {

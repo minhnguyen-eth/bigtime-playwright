@@ -33,7 +33,7 @@ test.describe.serial('Paysheet Tests', () => {
         await paysheet.clickLatestPaysheetRow();
         await paysheet.clickViewPayroll();
         await paysheet.clickSendAll();
-        await paysheet.clickConfirm();
+        await paysheet.clickConfirmPaysheet();
         await logoutPage.logout();
 
         await loginPage.login(Config.employee_username, Config.employee_password);
@@ -60,7 +60,7 @@ test.describe.serial('Paysheet Tests', () => {
         await paysheet.clickLatestPaysheetRow();
         await paysheet.clickViewPayroll();
         await paysheet.clickSalaryClosing();
-        await paysheet.clickConfirm();
+        await paysheet.clickConfirmPaysheet();
         await paysheet.clickLatestPaysheetRow();
         await paysheet.clickPayslipPayment();
         await paysheet.clickPayment();
@@ -73,7 +73,7 @@ test.describe.serial('Paysheet Tests', () => {
         await paysheet.clickLatestPaysheetRow();
         await paysheet.clickViewPayroll();
         await paysheet.clickSendAll();
-        await paysheet.clickConfirm();
+        await paysheet.clickConfirmPaysheet();
         await logoutPage.logout();
 
         await loginPage.login(Config.employee_username, Config.employee_password);
@@ -93,7 +93,7 @@ test.describe.serial('Paysheet Tests', () => {
         await paysheet.clickLatestPaysheetRow();
         await paysheet.clickViewPayroll();
         await paysheet.clickSalaryClosing();
-        await paysheet.clickConfirm();
+        await paysheet.clickConfirmPaysheet();
         await paysheet.clickLatestPaysheetRow();
         await paysheet.clickPayslipPayment();
         await paysheet.clickPayment();
@@ -122,7 +122,7 @@ test.describe.serial('Paysheet Tests', () => {
 
         await allure.step('Admin creates and sends paysheet and completes payment', async () => {
             await addPaysheet();
-            await sendAndBrowse1();
+            await sendAndBrowse2();
         });
     });
 
@@ -153,7 +153,7 @@ test.describe.serial('Paysheet Tests', () => {
             await paysheet.clickSave();
             await toastPage.getToastAddSuccess();
             await paysheet.clickSendAll();
-            await paysheet.clickConfirm();
+            await paysheet.clickConfirmPaysheet();
             await logoutPage.logout();
         });
 
@@ -183,7 +183,7 @@ test.describe.serial('Paysheet Tests', () => {
         await paysheet.clickLatestPaysheetRow();
         await paysheet.clickViewPayroll();
         await paysheet.clickSalaryClosing();
-        await paysheet.clickConfirm();
+        await paysheet.clickConfirmPaysheet();
         await toastPage.getToastValidateCloseSalary();
     });
 
@@ -245,8 +245,8 @@ test.describe.serial('Paysheet Tests', () => {
             await paysheet.clickMonthOption();
             await paysheet.clickSelectAllEmployees();
             await paysheet.setNote('Automation test');
-            // await paysheet.clickSave();
-            // await toastPage.getToastAddSuccess();
+            await paysheet.clickSave();
+            await toastPage.getToastAddSuccess();
         });
     });
 
@@ -362,7 +362,7 @@ test.describe.serial('Paysheet Tests', () => {
             await paysheet.expectAllowance();
 
             await paysheet.clickPaysheet();
-            await sendAndBrowse1();
+            await sendAndBrowse2();
         });
     });
 

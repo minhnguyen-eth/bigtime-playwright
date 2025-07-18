@@ -280,9 +280,9 @@ export class ResumePage extends BasePage {
         await this.fillPassportNumber(random10Digits.toString());
         await this.fillWherePassportsAreIssued("Hà Nội");
         await this.clickPassportIssuanceDate();
-        await this.clickTodayDatePicker();
+        await this.clicktodayDatePicker();
         await this.clickPassportExpirationDate();
-        await this.clickTodayDatePicker();
+        await this.clicktodayDatePicker();
         await this.fillSocialSecurityNumber(random10Digits.toString());
         await this.fillInsuranceNumber(random10Digits.toString());
         await this.fillHeight("170");
@@ -295,10 +295,10 @@ export class ResumePage extends BasePage {
         await this.fillRecruimentForm("Testing");
         await this.fillRecruitedPosition("Công nghệ thông tin");
         await this.clickStartWorkingDate();
-        await this.clickTodayDatePicker();
+        await this.clicktodayDatePicker();
         await this.clickRecruitmentDate();
-        await this.clickTodayDatePicker();
+        await this.clicktodayDatePicker();
         await this.clickContractSignDate();
-        await this.clickTodayDatePicker();
+        await this.clicktodayDatePicker();
     }
 }

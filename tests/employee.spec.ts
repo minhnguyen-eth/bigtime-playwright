@@ -57,7 +57,7 @@ test.describe.serial('Employee Tests', () => {
         await employeePage.clickSelectRank();
         await employeePage.fillCitizenIdMaxlength("9".repeat(20));
         await employeePage.clickCitizenIdCardIssueDate();
-        await employeePage.clickTodayDatePicker();
+        await employeePage.clicktodayDatePicker();
         await employeePage.fillPlaceOfIssueOfIdentityCard("z".repeat(255));
         await employeePage.fillBankName('Vietcombank');
         await employeePage.fillBankAccountNumber("9".repeat(20));
@@ -69,10 +69,10 @@ test.describe.serial('Employee Tests', () => {
         await employeePage.clickSelectMonth();
         await employeePage.clickSelectDay();
         await employeePage.clickDateOfJoiningTheCompany();
-        await employeePage.clickTodayDatePicker();
+        await employeePage.clicktodayDatePicker();
         await employeePage.fillAddress("z".repeat(255));
         await employeePage.fillNote("z".repeat(500));
-        await employeePage.clickSaveButton();
+        await employeePage.clickSave();
         await toastPage.getToastAddSuccess();
     });
 

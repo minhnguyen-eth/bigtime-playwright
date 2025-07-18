@@ -3,7 +3,7 @@ import { BasePage } from '../BasePage';
 
 export class ContractPage extends BasePage {
     readonly contractButton: Locator;
-    readonly EmployeeInput: Locator;
+    readonly employeeInput: Locator;
     readonly selectEmployee: Locator;
     readonly formalContract: Locator;
     readonly seasonalContract: Locator;
@@ -33,6 +33,7 @@ export class ContractPage extends BasePage {
     readonly verifySearchByName: Locator;
     readonly selectMonth2: Locator;
     readonly selectDay2: Locator;
+    readonly employeeDropdown: Locator;
 
     constructor(page: Page) {
         super(page);
@@ -65,8 +66,9 @@ export class ContractPage extends BasePage {
         this.seasonalContract = page.getByRole('option', { name: 'Thời vụ' });
         this.formalContract = page.getByRole('option', { name: 'Chính thức' });
         this.contractButton = page.locator("//a[contains(.,'Hợp đồng')]");
-        this.EmployeeInput = page.getByRole('textbox', { name: 'Mã - tên nhân viên ※' })
-        this.selectEmployee = page.locator("//span[normalize-space()='Minh']");
+        this.employeeDropdown = page.getByRole('combobox').filter({ hasText: 'Mã - tên nhân viên ※' }).getByLabel('Open');
+        this.employeeInput = page.getByRole('textbox', { name: 'Mã - tên nhân viên ※' })
+        this.selectEmployee = page.getByRole('option', { name: 'BAT810-Nguyễn Văn Minh' })
     }
 
     async clickSelectMonth2() {
@@ -189,7 +191,7 @@ export class ContractPage extends BasePage {
     }
 
     async fillEmployeeName() {
-        await this.safeFill(this.EmployeeInput, "Minh");
+        await this.safeFill(this.employeeInput, "Nguyễn Văn Minh");
         await this.safeClick(this.selectEmployee);
     }
 

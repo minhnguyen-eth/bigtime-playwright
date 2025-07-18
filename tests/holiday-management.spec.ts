@@ -35,9 +35,9 @@ test.describe.serial('Holiday Management', () => {
         await holidayManagementPage.clickAdd();
         await holidayManagementPage.fillHolidayName("z".repeat(255));
         await holidayManagementPage.clickStartDate();
-        await holidayManagementPage.clickTodayDatePicker();
+        await holidayManagementPage.clicktodayDatePicker();
         await holidayManagementPage.clickEndDate();
-        await holidayManagementPage.clickTodayDatePicker();
+        await holidayManagementPage.clicktodayDatePicker();
         await holidayManagementPage.fillReason("z".repeat(255));
         await holidayManagementPage.checkTotalHolidayResult();
         await holidayManagementPage.clickSave();
@@ -48,9 +48,9 @@ test.describe.serial('Holiday Management', () => {
         await holidayManagementPage.clickAdd();
         await holidayManagementPage.fillHolidayName("z".repeat(256));
         await holidayManagementPage.clickStartDate();
-        await holidayManagementPage.clickTodayDatePicker();
+        await holidayManagementPage.clicktodayDatePicker();
         await holidayManagementPage.clickEndDate();
-        await holidayManagementPage.clickTodayDatePicker();
+        await holidayManagementPage.clicktodayDatePicker();
         await holidayManagementPage.checkTotalHolidayResult();
         await holidayManagementPage.fillReason("Test reason");
         await holidayManagementPage.clickSave();
@@ -61,9 +61,9 @@ test.describe.serial('Holiday Management', () => {
         await holidayManagementPage.clickAdd();
         await holidayManagementPage.fillHolidayName("Test max length reason");
         await holidayManagementPage.clickStartDate();
-        await holidayManagementPage.clickTodayDatePicker();
+        await holidayManagementPage.clicktodayDatePicker();
         await holidayManagementPage.clickEndDate();
-        await holidayManagementPage.clickTodayDatePicker();
+        await holidayManagementPage.clicktodayDatePicker();
         await holidayManagementPage.checkTotalHolidayResult();
         await holidayManagementPage.fillReason("z".repeat(256));
         await holidayManagementPage.clickSave();
@@ -77,9 +77,9 @@ test.describe.serial('Holiday Management', () => {
         await holidayManagementPage.clickAdd();
         await holidayManagementPage.fillHolidayName("Test");
         await holidayManagementPage.clickStartDate();
-        await holidayManagementPage.clickTodayDatePicker();
+        await holidayManagementPage.clicktodayDatePicker();
         await holidayManagementPage.clickEndDate();
-        await holidayManagementPage.clickTodayDatePicker();
+        await holidayManagementPage.clicktodayDatePicker();
         await holidayManagementPage.fillReason('Test Reason');
         await holidayManagementPage.checkTotalHolidayResult();
         await holidayManagementPage.clickSave();
@@ -96,9 +96,9 @@ test.describe.serial('Holiday Management', () => {
         await holidayManagementPage.fillHolidayName("Test");
         await holidayManagementPage.unCheckBox();
         await holidayManagementPage.clickStartDate();
-        await holidayManagementPage.clickTodayDatePicker();
+        await holidayManagementPage.clicktodayDatePicker();
         await holidayManagementPage.clickEndDate();
-        await holidayManagementPage.clickTodayDatePicker();
+        await holidayManagementPage.clicktodayDatePicker();
         await holidayManagementPage.fillReason('Test Reason');
         await holidayManagementPage.checkTotalHolidayResult();
         await holidayManagementPage.clickSave();
@@ -122,9 +122,9 @@ test.describe.serial('Holiday Management', () => {
         await holidayManagementPage.clickAdd();
         await holidayManagementPage.fillHolidayName("Test");
         await holidayManagementPage.clickStartDate();
-        await holidayManagementPage.clickTodayDatePicker();
+        await holidayManagementPage.clicktodayDatePicker();
         await holidayManagementPage.clickEndDate();
-        await holidayManagementPage.clickTodayDatePicker();
+        await holidayManagementPage.clicktodayDatePicker();
         await holidayManagementPage.clickSave();
         await validation.validateRequiredFillReason();
     });
@@ -132,9 +132,9 @@ test.describe.serial('Holiday Management', () => {
     test('Add with blank name', async ({ page }) => {
         await holidayManagementPage.clickAdd();
         await holidayManagementPage.clickStartDate();
-        await holidayManagementPage.clickTodayDatePicker();
+        await holidayManagementPage.clicktodayDatePicker();
         await holidayManagementPage.clickEndDate();
-        await holidayManagementPage.clickTodayDatePicker();
+        await holidayManagementPage.clicktodayDatePicker();
         await holidayManagementPage.fillReason('Test Reason');
         await holidayManagementPage.clickSave();
         await holidayManagementPage.expectNameRequired();

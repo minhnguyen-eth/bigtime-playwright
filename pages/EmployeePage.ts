@@ -365,20 +365,12 @@ export class EmployeePage extends BasePage {
     await this.safeFill(this.fillInsurance, insurance);
   }
 
-  async clickSaveButton() {
-    await this.safeClick(this.saveButton);
-  }
-
   async clickSetSalary() {
     await this.safeClick(this.setSalary);
   }
 
   async fillFillSalary(salary: string) {
     await this.safeFill(this.fillSalary, salary);
-  }
-
-  async clickAddButton() {
-    await this.safeClick(this.addButton);
   }
 
   async fillEmail(email: string) {
@@ -464,8 +456,8 @@ export class EmployeePage extends BasePage {
   }
 
   async testSaveWithoutAnyInformation() {
-    await this.clickAddButton();
-    await this.clickSaveButton();
+    await this.clickAdd();
+    await this.clickSave();
     await this.validateRequiredFields();
   }
 
@@ -473,7 +465,7 @@ export class EmployeePage extends BasePage {
     await this.clickRow0();
     await this.clickEdit();
     await this.fillEmployeeName('Automation test edit');
-    await this.clickSaveButton();
+    await this.clickSave();
     await this.toastPage.getToastUpdateSuccess();
   }
 
@@ -484,12 +476,12 @@ export class EmployeePage extends BasePage {
     await this.clickRow0();
     await this.clickEdit();
     await this.fillEmployeeCode(userEditCode);
-    await this.clickSaveButton();
+    await this.clickSave();
     await this.toastPage.getToastUpdateSuccess();
   }
 
   async addWithDuplicateCodeAndEmail() {
-    await this.clickAddButton();
+    await this.clickAdd();
     await this.fillEmployeeCode('BAT810');
     await this.fillEmployeeName('Automation test');
     await this.fillEmail('minhnguyen.eth');
@@ -499,7 +491,7 @@ export class EmployeePage extends BasePage {
     await this.clickSelectDepartment();
     await this.clickDropdownEmployeeType();
     await this.clickStaff();
-    await this.clickSaveButton();
+    await this.clickSave();
     await this.toastPage.getToastAddFailed();
     await this.verifyEmailExisted();
     await this.verifyEmployeeCodeExisted();
@@ -511,14 +503,14 @@ export class EmployeePage extends BasePage {
     await this.clickAdmin();
     await this.clickDropdownRoleName();
     await this.clickManagementDepartmentRole();
-    await this.clickSaveButton();
+    await this.clickSave();
     await this.toastPage.getToastAddSuccess();
   }
 
   async addWithWrongFormatEmail() {
     await this.testAddEmployee();
     await this.fillEmail('Tét123456');
-    await this.clickSaveButton();
+    await this.clickSave();
     await this.verifyEmailError();
     await this.toastPage.getToastAddFailed();
   }
@@ -526,7 +518,7 @@ export class EmployeePage extends BasePage {
   async testMinlengthEmail() {
     await this.testAddEmployee();
     await this.fillEmail('minh');
-    await this.clickSaveButton();
+    await this.clickSave();
     await this.expectValidateMinLengthEmail();
     await this.toastPage.getToastAddFailed();
   }
@@ -537,7 +529,7 @@ export class EmployeePage extends BasePage {
     const userCode = `userCode${randomSuffix}`;
     const emailRandom = `email${randomSuffix}`;
 
-    await this.clickAddButton();
+    await this.clickAdd();
 
     // Fill information
     await this.fillEmployeeCode(userCode);
@@ -560,7 +552,7 @@ export class EmployeePage extends BasePage {
     await this.clickDailySalary();
     await this.fillFillSalary('22000000');
     await this.fillFillInsurance('500000');
-    await this.clickSaveButton();
+    await this.clickSave();
     await this.toastPage.getToastAddSuccess();
   }
 
@@ -572,7 +564,7 @@ export class EmployeePage extends BasePage {
     await this.testAddEmployee();
     await this.testFillMoreInformation();
     await this.testSetSalary();
-    await this.clickSaveButton();
+    await this.clickSave();
     await this.toastPage.getToastAddSuccess();
   }
 
@@ -633,7 +625,7 @@ export class EmployeePage extends BasePage {
     await this.clickSelectRank();
     await this.fillCitizenId(random10Digits);
     await this.clickCitizenIdCardIssueDate();
-    await this.clickTodayDatePicker();
+    await this.clicktodayDatePicker();
 
     await this.fillPlaceOfIssueOfIdentityCard('Bien Hoa, Dong Nai');
     await this.fillBankName('Vietcombank');
@@ -648,7 +640,7 @@ export class EmployeePage extends BasePage {
     await this.clickSelectMonth();
     await this.clickSelectDay();
     await this.clickDateOfJoiningTheCompany();
-    await this.clickTodayDatePicker();
+    await this.clicktodayDatePicker();
   }
 
   async testSetSalary() {
