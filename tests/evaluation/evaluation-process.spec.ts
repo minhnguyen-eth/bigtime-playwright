@@ -3,7 +3,7 @@ import { LoginPage } from "../../pages/LoginPage";
 import Config from "../../utils/configUtils";
 import { EvaluationProcessPage } from "../../pages/evaluation_page/EvaluationProcessPage";
 import { ToastPage } from "../../pages/ToastPage";
-import { clearAllEvaluationProgress } from '../../db/DBHelper';
+import { clearEvaluationProgress } from '../../db/helpers/DBHelper';
 import { allure } from "allure-playwright";
 import { createCriteria } from "../evaluation/evaluation-helper";
 import { ValidationPage } from "../../pages/ValidationPage";
@@ -34,7 +34,7 @@ test.describe.serial("Evaluation Criteria Tests", () => {
     test("Add a new evaluation process company form", async ({ page }) => {
         allure.story("Add Evaluation Process - Company Form");
         await allure.step("Clear data and add new company evaluation process", async () => {
-            await clearAllEvaluationProgress();
+            await clearEvaluationProgress();
             await evaluationProcess.clickAdmin();
             await evaluationProcess.clickEvaluationProcessButton();
             await evaluationProcess.clickAdd();
@@ -149,7 +149,7 @@ test.describe.serial("Evaluation Criteria Tests", () => {
     }
 
     test('Cancel evaluation', async ({ page }) => {
-        await clearAllEvaluationProgress();
+        await clearEvaluationProgress();
         allure.story("Cancel Evaluation");
         await allure.step("Cancel evaluation", async () => {
             await cancelEvalaution();
@@ -165,7 +165,7 @@ test.describe.serial("Evaluation Criteria Tests", () => {
     });
 
     test('Evaluation process - Search by status', async ({ page }) => {
-        await clearAllEvaluationProgress();
+        await clearEvaluationProgress();
 
         await allure.step("Search by new status", async () => {
             // Search by new status

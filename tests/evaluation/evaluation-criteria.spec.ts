@@ -2,7 +2,7 @@ import { test, } from '../base-test';
 import { LoginPage } from "../../pages/LoginPage";
 import Config from "../../utils/configUtils";
 import { EvaluationCriteriaPage } from "../../pages/evaluation_page/EvaluationCriteriaPage";
-import { clearAllEvaluationCriterias } from '../../db/helpers/DBHelper';
+import { clearEvaluationCriterias } from '../../db/helpers/DBHelper';
 import { allure } from "allure-playwright";
 import { ToastPage } from "../../pages/ToastPage";
 import { ValidationPage } from '../../pages/ValidationPage';
@@ -28,7 +28,7 @@ test.describe.serial("Evaluation Criteria Tests", () => {
 
     test("Max length of Evaluation Criteria Name is 255 characters", async ({ page }) => {
         allure.story("Validation on Create Criteria");
-        await clearAllEvaluationCriterias();
+        await clearEvaluationCriterias();
         await evaluationCriteriaPage.clickAdmin();
         await evaluationCriteriaPage.clickEvaluationCriteria();
         await evaluationCriteriaPage.clickAdd();
@@ -80,7 +80,7 @@ test.describe.serial("Evaluation Criteria Tests", () => {
 
     test("Create Criteria without any field", async ({ page }) => {
         allure.story("Validation on Create Criteria");
-        await clearAllEvaluationCriterias();
+        await clearEvaluationCriterias();
         await evaluationCriteriaPage.clickAdmin();
         await evaluationCriteriaPage.clickEvaluationCriteria();
         await evaluationCriteriaPage.clickAdd();

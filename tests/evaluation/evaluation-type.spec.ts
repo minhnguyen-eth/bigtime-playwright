@@ -2,7 +2,7 @@ import { expect, test, } from '../base-test';
 import { LoginPage } from "../../pages/LoginPage";
 import Config from "../../utils/configUtils";
 import { EvaluationTypePage } from "../../pages/evaluation_page/EvaluationTypePage";
-import { checkEvaluationTypeExists, deleteEvaluationType, clearAllEluationTypes } from '../../db/DBHelper';
+import { checkEvaluationTypeExists, deleteEvaluationType, clearEluationTypes } from '../../db/helpers/DBHelper';
 import { ValidationPage } from '../../pages/ValidationPage';
 import { allure } from "allure-playwright";
 import { ToastPage } from "../../pages/ToastPage";
@@ -29,7 +29,7 @@ test.describe.serial("Evaluation Type Tests", () => {
     });
 
     test("Max lenghth of evaluation type name is 255 characters", async ({ page }) => {
-        await clearAllEluationTypes();
+        await clearEluationTypes();
         allure.story("Evaluation Type Name Length Validation");
         
         await evaluationtype.clickAdmin();
@@ -79,7 +79,7 @@ test.describe.serial("Evaluation Type Tests", () => {
     test("Add evaluation type with valid data and check in database", async ({ page }) => {
         allure.story("Create Evaluation Type with Valid Data");
         allure.description("Create Evaluation Type with Valid Data and Check Existence in Database.");
-        await clearAllEluationTypes();
+        await clearEluationTypes();
 
         const randomSuffix = Math.random().toString(36).substring(2, 8);
         const evaluationName = `Automation test ${randomSuffix}`;

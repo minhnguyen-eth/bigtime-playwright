@@ -13,14 +13,14 @@ export async function deleteEvaluationType(name: string) {
     return result.affectedRows > 0;
 }
 
-export const clearAllEluationTypes = async () => {
+export const clearEluationTypes = async () => {
   await clearTable('evaluation_types', "name NOT LIKE '%Đánh giá%'");
 }
 
-export async function clearAllEvaluationCriterias() {
+export async function clearEvaluationCriterias() {
   await clearTable('evaluation_criterias', "name NOT LIKE '%Tiêu chí%'");
 }
 
-export async function clearAllEvaluationProgress() {
+export async function clearEvaluationProgress() {
   await clearTable('evaluation_progress', "id NOT LIKE '%Testdata%'");
 }
