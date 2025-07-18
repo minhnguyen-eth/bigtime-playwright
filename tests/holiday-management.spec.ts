@@ -3,7 +3,7 @@ import { LoginPage } from '../pages/LoginPage';
 import Config from '../utils/configUtils';
 import { ToastPage } from '../pages/ToastPage';
 import { HolidayManagementPage } from '../pages/HolidayManagementPage';
-import { clearCheckDay, clearCheckTime, clearHolidayManagement } from '../db/DBHelper';
+import { clearCheckDay, clearCheckTime, clearHolidayManagement } from '../db/helpers/DBHelper';
 import { allure } from 'allure-playwright';
 import { ValidationPage } from '../pages/ValidationPage';
 

@@ -3,9 +3,9 @@ import { LoginPage } from '../../pages/LoginPage';
 import { RewardTypePage } from '../../pages/reward_page/RewardTypePage';
 import Config from '../../utils/configUtils';
 import { ToastPage } from '../../pages/ToastPage';
-import { clearAllRewardType } from '../../db/DBHelper';
 import { allure } from 'allure-playwright';
 import { ValidationPage } from '../../pages/ValidationPage';
+import { clearRewardType } from '../../db/helpers/DBHelper';
 
 test.describe.serial('Reward Type Tests', () => {
     let loginPage: LoginPage;
@@ -30,7 +30,7 @@ test.describe.serial('Reward Type Tests', () => {
     });
 
     test("Max length of reward type name is 255 characters", async ({ page }) => {
-        await clearAllRewardType();
+        await clearRewardType();
         allure.story('Validation for Max Length of Reward Type Name');
         await allure.step('Add reward type with name length 255 characters', async () => {
             await rewardTypePage.clickAdd();
@@ -76,7 +76,7 @@ test.describe.serial('Reward Type Tests', () => {
     test('Add reward type with empty name', async ({ page }) => {
         allure.story('Validation for Required Fields');
         await allure.step('Clear all reward types', async () => {
-            await clearAllRewardType();
+            await clearRewardType();
         });
         await allure.step('Try to add reward type with empty name', async () => {
 

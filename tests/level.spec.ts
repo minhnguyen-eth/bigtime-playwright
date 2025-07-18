@@ -4,7 +4,7 @@ import Config from '../utils/configUtils';
 import { allure } from 'allure-playwright';
 import { ToastPage } from '../pages/ToastPage';
 import { LevelPage } from '../pages/LevelPage';
-import { clearLevel } from '../db/DBHelper';
+import { clearLevel } from '../db/helpers/DBHelper';
 import { ValidationPage } from '../pages/ValidationPage';
 
 test.describe.serial('Level Test Suite', () => {

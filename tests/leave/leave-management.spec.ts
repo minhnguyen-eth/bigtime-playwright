@@ -2,11 +2,11 @@ import { test, } from '../base-test';
 import { LoginPage } from '../../pages/LoginPage';
 import Config from '../../utils/configUtils';
 import { LeaveManagementPage } from '../../pages/leave_page/LeaveManagementPage';
-import { clearAllLeaveManagements } from '../../db/DBHelper';
 import { employeeBrowseLeaveManagement } from './leave-helper';
 import { allure } from 'allure-playwright';
 import { ToastPage } from '../../pages/ToastPage';
 import { LogoutPage } from '../../pages/LogoutPage';
+import { clearLeaveManagements } from '../../db/helpers/DBHelper';
 
 test.describe.serial('Leave Management Tests', () => {
     let loginPage: LoginPage;
@@ -32,7 +32,7 @@ test.describe.serial('Leave Management Tests', () => {
         allure.story('Add and Browse Annual Leave');
 
         await allure.step('Clear previous leave management data', async () => {
-            await clearAllLeaveManagements();
+            await clearLeaveManagements();
         });
 
         await allure.step('Admin adds annual leave for employee and browses it', async () => {
@@ -83,7 +83,7 @@ test.describe.serial('Leave Management Tests', () => {
         allure.story('Add and Browse Annual Leave with Waiting Status');
 
         await allure.step('Clear previous data and add leave in "Waiting for approval" status', async () => {
-            await clearAllLeaveManagements();
+            await clearLeaveManagements();
             await loginPage.login(Config.admin_username, Config.admin_password);
             await leaveManagementPage.clickAdmin();
             await leaveManagementPage.clickLeaveManagementButton();
@@ -108,7 +108,7 @@ test.describe.serial('Leave Management Tests', () => {
         allure.story('Add Annual Leave for Department');
 
         await allure.step('Clear previous leave management and add department leave', async () => {
-            await clearAllLeaveManagements();
+            await clearLeaveManagements();
             await loginPage.login(Config.admin_username, Config.admin_password);
             await leaveManagementPage.clickAdmin();
             await leaveManagementPage.clickLeaveManagementButton();

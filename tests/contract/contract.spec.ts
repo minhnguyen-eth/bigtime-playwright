@@ -1,7 +1,7 @@
 import { test, expect } from '../base-test';
 import { allure } from "allure-playwright";
 import Config from '../../utils/configUtils';
-import { checkContractExists, clearEmploymentContract } from '../../db/DBHelper';
+import { checkContractExists, clearEmploymentContract } from '../../db/helpers/DBHelper';
 import { ValidationPage } from '../../pages/ValidationPage';
 import { ToastPage } from '../../pages/ToastPage';
 import { LoginPage } from '../../pages/LoginPage';

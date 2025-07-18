@@ -1,7 +1,7 @@
+import { clearEmployees, checkContractExists } from '../../db/helpers/DBHelper';
 import { BasePage } from '../../pages/BasePage';
 import { ContractPage } from '../../pages/contract_page/ContractPage';
 import { ToastPage } from '../../pages/ToastPage';
-import { checkContractExists, clearEmploymentContract } from '../../db/DBHelper';
 import { expect } from '@playwright/test';
 
 export async function createContractWithProbation(
@@ -9,7 +9,7 @@ export async function createContractWithProbation(
     contractPage: ContractPage,
     toastPage: ToastPage
 ) {
-    await clearEmploymentContract();
+    await clearEmployees();
     await basePage.clickAdd();
     await contractPage.fillEmployeeName();
     await contractPage.fillSalary("10000000");

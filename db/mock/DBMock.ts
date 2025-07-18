@@ -1,4 +1,4 @@
-import { executeQuery, getConnection } from './DBHelper';
+import { executeQuery, getConnection } from '../helpers/DBHelper';
 import { v4 as uuidv4 } from 'uuid';
 
 export async function mockCheckinData(userId: string, date: string) {

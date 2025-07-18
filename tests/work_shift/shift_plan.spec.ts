@@ -2,10 +2,10 @@ import { expect, test, } from '../base-test';
 import { LoginPage } from '../../pages/LoginPage';
 import Config from '../../utils/configUtils';
 import { ShiftPlanPage } from '../../pages/work_shift_page/ShiftPlanPage';
-import { clearAllShiftPlan, checkShiftPlanExists } from '../../db/DBHelper';
 import { allure } from 'allure-playwright';
 import { ToastPage } from '../../pages/ToastPage';
 import { ValidationPage } from '../../pages/ValidationPage';
+import { checkShiftPlanExists, clearShiftPlan } from '../../db/modules/ShiftplanDB';
 
 test.describe.serial('Shift Plan Tests', () => {
     let loginPage: LoginPage;
@@ -50,7 +50,7 @@ test.describe.serial('Shift Plan Tests', () => {
     }
 
     test("Max lengh of name 255 character", async ({ page }) => {
-        await clearAllShiftPlan();
+        await clearShiftPlan();
         await shiftPlanPage.clickAdd();
         await shiftPlanPage.fillShiftPlanNameInput('z'.repeat(255));
         // Test body
@@ -73,7 +73,7 @@ test.describe.serial('Shift Plan Tests', () => {
         allure.story('Add Shift Plan for Department Story');
 
         await allure.step('Clear existing shift plans from DB', async () => {
-            await clearAllShiftPlan();
+            await clearShiftPlan();
         });
 
         await allure.step('Fill Shift Plan form for department', async () => {

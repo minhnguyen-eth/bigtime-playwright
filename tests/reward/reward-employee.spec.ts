@@ -4,9 +4,9 @@ import { ToastPage } from '../../pages/ToastPage';
 import Config from '../../utils/configUtils';
 import { allure } from 'allure-playwright';
 import { RewardEmployeePage } from '../../pages/reward_page/RewardEmployeePage';
-import { clearAllRewardUsers } from '../../db/DBHelper';
 import { LogoutPage } from '../../pages/LogoutPage';
 import { ValidationPage } from '../../pages/ValidationPage';
+import { clearRewardUsers } from '../../db/helpers/DBHelper';
 
 test.describe.serial('Reward Employee Tests', () => {
     let loginPage: LoginPage;
@@ -121,7 +121,7 @@ test.describe.serial('Reward Employee Tests', () => {
     });
 
     test('E2E reward employee - manager send reward to admin approve', async ({ page }) => {
-        await clearAllRewardUsers();
+        await clearRewardUsers();
         await loginPage.login(Config.manager_username, Config.manager_password);
         await rewardEmployeePage.clickAdmin();
         await rewardEmployeePage.clickRewardEmployee();

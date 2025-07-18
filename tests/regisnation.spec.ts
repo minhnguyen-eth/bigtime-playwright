@@ -1,5 +1,5 @@
 import { test, } from './base-test';
-import { clearResignation } from '../db/DBHelper';
+import { clearResignation } from '../db/helpers/DBHelper';
 import { LoginPage } from '../pages/LoginPage';
 import Config from '../utils/configUtils';
 import { RegisnationPage } from '../pages/RegisnationPage';

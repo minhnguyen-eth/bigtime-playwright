@@ -3,9 +3,9 @@ import { LoginPage } from '../../pages/LoginPage';
 import Config from '../../utils/configUtils';
 import { WorkShiftPage } from '../../pages/work_shift_page/WorkShiftPage';
 import { allure } from 'allure-playwright';
-import { clearAllWorkingShift } from '../../db/DBHelper';
 import { ToastPage } from '../../pages/ToastPage';
 import { ValidationPage } from '../../pages/ValidationPage';
+import { clearWorkingShift } from '../../db/helpers/DBHelper';
 
 test.describe.serial('Work Shift Tests', () => {
     let loginPage: LoginPage;
@@ -58,7 +58,7 @@ test.describe.serial('Work Shift Tests', () => {
     }
 
     test("Max length of work shift name is 255 characters", async ({ page }) => {
-        await clearAllWorkingShift();
+        await clearWorkingShift();
         const workShiftCode = 'AT' + Math.random().toString(36).substring(2, 8);
         await workShiftPage.clickAdd();
         await workShiftPage.fillWorkShiftName('a'.repeat(255));
@@ -83,7 +83,7 @@ test.describe.serial('Work Shift Tests', () => {
         const workShiftName = `Automation test ${randomSuffix}`;
         const workShiftCode = 'AT' + randomSuffix;
 
-        await clearAllWorkingShift();
+        await clearWorkingShift();
         await allure.step('Fill work shift form', async () => {
             await workShiftPage.clickAdd();
             await workShiftPage.fillWorkShiftName(workShiftName);

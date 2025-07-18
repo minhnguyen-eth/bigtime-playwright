@@ -5,8 +5,8 @@ import { LogoutPage } from '../../pages/LogoutPage';
 import { allure } from 'allure-playwright';
 import Config from '../../utils/configUtils';
 import { AllowancePage } from '../../pages/salary_page/AllowancePage';
-import { clearAllowanceType } from '../../db/DBHelper';
 import { ValidationPage } from '../../pages/ValidationPage';
+import { clearAllowanceTypes } from '../../db/helpers/DBHelper';
 
 test.describe.serial('Allowance Tests', () => {
     let loginPage: LoginPage;
@@ -33,7 +33,7 @@ test.describe.serial('Allowance Tests', () => {
     });
 
     test('Save with empty data', async ({ page }) => {
-        await clearAllowanceType();
+        await clearAllowanceTypes();
         await allowancePage.clickAdd();
         await allowancePage.fillAllwanceMoney('');
         await allowancePage.clickSave();
@@ -187,3 +187,7 @@ test.describe.serial('Allowance Tests', () => {
 
     });
 });
+
+function clearAllowanceType() {
+    throw new Error('Function not implemented.');
+}

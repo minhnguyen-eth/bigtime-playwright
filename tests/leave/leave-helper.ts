@@ -3,7 +3,6 @@ import { LoginPage } from '../../pages/LoginPage';
 import { LeaveManagementPage } from '../../pages/leave_page/LeaveManagementPage';
 import { LeaveApplicationPage } from '../../pages/leave_page/LeaveApplicationPage';
 import Config from '../../utils/configUtils';
-import { clearAllLeaveManagements } from '../../db/DBHelper';
 import { ToastPage } from '../../pages/ToastPage';
 import { LogoutPage } from '../../pages/LogoutPage';
 
@@ -55,8 +54,6 @@ export async function sendAndApproveLeave(page: Page) {
     await leaveManagementPage.clickSend();
     await toastPage.getToastSendBrowseSuccess();
     await logoutPage.logout();
-
-
 
     // Admin approves leave application
     await loginPage.goto();

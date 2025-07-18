@@ -4,7 +4,7 @@ import { LoginPage } from '../pages/LoginPage';
 import { TeamPage } from '../pages/TeamPage';
 import { ToastPage } from '../pages/ToastPage';
 import { Config } from '../utils/configUtils';
-import { clearTeam } from '../db/DBHelper';
+import { clearTeam } from '../db/helpers/DBHelper';
 import { ValidationPage } from '../pages/ValidationPage';
 
 test.describe.serial('Team', () => {

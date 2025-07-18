@@ -6,7 +6,7 @@ import { DebtPage } from "../../pages/salary_page/DebtPage";
 import { LogoutPage } from "../../pages/LogoutPage";
 import { allure } from 'allure-playwright';
 import { ValidationPage } from '../../pages/ValidationPage';
-import { clearDebts } from '../../db/DBHelper';
+import { clearDebts } from '../../db/helpers/DBHelper';
 
 test.describe.serial("Debt Tests", () => {
   let loginPage: LoginPage;

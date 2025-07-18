@@ -2,7 +2,7 @@ import { test, } from '../base-test';
 import { LoginPage } from '../../pages/LoginPage';
 import Config from '../../utils/configUtils';
 import { ToastPage } from '../../pages/ToastPage';
-import { clearCheckDay, clearCheckTime, mockCheckinData, clearOvertimeSubmission } from '../../db/DBHelper';
+import { clearCheckDay, clearCheckTime, mockCheckinData, clearOvertimeSubmission } from '../../db/helpers/DBHelper';
 import { OvertimeTicketPage } from '../../pages/timekeeping_page/OvertimeTicketPage';
 import { LogoutPage } from '../../pages/LogoutPage';
 import { allure } from 'allure-playwright';

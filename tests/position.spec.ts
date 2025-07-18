@@ -3,7 +3,7 @@ import { PositionPage } from '../pages/PositionPage';
 import { ToastPage } from '../pages/ToastPage';
 import { LoginPage } from '../pages/LoginPage';
 import { Config } from '../utils/configUtils';
-import { clearPosition } from '../db/DBHelper';
+import { clearPosition } from '../db/helpers/DBHelper';
 import { allure } from 'allure-playwright';
 import { ValidationPage } from '../pages/ValidationPage';
 

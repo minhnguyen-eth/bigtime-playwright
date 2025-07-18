@@ -6,7 +6,8 @@ import { allure } from 'allure-playwright';
 import { ToastPage } from '../../pages/ToastPage';
 import { LogoutPage } from '../../pages/LogoutPage';
 import { BasePage } from '../../pages/BasePage';
-import { clearAllPaysheets, clearAllPayslips } from '../../db/DBHelper';
+import { clearPaysheets, clearPayslips } from '../../db/helpers/DBHelper';
+
 
 test.describe.serial('Payslip Tests', () => {
     let loginPage: LoginPage;
@@ -31,22 +32,22 @@ test.describe.serial('Payslip Tests', () => {
 
 
     test('Export only one a employee', async ({ page }) => {
-        await clearAllPaysheets();
-        await clearAllPayslips();
+        await clearPaysheets();
+        await clearPayslips();
         await payslipPage.handleExportOnlyOneEmployee();
         await toastPage.getToastExportSuccess();
     });
 
     test('Export by month', async ({ page }) => {
-        await clearAllPaysheets();
-        await clearAllPayslips();
+        await clearPaysheets();
+        await clearPayslips();
         await payslipPage.handleExportByMonth();
         await toastPage.getToastExportSuccess();
     });
 
     test('Cancel payslip', async ({ page }) => {
-        await clearAllPaysheets();
-        await clearAllPayslips();
+        await clearPaysheets();
+        await clearPayslips();
         await payslipPage.handleCancelPaySlip();
 
         // Employe check

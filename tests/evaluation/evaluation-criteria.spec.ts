@@ -2,7 +2,7 @@ import { test, } from '../base-test';
 import { LoginPage } from "../../pages/LoginPage";
 import Config from "../../utils/configUtils";
 import { EvaluationCriteriaPage } from "../../pages/evaluation_page/EvaluationCriteriaPage";
-import { clearAllEvaluationCriterias } from '../../db/DBHelper';
+import { clearAllEvaluationCriterias } from '../../db/helpers/DBHelper';
 import { allure } from "allure-playwright";
 import { ToastPage } from "../../pages/ToastPage";
 import { ValidationPage } from '../../pages/ValidationPage';
@@ -132,20 +132,20 @@ test.describe.serial("Evaluation Criteria Tests", () => {
         await evaluationCriteriaPage.clickClearSearch();
 
         await evaluationCriteriaPage.clickDropdownStatusSearch();
-        await evaluationCriteriaPage.selectStatus("Hoạt động");
+        await evaluationCriteriaPage.clickActivityStatus();
         await evaluationCriteriaPage.clickSearch();
         await evaluationCriteriaPage.verifyActivityStatusRow0();
         await evaluationCriteriaPage.clickClearSearch();
 
         await evaluationCriteriaPage.clickDropdownStatusSearch();
-        await evaluationCriteriaPage.selectStatus("Khóa");
+        await evaluationCriteriaPage.clickLockStatus();
         await evaluationCriteriaPage.clickSearch();
         await evaluationCriteriaPage.verifyLockStatusRow0();
         await evaluationCriteriaPage.clickClearSearch();
 
         await evaluationCriteriaPage.clickDropdownStatusSearch();
-        await evaluationCriteriaPage.selectStatus("Hoạt động");
-        await evaluationCriteriaPage.selectStatus("Khóa");
+        await evaluationCriteriaPage.clickActivityStatus();
+        await evaluationCriteriaPage.clickLockStatus();
         await evaluationCriteriaPage.clickSearch();
         await evaluationCriteriaPage.verifyActivityStatusRow0();
     });
@@ -171,7 +171,7 @@ test.describe.serial("Evaluation Criteria Tests", () => {
 
         await evaluationCriteriaPage.clickEditRow0();
         await evaluationCriteriaPage.clickDropdownStatusInForm();
-        await evaluationCriteriaPage.selectStatus("Hoạt động");
+        await evaluationCriteriaPage.clickActivityStatus();
         await evaluationCriteriaPage.clickSave();
         await evaluationCriteriaPage.verifyActivityStatusRow0();
     });

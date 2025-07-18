@@ -5,7 +5,7 @@ import { allure } from 'allure-playwright';
 import { EmployeePage } from '../pages/EmployeePage';
 import { ResumePage } from '../pages/ResumePage';
 import { ToastPage } from '../pages/ToastPage';
-import { clearAllAllowanceTypes, clearEmployees } from '../db/DBHelper';
+import { clearAllowanceTypes, clearEmployees } from '../db/helpers/DBHelper';
 
 test.describe.serial('Employee Tests', () => {
     let loginPage: LoginPage;
@@ -30,7 +30,7 @@ test.describe.serial('Employee Tests', () => {
 
     test("Max length of all fields", async ({ page }) => {
         allure.severity('Critical');
-        await clearAllAllowanceTypes();
+        await clearAllowanceTypes();
         await clearEmployees();
         const randomSuffix = Math.random().toString(36).substring(2, 8);
         const emailRandom = `email${randomSuffix}`;
@@ -85,7 +85,7 @@ test.describe.serial('Employee Tests', () => {
         await employeePage.clickSearch();
         await employeePage.clickRow0();
         await resumePage.clickResume();
-        await resumePage.clickEditButton();
+        await resumePage.clickEdit();
         await resumePage.fillAliasName("z".repeat(255));
         await resumePage.fillPlaceOfBirth("z".repeat(255));
         await resumePage.fillHomeTown("z".repeat(255));

@@ -4,7 +4,7 @@ import Config from '../utils/configUtils';
 import { allure } from 'allure-playwright';
 import { ToastPage } from '../pages/ToastPage';
 import { DepartmentPage } from '../pages/DepartmentPage';
-import { clearDepartment } from '../db/DBHelper';
+import { clearDepartment } from '../db/helpers/DBHelper';
 import { ValidationPage } from '../pages/ValidationPage';
 
 test.describe.serial('Department Test', () => {

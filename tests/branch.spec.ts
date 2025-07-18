@@ -4,8 +4,8 @@ import Config from '../utils/configUtils';
 import { allure } from 'allure-playwright';
 import { ToastPage } from '../pages/ToastPage';
 import { BranchPage } from '../pages/BranchPage';
-import { clearBranch } from '../db/DBHelper';
 import { ValidationPage } from '../pages/ValidationPage';
+import { clearBranch } from '../db/helpers/DBHelper';
 
 test.describe.serial('Branch Test', () => {
     let loginPage: LoginPage;

@@ -4,9 +4,10 @@ import Config from '../../utils/configUtils';
 import { ToastPage } from '../../pages/ToastPage';
 import { allure } from 'allure-playwright';
 import { NotificationPage } from '../../pages/notification_page/NotificationPage';
-import { clearAllNotifications } from '../../db/DBHelper';
+
 import { LogoutPage } from '../../pages/LogoutPage';
 import { ValidationPage } from '../../pages/ValidationPage';
+import { clearNotifications } from '../../db/helpers/DBHelper';
 
 test.describe.serial('Notification Test Suite', () => {
     let loginPage: LoginPage;
@@ -87,7 +88,7 @@ test.describe.serial('Notification Test Suite', () => {
     test('Add new notification with event notification type', async ({ page }) => {
         allure.story('Add Event Notification');
         await allure.step('Clear all notifications and add new event notification', async () => {
-            await clearAllNotifications();
+            await clearNotifications();
             await loginPage.login(Config.admin_username, Config.admin_password);
             await notificationPage.clickAdmin();
             await notificationPage.clickOnNotification();

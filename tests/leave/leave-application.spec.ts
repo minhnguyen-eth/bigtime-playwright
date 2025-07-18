@@ -2,7 +2,7 @@ import { expect, test, } from '../base-test';
 import { LoginPage } from '../../pages/LoginPage';
 import Config from '../../utils/configUtils';
 import { LeaveApplicationPage } from '../../pages/leave_page/LeaveApplicationPage';
-import { checkEvaluationTypeExists, checkLeaveApplicationExists, clearAllLeaveApplications, clearAllLeaveManagements } from '../../db/DBHelper';
+import { checkLeaveApplicationExists, clearLeaveApplications, clearLeaveManagements } from '../../db/helpers/DBHelper';
 import { addAnnualLeaveForEmployeeAndAdmin, sendAndApproveLeave } from './leave-helper';
 import { allure } from 'allure-playwright';
 import { ToastPage } from '../../pages/ToastPage';
@@ -45,7 +45,7 @@ test.describe.serial('Leave Application Tests', () => {
     }
 
     async function beforeTest() {
-        await clearAllLeaveApplications();
+        await clearLeaveApplications();
         await loginPage.goto();
         await loginPage.login(Config.employee_username, Config.employee_password);
         await leaveApplicationPage.clickTimeKeepingManagement();
@@ -53,7 +53,7 @@ test.describe.serial('Leave Application Tests', () => {
     }
 
     test("Max lenght of reason is 255 characters", async ({ page }) => {
-        await clearAllLeaveApplications();
+        await clearLeaveApplications();
         await beforeTest();
         await leaveApplicationPage.clickAdd();
         await leaveApplicationPage.clickLeaveTypeDropDown();
@@ -76,7 +76,7 @@ test.describe.serial('Leave Application Tests', () => {
     });
 
     test('Search by month', async ({ page }) => {
-        await clearAllLeaveApplications();
+        await clearLeaveApplications();
         await beforeSearchTest();
         await leaveApplicationPage.searchByMonth();
         await leaveApplicationPage.expectSearchByMonthResult();
@@ -139,7 +139,7 @@ test.describe.serial('Leave Application Tests', () => {
     test('Add annual leave for a employee and manager browsed', async ({ page }) => {
         allure.story('Setup Annual Leave');
         await allure.step('Clear all leave management and add annual leave for employee and admin', async () => {
-            await clearAllLeaveManagements();
+            await clearLeaveManagements();
             await addAnnualLeaveForEmployeeAndAdmin(page);
         });
     });
