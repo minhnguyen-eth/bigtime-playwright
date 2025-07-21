@@ -5,7 +5,7 @@
     "test": "npx playwright test",
     "generate": "node generate-report.js",
     "predeploy": "rimraf allure-results",
-    "deploy": "gh-pages -d allure-report",
+    "deploy": "powershell ./deploy.ps1",
     "report": "npm run generate && npm run deploy"
   },
   "devDependencies": {
