@@ -253,7 +253,7 @@ export class ResumePage extends BasePage {
     // ACTION COMBO
     async testSaveWithEmptyFieldsRequired() {
         await this.clickResume();
-        await this.clickEdit();
+        await this.clickEditNth1();
     }
 
     async testResumeWithValidData() {
@@ -261,7 +261,7 @@ export class ResumePage extends BasePage {
         const random10Digits = Math.floor(1000000000 + Math.random() * 9000000000);
         const phoneNumber = `09${Math.floor(100000000 + Math.random() * 900000000)}`;
         await this.clickResume();
-        await this.clickEdit();
+        await this.clickEditNth1();
         await this.fillAliasName("Nguyễn Văn B");
         await this.fillPlaceOfBirth("Hà Nội");
         await this.fillHomeTown("Hà Nội");

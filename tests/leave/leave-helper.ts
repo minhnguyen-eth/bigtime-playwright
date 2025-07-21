@@ -28,7 +28,7 @@ export async function addAnnualLeaveForEmployeeAndAdmin(page: Page) {
 
     await leaveManagementPage.clickIconActionRow0();
     await leaveManagementPage.clickConfirm();
-    await toastPage.getToastAddSuccess();
+    await toastPage.getToastConfirmSuccess();
     await leaveManagementPage.verifyStatusWaitingForApproval('Chờ duyệt');
     await logoutPage.logout();
 
@@ -51,7 +51,7 @@ export async function sendAndApproveLeave(page: Page) {
 
     // Employee sends leave application
     await leaveApplicationPage.clickRow0();
-    await leaveManagementPage.clickSend();
+    await leaveManagementPage.clickSendAndClickYes();
     await toastPage.getToastSendBrowseSuccess();
     await logoutPage.logout();
 

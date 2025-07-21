@@ -152,7 +152,7 @@ test.describe.serial('Overtime Ticket Test Suite', () => {
         await overtimeTicketPage.verifyOvertimeTicketNewStatus();
 
         // Send Overtime Ticket
-        await overtimeTicketPage.clickSend();
+        await overtimeTicketPage.clickSendAndClickYes();
         await overtimeTicketPage.getToastSendSuccess();
 
         await logoutPage.logout();
@@ -187,7 +187,7 @@ test.describe.serial('Overtime Ticket Test Suite', () => {
         await overtimeTicketPage.verifyOvertimeTicketNewStatus();
 
         // Send Overtime Ticket
-        await overtimeTicketPage.clickSend();
+        await overtimeTicketPage.clickSendAndClickYes();
         await overtimeTicketPage.getToastSendSuccess();
 
         await logoutPage.logout();
@@ -199,7 +199,7 @@ test.describe.serial('Overtime Ticket Test Suite', () => {
 
         // Reject Overtime Ticket
         await overtimeTicketPage.clickReject();
-        await overtimeTicketPage.fillReason('Automation test reject reason');
+        await overtimeTicketPage.fillReasonAndClickYes('Automation test reject reason');
         await toastPage.getToastRejectSuccess();
 
         // Verify reject status
@@ -228,7 +228,7 @@ test.describe.serial('Overtime Ticket Test Suite', () => {
         await overtimeTicketPage.verifyOvertimeTicketNewStatus();
 
         // Send Overtime Ticket
-        await overtimeTicketPage.clickSend();
+        await overtimeTicketPage.clickSendAndClickYes();
         await overtimeTicketPage.getToastSendSuccess();
 
         await logoutPage.logout();
@@ -240,7 +240,7 @@ test.describe.serial('Overtime Ticket Test Suite', () => {
 
         // Reject Overtime Ticket
         await overtimeTicketPage.clickReject();
-        await overtimeTicketPage.fillReason('Automation test reject reason');
+        await overtimeTicketPage.fillReasonAndClickYes('Automation test reject reason');
         await toastPage.getToastRejectSuccess();
 
         // Verify reject status
@@ -294,7 +294,7 @@ test.describe.serial('Overtime Ticket Test Suite', () => {
         await overtimeTicketPage.verifyOvertimeTicketNewStatus();
 
         // Send Overtime Ticket
-        await overtimeTicketPage.clickSend();
+        await overtimeTicketPage.clickSendAndClickYes();
         await overtimeTicketPage.getToastSendSuccess();
 
         await logoutPage.logout();
@@ -303,7 +303,7 @@ test.describe.serial('Overtime Ticket Test Suite', () => {
         // Cancel Overtime Ticket
         await overtimeTicketPage.clickRow0();
         await overtimeTicketPage.clickCancel();
-        await overtimeTicketPage.fillReason('Automation test cancel reason');
+        await overtimeTicketPage.fillReasonAndClickYes('Automation test cancel reason');
         await toastPage.getToastCancelSuccess();
 
         // Verify cancel status

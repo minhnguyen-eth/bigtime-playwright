@@ -40,7 +40,7 @@ export class ContractPage extends BasePage {
         this.selectDay2 = page.locator("//div[@class='dp__cell_inner dp__pointer dp__date_hover'][normalize-space()='30']");
         this.selectMonth2 = page.locator("//div[@class='dp__overlay_cell_active dp__overlay_cell_pad']")
         this.verifySearchByName = page.locator("//tr[@id='row-0']//span[contains(text(),'BAT810-Nguyễn Văn Minh')]");
-        this.verifySearchByCode = page.locator("//tr/td[2][contains(normalize-space(), 'HD0001')]");
+        this.verifySearchByCode = page.locator("//tr[@id='row-0']//td[2][contains(normalize-space(), 'HD0001')]");
         this.startDateSearchResult = page.locator("//tr/td[5][contains(normalize-space(), '2025')]");
         this.startDateSearch = page.getByRole('textbox', { name: 'Ngày bắt đầu' })
         this.verifyProbationTypeResult = page.locator("//div[text()='Thử việc']");

@@ -34,26 +34,22 @@ test.describe.serial('Work Shift Tests', () => {
         await workShiftPage.clickOnChosse08HourPicker();
         await workShiftPage.clickOnChosseMinutePicker();
         await workShiftPage.clickOnChosse00MinutePicker();
-        await workShiftPage.clickOnChosseButtonPicker();
         await workShiftPage.clickEndTime();
         await workShiftPage.clickChosseHourPicker();
         await workShiftPage.clickOnChosse17HourPicker();
         await workShiftPage.clickOnChosseMinutePicker();
         await workShiftPage.clickOnChosse00MinutePicker();
-        await workShiftPage.clickOnChosseButtonPicker();
         await workShiftPage.clickOnRestCheckBox();
         await workShiftPage.clickOnTimeStartRest();
         await workShiftPage.clickChosseHourPicker();
         await workShiftPage.clickOnChosse12HourPicker();
         await workShiftPage.clickOnChosseMinutePicker();
         await workShiftPage.clickOnChosse00MinutePicker();
-        await workShiftPage.clickOnChosseButtonPicker();
         await workShiftPage.clickOnTimeEndRest();
         await workShiftPage.clickChosseHourPicker();
         await workShiftPage.clickChosse13HourPicker();
         await workShiftPage.clickOnChosseMinutePicker();
         await workShiftPage.clickOnChosse00MinutePicker();
-        await workShiftPage.clickOnChosseButtonPicker();
         await workShiftPage.getVerifyWorkingTime();
     }
 
@@ -64,7 +60,7 @@ test.describe.serial('Work Shift Tests', () => {
         await workShiftPage.fillWorkShiftName('a'.repeat(255));
         await workShiftPage.fillWorkShiftCode(workShiftCode);
         await testBody();
-        await workShiftPage.clickOnSaveButton();
+        await workShiftPage.clickSave();
         await toastPage.getToastAddSuccess();
     });
 
@@ -74,7 +70,7 @@ test.describe.serial('Work Shift Tests', () => {
         await workShiftPage.fillWorkShiftName('a'.repeat(256));
         await workShiftPage.fillWorkShiftCode(workShiftCode);
         await testBody();
-        await workShiftPage.clickOnSaveButton();
+        await workShiftPage.clickSave();
         await validation.validateMaxLength255Characters();
     });
 
@@ -95,7 +91,7 @@ test.describe.serial('Work Shift Tests', () => {
         await allure.step('Select branch and save', async () => {
             await workShiftPage.clickOnBranchDropdown();
             await workShiftPage.clickOnBranchBienHoa();
-            await workShiftPage.clickOnSaveButton();
+            await workShiftPage.clickSave();
             await toastPage.getToastAddSuccess();
         });
     });
@@ -104,11 +100,11 @@ test.describe.serial('Work Shift Tests', () => {
 
         await allure.step('Edit work shift status', async () => {
             await workShiftPage.clickEditRow0();
-            await workShiftPage.clickDropdownStatusInForm();
-            await workShiftPage.clickOnLockStatus();
-            await workShiftPage.clickOnSaveButton();
+            await workShiftPage.clickDropdownStatusInFormNth1();
+            await workShiftPage.clickLockStatus();
+            await workShiftPage.clickSave();
             await toastPage.getToastUpdateSuccess();
-            await workShiftPage.getVerifyLockStatus();
+            await workShiftPage.verifyLockStatusRow0();
         });
 
         await allure.step('Delete work shift', async () => {
@@ -141,57 +137,32 @@ test.describe.serial('Work Shift Tests', () => {
             await workShiftPage.getVerifyWorkShiftCode();
             await workShiftPage.clickClearSearch();
         });
-
-        await allure.step('Search by Active status', async () => {
-            await workShiftPage.clickDropdownStatusSearch();
-            await workShiftPage.clickOnStatus('Active');
-            await workShiftPage.clickSearch();
-            await workShiftPage.getVerifyAtiveStatusSearch();
-            await workShiftPage.clickClearSearch();
-        });
-
-        await allure.step('Search by Lock status', async () => {
-            await workShiftPage.clickDropdownStatusSearch();
-            await workShiftPage.clickOnStatus('Lock');
-            await workShiftPage.clickSearch();
-            await workShiftPage.getVerifyLockStatusSearch();
-            await workShiftPage.clickClearSearch();
-        });
-
-        await allure.step('Search by Active & Lock status', async () => {
-            await workShiftPage.clickDropdownStatusSearch();
-            await workShiftPage.clickOnStatus('Active');
-            await workShiftPage.clickOnStatus('Lock');
-            await workShiftPage.clickSearch();
-            await workShiftPage.getVerifyAtiveStatusSearch();
-            // await workShiftPage.getVerifyLockStatusSearchRow1();
-        });
     });
 
     test('Search by status', async ({ page }) => {
         await allure.step('Search by Active status', async () => {
             await workShiftPage.clickDropdownStatusSearch();
-            await workShiftPage.clickOnStatus('Active');
+            await workShiftPage.clickActivityStatus();
             await workShiftPage.clickSearch();
-            await workShiftPage.getVerifyAtiveStatusSearch();
+            await workShiftPage.verifyActivityStatusRow0();
             await workShiftPage.clickClearSearch();
         });
 
         await allure.step('Search by Lock status', async () => {
             await workShiftPage.clickDropdownStatusSearch();
-            await workShiftPage.clickOnStatus('Lock');
+            await workShiftPage.clickLockStatus();
             await workShiftPage.clickSearch();
-            await workShiftPage.getVerifyLockStatusSearch();
+            await workShiftPage.verifyLockStatusRow0();
             await workShiftPage.clickClearSearch();
         });
 
         await allure.step('Search by Active & Lock status', async () => {
             await workShiftPage.clickDropdownStatusSearch();
-            await workShiftPage.clickOnStatus('Active');
-            await workShiftPage.clickOnStatus('Lock');
+            await workShiftPage.clickActivityStatus();
+            await workShiftPage.clickLockStatus
             await workShiftPage.clickSearch();
-            await workShiftPage.getVerifyAtiveStatusSearch();
-            // await workShiftPage.getVerifyLockStatusSearchRow1();
+            await workShiftPage.verifyActivityStatusRow0();
+            // await workShiftPage.getVerifyLockStatusSearchRow1()
         });
     });
 
@@ -201,7 +172,6 @@ test.describe.serial('Work Shift Tests', () => {
         await workShiftPage.clickSearch();
         await workShiftPage.getVerifyBranchBienHoaSearch();
         await workShiftPage.clickClearSearch();
-
     });
 });
 

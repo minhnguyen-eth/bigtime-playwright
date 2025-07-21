@@ -61,15 +61,11 @@ export class SafeActions {
                 locator = locator.nth(options.nth);
             }
 
-            await locator.waitFor({ state: 'visible', timeout });
             await locator.waitFor({ state: 'attached', timeout });
+            await locator.waitFor({ state: 'visible', timeout });
+            await expect(locator).toBeEnabled({ timeout });
 
-            if (!(await locator.isEnabled())) {
-                throw new Error("Element not enabled for click.");
-            }
-
-            // optional: chờ layout ổn định nhẹ
-            await this.page.waitForTimeout(100);
+            await this.page.waitForTimeout(100); // ổn định layout
 
             logDebug('Clicking element...');
             await locator.click({ force: options?.force ?? false, timeout });
@@ -78,7 +74,6 @@ export class SafeActions {
             throw error;
         }
     }
-
 
     async waitForOverlayToDisappear(selector: string = '.overlay', timeout: number = 30000): Promise<void> {
         const overlay = this.page.locator(selector);

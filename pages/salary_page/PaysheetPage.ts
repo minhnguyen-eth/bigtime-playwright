@@ -24,7 +24,6 @@ export class PaysheetPage extends BasePage {
     readonly paymentHistoryButton: Locator;
     readonly historyPaymentCodeButton: Locator;
     readonly employeeNameLabel: Locator;
-    readonly cancelPaysheetButton: Locator;
     readonly searchInput: Locator;
     readonly verifyPaysheetIdCell: Locator;
     readonly selectAllEmployeesCheckbox: Locator;
@@ -46,11 +45,10 @@ export class PaysheetPage extends BasePage {
     readonly addMoreEmployee: Locator;
     readonly fillEmployeeName: Locator;
     readonly selectMoreEmployee: Locator;
-    readonly salarySlipCodeRow1: Locator;
     readonly baseSalary: Locator;
     readonly numberOfWorkingDays: Locator;
     readonly verifyBaseSalary: Locator;
-    readonly overTimeInput: Locator;
+    readonly overTimeInput: Locator
     readonly bonusButton: Locator;
     readonly addBonusButton: Locator;
     readonly moneyInput: Locator;
@@ -112,7 +110,6 @@ export class PaysheetPage extends BasePage {
         this.noteInput = page.locator('//textarea[@class="v-field__input"]');
         this.payslipButton = page.locator('//a[@href="/salary/payslip"]');
         this.salarySlipCode = page.locator('//tr[@id="row-0"]//td[2]');
-        this.salarySlipCodeRow1 = page.locator('//tr[@id="row-1"]//td[2]');
         this.browseButton = page.getByRole('button', { name: /Duyệt/ }).first()
         this.salaryClosingButton = page.getByRole('button', { name: 'Chốt lương' });
         this.exportDataButton = page.locator('//span[contains(normalize-space(),"Xuất dữ liệu")]');
@@ -210,9 +207,6 @@ export class PaysheetPage extends BasePage {
     async clickbaseSalary() {
         await this.safeClick(this.baseSalary);
 
-    }
-    async clickSalarySlipCodeRow1() {
-        await this.safeClick(this.salarySlipCodeRow1);
     }
 
     async clickSelectMoreEmployee() {
@@ -313,10 +307,6 @@ export class PaysheetPage extends BasePage {
 
     async fillSearchPaysheet(id: string) {
         await this.safeFill(this.searchInput, id);
-    }
-
-    async clickCancelPaysheet() {
-        await this.safeClick(this.cancelPaysheetButton);
     }
 
     async getEmployeeName(employeeName: string) {

@@ -27,7 +27,6 @@ test.describe.serial('Level Test Suite', () => {
         await loginPage.login(Config.admin_username, Config.admin_password)
         await levelPage.clickAdmin();
         await levelPage.clickLevel();
-
     })
 
     test('Create with lock status', async ({ page }) => {
@@ -36,7 +35,7 @@ test.describe.serial('Level Test Suite', () => {
         await levelPage.clickAdd();
         await levelPage.fillLevelName(random);
         await levelPage.fillCode(random);
-        await levelPage.clickDropdownStatusInForm();
+        await levelPage.clickDropdownStatusInFormNth1();
         await levelPage.clickLockStatus();
         await levelPage.clickSave();
         await toastPage.getToastAddSuccess();
@@ -103,7 +102,7 @@ test.describe.serial('Level Test Suite', () => {
 
     test('Edit active status to lock status', async ({ page }) => {
         await levelPage.clickEditRow0();
-        await levelPage.clickDropdownStatusInForm();
+        await levelPage.clickDropdownStatusInFormNth1();
         await levelPage.clickLockStatus();
         await levelPage.clickSave();
         await toastPage.getToastUpdateSuccess();
@@ -111,9 +110,8 @@ test.describe.serial('Level Test Suite', () => {
     });
 
     test('Edit lock status to active status', async ({ page }) => {
-
         await levelPage.clickEditRow0();
-        await levelPage.clickDropdownStatusInForm();
+        await levelPage.clickDropdownStatusInFormNth1();
         await levelPage.clickActivityStatus();
         await levelPage.clickSave();
         await toastPage.getToastUpdateSuccess();
@@ -122,7 +120,6 @@ test.describe.serial('Level Test Suite', () => {
 
 
     test('Edit name successfully', async ({ page }) => {
-        const random = "Automation test" + Math.random().toString(36).substring(2, 7);
         await levelPage.clickEditRow0();
         await levelPage.fillLevelName("Automation test edit name");
         await levelPage.clickSave();
@@ -185,7 +182,6 @@ test.describe.serial('Level Test Suite', () => {
     });
 
     test('Search by status', async ({ page }) => {
-
         await levelPage.clickDropdownStatusSearch();
         await levelPage.clickLockStatus();
         await levelPage.clickSearch();
@@ -262,4 +258,4 @@ test.describe.serial('Level Test Suite', () => {
         await levelPage.clickSave();
         await validation.validateMaxLength100Characters();
     });
-});
+});   

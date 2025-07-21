@@ -1,7 +1,6 @@
 import { expect, Locator, Page } from "@playwright/test";
 import { BasePage } from "../BasePage";
 
-
 export class RewardEmployeePage extends BasePage {
     readonly rewardEmployee: Locator;
     readonly rewardNameInput: Locator;
@@ -53,7 +52,7 @@ export class RewardEmployeePage extends BasePage {
         this.searchByRewardType = page.getByRole('textbox', { name: 'Tên loại khen thưởng' });
         this.searchByEmployee = page.getByRole('textbox', { name: 'Nhân viên được khen thưởng' });
         this.searchByRewardName = page.getByRole('textbox', { name: 'Tên khen thưởng' });
-        this.day19 = page.locator("//div[@class='dp__cell_inner dp__pointer dp__date_hover'][normalize-space()='19']");
+        this.day19 = page.locator("//div[contains(@class, 'dp__cell_inner') and normalize-space()='19']");
         this.dayReward = page.getByRole('textbox', { name: 'Ngày khen thưởng' });
         this.validationMoney = page.locator("//div[contains(text(),'Nhập tiền thưởng')]");
         this.validationRewardType = page.locator("//div[contains(text(),'Nhập chọn loại khen thưởng')]");

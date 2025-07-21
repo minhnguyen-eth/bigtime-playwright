@@ -58,7 +58,7 @@ test.describe.serial("Evaluation Type Tests", () => {
         await evaluationtype.clickEvaluationType();
         await evaluationtype.clickAdd();
         await evaluationtype.setEvaluationTypeName('Automation test max length description');
-        await evaluationtype.fillDescription('a'.repeat(500));
+        await evaluationtype.fillTextarea('a'.repeat(500));
         await evaluationtype.clickSave();
         await toastPage.getToastAddSuccess();
     });
@@ -70,7 +70,7 @@ test.describe.serial("Evaluation Type Tests", () => {
         await evaluationtype.clickEvaluationType();
         await evaluationtype.clickAdd();
         await evaluationtype.setEvaluationTypeName('Automation test max length description');
-        await evaluationtype.fillDescription('a'.repeat(501));
+        await evaluationtype.fillTextarea('a'.repeat(501));
         await evaluationtype.clickSave();
         await validationPage.validateMaxLength500Characters();
     });
@@ -88,7 +88,7 @@ test.describe.serial("Evaluation Type Tests", () => {
         await evaluationtype.clickEvaluationType();
         await evaluationtype.clickAdd();
         await evaluationtype.setEvaluationTypeName(evaluationName);
-        await evaluationtype.fillDescription("This is a test description");
+        await evaluationtype.fillTextarea("This is a test description");
         await evaluationtype.clickSave();
         await toastPage.getToastAddSuccess();
 
@@ -127,7 +127,7 @@ test.describe.serial("Evaluation Type Tests", () => {
         await evaluationtype.clickAdmin();
         await evaluationtype.clickEvaluationType();
         await evaluationtype.clickEditRow0();
-        await evaluationtype.clickDropdownStatusInForm();
+        await evaluationtype.clickDropdownStatusInFormNth1();
         await evaluationtype.clickLockStatus();
         await evaluationtype.clickSave();
         await toastPage.getToastUpdateSuccess();
@@ -144,8 +144,8 @@ test.describe.serial("Evaluation Type Tests", () => {
         await evaluationtype.clickEvaluationType();
         await evaluationtype.clickAdd();
         await evaluationtype.setEvaluationTypeName(evaluationName);
-        await evaluationtype.fillDescription("This is a test description");
-        await evaluationtype.clickDropdownStatusInForm();
+        await evaluationtype.fillTextarea("This is a test description");
+        await evaluationtype.clickDropdownStatusInFormNth1();
         await evaluationtype.clickLockStatus();
         await evaluationtype.clickSave();
         await toastPage.getToastAddSuccess();

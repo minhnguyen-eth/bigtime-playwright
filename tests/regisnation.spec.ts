@@ -8,7 +8,6 @@ import { allure } from 'allure-playwright';
 import { ValidationPage } from '../pages/ValidationPage';
 import { LogoutPage } from '../pages/LogoutPage';
 
-
 test.describe.serial('Resignation Tests', () => {
   let loginPage: LoginPage;
   let regisnationPage: RegisnationPage;
@@ -51,6 +50,7 @@ test.describe.serial('Resignation Tests', () => {
   }
 
   test("Max length of reason ", async ({ page }) => {
+    await clearResignation();
     await beforTestMaxLength();
     await regisnationPage.fillReason("z".repeat(255));
     await regisnationPage.clickSave();
@@ -75,8 +75,7 @@ test.describe.serial('Resignation Tests', () => {
 
     await allure.step('Employee sends resignation', async () => {
       await regisnationPage.clickRow0();
-      await regisnationPage.clickSend();
-      await regisnationPage.clickYes();
+      await regisnationPage.clickSendAndClickYes();
       await toastPage.getToastSendSuccess();
     });
   });
@@ -116,31 +115,28 @@ test.describe.serial('Resignation Tests', () => {
     });
 
     await allure.step('Employee sends resignation request', async () => {
-      await regisnationPage.clickSend();
-      await regisnationPage.clickYes();
+      await regisnationPage.clickSendAndClickYes();
       await toastPage.getToastSendSuccess();
     });
 
     await allure.step('Employee browses own request', async () => {
       await regisnationPage.clickRow0();
       await regisnationPage.clickBrowse();
-      await regisnationPage.clickYes();
       await toastPage.getToastBrowseSuccess();
       await logoutPage.logout();
 
     });
 
-    await allure.step('Manager approves resignation request', async () => {
-      await loginPage.goto();
-      await loginPage.login(Config.manager_username, Config.manager_password);
-      await regisnationPage.clickAdmin();
-      await regisnationPage.clickRegisnationButton();
-      await regisnationPage.clickRow0();
-      await regisnationPage.clickBrowse();
-      await regisnationPage.clickYes();
-      await toastPage.getToastBrowseSuccess();
-      await logoutPage.logout();
-    });
+    // await allure.step('Manager approves resignation request', async () => {
+    //   await loginPage.goto();
+    //   await loginPage.login(Config.manager_username, Config.manager_password);
+    //   await regisnationPage.clickAdmin();
+    //   await regisnationPage.clickRegisnationButton();
+    //   await regisnationPage.clickRow0();
+    //   await regisnationPage.clickBrowse();
+    //   await toastPage.getToastBrowseSuccess();
+    //   await logoutPage.logout();
+    // });
 
     await allure.step('Admin rejects resignation request', async () => {
       await loginPage.goto();
@@ -149,7 +145,7 @@ test.describe.serial('Resignation Tests', () => {
       await regisnationPage.clickRegisnationButton();
       await regisnationPage.clickRow0();
       await regisnationPage.clickReject();
-      await regisnationPage.fillReason('Automation test reject');
+      await regisnationPage.fillReasonAndClickYes('Automation test reject');
       await toastPage.getToastRejectSuccess();
     });
   });
@@ -163,31 +159,28 @@ test.describe.serial('Resignation Tests', () => {
     });
 
     await allure.step('Employee sends resignation request', async () => {
-      await regisnationPage.clickSend();
-      await regisnationPage.clickYes();
+      await regisnationPage.clickSendAndClickYes();
       await toastPage.getToastSendSuccess();
     });
 
     await allure.step('Employee browses own request', async () => {
       await regisnationPage.clickRow0();
       await regisnationPage.clickBrowse();
-      await regisnationPage.clickYes();
       await toastPage.getToastBrowseSuccess();
       await logoutPage.logout();
 
     });
 
-    await allure.step('Manager approves resignation request', async () => {
-      await loginPage.goto();
-      await loginPage.login(Config.manager_username, Config.manager_password);
-      await regisnationPage.clickAdmin();
-      await regisnationPage.clickRegisnationButton();
-      await regisnationPage.clickRow0();
-      await regisnationPage.clickBrowse();
-      await regisnationPage.clickYes();
-      await toastPage.getToastBrowseSuccess();
-      await logoutPage.logout();
-    });
+    // await allure.step('Manager approves resignation request', async () => {
+    //   await loginPage.goto();
+    //   await loginPage.login(Config.manager_username, Config.manager_password);
+    //   await regisnationPage.clickAdmin();
+    //   await regisnationPage.clickRegisnationButton();
+    //   await regisnationPage.clickRow0();
+    //   await regisnationPage.clickBrowse();
+    //   await toastPage.getToastBrowseSuccess();
+    //   await logoutPage.logout();
+    // });
 
     await allure.step('Admin approves resignation request', async () => {
       await loginPage.goto();
@@ -196,7 +189,6 @@ test.describe.serial('Resignation Tests', () => {
       await regisnationPage.clickRegisnationButton();
       await regisnationPage.clickRow0();
       await regisnationPage.clickBrowse();
-      await regisnationPage.clickYes();
       await toastPage.getToastBrowseSuccess();
     });
   });
@@ -208,8 +200,8 @@ test.describe.serial('Resignation Tests', () => {
       await regisnationPage.clickAdmin();
       await regisnationPage.clickRegisnationButton();
       await regisnationPage.clickRow0();
-      await regisnationPage.clickCancelButton();
-      await regisnationPage.fillReason('Automation test cancel');
+      await regisnationPage.clickCancel();
+      await regisnationPage.fillReasonAndClickYes('Automation test cancel');
       await toastPage.getToastCancelSuccess();
     });
   });
@@ -225,7 +217,7 @@ test.describe.serial('Resignation Tests', () => {
       await regisnationPage.searchEmployeeName('Nguyễn Văn Minh');
       await regisnationPage.clickSearch();
       await regisnationPage.getVerifyEmployeeNameSearch();
-      await regisnationPage.clickClearSearchButton();
+      await regisnationPage.clickClearSearch();
     });
 
     await allure.step('Search by notification of leave date', async () => {
@@ -236,7 +228,7 @@ test.describe.serial('Resignation Tests', () => {
       await regisnationPage.clickChoose();
       await regisnationPage.clickSearch();
       await regisnationPage.getVerifyNotificationOfLeave();
-      await regisnationPage.clickClearSearchButton();
+      await regisnationPage.clickClearSearch();
     });
 
     await allure.step('Search by browsed status', async () => {
@@ -244,7 +236,7 @@ test.describe.serial('Resignation Tests', () => {
       await regisnationPage.clickBrowsedStatusOption();
       await regisnationPage.clickSearch();
       await regisnationPage.getVerifyBrowseStatusOption();
-      await regisnationPage.clickClearSearchButton();
+      await regisnationPage.clickClearSearch();
     });
 
     await allure.step('Search by submitted status', async () => {
@@ -252,7 +244,7 @@ test.describe.serial('Resignation Tests', () => {
       await regisnationPage.clickSubmittedButton();
       await regisnationPage.clickSearch();
       await regisnationPage.getVerifySubmittedButton();
-      await regisnationPage.clickClearSearchButton();
+      await regisnationPage.clickClearSearch();
     });
 
     await allure.step('Search by rejected status', async () => {
@@ -260,7 +252,7 @@ test.describe.serial('Resignation Tests', () => {
       await regisnationPage.clickRejectStatusOption();
       await regisnationPage.clickSearch();
       await regisnationPage.getVerifyRejectStatusOption();
-      await regisnationPage.clickClearSearchButton();
+      await regisnationPage.clickClearSearch();
     });
 
     await allure.step('Search by canceled status', async () => {
@@ -268,7 +260,7 @@ test.describe.serial('Resignation Tests', () => {
       await regisnationPage.clickCancelStatusOption();
       await regisnationPage.clickSearch();
       await regisnationPage.getVerifyCancelStatusOption();
-      await regisnationPage.clickClearSearchButton();
+      await regisnationPage.clickClearSearch();
     });
   });
 

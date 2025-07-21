@@ -4,6 +4,7 @@
     "pretest": "rimraf allure-results allure-report",
     "test": "npx playwright test",
     "generate": "node generate-report.js",
+    "predeploy": "rimraf allure-results",
     "deploy": "gh-pages -d allure-report",
     "report": "npm run generate && npm run deploy"
   },

@@ -112,7 +112,7 @@ test.describe.serial('Branch Test', () => {
         await branchPage.fillNumberOfEmployee("999");
         await branchPage.fillPhoneNumber(phoneNumber.toString());
         await branchPage.fillBranchAddress(randomString);
-        await branchPage.clickDropdownStatusInForm();
+        await branchPage.clickDropdownStatusInFormNth1();
         await branchPage.clickLockStatus();
         await branchPage.clickSave();
         await toastPage.getToastAddSuccess();
@@ -143,7 +143,7 @@ test.describe.serial('Branch Test', () => {
     test('Edit active status to lock status', async ({ page }) => {
         await branchPage.clickBranchButton();
         await branchPage.clickEditRow0();
-        await branchPage.clickDropdownStatusInForm();
+        await branchPage.clickDropdownStatusInFormNth1();
         await branchPage.clickLockStatus();
         await branchPage.clickSave();
         await toastPage.getToastUpdateSuccess();
@@ -153,7 +153,7 @@ test.describe.serial('Branch Test', () => {
     test('Edit lock status to active status', async ({ page }) => {
         await branchPage.clickBranchButton();
         await branchPage.clickEditRow0();
-        await branchPage.clickDropdownStatusInForm();
+        await branchPage.clickDropdownStatusInFormNth1();
         await branchPage.clickActivityStatus();
         await branchPage.clickSave();
         await toastPage.getToastUpdateSuccess();
@@ -323,7 +323,7 @@ test.describe.serial('Branch Test', () => {
         await branchPage.fillBranchAddress(randomString);
         await branchPage.fillNoteInput(randomString);
         await branchPage.clickSave();
-        await branchPage.verifyMaxLengthShortName();
+        await validation.validateMaxLength50Characters();
     });
 
     test("Max length of note 500 characters", async ({ page }) => {
@@ -368,7 +368,7 @@ test.describe.serial('Branch Test', () => {
         await branchPage.fillBranchAddress(randomString);
         await branchPage.fillNoteInput("z".repeat(501));
         await branchPage.clickSave();
-        await toastPage.getToastAddFailed();
+        await validation.validateMaxLength500Characters();
     });
 
     test("Max length of branch address over 500 characters", async ({ page }) => {

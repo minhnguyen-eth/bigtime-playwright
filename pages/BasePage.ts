@@ -29,6 +29,7 @@ export class BasePage extends SafeActions {
     readonly reasonInput: Locator;
     readonly noteInput: Locator;
     readonly descriptionInput: Locator;
+    readonly textareaInput: Locator;
 
     // Status Indicators / Labels
     readonly browsedStatus: Locator;
@@ -49,7 +50,7 @@ export class BasePage extends SafeActions {
 
     constructor(page: Page) {
         super(page);
-        this.statusDropDownInForm = page.getByRole('combobox').filter({ hasText: 'Trạng thái ※' }).locator('i').nth(1)
+        this.statusDropDownInForm = page.getByRole('combobox').filter({ hasText: 'Trạng thái ※' }).locator('i');
         this.noteInput = page.getByRole('textbox', { name: 'Ghi chú' });
         this.row0 = page.locator("//tr[@id='row-0']");
         this.lockStatus = page.locator("//div[contains(text(),'Khóa')]");
@@ -65,7 +66,7 @@ export class BasePage extends SafeActions {
         this.todayDatePicker = page.locator("//div[contains(@class, 'dp__cell_inner') and contains(@class, 'dp__pointer') and contains(@class, 'dp__today')]");
         this.deleteButton = page.locator("//span[contains(text(),'Xóa')]");
         this.editButton = page.locator("//span[contains(text(),'Sửa')]");
-        this.reasonInput = page.locator("//textarea");
+        this.reasonInput = page.getByRole('textbox', { name: 'Lý do' });
         this.chosseButton = page.getByRole('button', { name: 'Chọn' });
         this.confirmButton = page.getByRole('button', { name: 'Xác nhận' });
         this.rejectButton = page.getByRole('button', { name: 'Từ chối' });
@@ -81,7 +82,12 @@ export class BasePage extends SafeActions {
         this.clearSearchButton = page.locator("//span[normalize-space()='Xóa']").first();
         this.addButton = page.locator("//span[normalize-space()='Thêm']");
         this.searchButton = page.locator("//span[contains(normalize-space(),'Tìm kiếm')]");
-        this.descriptionInput = page.locator("//div/div[2]/div/div/div/div[3]/textarea");
+        this.descriptionInput = page.getByRole('textbox', { name: 'Mô tả' });
+        this.textareaInput = page.locator("//textarea");
+    }
+
+    async fillTextarea(text: string) {
+        await this.safeFill(this.textareaInput, text);
     }
 
     async clickRow0() {
@@ -98,6 +104,11 @@ export class BasePage extends SafeActions {
 
     async clickDropdownStatusSearch() {
         await this.safeClick(this.dropdownStatusSearch);
+    }
+
+
+    async clickDropdownStatusSearchNth1() {
+        await this.safeClick(this.dropdownStatusSearch, { nth: 1 });
     }
 
     async verifyActivityStatusRow0() {
@@ -151,6 +162,10 @@ export class BasePage extends SafeActions {
         await this.safeClick(this.editButton);
     }
 
+    async clickEditNth1() {
+        await this.safeClick(this.editButton, { nth: 1 });
+    }
+
     async fillReasonAndClickYes(reason: string) {
         await this.safeFill(this.reasonInput, reason);
         await this.safeClick(this.yesButton);
@@ -186,9 +201,13 @@ export class BasePage extends SafeActions {
         await this.safeClick(this.yesButton);
     }
 
-    async clickSend() {
+    async clickSendAndClickYes() {
         await this.safeClick(this.sendButton);
         await this.safeClick(this.yesButton);
+    }
+
+    async clickSend() {
+        await this.safeClick(this.sendButton);
     }
 
     async clickYes() {
@@ -209,8 +228,12 @@ export class BasePage extends SafeActions {
 
     async clickSave() {
         await this.page.waitForLoadState('networkidle');
-        await this.page.waitForTimeout(1000);
+        await this.page.waitForTimeout(700);
         await this.safeClick(this.saveButton);
+    }
+
+    async clickSaveNth1() {
+        await this.safeClick(this.saveButton, { nth: 1 });
     }
 
     async clickDeleteRow0() {
@@ -230,6 +253,10 @@ export class BasePage extends SafeActions {
         await this.safeClick(this.addButton);
     }
 
+     async clickAddNth1() {
+        await this.safeClick(this.addButton, { nth: 1 });
+    }
+
     async clickSearch() {
         await this.safeClick(this.searchButton);
     }
@@ -244,5 +271,9 @@ export class BasePage extends SafeActions {
 
     async clickDropdownStatusInForm() {
         await this.safeClick(this.statusDropDownInForm);
+    }
+
+    async clickDropdownStatusInFormNth1() {
+        await this.safeClick(this.statusDropDownInForm, { nth: 1 });
     }
 }

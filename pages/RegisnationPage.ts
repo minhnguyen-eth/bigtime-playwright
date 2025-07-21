@@ -53,10 +53,6 @@ export class RegisnationPage extends BasePage {
         this.regisnationButton = page.locator("//div[contains(text(),'Đơn thôi việc')]");
     }
 
-    async clickCancelButton() {
-        await this.safeClick(this.cancelButton);
-    }
-
     async clickMonth06Button() {
         await this.safeClick(this.month06Button);
     }
@@ -83,10 +79,6 @@ export class RegisnationPage extends BasePage {
 
     async clickExportButton() {
         await this.safeClick(this.exportButton);
-    }
-
-    async clickClearSearchButton() {
-        await this.safeClick(this.clearSearchButton);
     }
 
     async clickNewStatusOption() {

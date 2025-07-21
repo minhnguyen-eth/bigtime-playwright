@@ -127,7 +127,7 @@ test.describe.serial('Reward Type Tests', () => {
             await rewardTypePage.clickAdd();
             await rewardTypePage.fillRewardTypeNameInput(rewardTypeName);
             await rewardTypePage.fillDescription('Test Description');
-            await rewardTypePage.clickDropdownStatusInForm();
+            await rewardTypePage.clickDropdownStatusInFormNth1();
             await rewardTypePage.clickLockStatus();
             await rewardTypePage.clickSave();
         });
@@ -164,7 +164,7 @@ test.describe.serial('Reward Type Tests', () => {
         await allure.step('Open reward type edit form', async () => {
 
             await rewardTypePage.clickEditRow0();
-            await rewardTypePage.clickDropdownStatusInForm();
+            await rewardTypePage.clickDropdownStatusInFormNth1();
             await rewardTypePage.clickLockStatus();
             await rewardTypePage.clickSave();
             await toastPage.getToastUpdateSuccess();

@@ -100,7 +100,7 @@ test.describe.serial("Evaluation Criteria Tests", () => {
         await evaluationCriteriaPage.fillDescription("Automation Test Description");
         await evaluationCriteriaPage.clickEvaluationCriteriaNameDropDown();
         await evaluationCriteriaPage.clickEvaluationTypeOption();
-        await evaluationCriteriaPage.clickDropdownStatusInForm();
+        await evaluationCriteriaPage.clickDropdownStatusInFormNth1();
         await evaluationCriteriaPage.clickLockStatus();
         await evaluationCriteriaPage.clickSave();
         await toastPage.getToastAddSuccess();
@@ -163,14 +163,14 @@ test.describe.serial("Evaluation Criteria Tests", () => {
         await toastPage.getToastUpdateSuccess();
 
         await evaluationCriteriaPage.clickEditRow0();
-        await evaluationCriteriaPage.clickDropdownStatusInForm();
+        await evaluationCriteriaPage.clickDropdownStatusInFormNth1();
         await evaluationCriteriaPage.clickLockStatus();
         await evaluationCriteriaPage.clickSave();
         await toastPage.getToastUpdateSuccess();
         await evaluationCriteriaPage.verifyLockStatusRow0();
 
         await evaluationCriteriaPage.clickEditRow0();
-        await evaluationCriteriaPage.clickDropdownStatusInForm();
+        await evaluationCriteriaPage.clickDropdownStatusInFormNth1();
         await evaluationCriteriaPage.clickActivityStatus();
         await evaluationCriteriaPage.clickSave();
         await evaluationCriteriaPage.verifyActivityStatusRow0();

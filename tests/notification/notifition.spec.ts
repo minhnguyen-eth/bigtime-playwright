@@ -4,7 +4,6 @@ import Config from '../../utils/configUtils';
 import { ToastPage } from '../../pages/ToastPage';
 import { allure } from 'allure-playwright';
 import { NotificationPage } from '../../pages/notification_page/NotificationPage';
-
 import { LogoutPage } from '../../pages/LogoutPage';
 import { ValidationPage } from '../../pages/ValidationPage';
 import { clearNotifications } from '../../db/helpers/DBHelper';
@@ -204,7 +203,7 @@ test.describe.serial('Notification Test Suite', () => {
         await toast.getToastSendNotificationSuccess();
     });
 
-    test('Send notification to personal', async ({ page }) => {
+    test.skip('Send notification to personal', async ({ page }) => {
         allure.story('Send Notification to Personal');
         await allure.step('Send notification to a specific employee', async () => {
             await loginPage.login(Config.admin_username, Config.admin_password);

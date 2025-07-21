@@ -7,8 +7,6 @@ import { allure } from "allure-playwright";
 import { ValidationPage } from '../../pages/ValidationPage';
 import { clearTerm } from '../../db/helpers/DBHelper';
 
-// test.use({ video: 'on', headless: false });
-
 test.describe.serial('Term Tests', () => {
     let termPage: TermPage;
     let toastPage: ToastPage;
@@ -69,7 +67,7 @@ test.describe.serial('Term Tests', () => {
         await termPage.clickAdd();
         await termPage.fillName('Automatic created term with lock status');
         await termPage.fillContent('Automatic created term');
-        await termPage.clickDropdownStatusInForm();
+        await termPage.clickDropdownStatusInFormNth1();
         await termPage.clickLockStatus();
         await termPage.clickSave();
         await toastPage.getToastAddSuccess();
@@ -109,7 +107,7 @@ test.describe.serial('Term Tests', () => {
 
     test('Edit status', async ({ page }) => {
         await termPage.clickEditRow0();
-        await termPage.clickDropdownStatusInForm();
+        await termPage.clickDropdownStatusInFormNth1();
         await termPage.clickLockStatus();
         await termPage.clickSave();
         await toastPage.getToastUpdateSuccess();

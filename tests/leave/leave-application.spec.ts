@@ -206,13 +206,13 @@ test.describe.serial('Leave Application Tests', () => {
         });
         await allure.step('Send to admin and admin reject leave application', async () => {
             await leaveApplicationPage.clickRow0();
-            await leaveApplicationPage.clickSend();
+            await leaveApplicationPage.clickSendAndClickYes();
             await toastPage.getToastSendBrowseSuccess();
             await logoutPage.logout();
             await loginPage.login(Config.admin_username, Config.admin_password);
             await leaveApplicationPage.clickRow0();
             await leaveApplicationPage.clickReject();
-            await leaveApplicationPage.fillReason('Automation test');
+            await leaveApplicationPage.fillReasonAndClickYes('Automation test');
             await toastPage.getToastRejectSuccess();
         });
     });

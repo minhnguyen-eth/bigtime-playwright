@@ -36,17 +36,17 @@ test.describe.serial('Shift Plan Tests', () => {
         await shiftPlanPage.clickChosseMonthButton();
         await shiftPlanPage.clickMonth08();
         await shiftPlanPage.clickDay1Button();
-        await shiftPlanPage.clickChosseButton();
+        await shiftPlanPage.clickChoose();
         await shiftPlanPage.clickEndDateInput();
         await shiftPlanPage.clickChosseMonthButton();
         await shiftPlanPage.clickMonth08();
         await shiftPlanPage.clickDay31Button();
-        await shiftPlanPage.clickChosseButton();
-        await shiftPlanPage.clickAddDepartmentButton();
+        await shiftPlanPage.clickChoose();
+        await shiftPlanPage.clickAddNth1();
         await shiftPlanPage.fillSearchEmployeeInput('Nguyễn Văn Minh');
         await shiftPlanPage.clickEmployeeCheckbox();
-        await shiftPlanPage.clickSaveEmployeeButton();;
-        await shiftPlanPage.clickSaveButton();
+        await shiftPlanPage.clickSaveNth1();;
+        await shiftPlanPage.clickSave();
     }
 
     test("Max lengh of name 255 character", async ({ page }) => {
@@ -86,21 +86,21 @@ test.describe.serial('Shift Plan Tests', () => {
             await shiftPlanPage.clickChosseMonthButton();
             await shiftPlanPage.clickMonth08();
             await shiftPlanPage.clickDay1Button();
-            await shiftPlanPage.clickChosseButton();
+            await shiftPlanPage.clickChoose();
 
             await shiftPlanPage.clickEndDateInput();
             await shiftPlanPage.clickChosseMonthButton();
             await shiftPlanPage.clickMonth08();
             await shiftPlanPage.clickDay31Button();
-            await shiftPlanPage.clickChosseButton();
+            await shiftPlanPage.clickChoose();
 
             await shiftPlanPage.clickDepartmentButton();
-            await shiftPlanPage.clickAddDepartmentButton();
+            await shiftPlanPage.clickAddNth1();
             await shiftPlanPage.clickDepartmentDropDown();
             await shiftPlanPage.clickDepartmentOption();
-            await shiftPlanPage.clickSaveDepartmentButton();
+            await shiftPlanPage.clickSaveNth1();
 
-            await shiftPlanPage.clickSaveButton();
+            await shiftPlanPage.clickSave();
             await toastPage.getToastAddSuccess();
         });
 
@@ -146,8 +146,8 @@ test.describe.serial('Shift Plan Tests', () => {
     test('Edit with remove employee', async ({ page }) => {
         await shiftPlanPage.clickChooseMonthSearch();
         await shiftPlanPage.clickMonth08();
-        await shiftPlanPage.clickChosseButton();
-        await shiftPlanPage.clickSearchButton();
+        await shiftPlanPage.clickChoose();
+        await shiftPlanPage.clickSearch();
 
         await shiftPlanPage.clickEditRow0();
     });
@@ -159,8 +159,8 @@ test.describe.serial('Shift Plan Tests', () => {
         await allure.step('Edit name of shift plan', async () => {
             await shiftPlanPage.clickChooseMonthSearch();
             await shiftPlanPage.clickMonth08();
-            await shiftPlanPage.clickChosseButton();
-            await shiftPlanPage.clickSearchButton();
+            await shiftPlanPage.clickChoose();
+            await shiftPlanPage.clickSearch();
 
             await shiftPlanPage.clickEditRow0();
             await shiftPlanPage.fillShiftPlanNameInput(randomName);
@@ -194,7 +194,7 @@ test.describe.serial('Shift Plan Tests', () => {
         await allure.step('Search by work shift', async () => {
             await shiftPlanPage.clickWorkShiftDropDown();
             await shiftPlanPage.clickWorkShiftOption();
-            await shiftPlanPage.clickSearchButton();
+            await shiftPlanPage.clickSearch();
         });
 
         await allure.step('Verify search results', async () => {
@@ -208,8 +208,8 @@ test.describe.serial('Shift Plan Tests', () => {
         await allure.step('Search and delete shift plan', async () => {
             await shiftPlanPage.clickChooseMonthSearch();
             await shiftPlanPage.clickMonth08();
-            await shiftPlanPage.clickChosseButton();
-            await shiftPlanPage.clickSearchButton();
+            await shiftPlanPage.clickChoose();
+            await shiftPlanPage.clickSearch();
             await shiftPlanPage.clickDeleteRow0();
             await toastPage.getToastDeleteSuccess();
         });

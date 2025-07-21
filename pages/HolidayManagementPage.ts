@@ -21,9 +21,11 @@ export class HolidayManagementPage extends BasePage {
     readonly msgEndDateRequired: Locator;
     readonly msgReasonRequired: Locator;
     readonly checkBox: Locator;
+    readonly deleteRow0Button: Locator;
 
     constructor(page: Page) {
         super(page)
+        this.deleteRow0Button = page.locator("//tr[@id='row-0']//span[contains(text(),'Xóa')]");
         this.restHolidayNoSalary = page.locator("//td[contains(text(),'Ngày lễ không lương')]");
         this.checkBox = page.locator("//input[@type='checkbox']");
         this.msgEndDateRequired = page.locator("//div[contains(text(),'Nhập đến hết ngày')]");
@@ -39,6 +41,11 @@ export class HolidayManagementPage extends BasePage {
         this.startDate = page.getByRole('textbox', { name: 'Bắt đầu từ ngày ※' })
         this.holidayButton = page.locator("//div[contains(text(),'Quản lý ngày nghỉ')]");
         this.holidayName = page.getByRole('textbox', { name: 'Tên ngày nghỉ ※' });
+    }
+
+    async clickDeleteRow0(){
+        await this.safeClick(this.deleteRow0Button);
+        await this.safeClick(this.yesButton, { nth: 1 });
     }
 
     async unCheckBox() {

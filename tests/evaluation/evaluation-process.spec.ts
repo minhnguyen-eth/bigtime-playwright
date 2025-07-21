@@ -143,8 +143,8 @@ test.describe.serial("Evaluation Criteria Tests", () => {
         await evaluationProcess.clickIconAction();
         await evaluationProcess.clickConfirm();
         await evaluationProcess.clickIconAction();
-        await evaluationProcess.clickCancel();
-        await evaluationProcess.fillReason('Cancel evaluation');
+        await evaluationProcess.clickCancelNth1();
+        await evaluationProcess.fillReasonAndClickYes('Cancel evaluation');
         await toast.getToastCancelledSuccess();
     }
 
@@ -245,7 +245,7 @@ test.describe.serial("Evaluation Criteria Tests", () => {
             // Search by new status
             await evaluationProcess.clickAdmin();
             await evaluationProcess.clickListEvaluationButton();
-            await evaluationProcess.clickDropdownStatusSearch();
+            await evaluationProcess.clickDropdownStatusSearchNth1();
             await evaluationProcess.clickNewStatusOption();
             await evaluationProcess.clickSearch();
 
@@ -256,7 +256,7 @@ test.describe.serial("Evaluation Criteria Tests", () => {
 
         await allure.step("Search by wait for evaluation status", async () => {
             // Search by pending status
-            await evaluationProcess.clickDropdownStatusSearch();
+            await evaluationProcess.clickDropdownStatusSearchNth1();
             await evaluationProcess.clickwaitForEvaluationOption();
             await evaluationProcess.clickSearch();
 
@@ -267,7 +267,7 @@ test.describe.serial("Evaluation Criteria Tests", () => {
 
         await allure.step("Search by cancel status", async () => {
             // Search by cancel status
-            await evaluationProcess.clickDropdownStatusSearch();
+            await evaluationProcess.clickDropdownStatusSearchNth1();
             await evaluationProcess.clickCancelStatusOption();
             await evaluationProcess.clickSearch();
 
@@ -278,7 +278,7 @@ test.describe.serial("Evaluation Criteria Tests", () => {
 
         await allure.step("Search by complete status", async () => {
             // Search by complete status
-            await evaluationProcess.clickDropdownStatusSearch();
+            await evaluationProcess.clickDropdownStatusSearchNth1();
             await evaluationProcess.clickCompleteStatusOption();
             await evaluationProcess.clickSearch();
 
@@ -289,7 +289,7 @@ test.describe.serial("Evaluation Criteria Tests", () => {
 
         await allure.step("Search by wait for approval status", async () => {
             // Search by wait for approval status
-            await evaluationProcess.clickDropdownStatusSearch();
+            await evaluationProcess.clickDropdownStatusSearchNth1();
             await evaluationProcess.clickwaitForApprovalOption();
             await evaluationProcess.clickSearch();
 

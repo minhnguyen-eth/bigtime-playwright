@@ -31,6 +31,7 @@ test.describe.serial('Position Tests', () => {
     });
 
     test("Max length of name and note ", async ({ page }) => {
+        await clearPosition();
         await positionPage.clickAdd();
         await positionPage.inputName("z".repeat(255));
         await positionPage.fillNote("A".repeat(255));
@@ -43,7 +44,7 @@ test.describe.serial('Position Tests', () => {
         await positionPage.inputName("z".repeat(256));
         await positionPage.fillNote("a");
         await positionPage.clickSave()
-        await toastPage.getToastAddSuccess()
+        await validation.validateMaxLength255Characters();
     });
 
       test("Max length of over 255 charactor of note ", async ({ page }) => {
@@ -51,7 +52,7 @@ test.describe.serial('Position Tests', () => {
         await positionPage.inputName("zzzzza");
         await positionPage.fillNote("a".repeat(256));
         await positionPage.clickSave()
-        await toastPage.getToastAddSuccess()
+        await validation.validateMaxLength255Characters()
     });
 
     test('Create with empty name', async ({ page }) => {
@@ -66,7 +67,7 @@ test.describe.serial('Position Tests', () => {
         await positionPage.clickAdd();
         await positionPage.inputName(randomName)
         await positionPage.fillNote("Automation test note")
-        await positionPage.clickDropdownStatusInForm()
+        await positionPage.clickDropdownStatusInFormNth1()
         await positionPage.clickLockStatus()
         await positionPage.clickSave()
         await toastPage.getToastAddSuccess()
@@ -83,7 +84,7 @@ test.describe.serial('Position Tests', () => {
 
     test('Edit position active to lock status', async ({ page }) => {
         await positionPage.clickEditRow0();
-        await positionPage.clickDropdownStatusInForm()
+        await positionPage.clickDropdownStatusInFormNth1()
         await positionPage.clickLockStatus()
         await positionPage.clickSave()
         await toastPage.getToastUpdateSuccess()
@@ -92,7 +93,7 @@ test.describe.serial('Position Tests', () => {
 
     test('Edit position lock to active status', async ({ page }) => {
         await positionPage.clickEditRow0();
-        await positionPage.clickDropdownStatusInForm()
+        await positionPage.clickDropdownStatusInFormNth1()
         await positionPage.clickActivityStatus()
         await positionPage.clickSave()
         await toastPage.getToastUpdateSuccess()

@@ -2,7 +2,6 @@ import { Page, Locator, expect } from '@playwright/test';
 import { BasePage } from '../BasePage';
 
 export class NotificationPage extends BasePage {
-
     readonly notificationButton: Locator;
     readonly notificationName: Locator;
     readonly description: Locator;

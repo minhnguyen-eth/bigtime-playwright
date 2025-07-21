@@ -106,7 +106,6 @@ test.describe.serial('Leave Management Tests', () => {
 
     test('Add annual leave for a department', async ({ page }) => {
         allure.story('Add Annual Leave for Department');
-
         await allure.step('Clear previous leave management and add department leave', async () => {
             await clearLeaveManagements();
             await loginPage.login(Config.admin_username, Config.admin_password);

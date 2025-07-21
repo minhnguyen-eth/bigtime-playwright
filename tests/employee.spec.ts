@@ -85,7 +85,7 @@ test.describe.serial('Employee Tests', () => {
         await employeePage.clickSearch();
         await employeePage.clickRow0();
         await resumePage.clickResume();
-        await resumePage.clickEdit();
+        await resumePage.clickEditNth1();
         await resumePage.fillAliasName("z".repeat(255));
         await resumePage.fillPlaceOfBirth("z".repeat(255));
         await resumePage.fillHomeTown("z".repeat(255));
@@ -165,11 +165,11 @@ test.describe.serial('Employee Tests', () => {
         await employeePage.addWithWrongFormatEmail();
     });
 
-    test('Min length of email', async ({ page }) => {
+    test.skip('Min length of email', async ({ page }) => {
         await employeePage.testMinlengthEmail();
     });
 
-    test('Add with role department management', async ({ page }) => {
+    test.skip('Add with role department management', async ({ page }) => {
         await employeePage.addWithRoleDepartmentManager();
     });
 

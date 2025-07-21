@@ -6,13 +6,23 @@ export class ValidationPage extends BasePage {
     readonly nameAlreadyExists = this.page.getByText('Tên đã tồn tại.');
     readonly requiredFillReason = this.page.getByText('Nhập lý do');
     readonly maxLength255Characters = this.page.getByText('Không nhập quá 255 kí tự.');
+    readonly maxLength245Characters = this.page.getByText('Không nhập quá 245 kí tự.');
     readonly maxLength500Characters = this.page.getByText('Không nhập quá 500 kí tự.');
     readonly maxLength20Characters = this.page.getByText('Không nhập quá 20 kí tự.');
     readonly maxLength100Characters = this.page.getByText('Không nhập quá 100 kí tự.');
+    readonly maxLength50Characters = this.page.getByText('Không nhập quá 50 kí tự.');
     readonly noExistData = this.page.getByText('Không có dữ liệu');
 
     constructor(page: Page) {
         super(page);
+    }
+
+    async validateMaxLength245Characters() {
+        await this.validate(this.maxLength245Characters, 'Không nhập quá 245 kí tự.');
+    }
+
+    async validateMaxLength50Characters() {
+        await this.validate(this.maxLength50Characters, 'Không nhập quá 50 kí tự.');
     }
 
     async validate(locator: Locator, expected: string) {

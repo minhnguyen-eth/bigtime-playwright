@@ -134,7 +134,7 @@ test.describe.serial('Reward Employee Tests', () => {
 
         // Send reward to admin
         await rewardEmployeePage.clickRow0();
-        await rewardEmployeePage.clickSend();
+        await rewardEmployeePage.clickSendAndClickYes();
 
         await logoutPage.logout();
         await loginPage.login(Config.admin_username, Config.admin_password);
@@ -157,7 +157,7 @@ test.describe.serial('Reward Employee Tests', () => {
 
         // Send reward to admin
         await rewardEmployeePage.clickRow0();
-        await rewardEmployeePage.clickSend();
+        await rewardEmployeePage.clickSendAndClickYes();
 
         await logoutPage.logout();
         await loginPage.login(Config.admin_username, Config.admin_password);
@@ -165,7 +165,7 @@ test.describe.serial('Reward Employee Tests', () => {
         await rewardEmployeePage.clickRewardEmployee();
         await rewardEmployeePage.clickRow0();
         await rewardEmployeePage.clickReject();
-        await rewardEmployeePage.fillReason('Reason reject');
+        await rewardEmployeePage.fillReasonAndClickYes('Reason reject');
         await toastPage.getToastRejectSuccess();
     });
 
@@ -217,7 +217,7 @@ test.describe.serial('Reward Employee Tests', () => {
         await rewardEmployeePage.clickRewardEmployee();
         await rewardEmployeePage.clickRow0();
         await rewardEmployeePage.clickCancel();
-        await rewardEmployeePage.fillReason('Reason cancel');
+        await rewardEmployeePage.fillReasonAndClickYes('Reason cancel');
         await toastPage.getToastCancelledSuccess();
     });
 

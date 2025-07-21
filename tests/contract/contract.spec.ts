@@ -33,7 +33,6 @@ test.describe.serial('Contract Tests', () => {
         await contractPage.clickContract();
     });
 
-
     test('Max lenghth of note is 255 characters', async ({ page }) => {
         await clearEmploymentContract();
         await basePage.clickAdd();
@@ -243,6 +242,7 @@ test.describe.serial('Contract Tests', () => {
         await contractPage.fillSearchByCode('HD0001');
         await basePage.clickSearch();
         await contractPage.verifySearchByCodeResult();
+        await basePage.clickClearSearch();
 
         // search by code not exist
         await contractPage.fillSearchByCode('Testttt258963');

@@ -96,7 +96,7 @@ export class EmployeePage extends BasePage {
     this.checkBoxGender = page.locator("//input[@type='checkbox']");
     this.dropdownGenderSearch = page.getByRole('combobox').filter({ hasText: 'Giới tính' }).locator('i')
     this.validateRoleName = page.locator("//div[contains(text(),'Nhập tên quyền')]");
-    this.validateEmail = page.locator("//div[contains(text(),'Nhập email')]");
+    this.validateEmail = page.locator("//div[contains(text(),'Nhập Email')]");
     this.validateEmployeeName = page.locator("//div[contains(text(),'Nhập tên nhân viên')]");
     this.validateEmployeeCode = page.locator("//div[contains(text(),'Nhập mã nhân viên')]");
     this.employeeCodeExisted = page.locator("//li[contains(text(),'Mã nhân viên đã tồn tại.')]");
@@ -139,7 +139,7 @@ export class EmployeePage extends BasePage {
     this.dropdownAllowance = page.getByRole('combobox').filter({ hasText: /^$/ }).locator('i');
     this.dropdownAllowance2 = page.getByRole('combobox').filter({ hasText: /^$/ }).locator('i');
     this.addAllowance = page.locator("//span[contains(.,'+Thêm phụ cấp')]");
-    this.openAllowance = page.locator("//input[@type='checkbox']");
+    this.openAllowance = page.locator("(//input[@type='checkbox'])[4]");
     this.fillInsurance = page.getByRole('textbox', { name: 'Mức bảo hiểm' })
     this.fillSalary = page.getByRole('textbox', { name: 'Mức lương' })
     this.setSalary = page.locator("//span[contains(normalize-space(),'Thiết lập lương')]");
@@ -198,7 +198,7 @@ export class EmployeePage extends BasePage {
     await this.safeClick(this.dropdownGenderSearch);
   }
 
-  async clickAdmin() {
+  async clickRoleAdmin() {
     await this.safeClick(this.selectAdmin);
   }
 
@@ -358,7 +358,7 @@ export class EmployeePage extends BasePage {
   }
 
   async clickOpenAllowance() {
-    await this.openAllowance.nth(1).check();
+    await this.openAllowance.check();
   }
 
   async fillFillInsurance(insurance: string) {
@@ -410,7 +410,7 @@ export class EmployeePage extends BasePage {
   async validateRequiredFields() {
     const validations = [
       { locator: this.validateRoleName, expectedText: 'Nhập tên quyền' },
-      { locator: this.validateEmail, expectedText: 'Nhập email' },
+      { locator: this.validateEmail, expectedText: 'Nhập Email' },
       { locator: this.validateEmployeeName, expectedText: 'Nhập tên nhân viên' },
       { locator: this.validateEmployeeCode, expectedText: 'Nhập mã nhân viên' },
     ];

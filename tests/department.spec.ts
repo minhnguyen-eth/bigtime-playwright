@@ -69,7 +69,7 @@ test.describe.serial('Department Test', () => {
         await departmentPage.clickAdd();
         await departmentPage.fillDepartmentName(randomName);
         await departmentPage.fillNote("Automation test");
-        await departmentPage.clickDropdownStatusInForm();
+        await departmentPage.clickDropdownStatusInFormNth1();
         await departmentPage.clickLockStatus();
         await departmentPage.clickSave();
         await toastPage.getToastAddSuccess();
@@ -84,8 +84,6 @@ test.describe.serial('Department Test', () => {
         await departmentPage.clickSave();
         await toastPage.getToastAddSuccess();
     });
-
-
 
     test('Create department with duplicate name', async ({ page }) => {
         await departmentPage.clickAdd();
@@ -106,7 +104,7 @@ test.describe.serial('Department Test', () => {
     test('Edit active status to lock status', async ({ page }) => {
 
         await departmentPage.clickEditRow0();
-        await departmentPage.clickDropdownStatusInForm();
+        await departmentPage.clickDropdownStatusInFormNth1();
         await departmentPage.clickLockStatus();
         await departmentPage.clickSave();
         await toastPage.getToastUpdateSuccess();
@@ -114,9 +112,8 @@ test.describe.serial('Department Test', () => {
     });
 
     test('Edit lock status to active status', async ({ page }) => {
-
         await departmentPage.clickEditRow0();
-        await departmentPage.clickDropdownStatusInForm();
+        await departmentPage.clickDropdownStatusInFormNth1();
         await departmentPage.clickActivityStatus();
         await departmentPage.clickSave();
         await toastPage.getToastUpdateSuccess();

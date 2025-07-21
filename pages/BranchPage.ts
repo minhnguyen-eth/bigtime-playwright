@@ -17,11 +17,9 @@ export class BranchPage extends BasePage {
     readonly validateShortNameExist: Locator;
     readonly searchByBranchName: Locator;
     readonly searchByNameResult: Locator;
-    readonly validateMaxlengthShortName: Locator;
 
     constructor(page: Page) {
         super(page);
-        this.validateMaxlengthShortName = page.locator("//li[contains(text(),'Tên ngắn không được lớn hơn 50')]");
         this.searchByNameResult = page.locator("//tr[@id='row-0']//span[contains(text(),'Biên Hòa')]");
         this.searchByBranchName = page.getByRole('textbox', { name: 'Tên chi nhánh' });
         this.validateShortNameExist = page.locator("//li[contains(text(),'Tên ngắn đã tồn tại.')]");
@@ -37,10 +35,6 @@ export class BranchPage extends BasePage {
         this.branchName = page.getByRole('textbox', { name: 'Tên chi nhánh' }).nth(1);
         this.shortName = page.getByRole('textbox', { name: 'Tên ngắn' });
         this.branchAddress = page.getByRole('textbox', { name: 'Địa chỉ' });
-    }
-
-    async verifyMaxLengthShortName() {
-        await this.safeVerifyToHaveText(this.validateMaxlengthShortName, 'Tên ngắn không được lớn hơn 50');
     }
 
     async fillSearchByBranchName(name: string) {

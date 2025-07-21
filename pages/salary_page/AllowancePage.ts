@@ -2,7 +2,6 @@ import { Locator, Page, expect } from 'playwright/test';
 import { BasePage } from '../BasePage';
 
 export class AllowancePage extends BasePage {
-
     readonly allowanceButton: Locator;
     readonly allowanceNameInput: Locator;
     readonly allowanceMoneyInput: Locator;

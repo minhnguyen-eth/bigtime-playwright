@@ -272,14 +272,14 @@ export class LeaveApplicationPage extends BasePage {
 
     async setDate() {
         await this.clickStartDate();
-        await this.clickTodayDatePicker();
+        await this.clicktodayDatePicker();
         await this.clickEndDate();
-        await this.clickTodayDatePicker();
+        await this.clicktodayDatePicker();
     }
 
     async setDateForEdit() {
         await this.clickCloseDatePicker();
         await this.clickEndDate();
-        await this.clickTodayDatePicker();
+        await this.clicktodayDatePicker();
     }
 }

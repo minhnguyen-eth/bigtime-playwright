@@ -7,7 +7,6 @@ export class RewardTypePage extends BasePage {
     readonly requiredRewardTypeName: Locator;
     readonly inputSearch: Locator;
     readonly resultSearch: Locator;
- 
 
     constructor(page: Page) {
         super(page);

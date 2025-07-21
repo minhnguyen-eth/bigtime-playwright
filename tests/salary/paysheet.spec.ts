@@ -27,6 +27,11 @@ test.describe.serial('Paysheet Tests', () => {
         await loginPage.goto();
     });
 
+    async function beforeTest() {
+        await loginPage.login(Config.admin_username, Config.admin_password);
+        await paysheet.clickSalary();
+        await paysheet.clickPaysheet();
+    }
 
     // Employee -> Manager -> Admin
     async function sendAndBrowse1() {
@@ -89,6 +94,7 @@ test.describe.serial('Paysheet Tests', () => {
         await paysheet.clickPayslip();
         await paysheet.clickSalarySlipCode();
         await paysheet.clickBrowse();
+        await toastPage.getToastBrowseSuccess();
         await paysheet.clickPaysheet();
         await paysheet.clickLatestPaysheetRow();
         await paysheet.clickViewPayroll();
@@ -102,9 +108,7 @@ test.describe.serial('Paysheet Tests', () => {
     }
 
     async function addPaysheet() {
-        await loginPage.login(Config.admin_username, Config.admin_password);
-        await paysheet.clickSalary();
-        await paysheet.clickPaysheet();
+        await beforeTest();
         await paysheet.clickAdd();
         await paysheet.setNamePaysheet('Automation test');
         await paysheet.clickCheckBoxMonthly();
@@ -141,10 +145,8 @@ test.describe.serial('Paysheet Tests', () => {
 
     test('E2E Payroll and Payment Process with add more employee', async ({ page }) => {
         allure.story('Complete Paysheet Process Story');
-
         await allure.step('Admin creates and sends paysheet', async () => {
             await addPaysheet();
-
             await paysheet.clickLatestPaysheetRow();
             await paysheet.clickViewPayroll();
             await paysheet.clickAddMoreEmployee();
@@ -177,9 +179,7 @@ test.describe.serial('Paysheet Tests', () => {
     });
 
     test('Test close salary but not browse', async ({ page }) => {
-        await loginPage.login(Config.admin_username, Config.admin_password);
-        await paysheet.clickSalary();
-        await paysheet.clickPaysheet();
+        await beforeTest();
         await paysheet.clickLatestPaysheetRow();
         await paysheet.clickViewPayroll();
         await paysheet.clickSalaryClosing();
@@ -190,9 +190,7 @@ test.describe.serial('Paysheet Tests', () => {
     test('Search Paysheet', async ({ page }) => {
         allure.story('Search Paysheet Story');
 
-        await loginPage.login(Config.admin_username, Config.admin_password);
-        await paysheet.clickSalary();
-        await paysheet.clickPaysheet();
+        await beforeTest();
 
         await allure.step('Search paysheet by ID', async () => {
             await paysheet.fillSearchPaysheet('BL000001');
@@ -203,10 +201,7 @@ test.describe.serial('Paysheet Tests', () => {
 
     test('Search with data not exist', async ({ page }) => {
         allure.story('Search Paysheet Story');
-
-        await loginPage.login(Config.admin_username, Config.admin_password);
-        await paysheet.clickSalary();
-        await paysheet.clickPaysheet();
+        await beforeTest();
 
         await allure.step('Search paysheet by ID', async () => {
             await paysheet.fillSearchPaysheet('BL0000000000');
@@ -218,10 +213,7 @@ test.describe.serial('Paysheet Tests', () => {
 
     test('Add Paysheet Without Name', async ({ page }) => {
         allure.story('Validation Paysheet Creation Story');
-
-        await loginPage.login(Config.admin_username, Config.admin_password);
-        await paysheet.clickSalary();
-        await paysheet.clickPaysheet();
+        await beforeTest();
 
         await allure.step('Try to add paysheet without entering name', async () => {
             await paysheet.clickAdd();
@@ -232,10 +224,7 @@ test.describe.serial('Paysheet Tests', () => {
 
     test('Add Paysheet With All Employees', async ({ page }) => {
         allure.story('Add Paysheet For All Employees Story');
-
-        await loginPage.login(Config.admin_username, Config.admin_password);
-        await paysheet.clickSalary();
-        await paysheet.clickPaysheet();
+        await beforeTest();
 
         await allure.step('Add paysheet for all employees', async () => {
             await paysheet.clickAdd();
@@ -252,25 +241,19 @@ test.describe.serial('Paysheet Tests', () => {
 
     test('Cancel Paysheet', async ({ page }) => {
         allure.story('Cancel Paysheet Story');
-
-        await loginPage.login(Config.admin_username, Config.admin_password);
-        await paysheet.clickSalary();
-        await paysheet.clickPaysheet();
+        await beforeTest();
 
         await allure.step('Cancel latest paysheet with reason', async () => {
             await paysheet.clickLatestPaysheetRow();
-            await paysheet.clickCancelPaysheet();
-            await paysheet.fillReason('Automation test cancel paysheet');
+            await paysheet.clickCancel();
+            await paysheet.fillReasonAndClickYes('Automation test cancel paysheet');
             await toastPage.getToastCancelSuccess();
         });
     });
 
     test('Export excel by all current month', async ({ page }) => {
         allure.story('Export Excel by Month Story');
-
-        await loginPage.login(Config.admin_username, Config.admin_password);
-        await paysheet.clickSalary();
-        await paysheet.clickPaysheet();
+        await beforeTest();
 
         await allure.step('Export excel by month', async () => {
             await paysheet.clickExportExcelByMonth();
@@ -281,13 +264,9 @@ test.describe.serial('Paysheet Tests', () => {
 
     test('Export excel by only one paysheet', async ({ page }) => {
         allure.story('Export Excel by 1 Paysheet Story');
-
-        await loginPage.login(Config.admin_username, Config.admin_password);
-        await paysheet.clickSalary();
-        await paysheet.clickPaysheet();
+        await beforeTest();
 
         await allure.step('Click export button of the lastest paysheet ', async () => {
-
             await paysheet.clickLatestPaysheetRow();
             await paysheet.clickExportOnly1Paysheet();
             await toastPage.getToastExportSuccess();
@@ -296,13 +275,9 @@ test.describe.serial('Paysheet Tests', () => {
 
     test('Export excel by all month 05', async ({ page }) => {
         allure.story('Export Excel by Month 05 Story');
-
-        await loginPage.login(Config.admin_username, Config.admin_password);
-        await paysheet.clickSalary();
-        await paysheet.clickPaysheet();
+        await beforeTest();
 
         await allure.step('Export excel by month 5  ', async () => {
-
             await paysheet.clickAdd();
             await paysheet.setNamePaysheet('Automation test');
             await paysheet.clickCheckBoxMonthly();
@@ -317,6 +292,7 @@ test.describe.serial('Paysheet Tests', () => {
             await paysheet.clickChosseMonthExport();
             await paysheet.clickMonth05();
             await paysheet.clickChoose();
+            await paysheet.clickYes();
             await toastPage.getToastExportSuccess();
         });
     });
@@ -332,7 +308,7 @@ test.describe.serial('Paysheet Tests', () => {
             await paysheet.clickLatestPaysheetRow();
             await paysheet.clickViewPayroll();
             await paysheet.clickbaseSalary();
-            await paysheet.fillNumberOfWorkingDays('30');
+            await paysheet.fillNumberOfWorkingDays('31');
             await paysheet.clickSave();
             await paysheet.fillOverTime('500000');
             await paysheet.clickBonusButton();
@@ -360,22 +336,18 @@ test.describe.serial('Paysheet Tests', () => {
             await paysheet.expectBonusMoney();
             await paysheet.expectDeduction();
             await paysheet.expectAllowance();
-
             await paysheet.clickPaysheet();
             await sendAndBrowse2();
         });
     });
 
-    test('Maxlength name paysheet over 255 characters', async ({ page }) => {
+    test('Maxlength name paysheet over 245 characters', async ({ page }) => {
         allure.story('Validation Paysheet Creation Story');
+        await beforeTest();
 
-        await loginPage.login(Config.admin_username, Config.admin_password);
-        await paysheet.clickSalary();
-        await paysheet.clickPaysheet();
-
-        await allure.step('Add paysheet with name length 256 characters', async () => {
+        await allure.step('Add paysheet with name length 246 characters', async () => {
             await paysheet.clickAdd();
-            await paysheet.setNamePaysheet('a'.repeat(256));
+            await paysheet.setNamePaysheet('a'.repeat(246));
             await paysheet.clickCheckBoxMonthly();
             await paysheet.clickChooseMonth();
             await paysheet.clickMonthOption();
@@ -383,16 +355,13 @@ test.describe.serial('Paysheet Tests', () => {
             await paysheet.clickAndSetDropDownEmployee('Nguyễn Văn Minh');
             await paysheet.clickEmployeeOption();
             await paysheet.clickSave();
-            await validation.validateMaxLength255Characters();
+            await validation.validateMaxLength245Characters();
         });
     });
 
     test('Maxlength note paysheet over 255 characters', async ({ page }) => {
         allure.story('Validation Paysheet Creation Story');
-
-        await loginPage.login(Config.admin_username, Config.admin_password);
-        await paysheet.clickSalary();
-        await paysheet.clickPaysheet();
+        await beforeTest();
 
         await allure.step('Add paysheet with note length over 255 characters', async () => {
             await paysheet.clickAdd();
@@ -410,10 +379,7 @@ test.describe.serial('Paysheet Tests', () => {
 
     test('Maxlength note paysheet 255 characters', async ({ page }) => {
         allure.story('Validation Paysheet Creation Story');
-
-        await loginPage.login(Config.admin_username, Config.admin_password);
-        await paysheet.clickSalary();
-        await paysheet.clickPaysheet();
+        await beforeTest();
 
         await allure.step('Add paysheet with note length 255 characters', async () => {
             await paysheet.clickAdd();
@@ -429,16 +395,13 @@ test.describe.serial('Paysheet Tests', () => {
         });
     });
 
-    test('Maxlengt name paysheet 255 characters', async ({ page }) => {
+    test('Maxlengt name paysheet 245 characters', async ({ page }) => {
         allure.story('Validation Paysheet Creation Story');
+        await beforeTest();
 
-        await loginPage.login(Config.admin_username, Config.admin_password);
-        await paysheet.clickSalary();
-        await paysheet.clickPaysheet();
-
-        await allure.step('Add paysheet with name length 255 characters', async () => {
+        await allure.step('Add paysheet with name length 245 characters', async () => {
             await paysheet.clickAdd();
-            await paysheet.setNamePaysheet('a'.repeat(255));
+            await paysheet.setNamePaysheet('a'.repeat(245));
             await paysheet.clickCheckBoxMonthly();
             await paysheet.clickChooseMonth();
             await paysheet.clickMonthOption();

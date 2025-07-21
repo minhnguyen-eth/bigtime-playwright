@@ -1,7 +1,6 @@
 import { test, } from '../base-test';
 import { LoginPage } from '../../pages/LoginPage';
 import { ToastPage } from '../../pages/ToastPage';
-import { LogoutPage } from '../../pages/LogoutPage';
 import { allure } from 'allure-playwright';
 import Config from '../../utils/configUtils';
 import { AllowancePage } from '../../pages/salary_page/AllowancePage';
@@ -11,7 +10,6 @@ import { clearAllowanceTypes } from '../../db/helpers/DBHelper';
 test.describe.serial('Allowance Tests', () => {
     let loginPage: LoginPage;
     let toastPage: ToastPage;
-    let logoutPage: LogoutPage;
     let allowancePage: AllowancePage;
     let validationPage: ValidationPage;
 
@@ -24,7 +22,6 @@ test.describe.serial('Allowance Tests', () => {
         loginPage = new LoginPage(page);
         allowancePage = new AllowancePage(page);
         toastPage = new ToastPage(page);
-        logoutPage = new LogoutPage(page);
 
         await loginPage.goto();
         await loginPage.login(Config.admin_username, Config.admin_password);
@@ -80,7 +77,7 @@ test.describe.serial('Allowance Tests', () => {
         const randomString = Math.random().toString(36).substring(7);
         await allowancePage.clickAdd();
         await allowancePage.fillAllwanceName(randomString);
-        await allowancePage.clickDropdownStatusInForm();
+        await allowancePage.clickDropdownStatusInFormNth1();
         await allowancePage.clickLockStatus();
         await allowancePage.clickSave();
         await toastPage.getToastAddSuccess();
@@ -147,13 +144,13 @@ test.describe.serial('Allowance Tests', () => {
 
     test('Edit allowance active status to lock status', async ({ page }) => {
         await allowancePage.clickEditRow0();
-        await allowancePage.clickDropdownStatusInForm();
+        await allowancePage.clickDropdownStatusInFormNth1();
         await allowancePage.clickLockStatus();
         await allowancePage.clickSave();
         await toastPage.getToastUpdateSuccess();
 
         await allowancePage.clickEditRow0();
-        await allowancePage.clickDropdownStatusInForm();
+        await allowancePage.clickDropdownStatusInFormNth1();
         await allowancePage.clickActivityStatus();
         await allowancePage.clickSave();
         await toastPage.getToastUpdateSuccess();
@@ -187,7 +184,3 @@ test.describe.serial('Allowance Tests', () => {
 
     });
 });
-
-function clearAllowanceType() {
-    throw new Error('Function not implemented.');
-}
