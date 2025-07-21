@@ -25,7 +25,7 @@ export default defineConfig({
     launchOptions: {
       args: ['--start-maximized'],
     },
-    video: 'on',
+    // video: 'on',
     trace: 'on-first-retry',
     screenshot: 'only-on-failure',
     actionTimeout: 45000,

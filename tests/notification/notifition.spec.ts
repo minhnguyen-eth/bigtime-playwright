@@ -203,7 +203,7 @@ test.describe.serial('Notification Test Suite', () => {
         await toast.getToastSendNotificationSuccess();
     });
 
-    test.skip('Send notification to personal', async ({ page }) => {
+    test('Send notification to personal', async ({ page }) => {
         allure.story('Send Notification to Personal');
         await allure.step('Send notification to a specific employee', async () => {
             await loginPage.login(Config.admin_username, Config.admin_password);
