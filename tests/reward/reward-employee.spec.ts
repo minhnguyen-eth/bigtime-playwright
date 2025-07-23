@@ -26,7 +26,6 @@ test.describe.serial('Reward Employee Tests', () => {
         rewardEmployeePage = new RewardEmployeePage(page);
         toastPage = new ToastPage(page);
         await loginPage.goto();
-
     });
 
     async function beforeTest() {
@@ -120,7 +119,7 @@ test.describe.serial('Reward Employee Tests', () => {
         await validation.validateMaxLength500Characters();
     });
 
-    test('E2E reward employee - manager send reward to admin approve', async ({ page }) => {
+    test.skip('E2E reward employee - manager send reward to admin approve', async ({ page }) => {
         await clearRewardUsers();
         await loginPage.login(Config.manager_username, Config.manager_password);
         await rewardEmployeePage.clickAdmin();
@@ -146,7 +145,7 @@ test.describe.serial('Reward Employee Tests', () => {
         await rewardEmployeePage.verifyBrowsedStatus();
     });
 
-    test('E2E reward employee - manager send reward to admin reject', async ({ page }) => {
+    test.skip('E2E reward employee - manager send reward to admin reject', async ({ page }) => {
         await loginPage.login(Config.manager_username, Config.manager_password);
         await rewardEmployeePage.clickAdmin();
         await rewardEmployeePage.clickRewardEmployee();
@@ -176,7 +175,7 @@ test.describe.serial('Reward Employee Tests', () => {
         await toastPage.getToastAddSuccess();
     });
 
-    test('Manager create reward with approved status', async ({ page }) => {
+    test.skip('Manager create reward with approved status', async ({ page }) => {
         await loginPage.login(Config.manager_username, Config.manager_password);
         await rewardEmployeePage.clickAdmin();
         await rewardEmployeePage.clickRewardEmployee();

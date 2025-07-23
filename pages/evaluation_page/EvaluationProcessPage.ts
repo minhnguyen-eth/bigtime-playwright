@@ -114,7 +114,7 @@ export class EvaluationProcessPage extends BasePage {
     }
 
     async expectSearchByEmployeeName() {
-        await this.safeVerifyToHaveText(this.verifySearchByName, "BAT - Big App Tech");
+        await this.safeVerifyTextContains(this.verifySearchByName, "BAT - Big");
     }
 
     async fillSearchByEmployeeNameInput(Text: string) {

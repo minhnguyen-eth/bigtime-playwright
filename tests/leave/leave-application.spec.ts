@@ -2,7 +2,7 @@ import { expect, test, } from '../base-test';
 import { LoginPage } from '../../pages/LoginPage';
 import Config from '../../utils/configUtils';
 import { LeaveApplicationPage } from '../../pages/leave_page/LeaveApplicationPage';
-import { checkLeaveApplicationExists, clearLeaveApplications, clearLeaveManagements } from '../../db/helpers/DBHelper';
+import { checkLeaveApplicationExists, clearHolidayManagement, clearLeaveApplications, clearLeaveManagements } from '../../db/helpers/DBHelper';
 import { addAnnualLeaveForEmployeeAndAdmin, sendAndApproveLeave } from './leave-helper';
 import { allure } from 'allure-playwright';
 import { ToastPage } from '../../pages/ToastPage';
@@ -51,8 +51,17 @@ test.describe.serial('Leave Application Tests', () => {
         await leaveApplicationPage.clickTimeKeepingManagement();
         await leaveApplicationPage.clickLeaveApplicationButton();
     }
+    
+    test('Add annual leave for a employee and manager browsed', async ({ page }) => {
+        allure.story('Setup Annual Leave');
+        await allure.step('Clear all leave management and add annual leave for employee and admin', async () => {
+            await clearLeaveManagements();
+            await addAnnualLeaveForEmployeeAndAdmin(page);
+        });
+    });
 
     test("Max lenght of reason is 255 characters", async ({ page }) => {
+        await clearHolidayManagement();
         await clearLeaveApplications();
         await beforeTest();
         await leaveApplicationPage.clickAdd();
@@ -134,14 +143,6 @@ test.describe.serial('Leave Application Tests', () => {
         await beforeSearchTest();
         await leaveApplicationPage.clickSearchByMaternityLeave();
         await leaveApplicationPage.getVerifyMaternityLeave();
-    });
-
-    test('Add annual leave for a employee and manager browsed', async ({ page }) => {
-        allure.story('Setup Annual Leave');
-        await allure.step('Clear all leave management and add annual leave for employee and admin', async () => {
-            await clearLeaveManagements();
-            await addAnnualLeaveForEmployeeAndAdmin(page);
-        });
     });
 
     test('Delete leave application', async ({ page }) => {

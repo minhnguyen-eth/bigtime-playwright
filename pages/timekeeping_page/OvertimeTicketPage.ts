@@ -74,7 +74,7 @@ export class OvertimeTicketPage extends BasePage {
         this.checkInOutHistoryButton = page.locator("//div[@class='v-list-item-title'][contains(text(),'Lịch sử điểm danh')]");
         this.confirmCheckInButton = page.locator("//span[.='Đồng ý']");
         this.checkInButton = page.locator("//span[@class='v-btn__content']//p[contains(text(),'Điểm danh')]");
-        this.checkInOutButton = page.locator("//div[contains(text(),'Điểm danh')]");
+        this.checkInOutButton = page.locator("//a[@href='/checkin-out']");
     }
 
     async verifyCancelStatus() {

@@ -2,7 +2,7 @@ import { Locator, Page, expect } from '@playwright/test';
 import { BasePage } from '../BasePage';
 
 export class LeaveApplicationPage extends BasePage {
-    readonly leaveApplicationButton: Locator;  
+    readonly leaveApplicationButton: Locator;
     readonly leaveTypeDropDown: Locator;
     readonly startDate: Locator;
     readonly endDate: Locator;
