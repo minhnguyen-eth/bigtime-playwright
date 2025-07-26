@@ -32,7 +32,7 @@ export class NotificationPage extends BasePage {
         this.verifyNotificationCompany = page.locator("//strong[contains(text(),'Gửi đến: Toàn công ty')]").first();
         this.verifyNotificationDepartment = page.locator("//strong[contains(text(),'Gửi đến: Bộ phận Bộ phận IT')]").first();
         this.listNotification = page.locator("//div[contains(text(),'Danh sách thông báo')]");
-        this.personnalSelect = page.locator("//div[3]/div/div[1]/table/tbody/tr/td[1]/div/div/div/input");
+        this.personnalSelect = page.locator("(//input[@type='checkbox'])[2]");
         this.personnalSearch = page.locator("//div[2]/div/div/div/div[4]/div/input");
         this.personnal = page.locator("//span[contains(normalize-space(),'Cá nhân')]");
         this.checkBoxPersonalOrDepartment = page.locator("//td[contains(@class, 'v-data-table__td--select-row')]//input[@type='checkbox']");

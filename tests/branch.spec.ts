@@ -99,7 +99,6 @@ test.describe.serial('Branch Test', () => {
         await branchPage.fillBranchAddress(randomString);
         await branchPage.clickSave();
         await toastPage.getToastAddFailed();
-
     });
 
     test('Create with lock status', async ({ page }) => {

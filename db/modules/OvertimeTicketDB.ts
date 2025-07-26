@@ -74,3 +74,4 @@ export const clearCheckDay = async () => {
 export const clearCheckTime = async () => {
     await clearTable('check_times');
 };
+

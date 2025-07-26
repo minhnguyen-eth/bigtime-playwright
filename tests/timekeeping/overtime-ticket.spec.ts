@@ -15,7 +15,7 @@ test.describe.serial('Overtime Ticket Test Suite', () => {
     let logoutPage: LogoutPage;
     let validation: ValidationPage;
 
-    const userId = 'jpBoaVPBwQ';
+    const userId = '4cMiTbHpAz';
     const today = new Date().toISOString().split('T')[0];
 
     test.beforeEach(async ({ page, context }) => {
@@ -72,16 +72,16 @@ test.describe.serial('Overtime Ticket Test Suite', () => {
 
     test('Maxlength of reason 255 characters', async ({ page }) => {
         await mockCheckinData(userId, today);
-        // await overtimeTicketPage.clickOvertimeTicketButton();
-        // await overtimeTicketPage.clickAdd();
-        // await overtimeTicketPage.clickOvertimeTicketDayButton();
-        // await overtimeTicketPage.clicktodayDatePicker();
-        // await overtimeTicketPage.setOverTimeTicket();
-        // await overtimeTicketPage.fillReason('a'.repeat(255));
-        // await overtimeTicketPage.clickDropdownStatusInForm();
-        // await overtimeTicketPage.clickSelectPendingStatus();
-        // await overtimeTicketPage.clickSave();
-        // await toastPage.getToastAddSuccess();
+        await overtimeTicketPage.clickOvertimeTicketButton();
+        await overtimeTicketPage.clickAdd();
+        await overtimeTicketPage.clickOvertimeTicketDayButton();
+        await overtimeTicketPage.clicktodayDatePicker();
+        await overtimeTicketPage.setOverTimeTicket();
+        await overtimeTicketPage.fillReason('a'.repeat(255));
+        await overtimeTicketPage.clickDropdownStatusInForm();
+        await overtimeTicketPage.clickSelectPendingStatus();
+        await overtimeTicketPage.clickSave();
+        await toastPage.getToastAddSuccess();
     });
 
     test('Check in', async ({ page }) => {
@@ -159,6 +159,7 @@ test.describe.serial('Overtime Ticket Test Suite', () => {
         await logoutPage.logout();
         await loginPage.login(Config.admin_username, Config.admin_password);
         await overtimeTicketPage.clickRow0();
+        await overtimeTicketPage.clickBrowse();
         await overtimeTicketPage.verifyOvertimeTicketBrowsedStatus();
     });
 

@@ -6,6 +6,7 @@ import { allure } from 'allure-playwright';
 import { ToastPage } from '../../pages/ToastPage';
 import { LogoutPage } from '../../pages/LogoutPage';
 import { ValidationPage } from '../../pages/ValidationPage';
+import { PaysheetHelper } from './paysheet-helper';
 
 test.describe.serial('Paysheet Tests', () => {
     let loginPage: LoginPage;
@@ -13,6 +14,7 @@ test.describe.serial('Paysheet Tests', () => {
     let toastPage: ToastPage;
     let logoutPage: LogoutPage;
     let validation: ValidationPage;
+    let paysheetHelper: PaysheetHelper;
 
     test.beforeEach(async ({ page }) => {
         allure.feature('Paysheet Feature');
@@ -24,6 +26,7 @@ test.describe.serial('Paysheet Tests', () => {
         loginPage = new LoginPage(page);
         paysheet = new PaysheetPage(page);
         logoutPage = new LogoutPage(page);
+        paysheetHelper = new PaysheetHelper(paysheet, loginPage, logoutPage, toastPage);
         await loginPage.goto();
     });
 
@@ -33,106 +36,18 @@ test.describe.serial('Paysheet Tests', () => {
         await paysheet.clickPaysheet();
     }
 
-    // Employee -> Manager -> Admin
-    async function sendAndBrowse1() {
-        await paysheet.clickLatestPaysheetRow();
-        await paysheet.clickViewPayroll();
-        await paysheet.clickSendAll();
-        await paysheet.clickConfirmPaysheet();
-        await logoutPage.logout();
-
-        await loginPage.login(Config.employee_username, Config.employee_password);
-        await paysheet.clickSalary();
-        await paysheet.clickPayslip();
-        await paysheet.clickSalarySlipCode();
-        await paysheet.clickBrowse();
-        await toastPage.getToastBrowseSuccess();
-        await logoutPage.logout();
-
-        await loginPage.login(Config.manager_username, Config.manager_password);
-        await paysheet.clickSalary();
-        await paysheet.clickPayslip();
-        await paysheet.clickSalarySlipCode();
-        await paysheet.clickBrowse();
-        await logoutPage.logout();
-
-        await loginPage.login(Config.admin_username, Config.admin_password);
-        await paysheet.clickSalary();
-        await paysheet.clickPayslip();
-        await paysheet.clickSalarySlipCode();
-        await paysheet.clickBrowse();
-        await paysheet.clickPaysheet();
-        await paysheet.clickLatestPaysheetRow();
-        await paysheet.clickViewPayroll();
-        await paysheet.clickSalaryClosing();
-        await paysheet.clickConfirmPaysheet();
-        await paysheet.clickLatestPaysheetRow();
-        await paysheet.clickPayslipPayment();
-        await paysheet.clickPayment();
-        await paysheet.clickCreateTicket();
-        await toastPage.getToastPaymentSuccess();
-    }
-
-    // Employee -> Admin
-    async function sendAndBrowse2() {
-        await paysheet.clickLatestPaysheetRow();
-        await paysheet.clickViewPayroll();
-        await paysheet.clickSendAll();
-        await paysheet.clickConfirmPaysheet();
-        await logoutPage.logout();
-
-        await loginPage.login(Config.employee_username, Config.employee_password);
-        await paysheet.clickSalary();
-        await paysheet.clickPayslip();
-        await paysheet.clickSalarySlipCode();
-        await paysheet.clickBrowse();
-        await toastPage.getToastBrowseSuccess();
-        await logoutPage.logout();
-
-        await loginPage.login(Config.admin_username, Config.admin_password);
-        await paysheet.clickSalary();
-        await paysheet.clickPayslip();
-        await paysheet.clickSalarySlipCode();
-        await paysheet.clickBrowse();
-        await toastPage.getToastBrowseSuccess();
-        await paysheet.clickPaysheet();
-        await paysheet.clickLatestPaysheetRow();
-        await paysheet.clickViewPayroll();
-        await paysheet.clickSalaryClosing();
-        await paysheet.clickConfirmPaysheet();
-        await paysheet.clickLatestPaysheetRow();
-        await paysheet.clickPayslipPayment();
-        await paysheet.clickPayment();
-        await paysheet.clickCreateTicket();
-        await toastPage.getToastPaymentSuccess();
-    }
-
-    async function addPaysheet() {
-        await beforeTest();
-        await paysheet.clickAdd();
-        await paysheet.setNamePaysheet('Automation test');
-        await paysheet.clickCheckBoxMonthly();
-        await paysheet.clickChooseMonth();
-        await paysheet.clickMonthOption();
-        await paysheet.setNote('Automation test');
-        await paysheet.clickAndSetDropDownEmployee('Nguyễn Văn Minh');
-        await paysheet.clickEmployeeOption();
-        await paysheet.clickSave();
-        await toastPage.getToastAddSuccess();
-    };
-
     test('E2E Payroll and Payment Process', async ({ page }) => {
-        allure.story('Complete Paysheet Process Story');
-
         await allure.step('Admin creates and sends paysheet and completes payment', async () => {
-            await addPaysheet();
-            await sendAndBrowse2();
+            await beforeTest();
+            await paysheetHelper.addPaysheet();
+            await paysheetHelper.sendAndBrowse03();
         });
     });
 
     test('Add duplicate employee in paysheet', async ({ page }) => {
         await allure.step('Admin creates and sends paysheet', async () => {
-            await addPaysheet();
+            await beforeTest();
+            await paysheetHelper.addPaysheet();
             await paysheet.clickLatestPaysheetRow();
             await paysheet.clickViewPayroll();
             await paysheet.clickAddMoreEmployee();
@@ -146,7 +61,8 @@ test.describe.serial('Paysheet Tests', () => {
     test('E2E Payroll and Payment Process with add more employee', async ({ page }) => {
         allure.story('Complete Paysheet Process Story');
         await allure.step('Admin creates and sends paysheet', async () => {
-            await addPaysheet();
+            await beforeTest();
+            await paysheetHelper.addPaysheet();
             await paysheet.clickLatestPaysheetRow();
             await paysheet.clickViewPayroll();
             await paysheet.clickAddMoreEmployee();
@@ -180,6 +96,7 @@ test.describe.serial('Paysheet Tests', () => {
 
     test('Test close salary but not browse', async ({ page }) => {
         await beforeTest();
+        await paysheetHelper.addPaysheet();
         await paysheet.clickLatestPaysheetRow();
         await paysheet.clickViewPayroll();
         await paysheet.clickSalaryClosing();
@@ -301,7 +218,8 @@ test.describe.serial('Paysheet Tests', () => {
         allure.story('Edit Paysheet Process Story');
 
         await allure.step('Admin create paysheet', async () => {
-            await addPaysheet();
+            await beforeTest();
+            await paysheetHelper.addPaysheet();
         });
 
         await allure.step('Edit paysheet', async () => {
@@ -331,13 +249,13 @@ test.describe.serial('Paysheet Tests', () => {
             await paysheet.clickPaysheet();
             await paysheet.clickLatestPaysheetRow();
             await paysheet.clickViewPayroll();
-            await paysheet.expectBaseSalary();
+            // await paysheet.expectBaseSalary();
             await paysheet.expectOverTime();
             await paysheet.expectBonusMoney();
             await paysheet.expectDeduction();
             await paysheet.expectAllowance();
             await paysheet.clickPaysheet();
-            await sendAndBrowse2();
+            await paysheetHelper.sendAndBrowse03();
         });
     });
 

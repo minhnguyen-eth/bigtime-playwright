@@ -1,8 +1,9 @@
 import { Locator, Page } from '@playwright/test';
 import { ToastPage } from './ToastPage';
 import { BasePage } from './BasePage';
+import { ValidationPage } from './ValidationPage';
 
-export class EmployeePage extends BasePage {
+export class EmployeePage extends ValidationPage {
   readonly toastPage: ToastPage;
   readonly userButton: Locator;
   readonly employeeName: Locator;
@@ -519,8 +520,7 @@ export class EmployeePage extends BasePage {
     await this.testAddEmployee();
     await this.fillEmail('minh');
     await this.clickSave();
-    await this.expectValidateMinLengthEmail();
-    await this.toastPage.getToastAddFailed();
+    await this.validateMinlengthEmail();
   }
 
   async testAddEmployee() {

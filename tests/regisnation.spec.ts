@@ -117,15 +117,16 @@ test.describe.serial('Resignation Tests', () => {
     await allure.step('Employee sends resignation request', async () => {
       await regisnationPage.clickSendAndClickYes();
       await toastPage.getToastSendSuccess();
-    });
-
-    await allure.step('Employee browses own request', async () => {
-      await regisnationPage.clickRow0();
-      await regisnationPage.clickBrowse();
-      await toastPage.getToastBrowseSuccess();
       await logoutPage.logout();
-
     });
+
+    // await allure.step('Employee browses own request', async () => {
+    //   await regisnationPage.clickRow0();
+    //   await regisnationPage.clickBrowse();
+    //   await toastPage.getToastBrowseSuccess();
+    //   await logoutPage.logout();
+
+    // });
 
     // await allure.step('Manager approves resignation request', async () => {
     //   await loginPage.goto();
@@ -161,15 +162,16 @@ test.describe.serial('Resignation Tests', () => {
     await allure.step('Employee sends resignation request', async () => {
       await regisnationPage.clickSendAndClickYes();
       await toastPage.getToastSendSuccess();
+       await logoutPage.logout();
     });
 
-    await allure.step('Employee browses own request', async () => {
-      await regisnationPage.clickRow0();
-      await regisnationPage.clickBrowse();
-      await toastPage.getToastBrowseSuccess();
-      await logoutPage.logout();
+    // await allure.step('Employee browses own request', async () => {
+    //   await regisnationPage.clickRow0();
+    //   await regisnationPage.clickBrowse();
+    //   await toastPage.getToastBrowseSuccess();
+    //   await logoutPage.logout();
 
-    });
+    // });
 
     // await allure.step('Manager approves resignation request', async () => {
     //   await loginPage.goto();

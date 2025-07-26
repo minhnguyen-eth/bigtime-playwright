@@ -34,9 +34,25 @@ export class ContractPage extends BasePage {
     readonly selectMonth2: Locator;
     readonly selectDay2: Locator;
     readonly employeeDropdown: Locator;
+    readonly newStatusSearch: Locator;
+    readonly terminatedStatusSearch: Locator;
+    readonly comfirmedStatusSearch: Locator;
+    readonly canceledStatusSearch: Locator;
+    readonly verifyCanceledStatusSearch: Locator;
+    readonly verifyTerminatedStatusSearch: Locator;
+    readonly verifyComfirmedStatusSearch: Locator;
+    readonly verifyNewStatusSearch: Locator;
 
     constructor(page: Page) {
         super(page);
+        this.verifyCanceledStatusSearch = page.locator('#row-0').getByText('Đã hủy');
+        this.verifyTerminatedStatusSearch = page.locator('#row-0').getByText('Đã chấm dứt');
+        this.verifyComfirmedStatusSearch = page.locator('#row-0').getByText('Đã xác nhận');
+        this.verifyNewStatusSearch = page.locator('#row-0').getByText('Mới tạo');
+        this.canceledStatusSearch = page.getByRole('option', { name: 'Đã hủy' });
+        this.comfirmedStatusSearch = page.getByRole('option', { name: 'Đã xác nhận' });
+        this.terminatedStatusSearch = page.getByRole('option', { name: 'Đã chấm dứt' });
+        this.newStatusSearch = page.getByRole('option', { name: 'Mới tạo' });
         this.selectDay2 = page.locator("//div[@class='dp__cell_inner dp__pointer dp__date_hover'][normalize-space()='30']");
         this.selectMonth2 = page.locator("//div[@class='dp__overlay_cell_active dp__overlay_cell_pad']")
         this.verifySearchByName = page.locator("//tr[@id='row-0']//span[contains(text(),'BAT810-Nguyễn Văn Minh')]");
@@ -69,6 +85,38 @@ export class ContractPage extends BasePage {
         this.employeeDropdown = page.getByRole('combobox').filter({ hasText: 'Mã - tên nhân viên ※' }).getByLabel('Open');
         this.employeeInput = page.getByRole('textbox', { name: 'Mã - tên nhân viên ※' })
         this.selectEmployee = page.getByRole('option', { name: 'BAT810-Nguyễn Văn Minh' })
+    }
+
+    async verifyNewStatusSearchResult() {
+        await this.safeVerifyToHaveText(this.verifyNewStatusSearch, 'Mới tạo');
+    }
+
+    async verifyComfirmedStatusSearchResult() {
+        await this.safeVerifyToHaveText(this.verifyComfirmedStatusSearch, 'Đã xác nhận');
+    }
+
+    async verifyTerminatedStatusSearchResult() {
+        await this.safeVerifyToHaveText(this.verifyTerminatedStatusSearch, 'Đã chấm dứt');
+    }
+
+    async verifyCanceledStatusSearchResult() {
+        await this.safeVerifyToHaveText(this.verifyCanceledStatusSearch, 'Đã hủy');
+    }
+
+    async clickNewStatusSearch() {
+        await this.safeClick(this.newStatusSearch);
+    }
+
+    async clickCanceledStatusSearch() {
+        await this.safeClick(this.canceledStatusSearch);
+    }
+
+    async clickTerminatedStatusSearch() {
+        await this.safeClick(this.terminatedStatusSearch);
+    }
+
+    async clickComfirmedStatusSearch() {
+        await this.safeClick(this.comfirmedStatusSearch);
     }
 
     async clickSelectMonth2() {

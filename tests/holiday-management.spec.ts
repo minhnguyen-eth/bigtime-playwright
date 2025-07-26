@@ -6,6 +6,7 @@ import { HolidayManagementPage } from '../pages/HolidayManagementPage';
 import { clearCheckDay, clearCheckTime, clearHolidayManagement } from '../db/helpers/DBHelper';
 import { allure } from 'allure-playwright';
 import { ValidationPage } from '../pages/ValidationPage';
+import { clearPayroll } from '../db/modules/PayrollsDB';
 
 test.describe.serial('Holiday Management', () => {
     let loginPage: LoginPage;
@@ -30,6 +31,7 @@ test.describe.serial('Holiday Management', () => {
     });
 
     test("Max length name and reason holiday management 255 characters", async ({ page }) => {
+        await clearPayroll();
         await clearHolidayManagement();
         await clearCheckDay();
         await clearCheckTime();

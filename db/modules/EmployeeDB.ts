@@ -1,5 +1,5 @@
 import { clearTable } from '../helpers/DBHelper';
 
-export async function clearEmployees() {
+export const clearEmployees = async () => {
     await clearTable('users', "name LIKE '%Automation test%' or name LIKE '%z%'");
 }

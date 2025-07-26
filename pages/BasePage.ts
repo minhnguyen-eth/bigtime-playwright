@@ -227,7 +227,6 @@ export class BasePage extends SafeActions {
     }
 
     async clickSave() {
-        await this.page.waitForLoadState('networkidle');
         await this.page.waitForTimeout(700);
         await this.safeClick(this.saveButton);
     }

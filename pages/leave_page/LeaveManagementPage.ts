@@ -69,7 +69,7 @@ export class LeaveManagementPage extends BasePage {
         this.iconActionRow1 = page.locator("//tr[@id='row-1']//i[contains(@class, 'mdi-format-list-group')]")
         this.iconActionRow2 = page.locator("//tr[@id='row-2']//i[contains(@class, 'mdi-format-list-group')]")
         this.saveEmployee = page.locator("//span[contains(normalize-space(),'Lưu')]")
-        this.selectAEmployee = page.locator("//td[contains(@class, 'v-data-table__td') and contains(@class, 'v-data-table__td--select-row')]")
+        this.selectAEmployee = page.locator("(//input[@type='checkbox'])[2]")
         this.searchByName = page.locator("//div[1]/div/div/div/div[4]/div/input")
         this.saveDepartmentAndTeam = page.locator("//button[@type='submit']//span[@class='v-btn__content']")
         this.departmentIT = page.locator("//div[text()='Bộ phận IT']")
@@ -198,8 +198,8 @@ export class LeaveManagementPage extends BasePage {
 
 
     async fillSearchByName() {
-        await this.page.waitForTimeout(1500);
-        await this.searchByName.fill('Minh');
+        await this.page.waitForTimeout(1000);
+        await this.searchByName.fill('Nguyễn Văn Minh');
     }
 
     async clickSaveDepartmentAndTeam() {

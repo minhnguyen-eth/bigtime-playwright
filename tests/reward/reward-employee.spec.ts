@@ -36,6 +36,7 @@ test.describe.serial('Reward Employee Tests', () => {
     }
 
     test("Max length of reward name is 255 characters", async ({ page }) => {
+        await clearRewardUsers();
         await beforeTest();
         await rewardEmployeePage.fillRewardName('a'.repeat(255));
         await rewardEmployeePage.fillChosseEmployee('Minh');

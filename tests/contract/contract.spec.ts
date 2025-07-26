@@ -229,6 +229,35 @@ test.describe.serial('Contract Tests', () => {
         await contractPage.verifyFreeLanceType();
     });
 
+    test('Search by status ', async ({ page }) => {
+        // Search by new status
+        await contractPage.clickDropdownStatusSearch();
+        await contractPage.clickNewStatusSearch();
+        await basePage.clickSearch();
+        await contractPage.verifyNewStatusSearchResult();
+        await basePage.clickClearSearch();
+
+        // Search by confirmed status
+        await contractPage.clickDropdownStatusSearch();
+        await contractPage.clickComfirmedStatusSearch();
+        await basePage.clickSearch();
+        await contractPage.verifyComfirmedStatusSearchResult();
+        await basePage.clickClearSearch();
+
+        // Search by terminated status
+        await contractPage.clickDropdownStatusSearch();
+        await contractPage.clickTerminatedStatusSearch();
+        await basePage.clickSearch();
+        await contractPage.verifyTerminatedStatusSearchResult();
+        await basePage.clickClearSearch();
+
+        // Search by canceled status
+        await contractPage.clickDropdownStatusSearch();
+        await contractPage.clickCanceledStatusSearch();
+        await basePage.clickSearch();
+        await contractPage.verifyCanceledStatusSearchResult();
+    })
+
     test('Search by start date', async ({ page }) => {
         await contractPage.clickStartDateSearch();
         await basePage.clicktodayDatePicker();

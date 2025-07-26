@@ -2,6 +2,7 @@ import { Page, Locator } from '@playwright/test';
 import { BasePage } from './BasePage';
 
 export class ValidationPage extends BasePage {
+    readonly minlengthEmail = this.page.getByText('Không nhập dưới 6 kí tự.');
     readonly contractAlreadyApproved = this.page.getByText('Đã có hợp đồng được duyệt');
     readonly nameAlreadyExists = this.page.getByText('Tên đã tồn tại.');
     readonly requiredFillReason = this.page.getByText('Nhập lý do');
@@ -15,6 +16,10 @@ export class ValidationPage extends BasePage {
 
     constructor(page: Page) {
         super(page);
+    }
+
+    async validateMinlengthEmail() {
+        await this.validate(this.minlengthEmail, 'Không nhập dưới 6 kí tự.');
     }
 
     async validateMaxLength245Characters() {

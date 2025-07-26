@@ -49,7 +49,6 @@ test.describe.serial('Employee Tests', () => {
         await employeePage.clickDropdownEmployeeType();
         await employeePage.clickStaff();
 
-
         // Fill more information
         await employeePage.clickDropdownPosition();
         await employeePage.clickPosition();
@@ -158,14 +157,13 @@ test.describe.serial('Employee Tests', () => {
         await resumePage.verifyMsgPlaceOfBirthRequired();
         await resumePage.verifyMsgReligionRequired();
         await resumePage.verifyMsgHownTownRequired();
-
     });
 
     test('Add with invalid email', async ({ page }) => {
         await employeePage.addWithWrongFormatEmail();
     });
 
-    test.skip('Min length of email', async ({ page }) => {
+    test('Min length of email', async ({ page }) => {
         await employeePage.testMinlengthEmail();
     });
 

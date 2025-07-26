@@ -10,11 +10,11 @@ export async function checkLeaveApplicationExists(reason: string, status?: numbe
   return checkExistsWithConditions('leave_applications', conditions);
 }
 
-export async function clearLeaveApplications() {
+export const clearLeaveApplications = async () => {
   await clearTable('leave_applications', "reason NOT LIKE '%Test data%'");
 }
 
-export async function clearLeaveApplicationsForUser(userId: string) {
-    await executeQuery("DELETE FROM leave_applications WHERE user_id = ?", [userId]);
-    console.info(`Cleared leave applications for user_id ${userId}`);
+export const clearLeaveApplicationsForUser = async (userId: string) => {
+  await executeQuery("DELETE FROM leave_applications WHERE user_id = ?", [userId]);
+  console.info(`Cleared leave applications for user_id ${userId}`);
 }

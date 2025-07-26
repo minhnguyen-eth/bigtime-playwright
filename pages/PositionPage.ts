@@ -11,7 +11,7 @@ export class PositionPage extends BasePage {
 
     constructor(page: Page) {
         super(page);
-        this.searchNameResult = page.locator("//tbody/tr[@id='row-0']/td[2]//span[.='Project manager']");
+        this.searchNameResult = page.locator("//tr[@id='row-0']//span[contains(text(),'Project Manager')]");
         this.nameInputSearch =  page.getByRole('textbox', { name: 'Tên chức vụ' })
         this.msgNameRequired = page.locator("//div[contains(text(),'Nhập tên chức vụ')]");
         this.nameInput =  page.getByRole('textbox', { name: 'Tên chức vụ' }).first();
@@ -19,7 +19,7 @@ export class PositionPage extends BasePage {
     }
 
     async checkSearchNameResult() {
-        await this.safeVerifyToHaveText(this.searchNameResult, "Project manager");
+        await this.safeVerifyToHaveText(this.searchNameResult, "Project Manager");
     }
 
     async checkMsgNameRequired() {

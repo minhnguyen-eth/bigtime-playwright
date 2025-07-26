@@ -29,6 +29,7 @@ test.describe.serial('Notification Test Suite', () => {
     });
 
     test("Max length of notification name is 255 characters", async ({ page }) => {
+        await clearNotifications();
         allure.story('Max Length of Notification Name');
         await allure.step('Add notification with name length 255 characters', async () => {
             await loginPage.login(Config.admin_username, Config.admin_password);
@@ -212,7 +213,7 @@ test.describe.serial('Notification Test Suite', () => {
             await notificationPage.clickIconAction();
             await notificationPage.clickSend();
             await notificationPage.clickOnPersonnal();
-            await notificationPage.fillPersonnalSearch('Minh');
+            await notificationPage.fillPersonnalSearch('Nguyễn Văn Minh');
             await notificationPage.clickOnPersonnalSelect();
             await notificationPage.clickSave();
         });

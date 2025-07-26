@@ -57,7 +57,7 @@ export class OvertimeTicketPage extends BasePage {
         this.pendingStatusInfo = page.locator("//div[contains(text(),'Chờ duyệt')]");
         this.minute10 = page.locator("//div[@class='dp__overlay_cell dp__overlay_cell_pad'][normalize-space()='10']");
         this.openMinute = page.locator("//button[@aria-label='Open minutes overlay']");
-        this.employeeNameInfo = page.locator("//div[contains(text(),'BAT810 - Nguyễn Văn Minh')]");
+        this.employeeNameInfo = page.locator("//tr[@id='row-0']//span[contains(text(),'BAT810 - Nguyễn Văn Minh')]");
         this.workingTimeInfo = page.locator("//div[normalize-space()='01:00']");
         this.endTimeInfo = page.locator("//div[normalize-space()='18:00']");
         this.startTimeInfo = page.locator("//div[normalize-space()='17:00']");

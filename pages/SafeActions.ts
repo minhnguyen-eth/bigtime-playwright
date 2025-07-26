@@ -10,8 +10,6 @@ function logDebug(...args: any[]) {
 export class SafeActions {
     constructor(protected page: Page) { }
 
-
-
     private async isLocatorReady(locator: Locator, timeout: number): Promise<void> {
         await locator.waitFor({ state: 'attached', timeout });
         await locator.waitFor({ state: 'visible', timeout });
