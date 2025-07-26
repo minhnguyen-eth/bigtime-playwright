@@ -25,9 +25,13 @@ export class ToastPage extends BasePage{
     readonly toastBrowseSuccess2: Locator;
     readonly toastValidateCloseSalary: Locator;
     readonly toastEmployeeExisted: Locator;
+    readonly toastTerminateContractSuccess: Locator;
+    readonly toastExtensionContractSuccess: Locator;
 
     constructor(page: Page) {
         super(page);
+        this.toastExtensionContractSuccess = page.locator('//div[contains(text(),"Gia hạn thành công")]');
+        this.toastTerminateContractSuccess = page.locator('//div[contains(text(),"Chấm dứt hợp đồng thành công")]');
         this.toastEmployeeExisted = page.locator('//div[contains(text(),"Nhân viên đã tồn tại")]');
         this.toastValidateCloseSalary = page.locator('//div[contains(text(),"Vui lòng duyệt hết tất cả phiếu lương")]');
         this.toastSendBrowseSuccess = page.locator('//div[contains(text(),"Gửi duyệt thành công")]');
@@ -51,6 +55,14 @@ export class ToastPage extends BasePage{
         this.toastDeleteSuccess = page.locator('//div[contains(text(),"Xóa thành công")]');
         this.toastBrowseSuccess = page.locator('//div[contains(text(),"Đã duyệt thành công")]');
         this.toastBrowseSuccess2 = page.locator('//div[contains(text(),"Phê duyệt thành công")]');
+    }
+
+    async getToastExtensionContractSuccess() {
+        await this.safeVerifyToHaveText(this.toastExtensionContractSuccess, 'Gia hạn thành công');
+    }
+
+    async getToastTerminateContractSuccess() {
+        await this.safeVerifyToHaveText(this.toastTerminateContractSuccess, 'Chấm dứt hợp đồng thành công');
     }
 
     async getToastEmployeeExisted() {

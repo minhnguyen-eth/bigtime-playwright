@@ -3,6 +3,8 @@ import { BasePage } from '../BasePage';
 
 export class ContractPage extends BasePage {
     readonly contractButton: Locator;
+    readonly terminateButton: Locator;
+    readonly extensionButton: Locator;
     readonly employeeInput: Locator;
     readonly selectEmployee: Locator;
     readonly formalContract: Locator;
@@ -45,6 +47,8 @@ export class ContractPage extends BasePage {
 
     constructor(page: Page) {
         super(page);
+        this.extensionButton = page.locator("//span[contains(text(),'Gia hạn')]");
+        this.terminateButton = page.locator("//span[contains(text(),'Chấm dứt')]");
         this.verifyCanceledStatusSearch = page.locator('#row-0').getByText('Đã hủy');
         this.verifyTerminatedStatusSearch = page.locator('#row-0').getByText('Đã chấm dứt');
         this.verifyComfirmedStatusSearch = page.locator('#row-0').getByText('Đã xác nhận');
@@ -85,6 +89,19 @@ export class ContractPage extends BasePage {
         this.employeeDropdown = page.getByRole('combobox').filter({ hasText: 'Mã - tên nhân viên ※' }).getByLabel('Open');
         this.employeeInput = page.getByRole('textbox', { name: 'Mã - tên nhân viên ※' })
         this.selectEmployee = page.getByRole('option', { name: 'BAT810-Nguyễn Văn Minh' })
+    }
+
+    async handleTerminateContract() {
+        await this.clickRow0();
+        await this.safeClick(this.terminateButton);
+        await this.fillReasonAndClickYes("Test terminate contract");
+    }
+
+    async handleExtensionContract() {
+        await this.clickRow0();
+        await this.safeClick(this.extensionButton);
+        await this.clickSave();
+        await this.clickYes();
     }
 
     async verifyNewStatusSearchResult() {
@@ -202,6 +219,7 @@ export class ContractPage extends BasePage {
         await this.safeClick(this.MonthButton);
         await this.safeClick(this.selectMonth);
         await this.safeClick(this.selectDay);
+        await this.clickChoose();
     }
 
     async selectEndDate2() {

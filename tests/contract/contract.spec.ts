@@ -173,6 +173,63 @@ test.describe.serial('Contract Tests', () => {
         expect(existsInDB).toBeTruthy();
     });
 
+    test('E2E - Terminate contract', async ({ page }) => {
+        await clearEmploymentContract();
+        await basePage.clickAdd();
+        await contractPage.fillEmployeeName();
+        await contractPage.clickContractTypeDropdown();
+        await contractPage.clickSeasonalContract();
+        await contractPage.selectEndDate();
+        await contractPage.fillNote('Automation test seasonal');
+        await contractPage.checkSelectAllTerm();
+        await basePage.clickSave();
+        await toastPage.getToastAddSuccess();
+
+        const exitsInDB = await checkContractExists('Automation test seasonal', 2, 0);
+        expect(exitsInDB).toBeTruthy();
+
+        await contractPage.clickRow0();
+        await contractPage.clickConfirm();
+        await toastPage.getToastConfirmSuccess();
+
+        // Check in DB, type 0 is probation, status 1 is confirmed
+        const existsInDB = await checkContractExists('Automation test seasonal', 2, 1);
+        expect(existsInDB).toBeTruthy();
+
+        await contractPage.handleTerminateContract();
+        await toastPage.getToastTerminateContractSuccess();
+        await contractPage.verifyTerminatedStatusSearchResult();
+    });
+
+     test('E2E - Extension contract', async ({ page }) => {
+        await clearEmploymentContract();
+        await basePage.clickAdd();
+        await contractPage.fillEmployeeName();
+        await contractPage.clickContractTypeDropdown();
+        await contractPage.clickSeasonalContract();
+        await contractPage.selectEndDate();
+        await contractPage.fillNote('Automation test seasonal');
+        await contractPage.checkSelectAllTerm();
+        await basePage.clickSave();
+        await toastPage.getToastAddSuccess();
+
+        const exitsInDB = await checkContractExists('Automation test seasonal', 2, 0);
+        expect(exitsInDB).toBeTruthy();
+
+        await contractPage.clickRow0();
+        await contractPage.clickConfirm();
+        await toastPage.getToastConfirmSuccess();
+
+        // Check in DB, type 0 is probation, status 1 is confirmed
+        const existsInDB = await checkContractExists('Automation test seasonal', 2, 1);
+        expect(existsInDB).toBeTruthy();
+
+        await contractPage.handleExtensionContract();
+        await toastPage.getToastExtensionContractSuccess();
+      
+    });
+
+
     test('Edit end date', async ({ page }) => {
         await clearEmploymentContract();
         await createContractWithProbation(basePage, contractPage, toastPage);

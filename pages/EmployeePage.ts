@@ -78,9 +78,13 @@ export class EmployeePage extends ValidationPage {
   readonly dropdownDepartmentSearch: Locator;
   readonly departmentOption: Locator;
   readonly verifyDepartmentSearch: Locator;
+  readonly checkBoxJustCheckInAtLeastOnceADay: Locator;
+  readonly checkBoxJustCheckImAtLeastOneceWhenEnteingWork: Locator;
 
   constructor(page: Page) {
     super(page);
+    this.checkBoxJustCheckImAtLeastOneceWhenEnteingWork = page.locator("//input[@aria-label='Chỉ cần điểm danh ít nhất 1 lần khi vào ca']");
+    this.checkBoxJustCheckInAtLeastOnceADay = page.locator("//input[@aria-label='Chỉ cần điểm danh ít nhất 1 lần trong ngày']");
     this.toastPage = new ToastPage(page);
     this.verifyDepartmentSearch = page.locator('#row-0').getByText('Bộ phận IT', { exact: true })
     this.departmentOption = page.getByRole('option', { name: 'Bộ phận IT' })
@@ -154,6 +158,15 @@ export class EmployeePage extends ValidationPage {
     this.employeeCode = page.getByRole('textbox', { name: 'Mã nhân viên ※' })
     this.userButton = page.locator("//div[contains(text(),'Nhân viên')]");
   }
+
+  async checkJustCheckInAtLeastOnceADay() {
+    await this.checkBoxJustCheckInAtLeastOnceADay.check();
+  }
+
+  async checkJustCheckImAtLeastOneceWhenEnteringWork() {
+    await this.checkBoxJustCheckImAtLeastOneceWhenEnteingWork.check();
+  }
+
 
   async expectDepartmentSearch() {
     await this.safeVerifyTextContains(this.verifyDepartmentSearch, 'Bộ phận IT');
