@@ -12,7 +12,6 @@ test.describe.serial('Leave Management Tests', () => {
     let loginPage: LoginPage;
     let leaveManagementPage: LeaveManagementPage;
     let toastPage: ToastPage;
-    
     let logoutPage: LogoutPage;
 
     test.beforeEach(async ({ page }) => {

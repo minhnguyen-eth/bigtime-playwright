@@ -1,5 +1,7 @@
-import { executeQuery, checkExistsWithConditions, clearTable } from '../helpers/DBHelper';
+import path from 'path';
+import { executeQuery, checkExistsWithConditions, clearTable, getConnection } from '../helpers/DBHelper';
 import mysql from 'mysql2/promise';
+import fs from 'fs';
 
 export const checkEvaluationTypeExists = async (name: string) => {
   return checkExistsWithConditions('evaluation_types', {
@@ -23,4 +25,29 @@ export const clearEvaluationCriterias = async () => {
 
 export const clearEvaluationProgress = async () => {
   await clearTable('evaluation_progress', "id NOT LIKE '%Testdata%'");
+}
+
+export async function importEvaluationProgressFromCSV(fileName: string) {
+  // resolve path từ project root
+  const absPath = path.resolve(process.cwd(), 'test-data', fileName);
+  console.log('Importing file from:', absPath);
+
+  const sql = `
+    LOAD DATA LOCAL INFILE '${absPath.replace(/\\/g, '/')}' 
+    INTO TABLE evaluation_progress
+    FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"'
+    LINES TERMINATED BY '\r\n'
+    IGNORE 1 LINES
+    (id, user_id, evaluation_type_id, start_date, end_date, status, type, created_at, created_by, updated_at, updated_by, deleted_at, deleted_by) `;
+
+  const conn = await getConnection();
+  try {
+    await conn.query({
+      sql,
+      infileStreamFactory: () => fs.createReadStream(absPath), 
+    });
+    console.log(` Imported evaluation progress from ${absPath}`);
+  } finally {
+    await conn.end();
+  }
 }

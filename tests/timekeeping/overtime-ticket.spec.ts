@@ -17,6 +17,8 @@ test.describe.serial('Overtime Ticket Test Suite', () => {
 
     const userId = '4cMiTbHpAz';
     const today = new Date().toISOString().split('T')[0];
+    const chosseDay = new Date("2025-08-18").toISOString().split('T')[0];
+    console.log(chosseDay); 
 
     test.beforeEach(async ({ page, context }) => {
         allure.feature('Overtime Ticket Feature');

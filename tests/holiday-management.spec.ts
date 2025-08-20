@@ -29,6 +29,7 @@ test.describe.serial('Holiday Management', () => {
         await holidayManagementPage.clickAdmin();
         await holidayManagementPage.clickHolidayButton();
     });
+    
 
     test("Max length name and reason holiday management 255 characters", async ({ page }) => {
         await clearPayroll();

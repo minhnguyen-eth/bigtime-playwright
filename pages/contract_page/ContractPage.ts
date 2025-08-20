@@ -44,9 +44,11 @@ export class ContractPage extends BasePage {
     readonly verifyTerminatedStatusSearch: Locator;
     readonly verifyComfirmedStatusSearch: Locator;
     readonly verifyNewStatusSearch: Locator;
+    readonly unCheckEditor: Locator;
 
     constructor(page: Page) {
         super(page);
+        this.unCheckEditor = page.getByRole('checkbox', { name: 'Có' });
         this.extensionButton = page.locator("//span[contains(text(),'Gia hạn')]");
         this.terminateButton = page.locator("//span[contains(text(),'Chấm dứt')]");
         this.verifyCanceledStatusSearch = page.locator('#row-0').getByText('Đã hủy');
@@ -63,10 +65,10 @@ export class ContractPage extends BasePage {
         this.verifySearchByCode = page.locator("//tr[@id='row-0']//td[2][contains(normalize-space(), 'HD0001')]");
         this.startDateSearchResult = page.locator("//tr/td[5][contains(normalize-space(), '2025')]");
         this.startDateSearch = page.getByRole('textbox', { name: 'Ngày bắt đầu' })
-        this.verifyProbationTypeResult = page.locator("//div[text()='Thử việc']");
-        this.verifyPermanentTypeResult = page.locator("//div[text()='Chính thức']");
-        this.verifyTemporaryTypeResult = page.locator("//div[text()='Thời vụ']");
-        this.verifyFreeLanceTypeResult = page.locator("//div[text()='Cộng tác viên']");
+        this.verifyProbationTypeResult = page.locator("//tr[@id='row-0']//div[text()='Thử việc']");
+        this.verifyPermanentTypeResult = page.locator("//tr[@id='row-0']//div[text()='Chính thức']");
+        this.verifyTemporaryTypeResult = page.locator("//tr[@id='row-0']//div[text()='Thời vụ']");
+        this.verifyFreeLanceTypeResult = page.locator("//tr[@id='row-0']//div[text()='Cộng tác viên']");
         this.temporaryType = page.locator("//div[contains(text(),'Thời vụ')]");
         this.freeLanceType = page.locator("//div[contains(text(),'Cộng tác viên')]");
         this.permanentType = page.locator("//div[contains(text(),'Chính thức')]");
@@ -89,6 +91,10 @@ export class ContractPage extends BasePage {
         this.employeeDropdown = page.getByRole('combobox').filter({ hasText: 'Mã - tên nhân viên ※' }).getByLabel('Open');
         this.employeeInput = page.getByRole('textbox', { name: 'Mã - tên nhân viên ※' })
         this.selectEmployee = page.getByRole('option', { name: 'BAT810-Nguyễn Văn Minh' })
+    }
+
+    async clickUncheckEditor() {
+        await this.safeClick(this.unCheckEditor);
     }
 
     async handleTerminateContract() {
@@ -216,8 +222,8 @@ export class ContractPage extends BasePage {
 
     async selectEndDate() {
         await this.safeClick(this.endDateDropDown);
-        await this.safeClick(this.MonthButton);
-        await this.safeClick(this.selectMonth);
+        // await this.safeClick(this.MonthButton);
+        // await this.safeClick(this.selectMonth);
         await this.safeClick(this.selectDay);
         await this.clickChoose();
     }
@@ -227,6 +233,7 @@ export class ContractPage extends BasePage {
         await this.safeClick(this.MonthButton);
         await this.safeClick(this.selectMonth2);
         await this.safeClick(this.selectDay2);
+        await this.clickChoose();
     }
 
     async selectStartDate() {

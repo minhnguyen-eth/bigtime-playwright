@@ -1,13 +1,13 @@
 import { test, expect } from '../base-test';
 import { allure } from "allure-playwright";
 import Config from '../../utils/configUtils';
-import { checkContractExists, clearEmploymentContract } from '../../db/helpers/DBHelper';
+import { checkContractExists, clearEmploymentContract, importContractsFromCSV } from '../../db/helpers/DBHelper';
 import { ValidationPage } from '../../pages/ValidationPage';
 import { ToastPage } from '../../pages/ToastPage';
 import { LoginPage } from '../../pages/LoginPage';
 import { BasePage } from '../../pages/BasePage';
 import { ContractPage } from '../../pages/contract_page/ContractPage';
-import { createContractWithProbation } from './contractHelper';
+import { createContractWithProbation, importContracts } from './contractHelper';
 
 test.describe.serial('Contract Tests', () => {
     let contractPage: ContractPage;
@@ -35,12 +35,13 @@ test.describe.serial('Contract Tests', () => {
 
     test('Max lenghth of note is 255 characters', async ({ page }) => {
         await clearEmploymentContract();
+        await importContracts();
         await basePage.clickAdd();
         await contractPage.fillEmployeeName();
         await contractPage.fillSalary("10000000");
         await contractPage.selectEndDate();
-        await basePage.clickChoose();
         await contractPage.fillNote('A'.repeat(255));
+        await contractPage.clickUncheckEditor();
         await contractPage.checkSelectAllTerm();
         await basePage.clickSave();
         await toastPage.getToastAddSuccess();
@@ -52,8 +53,8 @@ test.describe.serial('Contract Tests', () => {
         await contractPage.fillEmployeeName();
         await contractPage.fillSalary("10000000");
         await contractPage.selectEndDate();
-        await basePage.clickChoose();
         await contractPage.fillNote('A'.repeat(256));
+        await contractPage.clickUncheckEditor();
         await contractPage.checkSelectAllTerm();
         await basePage.clickSave();
         await validationPage.validateMaxLength255Characters();
@@ -65,7 +66,6 @@ test.describe.serial('Contract Tests', () => {
         await contractPage.fillEmployeeName();
         await contractPage.fillSalary("10000000");
         await contractPage.selectEndDate();
-        await contractPage.clickChoose();
         await contractPage.clickSave();
         await toastPage.getToastAddSuccess();
     });
@@ -117,7 +117,8 @@ test.describe.serial('Contract Tests', () => {
         await contractPage.clickContractTypeDropdown();
         await contractPage.clickFormalContract();
         await contractPage.fillNote('Automation test formal');
-        await contractPage.checkSelectAllTerm();
+        await contractPage.clickUncheckEditor();
+        // await contractPage.checkSelectAllTerm();
         await basePage.clickSave();
         await toastPage.getToastAddSuccess();
 
@@ -139,8 +140,8 @@ test.describe.serial('Contract Tests', () => {
         await contractPage.clickContractTypeDropdown();
         await contractPage.clickSeasonalContract();
         await contractPage.selectEndDate();
-        await basePage.clickChoose();
         await contractPage.fillNote('Automation test');
+        await contractPage.clickUncheckEditor();
         await contractPage.checkSelectAllTerm();
         await basePage.clickSave();
         await toastPage.getToastAddFailed();
@@ -155,8 +156,8 @@ test.describe.serial('Contract Tests', () => {
         await contractPage.clickContractTypeDropdown();
         await contractPage.clickSeasonalContract();
         await contractPage.selectEndDate();
-        await basePage.clickChoose();
         await contractPage.fillNote('Automation test seasonal');
+        await contractPage.clickUncheckEditor();
         await contractPage.checkSelectAllTerm();
         await basePage.clickSave();
         await toastPage.getToastAddSuccess();
@@ -181,6 +182,7 @@ test.describe.serial('Contract Tests', () => {
         await contractPage.clickSeasonalContract();
         await contractPage.selectEndDate();
         await contractPage.fillNote('Automation test seasonal');
+        await contractPage.clickUncheckEditor();
         await contractPage.checkSelectAllTerm();
         await basePage.clickSave();
         await toastPage.getToastAddSuccess();
@@ -201,7 +203,7 @@ test.describe.serial('Contract Tests', () => {
         await contractPage.verifyTerminatedStatusSearchResult();
     });
 
-     test('E2E - Extension contract', async ({ page }) => {
+    test('E2E - Extension contract', async ({ page }) => {
         await clearEmploymentContract();
         await basePage.clickAdd();
         await contractPage.fillEmployeeName();
@@ -209,6 +211,7 @@ test.describe.serial('Contract Tests', () => {
         await contractPage.clickSeasonalContract();
         await contractPage.selectEndDate();
         await contractPage.fillNote('Automation test seasonal');
+        await contractPage.clickUncheckEditor();
         await contractPage.checkSelectAllTerm();
         await basePage.clickSave();
         await toastPage.getToastAddSuccess();
@@ -226,9 +229,8 @@ test.describe.serial('Contract Tests', () => {
 
         await contractPage.handleExtensionContract();
         await toastPage.getToastExtensionContractSuccess();
-      
-    });
 
+    });
 
     test('Edit end date', async ({ page }) => {
         await clearEmploymentContract();
@@ -236,7 +238,6 @@ test.describe.serial('Contract Tests', () => {
         await basePage.clickRow0();
         await basePage.clickEdit();
         await contractPage.selectEndDate2();
-        await basePage.clickChoose();
         await basePage.clickSave();
         await toastPage.getToastUpdateSuccess();
     });
@@ -247,8 +248,8 @@ test.describe.serial('Contract Tests', () => {
         await contractPage.clickContractTypeDropdown();
         await contractPage.clickCollaboratorContract();
         await contractPage.selectEndDate();
-        await basePage.clickChoose();
         await contractPage.fillNote('Automation test collaborator');
+        await contractPage.clickUncheckEditor();
         await contractPage.checkSelectAllTerm();
         await basePage.clickSave();
         await toastPage.getToastAddSuccess();
@@ -342,14 +343,15 @@ test.describe.serial('Contract Tests', () => {
         await contractPage.verifySearchByNameResult();
 
         // search by name not exist
-        await contractPage.fillSearchByName('Testttt258963');
+        await contractPage.fillSearchByName('No da exist');
         await basePage.clickSearch();
         await validationPage.validateNoExistData();
     });
 
     test('Delete contract', async ({ page }) => {
-        await basePage.clickRow0();
-        await basePage.clickDelete();
+        await createContractWithProbation(basePage, contractPage, toastPage);
+        await contractPage.clickRow0();
+        await contractPage.clickDelete();
         await toastPage.getToastDeleteSuccess();
     });
 });

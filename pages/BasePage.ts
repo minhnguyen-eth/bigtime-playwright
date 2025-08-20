@@ -58,10 +58,10 @@ export class BasePage extends SafeActions {
         this.dropdownStatusSearch = page.getByRole('combobox').filter({ hasText: 'Trạng thái' }).locator('i')
         this.activityStatusRow0 = page.locator("//tr[@id='row-0']//span[@class='custom-size'][contains(text(),'Hoạt động')]");
         this.lockStatusRow0 = page.locator("//tr[@id='row-0']//span[@class='custom-size'][normalize-space()='Khóa']");
-        this.adminButton = page.locator("//span[normalize-space()='Quản lý']");
-        this.timeKeepingManagementButton = page.locator("//span[normalize-space()='Quản lý chấm công']");
-        this.salaryButton = page.locator("//span[normalize-space()='Lương']");
-        this.settingButton = page.locator("//span[normalize-space()='Cài đặt']");
+        this.adminButton = page.getByRole('heading', { name: 'Quản lý' });
+        this.timeKeepingManagementButton = page.getByRole('heading', { name: 'Chấm công' });
+        this.salaryButton = page.getByRole('heading', { name: 'Lương' });
+        this.settingButton = page.getByRole('heading', { name: 'Cài đặt' });
         this.iconAction = page.locator("//tr[@id='row-0']//i[contains(@class, 'mdi mdi-format-list-group ')]");
         this.todayDatePicker = page.locator("//div[contains(@class, 'dp__cell_inner') and contains(@class, 'dp__pointer') and contains(@class, 'dp__today')]");
         this.deleteButton = page.locator("//span[contains(text(),'Xóa')]");
@@ -105,7 +105,6 @@ export class BasePage extends SafeActions {
     async clickDropdownStatusSearch() {
         await this.safeClick(this.dropdownStatusSearch);
     }
-
 
     async clickDropdownStatusSearchNth1() {
         await this.safeClick(this.dropdownStatusSearch, { nth: 1 });

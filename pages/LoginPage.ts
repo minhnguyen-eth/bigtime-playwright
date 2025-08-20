@@ -19,7 +19,7 @@ export class LoginPage extends BasePage {
     this.validateUsername = page.locator("//div[contains(text(),'Nhập tên đăng nhập / email hoặc số điện thoại')]");
     this.validatePassword = page.locator("//div[contains(text(),'Nhập mật khẩu')]");
     this.dashBoard = page.locator("//div[contains(text(),'Bigtime')]");
-    this.usernameInput = page.getByRole('textbox', { name: 'Tên đăng nhập' });
+    this.usernameInput = page.getByRole('textbox', { name: 'Email hoặc Số điện thoại' })
     this.passwordInput = page.getByRole('textbox', { name: 'Mật khẩu' });
     this.loginButton = page.getByRole('button', { name: 'Đăng nhập' });
     this.profileBadgeAdmin = page.locator("//div[@class='v-chip__content']//span[contains(text(),'Admin')]");

@@ -3,7 +3,7 @@ import { LoginPage } from "../../pages/LoginPage";
 import Config from "../../utils/configUtils";
 import { EvaluationProcessPage } from "../../pages/evaluation_page/EvaluationProcessPage";
 import { ToastPage } from "../../pages/ToastPage";
-import { clearEvaluationProgress } from '../../db/helpers/DBHelper';
+import { clearEvaluationProgress, importEvaluationProgressFromCSV } from '../../db/helpers/DBHelper';
 import { allure } from "allure-playwright";
 import { createCriteria } from "../evaluation/evaluation-helper";
 import { ValidationPage } from "../../pages/ValidationPage";
@@ -14,7 +14,7 @@ test.describe.serial("Evaluation Criteria Tests", () => {
     let evaluationProcess: EvaluationProcessPage;
     let toast: ToastPage;
     let validation: ValidationPage;
-    
+
     const randomSuffix = Date.now();
     const random = `Automation test ${randomSuffix}`;
 
@@ -29,7 +29,11 @@ test.describe.serial("Evaluation Criteria Tests", () => {
         validation = new ValidationPage(page);
         await loginPage.goto();
         await loginPage.login(Config.admin_username, Config.admin_password);
-    }); 
+    });
+
+    test('Import data', async ({ page }) => {
+        await importEvaluationProgressFromCSV('evaluation_progress.csv');
+    });
 
     test("Add a new evaluation process company form", async ({ page }) => {
         allure.story("Add Evaluation Process - Company Form");

@@ -3,8 +3,7 @@ import { executeQuery } from './DBConnection';
 // Check exists generalized
 export async function checkExistsWithConditions(
     table: string,
-    conditions: Record<string, { value: any; like?: boolean }>
-): Promise<boolean> {
+    conditions: Record<string, { value: any; like?: boolean }>): Promise<boolean> {
     const keys = Object.keys(conditions);
     const whereClauses = keys.map(key =>
         conditions[key].like ? `${key} LIKE ?` : `${key} = ?`

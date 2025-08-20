@@ -167,7 +167,6 @@ export class EmployeePage extends ValidationPage {
     await this.checkBoxJustCheckImAtLeastOneceWhenEnteingWork.check();
   }
 
-
   async expectDepartmentSearch() {
     await this.safeVerifyTextContains(this.verifyDepartmentSearch, 'Bộ phận IT');
   }
@@ -293,7 +292,7 @@ export class EmployeePage extends ValidationPage {
   }
 
   async clickSelectRank() {
-    await this.safeClick(this.selectRank);
+    await this.safeClick(this.selectRank, { first: true });
   }
 
   async clickSelectDay() {
