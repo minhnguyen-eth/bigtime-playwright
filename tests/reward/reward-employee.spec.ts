@@ -6,7 +6,7 @@ import { allure } from 'allure-playwright';
 import { RewardEmployeePage } from '../../pages/reward_page/RewardEmployeePage';
 import { LogoutPage } from '../../pages/LogoutPage';
 import { ValidationPage } from '../../pages/ValidationPage';
-import { clearRewardUsers } from '../../db/helpers/DBHelper';
+import { clearRewardUsers, importRewardUserFromCSV } from '../../db/helpers/DBHelper';
 
 test.describe.serial('Reward Employee Tests', () => {
     let loginPage: LoginPage;
@@ -205,7 +205,7 @@ test.describe.serial('Reward Employee Tests', () => {
         await rewardEmployeePage.fillMoneyInput('1000000');
         await rewardEmployeePage.fillDescription('Description 2');
         await rewardEmployeePage.fillNote('Note 2');
-        await rewardEmployeePage.clickDropdownStatusInForm();
+        await rewardEmployeePage.clickDropdownStatusInFormNth1();
         await rewardEmployeePage.clickSelectApproved();
         await rewardEmployeePage.clickSave();
         await toastPage.getToastAddSuccess();
@@ -268,6 +268,7 @@ test.describe.serial('Reward Employee Tests', () => {
     }
 
     test('Search with reward name', async ({ page }) => {
+        await importRewardUserFromCSV('reward_users.csv');
         await beforeTestSearch();
         await rewardEmployeePage.fillSearchByRewardName('Reward Employee');
         await rewardEmployeePage.clickSearch();

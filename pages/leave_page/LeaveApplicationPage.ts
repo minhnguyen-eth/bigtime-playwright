@@ -1,4 +1,4 @@
-import { Locator, Page, expect } from '@playwright/test';
+import { Locator, Page } from '@playwright/test';
 import { BasePage } from '../BasePage';
 
 export class LeaveApplicationPage extends BasePage {
@@ -38,9 +38,11 @@ export class LeaveApplicationPage extends BasePage {
     readonly monthOption: Locator;
     readonly searchByMonthResult: Locator;
     readonly labelLeaveApplication: Locator;
+    readonly selectNewStatus: Locator;
 
     constructor(page: Page) {
         super(page);
+        this.selectNewStatus =  page.getByRole('option', { name: 'Mới' });
         this.closeDatePicker2 = page.locator("//div[@class='v-row']/div[4]/div[1]/div[1]/div[1]/div[1]//*[name()='svg']")
         this.closeDatePicker1 = page.getByRole('dialog').locator('path').first()
         this.labelLeaveApplication = page.getByRole('main').getByText('Đơn nghỉ phép')
@@ -77,6 +79,10 @@ export class LeaveApplicationPage extends BasePage {
         this.anualLeave = page.locator("//div[contains(text(),'Nghỉ theo phép năm')]")
         this.leaveTypeDropDown = page.getByRole('combobox').filter({ hasText: 'Loại ngày nghỉ ※Nghỉ' })
         this.leaveApplicationButton = page.locator("//div[contains(text(),'Đơn nghỉ phép')]")
+    }
+
+    async clickSelectNewStatus() {
+        await this.safeClick(this.selectNewStatus);
     }
 
     async clickCloseDatePicker2() {

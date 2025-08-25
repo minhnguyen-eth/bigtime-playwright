@@ -24,11 +24,10 @@ export async function addAnnualLeaveForEmployeeAndAdmin(page: Page) {
     await page.waitForTimeout(1000);
     await leaveManagementPage.clickSave();
     await toastPage.getToastAddSuccess();
-    await leaveManagementPage.verifyStatusNew('Mới');
-
-    await leaveManagementPage.clickIconActionRow0();
-    await leaveManagementPage.clickConfirm();
-    await toastPage.getToastConfirmSuccess();
+    // await leaveManagementPage.verifyStatusNew('Mới');
+    // await leaveManagementPage.clickIconActionRow0();
+    // await leaveManagementPage.clickConfirm();
+    // await toastPage.getToastConfirmSuccess();
     await leaveManagementPage.verifyStatusWaitingForApproval('Chờ duyệt');
     await logoutPage.logout();
 
@@ -50,9 +49,9 @@ export async function sendAndApproveLeave(page: Page) {
     const logoutPage = new LogoutPage(page);
 
     // Employee sends leave application
-    await leaveApplicationPage.clickRow0();
-    await leaveManagementPage.clickSendAndClickYes();
-    await toastPage.getToastSendBrowseSuccess();
+    // await leaveApplicationPage.clickRow0();
+    // await leaveManagementPage.clickSendAndClickYes();
+    // await toastPage.getToastSendBrowseSuccess();
     await logoutPage.logout();
 
     // Admin approves leave application

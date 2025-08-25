@@ -33,9 +33,12 @@ test.describe.serial('Leave Application Tests', () => {
         await leaveApplicationPage.clickLeaveTypeDropDown();
         await leaveApplicationPage.clickAnualLeave();
         await leaveApplicationPage.setDate();
+        await leaveApplicationPage.clickDropdownStatusInFormNth1();
+        await leaveApplicationPage.clickSelectNewStatus();
         await leaveApplicationPage.fillReason('Automation test leave application');
         await leaveApplicationPage.clickSave();
         await toastPage.getToastAddSuccess();
+
     }
     async function beforeSearchTest() {
         await loginPage.goto();
@@ -51,7 +54,7 @@ test.describe.serial('Leave Application Tests', () => {
         await leaveApplicationPage.clickTimeKeepingManagement();
         await leaveApplicationPage.clickLeaveApplicationButton();
     }
-    
+
     test('Add annual leave for a employee and manager browsed', async ({ page }) => {
         allure.story('Setup Annual Leave');
         await allure.step('Clear all leave management and add annual leave for employee and admin', async () => {
@@ -191,6 +194,9 @@ test.describe.serial('Leave Application Tests', () => {
             await beforeTest();
             await addLeaveApplication();
             await leaveApplicationPage.getVerifyAnualLeave();
+            await leaveApplicationPage.clickRow0();
+            await leaveApplicationPage.clickSendAndClickYes();
+            await toastPage.getToastSendBrowseSuccess();
         });
         await allure.step('Send and approve leave application', async () => {
             await sendAndApproveLeave(page);
@@ -232,7 +238,7 @@ test.describe.serial('Leave Application Tests', () => {
             await toastPage.getToastAddSuccess();
 
             // Check leave application exits in DB with reason and new status = 0
-            const existsInDB = await checkLeaveApplicationExists('Automation test reason', 0);
+            const existsInDB = await checkLeaveApplicationExists('Automation test reason', 1);
             expect(existsInDB).toBeTruthy();
 
         });

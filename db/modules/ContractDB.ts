@@ -1,6 +1,6 @@
 import path from 'path';
 import fs from 'fs';
-import { checkExistsWithConditions, clearTable, executeQuery, getConnection } from '../helpers/DBHelper';
+import { checkExistsWithConditions, clearTable, getConnection } from '../helpers/DBHelper';
 
 // check exists in db
 export async function checkContractExists(note: string, type: number, status: number) {
@@ -29,7 +29,9 @@ export async function importContractsFromCSV(fileName: string) {
     FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"'
     LINES TERMINATED BY '\r\n'
     IGNORE 1 LINES
-    (id, code, user_id, start_date, end_date, base_salary, position_id, note, content, terminate_reason, cancel_reason, type, status, created_at, created_by, updated_at, updated_by, deleted_at, deleted_by)
+    (id, code, user_id, start_date, end_date, base_salary, 
+    position_id, note, content, terminate_reason, cancel_reason, 
+    type, status, created_at, created_by, updated_at, updated_by, deleted_at, deleted_by)
   `;
 
   const conn = await getConnection();

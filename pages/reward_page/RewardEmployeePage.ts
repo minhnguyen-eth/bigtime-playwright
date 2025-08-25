@@ -41,7 +41,7 @@ export class RewardEmployeePage extends BasePage {
         this.verifyCancelledStatus = page.locator("//tr[@id='row-0']//div[text()='Đã hủy']");
         this.verifyApprovedStatus = page.locator("//tr[@id='row-0']//div[text()='Đã duyệt']");
         this.verifyNewStatus = page.locator("//tr[@id='row-0']//div[text()='Mới tạo']");
-        this.verifySearchByDate = page.locator("//td[normalize-space()='19-06-2025']");
+        this.verifySearchByDate = page.locator("//td[normalize-space()='19-06-2025']").first();
         this.verifySearchByRewardType = page.locator("//tr[@id='row-0']//span[contains(text(),'Khen thưởng 2')]");
         this.verifySearchByEmployee = page.locator("//tr[@id='row-0']//span[contains(text(),'BAT810 - Nguyễn Văn Minh')]");
         this.verifySearchByRewardName = page.locator("//tr[@id='row-0']//span[contains(text(),'Reward Employee 4')]");

@@ -70,7 +70,7 @@ export class ResumePage extends BasePage {
         this.wherePassportsAreIssued = page.getByRole('textbox', { name: 'Nơi cấp hộ chiếu' })
         this.passportNumber = page.getByRole('textbox', { name: 'Số hộ chiếu' })
         this.stateManagement = page.getByRole('textbox', { name: 'Quản lý nhà nước' })
-        this.major = page.locator("//div[1]/div/div[2]/div/div[25]/div/div/div/div[3]/div/input");
+        this.major = page.getByRole('textbox', { name: 'Chuyên ngành' })
         this.professionalQualifications = page.getByRole('textbox', { name: 'Trình độ chuyên môn' })
         this.maritalStatus = page.getByRole('textbox', { name: 'Tình trạng hôn nhân' })
         this.educationalLevel = page.getByRole('textbox', { name: 'Trình độ học vấn' })
@@ -266,38 +266,38 @@ export class ResumePage extends BasePage {
         await this.fillPlaceOfBirth("Hà Nội");
         await this.fillHomeTown("Hà Nội");
         await this.fillPermanentResidence("Hà Nội");
-        await this.fillHomePhoneNumber(phoneNumber);
-        await this.fillOfficePhoneNumber(phoneNumber);
+        // await this.fillHomePhoneNumber(phoneNumber);
+        // await this.fillOfficePhoneNumber(phoneNumber);
         await this.fillNationPeople("Kinh");
         await this.fillReligion("Không");
-        await this.fillNationality("Việt Nam");
-        await this.fillMaritalStatus("Độc thân");
+        // await this.fillNationality("Việt Nam");
+        // await this.fillMaritalStatus("Độc thân");
         await this.fillEducationalLevel("Cao đẳng");
         await this.fillProfessionalQualifications("Công nghệ thông tin");
         await this.fillMajor("Công nghệ thông tin");
-        await this.fillPoliticalTheory("Không");
-        await this.fillStateManagement("Công ty BigAppTech");
-        await this.fillPassportNumber(random10Digits.toString());
-        await this.fillWherePassportsAreIssued("Hà Nội");
-        await this.clickPassportIssuanceDate();
-        await this.clicktodayDatePicker();
-        await this.clickPassportExpirationDate();
-        await this.clicktodayDatePicker();
+        // await this.fillPoliticalTheory("Không");
+        // await this.fillStateManagement("Công ty BigAppTech");
+        // await this.fillPassportNumber(random10Digits.toString());
+        // await this.fillWherePassportsAreIssued("Hà Nội");
+        // await this.clickPassportIssuanceDate();
+        // await this.clicktodayDatePicker();
+        // await this.clickPassportExpirationDate();
+        // await this.clicktodayDatePicker();
         await this.fillSocialSecurityNumber(random10Digits.toString());
         await this.fillInsuranceNumber(random10Digits.toString());
-        await this.fillHeight("170");
-        await this.fillWeight("60");
-        await this.fillHealthStatus("Khỏe mạnh");
-        await this.fillBloodType("A");
-        await this.fillCurrentJob("Công nghệ thông tin");
-        await this.fillPreRecruitment("Công nghệ thông tin");
-        await this.fillOrganizationJoined("Testing");
-        await this.fillRecruimentForm("Testing");
-        await this.fillRecruitedPosition("Công nghệ thông tin");
+        // await this.fillHeight("170");
+        // await this.fillWeight("60");
+        // await this.fillHealthStatus("Khỏe mạnh");
+        // await this.fillBloodType("A");
+        // await this.fillCurrentJob("Công nghệ thông tin");
+        // await this.fillPreRecruitment("Công nghệ thông tin");
+        // await this.fillOrganizationJoined("Testing");
+        // await this.fillRecruimentForm("Testing");
+        // await this.fillRecruitedPosition("Công nghệ thông tin");
         await this.clickStartWorkingDate();
         await this.clicktodayDatePicker();
-        await this.clickRecruitmentDate();
-        await this.clicktodayDatePicker();
+        // await this.clickRecruitmentDate();
+        // await this.clicktodayDatePicker();
         await this.clickContractSignDate();
         await this.clicktodayDatePicker();
     }

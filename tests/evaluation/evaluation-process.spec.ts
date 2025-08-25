@@ -170,6 +170,7 @@ test.describe.serial("Evaluation Criteria Tests", () => {
 
     test('Evaluation process - Search by status', async ({ page }) => {
         await clearEvaluationProgress();
+        await importEvaluationProgressFromCSV('evaluation_progress.csv');
 
         await allure.step("Search by new status", async () => {
             // Search by new status

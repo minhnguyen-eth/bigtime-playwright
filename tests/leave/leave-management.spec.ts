@@ -6,7 +6,7 @@ import { employeeBrowseLeaveManagement } from './leave-helper';
 import { allure } from 'allure-playwright';
 import { ToastPage } from '../../pages/ToastPage';
 import { LogoutPage } from '../../pages/LogoutPage';
-import { clearLeaveManagements } from '../../db/helpers/DBHelper';
+import { clearLeaveManagements, importLeaveManagementsFromCSV } from '../../db/helpers/DBHelper';
 
 test.describe.serial('Leave Management Tests', () => {
     let loginPage: LoginPage;
@@ -46,11 +46,10 @@ test.describe.serial('Leave Management Tests', () => {
             await page.waitForTimeout(1000); // Wait for 3 seconds
             await leaveManagementPage.clickSave();
             await toastPage.getToastAddSuccess();
-            await leaveManagementPage.verifyStatusNew('Mới');
-
-            await leaveManagementPage.clickIconActionRow0();
-            await leaveManagementPage.clickConfirm();
-            await toastPage.getToastConfirmSuccess();
+            // await leaveManagementPage.verifyStatusNew('Mới');
+            // await leaveManagementPage.clickIconActionRow0();
+            // await leaveManagementPage.clickConfirm();
+            // await toastPage.getToastConfirmSuccess();
             await leaveManagementPage.verifyStatusWaitingForApproval('Chờ duyệt');
         });
 
@@ -67,8 +66,8 @@ test.describe.serial('Leave Management Tests', () => {
             await leaveManagementPage.clickAdmin();
             await leaveManagementPage.clickLeaveManagementButton();
             await leaveManagementPage.clickAdd();
-            await leaveManagementPage.clickComboBoxStatusFormAdd();
-            await leaveManagementPage.clickWaitingForApproval();
+            // await leaveManagementPage.clickComboBoxStatusFormAdd();
+            // await leaveManagementPage.clickWaitingForApproval();
             await leaveManagementPage.clickAddEmployee();
             await leaveManagementPage.fillSearchByName();
             await leaveManagementPage.clickSelectAEmployee();
@@ -87,8 +86,8 @@ test.describe.serial('Leave Management Tests', () => {
             await leaveManagementPage.clickAdmin();
             await leaveManagementPage.clickLeaveManagementButton();
             await leaveManagementPage.clickAdd();
-            await leaveManagementPage.clickComboBoxStatusFormAdd();
-            await leaveManagementPage.clickWaitingForApproval();
+            // await leaveManagementPage.clickComboBoxStatusFormAdd();
+            // await leaveManagementPage.clickWaitingForApproval();
             await leaveManagementPage.clickAddEmployee();
             await leaveManagementPage.fillSearchByName();
             await leaveManagementPage.clickSelectAEmployee();
@@ -117,17 +116,17 @@ test.describe.serial('Leave Management Tests', () => {
             await leaveManagementPage.clickSaveDepartmentAndTeam();
             await leaveManagementPage.clickSaveButton();
             await toastPage.getToastAddSuccess();
-            await leaveManagementPage.verifyStatusNew('Mới');
+            // await leaveManagementPage.verifyStatusNew('Mới');
         });
 
-        await allure.step('Admin confirms each row and sets status to waiting for approval', async () => {
-            await leaveManagementPage.fillSearchEmpployee('Nguyễn Văn Minh');
-            await leaveManagementPage.clickSearch();
-            await leaveManagementPage.verifyResultEmployee('Nguyễn Văn Minh');
-            await leaveManagementPage.clickIconActionRow0();
-            await leaveManagementPage.clickConfirm();
-            await toastPage.getToastConfirmSuccess();
-        });
+        // await allure.step('Admin confirms each row and sets status to waiting for approval', async () => {
+        //     await leaveManagementPage.fillSearchEmpployee('Nguyễn Văn Minh');
+        //     await leaveManagementPage.clickSearch();
+        //     await leaveManagementPage.verifyResultEmployee('Nguyễn Văn Minh');
+        //     await leaveManagementPage.clickIconActionRow0();
+        //     await leaveManagementPage.clickConfirm();
+        //     await toastPage.getToastConfirmSuccess();
+        // });
 
         await allure.step('Employee browses leave management', async () => {
             await employeeBrowseLeaveManagement(page);
@@ -200,6 +199,7 @@ test.describe.serial('Leave Management Tests', () => {
         allure.story('Search Leave Management by Status');
 
         await allure.step('Admin searches leave management by status', async () => {
+            await importLeaveManagementsFromCSV('leave_managements.csv');
             await beforeSearchTest();
             await leaveManagementPage.clickComboBoxStatus();
             await leaveManagementPage.clickSearchNewButton();

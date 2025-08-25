@@ -76,11 +76,14 @@ export class PaysheetHelper {
     await this.paysheet.clickConfirmPaysheet();
     await this.logoutPage.logout();
 
+    await this.loginPage.goto();
     await this.loginPage.login(Config.employee_username, Config.employee_password);
     await this.browsePayslip();
     await this.logoutPage.logout();
 
+    await this.loginPage.goto();
     await this.loginPage.login(Config.admin_username, Config.admin_password);
+    await this.paysheet.clickSalary();
     await this.paysheet.clickPaysheet();
     await this.paysheet.clickLatestPaysheetRow();
     await this.paysheet.clickViewPayroll();
@@ -88,6 +91,7 @@ export class PaysheetHelper {
     await this.paysheet.clickConfirmPaysheet();
     await this.paysheet.clickLatestPaysheetRow();
     await this.paysheet.clickPayslipPayment();
+    await this.paysheet.clickCheckBoxPaylipsFirst();
     await this.paysheet.clickPayment();
     await this.paysheet.clickCreateTicket();
     await this.toastPage.getToastPaymentSuccess();

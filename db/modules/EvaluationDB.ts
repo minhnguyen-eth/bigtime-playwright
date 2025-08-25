@@ -27,6 +27,8 @@ export const clearEvaluationProgress = async () => {
   await clearTable('evaluation_progress', "id NOT LIKE '%Testdata%'");
 }
 
+// import data from csv file to database
+
 export async function importEvaluationProgressFromCSV(fileName: string) {
   // resolve path từ project root
   const absPath = path.resolve(process.cwd(), 'test-data', fileName);
@@ -38,7 +40,8 @@ export async function importEvaluationProgressFromCSV(fileName: string) {
     FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"'
     LINES TERMINATED BY '\r\n'
     IGNORE 1 LINES
-    (id, user_id, evaluation_type_id, start_date, end_date, status, type, created_at, created_by, updated_at, updated_by, deleted_at, deleted_by) `;
+    (id, user_id, evaluation_type_id, start_date, end_date, status, type, 
+    created_at, created_by, updated_at, updated_by, deleted_at, deleted_by) `;
 
   const conn = await getConnection();
   try {

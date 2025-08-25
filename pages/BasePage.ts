@@ -50,7 +50,8 @@ export class BasePage extends SafeActions {
 
     constructor(page: Page) {
         super(page);
-        this.statusDropDownInForm = page.getByRole('combobox').filter({ hasText: 'Trạng thái ※' }).locator('i');
+        
+        this.statusDropDownInForm = page.getByRole('combobox').filter({ hasText: 'Trạng thái' }).locator('i');
         this.noteInput = page.getByRole('textbox', { name: 'Ghi chú' });
         this.row0 = page.locator("//tr[@id='row-0']");
         this.lockStatus = page.locator("//div[contains(text(),'Khóa')]");
@@ -83,7 +84,7 @@ export class BasePage extends SafeActions {
         this.addButton = page.locator("//span[normalize-space()='Thêm']");
         this.searchButton = page.locator("//span[contains(normalize-space(),'Tìm kiếm')]");
         this.descriptionInput = page.getByRole('textbox', { name: 'Mô tả' });
-        this.textareaInput = page.locator("//textarea");
+        this.textareaInput = page.locator("//textarea[1]");
     }
 
     async fillTextarea(text: string) {

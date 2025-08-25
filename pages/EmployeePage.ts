@@ -648,8 +648,8 @@ export class EmployeePage extends ValidationPage {
     await this.clickDateOfBirth();
     await this.clickChosseYear();
     await this.clickSelectYear();
-    await this.clickChosseMonth();
-    await this.clickSelectMonth();
+    // await this.clickChosseMonth();
+    // await this.clickSelectMonth();
     await this.clickSelectDay();
     await this.clickDateOfJoiningTheCompany();
     await this.clicktodayDatePicker();

@@ -73,6 +73,7 @@ test.describe.serial('Paysheet Tests', () => {
             await paysheet.clickSendAll();
             await paysheet.clickConfirmPaysheet();
             await logoutPage.logout();
+            await loginPage.goto();
         });
 
         await allure.step('Employee 1 approves payslip', async () => {
@@ -82,6 +83,7 @@ test.describe.serial('Paysheet Tests', () => {
             await paysheet.clickSalarySlipCode();
             await paysheet.clickBrowse();
             await logoutPage.logout();
+             await loginPage.goto();
         });
 
         await allure.step('Employee 2 approves payslip', async () => {
@@ -90,7 +92,7 @@ test.describe.serial('Paysheet Tests', () => {
             await paysheet.clickPayslip();
             await paysheet.clickSalarySlipCode();
             await paysheet.clickBrowse();
-            await logoutPage.logout();
+            // await logoutPage.logout();
         });
     });
 
@@ -163,7 +165,7 @@ test.describe.serial('Paysheet Tests', () => {
         await allure.step('Cancel latest paysheet with reason', async () => {
             await paysheet.clickLatestPaysheetRow();
             await paysheet.clickCancel();
-            await paysheet.fillReasonAndClickYes('Automation test cancel paysheet');
+            await paysheet.fillReason('Automation test cancel paysheet');
             await toastPage.getToastCancelSuccess();
         });
     });
