@@ -295,10 +295,10 @@ export class ResumePage extends BasePage {
         // await this.fillRecruimentForm("Testing");
         // await this.fillRecruitedPosition("Công nghệ thông tin");
         await this.clickStartWorkingDate();
-        await this.clicktodayDatePicker();
+        await this.clickChoose();
         // await this.clickRecruitmentDate();
         // await this.clicktodayDatePicker();
         await this.clickContractSignDate();
-        await this.clicktodayDatePicker();
+        await this.clickChoose();
     }
 }

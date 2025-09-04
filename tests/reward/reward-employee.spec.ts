@@ -6,7 +6,7 @@ import { allure } from 'allure-playwright';
 import { RewardEmployeePage } from '../../pages/reward_page/RewardEmployeePage';
 import { LogoutPage } from '../../pages/LogoutPage';
 import { ValidationPage } from '../../pages/ValidationPage';
-import { clearRewardUsers, importRewardUserFromCSV } from '../../db/helpers/DBHelper';
+import { clearRewardUsers, importRewardUser } from '../../db/helpers/DBHelper';
 
 test.describe.serial('Reward Employee Tests', () => {
     let loginPage: LoginPage;
@@ -268,7 +268,7 @@ test.describe.serial('Reward Employee Tests', () => {
     }
 
     test('Search with reward name', async ({ page }) => {
-        await importRewardUserFromCSV('reward_users.csv');
+        await importRewardUser();
         await beforeTestSearch();
         await rewardEmployeePage.fillSearchByRewardName('Reward Employee');
         await rewardEmployeePage.clickSearch();

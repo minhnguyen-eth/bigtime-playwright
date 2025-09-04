@@ -1,4 +1,4 @@
-import { clearEmployees, checkContractExists, importContractsFromCSV } from '../../db/helpers/DBHelper';
+import { clearEmployees, checkContractExists, importEmploymentContract } from '../../db/helpers/DBHelper';
 import { BasePage } from '../../pages/BasePage';
 import { ContractPage } from '../../pages/contract_page/ContractPage';
 import { ToastPage } from '../../pages/ToastPage';
@@ -26,7 +26,7 @@ export async function createContractWithProbation(
 }
 
 export async function importContracts() {
-    await importContractsFromCSV('contract.csv');
+    await importEmploymentContract();
 }
 
 

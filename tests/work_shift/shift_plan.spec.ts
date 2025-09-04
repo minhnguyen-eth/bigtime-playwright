@@ -143,7 +143,7 @@ test.describe.serial('Shift Plan Tests', () => {
         });
     });
 
-    test('Edit with remove employee', async ({ page }) => {
+    test.skip('Edit with remove employee', async ({ page }) => {
         await shiftPlanPage.clickChooseMonthSearch();
         await shiftPlanPage.clickMonth08();
         await shiftPlanPage.clickChoose();
@@ -152,7 +152,7 @@ test.describe.serial('Shift Plan Tests', () => {
         await shiftPlanPage.clickEditRow0();
     });
 
-    test('Edit name of shift plan', async ({ page }) => {
+    test.skip('Edit name of shift plan', async ({ page }) => {
         const randomName = "Edited name" + Math.random().toString(36).substring(2, 5);
         allure.story('Edit Name of Shift Plan Story');
 

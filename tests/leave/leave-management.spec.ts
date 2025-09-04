@@ -6,13 +6,17 @@ import { employeeBrowseLeaveManagement } from './leave-helper';
 import { allure } from 'allure-playwright';
 import { ToastPage } from '../../pages/ToastPage';
 import { LogoutPage } from '../../pages/LogoutPage';
-import { clearLeaveManagements, importLeaveManagementsFromCSV } from '../../db/helpers/DBHelper';
+import { clearLeaveManagements, importLeaveManagements } from '../../db/helpers/DBHelper';
 
 test.describe.serial('Leave Management Tests', () => {
     let loginPage: LoginPage;
     let leaveManagementPage: LeaveManagementPage;
     let toastPage: ToastPage;
     let logoutPage: LogoutPage;
+
+    test.beforeAll(async () => {
+        await importLeaveManagements();
+    });
 
     test.beforeEach(async ({ page }) => {
 
@@ -199,8 +203,7 @@ test.describe.serial('Leave Management Tests', () => {
         allure.story('Search Leave Management by Status');
 
         await allure.step('Admin searches leave management by status', async () => {
-            await importLeaveManagementsFromCSV('leave_managements.csv');
-            await beforeSearchTest();
+    
             await leaveManagementPage.clickComboBoxStatus();
             await leaveManagementPage.clickSearchNewButton();
             await leaveManagementPage.clickSearch();

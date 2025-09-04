@@ -1,13 +1,13 @@
 import { test, expect } from '../base-test';
 import { allure } from "allure-playwright";
 import Config from '../../utils/configUtils';
-import { checkContractExists, clearEmploymentContract, importContractsFromCSV } from '../../db/helpers/DBHelper';
+import { checkContractExists, clearEmploymentContract, importEmploymentContract } from '../../db/helpers/DBHelper';
 import { ValidationPage } from '../../pages/ValidationPage';
 import { ToastPage } from '../../pages/ToastPage';
 import { LoginPage } from '../../pages/LoginPage';
 import { BasePage } from '../../pages/BasePage';
 import { ContractPage } from '../../pages/contract_page/ContractPage';
-import { createContractWithProbation, importContracts } from './contractHelper';
+import { createContractWithProbation } from './contractHelper';
 
 test.describe.serial('Contract Tests', () => {
     let contractPage: ContractPage;
@@ -35,7 +35,7 @@ test.describe.serial('Contract Tests', () => {
 
     test('Max lenghth of note is 255 characters', async ({ page }) => {
         await clearEmploymentContract();
-        await importContracts();
+        await importEmploymentContract();
         await basePage.clickAdd();
         await contractPage.fillEmployeeName();
         await contractPage.fillSalary("10000000");

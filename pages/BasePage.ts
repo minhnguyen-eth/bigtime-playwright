@@ -64,7 +64,7 @@ export class BasePage extends SafeActions {
         this.salaryButton = page.getByRole('heading', { name: 'Lương' });
         this.settingButton = page.getByRole('heading', { name: 'Cài đặt' });
         this.iconAction = page.locator("//tr[@id='row-0']//i[contains(@class, 'mdi mdi-format-list-group ')]");
-        this.todayDatePicker = page.locator("//div[contains(@class, 'dp__cell_inner') and contains(@class, 'dp__pointer') and contains(@class, 'dp__today')]");
+        this.todayDatePicker = page.locator("div.dp__cell_inner.dp__pointer.dp__today");
         this.deleteButton = page.locator("//span[contains(text(),'Xóa')]");
         this.editButton = page.locator("//span[contains(text(),'Sửa')]");
         this.reasonInput = page.getByRole('textbox', { name: 'Lý do' });

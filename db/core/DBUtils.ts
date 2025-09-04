@@ -1,4 +1,6 @@
-import { executeQuery } from './DBConnection';
+import path from 'path';
+import fs from 'fs';
+import { executeQuery, getConnection } from './DBConnection';
 
 // Check exists generalized
 export async function checkExistsWithConditions(
@@ -32,5 +34,36 @@ export async function clearTable(tableName: string, condition?: string): Promise
         console.info(`Cleared ${result.affectedRows} rows in ${tableName} ${condition ? 'with condition' : ''}.`);
     } else {
         console.info(`Truncated table ${tableName}.`);
+    }
+}
+
+// Hàm chung import CSV vào MySQL
+export async function importFromCSV(
+    fileName: string,
+    tableName: string,
+    columns: string[]
+) {
+    // resolve path từ project root
+    const absPath = path.resolve(process.cwd(), "test-data", fileName);
+    console.log(`Importing file into [${tableName}] from:`, absPath);
+
+    const sql = `
+    LOAD DATA LOCAL INFILE '${absPath.replace(/\\/g, "/")}'
+    INTO TABLE ${tableName}
+    FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"'
+    LINES TERMINATED BY '\r\n'
+    IGNORE 1 LINES
+    (${columns.join(", ")})
+  `;
+
+    const conn = await getConnection();
+    try {
+        await conn.query({
+            sql,
+            infileStreamFactory: () => fs.createReadStream(absPath),
+        });
+        console.log(`Imported data into ${tableName} from ${absPath}`);
+    } finally {
+        await conn.end();
     }
 }

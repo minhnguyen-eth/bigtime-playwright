@@ -8,7 +8,6 @@ import { LogoutPage } from '../../pages/LogoutPage';
 import { BasePage } from '../../pages/BasePage';
 import { clearPaysheets, clearPayslips } from '../../db/helpers/DBHelper';
 
-
 test.describe.serial('Payslip Tests', () => {
     let loginPage: LoginPage;
     let payslipPage: PayslipPage;
@@ -29,7 +28,6 @@ test.describe.serial('Payslip Tests', () => {
         await loginPage.goto();
         await loginPage.login(Config.admin_username, Config.admin_password);
     });
-
 
     test('Export only one a employee', async ({ page }) => {
         await clearPaysheets();

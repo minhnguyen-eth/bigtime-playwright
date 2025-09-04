@@ -136,8 +136,8 @@ test.describe.serial("Debt Tests", () => {
 
       await logoutPage.logout();
       await loginPage.login(Config.employee_username, Config.employee_password);
-      await debtPage.clickSalary();
-      await debtPage.clickDebtButton();
+      // await debtPage.clickSalary();
+      // await debtPage.clickDebtButton();
       await debtPage.clickIconAction();
       await debtPage.clickBrowse();
     });
@@ -154,8 +154,8 @@ test.describe.serial("Debt Tests", () => {
 
       await logoutPage.logout();
       await loginPage.login(Config.employee_username, Config.employee_password);
-      await debtPage.clickSalary();
-      await debtPage.clickDebtButton();
+      // await debtPage.clickSalary();
+      // await debtPage.clickDebtButton();
       await debtPage.clickIconAction();
       await debtPage.clickReject();
       await debtPage.fillReasonAndClickYes("refused debt test");

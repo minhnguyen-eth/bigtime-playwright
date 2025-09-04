@@ -224,8 +224,8 @@ export class ContractPage extends BasePage {
         await this.safeClick(this.endDateDropDown);
         // await this.safeClick(this.MonthButton);
         // await this.safeClick(this.selectMonth);
-        await this.safeClick(this.selectDay);
-        await this.clickChoose();
+        // await this.safeClick(this.selectDay);
+        await this.clicktodayDatePicker();
     }
 
     async selectEndDate2() {

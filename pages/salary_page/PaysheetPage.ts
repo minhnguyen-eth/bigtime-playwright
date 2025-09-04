@@ -100,7 +100,7 @@ export class PaysheetPage extends BasePage {
         this.namePaysheetInput = page.getByRole('textbox', { name: 'Tên ※' });
         this.radioMonthly = page.getByRole('radio', { name: 'Hàng tháng' });
         this.dropdownMonth = page.locator('//i[@title="Open"]');
-        this.monthOption = page.locator('//div[@class="v-list-item-title"][normalize-space()="1/8/2025 - 31/8/2025"]');
+        // this.monthOption = page.locator('//div[@class="v-list-item-title"][normalize-space()="1/9/2025 - 30/9/2025"]');
         this.monthOption05 = page.locator('//div[@class="v-list-item-title"][normalize-space()="1/5/2025 - 31/5/2025"]');
         this.dropdownEmployee = page.getByRole('textbox', { name: 'Nhân viên ※' });
         this.employeeOption = page.locator("//div[@role='option']//div[@class='v-list-item-title']");
@@ -352,12 +352,27 @@ export class PaysheetPage extends BasePage {
     }
 
     async clickMonthOption() {
-        await this.safeClick(this.monthOption);
+        const now = new Date();
+        const month = now.getMonth() + 1; // 1 - 12
+        const year = now.getFullYear();
+
+        // First day of month
+        const firstDay = `1/${month}/${year}`;
+        const lastDayOfMonth = new Date(year, month, 0).getDate();
+        const lastDay = `${lastDayOfMonth}/${month}/${year}`;
+
+        // build text range
+        const dateRange = `${firstDay} - ${lastDay}`;
+
+        // build dynamic locator 
+        const monthOption = this.page.locator(`//div[@class="v-list-item-title"][normalize-space()="${dateRange}"]`);
+
+        // click
+        await this.safeClick(monthOption);
     }
 
     async setEmployeeName(name: string) {
         await this.safeFill(this.employeeNameInput, name);
-
     }
 
     async clickLatestPaysheetRow() {

@@ -8,6 +8,7 @@ import { allure } from 'allure-playwright';
 import { ToastPage } from '../../pages/ToastPage';
 import { LogoutPage } from '../../pages/LogoutPage';
 import { ValidationPage } from '../../pages/ValidationPage';
+import { importShiftPlan } from '../../db/modules/ShiftplanDB';
 
 test.describe.serial('Leave Application Tests', () => {
     let loginPage: LoginPage;
@@ -15,6 +16,10 @@ test.describe.serial('Leave Application Tests', () => {
     let toastPage: ToastPage;
     let logoutPage: LogoutPage;
     let validationPage: ValidationPage;
+
+    test.beforeAll(async () => {
+        await importShiftPlan();
+    })
 
     test.beforeEach(async ({ page }) => {
         allure.feature('Leave Application Feature');

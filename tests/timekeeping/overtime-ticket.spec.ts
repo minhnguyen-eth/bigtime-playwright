@@ -80,8 +80,8 @@ test.describe.serial('Overtime Ticket Test Suite', () => {
         await overtimeTicketPage.clicktodayDatePicker();
         await overtimeTicketPage.setOverTimeTicket();
         await overtimeTicketPage.fillReason('a'.repeat(255));
-        await overtimeTicketPage.clickDropdownStatusInForm();
-        await overtimeTicketPage.clickSelectPendingStatus();
+        // await overtimeTicketPage.clickDropdownStatusInFormNth1();
+        // await overtimeTicketPage.clickSelectPendingStatus();
         await overtimeTicketPage.clickSave();
         await toastPage.getToastAddSuccess();
     });
