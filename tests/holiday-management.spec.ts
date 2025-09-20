@@ -94,24 +94,24 @@ test.describe.serial('Holiday Management', () => {
         await holidayManagementPage.verifyRestHolidayHaveSalary();
     });
 
-    // test('Unpaid leave', async ({ page }) => {
-    //     await clearHolidayManagement();
-    //     await holidayManagementPage.clickAdd();
-    //     await holidayManagementPage.fillHolidayName("Test");
-    //     await holidayManagementPage.unCheckBox();
-    //     await holidayManagementPage.clickStartDate();
-    //     await holidayManagementPage.clicktodayDatePicker();
-    //     await holidayManagementPage.clickEndDate();
-    //     await holidayManagementPage.clicktodayDatePicker();
-    //     await holidayManagementPage.fillReason('Test Reason');
-    //     await holidayManagementPage.checkTotalHolidayResult();
-    //     await holidayManagementPage.clickSave();
-    //     await toastPage.getToastAddSuccess();
-    //     await holidayManagementPage.clickTimeKeeping();
-    //     await holidayManagementPage.clickCheckInOutHistory();
-    //     await holidayManagementPage.fillAndSelectUser();
-    //     await holidayManagementPage.verifyRestHolidayNoSalary();
-    // });
+    test('Unpaid leave', async ({ page }) => {
+        await clearHolidayManagement();
+        await holidayManagementPage.clickAdd();
+        await holidayManagementPage.fillHolidayName("Test");
+        await holidayManagementPage.unCheckBox();
+        await holidayManagementPage.clickStartDate();
+        await holidayManagementPage.clicktodayDatePicker();
+        await holidayManagementPage.clickEndDate();
+        await holidayManagementPage.clicktodayDatePicker();
+        await holidayManagementPage.fillReason('Test Reason');
+        await holidayManagementPage.checkTotalHolidayResult();
+        await holidayManagementPage.clickSave();
+        await toastPage.getToastAddSuccess();
+        await holidayManagementPage.clickTimeKeeping();
+        await holidayManagementPage.clickCheckInOutHistory();
+        await holidayManagementPage.fillAndSelectUser();
+        await holidayManagementPage.verifyRestHolidayNoSalary();
+    });
 
     test('Check validation required add with blank field', async ({ page }) => {
         await holidayManagementPage.clickAdd();

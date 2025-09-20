@@ -52,7 +52,6 @@ test.describe.serial('Term Tests', () => {
         await toastPage.getToastAddSuccess();
     });
 
-
     test('Create term with duplicate name', async ({ page }) => {
         await termPage.clickAdd();
         await termPage.fillName('Automatic created term 1');
@@ -61,7 +60,6 @@ test.describe.serial('Term Tests', () => {
         await termPage.validateNameDuplicateError();
         await toastPage.getToastAddFailed();
     });
-
 
     test('Create term with lock status', async ({ page }) => {
         await termPage.clickAdd();

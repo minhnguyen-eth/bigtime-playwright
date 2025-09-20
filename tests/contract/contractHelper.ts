@@ -4,7 +4,6 @@ import { ContractPage } from '../../pages/contract_page/ContractPage';
 import { ToastPage } from '../../pages/ToastPage';
 import { expect } from '@playwright/test';
 
-
 export async function createContractWithProbation(
     basePage: BasePage,
     contractPage: ContractPage,
@@ -28,5 +27,3 @@ export async function createContractWithProbation(
 export async function importContracts() {
     await importEmploymentContract();
 }
-
-

@@ -17,7 +17,6 @@ export const clearEmploymentContract = async () => {
 
 // import contracts from csv file
 export async function importEmploymentContract() {
-
   await importFromCSV("contract.csv", "employment_contracts", [
     "id",
     "code",

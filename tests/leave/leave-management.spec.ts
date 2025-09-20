@@ -14,9 +14,6 @@ test.describe.serial('Leave Management Tests', () => {
     let toastPage: ToastPage;
     let logoutPage: LogoutPage;
 
-    test.beforeAll(async () => {
-        await importLeaveManagements();
-    });
 
     test.beforeEach(async ({ page }) => {
 
@@ -29,6 +26,10 @@ test.describe.serial('Leave Management Tests', () => {
         loginPage = new LoginPage(page);
         leaveManagementPage = new LeaveManagementPage(page);
         await loginPage.goto();
+    });
+
+    test('Import test data for leave management', async ({ page }) => {
+        await importLeaveManagements();
     });
 
     test('Add annual leave for an employee and employee browsed', async ({ page }) => {
@@ -203,7 +204,7 @@ test.describe.serial('Leave Management Tests', () => {
         allure.story('Search Leave Management by Status');
 
         await allure.step('Admin searches leave management by status', async () => {
-    
+            await beforeSearchTest();
             await leaveManagementPage.clickComboBoxStatus();
             await leaveManagementPage.clickSearchNewButton();
             await leaveManagementPage.clickSearch();

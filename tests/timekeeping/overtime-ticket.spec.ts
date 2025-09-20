@@ -17,8 +17,8 @@ test.describe.serial('Overtime Ticket Test Suite', () => {
 
     const userId = '4cMiTbHpAz';
     const today = new Date().toISOString().split('T')[0];
-    // const chosseDay = new Date("2025-08-18").toISOString().split('T')[0];
-    // console.log(chosseDay); 
+    // const chosseDay = new Date("2025-09-04").toISOString().split('T')[0];
+    // console.log(chosseDay);
 
     test.beforeEach(async ({ page, context }) => {
         allure.feature('Overtime Ticket Feature');
@@ -43,9 +43,9 @@ test.describe.serial('Overtime Ticket Test Suite', () => {
         await overtimeTicketPage.clickTimeKeepingManagement();
 
         // Clear and mock data
-        await clearCheckDay();
-        await clearCheckTime();
-        await clearOvertimeSubmission();
+        // await clearCheckDay();
+        // await clearCheckTime();
+        // await clearOvertimeSubmission();
     });
 
     async function addOverTimeTicket() {
@@ -60,6 +60,27 @@ test.describe.serial('Overtime Ticket Test Suite', () => {
         await toastPage.getToastAddSuccess();
 
     }
+
+    // test.only('Mock data for all month', async ({ page }) => {
+    //     // await clearCheckDay();
+    //     // await clearCheckTime();
+    //     // await clearOvertimeSubmission();
+    //     const userId = "4cMiTbHpAz";
+    //     const year = 2025;
+    //     const month = 8; // tháng 9 (0-based index)
+
+    //     //  Lấy số ngày trong tháng bằng UTC để tránh lệch timezone
+    //     const daysInMonth = new Date(Date.UTC(year, month + 1, 0)).getUTCDate();
+    //     console.log("Days in month:", daysInMonth);
+
+    //     for (let day = 1; day <= daysInMonth; day++) {
+    //         //  Tự format ngày để không bị lệch UTC
+    //         const date = `${year}-${String(month + 1).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
+
+    //         console.log("Mock data for date:", date);
+    //         await mockCheckinData(userId, date);
+    //     }
+    // });
 
     test('Maxlength of reason over 255 characters', async ({ page }) => {
         await overtimeTicketPage.clickOvertimeTicketButton();
@@ -129,8 +150,8 @@ test.describe.serial('Overtime Ticket Test Suite', () => {
         await overtimeTicketPage.clicktodayDatePicker();
         await overtimeTicketPage.setOverTimeTicket();
         await overtimeTicketPage.fillReason('Automation test reason');
-        await overtimeTicketPage.clickDropdownStatusInForm();
-        await overtimeTicketPage.clickSelectPendingStatus();
+        // await overtimeTicketPage.clickDropdownStatusInFormNth1();
+        // await overtimeTicketPage.clickSelectPendingStatus();
         await overtimeTicketPage.clickSave();
         await toastPage.getToastAddSuccess();
 

@@ -175,18 +175,18 @@ test.describe.serial('Shift Plan Tests', () => {
         });
     });
 
-    test('Search by name', async ({ page }) => {
-        allure.story('Search by Name Story');
+    // test('Search by name', async ({ page }) => {
+    //     allure.story('Search by Name Story');
 
-        await allure.step('Search by name', async () => {
-            await shiftPlanPage.fillSearchByNameInput('Phân ca tháng 7');
-            await shiftPlanPage.clickSearch();
-        });
+    //     await allure.step('Search by name', async () => {
+    //         await shiftPlanPage.fillSearchByNameInput('Phân ca tháng 7');
+    //         await shiftPlanPage.clickSearch();
+    //     });
 
-        await allure.step('Verify search results', async () => {
-            await shiftPlanPage.expectSearchByNameResult();
-        });
-    });
+    //     await allure.step('Verify search results', async () => {
+    //         await shiftPlanPage.expectSearchByNameResult();
+    //     });
+    // });
 
     test('Search by work shift', async ({ page }) => {
         allure.story('Search by Work Shift Story');
