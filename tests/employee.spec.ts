@@ -29,12 +29,8 @@ test.describe.serial('Employee Tests', () => {
         await employeePage.clickUser();
     });
 
-    async function importUsers() {
-        await importUsersFromCSV('users.csv');
-    }
-
     test('import users from csv', async ({ page }) => {
-        await importUsers();
+       await importUsersFromCSV();
     });
 
     test('Add employee just check in at least once when entering the shift', async ({ page }) => {

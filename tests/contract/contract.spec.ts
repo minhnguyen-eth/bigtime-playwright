@@ -35,7 +35,6 @@ test.describe.serial('Contract Tests', () => {
 
     test('Max lenghth of note is 255 characters', async ({ page }) => {
         await clearEmploymentContract();
-        await importEmploymentContract();
         await basePage.clickAdd();
         await contractPage.fillEmployeeName();
         await contractPage.fillSalary("10000000");
@@ -259,6 +258,9 @@ test.describe.serial('Contract Tests', () => {
     });
 
     test('Search by contract type ', async ({ page }) => {
+         // import data
+        await importEmploymentContract();
+        
         // Search by probation type
         await contractPage.clickSearchByContractType();
         await contractPage.clickProbationType();
@@ -287,7 +289,10 @@ test.describe.serial('Contract Tests', () => {
         await contractPage.verifyFreeLanceType();
     });
 
+
+
     test('Search by status ', async ({ page }) => {
+
         // Search by new status
         await contractPage.clickDropdownStatusSearch();
         await contractPage.clickNewStatusSearch();
@@ -353,5 +358,6 @@ test.describe.serial('Contract Tests', () => {
         await contractPage.clickRow0();
         await contractPage.clickDelete();
         await toastPage.getToastDeleteSuccess();
+        await clearEmploymentContract();
     });
 });
