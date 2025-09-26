@@ -260,7 +260,7 @@ test.describe.serial('Contract Tests', () => {
     test('Search by contract type ', async ({ page }) => {
          // import data
         await importEmploymentContract();
-        
+
         // Search by probation type
         await contractPage.clickSearchByContractType();
         await contractPage.clickProbationType();
@@ -288,7 +288,6 @@ test.describe.serial('Contract Tests', () => {
         await basePage.clickSearch();
         await contractPage.verifyFreeLanceType();
     });
-
 
 
     test('Search by status ', async ({ page }) => {

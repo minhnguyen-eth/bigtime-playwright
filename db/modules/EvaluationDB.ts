@@ -24,7 +24,7 @@ export const clearEvaluationCriterias = async () => {
 }
 
 export const clearEvaluationProgress = async () => {
-  await clearTable('evaluation_progress', "id NOT LIKE '%Testdata%'");
+  await clearTable('evaluation_progress', "user_id = '4cMiTbHpAz'");
 }
 
 // import data from csv file to database

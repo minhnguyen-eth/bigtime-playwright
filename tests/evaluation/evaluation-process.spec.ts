@@ -31,14 +31,9 @@ test.describe.serial("Evaluation Criteria Tests", () => {
         await loginPage.login(Config.admin_username, Config.admin_password);
     });
 
-    test('Import data', async ({ page }) => {
-        await importEvaluationProgressFromCSV('evaluation_progress.csv');
-    });
-
     test("Add a new evaluation process company form", async ({ page }) => {
         allure.story("Add Evaluation Process - Company Form");
         await allure.step("Clear data and add new company evaluation process", async () => {
-            await clearEvaluationProgress();
             await evaluationProcess.clickAdmin();
             await evaluationProcess.clickEvaluationProcessButton();
             await evaluationProcess.clickAdd();
@@ -300,7 +295,7 @@ test.describe.serial("Evaluation Criteria Tests", () => {
 
             // verify search result
             await evaluationProcess.expectListEvaluationVerifywaitForApprovalStatus();
-
+            await clearEvaluationProgress();
         });
     });
 });
