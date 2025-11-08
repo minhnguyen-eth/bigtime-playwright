@@ -82,7 +82,7 @@ export class ContractPage extends BasePage {
         this.selectDay = page.locator("//div[@class='dp__cell_inner dp__pointer dp__date_hover'][normalize-space()='31']");
         this.selectMonth = page.locator("//div[@class='dp__overlay_cell dp__overlay_cell_pad'][normalize-space()='Thg 8']");
         this.MonthButton = page.getByRole('button', { name: 'Open months overlay' });
-        this.endDateDropDown = page.getByRole('textbox', { name: 'Đến ngày ※' });
+        this.endDateDropDown = page.getByRole('textbox', { name: 'Ngày kết thúc ※' });
         this.salaryInput = page.getByRole('textbox', { name: 'Lương cơ bản ※' });
         this.collaboratorContract = page.getByRole('option', { name: 'Cộng tác viên' });
         this.seasonalContract = page.getByRole('option', { name: 'Thời vụ' });

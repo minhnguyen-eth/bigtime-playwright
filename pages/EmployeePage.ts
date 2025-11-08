@@ -78,9 +78,11 @@ export class EmployeePage extends ValidationPage {
   readonly verifyDepartmentSearch: Locator;
   readonly checkBoxJustCheckInAtLeastOnceADay: Locator;
   readonly checkBoxJustCheckImAtLeastOneceWhenEnteingWork: Locator;
+  readonly payUnionDueCheckBox: Locator;
 
   constructor(page: Page) {
     super(page);
+    this.payUnionDueCheckBox = page.locator("(//input[@type='checkbox'])[4]");
     this.checkBoxJustCheckImAtLeastOneceWhenEnteingWork = page.locator("//input[@aria-label='Chỉ cần điểm danh ít nhất 1 lần khi vào ca']");
     this.checkBoxJustCheckInAtLeastOnceADay = page.locator("//input[@aria-label='Chỉ cần điểm danh ít nhất 1 lần trong ngày']");
     this.toastPage = new ToastPage(page);
@@ -142,7 +144,7 @@ export class EmployeePage extends ValidationPage {
     this.dropdownAllowance = page.getByRole('combobox').filter({ hasText: /^$/ }).locator('i');
     this.dropdownAllowance2 = page.getByRole('combobox').filter({ hasText: /^$/ }).locator('i');
     this.addAllowance = page.locator("//span[contains(.,'+Thêm phụ cấp')]");
-    this.openAllowance = page.locator("(//input[@type='checkbox'])[4]");
+    this.openAllowance = page.locator("(//input[@type='checkbox'])[5]");
     this.fillInsurance = page.getByRole('textbox', { name: 'Mức bảo hiểm' })
     this.fillSalary = page.getByRole('textbox', { name: 'Mức lương' })
     this.setSalary = page.locator("//span[contains(normalize-space(),'Thiết lập lương')]");
@@ -155,6 +157,10 @@ export class EmployeePage extends ValidationPage {
     this.employeeName = page.getByRole('textbox', { name: 'Tên nhân viên ※' })
     this.employeeCode = page.getByRole('textbox', { name: 'Mã nhân viên ※' })
     this.userButton = page.locator("//div[contains(text(),'Nhân viên')]");
+  }
+
+  async selectPayUnionDue() {
+    await this.safeClick(this.payUnionDueCheckBox);
   }
 
   async checkJustCheckInAtLeastOnceADay() {
