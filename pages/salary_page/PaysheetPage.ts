@@ -29,14 +29,13 @@ export class PaysheetPage extends BasePage {
     readonly selectAllEmployeesCheckbox: Locator;
     readonly reasonInput: Locator;
     readonly reasonLabel: Locator;
-    readonly createTicketButton: Locator;
+    readonly paymentConfirmButton: Locator;
     readonly paymentButton: Locator;
     readonly checkBoxMonthly: Locator;
     readonly chooseMonth: Locator;
     readonly employeeNameInput: Locator;
     readonly payslipPayment: Locator;
     readonly requiredEnterName: Locator;
-    readonly searchEmployeeName: Locator;
     readonly exportExcelByMonth: Locator;
     readonly chosseMonthExport: Locator;
     readonly Month05: Locator;
@@ -63,27 +62,41 @@ export class PaysheetPage extends BasePage {
     readonly verifyDeduction: Locator;
     readonly selectMoreEmployee2: Locator;
     readonly checkBoxPaylipsFirst: Locator;
+    readonly searchByName: Locator;
+    readonly buttonSearch: Locator;
+    readonly selectEmployee: Locator;
+    readonly alolowanceButton: Locator;
+    readonly addAllowanceButton: Locator;
+    readonly inputFillMoneyAllowance: Locator;
+    readonly separateButton: Locator;
+    readonly popupSeparate: Locator;
 
     constructor(page: Page) {
         super(page);
+        this.popupSeparate = page.locator("//div[.='Bạn có chắc chắn muốn tách bảng lương thành 2 phần: đã duyệt và chưa duyệt không?']")
+        this.separateButton = page.locator("//span[contains(.,'Tách')]")
+        this.inputFillMoneyAllowance = page.locator("//tr/td[3]/div/div/div/div[3]/input")
+        this.addAllowanceButton = page.locator("//span[contains(.,'Thêm khoản phụ cấp khác')]")
+        this.alolowanceButton = page.locator("//tbody/tr/td[6]/p[1]")
+        this.buttonSearch = page.getByRole('tablist').getByRole('button', { name: 'Tìm kiếm' });
         this.checkBoxPaylipsFirst = page.locator('.v-selection-control').first();
         this.verifyDeduction = page.locator("//p[contains(text(),'300.000 đ')]")
-        this.verifyAllowance = page.locator("//p[contains(text(),'50.000.000 đ')]")
+        this.verifyAllowance = page.locator("//p[contains(text(),'2.000.000 đ')]")
         this.verifyOverTime = page.locator("//input[contains(@value,'500.000')]")
         this.temporarySaveButton = page.locator("//span[.=' Lưu tạm']")
         this.addDeduction = page.locator("//span[.='Thêm khoản trừ khác']");
         this.deduction = page.locator("//table/tbody/tr/td[8]/p");
-        this.verifyBonus = page.locator("//p[contains(text(),'200.000 đ')]")
+        this.verifyBonus = page.locator("//p[contains(text(),'1.000.000 đ')]")
         this.typeInput = page.locator("//td[2]/div/div/div/div[3]/div/input")
         this.timesInput = page.locator("//tr/td[3]/div/div/div/div[3]/div/input")
         this.moneyInput = page.locator("//td[4]/div/div/div/div[3]/input")
         this.addBonusButton = page.locator("//span[.='Thêm khoản thưởng khác']")
-        this.bonusButton = page.locator("//tbody/tr[@class='selected-row']/td[7]/p[1]")
+        this.bonusButton = page.locator("//tbody/tr/td[7]/p[1]")
         this.overTimeInput = page.locator("//tr/td[5]/div/div/div/div[3]/input")
         this.verifyBaseSalary = page.locator("//p[contains(text(),'20.000.000 đ')]")
         this.numberOfWorkingDays = page.locator("//tr/td[4]/div/div/div/div[3]/div/input");
         this.baseSalary = page.locator("//tbody/tr/td[4]/p[1]")
-        this.selectMoreEmployee = page.locator("//span[contains(.,'Big App Tech')]")
+        this.selectMoreEmployee = page.getByRole('option', { name: /Big App Tech/ });
         this.selectMoreEmployee2 = page.getByRole('option', { name: 'BAT810 - Nguyễn Văn Minh' });
         this.fillEmployeeName = page.locator("//div[3]/div[2]/div/div/div/div[3]/div/input")
         this.addMoreEmployee = page.locator("//span[normalize-space()='Thêm nhân viên']")
@@ -100,8 +113,6 @@ export class PaysheetPage extends BasePage {
         this.namePaysheetInput = page.getByRole('textbox', { name: 'Tên ※' });
         this.radioMonthly = page.getByRole('radio', { name: 'Hàng tháng' });
         this.dropdownMonth = page.locator('//i[@title="Open"]');
-        // this.monthOption = page.locator('//div[@class="v-list-item-title"][normalize-space()="1/9/2025 - 30/9/2025"]');
-        this.monthOption05 = page.locator('//div[@class="v-list-item-title"][normalize-space()="1/5/2025 - 31/5/2025"]');
         this.dropdownEmployee = page.getByRole('textbox', { name: 'Nhân viên ※' });
         this.employeeOption = page.locator("//div[@role='option']//div[@class='v-list-item-title']");
         this.submitButton = page.locator('//button[@type="submit"]');
@@ -125,8 +136,45 @@ export class PaysheetPage extends BasePage {
         this.reasonLabel = page.locator('//form//div[3]//textarea');
         this.reasonInput = page.locator('//form//div[3]//div[3]//textarea[1]');
         this.paymentButton = page.getByRole('button', { name: 'Thanh toán' });
-        this.createTicketButton = page.locator('//span[contains(normalize-space(),"Tạo phiếu")]');
+        this.paymentConfirmButton = page.locator('//span[contains(normalize-space(),"Xác nhận thanh toán")]');
+        this.searchByName = page.getByRole('textbox', { name: 'Tìm kiếm theo tên' });
+        this.selectEmployee = page.locator("(//input[@type='checkbox'])[2]");
+    }
 
+    async verifyPopupSeparate(text: string) {
+        await this.safeVerifyToHaveText(this.popupSeparate, text);
+    }
+
+    async clickSeparateButton() {
+        await this.safeClick(this.separateButton);
+    }
+
+     async fillAllowanceMoney(money: string) {
+        await this.safeFill(this.inputFillMoneyAllowance, money);
+    }
+
+    async fillAllowanceType(name: string) {
+        await this.safeFill(this.typeInput, name);
+    }
+
+    async clickAddAllowanceButton() {
+        await this.safeClick(this.addAllowanceButton);
+    }
+
+    async clickAllowanceButton() {
+        await this.safeClick(this.alolowanceButton);
+    }
+
+    async clickSelectEmployee() {
+        await this.safeClick(this.selectEmployee);
+    }
+
+    async clickButtonSearch() {
+        await this.safeClick(this.buttonSearch);
+    }
+
+    async fillSearchByName(name: string) {
+        await this.safeFill(this.searchByName, name);
     }
 
     async clickCheckBoxPaylipsFirst() {
@@ -138,7 +186,7 @@ export class PaysheetPage extends BasePage {
     }
 
     async expectAllowance() {
-        await this.safeVerifyTextContains(this.verifyAllowance, '50.000.000');
+        await this.safeVerifyTextContains(this.verifyAllowance, '2.000.000');
     }
 
     async expectDeduction() {
@@ -175,7 +223,7 @@ export class PaysheetPage extends BasePage {
     }
 
     async expectBonusMoney() {
-        await this.safeVerifyToHaveText(this.verifyBonus, '200.000 đ');
+        await this.safeVerifyToHaveText(this.verifyBonus, '1.000.000 đ');
     }
 
     async fillBonusType(type: string) {
@@ -311,8 +359,8 @@ export class PaysheetPage extends BasePage {
         await this.safeClick(this.selectAllEmployeesCheckbox, { force: true });
     }
 
-    async fillSearchPaysheet(id: string) {
-        await this.safeFill(this.searchInput, id);
+    async fillSearchPaysheet(name: string) {
+        await this.safeFill(this.searchInput, name);
     }
 
     async getEmployeeName(employeeName: string) {
@@ -327,8 +375,8 @@ export class PaysheetPage extends BasePage {
         await this.safeClick(this.paymentHistoryButton);
     }
 
-    async clickCreateTicket() {
-        await this.safeClick(this.createTicketButton);
+    async clickPaymentConfirm() {
+        await this.safeClick(this.paymentConfirmButton);
     }
 
     async clickPayment() {

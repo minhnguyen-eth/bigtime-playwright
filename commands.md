@@ -22,3 +22,6 @@ npm run deploy
 # generate locators:
 npx playwright codegen https://www.example.com
 ```
+
+# allure report 
+https://minhnguyen-eth.github.io/bigtime-playwright/

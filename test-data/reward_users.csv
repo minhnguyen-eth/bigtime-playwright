@@ -1,6 +1,1 @@
-﻿"id","user_id","reward_type_id","name","description","date_awarded","note","value","status","created_at","created_by","updated_at","updated_by","deleted_by","deleted_at"
-"testdata01","4cMiTbHpAz","SLKBVnu68N","Test data ","Description","2025-06-19","Note","1000000","4","2025-07-26 13:23:21","0000000000","2025-07-26 13:23:21","0000000000",\N,\N
-"testdata02","4cMiTbHpAz","SLKBVnu68N","Test data ","Description","2025-06-19","Note","1000000","3","2025-07-26 13:23:21","0000000000","2025-07-26 13:23:21","0000000000",\N,\N
-"testdata03","4cMiTbHpAz","SLKBVnu68N","Test data ","Description","2025-06-19","Note","1000000","2","2025-07-26 13:23:21","0000000000","2025-07-26 13:23:21","0000000000",\N,\N
-"testdata04","4cMiTbHpAz","SLKBVnu68N","Test data ","Description","2025-06-19","Note","1000000","1","2025-07-26 13:23:21","0000000000","2025-07-26 13:23:21","0000000000",\N,\N
-"testdata05","4cMiTbHpAz","SLKBVnu68N","Test data ","Description","2025-06-19","Note","1000000","0","2025-07-26 13:23:21","0000000000","2025-07-26 13:23:21","0000000000",\N,\N
+﻿

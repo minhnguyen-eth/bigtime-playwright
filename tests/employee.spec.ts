@@ -5,7 +5,7 @@ import { allure } from 'allure-playwright';
 import { EmployeePage } from '../pages/EmployeePage';
 import { ResumePage } from '../pages/ResumePage';
 import { ToastPage } from '../pages/ToastPage';
-import { clearAllowanceTypes, clearEmployees, importUsersFromCSV } from '../db/helpers/DBHelper';
+import { clearAllowanceTypes, clearEmployees } from '../db/helpers/DBHelper';
 
 test.describe.serial('Employee Tests', () => {
     let loginPage: LoginPage;
@@ -27,10 +27,6 @@ test.describe.serial('Employee Tests', () => {
         await loginPage.login(Config.admin_username, Config.admin_password);
         await employeePage.clickAdmin();
         await employeePage.clickUser();
-    });
-
-    test('import users from csv', async ({ page }) => {
-       await importUsersFromCSV();
     });
 
     test('Add employee just check in at least once when entering the shift', async ({ page }) => {
@@ -81,7 +77,6 @@ test.describe.serial('Employee Tests', () => {
         await toastPage.getToastAddSuccess();
     });
 
-
     test("Max length of all fields", async ({ page }) => {
         allure.severity('Critical');
         await clearAllowanceTypes();
@@ -129,12 +124,11 @@ test.describe.serial('Employee Tests', () => {
         await toastPage.getToastAddSuccess();
     });
 
-
     test('Test max length of resume', async ({ page }) => {
         allure.severity('Critical');
         const random10Digits = Math.floor(1000000000 + Math.random() * 9000000000);
         const phoneNumber = `09${Math.floor(100000000 + Math.random() * 900000000)}`;
-        await employeePage.fillSearchByName("Test max length resume");
+        await employeePage.fillSearchByName("Test max length of resume");
         await employeePage.clickSearch();
         await employeePage.clickRow0();
         await resumePage.clickResume();

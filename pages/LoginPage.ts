@@ -18,7 +18,7 @@ export class LoginPage extends BasePage {
     super(page);
     this.validateUsername = page.locator("//div[contains(text(),'Nhập email hoặc số điện thoại')]");
     this.validatePassword = page.locator("//div[contains(text(),'Nhập mật khẩu')]");
-    this.dashBoard = page.locator("//div[contains(text(),'Bigtime')]");
+    this.dashBoard = page.locator("//div[contains(text(),'BigTime')]");
     this.usernameInput = page.getByRole('textbox', { name: 'Email hoặc Số điện thoại' })
     this.passwordInput = page.getByRole('textbox', { name: 'Mật khẩu' });
     this.loginButton = page.getByRole('button', { name: 'Đăng nhập' });
@@ -47,7 +47,7 @@ export class LoginPage extends BasePage {
   }
 
   async expectLoginSuccess() {
-    await this.safeVerifyTextContains(this.dashBoard, 'Bigtime');
+    await this.safeVerifyTextContains(this.dashBoard, 'BigTime');
   }
 
   async expectLoginError() {

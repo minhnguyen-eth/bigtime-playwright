@@ -27,9 +27,11 @@ export class ToastPage extends BasePage{
     readonly toastEmployeeExisted: Locator;
     readonly toastTerminateContractSuccess: Locator;
     readonly toastExtensionContractSuccess: Locator;
+    readonly toastSeparatePaysheetSuccess: Locator;
 
     constructor(page: Page) {
         super(page);
+        this.toastSeparatePaysheetSuccess = page.locator('//div[contains(text(),"Tách thành công")]');
         this.toastExtensionContractSuccess = page.locator('//div[contains(text(),"Gia hạn thành công")]');
         this.toastTerminateContractSuccess = page.locator('//div[contains(text(),"Chấm dứt hợp đồng thành công")]');
         this.toastEmployeeExisted = page.locator('//div[contains(text(),"Nhân viên đã tồn tại")]');
@@ -55,6 +57,10 @@ export class ToastPage extends BasePage{
         this.toastDeleteSuccess = page.locator('//div[contains(text(),"Xóa thành công")]');
         this.toastBrowseSuccess = page.locator('//div[contains(text(),"Đã duyệt thành công")]');
         this.toastBrowseSuccess2 = page.locator('//div[contains(text(),"Phê duyệt thành công")]');
+    }
+
+    async getToastSeparatePaysheetSuccess() {
+        await this.safeVerifyToHaveText(this.toastSeparatePaysheetSuccess, 'Tách thành công');
     }
 
     async getToastExtensionContractSuccess() {

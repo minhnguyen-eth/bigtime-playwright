@@ -14,7 +14,7 @@ export async function takeScreenshotOnFailure(page: Page, testInfo: TestInfo): P
     const filePath = path.join(screenshotsDir, `${safeTitle}.png`);
 
     const buffer = await page.screenshot({ path: filePath, fullPage: true });
-    console.log(`📸 Screenshot saved: ${filePath}`);
+    console.log(` Screenshot saved: ${filePath}`);
 
     // Đính kèm ảnh vào Allure report
     allure.attachment('Failure Screenshot', buffer, 'image/png');

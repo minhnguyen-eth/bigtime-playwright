@@ -7,7 +7,6 @@ export class AllowancePage extends BasePage {
     readonly allowanceMoneyInput: Locator;
     readonly allowanceTypeDropdown: Locator;
     readonly allowanceTypeMonthly: Locator;
-    readonly statusDropdown: Locator;
     readonly msgAllowanceNameRequired: Locator;
     readonly validationMoney: Locator;
     readonly nameAllowanceSearch: Locator;
@@ -16,9 +15,13 @@ export class AllowancePage extends BasePage {
     readonly allowanceTypeDaily: Locator;
     readonly allowanceTypeDailyResult: Locator;
     readonly allowanceTypeMonthlyResult: Locator;
+    readonly yesRadio: Locator;
+    readonly taxRateInput: Locator;
 
     constructor(page: Page) {
         super(page);
+        this.taxRateInput = page.getByRole('textbox', { name: 'Mức tính thuế từ ※' });
+        this.yesRadio = page.getByRole('radio', { name: 'Có' });
         this.allowanceTypeMonthlyResult = page.locator("//tr[@id='row-0']//div[@class='v-chip__content'][normalize-space()='Hàng tháng']");
         this.allowanceTypeDailyResult = page.locator("//tr[@id='row-0']//div[@class='v-chip__content'][normalize-space()='Hàng ngày']");
         this.allowanceTypeDaily = page.locator("//div[contains(text(),'Hàng ngày')]");
@@ -32,6 +35,10 @@ export class AllowancePage extends BasePage {
         this.allowanceNameInput = page.getByRole('textbox', { name: 'Tên phụ cấp ※' })
         this.allowanceMoneyInput = page.getByRole('textbox', { name: 'Tiền phụ cấp ※' })
         this.allowanceButton = page.locator("//div[contains(text(),'Loại phụ cấp')]");
+    }
+
+    async fillTaxRate(rate: string) {
+        await this.safeFill(this.taxRateInput, rate);
     }
 
     async checkAllowanceTypeMonthlyResult() {

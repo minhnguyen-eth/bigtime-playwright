@@ -38,7 +38,7 @@ export class PaysheetHelper {
     await this.paysheet.clickLatestPaysheetRow();
     await this.paysheet.clickPayslipPayment();
     await this.paysheet.clickPayment();
-    await this.paysheet.clickCreateTicket();
+    await this.paysheet.clickPaymentConfirm();
     await this.toastPage.getToastPaymentSuccess();
   }
 
@@ -64,7 +64,7 @@ export class PaysheetHelper {
     await this.paysheet.clickLatestPaysheetRow();
     await this.paysheet.clickPayslipPayment();
     await this.paysheet.clickPayment();
-    await this.paysheet.clickCreateTicket();
+    await this.paysheet.clickPaymentConfirm();
     await this.toastPage.getToastPaymentSuccess();
   }
 
@@ -93,7 +93,7 @@ export class PaysheetHelper {
     await this.paysheet.clickPayslipPayment();
     await this.paysheet.clickCheckBoxPaylipsFirst();
     await this.paysheet.clickPayment();
-    await this.paysheet.clickCreateTicket();
+    await this.paysheet.clickPaymentConfirm();
     await this.toastPage.getToastPaymentSuccess();
   }
 
@@ -105,14 +105,15 @@ export class PaysheetHelper {
     await this.paysheet.clickChooseMonth();
     await this.paysheet.clickMonthOption();
     await this.paysheet.setNote('Automation test');
-    await this.paysheet.clickAndSetDropDownEmployee(employeeName);
-    await this.paysheet.clickEmployeeOption();
+    await this.paysheet.fillSearchByName(employeeName);
+    await this.paysheet.clickButtonSearch();
+    await this.paysheet.clickSelectEmployee();
     await this.paysheet.clickSave();
     await this.toastPage.getToastAddSuccess();
   }
 
   // Hành động lặp lại: xem phiếu lương
-  private async browsePayslip() {
+  async browsePayslip() {
     await this.paysheet.clickSalary();
     await this.paysheet.clickPayslip();
     await this.paysheet.clickSalarySlipCode();

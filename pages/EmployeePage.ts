@@ -45,7 +45,6 @@ export class EmployeePage extends ValidationPage {
   readonly addAllowanceTypeButton: Locator;
   readonly allowanceTypeName: Locator;
   readonly moneyAllowance: Locator;
-  readonly confirm: Locator;
   readonly dropdownAllowance2: Locator;
   readonly searchByCode: Locator;
   readonly searchByName: Locator;
@@ -53,7 +52,6 @@ export class EmployeePage extends ValidationPage {
   readonly resultSearchByName: Locator;
   readonly dropdownRoleName: Locator;
   readonly managementDepartmentRole: Locator;
-  readonly cancelAdd: Locator;
   readonly emailError: Locator;
   readonly dailySalary: Locator;
   readonly dropdownSalaryType: Locator;
@@ -150,8 +148,8 @@ export class EmployeePage extends ValidationPage {
     this.setSalary = page.locator("//span[contains(normalize-space(),'Thiết lập lương')]");
     this.selectDepartment = page.locator("//div[text()='Bộ phận Marketing']");
     this.dropdownDepartment = page.getByRole('textbox', { name: 'Thuộc bộ phận' });
-    this.selectStaff = page.locator("//div[@class='v-list-item-title'][normalize-space()='Staff']");
-    this.selectAdmin = page.locator("//div[@class='v-list-item-title'][normalize-space()='Admin']");
+    this.selectStaff = page.getByRole('option', { name: 'Nhân viên' });
+    this.selectAdmin = page.getByRole('option', { name: 'Quản lý' });
     this.dropdownEmployeeType = page.getByRole('textbox', { name: 'Loại nhân viên ※' });
     this.email = page.getByRole('textbox', { name: 'Email ※' })
     this.employeeName = page.getByRole('textbox', { name: 'Tên nhân viên ※' })

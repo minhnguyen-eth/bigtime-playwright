@@ -6,7 +6,6 @@ export class HolidayManagementPage extends BasePage {
     readonly holidayName: Locator;
     readonly startDate: Locator
     readonly endDate: Locator
-    readonly nameRequired: Locator;
     readonly startDateRequired: Locator;
     readonly endDateRequired: Locator;
     readonly totalHolidayResult: Locator;
@@ -43,7 +42,7 @@ export class HolidayManagementPage extends BasePage {
         this.holidayName = page.getByRole('textbox', { name: 'Tên ngày nghỉ ※' });
     }
 
-    async clickDeleteRow0(){
+    async clickDeleteRow0() {
         await this.safeClick(this.deleteRow0Button);
         await this.safeClick(this.yesButton, { nth: 1 });
     }
