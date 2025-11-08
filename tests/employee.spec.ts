@@ -29,6 +29,33 @@ test.describe.serial('Employee Tests', () => {
         await employeePage.clickUser();
     });
 
+    test('Create employee with select pay union due', async ({ page }) => {
+        const randomSuffix = Math.random().toString(36).substring(2, 8);
+        const randomAllowanceName = `Phụ cấp${randomSuffix}`;
+        const userCode = `userCode${randomSuffix}`;
+        const emailRandom = `email${randomSuffix}`;
+
+        await employeePage.clickAdd();
+
+        // Fill information
+        await employeePage.fillEmployeeCode(userCode);
+        await employeePage.fillEmployeeName('Automation test');
+        await employeePage.fillEmail(emailRandom);
+        await employeePage.checkJustCheckImAtLeastOneceWhenEnteringWork();
+        await employeePage.clickSelectMale();
+        await employeePage.clickDropdownBranch();
+        await employeePage.clickSelectBranch();
+        await employeePage.clickDropdownDepartment();
+        await employeePage.clickSelectDepartment();
+        await employeePage.clickDropdownEmployeeType();
+        await employeePage.clickStaff();
+        await employeePage.clickSetSalary();
+        await employeePage.selectPayUnionDue();
+        await employeePage.clickSave();
+        await toastPage.getToastAddSuccess();
+
+    });
+
     test('Add employee just check in at least once when entering the shift', async ({ page }) => {
         const randomSuffix = Math.random().toString(36).substring(2, 8);
         const randomAllowanceName = `Phụ cấp${randomSuffix}`;
