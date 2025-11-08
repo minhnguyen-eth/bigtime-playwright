@@ -15,7 +15,6 @@ test.describe.serial("Debt Tests", () => {
   let logoutPage: LogoutPage;
   let validationPage: ValidationPage;
 
-
   test.beforeEach(async ({ page }) => {
     allure.feature('Debt Feature');
     allure.owner('Minh Nguyen');
@@ -31,11 +30,10 @@ test.describe.serial("Debt Tests", () => {
   });
 
   async function addDebt() {
-    await loginPage.login(Config.admin_username, Config.admin_password);
+    await loginPage.login(Config.employee_username, Config.employee_password);
     await debtPage.clickSalary();
     await debtPage.clickDebtButton();
     await debtPage.clickAdd();
-    await debtPage.fillName("BAT810-Nguyễn Văn Minh");
     await debtPage.fillAmount("1000000");
     await debtPage.fillNote("add debt test for cancel");
     await debtPage.clickSave();
@@ -44,11 +42,10 @@ test.describe.serial("Debt Tests", () => {
 
   test("Max length of note 255 characters", async ({ page }) => {
     await clearDebts();
-    await loginPage.login(Config.admin_username, Config.admin_password);
+    await loginPage.login(Config.employee_username, Config.employee_password);
     await debtPage.clickSalary();
     await debtPage.clickDebtButton();
     await debtPage.clickAdd();
-    await debtPage.fillName("BAT810-Nguyễn Văn Minh");
     await debtPage.fillAmount("10000000");
     await debtPage.fillNote("a".repeat(255));
     await debtPage.clickSave();
@@ -56,11 +53,10 @@ test.describe.serial("Debt Tests", () => {
   });
 
   test("Max length of note over 255 characters", async ({ page }) => {
-    await loginPage.login(Config.admin_username, Config.admin_password);
+    await loginPage.login(Config.employee_username, Config.employee_password);
     await debtPage.clickSalary();
     await debtPage.clickDebtButton();
     await debtPage.clickAdd();
-    await debtPage.fillName("BAT810-Nguyễn Văn Minh");
     await debtPage.fillAmount("10000000");
     await debtPage.fillNote("a".repeat(256));
     await debtPage.clickSave();
@@ -69,13 +65,12 @@ test.describe.serial("Debt Tests", () => {
 
   test("Add debt with empty value ", async ({ page }) => {
     allure.story('Validation Debt Creation');
-    await allure.step('Admin logs in and attempts to add debt with empty values', async () => {
-      await loginPage.login(Config.admin_username, Config.admin_password);
+    await allure.step('Employee logs in and attempts to add debt with empty values', async () => {
+      await loginPage.login(Config.employee_username, Config.employee_password);
       await debtPage.clickSalary();
       await debtPage.clickDebtButton();
       await debtPage.clickAdd();
       await debtPage.clickSave();
-      await debtPage.expectFillNameError();
       await debtPage.expectFillNoteError();
     });
   });
@@ -86,11 +81,10 @@ test.describe.serial("Debt Tests", () => {
 
   test("Add debt with value already exists ", async ({ page }) => {
     await allure.step('Admin tries to add duplicate debt', async () => {
-      await loginPage.login(Config.admin_username, Config.admin_password);
+      await loginPage.login(Config.employee_username, Config.employee_password);
       await debtPage.clickSalary();
       await debtPage.clickDebtButton();
       await debtPage.clickAdd();
-      await debtPage.fillName("BAT810-Nguyễn Văn Minh");
       await debtPage.fillAmount("10000000");
       await debtPage.fillNote("value already exists test");
       await debtPage.clickSave();
@@ -100,8 +94,8 @@ test.describe.serial("Debt Tests", () => {
 
   test("Edit money ", async ({ page }) => {
     allure.story('Edit Debt Record');
-    await allure.step('Admin edits existing debt', async () => {
-      await loginPage.login(Config.admin_username, Config.admin_password);
+    await allure.step(' edits existing debt', async () => {
+      await loginPage.login(Config.employee_username, Config.employee_password);
       await debtPage.clickSalary();
       await debtPage.clickDebtButton();
       await debtPage.clickIconAction();
@@ -115,7 +109,7 @@ test.describe.serial("Debt Tests", () => {
   test("Edit note", async ({ page }) => {
     allure.story('Successful Debt Edit');
     await allure.step('Admin edits debt with valid new values', async () => {
-      await loginPage.login(Config.admin_username, Config.admin_password);
+      await loginPage.login(Config.employee_username, Config.employee_password);
       await debtPage.clickSalary();
       await debtPage.clickDebtButton();
       await debtPage.clickIconAction();
@@ -135,7 +129,7 @@ test.describe.serial("Debt Tests", () => {
       await toastPage.getToastSendSuccess();
 
       await logoutPage.logout();
-      await loginPage.login(Config.employee_username, Config.employee_password);
+      await loginPage.login(Config.admin_username, Config.admin_password);
       // await debtPage.clickSalary();
       // await debtPage.clickDebtButton();
       await debtPage.clickIconAction();
@@ -153,7 +147,7 @@ test.describe.serial("Debt Tests", () => {
       await toastPage.getToastSendSuccess();
 
       await logoutPage.logout();
-      await loginPage.login(Config.employee_username, Config.employee_password);
+      await loginPage.login(Config.admin_username, Config.admin_password);
       // await debtPage.clickSalary();
       // await debtPage.clickDebtButton();
       await debtPage.clickIconAction();
@@ -165,7 +159,7 @@ test.describe.serial("Debt Tests", () => {
 
   test("Send debt and cancel", async ({ page }) => {
     allure.story('Send and Cancel Debt');
-    await allure.step('Admin sends debt then cancels', async () => {
+    await allure.step(' sends debt then cancels', async () => {
       await addDebt();
       await debtPage.clickIconAction();
       await debtPage.clickSendAndClickYes();
@@ -180,7 +174,7 @@ test.describe.serial("Debt Tests", () => {
   test("Cancel debt with new status", async ({ page }) => {
     await clearDebts();
     allure.story('Cancel New Debt');
-    await allure.step('Admin cancels newly added debt', async () => {
+    await allure.step(' cancels newly added debt', async () => {
       await addDebt();
       await debtPage.clickIconAction();
       await debtPage.clickCancel();
@@ -192,7 +186,7 @@ test.describe.serial("Debt Tests", () => {
   test("Cancel debt with empty reason", async ({ page }) => {
     await clearDebts();
     allure.story('Cancel Debt Validation');
-    await allure.step('Admin attempts to cancel debt without reason', async () => {
+    await allure.step(' attempts to cancel debt without reason', async () => {
       await addDebt();
       await debtPage.clickIconAction();
       await debtPage.clickCancel();
