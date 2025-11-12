@@ -1,4 +1,4 @@
-# BigTime Automation Testing Project Copy right https://bigapptech.vn/
+# BigTime Automation Testing Project, Copy right https://bigapptech.vn/
 
 
 This is an automation testing project for **BigTime**, a timekeeping, payroll, and human resource management system.  
@@ -14,3 +14,4 @@ The project is built using **Playwright** and follows the Page Object Model stru
 -  MySQL for test data handling
 
 -  GitHub Pages for report hosting
+
