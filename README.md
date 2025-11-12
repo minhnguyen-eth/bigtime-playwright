@@ -1,4 +1,5 @@
-# BigTime Automation Testing Project
+# BigTime Automation Testing Project Copy right https://bigapptech.vn/
+
 
 This is an automation testing project for **BigTime**, a timekeeping, payroll, and human resource management system.  
 The project is built using **Playwright** and follows the Page Object Model structure with Allure reporting integration.
@@ -11,4 +12,5 @@ The project is built using **Playwright** and follows the Page Object Model stru
 -  Page Object Model design pattern
 -  Allure Report for test results
 -  MySQL for test data handling
+
 -  GitHub Pages for report hosting
