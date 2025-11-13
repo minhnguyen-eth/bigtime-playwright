@@ -34,7 +34,7 @@ export class RewardEmployeePage extends BasePage {
     readonly selectApproved: Locator;
     readonly monthButton: Locator;
     readonly month06Button: Locator;
-   
+
     constructor(page: Page) {
         super(page);
         this.dayRewardAdd = page.locator("//div[7]/div/div/div/div/div[1]/div/div/div[3]/input");
@@ -63,7 +63,7 @@ export class RewardEmployeePage extends BasePage {
         this.moneyInput = page.getByRole('textbox', { name: 'Tiền thưởng ※' });
         this.selectRewardType = page.locator("//div[text()='Khen thưởng 2']");
         this.chosseRewardType = page.getByRole('textbox', { name: 'Chọn loại khen thưởng ※' });
-        this.selectEmployee = page.locator("//span[@class='v-autocomplete__unmask'][contains(text(),'BAT810 - Nguyễn Văn')]");
+        this.selectEmployee = page.locator("//div[text()='BAT810 - Nguyễn Văn Minh']");
         this.chosseEmployeeInput = page.getByRole('textbox', { name: 'Chọn nhân viên ※' });
         this.rewardNameInput = page.getByRole('textbox', { name: 'Tên khen thưởng ※' });
         this.rewardEmployee = page.locator("//div[contains(text(),'Khen thưởng nhân viên')]");

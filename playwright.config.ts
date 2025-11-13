@@ -19,10 +19,11 @@ export default defineConfig({
   use: {
 
     headless: false, // true run in headless mode. false run with browser window opened.
+    viewport: null,
     // headless: isHeadless, 
     // viewport: isHeadless ? { width: 1920, height: 1080 } : null,
     launchOptions: {
-      args: ['--start-maximized', '--window-size=1920,1080',],
+      args: ['--start-maximized',],
     },
     // video: 'on',
     trace: 'on-first-retry',

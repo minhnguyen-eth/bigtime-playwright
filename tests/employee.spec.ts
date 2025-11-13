@@ -199,7 +199,7 @@ test.describe.serial('Employee Tests', () => {
 
     test('Test resume with full data valid information', async ({ page }) => {
         allure.severity('Critical');
-        await employeePage.fillSearchByName("Test max length resume");
+        await employeePage.fillSearchByName("Test max length of resume");
         await employeePage.clickSearch();
         await employeePage.clickRow0();
         await resumePage.testResumeWithValidData();

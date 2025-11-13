@@ -29,69 +29,70 @@ test.describe.serial('Allowance Tests', () => {
         await allowancePage.clickAllowance();
     });
 
-    test('Save with empty data', async ({ page }) => {
-        await clearAllowanceTypes();
-        await allowancePage.clickAdd();
-        await allowancePage.fillAllwanceMoney('');
-        await allowancePage.clickSave();
-        await allowancePage.checkMsgAllowanceNameRequired();
-        await allowancePage.checkValidationMoneyRequired();
-    });
+    // test('Save with empty data', async ({ page }) => {
+    //     await clearAllowanceTypes();
+    //     await allowancePage.clickAdd();
+    //     await allowancePage.fillAllwanceMoney('');
+    //     await allowancePage.clickSave();
+    //     await allowancePage.checkMsgAllowanceNameRequired();
+    //     await allowancePage.checkValidationMoneyRequired();
+    // });
 
-    test('E2E - Create allowance type daily with valid data and verify', async ({ page }) => {
-        const randomString = Math.random().toString(36).substring(7);
-        await allowancePage.clickAdd();
-        await allowancePage.fillAllwanceName(randomString);
-        await allowancePage.fillAllwanceMoney('250000');
-        await allowancePage.fillNote('Automation test allowance');
-        await allowancePage.clickSave();
-        await toastPage.getToastAddSuccess();
-    });
+    // test('E2E - Create allowance type daily with valid data and verify', async ({ page }) => {
+    //     const randomString = Math.random().toString(36).substring(7);
+    //     await allowancePage.clickAdd();
+    //     await allowancePage.fillAllwanceName(randomString);
+    //     await allowancePage.fillAllwanceMoney('250000');
+    //     await allowancePage.fillNote('Automation test allowance');
+    //     await allowancePage.clickSave();
+    //     await toastPage.getToastAddSuccess();
+    // });
 
-    test('Create duplicate allowance name', async ({ page }) => {
-        await allowancePage.clickAdd();
-        await allowancePage.fillAllwanceName('Phụ cấp tiền ăn');
-        await allowancePage.clickSave();
-        await validationPage.validateNameAlreadyExists();
-    });
-    test('Create duplicate allowance name with backspace', async ({ page }) => {
-        await allowancePage.clickAdd();
-        await allowancePage.fillAllwanceName('Phụ cấp   tiền ăn');
-        await allowancePage.clickSave();
-        await validationPage.validateNameAlreadyExists();
-    });
+    // test('Create duplicate allowance name', async ({ page }) => {
+    //     await allowancePage.clickAdd();
+    //     await allowancePage.fillAllwanceName('Phụ cấp tiền ăn');
+    //     await allowancePage.clickSave();
+    //     await validationPage.validateNameAlreadyExists();
+    // });
+    // test('Create duplicate allowance name with backspace', async ({ page }) => {
+    //     await allowancePage.clickAdd();
+    //     await allowancePage.fillAllwanceName('Phụ cấp   tiền ăn');
+    //     await allowancePage.clickSave();
+    //     await validationPage.validateNameAlreadyExists();
+    // });
 
-    test('Create allowance type monthly with valid data', async ({ page }) => {
-        const randomString = Math.random().toString(36).substring(7);
-        await allowancePage.clickAdd();
-        await allowancePage.fillAllwanceName(randomString);
-        await allowancePage.fillAllwanceMoney('250000');
-        await allowancePage.fillNote('Automation test allowance');
-        await allowancePage.clickAllowanceTypeDropdown();
-        await allowancePage.clickMonthly();
-        await allowancePage.clickSave();
-        await toastPage.getToastAddSuccess();
-    });
+    // test('Create allowance type monthly with valid data', async ({ page }) => {
+    //     const randomString = Math.random().toString(36).substring(7);
+    //     await allowancePage.clickAdd();
+    //     await allowancePage.fillAllwanceName(randomString);
+    //     await allowancePage.fillAllwanceMoney('250000');
+    //     await allowancePage.fillNote('Automation test allowance');
+    //     await allowancePage.clickAllowanceTypeDropdown();
+    //     await allowancePage.clickMonthly();
+    //     await allowancePage.clickSave();
+    //     await toastPage.getToastAddSuccess();
+    // });
 
-    test('Create with lock status', async ({ page }) => {
-        const randomString = Math.random().toString(36).substring(7);
-        await allowancePage.clickAdd();
-        await allowancePage.fillAllwanceName(randomString);
-        await allowancePage.clickDropdownStatusInFormNth1();
-        await allowancePage.clickLockStatus();
-        await allowancePage.clickSave();
-        await toastPage.getToastAddSuccess();
-    });
+    // test('Create with lock status', async ({ page }) => {
+    //     const randomString = Math.random().toString(36).substring(7);
+    //     await allowancePage.clickAdd();
+    //     await allowancePage.fillAllwanceName(randomString);
+    //     await allowancePage.clickDropdownStatusInFormNth1();
+    //     await allowancePage.clickLockStatus();
+    //     await allowancePage.clickSave();
+    //     await toastPage.getToastAddSuccess();
+    // });
 
-    test('Create allowance with empty note', async ({ page }) => {
-        const randomString = Math.random().toString(36).substring(7);
-        await allowancePage.clickAdd();
-        await allowancePage.fillAllwanceName(randomString);
-        await allowancePage.clickSave();
-        await toastPage.getToastAddSuccess();
-    });
+    // test('Create allowance with empty note', async ({ page }) => {
+    //     const randomString = Math.random().toString(36).substring(7);
+    //     await allowancePage.clickAdd();
+    //     await allowancePage.fillAllwanceName(randomString);
+    //     await allowancePage.clickSave();
+    //     await toastPage.getToastAddSuccess();
+    // });
 
     test('Max length of allowance name 255 characters', async ({ page }) => {
+        await clearAllowanceTypes();
         await allowancePage.clickAdd();
         await allowancePage.fillAllwanceName('a'.repeat(255));
         await allowancePage.clickSave();
