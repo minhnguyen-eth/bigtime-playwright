@@ -55,12 +55,8 @@ export class BasePage extends SafeActions {
     readonly OPEN_YEAR_OVERLAY_BUTTON: Locator;
     readonly OPEN_MONTH_OVERLAY_BUTTON: Locator;
 
-
     // MONTH PICKER FILTER
     readonly CHOOSE_MONTH_FILTER: Locator;
-
-
-
 
 
     constructor(page: Page) {

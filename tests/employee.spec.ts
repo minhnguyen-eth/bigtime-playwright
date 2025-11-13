@@ -46,7 +46,7 @@ test.describe.serial('Employee Tests', () => {
         await employeePage.clickDropdownBranch();
         await employeePage.clickSelectBranch();
         await employeePage.clickDropdownDepartment();
-        await employeePage.clickSelectDepartment();
+        await employeePage.clickSelectDepartment('Bộ phận IT');
         await employeePage.clickDropdownEmployeeType();
         await employeePage.clickStaff();
         await employeePage.clickSetSalary();
@@ -73,7 +73,7 @@ test.describe.serial('Employee Tests', () => {
         await employeePage.clickDropdownBranch();
         await employeePage.clickSelectBranch();
         await employeePage.clickDropdownDepartment();
-        await employeePage.clickSelectDepartment();
+        await employeePage.clickSelectDepartment('Bộ phận IT');
         await employeePage.clickDropdownEmployeeType();
         await employeePage.clickStaff();
         await employeePage.clickSave();
@@ -97,7 +97,7 @@ test.describe.serial('Employee Tests', () => {
         await employeePage.clickDropdownBranch();
         await employeePage.clickSelectBranch();
         await employeePage.clickDropdownDepartment();
-        await employeePage.clickSelectDepartment();
+        await employeePage.clickSelectDepartment('Bộ phận IT');
         await employeePage.clickDropdownEmployeeType();
         await employeePage.clickStaff();
         await employeePage.clickSave();
@@ -121,7 +121,7 @@ test.describe.serial('Employee Tests', () => {
         await employeePage.clickDropdownBranch();
         await employeePage.clickSelectBranch();
         await employeePage.clickDropdownDepartment();
-        await employeePage.clickSelectDepartment();
+        await employeePage.clickSelectDepartment('Bộ phận IT');
         await employeePage.clickDropdownEmployeeType();
         await employeePage.clickStaff();
 

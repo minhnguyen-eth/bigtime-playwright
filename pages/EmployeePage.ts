@@ -406,8 +406,9 @@ export class EmployeePage extends ValidationPage {
     await this.safeClick(this.dropdownDepartment);
   }
 
-  async clickSelectDepartment() {
-    await this.safeClick(this.selectDepartment);
+  async clickSelectDepartment(departmentName: string) {
+    const locator = this.page.locator(`//div[contains(text(),'${departmentName}')]`);
+    await this.safeClick(locator);
   }
 
   async fillEmployeeName(name: string) {
@@ -505,7 +506,7 @@ export class EmployeePage extends ValidationPage {
     await this.clickDropdownBranch();
     await this.clickSelectBranch();
     await this.clickDropdownDepartment();
-    await this.clickSelectDepartment();
+    await this.clickSelectDepartment('Bộ phận IT');
     await this.clickDropdownEmployeeType();
     await this.clickStaff();
     await this.clickSave();
@@ -555,7 +556,7 @@ export class EmployeePage extends ValidationPage {
     await this.clickDropdownBranch();
     await this.clickSelectBranch();
     await this.clickDropdownDepartment();
-    await this.clickSelectDepartment();
+    await this.clickSelectDepartment('Bộ phận IT');
     await this.clickDropdownEmployeeType();
     await this.clickStaff();
   }
