@@ -407,7 +407,7 @@ export class EmployeePage extends ValidationPage {
   }
 
   async clickSelectDepartment(departmentName: string) {
-    const locator = this.page.locator(`//div[contains(text(),'${departmentName}')]`);
+    const locator = this.page.locator(`//div[text()='${departmentName}']`);
     await this.safeClick(locator);
   }
 
