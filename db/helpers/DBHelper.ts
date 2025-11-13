@@ -25,3 +25,4 @@ export * from '../modules/TeamDB';
 export * from '../modules/TeamDB';
 export * from '../modules/TermDB';
 export * from '../modules/WorkshiftDB';
+export * from '../modules/MonthlyCheckinDB';

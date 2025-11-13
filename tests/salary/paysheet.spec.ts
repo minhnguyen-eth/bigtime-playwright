@@ -264,9 +264,9 @@ test.describe.serial('Paysheet Tests', () => {
             await paysheet.clickViewPayroll();
             // await paysheet.expectBaseSalary();
             // await paysheet.expectOverTime();
-            await paysheet.expectBonusMoney();
-            await paysheet.expectDeduction();
-            await paysheet.expectAllowance();
+            await paysheet.verifyBonus('1.000.000');
+            await paysheet.verifyDeduction('300.000');
+            await paysheet.verifyAllowance('2.000.000');
         });
     });
 
@@ -378,5 +378,106 @@ test.describe.serial('Paysheet Tests', () => {
             await toastPage.getToastSeparatePaysheetSuccess();
 
         });
+    });
+
+    //=== Test thuế không có người phụ thuộc=========================================
+    // Test Data : Lương chính = 14.000.000, 
+    // Mức đóng bảo hiểm 14.000.000, BHXH 8%, BHYT 1.5%, BHTN 1% , ĐOÀN PHÍ 1% = 1.470.140
+    // Phụ cấp = 3.000.000 (Miễn thuế 2.730.000)
+    // Mức đóng thuế = 17.000.000 - 1.470.140(Bảo hiểm) - 11.000.000(miễn bản thân) - 2.730.000(miễn phụ cấp) = 1.799.860
+    // Thuế bậc 1 = 1.799.860 * 5% = 89.993 
+    // Tổng nhận = 17.000.000 - 1.470.140(Bảo hiểm) - 89.993(Thuế) = 15.439.867
+    //==================================================================================================
+
+    test('E2E Calculate tax without dependents  ', async ({ page }) => {
+        allure.story('Calculate tax without dependents Story');
+        await beforeTest();
+
+        await allure.step('Add paysheet for 1 employees', async () => {
+            await paysheet.clickAdd();
+            await paysheet.setNamePaysheet('Automation test');
+            await paysheet.clickCheckBoxMonthly();
+            await paysheet.clickChooseMonth();
+            await paysheet.clickMonthOption02();
+            await paysheet.fillSearchByName('BAT100');
+            await page.keyboard.press('Enter');
+            await paysheet.clickSelectEmployee();
+            await paysheet.setNote('Automation test tax');
+            await paysheet.clickSave();
+            await toastPage.getToastAddSuccess();
+            await paysheet.clickLatestPaysheetRow();
+            await paysheet.clickViewPayroll();
+
+            // verify salary and tax
+            await paysheet.verifyMainSalary('14.000.000');
+            await paysheet.verifyAllowance('3.000.000');
+            await paysheet.verifyTotalSalary('17.000.000');
+            await paysheet.verifyInsurance('1.470.140');
+            await paysheet.verifyTax('89.993');
+            await paysheet.verifyTotalReceived('15.439.867');
+
+        });
+
+    });
+
+    test('E2E Calculate tax with 1 dependents  ', async ({ page }) => {
+        allure.story('Calculate tax without dependents Story');
+        await beforeTest();
+
+        await allure.step('Add paysheet for 1 employees', async () => {
+            await paysheet.clickAdd();
+            await paysheet.setNamePaysheet('Automation test');
+            await paysheet.clickCheckBoxMonthly();
+            await paysheet.clickChooseMonth();
+            await paysheet.clickMonthOption02();
+            await paysheet.fillSearchByName('BAT101');
+            await page.keyboard.press('Enter');
+            await paysheet.clickSelectEmployee();
+            await paysheet.setNote('Automation test tax');
+            await paysheet.clickSave();
+            await toastPage.getToastAddSuccess();
+            await paysheet.clickLatestPaysheetRow();
+            await paysheet.clickViewPayroll();
+
+            // verify salary and tax
+            await paysheet.verifyMainSalary('14.000.000');
+            await paysheet.verifyAllowance('3.000.000');
+            await paysheet.verifyTotalSalary('17.000.000');
+            await paysheet.verifyInsurance('1.470.140');
+            await paysheet.verifyTax('89.993');
+            await paysheet.verifyTotalReceived('15.439.867');
+
+        });
+
+    });
+
+    test('E2E Calculate tax with 2 dependents  ', async ({ page }) => {
+        allure.story('Calculate tax without dependents Story');
+        await beforeTest();
+
+        await allure.step('Add paysheet for 1 employees', async () => {
+            await paysheet.clickAdd();
+            await paysheet.setNamePaysheet('Automation test');
+            await paysheet.clickCheckBoxMonthly();
+            await paysheet.clickChooseMonth();
+            await paysheet.clickMonthOption02();
+            await paysheet.fillSearchByName('BAT102');
+            await page.keyboard.press('Enter');
+            await paysheet.clickSelectEmployee();
+            await paysheet.setNote('Automation test tax');
+            await paysheet.clickSave();
+            await toastPage.getToastAddSuccess();
+            await paysheet.clickLatestPaysheetRow();
+            await paysheet.clickViewPayroll();
+
+            // verify salary and tax
+            await paysheet.verifyMainSalary('20.000.000');
+            await paysheet.verifyTotalSalary('20.000.000');
+            await paysheet.verifyInsurance('2.300.000');
+            await paysheet.verifyTax('0');
+            await paysheet.verifyTotalReceived('17.700.000');
+
+        });
+
     });
 });

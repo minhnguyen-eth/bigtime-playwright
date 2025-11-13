@@ -6,7 +6,6 @@ export class PaysheetPage extends BasePage {
     readonly namePaysheetInput: Locator;
     readonly radioMonthly: Locator;
     readonly dropdownMonth: Locator;
-    readonly monthOption: Locator;
     readonly dropdownEmployee: Locator;
     readonly employeeOption: Locator;
     readonly submitButton: Locator;
@@ -40,26 +39,22 @@ export class PaysheetPage extends BasePage {
     readonly chosseMonthExport: Locator;
     readonly Month05: Locator;
     readonly exportOnly1Paysheet: Locator;
-    readonly monthOption05: Locator;
     readonly addMoreEmployee: Locator;
     readonly fillEmployeeName: Locator;
     readonly selectMoreEmployee: Locator;
     readonly baseSalary: Locator;
     readonly numberOfWorkingDays: Locator;
-    readonly verifyBaseSalary: Locator;
+  
     readonly overTimeInput: Locator
     readonly bonusButton: Locator;
     readonly addBonusButton: Locator;
     readonly moneyInput: Locator;
     readonly timesInput: Locator;
     readonly typeInput: Locator;
-    readonly verifyBonus: Locator;
     readonly deduction: Locator;
     readonly addDeduction: Locator;
     readonly temporarySaveButton: Locator;
     readonly verifyOverTime: Locator;
-    readonly verifyAllowance: Locator;
-    readonly verifyDeduction: Locator;
     readonly selectMoreEmployee2: Locator;
     readonly checkBoxPaylipsFirst: Locator;
     readonly searchByName: Locator;
@@ -70,6 +65,7 @@ export class PaysheetPage extends BasePage {
     readonly inputFillMoneyAllowance: Locator;
     readonly separateButton: Locator;
     readonly popupSeparate: Locator;
+    
 
     constructor(page: Page) {
         super(page);
@@ -80,20 +76,17 @@ export class PaysheetPage extends BasePage {
         this.alolowanceButton = page.locator("//tbody/tr/td[6]/p[1]")
         this.buttonSearch = page.getByRole('tablist').getByRole('button', { name: 'Tìm kiếm' });
         this.checkBoxPaylipsFirst = page.locator('.v-selection-control').first();
-        this.verifyDeduction = page.locator("//p[contains(text(),'300.000 đ')]")
-        this.verifyAllowance = page.locator("//p[contains(text(),'2.000.000 đ')]")
         this.verifyOverTime = page.locator("//input[contains(@value,'500.000')]")
         this.temporarySaveButton = page.locator("//span[.=' Lưu tạm']")
         this.addDeduction = page.locator("//span[.='Thêm khoản trừ khác']");
         this.deduction = page.locator("//table/tbody/tr/td[8]/p");
-        this.verifyBonus = page.locator("//p[contains(text(),'1.000.000 đ')]")
         this.typeInput = page.locator("//td[2]/div/div/div/div[3]/div/input")
         this.timesInput = page.locator("//tr/td[3]/div/div/div/div[3]/div/input")
         this.moneyInput = page.locator("//td[4]/div/div/div/div[3]/input")
         this.addBonusButton = page.locator("//span[.='Thêm khoản thưởng khác']")
         this.bonusButton = page.locator("//tbody/tr/td[7]/p[1]")
         this.overTimeInput = page.locator("//tr/td[5]/div/div/div/div[3]/input")
-        this.verifyBaseSalary = page.locator("//p[contains(text(),'20.000.000 đ')]")
+
         this.numberOfWorkingDays = page.locator("//tr/td[4]/div/div/div/div[3]/div/input");
         this.baseSalary = page.locator("//tbody/tr/td[4]/p[1]")
         this.selectMoreEmployee = page.getByRole('option', { name: /Big App Tech/ });
@@ -141,6 +134,46 @@ export class PaysheetPage extends BasePage {
         this.selectEmployee = page.locator("(//input[@type='checkbox'])[2]");
     }
 
+    async verifyTotalTaxAmoutCalculated(amount: string) {
+        const locator = this.page.getByText(`${amount} đ`, { exact: true })
+        await this.safeVerifyTextContains(locator, amount);
+    }
+
+    async verifyTotalReceived(amount: string) {
+        const locator = this.page.locator(`(//td[@class='text-right'][contains(text(),'${amount} đ')])[3]`);
+        await this.safeVerifyTextContains(locator, amount);
+    }
+
+    async verifyInsurance(amount: string) {
+        const locator = this.page.locator(`//p[contains(text(),'${amount} đ')]`);
+        await this.safeVerifyTextContains(locator, amount);
+    }
+
+    async verifyTotalSalary(amount: string) {
+        const locator = this.page.locator(`(//td[@class='text-right'][contains(text(),'${amount} đ')])[2]`);
+        await this.safeVerifyTextContains(locator, amount);
+    }
+
+    async verifyTax(amount: string) {
+        const locator = this.page.locator(`//p[contains(text(),'${amount} đ')]`);
+        await this.safeVerifyTextContains(locator, amount);
+    }
+
+    async verifyMainSalary(amount: string) {
+        const locator = this.page.locator(`//p[contains(text(),'${amount} đ')]`);
+        await this.safeVerifyTextContains(locator, amount);
+    }
+
+    async verifyAllowance(amount: string) {
+        const locator = this.page.locator(`//p[contains(text(),'${amount} đ')]`);
+        await this.safeVerifyTextContains(locator, amount);
+    }
+
+    async verifyDeduction(amount: string) {
+        const locator = this.page.locator(`//p[contains(text(),'${amount} đ')]`);
+        await this.safeVerifyTextContains(locator, amount);
+    }
+
     async verifyPopupSeparate(text: string) {
         await this.safeVerifyToHaveText(this.popupSeparate, text);
     }
@@ -149,7 +182,7 @@ export class PaysheetPage extends BasePage {
         await this.safeClick(this.separateButton);
     }
 
-     async fillAllowanceMoney(money: string) {
+    async fillAllowanceMoney(money: string) {
         await this.safeFill(this.inputFillMoneyAllowance, money);
     }
 
@@ -185,14 +218,6 @@ export class PaysheetPage extends BasePage {
         await this.safeClick(this.selectMoreEmployee2);
     }
 
-    async expectAllowance() {
-        await this.safeVerifyTextContains(this.verifyAllowance, '2.000.000');
-    }
-
-    async expectDeduction() {
-        await this.safeVerifyTextContains(this.verifyDeduction, '300.000');
-    }
-
     async expectOverTime() {
         await expect(this.verifyOverTime).toBeVisible();
         await expect(this.verifyOverTime).toHaveValue(/500\.000/);
@@ -222,8 +247,9 @@ export class PaysheetPage extends BasePage {
         await this.safeClick(this.deduction);
     }
 
-    async expectBonusMoney() {
-        await this.safeVerifyToHaveText(this.verifyBonus, '1.000.000 đ');
+    async verifyBonus(amout: string) {
+        const locator = this.page.locator(`//p[contains(text(),'${amout} đ')]`);
+        await this.safeVerifyTextContains(locator, amout);
     }
 
     async fillBonusType(type: string) {
@@ -250,10 +276,6 @@ export class PaysheetPage extends BasePage {
         await this.safeFill(this.overTimeInput, overtime);
     }
 
-    async expectBaseSalary() {
-        await this.safeVerifyTextContains(this.verifyBaseSalary, '20.000.000');
-    }
-
     async fillNumberOfWorkingDays(number: string) {
         await this.safeFill(this.numberOfWorkingDays, number);
     }
@@ -273,10 +295,6 @@ export class PaysheetPage extends BasePage {
 
     async clickAddMoreEmployee() {
         await this.safeClick(this.addMoreEmployee);
-    }
-
-    async clickMonthOption05() {
-        await this.safeClick(this.monthOption05);
     }
 
     async clickExportOnly1Paysheet() {
@@ -399,6 +417,24 @@ export class PaysheetPage extends BasePage {
         await this.safeClick(this.dropdownMonth);
     }
 
+
+    // Hàm này chọn tháng tùy ý nếu muốn đổi tháng thì sửa (const month = tháng mong muốn)
+    async clickMonthOption02() {
+        const month = 11;
+        const year = new Date().getFullYear();
+        const firstDay = `1/${month}/${year}`;
+        const lastDayOfMonth = new Date(year, month, 0).getDate();
+        const lastDay = `${lastDayOfMonth}/${month}/${year}`;
+        const dateRange = `${firstDay} - ${lastDay}`;
+
+        const monthOption = this.page.locator(
+            `//div[@class="v-list-item-title"][normalize-space()="${dateRange}"]`
+        );
+
+        await this.safeClick(monthOption);
+    }
+
+    // Hàm này chọn tháng hiện tại
     async clickMonthOption() {
         const now = new Date();
         const month = now.getMonth() + 1; // 1 - 12

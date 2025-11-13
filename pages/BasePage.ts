@@ -47,10 +47,22 @@ export class BasePage extends SafeActions {
     readonly iconAction: Locator;
     readonly row0: Locator;
 
+    // HOUR PICKER
+    readonly OPEN_MINUTES_OVERLAY_BUTTON: Locator;
+    readonly OPEN_HOURS_OVERLAY_BUTTON: Locator;
+
+    // MONTH PICKER FILTER
+    readonly CHOOSE_MONTH_FILTER: Locator;
+
+
+
+
 
     constructor(page: Page) {
         super(page);
-        
+        this.CHOOSE_MONTH_FILTER = page.getByRole('button', { name: 'Chọn tháng' })
+        this.OPEN_HOURS_OVERLAY_BUTTON = page.getByRole('button', { name: 'Open hours overlay' })
+        this.OPEN_MINUTES_OVERLAY_BUTTON = page.getByRole('button', { name: 'Open minutes overlay' })
         this.statusDropDownInForm = page.getByRole('combobox').filter({ hasText: 'Trạng thái' }).locator('i');
         this.noteInput = page.getByRole('textbox', { name: 'Ghi chú' });
         this.row0 = page.locator("//tr[@id='row-0']");
@@ -85,6 +97,39 @@ export class BasePage extends SafeActions {
         this.searchButton = page.locator("//span[contains(normalize-space(),'Tìm kiếm')]");
         this.descriptionInput = page.getByRole('textbox', { name: 'Mô tả' });
         this.textareaInput = page.locator("//textarea[1]");
+    }
+
+    async clickChosseMonthPicker(month: number) {
+        const locator = this.page.locator(`//div[text()='Thg ${month}']`);
+        await this.safeClick(locator);
+        await this.clickChoose();
+    }
+
+    async clickChooseMonthFilter() {
+        await this.safeClick(this.CHOOSE_MONTH_FILTER);
+    }
+
+    async verifyTotalReceived(amount: string) {
+        const locator = this.page.locator(`(//td[@class='text-right'][contains(text(),'${amount} đ')])[3]`);
+        await this.safeVerifyTextContains(locator, amount);
+    }
+
+    async chosseHourPicker(hour: string) {
+        const locator = this.page.getByRole('gridcell', { name: `${hour}` })
+        await this.safeClick(locator);
+    }
+
+    async chosseMinutePicker(minute: string) {
+        const locator = this.page.getByText(`${minute}`, { exact: true })
+        await this.safeClick(locator);
+    }
+
+    async clickOpenHoursOverlayButton() {
+        await this.safeClick(this.OPEN_HOURS_OVERLAY_BUTTON);
+    }
+
+    async clickOpenMinutesOverlayButton() {
+        await this.safeClick(this.OPEN_MINUTES_OVERLAY_BUTTON);
     }
 
     async fillTextarea(text: string) {
@@ -252,7 +297,7 @@ export class BasePage extends SafeActions {
         await this.safeClick(this.addButton);
     }
 
-     async clickAddNth1() {
+    async clickAddNth1() {
         await this.safeClick(this.addButton, { nth: 1 });
     }
 

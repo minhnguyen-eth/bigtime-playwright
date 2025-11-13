@@ -147,4 +147,5 @@ export class ShiftPlanPage extends BasePage {
         await this.safeVerifyToHaveText(this.requiredFieldNameWorkShift, text);
         return this.requiredFieldNameWorkShift.textContent();
     }
+
 }

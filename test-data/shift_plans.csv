@@ -1,1 +1,2 @@
-﻿
+﻿"id","name","start_date","end_date","repeat_type","repeat_config","working_shift_options","object_type","objects","status","created_at","created_by","updated_at","updated_by","deleted_at","deleted_by"
+"lMjRtXtZRq","Test data (test chấm công)","2025-11-11","2025-11-11","1","{""repeat_working_time"":1,""repeat_time_off"":""3""}","[{""shift"":""PxdxhOfve5"",""day_of_week"":[3]}]","0",\N,"1","2025-11-11 15:18:15","0000000000","2025-11-11 15:18:44","0000000000",\N,\N

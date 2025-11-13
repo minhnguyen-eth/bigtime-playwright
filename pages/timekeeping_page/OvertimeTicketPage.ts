@@ -39,7 +39,6 @@ export class OvertimeTicketPage extends BasePage {
     readonly selectPendingStatus: Locator;
     readonly selectNewStatus: Locator;
     readonly validateDateRequired: Locator;
-    readonly validateReasonRequired: Locator;
     readonly validateWhenUserChosseWrongTime: Locator;
 
     constructor(page: Page) {

@@ -11,6 +11,7 @@ const config = {
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
   multipleStatements: true,
+
   flags: ['+LOCAL_FILES'],
 };
 

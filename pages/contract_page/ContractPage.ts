@@ -2,15 +2,15 @@ import { Page, Locator, expect } from 'playwright/test';
 import { BasePage } from '../BasePage';
 
 export class ContractPage extends BasePage {
-    readonly contractButton: Locator;
-    readonly terminateButton: Locator;
-    readonly extensionButton: Locator;
-    readonly employeeInput: Locator;
-    readonly selectEmployee: Locator;
-    readonly formalContract: Locator;
-    readonly seasonalContract: Locator;
+    readonly CONTRACT_BUTTON: Locator;
+    readonly TERMINATE_BUTTON: Locator;
+    readonly EXTENTION_BUTTON: Locator;
+    readonly EMPLOYEE_INPUT: Locator;
+    readonly SELECT_EMPLOYEE: Locator;
+    readonly FORMAL_CONTRACT: Locator;
+    readonly SEASONAL_CONTRACT: Locator;
     readonly collaboratorContract: Locator;
-    readonly salaryInput: Locator;
+    readonly SALARY_INPUT: Locator;
     readonly endDateDropDown: Locator;
     readonly MonthButton: Locator;
     readonly selectMonth: Locator;
@@ -49,8 +49,8 @@ export class ContractPage extends BasePage {
     constructor(page: Page) {
         super(page);
         this.unCheckEditor = page.getByRole('checkbox', { name: 'Có' });
-        this.extensionButton = page.locator("//span[contains(text(),'Gia hạn')]");
-        this.terminateButton = page.locator("//span[contains(text(),'Chấm dứt')]");
+        this.EXTENTION_BUTTON = page.locator("//span[contains(text(),'Gia hạn')]");
+        this.TERMINATE_BUTTON = page.locator("//span[contains(text(),'Chấm dứt')]");
         this.verifyCanceledStatusSearch = page.locator('#row-0').getByText('Đã hủy');
         this.verifyTerminatedStatusSearch = page.locator('#row-0').getByText('Đã chấm dứt');
         this.verifyComfirmedStatusSearch = page.locator('#row-0').getByText('Đã xác nhận');
@@ -83,14 +83,14 @@ export class ContractPage extends BasePage {
         this.selectMonth = page.locator("//div[@class='dp__overlay_cell dp__overlay_cell_pad'][normalize-space()='Thg 8']");
         this.MonthButton = page.getByRole('button', { name: 'Open months overlay' });
         this.endDateDropDown = page.getByRole('textbox', { name: 'Ngày kết thúc ※' });
-        this.salaryInput = page.getByRole('textbox', { name: 'Lương cơ bản ※' });
+        this.SALARY_INPUT = page.getByRole('textbox', { name: 'Lương cơ bản ※' });
         this.collaboratorContract = page.getByRole('option', { name: 'Cộng tác viên' });
-        this.seasonalContract = page.getByRole('option', { name: 'Thời vụ' });
-        this.formalContract = page.getByRole('option', { name: 'Chính thức' });
-        this.contractButton = page.locator("//a[contains(.,'Hợp đồng')]");
+        this.SEASONAL_CONTRACT = page.getByRole('option', { name: 'Thời vụ' });
+        this.FORMAL_CONTRACT = page.getByRole('option', { name: 'Chính thức' });
+        this.CONTRACT_BUTTON = page.locator("//a[contains(.,'Hợp đồng')]");
         this.employeeDropdown = page.getByRole('combobox').filter({ hasText: 'Mã - tên nhân viên ※' }).getByLabel('Open');
-        this.employeeInput = page.getByRole('textbox', { name: 'Mã - tên nhân viên ※' })
-        this.selectEmployee = page.getByRole('option', { name: 'BAT810-Nguyễn Văn Minh' })
+        this.EMPLOYEE_INPUT = page.getByRole('textbox', { name: 'Mã - tên nhân viên ※' })
+        this.SELECT_EMPLOYEE = page.getByRole('option', { name: 'BAT810-Nguyễn Văn Minh' })
     }
 
     async clickUncheckEditor() {
@@ -99,13 +99,13 @@ export class ContractPage extends BasePage {
 
     async handleTerminateContract() {
         await this.clickRow0();
-        await this.safeClick(this.terminateButton);
+        await this.safeClick(this.TERMINATE_BUTTON);
         await this.fillReasonAndClickYes("Test terminate contract");
     }
 
     async handleExtensionContract() {
         await this.clickRow0();
-        await this.safeClick(this.extensionButton);
+        await this.safeClick(this.EXTENTION_BUTTON);
         await this.clickSave();
         await this.clickYes();
     }
@@ -244,7 +244,7 @@ export class ContractPage extends BasePage {
     }
 
     async fillSalary(salary: string) {
-        await this.safeFill(this.salaryInput, salary);
+        await this.safeFill(this.SALARY_INPUT, salary);
     }
 
     async clickCollaboratorContract() {
@@ -252,20 +252,20 @@ export class ContractPage extends BasePage {
     }
 
     async clickSeasonalContract() {
-        await this.safeClick(this.seasonalContract);
+        await this.safeClick(this.SEASONAL_CONTRACT);
     }
 
-    async clickFormalContract() {
-        await this.safeClick(this.formalContract);
+    async clickFORMAL_CONTRACT() {
+        await this.safeClick(this.FORMAL_CONTRACT);
     }
 
     async clickContract() {
-        await this.safeClick(this.contractButton);
+        await this.safeClick(this.CONTRACT_BUTTON);
     }
 
     async fillEmployeeName() {
-        await this.safeFill(this.employeeInput, "Nguyễn Văn Minh");
-        await this.safeClick(this.selectEmployee);
+        await this.safeFill(this.EMPLOYEE_INPUT, "Nguyễn Văn Minh");
+        await this.safeClick(this.SELECT_EMPLOYEE);
     }
 
     async fillNote(note: string) {

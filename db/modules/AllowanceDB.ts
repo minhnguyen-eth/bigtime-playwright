@@ -1,5 +1,5 @@
 import { clearTable } from '../helpers/DBHelper';
 
 export async function clearAllowanceTypes() {
-    await clearTable('allowance_types', "name NOT LIKE '%Phụ cấp tiền ăn%'");
+    await clearTable('allowance_types', "note NOT LIKE '%Test data%'");
 }
