@@ -650,7 +650,7 @@ export class EmployeePage extends ValidationPage {
     await this.fillAddress('Bien Hoa, Dong Nai');
     await this.fillNote('Automation testing');
     await this.clickDateOfBirth();
-    await this.clickChosseYear();
+    await this.clickOpenYearOverlayButton();
     await this.clickSelectYear();
     // await this.clickChosseMonth();
     // await this.clickSelectMonth();

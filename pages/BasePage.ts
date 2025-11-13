@@ -51,6 +51,11 @@ export class BasePage extends SafeActions {
     readonly OPEN_MINUTES_OVERLAY_BUTTON: Locator;
     readonly OPEN_HOURS_OVERLAY_BUTTON: Locator;
 
+    // DATE PICKER
+    readonly OPEN_YEAR_OVERLAY_BUTTON: Locator;
+    readonly OPEN_MONTH_OVERLAY_BUTTON: Locator;
+
+
     // MONTH PICKER FILTER
     readonly CHOOSE_MONTH_FILTER: Locator;
 
@@ -60,6 +65,8 @@ export class BasePage extends SafeActions {
 
     constructor(page: Page) {
         super(page);
+        this.OPEN_YEAR_OVERLAY_BUTTON = page.getByRole('button', { name: 'Open years overlay' })
+        this.OPEN_MONTH_OVERLAY_BUTTON = page.getByRole('button', { name: 'Open months overlay' })
         this.CHOOSE_MONTH_FILTER = page.getByRole('button', { name: 'Chọn tháng' })
         this.OPEN_HOURS_OVERLAY_BUTTON = page.getByRole('button', { name: 'Open hours overlay' })
         this.OPEN_MINUTES_OVERLAY_BUTTON = page.getByRole('button', { name: 'Open minutes overlay' })
@@ -97,6 +104,14 @@ export class BasePage extends SafeActions {
         this.searchButton = page.locator("//span[contains(normalize-space(),'Tìm kiếm')]");
         this.descriptionInput = page.getByRole('textbox', { name: 'Mô tả' });
         this.textareaInput = page.locator("//textarea[1]");
+    }
+
+    async clickOpenYearOverlayButton() {
+        await this.safeClick(this.OPEN_YEAR_OVERLAY_BUTTON);
+    }
+
+    async clickOpenMonthOverlayButton() {
+        await this.safeClick(this.OPEN_MONTH_OVERLAY_BUTTON);
     }
 
     async clickChosseMonthPicker(month: number) {
