@@ -48,7 +48,7 @@ test.describe.serial('Leave Application Tests', () => {
     async function beforeSearchTest() {
         await loginPage.goto();
         await loginPage.login(Config.admin_username, Config.employee_password);
-        await leaveApplicationPage.clickTimeKeepingManagement();
+        await leaveApplicationPage.clickAdmin();
         await leaveApplicationPage.clickLeaveApplicationButton();
     }
 
@@ -56,7 +56,8 @@ test.describe.serial('Leave Application Tests', () => {
         await clearLeaveApplications();
         await loginPage.goto();
         await loginPage.login(Config.employee_username, Config.employee_password);
-        await leaveApplicationPage.clickTimeKeepingManagement();
+        // await leaveApplicationPage.clickTimeKeepingManagement();
+        await leaveApplicationPage.clickAdmin();
         await leaveApplicationPage.clickLeaveApplicationButton();
     }
 
@@ -90,75 +91,6 @@ test.describe.serial('Leave Application Tests', () => {
         await leaveApplicationPage.fillReason('a'.repeat(256));
         await leaveApplicationPage.clickSave();
         await validationPage.validateMaxLength255Characters();
-    });
-
-    test('Search by month', async ({ page }) => {
-        await clearLeaveApplications();
-        await beforeSearchTest();
-        await leaveApplicationPage.searchByMonth();
-        await leaveApplicationPage.expectSearchByMonthResult();
-    });
-
-    test('Search by cancel status', async ({ page }) => {
-        await beforeSearchTest();
-        await leaveApplicationPage.clickCancelButtonSearch();
-        await leaveApplicationPage.expectSearchByCancelResult();
-    });
-
-    test('Search by pending status', async ({ page }) => {
-        await beforeSearchTest();
-        await leaveApplicationPage.clickWaitForBrowsedButtonSearch();
-        await leaveApplicationPage.expectSearchByWaitForBrowsedResult();
-    });
-
-    test('Search by approved status', async ({ page }) => {
-        await beforeSearchTest();
-        await leaveApplicationPage.clickBrowsedButtonSearch();
-        await leaveApplicationPage.expectSearchByBrowsedResult();
-    });
-
-    test('Search by rejected status', async ({ page }) => {
-        await beforeSearchTest();
-        await leaveApplicationPage.clickRejectButtonSearch();
-        await leaveApplicationPage.expectSearchByRejectedResult();
-    });
-
-    test('Search by regular leave application', async ({ page }) => {
-        await beforeSearchTest();
-        await leaveApplicationPage.clickSearchByRegularLeave();
-        await leaveApplicationPage.getVerifyRegularLeave();
-    });
-
-    test('Search by social insurance leave application', async ({ page }) => {
-        await beforeSearchTest();
-        await leaveApplicationPage.clickSearchBySocialInsuranceLeave();
-        await leaveApplicationPage.getVerifySocialInsuranceLeave();
-    });
-
-    test('Search by anual leave application', async ({ page }) => {
-        await beforeSearchTest();
-        await leaveApplicationPage.clickSearchByAnualLeave();
-        await leaveApplicationPage.getVerifyAnualLeave();
-    });
-
-    test('Search by special leave application', async ({ page }) => {
-        await beforeSearchTest();
-        await leaveApplicationPage.clickSearchBySpecialLeave();
-        await leaveApplicationPage.getVerifySpecialLeave();
-    });
-
-    test('Search by maternity leave application', async ({ page }) => {
-        await beforeSearchTest();
-        await leaveApplicationPage.clickSearchByMaternityLeave();
-        await leaveApplicationPage.getVerifyMaternityLeave();
-    });
-
-    test('Delete leave application', async ({ page }) => {
-        await beforeTest();
-        await addLeaveApplication();
-        await leaveApplicationPage.clickRow0();
-        await leaveApplicationPage.clickDelete();
-        await toastPage.getToastDeleteSuccess();
     });
 
     test('Edit reason of leave application', async ({ page }) => {
@@ -311,5 +243,74 @@ test.describe.serial('Leave Application Tests', () => {
         await allure.step('Send and approve leave application', async () => {
             await sendAndApproveLeave(page);
         });
+    });
+
+    test('Search by month', async ({ page }) => {
+        await clearLeaveApplications();
+        await beforeSearchTest();
+        await leaveApplicationPage.searchByMonth();
+        await leaveApplicationPage.expectSearchByMonthResult();
+    });
+
+    test('Search by cancel status', async ({ page }) => {
+        await beforeSearchTest();
+        await leaveApplicationPage.clickCancelButtonSearch();
+        await leaveApplicationPage.expectSearchByCancelResult();
+    });
+
+    test('Search by pending status', async ({ page }) => {
+        await beforeSearchTest();
+        await leaveApplicationPage.clickWaitForBrowsedButtonSearch();
+        await leaveApplicationPage.expectSearchByWaitForBrowsedResult();
+    });
+
+    test('Search by approved status', async ({ page }) => {
+        await beforeSearchTest();
+        await leaveApplicationPage.clickBrowsedButtonSearch();
+        await leaveApplicationPage.expectSearchByBrowsedResult();
+    });
+
+    test('Search by rejected status', async ({ page }) => {
+        await beforeSearchTest();
+        await leaveApplicationPage.clickRejectButtonSearch();
+        await leaveApplicationPage.expectSearchByRejectedResult();
+    });
+
+    test('Search by regular leave application', async ({ page }) => {
+        await beforeSearchTest();
+        await leaveApplicationPage.clickSearchByRegularLeave();
+        await leaveApplicationPage.getVerifyRegularLeave();
+    });
+
+    test('Search by social insurance leave application', async ({ page }) => {
+        await beforeSearchTest();
+        await leaveApplicationPage.clickSearchBySocialInsuranceLeave();
+        await leaveApplicationPage.getVerifySocialInsuranceLeave();
+    });
+
+    test('Search by anual leave application', async ({ page }) => {
+        await beforeSearchTest();
+        await leaveApplicationPage.clickSearchByAnualLeave();
+        await leaveApplicationPage.getVerifyAnualLeave();
+    });
+
+    test('Search by special leave application', async ({ page }) => {
+        await beforeSearchTest();
+        await leaveApplicationPage.clickSearchBySpecialLeave();
+        await leaveApplicationPage.getVerifySpecialLeave();
+    });
+
+    test('Search by maternity leave application', async ({ page }) => {
+        await beforeSearchTest();
+        await leaveApplicationPage.clickSearchByMaternityLeave();
+        await leaveApplicationPage.getVerifyMaternityLeave();
+    });
+
+    test('Delete leave application', async ({ page }) => {
+        await beforeTest();
+        await addLeaveApplication();
+        await leaveApplicationPage.clickRow0();
+        await leaveApplicationPage.clickDelete();
+        await toastPage.getToastDeleteSuccess();
     });
 });

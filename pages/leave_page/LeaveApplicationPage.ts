@@ -42,7 +42,7 @@ export class LeaveApplicationPage extends BasePage {
 
     constructor(page: Page) {
         super(page);
-        this.selectNewStatus =  page.getByRole('option', { name: 'Mới' });
+        this.selectNewStatus = page.getByRole('option', { name: 'Mới' });
         this.closeDatePicker2 = page.locator("//div[@class='v-row']/div[4]/div[1]/div[1]/div[1]/div[1]//*[name()='svg']")
         this.closeDatePicker1 = page.getByRole('dialog').locator('path').first()
         this.labelLeaveApplication = page.getByRole('main').getByText('Đơn nghỉ phép')
@@ -57,18 +57,14 @@ export class LeaveApplicationPage extends BasePage {
         this.restTypeComboBox = page.getByRole('combobox').filter({ hasText: 'Loại ngày nghỉ' })
         this.searchByBrowsedResult = page.locator('#row-0').getByRole('cell', { name: 'Đã duyệt' })
         this.searchByRejectedResult = page.locator('#row-0').getByRole('cell', { name: 'Từ chối' })
-        this.searchByCancelResult = page.locator('#row-0').getByRole('cell', { name: 'Hủy' })
+        this.searchByCancelResult = page.locator('#row-0').getByRole('cell', { name: 'Đã hủy' })
         this.searchByWaitForBrowsedResult = page.locator('#row-0').getByRole('cell', { name: 'Chờ duyệt' })
         this.searchBySocialInsuranceLeave = page.getByRole('option', { name: 'Nghỉ bảo hiểm xã hội' })
         this.searchByMaternityLeave = page.getByRole('option', { name: 'Nghỉ thai sản' })
         this.searchBySpecialLeave = page.getByRole('option', { name: 'Nghỉ đặc biệt' })
         this.searchByRegularLeave = page.getByRole('option', { name: 'Nghỉ thường' })
         this.searchByAnualLeave = page.getByRole('option', { name: 'Nghỉ theo phép năm' })
-        this.verifySpecialLeave = page.getByText('Nghỉ đặc biệt', { exact: true }).first()
-        this.verifyMaternityLeave = page.getByText('Nghỉ thai sản', { exact: true }).first()
-        this.verifySocialInsuranceLeave = page.getByText('Nghỉ bảo hiểm xã hội ', { exact: true }).first()
-        this.verifyRegularLeave = page.getByText('Nghỉ thường', { exact: true }).first()
-        this.verifyAnualLeave = page.getByText('Nghỉ theo phép năm', { exact: true }).first()
+
         this.specialLeave = page.locator("//div[contains(text(),'Nghỉ đặc biệt')]")
         this.maternityLeave = page.locator("//div[contains(text(),'Nghỉ thai sản')]")
         this.socialInsuranceLeave = page.locator("//div[contains(text(),'Nghỉ bảo hiểm xã hội')]")
@@ -79,6 +75,13 @@ export class LeaveApplicationPage extends BasePage {
         this.anualLeave = page.locator("//div[contains(text(),'Nghỉ theo phép năm')]")
         this.leaveTypeDropDown = page.getByRole('combobox').filter({ hasText: 'Loại ngày nghỉ ※Nghỉ' })
         this.leaveApplicationButton = page.locator("//div[contains(text(),'Đơn nghỉ phép')]")
+
+        // verify
+        this.verifySpecialLeave = page.locator('#row-0 span').filter({ hasText: 'Nghỉ đặc biệt' });
+        this.verifyMaternityLeave = page.locator('#row-0 span').filter({ hasText: 'Nghỉ thai sản' });
+        this.verifySocialInsuranceLeave = page.locator('#row-0 span').filter({ hasText: 'Nghỉ bảo hiểm xã hội' });
+        this.verifyRegularLeave = page.locator('#row-0 span').filter({ hasText: 'Nghỉ thường' });
+        this.verifyAnualLeave = page.locator('#row-0 span').filter({ hasText: 'Nghỉ theo phép năm' });
     }
 
     async clickSelectNewStatus() {
@@ -119,10 +122,11 @@ export class LeaveApplicationPage extends BasePage {
 
     async clickMonthOption() {
         await this.safeClick(this.monthOption);
+        await this.clickChoose();
     }
 
     async expectSearchByCancelResult() {
-        await this.safeVerifyToHaveText(this.searchByCancelResult, 'Hủy');
+        await this.safeVerifyToHaveText(this.searchByCancelResult, 'Đã hủy');
     }
 
     async expectSearchByWaitForBrowsedResult() {
@@ -253,27 +257,22 @@ export class LeaveApplicationPage extends BasePage {
 
     async getVerifyMaternityLeave() {
         await this.safeVerifyTextContains(this.verifyMaternityLeave, 'Nghỉ thai sản');
-        return await this.getFirstVisibleText(this.verifyMaternityLeave, 'Maternity leave');
     }
 
     async getVerifySpecialLeave() {
         await this.safeVerifyTextContains(this.verifySpecialLeave, 'Nghỉ đặc biệt');
-        return await this.getFirstVisibleText(this.verifySpecialLeave, 'Special leave');
     }
 
     async getVerifySocialInsuranceLeave() {
         await this.safeVerifyTextContains(this.verifySocialInsuranceLeave, 'Nghỉ bảo hiểm xã hội');
-        return await this.getFirstVisibleText(this.verifySocialInsuranceLeave, 'Social insurance leave');
     }
 
     async getVerifyRegularLeave() {
-        await this.safeVerifyTextContains(this.verifyRegularLeave, 'Nghỉ thường');
-        return await this.getFirstVisibleText(this.verifyRegularLeave, 'Regular leave');
+        await this.safeVerifyToHaveText(this.verifyRegularLeave, 'Nghỉ thường');
     }
 
     async getVerifyAnualLeave() {
         await this.safeVerifyTextContains(this.verifyAnualLeave, 'Nghỉ theo phép năm');
-        return await this.getFirstVisibleText(this.verifyAnualLeave, 'Anual leave');
     }
 
     async setDate() {

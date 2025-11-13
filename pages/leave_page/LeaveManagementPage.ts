@@ -65,9 +65,9 @@ export class LeaveManagementPage extends BasePage {
         this.departmentOption = page.locator("//div[text()='Bộ phận IT']")
         this.waitingForApproval = page.locator("//div[contains(text(),'Chờ duyệt')]")
         this.addEmployee = page.locator("div[class='v-slide-group__content'] div span[class='v-btn__content']")
-        this.iconActionRow0 = page.locator("//tr[@id='row-0']//i[contains(@class, 'mdi-format-list-group')]")
-        this.iconActionRow1 = page.locator("//tr[@id='row-1']//i[contains(@class, 'mdi-format-list-group')]")
-        this.iconActionRow2 = page.locator("//tr[@id='row-2']//i[contains(@class, 'mdi-format-list-group')]")
+        this.iconActionRow0 = page.getByRole('button', { name: 'Thao tác' }).first();
+        this.iconActionRow1 = page.getByRole('button', { name: 'Thao tác' }).nth(1);
+        this.iconActionRow2 = page.getByRole('button', { name: 'Thao tác' }).nth(2);
         this.saveEmployee = page.locator("//span[contains(normalize-space(),'Lưu')]")
         this.selectAEmployee = page.locator("(//input[@type='checkbox'])[2]")
         this.searchByName = page.locator("//div[1]/div/div/div/div[4]/div/input")
@@ -75,7 +75,7 @@ export class LeaveManagementPage extends BasePage {
         this.departmentIT = page.locator("//div[text()='Bộ phận IT']")
         this.departmentAndTeam = page.locator("//span[.='Bộ phận/Nhóm']")
         this.AddDepatment = page.locator("(//button[contains(@class, 'v-btn') and .//span[normalize-space()='Thêm']])[2]")
-        this.leaveManagementButton = page.locator("//div[contains(text(),'Quản lý nghỉ phép năm')]")
+        this.leaveManagementButton = page.locator("//div[contains(text(),'Quản lý ngày phép năm')]")
         this.anualLeave = page.locator("//div[contains(text(),'Nghỉ theo phép năm')]")
         this.leaveTypeDropDown = page.locator("//div[@class='v-col-md-4 v-col-12']//div[@class='v-field__input']")
     }

@@ -57,7 +57,7 @@ export async function sendAndApproveLeave(page: Page) {
     // Admin approves leave application
     await loginPage.goto();
     await loginPage.login(Config.admin_username, Config.admin_password);
-    await leaveManagementPage.clickTimeKeepingManagement();
+    await leaveManagementPage.clickAdmin();
     await leaveApplicationPage.clickLeaveApplicationButton();
     await leaveApplicationPage.clickRow0();
     await leaveManagementPage.clickBrowse();
