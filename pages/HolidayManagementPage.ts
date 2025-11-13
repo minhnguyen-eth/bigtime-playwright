@@ -6,8 +6,6 @@ export class HolidayManagementPage extends BasePage {
     readonly holidayName: Locator;
     readonly startDate: Locator
     readonly endDate: Locator
-    readonly startDateRequired: Locator;
-    readonly endDateRequired: Locator;
     readonly totalHolidayResult: Locator;
     readonly timeKeeping: Locator;
     readonly checkInOutHistory: Locator;
@@ -18,7 +16,6 @@ export class HolidayManagementPage extends BasePage {
     readonly msgNameRequired: Locator;
     readonly msgStartDateRequired: Locator;
     readonly msgEndDateRequired: Locator;
-    readonly msgReasonRequired: Locator;
     readonly checkBox: Locator;
     readonly deleteRow0Button: Locator;
 
@@ -38,7 +35,7 @@ export class HolidayManagementPage extends BasePage {
         this.totalHolidayResult = page.locator("//input[@type='number' and @value='1']")
         this.endDate = page.getByRole('textbox', { name: 'Đến hết ngày ※' })
         this.startDate = page.getByRole('textbox', { name: 'Bắt đầu từ ngày ※' })
-        this.holidayButton = page.locator("//div[contains(text(),'Quản lý ngày nghỉ')]");
+        this.holidayButton = page.locator("//div[contains(text(),'Quản lý ngày phép năm')]");
         this.holidayName = page.getByRole('textbox', { name: 'Tên ngày nghỉ ※' });
     }
 
