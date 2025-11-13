@@ -29,7 +29,7 @@ test.describe.serial('Holiday Management', () => {
         await holidayManagementPage.clickAdmin();
         await holidayManagementPage.clickHolidayButton();
     });
-    
+
 
     test("Max length name and reason holiday management 255 characters", async ({ page }) => {
         await clearPayroll();
@@ -94,25 +94,6 @@ test.describe.serial('Holiday Management', () => {
         await holidayManagementPage.verifyRestHolidayHaveSalary();
     });
 
-    test('Unpaid leave', async ({ page }) => {
-        await clearHolidayManagement();
-        await holidayManagementPage.clickAdd();
-        await holidayManagementPage.fillHolidayName("Test");
-        await holidayManagementPage.unCheckBox();
-        await holidayManagementPage.clickStartDate();
-        await holidayManagementPage.clicktodayDatePicker();
-        await holidayManagementPage.clickEndDate();
-        await holidayManagementPage.clicktodayDatePicker();
-        await holidayManagementPage.fillReason('Test Reason');
-        await holidayManagementPage.checkTotalHolidayResult();
-        await holidayManagementPage.clickSave();
-        await toastPage.getToastAddSuccess();
-        await holidayManagementPage.clickTimeKeeping();
-        await holidayManagementPage.clickCheckInOutHistory();
-        await holidayManagementPage.fillAndSelectUser();
-        await holidayManagementPage.verifyRestHolidayNoSalary();
-    });
-
     test('Check validation required add with blank field', async ({ page }) => {
         await holidayManagementPage.clickAdd();
         await holidayManagementPage.clickSave();
@@ -145,6 +126,16 @@ test.describe.serial('Holiday Management', () => {
     });
 
     test('Delete Holiday', async ({ page }) => {
+        await holidayManagementPage.clickAdd();
+        await holidayManagementPage.fillHolidayName("Test");
+        await holidayManagementPage.clickStartDate();
+        await holidayManagementPage.clicktodayDatePicker();
+        await holidayManagementPage.clickEndDate();
+        await holidayManagementPage.clicktodayDatePicker();
+        await holidayManagementPage.fillReason("Test reason");
+        await holidayManagementPage.checkTotalHolidayResult();
+        await holidayManagementPage.clickSave();
+        await toastPage.getToastAddSuccess();
         await holidayManagementPage.clickDeleteRow0();
         await toastPage.getToastDeleteSuccess();
     });

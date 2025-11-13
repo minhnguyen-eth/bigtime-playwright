@@ -26,7 +26,7 @@ export class HolidayManagementPage extends BasePage {
         this.checkBox = page.locator("//input[@type='checkbox']");
         this.msgEndDateRequired = page.locator("//div[contains(text(),'Nhập đến hết ngày')]");
         this.msgStartDateRequired = page.locator("//div[contains(text(),'Nhập bắt đầu từ ngày')]");
-        this.msgNameRequired = page.locator("//div[contains(text(),'Nhập tên ngày nghỉ')]");
+        this.msgNameRequired = page.locator("//div[contains(text(),'Nhập tên ngày lễ')]");
         this.restHolidayHaveSalary = page.locator("//td[contains(text(),'Ngày lễ có lương')]");
         this.selectUser = page.locator("//div[text()='BAT810 - Nguyễn Văn Minh']")
         this.chosseUserInput = page.getByRole('textbox', { name: 'Chọn nhân viên' });
@@ -35,8 +35,8 @@ export class HolidayManagementPage extends BasePage {
         this.totalHolidayResult = page.locator("//input[@type='number' and @value='1']")
         this.endDate = page.getByRole('textbox', { name: 'Đến hết ngày ※' })
         this.startDate = page.getByRole('textbox', { name: 'Bắt đầu từ ngày ※' })
-        this.holidayButton = page.locator("//div[contains(text(),'Quản lý ngày phép năm')]");
-        this.holidayName = page.getByRole('textbox', { name: 'Tên ngày nghỉ ※' });
+        this.holidayButton = page.locator("//div[contains(text(),'Quản lý nghỉ lễ')]");
+        this.holidayName = page.getByRole('textbox', { name: 'Tên ngày lễ ※' });
     }
 
     async clickDeleteRow0() {
@@ -50,7 +50,7 @@ export class HolidayManagementPage extends BasePage {
 
     // VERIFY
     async expectNameRequired() {
-        await this.safeVerifyTextContains(this.msgNameRequired, "Nhập tên ngày nghỉ");
+        await this.safeVerifyTextContains(this.msgNameRequired, "Nhập tên ngày lễ");
     }
 
     async expectStartDateRequired() {
