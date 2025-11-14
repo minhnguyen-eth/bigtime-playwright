@@ -45,7 +45,7 @@ export class OvertimeTicketPage extends BasePage {
         super(page);
         this.cancelStatusInfo = page.locator("//div[contains(@class, 'text-body-2') and contains(text(), 'Hủy')]");
         this.hour19 = page.locator("//div[@class='dp__overlay_cell dp__overlay_cell_pad'][normalize-space()='19']");
-        this.validateWhenUserChosseWrongTime = page.locator("//li[contains(text(),'Thời gian tăng ca phải nằm trong khung giờ đã chấm')]");
+        this.validateWhenUserChosseWrongTime = page.locator("//li[contains(text(),'Đã chấm công ra lúc')]");
         this.validateDateRequired = page.locator("//div[contains(text(),'Nhập ngày tăng ca')]");
         this.selectNewStatus = page.locator("//div[contains(text(),'Mới')]");
         this.selectPendingStatus = page.locator("//div[contains(text(),'Chờ duyệt')]");
@@ -85,7 +85,7 @@ export class OvertimeTicketPage extends BasePage {
     }
 
     async verifyValidateWhenUserChosseWrongTime() {
-        await this.safeVerifyTextContains(this.validateWhenUserChosseWrongTime, "Thời gian tăng ca phải nằm trong khung giờ đã chấm");
+        await this.safeVerifyTextContains(this.validateWhenUserChosseWrongTime, "Đã chấm công ra lúc");
     }
 
     async verifyValidateDateRequired() {
