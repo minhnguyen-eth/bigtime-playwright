@@ -641,6 +641,11 @@ export class EmployeePage extends ValidationPage {
     await this.clickDropdownRank();
     await this.clickSelectRank();
     await this.fillCitizenId(random10Digits);
+    
+    await this.page.evaluate(() => {
+      window.scrollBy(0, -1000);
+    }); // Scroll up
+
     await this.clickCitizenIdCardIssueDate();
     await this.clicktodayDatePicker();
 
@@ -650,6 +655,9 @@ export class EmployeePage extends ValidationPage {
     await this.fillPhoneNumber(phoneNumber);
     await this.fillAddress('Bien Hoa, Dong Nai');
     await this.fillNote('Automation testing');
+    await this.page.evaluate(() => {
+      window.scrollBy(0, -500);
+    });
     await this.clickDateOfBirth();
     await this.clickOpenYearOverlayButton();
     await this.clickSelectYear();
