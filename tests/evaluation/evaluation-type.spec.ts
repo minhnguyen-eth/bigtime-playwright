@@ -160,7 +160,7 @@ test.describe.serial("Evaluation Type Tests", () => {
 
         await evaluationtype.clickAdmin();
         await evaluationtype.clickEvaluationType();
-        await evaluationtype.setSerachEvaluationTypeName("Đánh giá chuyên cần");
+        await evaluationtype.setSearchEvaluationTypeName("Đánh giá chuyên cần");
         await evaluationtype.clickSearch();
         await evaluationtype.expectSearchEvaluationTypeName("Đánh giá chuyên cần");
     });

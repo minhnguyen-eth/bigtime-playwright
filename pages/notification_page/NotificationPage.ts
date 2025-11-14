@@ -13,12 +13,9 @@ export class NotificationPage extends BasePage {
     readonly urgent: Locator;
     readonly requiredName: Locator;
     readonly requiredDescription: Locator;
-    readonly sendNotification: Locator;
     readonly department: Locator;
     readonly checkBoxPersonalOrDepartment: Locator;
-    readonly departmentOption: Locator;
     readonly personnal: Locator;
-    readonly personnalOption: Locator;
     readonly personnalSearch: Locator;
     readonly personnalSelect: Locator;
     readonly listNotification: Locator;

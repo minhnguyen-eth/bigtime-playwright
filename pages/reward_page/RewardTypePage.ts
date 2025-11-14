@@ -2,38 +2,38 @@ import { expect, Locator, Page } from "@playwright/test";
 import { BasePage } from "../BasePage";
 
 export class RewardTypePage extends BasePage {
-    readonly rewardTypeButton: Locator;
-    readonly rewardTypeNameInput: Locator;
-    readonly requiredRewardTypeName: Locator;
-    readonly inputSearch: Locator;
-    readonly resultSearch: Locator;
+    readonly REWARD_TYPE_BUTTON: Locator;
+    readonly REWARD_TYPE_NAME_INPUT: Locator;
+    readonly REQUIRED_REWARD_TYPE_NAME: Locator;
+    readonly INPUT_SEARCH: Locator;
+    readonly RESULT_SEARCH: Locator;
 
     constructor(page: Page) {
         super(page);
-        this.resultSearch = page.locator("//tr[@id='row-0']//span[contains(text(),'Khen thưởng')]");
-        this.inputSearch = page.getByRole('textbox', { name: 'Tên loại khen thưởng' });
-        this.requiredRewardTypeName = page.locator("//div[contains(text(),'Nhập tên loại khen thưởng')]");
-        this.rewardTypeNameInput = page.getByRole('textbox', { name: 'Tên loại khen thưởng ※' })
-        this.rewardTypeButton = page.locator("//div[contains(text(),'Loại khen thưởng')]");
+        this.RESULT_SEARCH = page.locator("//tr[@id='row-0']//span[contains(text(),'Khen thưởng')]");
+        this.INPUT_SEARCH = page.getByRole('textbox', { name: 'Tên loại khen thưởng' });
+        this.REQUIRED_REWARD_TYPE_NAME = page.locator("//div[contains(text(),'Nhập tên loại khen thưởng')]");
+        this.REWARD_TYPE_NAME_INPUT = page.getByRole('textbox', { name: 'Tên loại khen thưởng ※' });
+        this.REWARD_TYPE_BUTTON = page.locator("//div[contains(text(),'Loại khen thưởng')]");
     }
 
     async getResultSearch() {
-        await this.safeVerifyTextContains(this.resultSearch, 'Khen thưởng');
+        await this.safeVerifyTextContains(this.RESULT_SEARCH, 'Khen thưởng');
     }
 
     async getRequiredRewardTypeName() {
-        await this.safeVerifyToHaveText(this.requiredRewardTypeName, 'Nhập tên loại khen thưởng');
+        await this.safeVerifyToHaveText(this.REQUIRED_REWARD_TYPE_NAME, 'Nhập tên loại khen thưởng');
     }
 
     async fillRewardTypeNameInput(rewardTypeName: string) {
-        await this.safeFill(this.rewardTypeNameInput, rewardTypeName);
+        await this.safeFill(this.REWARD_TYPE_NAME_INPUT, rewardTypeName);
     }
 
     async fillInputSearch(search: string) {
-        await this.safeFill(this.inputSearch, search);
+        await this.safeFill(this.INPUT_SEARCH, search);
     }
 
     async clickRewardTypeButton() {
-        await this.safeClick(this.rewardTypeButton);
+        await this.safeClick(this.REWARD_TYPE_BUTTON);
     }
 }

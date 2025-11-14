@@ -110,7 +110,7 @@ export class OvertimeTicketPage extends BasePage {
 
     async clickMinute10() {
         await this.safeClick(this.minute10);
-        await this.safeClick(this.chosseButton);
+        await this.clickChoose();
     }
 
     async verifyPendingStatus() {

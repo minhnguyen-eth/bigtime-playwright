@@ -2,63 +2,63 @@ import { Locator, Page, expect } from "@playwright/test";
 import { BasePage } from "../BasePage";
 
 export class EvaluationCriteriaPage extends BasePage {
-    readonly evaluationCriteria_Button: Locator;
-    readonly evaluationCriteriaName_Input: Locator;
-    readonly evaluationCriteriaName_DropDown: Locator;
-    readonly evaluationType_Option: Locator;
-    readonly evaluationName_inputSearch: Locator;
-    readonly resultSearchByName: Locator;
-    readonly requiredCriteriaName: Locator;
-    readonly requiredEvaluationTypeName: Locator;
+    readonly EVALUATION_CRITERIA_BUTTON: Locator;
+    readonly EVALUATION_CRITERIA_NAME_INPUT: Locator;
+    readonly EVALUATION_CRITERIA_NAME_DROPDOWN: Locator;
+    readonly EVALUATION_TYPE_OPTION: Locator;
+    readonly EVALUATION_NAME_INPUT_SEARCH: Locator;
+    readonly RESULT_SEARCH_BY_NAME: Locator;
+    readonly REQUIRED_CRITERIA_NAME: Locator;
+    readonly REQUIRED_EVALUATION_TYPE_NAME: Locator;
 
     constructor(page: Page) {
         super(page);
-        this.requiredEvaluationTypeName = page.locator("//div[contains(text(),'Nhập tên loại đánh giá')]");
-        this.requiredCriteriaName = page.locator("//div[contains(text(),'Nhập tên tiêu chí')]");
-        this.resultSearchByName = page.locator("//tbody/tr[@id='row-0']/td[2]/span[1]");
-        this.evaluationName_inputSearch = page.locator("//div[1]/div/div/div/div[3]/div/input");
-        this.evaluationCriteria_Button = page.locator("//div[contains(text(),'Tiêu chí đánh giá')]");
-        this.evaluationCriteriaName_Input = page.locator("//div/div[1]/div/div[1]/div/div[4]/div/input");
-        this.evaluationCriteriaName_DropDown = page.locator("//i[@title='Open']");
-        this.evaluationType_Option = page.locator("//div/div[1]/div[1]/div[2]/div[2]/div[1]");
+        this.REQUIRED_EVALUATION_TYPE_NAME = page.locator("//div[contains(text(),'Nhập tên loại đánh giá')]");
+        this.REQUIRED_CRITERIA_NAME = page.locator("//div[contains(text(),'Nhập tên tiêu chí')]");
+        this.RESULT_SEARCH_BY_NAME = page.locator("//tbody/tr[@id='row-0']/td[2]/span[1]");
+        this.EVALUATION_NAME_INPUT_SEARCH = page.locator("//div[1]/div/div/div/div[3]/div/input");
+        this.EVALUATION_CRITERIA_BUTTON = page.locator("//div[contains(text(),'Tiêu chí đánh giá')]");
+        this.EVALUATION_CRITERIA_NAME_INPUT = page.locator("//div/div[1]/div/div[1]/div/div[4]/div/input");
+        this.EVALUATION_CRITERIA_NAME_DROPDOWN = page.locator("//i[@title='Open']");
+        this.EVALUATION_TYPE_OPTION = page.locator("//div/div[1]/div[1]/div[2]/div[2]/div[1]");
     }
 
     async getRequiredEvaluationTypeName() {
-        await this.safeVerifyToHaveText(this.requiredEvaluationTypeName, "Nhập tên loại đánh giá");
+        await this.safeVerifyToHaveText(this.REQUIRED_EVALUATION_TYPE_NAME, "Nhập tên loại đánh giá");
     }
 
     async getRequiredCriteriaName() {
-        await expect(this.requiredCriteriaName).toBeVisible();
-        const text = await this.requiredCriteriaName.textContent();
+        await expect(this.REQUIRED_CRITERIA_NAME).toBeVisible();
+        const text = await this.REQUIRED_CRITERIA_NAME.textContent();
         console.log("🔍 Required criteria name text found:", text);
         return text;
     }
 
     async verifyResultSearchByName() {
-        await this.safeVerifyTextContains(this.resultSearchByName, "Automation test");
+        await this.safeVerifyTextContains(this.RESULT_SEARCH_BY_NAME, "Automation test");
     }
 
     async searchEvaluationCriteriaName(evaluationCriteriaName: string) {
-        await this.safeFill(this.evaluationName_inputSearch, evaluationCriteriaName);
+        await this.safeFill(this.EVALUATION_NAME_INPUT_SEARCH, evaluationCriteriaName);
     }
 
     async editEvaluationCriteriaName(evaluationCriteriaName: string) {
-        await this.safeFill(this.evaluationName_inputSearch, evaluationCriteriaName);
+        await this.safeFill(this.EVALUATION_NAME_INPUT_SEARCH, evaluationCriteriaName);
     }
 
     async clickEvaluationTypeOption() {
-        await this.safeClick(this.evaluationType_Option);
+        await this.safeClick(this.EVALUATION_TYPE_OPTION);
     }
 
     async clickEvaluationCriteriaNameDropDown() {
-        await this.safeClick(this.evaluationCriteriaName_DropDown);
+        await this.safeClick(this.EVALUATION_CRITERIA_NAME_DROPDOWN);
     }
 
     async clickEvaluationCriteria() {
-        await this.safeClick(this.evaluationCriteria_Button);
+        await this.safeClick(this.EVALUATION_CRITERIA_BUTTON);
     }
 
     async setEvaluationCriteriaName(evaluationCriteriaName: string) {
-        await this.safeFill(this.evaluationCriteriaName_Input, evaluationCriteriaName);
+        await this.safeFill(this.EVALUATION_CRITERIA_NAME_INPUT, evaluationCriteriaName);
     }
 }

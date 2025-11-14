@@ -4,27 +4,27 @@ import { BasePage } from './BasePage';
 
 export class LoginPage extends BasePage {
 
-  readonly usernameInput: Locator;
-  readonly passwordInput: Locator;
-  readonly loginButton: Locator;
-  readonly profileBadgeAdmin: Locator;
-  readonly profileBadgeEmployee: Locator;
-  readonly errorMessage: Locator;
-  readonly dashBoard: Locator;
-  readonly validateUsername: Locator;
-  readonly validatePassword: Locator;
+  readonly USERNAME_INPUT: Locator;
+  readonly PASSWORD_INPUT: Locator;
+  readonly LOGIN_BUTTON: Locator;
+  readonly PROFILE_BADGE_ADMIN: Locator;
+  readonly PROFILE_BADGE_EMPLOYEE: Locator;
+  readonly ERROR_MESSAGE: Locator;
+  readonly DASHBOARD: Locator;
+  readonly VALIDATE_USERNAME: Locator;
+  readonly VALIDATE_PASSWORD: Locator;
 
   constructor(page: Page) {
     super(page);
-    this.validateUsername = page.locator("//div[contains(text(),'Nhập email hoặc số điện thoại')]");
-    this.validatePassword = page.locator("//div[contains(text(),'Nhập mật khẩu')]");
-    this.dashBoard = page.locator("//div[contains(text(),'BigTime')]");
-    this.usernameInput = page.getByRole('textbox', { name: 'Email hoặc Số điện thoại' })
-    this.passwordInput = page.getByRole('textbox', { name: 'Mật khẩu' });
-    this.loginButton = page.getByRole('button', { name: 'Đăng nhập' });
-    this.profileBadgeAdmin = page.locator("//div[@class='v-chip__content']//span[contains(text(),'Admin')]");
-    this.profileBadgeEmployee = page.locator("//div[@class='v-chip__content']//span[contains(text(),'Nguyễn Văn Minh')]");
-    this.errorMessage = page.locator("//li[contains(text(),'Tên đăng nhập hoặc mật khẩu không đúng')]");
+    this.VALIDATE_USERNAME = page.locator("//div[contains(text(),'Nhập email hoặc số điện thoại')]");
+    this.VALIDATE_PASSWORD = page.locator("//div[contains(text(),'Nhập mật khẩu')]");
+    this.DASHBOARD = page.locator("//div[contains(text(),'BigTime')]");
+    this.USERNAME_INPUT = page.getByRole('textbox', { name: 'Email hoặc Số điện thoại' });
+    this.PASSWORD_INPUT = page.getByRole('textbox', { name: 'Mật khẩu' });
+    this.LOGIN_BUTTON = page.getByRole('button', { name: 'Đăng nhập' });
+    this.PROFILE_BADGE_ADMIN = page.locator("//div[@class='v-chip__content']//span[contains(text(),'Admin')]");
+    this.PROFILE_BADGE_EMPLOYEE = page.locator("//div[@class='v-chip__content']//span[contains(text(),'Nguyễn Văn Minh')]");
+    this.ERROR_MESSAGE = page.locator("//li[contains(text(),'Tên đăng nhập hoặc mật khẩu không đúng')]");
   }
 
   async goto() {
@@ -33,24 +33,24 @@ export class LoginPage extends BasePage {
   }
 
   async expectUsernameValidate() {
-    await this.safeVerifyToHaveText(this.validateUsername, 'Nhập email hoặc số điện thoại');
+    await this.safeVerifyToHaveText(this.VALIDATE_USERNAME, 'Nhập email hoặc số điện thoại');
   }
 
   async expectPasswordValidate() {
-    await this.safeVerifyToHaveText(this.validatePassword, 'Nhập mật khẩu');
+    await this.safeVerifyToHaveText(this.VALIDATE_PASSWORD, 'Nhập mật khẩu');
   }
 
   async login(username: string, password: string) {
-    await this.safeFill(this.usernameInput, username);
-    await this.safeFill(this.passwordInput, password);
-    await this.safeClick(this.loginButton);
+    await this.safeFill(this.USERNAME_INPUT, username);
+    await this.safeFill(this.PASSWORD_INPUT, password);
+    await this.safeClick(this.LOGIN_BUTTON);
   }
 
   async expectLoginSuccess() {
-    await this.safeVerifyTextContains(this.dashBoard, 'BigTime');
+    await this.safeVerifyTextContains(this.DASHBOARD, 'BigTime');
   }
 
   async expectLoginError() {
-    await this.safeVerifyTextContains(this.errorMessage, 'Tên đăng nhập hoặc mật khẩu không đúng');
+    await this.safeVerifyTextContains(this.ERROR_MESSAGE, 'Tên đăng nhập hoặc mật khẩu không đúng');
   }
 }

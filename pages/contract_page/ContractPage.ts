@@ -255,7 +255,7 @@ export class ContractPage extends BasePage {
         await this.safeClick(this.SEASONAL_CONTRACT);
     }
 
-    async clickFORMAL_CONTRACT() {
+    async clickFormalContract() {
         await this.safeClick(this.FORMAL_CONTRACT);
     }
 

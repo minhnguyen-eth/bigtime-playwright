@@ -313,10 +313,6 @@ export class PaysheetPage extends BasePage {
         await this.safeClick(this.exportExcelByMonth);
     }
 
-    async clickSearchButton() {
-        await this.safeClick(this.searchButton);
-    }
-
     async verifyPaysheetId(text: string) {
         await this.safeVerifyToHaveText(this.verifyPaysheetIdCell, text);
     }

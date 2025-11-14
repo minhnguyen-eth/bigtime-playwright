@@ -116,7 +116,7 @@ test.describe.serial('Paysheet Tests', () => {
 
         await allure.step('Search paysheet by ID', async () => {
             await paysheet.fillSearchPaysheet('BL000001');
-            await paysheet.clickSearchButton();
+            await paysheet.clickSearch();
             await paysheet.verifyPaysheetId('BL000001');
         });
     });
@@ -127,7 +127,7 @@ test.describe.serial('Paysheet Tests', () => {
 
         await allure.step('Search paysheet by ID', async () => {
             await paysheet.fillSearchPaysheet('BL0000000000');
-            await paysheet.clickSearchButton();
+            await paysheet.clickSearch();
             await validation.validateNoExistData();
         });
     });

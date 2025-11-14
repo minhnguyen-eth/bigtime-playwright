@@ -221,16 +221,4 @@ export class LeaveManagementPage extends BasePage {
     async clickLeaveManagementButton() {
         await this.safeClick(this.leaveManagementButton);
     }
-
-    async clickCancelButton() {
-        await this.safeClick(this.cancelButton);
-    }
-
-    async clickSaveButton() {
-        await this.safeClickFirst(this.saveButton);
-    }
-
-    async clickAddButton() {
-        await this.safeClick(this.addButton);
-    }
 }
