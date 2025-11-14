@@ -42,7 +42,7 @@ export class EvaluationProcessPage extends BasePage {
     constructor(page: Page) {
         super(page);
         // List Evaluation
-        this.listEvaluationSearchByName = page.getByRole('textbox', { name: 'Mã - tên nhân viên' })
+        this.listEvaluationSearchByName = page.getByRole('textbox', { name: 'Mã / tên nhân viên' });
         this.listEvaluationVerifyNewStatus = page.locator("//div[.=' Mới tạo']").first();
         this.listEvaluationVerifyCancelStatus = page.locator("//div[.=' Đã hủy']").first();
         this.listEvaluationVerifyCompleteStatus = page.locator("//div[.=' Hoàn thành']").first();
@@ -51,7 +51,7 @@ export class EvaluationProcessPage extends BasePage {
         this.listEvaluationVerifyNewStatus = page.getByText('Mới tạo').first()
         this.clearStatusButton = page.getByRole('button', { name: 'Clear' })
         this.verifySearchByEvaluationType = page.locator('#row-0').getByText('Đánh giá chuyên cần')
-        this.verifySearchByName = page.locator('#row-0').getByText('BAT - Big App Tech')
+        this.verifySearchByName = page.locator('span').filter({ hasText: 'Test đánh giá - NV Test đánh giá' }).first()
         this.verifyNewStatusOption = page.locator('#row-0').getByText('Mới tạo')
         this.verifyCancelStatusOption = page.locator('#row-0').getByText('Đã hủy')
         this.verifyCompleteStatusOption = page.locator('#row-0').getByText('Hoàn thành')
@@ -114,7 +114,7 @@ export class EvaluationProcessPage extends BasePage {
     }
 
     async expectSearchByEmployeeName() {
-        await this.safeVerifyTextContains(this.verifySearchByName, "BAT - Big");
+        await this.safeVerifyTextContains(this.verifySearchByName, "Test đánh giá - NV Test đánh giá");
     }
 
     async fillSearchByEmployeeNameInput(Text: string) {
