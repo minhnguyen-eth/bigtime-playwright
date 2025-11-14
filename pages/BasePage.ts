@@ -58,8 +58,15 @@ export class BasePage extends SafeActions {
     // MONTH PICKER FILTER
     readonly CHOOSE_MONTH_FILTER: Locator;
 
+    // CHECKBOX
+    readonly FISRT_CHECKBOX: Locator;
+    readonly SECOND_CHECKBOX: Locator;
+
     constructor(page: Page) {
         super(page);
+        // CHECKBOX
+        this.FISRT_CHECKBOX = page.locator("(//input[@type='checkbox'])[1]");
+        this.SECOND_CHECKBOX = page.locator("(//input[@type='checkbox'])[2]");
 
         // DATE PICKER
         this.OPEN_YEAR_OVERLAY_BUTTON = page.getByRole('button', { name: 'Open years overlay' });
@@ -121,6 +128,9 @@ export class BasePage extends SafeActions {
         this.SEARCH_BUTTON = page.locator("//span[contains(normalize-space(),'Tìm kiếm')]");
     }
 
+    async clickFirstCheckbox() { await this.safeClick(this.FISRT_CHECKBOX); }
+    
+    async clickSecondCheckbox() { await this.safeClick(this.SECOND_CHECKBOX); }
 
     async clickOpenYearOverlayButton() { await this.safeClick(this.OPEN_YEAR_OVERLAY_BUTTON); }
     async clickOpenMonthOverlayButton() { await this.safeClick(this.OPEN_MONTH_OVERLAY_BUTTON); }
@@ -168,7 +178,7 @@ export class BasePage extends SafeActions {
     async clickSetting() { await this.safeClick(this.SETTING_BUTTON); }
     async clickIconAction() { await this.safeClick(this.ICON_ACTION); }
 
-    async clicktodayDatePicker() {
+    async clickTodayDatePicker() {
         await this.safeClick(this.TODAY_DATE_PICKER);
         await this.safeClick(this.CHOSSE_BUTTON);
     }

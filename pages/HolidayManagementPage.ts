@@ -2,106 +2,106 @@ import { Page, Locator } from 'playwright/test';
 import { BasePage } from './BasePage';
 
 export class HolidayManagementPage extends BasePage {
-    readonly holidayButton: Locator;
-    readonly holidayName: Locator;
-    readonly startDate: Locator
-    readonly endDate: Locator
-    readonly totalHolidayResult: Locator;
-    readonly timeKeeping: Locator;
-    readonly checkInOutHistory: Locator;
-    readonly chosseUserInput: Locator;
-    readonly selectUser: Locator;
-    readonly restHolidayHaveSalary: Locator;
-    readonly restHolidayNoSalary: Locator;
-    readonly msgNameRequired: Locator;
-    readonly msgStartDateRequired: Locator;
-    readonly msgEndDateRequired: Locator;
-    readonly checkBox: Locator;
-    readonly deleteRow0Button: Locator;
+    readonly HOLIDAY_BUTTON: Locator;
+    readonly HOLIDAY_NAME: Locator;
+    readonly START_DATE: Locator;
+    readonly END_DATE: Locator;
+    readonly TOTAL_HOLIDAY_RESULT: Locator;
+    readonly TIME_KEEPING: Locator;
+    readonly CHECK_IN_OUT_HISTORY: Locator;
+    readonly CHOOSE_USER_INPUT: Locator;
+    readonly SELECT_USER: Locator;
+    readonly REST_HOLIDAY_HAVE_SALARY: Locator;
+    readonly REST_HOLIDAY_NO_SALARY: Locator;
+    readonly MSG_NAME_REQUIRED: Locator;
+    readonly MSG_START_DATE_REQUIRED: Locator;
+    readonly MSG_END_DATE_REQUIRED: Locator;
+    readonly CHECKBOX: Locator;
+    readonly DELETE_ROW_0_BUTTON: Locator;
 
     constructor(page: Page) {
-        super(page)
-        this.deleteRow0Button = page.locator("//tr[@id='row-0']//span[contains(text(),'Xóa')]");
-        this.restHolidayNoSalary = page.locator("//td[contains(text(),'Ngày lễ không lương')]");
-        this.checkBox = page.locator("//input[@type='checkbox']");
-        this.msgEndDateRequired = page.locator("//div[contains(text(),'Nhập đến hết ngày')]");
-        this.msgStartDateRequired = page.locator("//div[contains(text(),'Nhập bắt đầu từ ngày')]");
-        this.msgNameRequired = page.locator("//div[contains(text(),'Nhập tên ngày lễ')]");
-        this.restHolidayHaveSalary = page.locator("//td[contains(text(),'Ngày lễ có lương')]");
-        this.selectUser = page.locator("//div[text()='BAT810 - Nguyễn Văn Minh']")
-        this.chosseUserInput = page.getByRole('textbox', { name: 'Chọn nhân viên' });
-        this.checkInOutHistory = page.locator("//div[contains(text(),'Lịch sử điểm danh')]")
-        this.timeKeeping = page.locator("//p[contains(text(),'Chấm công')]")
-        this.totalHolidayResult = page.locator("//input[@type='number' and @value='1']")
-        this.endDate = page.getByRole('textbox', { name: 'Đến hết ngày ※' })
-        this.startDate = page.getByRole('textbox', { name: 'Bắt đầu từ ngày ※' })
-        this.holidayButton = page.locator("//div[contains(text(),'Quản lý nghỉ lễ')]");
-        this.holidayName = page.getByRole('textbox', { name: 'Tên ngày lễ ※' });
+        super(page);
+        this.DELETE_ROW_0_BUTTON = page.locator("//tr[@id='row-0']//span[contains(text(),'Xóa')]");
+        this.REST_HOLIDAY_NO_SALARY = page.locator("//td[contains(text(),'Ngày lễ không lương')]");
+        this.CHECKBOX = page.locator("//input[@type='checkbox']");
+        this.MSG_END_DATE_REQUIRED = page.locator("//div[contains(text(),'Nhập đến hết ngày')]");
+        this.MSG_START_DATE_REQUIRED = page.locator("//div[contains(text(),'Nhập bắt đầu từ ngày')]");
+        this.MSG_NAME_REQUIRED = page.locator("//div[contains(text(),'Nhập tên ngày lễ')]");
+        this.REST_HOLIDAY_HAVE_SALARY = page.locator("//td[contains(text(),'Ngày lễ có lương')]");
+        this.SELECT_USER = page.locator("//div[text()='BAT810 - Nguyễn Văn Minh']");
+        this.CHOOSE_USER_INPUT = page.getByRole('textbox', { name: 'Chọn nhân viên' });
+        this.CHECK_IN_OUT_HISTORY = page.locator("//div[contains(text(),'Lịch sử điểm danh')]");
+        this.TIME_KEEPING = page.locator("//p[contains(text(),'Chấm công')]");
+        this.TOTAL_HOLIDAY_RESULT = page.locator("//input[@type='number' and @value='1']");
+        this.END_DATE = page.getByRole('textbox', { name: 'Đến hết ngày ※' });
+        this.START_DATE = page.getByRole('textbox', { name: 'Bắt đầu từ ngày ※' });
+        this.HOLIDAY_BUTTON = page.locator("//div[contains(text(),'Quản lý nghỉ lễ')]");
+        this.HOLIDAY_NAME = page.getByRole('textbox', { name: 'Tên ngày lễ ※' });
     }
 
     async clickDeleteRow0() {
-        await this.safeClick(this.deleteRow0Button);
-        await this.safeClick(this.yesButton, { nth: 1 });
+        await this.safeClick(this.DELETE_ROW_0_BUTTON);
+        await this.safeClick(this.YES_BUTTON, { nth: 1 });
     }
 
-    async unCheckBox() {
-        await this.checkBox.uncheck();
+    async uncheckCheckbox() {
+        await this.CHECKBOX.uncheck();
     }
 
     // VERIFY
     async expectNameRequired() {
-        await this.safeVerifyTextContains(this.msgNameRequired, "Nhập tên ngày lễ");
+        await this.safeVerifyTextContains(this.MSG_NAME_REQUIRED, "Nhập tên ngày lễ");
     }
 
     async expectStartDateRequired() {
-        await this.safeVerifyTextContains(this.msgStartDateRequired, "Nhập bắt đầu từ ngày");
+        await this.safeVerifyTextContains(this.MSG_START_DATE_REQUIRED, "Nhập bắt đầu từ ngày");
     }
 
     async expectEndDateRequired() {
-        await this.safeVerifyTextContains(this.msgEndDateRequired, "Nhập đến hết ngày");
+        await this.safeVerifyTextContains(this.MSG_END_DATE_REQUIRED, "Nhập đến hết ngày");
     }
 
     async verifyRestHolidayHaveSalary() {
-        await this.safeVerifyTextContains(this.restHolidayHaveSalary, "Ngày lễ có lương");
+        await this.safeVerifyTextContains(this.REST_HOLIDAY_HAVE_SALARY, "Ngày lễ có lương");
     }
 
     async verifyRestHolidayNoSalary() {
-        await this.safeVerifyTextContains(this.restHolidayNoSalary, "Ngày lễ không lương");
+        await this.safeVerifyTextContains(this.REST_HOLIDAY_NO_SALARY, "Ngày lễ không lương");
     }
 
     // FILL
     async fillAndSelectUser() {
-        await this.safeFill(this.chosseUserInput, 'BAT810 - Nguyễn Văn Minh');
-        await this.safeClick(this.selectUser);
+        await this.safeFill(this.CHOOSE_USER_INPUT, 'BAT810 - Nguyễn Văn Minh');
+        await this.safeClick(this.SELECT_USER);
     }
 
     async fillHolidayName(name: string) {
-        await this.safeFill(this.holidayName, name);
+        await this.safeFill(this.HOLIDAY_NAME, name);
     }
 
     // CLICK
     async clickCheckInOutHistory() {
-        await this.safeClick(this.checkInOutHistory);
+        await this.safeClick(this.CHECK_IN_OUT_HISTORY);
     }
 
     async clickTimeKeeping() {
-        await this.safeClick(this.timeKeeping);
+        await this.safeClick(this.TIME_KEEPING);
     }
 
     async clickStartDate() {
-        await this.safeClick(this.startDate);
+        await this.safeClick(this.START_DATE);
     }
 
     async clickEndDate() {
-        await this.safeClick(this.endDate);
+        await this.safeClick(this.END_DATE);
     }
 
     async clickHolidayButton() {
-        await this.safeClick(this.holidayButton);
+        await this.safeClick(this.HOLIDAY_BUTTON);
     }
 
     // VERIFY VALUE
     async checkTotalHolidayResult() {
-        await this.safeVerifyToHaveValue(this.totalHolidayResult, '1');
+        await this.safeVerifyToHaveValue(this.TOTAL_HOLIDAY_RESULT, '1');
     }
 }

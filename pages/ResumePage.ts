@@ -1,253 +1,253 @@
-import { expect, Locator, Page } from '@playwright/test';
+import { Locator, Page } from '@playwright/test';
 import { BasePage } from './BasePage';
 
 export class ResumePage extends BasePage {
-    readonly resumeButton: Locator;
-    readonly identifier: Locator;
-    readonly aliasName: Locator;
-    readonly placeOfBirth: Locator;
-    readonly homeTown: Locator;
-    readonly currentResidence: Locator;
-    readonly permanentResidence: Locator;
-    readonly homePhoneNumber: Locator;
-    readonly officePhoneNumber: Locator;
-    readonly nationPeople: Locator;
-    readonly religion: Locator;
-    readonly nationality: Locator;
-    readonly maritalStatus: Locator;
-    readonly educationalLevel: Locator;
-    readonly professionalQualifications: Locator;
-    readonly major: Locator;
-    readonly politicalTheory: Locator;
-    readonly stateManagement: Locator;
-    readonly passportNumber: Locator;
-    readonly wherePassportsAreIssued: Locator;
-    readonly passportIssuanceDate: Locator;
-    readonly passportExpirationDate: Locator;
-    readonly insuranceNumber: Locator;
-    readonly socialSecurityNumber: Locator;
-    readonly height: Locator;
-    readonly weight: Locator;
-    readonly healthStatus: Locator;
-    readonly bloodType: Locator;
-    readonly currentJob: Locator;
-    readonly preRecruitment: Locator;
-    readonly recruimentDate: Locator;
-    readonly organizationJoined: Locator;
-    readonly startWorkingDate: Locator;
-    readonly contractSignDate: Locator;
-    readonly recruimentForm: Locator;
-    readonly recruitedPosition: Locator;
-    readonly politicalTheoryInput: Locator;
-    readonly msgPlaceOfBirthRequired: Locator;
-    readonly msgHownTownRequired: Locator;
-    readonly msgEthnicityRequired: Locator;
-    readonly msgReligionRequired: Locator;
+    readonly RESUME_BUTTON: Locator;
+    readonly IDENTIFIER: Locator;
+    readonly ALIAS_NAME: Locator;
+    readonly PLACE_OF_BIRTH: Locator;
+    readonly HOME_TOWN: Locator;
+    readonly CURRENT_RESIDENCE: Locator;
+    readonly PERMANENT_RESIDENCE: Locator;
+    readonly HOME_PHONE_NUMBER: Locator;
+    readonly OFFICE_PHONE_NUMBER: Locator;
+    readonly NATION_PEOPLE: Locator;
+    readonly RELIGION: Locator;
+    readonly NATIONALITY: Locator;
+    readonly MARITAL_STATUS: Locator;
+    readonly EDUCATIONAL_LEVEL: Locator;
+    readonly PROFESSIONAL_QUALIFICATIONS: Locator;
+    readonly MAJOR: Locator;
+    readonly STATE_MANAGEMENT: Locator;
+    readonly PASSPORT_NUMBER: Locator;
+    readonly WHERE_PASSPORTS_ARE_ISSUED: Locator;
+    readonly PASSPORT_ISSUANCE_DATE: Locator;
+    readonly PASSPORT_EXPIRATION_DATE: Locator;
+    readonly INSURANCE_NUMBER: Locator;
+    readonly SOCIAL_SECURITY_NUMBER: Locator;
+    readonly HEIGHT: Locator;
+    readonly WEIGHT: Locator;
+    readonly HEALTH_STATUS: Locator;
+    readonly BLOOD_TYPE: Locator;
+    readonly CURRENT_JOB: Locator;
+    readonly PRE_RECRUITMENT: Locator;
+    readonly RECRUITMENT_DATE: Locator;
+    readonly ORGANIZATION_JOINED: Locator;
+    readonly START_WORKING_DATE: Locator;
+    readonly CONTRACT_SIGN_DATE: Locator;
+    readonly RECRUITMENT_FORM: Locator;
+    readonly RECRUITED_POSITION: Locator;
+    readonly POLITICAL_THEORY_INPUT: Locator;
+    readonly MSG_PLACE_OF_BIRTH_REQUIRED: Locator;
+    readonly MSG_HOME_TOWN_REQUIRED: Locator;
+    readonly MSG_ETHNICITY_REQUIRED: Locator;
+    readonly MSG_RELIGION_REQUIRED: Locator;
 
     constructor(page: Page) {
         super(page);
-        this.msgReligionRequired = page.locator("//div[contains(text(),'Nhập tôn giáo')]");
-        this.msgEthnicityRequired = page.locator("//div[contains(text(),'Nhập dân tộc')]");
-        this.msgHownTownRequired = page.locator("//div[contains(text(),'Nhập quê quán')]");
-        this.msgPlaceOfBirthRequired = page.locator("//div[contains(text(),'Nhập nơi sinh')]");
-        this.politicalTheoryInput = page.getByRole('textbox', { name: 'Lý luận chính trị' })
-        this.recruitedPosition = page.getByRole('textbox', { name: 'Chức danh tuyển dụng' })
-        this.recruimentForm = page.getByRole('textbox', { name: 'Hình thức tuyển dụng' })
-        this.contractSignDate = page.getByRole('textbox', { name: 'Ngày ký hợp đồng' })
-        this.startWorkingDate = page.getByRole('textbox', { name: 'Ngày bắt đầu làm việc' })
-        this.organizationJoined = page.getByRole('textbox', { name: 'Tổ chức đã vào' })
-        this.recruimentDate = page.getByRole('textbox', { name: 'Ngày tuyển dụng' })
-        this.preRecruitment = page.getByRole('textbox', { name: 'Nghề nghiệp trước tuyển dụng' });
-        this.currentJob = page.getByRole('textbox', { name: 'Công việc hiện tại' });
-        this.bloodType = page.getByRole('textbox', { name: 'Nhóm máu' })
-        this.healthStatus = page.getByRole('textbox', { name: 'Tình trạng sức khỏe' })
-        this.weight = page.getByRole('spinbutton', { name: 'Cân nặng' })
-        this.height = page.getByRole('spinbutton', { name: 'Chiều cao' })
-        this.socialSecurityNumber = page.getByRole('textbox', { name: 'Số BHXH' })
-        this.insuranceNumber = page.getByRole('textbox', { name: 'Số bảo hiểm' })
-        this.passportIssuanceDate = page.getByRole('textbox', { name: 'Ngày cấp hộ chiếu' })
-        this.passportExpirationDate = page.getByRole('textbox', { name: 'Ngày hết hạn hộ chiếu' })
-        this.wherePassportsAreIssued = page.getByRole('textbox', { name: 'Nơi cấp hộ chiếu' })
-        this.passportNumber = page.getByRole('textbox', { name: 'Số hộ chiếu' })
-        this.stateManagement = page.getByRole('textbox', { name: 'Quản lý nhà nước' })
-        this.major = page.getByRole('textbox', { name: 'Chuyên ngành' })
-        this.professionalQualifications = page.getByRole('textbox', { name: 'Trình độ chuyên môn' })
-        this.maritalStatus = page.getByRole('textbox', { name: 'Tình trạng hôn nhân' })
-        this.educationalLevel = page.getByRole('textbox', { name: 'Trình độ học vấn' })
-        this.religion = page.getByRole('textbox', { name: 'Tôn giáo ※' })
-        this.nationality = page.getByRole('textbox', { name: 'Quốc tịch' })
-        this.nationPeople = page.getByRole('textbox', { name: 'Dân tộc ※' })
-        this.officePhoneNumber = page.getByRole('spinbutton', { name: 'SĐT cơ quan' })
-        this.homePhoneNumber = page.getByRole('spinbutton', { name: 'SĐT nhà riêng' })
-        this.permanentResidence = page.getByRole('textbox', { name: 'Hộ khẩu thường trú' })
-        this.currentResidence = page.getByRole('textbox', { name: 'Nơi ở hiện tại' })
-        this.homeTown = page.getByRole('textbox', { name: 'Quê quán ※' })
-        this.placeOfBirth = page.getByRole('textbox', { name: 'Nơi sinh ※' })
-        this.aliasName = page.getByRole('textbox', { name: 'Tên gọi khác' })
-        this.identifier = page.getByRole('spinbutton', { name: 'Mã định danh' })
-        this.resumeButton = page.locator("//span[contains(.,'Sơ yếu lý lịch')]");
-    }
-    // VERIFY REQUIRED MESSAGE
-    async verifyMsgPlaceOfBirthRequired() {
-        await this.safeVerifyToHaveText(this.msgPlaceOfBirthRequired, 'Nhập nơi sinh');
+        this.MSG_RELIGION_REQUIRED = page.locator("//div[contains(text(),'Nhập tôn giáo')]");
+        this.MSG_ETHNICITY_REQUIRED = page.locator("//div[contains(text(),'Nhập dân tộc')]");
+        this.MSG_HOME_TOWN_REQUIRED = page.locator("//div[contains(text(),'Nhập quê quán')]");
+        this.MSG_PLACE_OF_BIRTH_REQUIRED = page.locator("//div[contains(text(),'Nhập nơi sinh')]");
+        this.POLITICAL_THEORY_INPUT = page.getByRole('textbox', { name: 'Lý luận chính trị' });
+        this.RECRUITED_POSITION = page.getByRole('textbox', { name: 'Chức danh tuyển dụng' });
+        this.RECRUITMENT_FORM = page.getByRole('textbox', { name: 'Hình thức tuyển dụng' });
+        this.CONTRACT_SIGN_DATE = page.getByRole('textbox', { name: 'Ngày ký hợp đồng' });
+        this.START_WORKING_DATE = page.getByRole('textbox', { name: 'Ngày bắt đầu làm việc' });
+        this.ORGANIZATION_JOINED = page.getByRole('textbox', { name: 'Tổ chức đã vào' });
+        this.RECRUITMENT_DATE = page.getByRole('textbox', { name: 'Ngày tuyển dụng' });
+        this.PRE_RECRUITMENT = page.getByRole('textbox', { name: 'Nghề nghiệp trước tuyển dụng' });
+        this.CURRENT_JOB = page.getByRole('textbox', { name: 'Công việc hiện tại' });
+        this.BLOOD_TYPE = page.getByRole('textbox', { name: 'Nhóm máu' });
+        this.HEALTH_STATUS = page.getByRole('textbox', { name: 'Tình trạng sức khỏe' });
+        this.WEIGHT = page.getByRole('spinbutton', { name: 'Cân nặng' });
+        this.HEIGHT = page.getByRole('spinbutton', { name: 'Chiều cao' });
+        this.SOCIAL_SECURITY_NUMBER = page.getByRole('textbox', { name: 'Số BHXH' });
+        this.INSURANCE_NUMBER = page.getByRole('textbox', { name: 'Số bảo hiểm' });
+        this.PASSPORT_ISSUANCE_DATE = page.getByRole('textbox', { name: 'Ngày cấp hộ chiếu' });
+        this.PASSPORT_EXPIRATION_DATE = page.getByRole('textbox', { name: 'Ngày hết hạn hộ chiếu' });
+        this.WHERE_PASSPORTS_ARE_ISSUED = page.getByRole('textbox', { name: 'Nơi cấp hộ chiếu' });
+        this.PASSPORT_NUMBER = page.getByRole('textbox', { name: 'Số hộ chiếu' });
+        this.STATE_MANAGEMENT = page.getByRole('textbox', { name: 'Quản lý nhà nước' });
+        this.MAJOR = page.getByRole('textbox', { name: 'Chuyên ngành' });
+        this.PROFESSIONAL_QUALIFICATIONS = page.getByRole('textbox', { name: 'Trình độ chuyên môn' });
+        this.MARITAL_STATUS = page.getByRole('textbox', { name: 'Tình trạng hôn nhân' });
+        this.EDUCATIONAL_LEVEL = page.getByRole('textbox', { name: 'Trình độ học vấn' });
+        this.RELIGION = page.getByRole('textbox', { name: 'Tôn giáo ※' });
+        this.NATIONALITY = page.getByRole('textbox', { name: 'Quốc tịch' });
+        this.NATION_PEOPLE = page.getByRole('textbox', { name: 'Dân tộc ※' });
+        this.OFFICE_PHONE_NUMBER = page.getByRole('spinbutton', { name: 'SĐT cơ quan' });
+        this.HOME_PHONE_NUMBER = page.getByRole('spinbutton', { name: 'SĐT nhà riêng' });
+        this.PERMANENT_RESIDENCE = page.getByRole('textbox', { name: 'Hộ khẩu thường trú' });
+        this.CURRENT_RESIDENCE = page.getByRole('textbox', { name: 'Nơi ở hiện tại' });
+        this.HOME_TOWN = page.getByRole('textbox', { name: 'Quê quán ※' });
+        this.PLACE_OF_BIRTH = page.getByRole('textbox', { name: 'Nơi sinh ※' });
+        this.ALIAS_NAME = page.getByRole('textbox', { name: 'Tên gọi khác' });
+        this.IDENTIFIER = page.getByRole('spinbutton', { name: 'Mã định danh' });
+        this.RESUME_BUTTON = page.locator("//span[contains(.,'Sơ yếu lý lịch')]");
     }
 
-    async verifyMsgHownTownRequired() {
-        await this.safeVerifyToHaveText(this.msgHownTownRequired, 'Nhập quê quán');
+    // VERIFY REQUIRED MESSAGE
+    async verifyMsgPlaceOfBirthRequired() {
+        await this.safeVerifyToHaveText(this.MSG_PLACE_OF_BIRTH_REQUIRED, 'Nhập nơi sinh');
+    }
+
+    async verifyMsgHomeTownRequired() {
+        await this.safeVerifyToHaveText(this.MSG_HOME_TOWN_REQUIRED, 'Nhập quê quán');
     }
 
     async verifyMsgEthnicityRequired() {
-        await this.safeVerifyToHaveText(this.msgEthnicityRequired, 'Nhập dân tộc');
+        await this.safeVerifyToHaveText(this.MSG_ETHNICITY_REQUIRED, 'Nhập dân tộc');
     }
 
     async verifyMsgReligionRequired() {
-        await this.safeVerifyToHaveText(this.msgReligionRequired, 'Nhập tôn giáo');
+        await this.safeVerifyToHaveText(this.MSG_RELIGION_REQUIRED, 'Nhập tôn giáo');
     }
 
     // CLICK ACTIONS
     async clickContractSignDate() {
-        await this.safeClick(this.contractSignDate);
+        await this.safeClick(this.CONTRACT_SIGN_DATE);
     }
 
     async clickRecruitmentDate() {
-        await this.safeClick(this.recruimentDate);
+        await this.safeClick(this.RECRUITMENT_DATE);
     }
 
     async clickStartWorkingDate() {
-        await this.safeClick(this.startWorkingDate);
+        await this.safeClick(this.START_WORKING_DATE);
     }
 
     async clickPassportIssuanceDate() {
-        await this.safeClick(this.passportIssuanceDate);
+        await this.safeClick(this.PASSPORT_ISSUANCE_DATE);
     }
 
     async clickPassportExpirationDate() {
-        await this.safeClick(this.passportExpirationDate);
+        await this.safeClick(this.PASSPORT_EXPIRATION_DATE);
     }
 
     async clickResume() {
-        await this.safeClick(this.resumeButton);
+        await this.safeClick(this.RESUME_BUTTON);
     }
 
     // FILL FIELDS
     async fillPoliticalTheory(text: string) {
-        await this.safeFill(this.politicalTheoryInput, text);
+        await this.safeFill(this.POLITICAL_THEORY_INPUT, text);
     }
 
     async fillRecruitedPosition(text: string) {
-        await this.safeFill(this.recruitedPosition, text);
+        await this.safeFill(this.RECRUITED_POSITION, text);
     }
 
-    async fillRecruimentForm(text: string) {
-        await this.safeFill(this.recruimentForm, text);
+    async fillRecruitmentForm(text: string) {
+        await this.safeFill(this.RECRUITMENT_FORM, text);
     }
 
     async fillOrganizationJoined(text: string) {
-        await this.safeFill(this.organizationJoined, text);
+        await this.safeFill(this.ORGANIZATION_JOINED, text);
     }
 
     async fillPreRecruitment(text: string) {
-        await this.safeFill(this.preRecruitment, text);
+        await this.safeFill(this.PRE_RECRUITMENT, text);
     }
 
     async fillCurrentJob(text: string) {
-        await this.safeFill(this.currentJob, text);
+        await this.safeFill(this.CURRENT_JOB, text);
     }
 
     async fillBloodType(text: string) {
-        await this.safeFill(this.bloodType, text);
+        await this.safeFill(this.BLOOD_TYPE, text);
     }
 
     async fillHealthStatus(text: string) {
-        await this.safeFill(this.healthStatus, text);
+        await this.safeFill(this.HEALTH_STATUS, text);
     }
 
     async fillWeight(text: string) {
-        await this.safeFill(this.weight, text);
+        await this.safeFill(this.WEIGHT, text);
     }
 
     async fillHeight(text: string) {
-        await this.safeFill(this.height, text);
+        await this.safeFill(this.HEIGHT, text);
     }
 
     async fillInsuranceNumber(text: string) {
-        await this.safeFill(this.insuranceNumber, text);
+        await this.safeFill(this.INSURANCE_NUMBER, text);
     }
 
     async fillSocialSecurityNumber(text: string) {
-        await this.safeFill(this.socialSecurityNumber, text);
+        await this.safeFill(this.SOCIAL_SECURITY_NUMBER, text);
     }
 
     async fillWherePassportsAreIssued(text: string) {
-        await this.safeFill(this.wherePassportsAreIssued, text);
+        await this.safeFill(this.WHERE_PASSPORTS_ARE_ISSUED, text);
     }
 
     async fillPassportNumber(text: string) {
-        await this.safeFill(this.passportNumber, text);
+        await this.safeFill(this.PASSPORT_NUMBER, text);
     }
 
     async fillStateManagement(text: string) {
-        await this.safeFill(this.stateManagement, text);
+        await this.safeFill(this.STATE_MANAGEMENT, text);
     }
 
     async fillMajor(text: string) {
-        await this.safeFill(this.major, text);
+        await this.safeFill(this.MAJOR, text);
     }
 
     async fillProfessionalQualifications(text: string) {
-        await this.safeFill(this.professionalQualifications, text);
+        await this.safeFill(this.PROFESSIONAL_QUALIFICATIONS, text);
     }
 
     async fillNationPeople(text: string) {
-        await this.safeFill(this.nationPeople, text);
+        await this.safeFill(this.NATION_PEOPLE, text);
     }
 
     async fillReligion(text: string) {
-        await this.safeFill(this.religion, text);
+        await this.safeFill(this.RELIGION, text);
     }
 
     async fillNationality(text: string) {
-        await this.safeFill(this.nationality, text);
+        await this.safeFill(this.NATIONALITY, text);
     }
 
     async fillMaritalStatus(text: string) {
-        await this.safeFill(this.maritalStatus, text);
+        await this.safeFill(this.MARITAL_STATUS, text);
     }
 
     async fillEducationalLevel(text: string) {
-        await this.safeFill(this.educationalLevel, text);
+        await this.safeFill(this.EDUCATIONAL_LEVEL, text);
     }
 
     async fillHomePhoneNumber(text: string) {
-        await this.safeFill(this.homePhoneNumber, text);
+        await this.safeFill(this.HOME_PHONE_NUMBER, text);
     }
 
     async fillOfficePhoneNumber(text: string) {
-        await this.safeFill(this.officePhoneNumber, text);
+        await this.safeFill(this.OFFICE_PHONE_NUMBER, text);
     }
 
     async fillPermanentResidence(text: string) {
-        await this.safeFill(this.permanentResidence, text);
+        await this.safeFill(this.PERMANENT_RESIDENCE, text);
     }
 
     async fillCurrentResidence(text: string) {
-        await this.safeFill(this.currentResidence, text);
+        await this.safeFill(this.CURRENT_RESIDENCE, text);
     }
 
     async fillHomeTown(text: string) {
-        await this.safeFill(this.homeTown, text);
+        await this.safeFill(this.HOME_TOWN, text);
     }
 
     async fillPlaceOfBirth(text: string) {
-        await this.safeFill(this.placeOfBirth, text);
+        await this.safeFill(this.PLACE_OF_BIRTH, text);
     }
 
     async fillAliasName(text: string) {
-        await this.safeFill(this.aliasName, text);
+        await this.safeFill(this.ALIAS_NAME, text);
     }
 
     async fillIdentifier(text: string) {
-        await this.safeFill(this.identifier, text);
+        await this.safeFill(this.IDENTIFIER, text);
     }
 
     // ACTION COMBO
@@ -280,9 +280,9 @@ export class ResumePage extends BasePage {
         // await this.fillPassportNumber(random10Digits.toString());
         // await this.fillWherePassportsAreIssued("Hà Nội");
         // await this.clickPassportIssuanceDate();
-        // await this.clicktodayDatePicker();
+        // await this.clickTodayDatePicker();
         // await this.clickPassportExpirationDate();
-        // await this.clicktodayDatePicker();
+        // await this.clickTodayDatePicker();
         await this.fillSocialSecurityNumber(random10Digits.toString());
         await this.fillInsuranceNumber(random10Digits.toString());
         // await this.fillHeight("170");
@@ -292,12 +292,12 @@ export class ResumePage extends BasePage {
         // await this.fillCurrentJob("Công nghệ thông tin");
         // await this.fillPreRecruitment("Công nghệ thông tin");
         // await this.fillOrganizationJoined("Testing");
-        // await this.fillRecruimentForm("Testing");
+        // await this.fillRecruitmentForm("Testing");
         // await this.fillRecruitedPosition("Công nghệ thông tin");
         await this.clickStartWorkingDate();
         await this.clickChoose();
         // await this.clickRecruitmentDate();
-        // await this.clicktodayDatePicker();
+        // await this.clickTodayDatePicker();
         await this.clickContractSignDate();
         await this.clickChoose();
     }

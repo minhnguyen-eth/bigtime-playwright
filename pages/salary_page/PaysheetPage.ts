@@ -2,140 +2,136 @@ import { Locator, Page, expect } from '@playwright/test';
 import { BasePage } from '../BasePage';
 
 export class PaysheetPage extends BasePage {
-    readonly paysheetButton: Locator;
-    readonly namePaysheetInput: Locator;
-    readonly radioMonthly: Locator;
-    readonly dropdownMonth: Locator;
-    readonly dropdownEmployee: Locator;
-    readonly employeeOption: Locator;
-    readonly submitButton: Locator;
-    readonly latestPaysheetRow: Locator;
-    readonly viewPayrollButton: Locator;
-    readonly sendAllButton: Locator;
-    readonly confirm2Button: Locator;
-    readonly noteInput: Locator;
-    readonly payslipButton: Locator;
-    readonly salarySlipCode: Locator;
-    readonly browseButton: Locator;
-    readonly salaryClosingButton: Locator;
-    readonly exportDataButton: Locator;
-    readonly refreshButton: Locator;
-    readonly paymentHistoryButton: Locator;
-    readonly historyPaymentCodeButton: Locator;
-    readonly employeeNameLabel: Locator;
-    readonly searchInput: Locator;
-    readonly verifyPaysheetIdCell: Locator;
-    readonly selectAllEmployeesCheckbox: Locator;
-    readonly reasonInput: Locator;
-    readonly reasonLabel: Locator;
-    readonly paymentConfirmButton: Locator;
-    readonly paymentButton: Locator;
-    readonly checkBoxMonthly: Locator;
-    readonly chooseMonth: Locator;
-    readonly employeeNameInput: Locator;
-    readonly payslipPayment: Locator;
-    readonly requiredEnterName: Locator;
-    readonly exportExcelByMonth: Locator;
-    readonly chosseMonthExport: Locator;
-    readonly Month05: Locator;
-    readonly exportOnly1Paysheet: Locator;
-    readonly addMoreEmployee: Locator;
-    readonly fillEmployeeName: Locator;
-    readonly selectMoreEmployee: Locator;
-    readonly baseSalary: Locator;
-    readonly numberOfWorkingDays: Locator;
-  
-    readonly overTimeInput: Locator
-    readonly bonusButton: Locator;
-    readonly addBonusButton: Locator;
-    readonly moneyInput: Locator;
-    readonly timesInput: Locator;
-    readonly typeInput: Locator;
-    readonly deduction: Locator;
-    readonly addDeduction: Locator;
-    readonly temporarySaveButton: Locator;
-    readonly verifyOverTime: Locator;
-    readonly selectMoreEmployee2: Locator;
-    readonly checkBoxPaylipsFirst: Locator;
-    readonly searchByName: Locator;
-    readonly buttonSearch: Locator;
-    readonly selectEmployee: Locator;
-    readonly alolowanceButton: Locator;
-    readonly addAllowanceButton: Locator;
-    readonly inputFillMoneyAllowance: Locator;
-    readonly separateButton: Locator;
-    readonly popupSeparate: Locator;
-    
+    readonly PAYSHEET_BUTTON: Locator;
+    readonly NAME_PAYSHEET_INPUT: Locator;
+    readonly RADIO_MONTHLY: Locator;
+    readonly DROPDOWN_MONTH: Locator;
+    readonly DROPDOWN_EMPLOYEE: Locator;
+    readonly EMPLOYEE_OPTION: Locator;
+    readonly SUBMIT_BUTTON: Locator;
+    readonly LATEST_PAYSHEET_ROW: Locator;
+    readonly VIEW_PAYROLL_BUTTON: Locator;
+    readonly SEND_ALL_BUTTON: Locator;
+    readonly CONFIRM_2_BUTTON: Locator;
+    readonly NOTE_INPUT: Locator;
+    readonly PAYSLIP_BUTTON: Locator;
+    readonly SALARY_SLIP_CODE: Locator;
+    readonly BROWSE_BUTTON: Locator;
+    readonly SALARY_CLOSING_BUTTON: Locator;
+    readonly EXPORT_DATA_BUTTON: Locator;
+    readonly REFRESH_BUTTON: Locator;
+    readonly PAYMENT_HISTORY_BUTTON: Locator;
+    readonly HISTORY_PAYMENT_CODE_BUTTON: Locator;
+    readonly EMPLOYEE_NAME_LABEL: Locator;
+    readonly SEARCH_INPUT: Locator;
+    readonly VERIFY_PAYSHEET_ID_CELL: Locator;
+    readonly SELECT_ALL_EMPLOYEES_CHECKBOX: Locator;
+    readonly REASON_INPUT: Locator;
+    readonly REASON_LABEL: Locator;
+    readonly PAYMENT_CONFIRM_BUTTON: Locator;
+    readonly PAYMENT_BUTTON: Locator;
+    readonly CHECKBOX_MONTHLY: Locator;
+    readonly CHOOSE_MONTH: Locator;
+    readonly EMPLOYEE_NAME_INPUT: Locator;
+    readonly PAYSLIP_PAYMENT: Locator;
+    readonly REQUIRED_ENTER_NAME: Locator;
+    readonly EXPORT_EXCEL_BY_MONTH: Locator;
+    readonly CHOOSE_MONTH_EXPORT: Locator;
+    readonly MONTH_05: Locator;
+    readonly EXPORT_ONLY_1_PAYSHEET: Locator;
+    readonly ADD_MORE_EMPLOYEE: Locator;
+    readonly FILL_EMPLOYEE_NAME: Locator;
+    readonly SELECT_MORE_EMPLOYEE: Locator;
+    readonly BASE_SALARY: Locator;
+    readonly NUMBER_OF_WORKING_DAYS: Locator;
+    readonly OVERTIME_INPUT: Locator;
+    readonly BONUS_BUTTON: Locator;
+    readonly ADD_BONUS_BUTTON: Locator;
+    readonly MONEY_INPUT: Locator;
+    readonly TIMES_INPUT: Locator;
+    readonly TYPE_INPUT: Locator;
+    readonly DEDUCTION: Locator;
+    readonly ADD_DEDUCTION: Locator;
+    readonly TEMPORARY_SAVE_BUTTON: Locator;
+    readonly VERIFY_OVERTIME: Locator;
+    readonly SELECT_MORE_EMPLOYEE_2: Locator;
+    readonly CHECKBOX_PAYSLIPS_FIRST: Locator;
+    readonly SEARCH_BY_NAME: Locator;
+    readonly BUTTON_SEARCH: Locator;
+    readonly SELECT_EMPLOYEE: Locator;
+    readonly ALLOWANCE_BUTTON: Locator;
+    readonly ADD_ALLOWANCE_BUTTON: Locator;
+    readonly INPUT_FILL_MONEY_ALLOWANCE: Locator;
+    readonly SEPARATE_BUTTON: Locator;
+    readonly POPUP_SEPARATE: Locator;
 
     constructor(page: Page) {
         super(page);
-        this.popupSeparate = page.locator("//div[.='Bạn có chắc chắn muốn tách bảng lương thành 2 phần: đã duyệt và chưa duyệt không?']")
-        this.separateButton = page.locator("//span[contains(.,'Tách')]")
-        this.inputFillMoneyAllowance = page.locator("//tr/td[3]/div/div/div/div[3]/input")
-        this.addAllowanceButton = page.locator("//span[contains(.,'Thêm khoản phụ cấp khác')]")
-        this.alolowanceButton = page.locator("//tbody/tr/td[6]/p[1]")
-        this.buttonSearch = page.getByRole('tablist').getByRole('button', { name: 'Tìm kiếm' });
-        this.checkBoxPaylipsFirst = page.locator('.v-selection-control').first();
-        this.verifyOverTime = page.locator("//input[contains(@value,'500.000')]")
-        this.temporarySaveButton = page.locator("//span[.=' Lưu tạm']")
-        this.addDeduction = page.locator("//span[.='Thêm khoản trừ khác']");
-        this.deduction = page.locator("//table/tbody/tr/td[8]/p");
-        this.typeInput = page.locator("//td[2]/div/div/div/div[3]/div/input")
-        this.timesInput = page.locator("//tr/td[3]/div/div/div/div[3]/div/input")
-        this.moneyInput = page.locator("//td[4]/div/div/div/div[3]/input")
-        this.addBonusButton = page.locator("//span[.='Thêm khoản thưởng khác']")
-        this.bonusButton = page.locator("//tbody/tr/td[7]/p[1]")
-        this.overTimeInput = page.locator("//tr/td[5]/div/div/div/div[3]/input")
-
-        this.numberOfWorkingDays = page.locator("//tr/td[4]/div/div/div/div[3]/div/input");
-        this.baseSalary = page.locator("//tbody/tr/td[4]/p[1]")
-        this.selectMoreEmployee = page.getByRole('option', { name: /Big App Tech/ });
-        this.selectMoreEmployee2 = page.getByRole('option', { name: 'BAT810 - Nguyễn Văn Minh' });
-        this.fillEmployeeName = page.locator("//div[3]/div[2]/div/div/div/div[3]/div/input")
-        this.addMoreEmployee = page.locator("//span[normalize-space()='Thêm nhân viên']")
-        this.exportOnly1Paysheet = page.getByRole('table').getByRole('button', { name: 'Xuất dữ liệu' });
-        this.Month05 = page.locator("//div[@class='dp__overlay_cell dp__overlay_cell_pad'][normalize-space()='Thg 5']")
-        this.chosseMonthExport = page.getByLabel('', { exact: true });
-        this.exportExcelByMonth = page.getByRole('main').locator('header').getByRole('button', { name: 'Xuất dữ liệu' });
-        this.requiredEnterName = page.locator("//div[contains(text(),'Nhập tên')]")
-        this.payslipPayment = page.locator("//span[normalize-space()='Phiếu lương']")
-        this.employeeNameInput = page.getByRole('textbox', { name: 'Nhân viên ※' })
-        this.chooseMonth = page.getByRole('textbox', { name: 'Khoảng thời gian hàng tháng' });
-        this.checkBoxMonthly = page.getByRole('radio', { name: 'Hàng tháng' });
-        this.paysheetButton = page.locator('//a[@href="/salary/pay-sheet"]');
-        this.namePaysheetInput = page.getByRole('textbox', { name: 'Tên ※' });
-        this.radioMonthly = page.getByRole('radio', { name: 'Hàng tháng' });
-        this.dropdownMonth = page.locator('//i[@title="Open"]');
-        this.dropdownEmployee = page.getByRole('textbox', { name: 'Nhân viên ※' });
-        this.employeeOption = page.locator("//div[@role='option']//div[@class='v-list-item-title']");
-        this.submitButton = page.locator('//button[@type="submit"]');
-        this.latestPaysheetRow = page.locator('#row-0').getByText('Automation test')
-        this.viewPayrollButton = page.getByRole('button', { name: 'Xem bảng lương' });
-        this.sendAllButton = page.locator('//span[contains(normalize-space(),"Gửi tất cả")]');
-        this.confirm2Button = page.locator('//span[.="Xác nhận"]');
-        this.noteInput = page.locator('//textarea[@class="v-field__input"]');
-        this.payslipButton = page.locator('//a[@href="/salary/payslip"]');
-        this.salarySlipCode = page.locator('//tr[@id="row-0"]//td[2]');
-        this.browseButton = page.getByRole('button', { name: /Duyệt/ }).first()
-        this.salaryClosingButton = page.getByRole('button', { name: 'Chốt lương' });
-        this.exportDataButton = page.locator('//span[contains(normalize-space(),"Xuất dữ liệu")]');
-        this.refreshButton = page.locator('//span[normalize-space()="Làm mới"]');
-        this.paymentHistoryButton = page.locator('//span[normalize-space()="Lịch sử thanh toán"]');
-        this.historyPaymentCodeButton = page.locator('//td[@class="text-left cursor-pointer"]');
-        this.employeeNameLabel = page.locator('//div[contains(text(),"Nguyễn Văn Minh")]');
-        this.searchInput = page.getByRole('textbox', { name: 'Tìm kiếm theo mã hoặc tên bảng lương' });
-        this.verifyPaysheetIdCell = page.locator("//td[.='BL000001']");
-        this.selectAllEmployeesCheckbox = page.getByRole('radio', { name: 'Chọn tất cả nhân viên' });
-        this.reasonLabel = page.locator('//form//div[3]//textarea');
-        this.reasonInput = page.locator('//form//div[3]//div[3]//textarea[1]');
-        this.paymentButton = page.getByRole('button', { name: 'Thanh toán' });
-        this.paymentConfirmButton = page.locator('//span[contains(normalize-space(),"Xác nhận thanh toán")]');
-        this.searchByName = page.getByRole('textbox', { name: 'Tìm kiếm theo tên' });
-        this.selectEmployee = page.locator("(//input[@type='checkbox'])[2]");
+        this.POPUP_SEPARATE = page.locator("//div[.='Bạn có chắc chắn muốn tách bảng lương thành 2 phần: đã duyệt và chưa duyệt không?']");
+        this.SEPARATE_BUTTON = page.locator("//span[contains(.,'Tách')]");
+        this.INPUT_FILL_MONEY_ALLOWANCE = page.locator("//tr/td[3]/div/div/div/div[3]/input");
+        this.ADD_ALLOWANCE_BUTTON = page.locator("//span[contains(.,'Thêm khoản phụ cấp khác')]");
+        this.ALLOWANCE_BUTTON = page.locator("//tbody/tr/td[6]/p[1]");
+        this.BUTTON_SEARCH = page.getByRole('tablist').getByRole('button', { name: 'Tìm kiếm' });
+        this.CHECKBOX_PAYSLIPS_FIRST = page.locator('.v-selection-control').first();
+        this.VERIFY_OVERTIME = page.locator("//input[contains(@value,'500.000')]");
+        this.TEMPORARY_SAVE_BUTTON = page.locator("//span[.=' Lưu tạm']");
+        this.ADD_DEDUCTION = page.locator("//span[.='Thêm khoản trừ khác']");
+        this.DEDUCTION = page.locator("//table/tbody/tr/td[8]/p");
+        this.TYPE_INPUT = page.locator("//td[2]/div/div/div/div[3]/div/input");
+        this.TIMES_INPUT = page.locator("//tr/td[3]/div/div/div/div[3]/div/input");
+        this.MONEY_INPUT = page.locator("//td[4]/div/div/div/div[3]/input");
+        this.ADD_BONUS_BUTTON = page.locator("//span[.='Thêm khoản thưởng khác']");
+        this.BONUS_BUTTON = page.locator("//tbody/tr/td[7]/p[1]");
+        this.OVERTIME_INPUT = page.locator("//tr/td[5]/div/div/div/div[3]/input");
+        this.NUMBER_OF_WORKING_DAYS = page.locator("//tr/td[4]/div/div/div/div[3]/div/input");
+        this.BASE_SALARY = page.locator("//tbody/tr/td[4]/p[1]");
+        this.SELECT_MORE_EMPLOYEE = page.getByRole('option', { name: /Big App Tech/ });
+        this.SELECT_MORE_EMPLOYEE_2 = page.getByRole('option', { name: 'BAT810 - Nguyễn Văn Minh' });
+        this.FILL_EMPLOYEE_NAME = page.locator("//div[3]/div[2]/div/div/div/div[3]/div/input");
+        this.ADD_MORE_EMPLOYEE = page.locator("//span[normalize-space()='Thêm nhân viên']");
+        this.EXPORT_ONLY_1_PAYSHEET = page.getByRole('table').getByRole('button', { name: 'Xuất dữ liệu' });
+        this.MONTH_05 = page.locator("//div[@class='dp__overlay_cell dp__overlay_cell_pad'][normalize-space()='Thg 5']");
+        this.CHOOSE_MONTH_EXPORT = page.getByLabel('', { exact: true });
+        this.EXPORT_EXCEL_BY_MONTH = page.getByRole('main').locator('header').getByRole('button', { name: 'Xuất dữ liệu' });
+        this.REQUIRED_ENTER_NAME = page.locator("//div[contains(text(),'Nhập tên')]");
+        this.PAYSLIP_PAYMENT = page.locator("//span[normalize-space()='Phiếu lương']");
+        this.EMPLOYEE_NAME_INPUT = page.getByRole('textbox', { name: 'Nhân viên ※' });
+        this.CHOOSE_MONTH = page.getByRole('textbox', { name: 'Khoảng thời gian hàng tháng' });
+        this.CHECKBOX_MONTHLY = page.getByRole('radio', { name: 'Hàng tháng' });
+        this.PAYSHEET_BUTTON = page.locator('//a[@href="/salary/pay-sheet"]');
+        this.NAME_PAYSHEET_INPUT = page.getByRole('textbox', { name: 'Tên ※' });
+        this.RADIO_MONTHLY = page.getByRole('radio', { name: 'Hàng tháng' });
+        this.DROPDOWN_MONTH = page.locator('//i[@title="Open"]');
+        this.DROPDOWN_EMPLOYEE = page.getByRole('textbox', { name: 'Nhân viên ※' });
+        this.EMPLOYEE_OPTION = page.locator("//div[@role='option']//div[@class='v-list-item-title']");
+        this.SUBMIT_BUTTON = page.locator('//button[@type="submit"]');
+        this.LATEST_PAYSHEET_ROW = page.locator('#row-0').getByText('Automation test');
+        this.VIEW_PAYROLL_BUTTON = page.getByRole('button', { name: 'Xem bảng lương' });
+        this.SEND_ALL_BUTTON = page.locator('//span[contains(normalize-space(),"Gửi tất cả")]');
+        this.CONFIRM_2_BUTTON = page.locator('//span[.="Xác nhận"]');
+        this.NOTE_INPUT = page.locator('//textarea[@class="v-field__input"]');
+        this.PAYSLIP_BUTTON = page.locator('//a[@href="/salary/payslip"]');
+        this.SALARY_SLIP_CODE = page.locator('//tr[@id="row-0"]//td[2]');
+        this.BROWSE_BUTTON = page.getByRole('button', { name: /Duyệt/ }).first();
+        this.SALARY_CLOSING_BUTTON = page.getByRole('button', { name: 'Chốt lương' });
+        this.EXPORT_DATA_BUTTON = page.locator('//span[contains(normalize-space(),"Xuất dữ liệu")]');
+        this.REFRESH_BUTTON = page.locator('//span[normalize-space()="Làm mới"]');
+        this.PAYMENT_HISTORY_BUTTON = page.locator('//span[normalize-space()="Lịch sử thanh toán"]');
+        this.HISTORY_PAYMENT_CODE_BUTTON = page.locator('//td[@class="text-left cursor-pointer"]');
+        this.EMPLOYEE_NAME_LABEL = page.locator('//div[contains(text(),"Nguyễn Văn Minh")]');
+        this.SEARCH_INPUT = page.getByRole('textbox', { name: 'Tìm kiếm theo mã hoặc tên bảng lương' });
+        this.VERIFY_PAYSHEET_ID_CELL = page.locator("//td[.='BL000001']");
+        this.SELECT_ALL_EMPLOYEES_CHECKBOX = page.getByRole('radio', { name: 'Chọn tất cả nhân viên' });
+        this.REASON_LABEL = page.locator('//form//div[3]//textarea');
+        this.REASON_INPUT = page.locator('//form//div[3]//div[3]//textarea[1]');
+        this.PAYMENT_BUTTON = page.getByRole('button', { name: 'Thanh toán' });
+        this.PAYMENT_CONFIRM_BUTTON = page.locator('//span[contains(normalize-space(),"Xác nhận thanh toán")]');
+        this.SEARCH_BY_NAME = page.getByRole('textbox', { name: 'Tìm kiếm theo tên' });
+        this.SELECT_EMPLOYEE = page.locator("(//input[@type='checkbox'])[2]");
     }
-
-    async verifyTotalTaxAmoutCalculated(amount: string) {
-        const locator = this.page.getByText(`${amount} đ`, { exact: true })
+    async verifyTotalTaxAmountCalculated(amount: string) {
+        const locator = this.page.getByText(`${amount} đ`, { exact: true });
         await this.safeVerifyTextContains(locator, amount);
     }
 
@@ -175,246 +171,242 @@ export class PaysheetPage extends BasePage {
     }
 
     async verifyPopupSeparate(text: string) {
-        await this.safeVerifyToHaveText(this.popupSeparate, text);
+        await this.safeVerifyToHaveText(this.POPUP_SEPARATE, text);
     }
 
     async clickSeparateButton() {
-        await this.safeClick(this.separateButton);
+        await this.safeClick(this.SEPARATE_BUTTON);
     }
 
     async fillAllowanceMoney(money: string) {
-        await this.safeFill(this.inputFillMoneyAllowance, money);
+        await this.safeFill(this.INPUT_FILL_MONEY_ALLOWANCE, money);
     }
 
     async fillAllowanceType(name: string) {
-        await this.safeFill(this.typeInput, name);
+        await this.safeFill(this.TYPE_INPUT, name);
     }
 
     async clickAddAllowanceButton() {
-        await this.safeClick(this.addAllowanceButton);
+        await this.safeClick(this.ADD_ALLOWANCE_BUTTON);
     }
 
     async clickAllowanceButton() {
-        await this.safeClick(this.alolowanceButton);
+        await this.safeClick(this.ALLOWANCE_BUTTON);
     }
 
     async clickSelectEmployee() {
-        await this.safeClick(this.selectEmployee);
+        await this.safeClick(this.SELECT_EMPLOYEE);
     }
 
     async clickButtonSearch() {
-        await this.safeClick(this.buttonSearch);
+        await this.safeClick(this.BUTTON_SEARCH);
     }
 
     async fillSearchByName(name: string) {
-        await this.safeFill(this.searchByName, name);
+        await this.safeFill(this.SEARCH_BY_NAME, name);
     }
 
-    async clickCheckBoxPaylipsFirst() {
-        await this.safeClick(this.checkBoxPaylipsFirst)
+    async clickCheckboxPayslipsFirst() {
+        await this.safeClick(this.CHECKBOX_PAYSLIPS_FIRST);
     }
 
     async clickSelectEmployee2() {
-        await this.safeClick(this.selectMoreEmployee2);
+        await this.safeClick(this.SELECT_MORE_EMPLOYEE_2);
     }
 
-    async expectOverTime() {
-        await expect(this.verifyOverTime).toBeVisible();
-        await expect(this.verifyOverTime).toHaveValue(/500\.000/);
+    async expectOvertime() {
+        await expect(this.VERIFY_OVERTIME).toBeVisible();
+        await expect(this.VERIFY_OVERTIME).toHaveValue(/500\.000/);
     }
 
     async clickTemporarySave() {
-        await this.safeClick(this.temporarySaveButton);
+        await this.safeClick(this.TEMPORARY_SAVE_BUTTON);
     }
 
     async fillDeductionMoney(money: string) {
-        await this.safeFill(this.moneyInput, money);
+        await this.safeFill(this.MONEY_INPUT, money);
     }
 
     async fillTimes(times: string) {
-        await this.safeFill(this.timesInput, times);
+        await this.safeFill(this.TIMES_INPUT, times);
     }
 
     async fillDeductionType(type: string) {
-        await this.safeFill(this.typeInput, type);
+        await this.safeFill(this.TYPE_INPUT, type);
     }
 
     async clickAddDeduction() {
-        await this.safeClick(this.addDeduction);
+        await this.safeClick(this.ADD_DEDUCTION);
     }
 
     async clickDeduction() {
-        await this.safeClick(this.deduction);
+        await this.safeClick(this.DEDUCTION);
     }
 
-    async verifyBonus(amout: string) {
-        const locator = this.page.locator(`//p[contains(text(),'${amout} đ')]`);
-        await this.safeVerifyTextContains(locator, amout);
+    async verifyBonus(amount: string) {
+        const locator = this.page.locator(`//p[contains(text(),'${amount} đ')]`);
+        await this.safeVerifyTextContains(locator, amount);
     }
 
     async fillBonusType(type: string) {
-        await this.safeFill(this.typeInput, type);
+        await this.safeFill(this.TYPE_INPUT, type);
     }
 
     async fillBonusTimes(times: string) {
-        await this.safeFill(this.timesInput, times);
+        await this.safeFill(this.TIMES_INPUT, times);
     }
 
     async fillBonusMoney(money: string) {
-        await this.safeFill(this.moneyInput, money);
+        await this.safeFill(this.MONEY_INPUT, money);
     }
 
     async clickAddBonusButton() {
-        await this.safeClick(this.addBonusButton);
+        await this.safeClick(this.ADD_BONUS_BUTTON);
     }
 
     async clickBonusButton() {
-        await this.safeClick(this.bonusButton);
+        await this.safeClick(this.BONUS_BUTTON);
     }
 
-    async fillOverTime(overtime: string) {
-        await this.safeFill(this.overTimeInput, overtime);
+    async fillOvertime(overtime: string) {
+        await this.safeFill(this.OVERTIME_INPUT, overtime);
     }
 
     async fillNumberOfWorkingDays(number: string) {
-        await this.safeFill(this.numberOfWorkingDays, number);
+        await this.safeFill(this.NUMBER_OF_WORKING_DAYS, number);
     }
 
-    async clickbaseSalary() {
-        await this.safeClick(this.baseSalary);
-
+    async clickBaseSalary() {
+        await this.safeClick(this.BASE_SALARY);
     }
 
     async clickSelectMoreEmployee() {
-        await this.safeClick(this.selectMoreEmployee);
+        await this.safeClick(this.SELECT_MORE_EMPLOYEE);
     }
 
     async fillEmployeeNameInput(name: string) {
-        await this.safeFill(this.fillEmployeeName, name);
+        await this.safeFill(this.FILL_EMPLOYEE_NAME, name);
     }
 
     async clickAddMoreEmployee() {
-        await this.safeClick(this.addMoreEmployee);
+        await this.safeClick(this.ADD_MORE_EMPLOYEE);
     }
 
     async clickExportOnly1Paysheet() {
-        await this.safeClick(this.exportOnly1Paysheet);
+        await this.safeClick(this.EXPORT_ONLY_1_PAYSHEET);
     }
 
     async clickMonth05() {
-        await this.safeClick(this.Month05);
+        await this.safeClick(this.MONTH_05);
     }
 
-    async clickChosseMonthExport() {
-        await this.safeClick(this.chosseMonthExport);
+    async clickChooseMonthExport() {
+        await this.safeClick(this.CHOOSE_MONTH_EXPORT);
     }
 
     async clickExportExcelByMonth() {
-        await this.safeClick(this.exportExcelByMonth);
+        await this.safeClick(this.EXPORT_EXCEL_BY_MONTH);
     }
 
     async verifyPaysheetId(text: string) {
-        await this.safeVerifyToHaveText(this.verifyPaysheetIdCell, text);
+        await this.safeVerifyToHaveText(this.VERIFY_PAYSHEET_ID_CELL, text);
     }
 
     async getRequiredEnterName(enterName: string) {
-        await this.safeVerifyToHaveText(this.requiredEnterName, enterName);
+        await this.safeVerifyToHaveText(this.REQUIRED_ENTER_NAME, enterName);
     }
 
     async clickPayslipPayment() {
         await this.waitForOverlayToDisappear();
-        await this.safeClick(this.payslipPayment);
+        await this.safeClick(this.PAYSLIP_PAYMENT);
     }
 
     async clickSalarySlipCode() {
-        await this.safeClick(this.salarySlipCode);
+        await this.safeClick(this.SALARY_SLIP_CODE);
     }
 
     async clickPayslip() {
-        await this.safeClick(this.payslipButton);
+        await this.safeClick(this.PAYSLIP_BUTTON);
     }
 
     async clickEmployeeOption() {
-        await this.safeClick(this.employeeOption);
+        await this.safeClick(this.EMPLOYEE_OPTION);
     }
 
-    async clickAndSetDropDownEmployee(name: string) {
-        await this.safeClick(this.dropdownEmployee);
+    async clickAndSetDropdownEmployee(name: string) {
+        await this.safeClick(this.DROPDOWN_EMPLOYEE);
         await this.page.keyboard.type(name);
     }
 
     async setNote(note: string) {
-        await this.safeFill(this.noteInput, note);
+        await this.safeFill(this.NOTE_INPUT, note);
     }
 
     async clickChooseMonth() {
-        await this.safeClick(this.chooseMonth);
+        await this.safeClick(this.CHOOSE_MONTH);
     }
 
-    async clickCheckBoxMonthly() {
-        await this.safeClick(this.checkBoxMonthly);
+    async clickCheckboxMonthly() {
+        await this.safeClick(this.CHECKBOX_MONTHLY);
     }
 
     async clickExportData() {
-        await this.safeClick(this.exportDataButton);
+        await this.safeClick(this.EXPORT_DATA_BUTTON);
     }
 
     async clickRefresh() {
-        await this.safeClick(this.refreshButton);
+        await this.safeClick(this.REFRESH_BUTTON);
     }
 
     async fillReason(reason: string) {
-        // await this.safeClick(this.reasonLabel);
-        await this.safeFill(this.reasonInput, reason);
+        await this.safeFill(this.REASON_INPUT, reason);
         await this.clickYes();
     }
 
     async clickSelectAllEmployees() {
-        await this.safeClick(this.selectAllEmployeesCheckbox, { force: true });
+        await this.safeClick(this.SELECT_ALL_EMPLOYEES_CHECKBOX, { force: true });
     }
 
     async fillSearchPaysheet(name: string) {
-        await this.safeFill(this.searchInput, name);
+        await this.safeFill(this.SEARCH_INPUT, name);
     }
 
     async getEmployeeName(employeeName: string) {
-        await this.safeVerifyToHaveText(this.employeeNameLabel, employeeName);
+        await this.safeVerifyToHaveText(this.EMPLOYEE_NAME_LABEL, employeeName);
     }
 
     async clickHistoryPaymentCode() {
-        await this.safeClick(this.historyPaymentCodeButton);
+        await this.safeClick(this.HISTORY_PAYMENT_CODE_BUTTON);
     }
 
     async clickPaymentHistory() {
-        await this.safeClick(this.paymentHistoryButton);
+        await this.safeClick(this.PAYMENT_HISTORY_BUTTON);
     }
 
     async clickPaymentConfirm() {
-        await this.safeClick(this.paymentConfirmButton);
+        await this.safeClick(this.PAYMENT_CONFIRM_BUTTON);
     }
 
     async clickPayment() {
-        await this.safeClick(this.paymentButton);
+        await this.safeClick(this.PAYMENT_BUTTON);
     }
 
     async clickPaysheet() {
-        await this.safeClick(this.paysheetButton);
+        await this.safeClick(this.PAYSHEET_BUTTON);
     }
 
     async setNamePaysheet(name: string) {
-        await this.safeFill(this.namePaysheetInput, name);
+        await this.safeFill(this.NAME_PAYSHEET_INPUT, name);
     }
 
     async clickMonthlyRadio() {
-        await this.safeClick(this.radioMonthly);
+        await this.safeClick(this.RADIO_MONTHLY);
     }
 
     async clickDropdownMonth() {
-        await this.safeClick(this.dropdownMonth);
+        await this.safeClick(this.DROPDOWN_MONTH);
     }
 
-
-    // Hàm này chọn tháng tùy ý nếu muốn đổi tháng thì sửa (const month = tháng mong muốn)
     async clickMonthOption02() {
         const month = 11;
         const year = new Date().getFullYear();
@@ -430,53 +422,48 @@ export class PaysheetPage extends BasePage {
         await this.safeClick(monthOption);
     }
 
-    // Hàm này chọn tháng hiện tại
     async clickMonthOption() {
         const now = new Date();
-        const month = now.getMonth() + 1; // 1 - 12
+        const month = now.getMonth() + 1;
         const year = now.getFullYear();
 
-        // First day of month
         const firstDay = `1/${month}/${year}`;
         const lastDayOfMonth = new Date(year, month, 0).getDate();
         const lastDay = `${lastDayOfMonth}/${month}/${year}`;
 
-        // build text range
         const dateRange = `${firstDay} - ${lastDay}`;
 
-        // build dynamic locator 
         const monthOption = this.page.locator(`//div[@class="v-list-item-title"][normalize-space()="${dateRange}"]`);
 
-        // click
         await this.safeClick(monthOption);
     }
 
     async setEmployeeName(name: string) {
-        await this.safeFill(this.employeeNameInput, name);
+        await this.safeFill(this.EMPLOYEE_NAME_INPUT, name);
     }
 
     async clickLatestPaysheetRow() {
-        await this.safeClick(this.latestPaysheetRow);
+        await this.safeClick(this.LATEST_PAYSHEET_ROW);
     }
 
     async clickViewPayroll() {
-        await this.safeClick(this.viewPayrollButton);
+        await this.safeClick(this.VIEW_PAYROLL_BUTTON);
     }
 
     async clickSendAll() {
-        await this.safeClick(this.sendAllButton);
+        await this.safeClick(this.SEND_ALL_BUTTON);
     }
 
     async clickConfirm2() {
-        await this.safeClick(this.confirm2Button);
+        await this.safeClick(this.CONFIRM_2_BUTTON);
     }
 
     async clickBrowse() {
-        await this.safeClick(this.browseButton);
+        await this.safeClick(this.BROWSE_BUTTON);
         await this.clickYes();
     }
 
     async clickSalaryClosing() {
-        await this.safeClick(this.salaryClosingButton);
+        await this.safeClick(this.SALARY_CLOSING_BUTTON);
     }
 }

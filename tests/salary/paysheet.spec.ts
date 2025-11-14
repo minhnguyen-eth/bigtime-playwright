@@ -150,7 +150,7 @@ test.describe.serial('Paysheet Tests', () => {
         await allure.step('Add paysheet for all employees', async () => {
             await paysheet.clickAdd();
             await paysheet.setNamePaysheet('Automation test');
-            await paysheet.clickCheckBoxMonthly();
+            await paysheet.clickCheckboxMonthly();
             await paysheet.clickChooseMonth();
             await paysheet.clickMonthOption();
             await paysheet.clickSelectAllEmployees();
@@ -212,7 +212,7 @@ test.describe.serial('Paysheet Tests', () => {
 
         await allure.step('Export excel by last month  ', async () => {
             await paysheet.clickExportExcelByMonth();
-            await paysheet.clickChosseMonthExport();
+            await paysheet.clickChooseMonthExport();
             await paysheet.clickMonth05(); // 05-2025
             await paysheet.clickChoose();
             await paysheet.clickYes();
@@ -304,7 +304,7 @@ test.describe.serial('Paysheet Tests', () => {
 
             await paysheet.clickAdd();
             await paysheet.setNamePaysheet('Automation test');
-            await paysheet.clickCheckBoxMonthly();
+            await paysheet.clickCheckboxMonthly();
             await paysheet.clickChooseMonth();
             await paysheet.clickMonthOption();
             await paysheet.fillSearchByName('Nguyễn Văn Minh');
@@ -323,7 +323,7 @@ test.describe.serial('Paysheet Tests', () => {
         await allure.step('Add paysheet with name length 245 characters', async () => {
             await paysheet.clickAdd();
             await paysheet.setNamePaysheet('a'.repeat(245));
-            await paysheet.clickCheckBoxMonthly();
+            await paysheet.clickCheckboxMonthly();
             await paysheet.clickChooseMonth();
             await paysheet.clickMonthOption();
             await paysheet.fillSearchByName('Nguyễn Văn Minh');
@@ -342,7 +342,7 @@ test.describe.serial('Paysheet Tests', () => {
         await allure.step('Add paysheet for 2 employees', async () => {
             await paysheet.clickAdd();
             await paysheet.setNamePaysheet('Automation test');
-            await paysheet.clickCheckBoxMonthly();
+            await paysheet.clickCheckboxMonthly();
             await paysheet.clickChooseMonth();
             await paysheet.clickMonthOption();
             await paysheet.setNote('Automation test');
@@ -396,7 +396,7 @@ test.describe.serial('Paysheet Tests', () => {
         await allure.step('Add paysheet for 1 employees', async () => {
             await paysheet.clickAdd();
             await paysheet.setNamePaysheet('Automation test');
-            await paysheet.clickCheckBoxMonthly();
+            await paysheet.clickCheckboxMonthly();
             await paysheet.clickChooseMonth();
             await paysheet.clickMonthOption02();
             await paysheet.fillSearchByName('BAT100');
@@ -427,7 +427,7 @@ test.describe.serial('Paysheet Tests', () => {
         await allure.step('Add paysheet for 1 employees', async () => {
             await paysheet.clickAdd();
             await paysheet.setNamePaysheet('Automation test');
-            await paysheet.clickCheckBoxMonthly();
+            await paysheet.clickCheckboxMonthly();
             await paysheet.clickChooseMonth();
             await paysheet.clickMonthOption02();
             await paysheet.fillSearchByName('BAT101');
@@ -458,7 +458,7 @@ test.describe.serial('Paysheet Tests', () => {
         await allure.step('Add paysheet for 1 employees', async () => {
             await paysheet.clickAdd();
             await paysheet.setNamePaysheet('Automation test');
-            await paysheet.clickCheckBoxMonthly();
+            await paysheet.clickCheckboxMonthly();
             await paysheet.clickChooseMonth();
             await paysheet.clickMonthOption02();
             await paysheet.fillSearchByName('BAT102');

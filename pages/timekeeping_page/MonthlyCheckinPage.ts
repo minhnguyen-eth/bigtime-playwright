@@ -4,8 +4,6 @@ import { BasePage } from '../BasePage';
 export class MonthlyCheckinPage extends BasePage {
 
     readonly EXPORT_BUTTON: Locator;
-    readonly FISRT_CHECKBOX: Locator;
-    readonly SECOND_CHECKBOX: Locator;
     readonly MONTHLY_CHECKIN_BUTTON: Locator;
     readonly HISTORY_EDIT_BUTTON: Locator;
     readonly HISTORY_LINK_BUTTON: Locator;
@@ -55,8 +53,6 @@ export class MonthlyCheckinPage extends BasePage {
         this.TIME_DOPDOWN = page.getByRole('textbox', { name: 'Thời gian ※' });
         this.HISTORY_LINK_BUTTON = page.locator("//div[@class='v-list-item-title'][contains(text(),'Lịch sử điểm danh')]");
         this.HISTORY_EDIT_BUTTON = page.locator("(//span[.=' Lịch sử'])[11]"); // day is 11
-        this.FISRT_CHECKBOX = page.locator("(//input[@type='checkbox'])[1]");
-        this.SECOND_CHECKBOX = page.locator("(//input[@type='checkbox'])[2]");
         this.MONTHLY_CHECKIN_BUTTON = page.locator("//div[@class='v-list-item-title'][contains(text(),'Chấm công tháng')]");
         this.EXPORT_BUTTON = page.getByRole('button', { name: 'Xuất dữ liệu' });
     }
@@ -150,19 +146,11 @@ export class MonthlyCheckinPage extends BasePage {
         await this.safeClick(this.HISTORY_EDIT_BUTTON);
     }
 
-    async clickSecondCheckbox() {
-        await this.safeClick(this.SECOND_CHECKBOX);
-    }
-
     async clickMonthlyCheckinButton() {
         await this.safeClick(this.MONTHLY_CHECKIN_BUTTON);
     }
 
     async clickExportButton() {
         await this.safeClick(this.EXPORT_BUTTON);
-    }
-
-    async clickFirstCheckbox() {
-        await this.safeClick(this.FISRT_CHECKBOX);
     }
 }

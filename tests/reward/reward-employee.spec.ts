@@ -39,11 +39,11 @@ test.describe.serial('Reward Employee Tests', () => {
         await clearRewardUsers();
         await beforeTest();
         await rewardEmployeePage.fillRewardName('a'.repeat(255));
-        await rewardEmployeePage.fillChosseEmployee('Minh');
+        await rewardEmployeePage.fillChooseEmployee('Minh');
         await rewardEmployeePage.clickSelectEmployee();
-        await rewardEmployeePage.clickChosseRewardType();
+        await rewardEmployeePage.clickChooseRewardType();
         await rewardEmployeePage.clickSelectRewardType();
-        await rewardEmployeePage.fillMoneyInput('1000000');
+        await rewardEmployeePage.fillMoney('1000000');
         await rewardEmployeePage.fillDescription('Description');
         await rewardEmployeePage.fillNote('Note');
         await rewardEmployeePage.clickSave();
@@ -53,11 +53,11 @@ test.describe.serial('Reward Employee Tests', () => {
     test("Max length of reward name over 255 characters", async ({ page }) => {
         await beforeTest();
         await rewardEmployeePage.fillRewardName('z'.repeat(256));
-        await rewardEmployeePage.fillChosseEmployee('Minh');
+        await rewardEmployeePage.fillChooseEmployee('Minh');
         await rewardEmployeePage.clickSelectEmployee();
-        await rewardEmployeePage.clickChosseRewardType();
+        await rewardEmployeePage.clickChooseRewardType();
         await rewardEmployeePage.clickSelectRewardType();
-        await rewardEmployeePage.fillMoneyInput('1000000');
+        await rewardEmployeePage.fillMoney('1000000');
         await rewardEmployeePage.fillDescription('Description');
         await rewardEmployeePage.fillNote('Note');
         await rewardEmployeePage.clickSave();
@@ -67,11 +67,11 @@ test.describe.serial('Reward Employee Tests', () => {
     test("Max length of description is 500 characters", async ({ page }) => {
         await beforeTest();
         await rewardEmployeePage.fillRewardName('Test max length of description');
-        await rewardEmployeePage.fillChosseEmployee('Minh');
+        await rewardEmployeePage.fillChooseEmployee('Minh');
         await rewardEmployeePage.clickSelectEmployee();
-        await rewardEmployeePage.clickChosseRewardType();
+        await rewardEmployeePage.clickChooseRewardType();
         await rewardEmployeePage.clickSelectRewardType();
-        await rewardEmployeePage.fillMoneyInput('1000000');
+        await rewardEmployeePage.fillMoney('1000000');
         await rewardEmployeePage.fillDescription('a'.repeat(500));
         await rewardEmployeePage.fillNote('Note');
         await rewardEmployeePage.clickSave();
@@ -81,11 +81,11 @@ test.describe.serial('Reward Employee Tests', () => {
     test("Max length of description over 500 characters", async ({ page }) => {
         await beforeTest();
         await rewardEmployeePage.fillRewardName('Test max length of description');
-        await rewardEmployeePage.fillChosseEmployee('Minh');
+        await rewardEmployeePage.fillChooseEmployee('Minh');
         await rewardEmployeePage.clickSelectEmployee();
-        await rewardEmployeePage.clickChosseRewardType();
+        await rewardEmployeePage.clickChooseRewardType();
         await rewardEmployeePage.clickSelectRewardType();
-        await rewardEmployeePage.fillMoneyInput('1000000');
+        await rewardEmployeePage.fillMoney('1000000');
         await rewardEmployeePage.fillDescription('z'.repeat(501));
         await rewardEmployeePage.fillNote('Note');
         await rewardEmployeePage.clickSave();
@@ -95,11 +95,11 @@ test.describe.serial('Reward Employee Tests', () => {
     test("Max length of note is 500 characters", async ({ page }) => {
         await beforeTest();
         await rewardEmployeePage.fillRewardName('Test max length of note');
-        await rewardEmployeePage.fillChosseEmployee('Minh');
+        await rewardEmployeePage.fillChooseEmployee('Minh');
         await rewardEmployeePage.clickSelectEmployee();
-        await rewardEmployeePage.clickChosseRewardType();
+        await rewardEmployeePage.clickChooseRewardType();
         await rewardEmployeePage.clickSelectRewardType();
-        await rewardEmployeePage.fillMoneyInput('1000000');
+        await rewardEmployeePage.fillMoney('1000000');
         await rewardEmployeePage.fillDescription('Description');
         await rewardEmployeePage.fillNote('a'.repeat(500));
         await rewardEmployeePage.clickSave();
@@ -109,11 +109,11 @@ test.describe.serial('Reward Employee Tests', () => {
     test("Max length of note over 500 characters", async ({ page }) => {
         await beforeTest();
         await rewardEmployeePage.fillRewardName('Test max length of note');
-        await rewardEmployeePage.fillChosseEmployee('Minh');
+        await rewardEmployeePage.fillChooseEmployee('Minh');
         await rewardEmployeePage.clickSelectEmployee();
-        await rewardEmployeePage.clickChosseRewardType();
+        await rewardEmployeePage.clickChooseRewardType();
         await rewardEmployeePage.clickSelectRewardType();
-        await rewardEmployeePage.fillMoneyInput('1000000');
+        await rewardEmployeePage.fillMoney('1000000');
         await rewardEmployeePage.fillDescription('Description');
         await rewardEmployeePage.fillNote('z'.repeat(501));
         await rewardEmployeePage.clickSave();
@@ -128,7 +128,7 @@ test.describe.serial('Reward Employee Tests', () => {
 
         // Create reward  
         await rewardEmployeePage.clickAdd();
-        await rewardEmployeePage.CreateReward();
+        await rewardEmployeePage.createReward();
         await rewardEmployeePage.clickSave();
         await toastPage.getToastAddSuccess();
 
@@ -151,7 +151,7 @@ test.describe.serial('Reward Employee Tests', () => {
         await rewardEmployeePage.clickAdmin();
         await rewardEmployeePage.clickRewardEmployee();
         await rewardEmployeePage.clickAdd();
-        await rewardEmployeePage.CreateReward();
+        await rewardEmployeePage.createReward();
         await rewardEmployeePage.clickSave();
         await toastPage.getToastAddSuccess();
 
@@ -171,7 +171,7 @@ test.describe.serial('Reward Employee Tests', () => {
 
     test('Create reward with valid information', async ({ page }) => {
         await beforeTest();
-        await rewardEmployeePage.CreateReward();
+        await rewardEmployeePage.createReward();
         await rewardEmployeePage.clickSave();
         await toastPage.getToastAddSuccess();
     });
@@ -182,15 +182,15 @@ test.describe.serial('Reward Employee Tests', () => {
         await rewardEmployeePage.clickRewardEmployee();
         await rewardEmployeePage.clickAdd();
         await rewardEmployeePage.fillRewardName('Reward Employee 2');
-        await rewardEmployeePage.fillChosseEmployee('Minh');
+        await rewardEmployeePage.fillChooseEmployee('Minh');
         await rewardEmployeePage.clickSelectEmployee();
-        await rewardEmployeePage.clickChosseRewardType();
+        await rewardEmployeePage.clickChooseRewardType();
         await rewardEmployeePage.clickSelectRewardType();
-        await rewardEmployeePage.fillMoneyInput('1000000');
+        await rewardEmployeePage.fillMoney('1000000');
         await rewardEmployeePage.fillDescription('Description 2');
         await rewardEmployeePage.fillNote('Note 2');
         await rewardEmployeePage.clickDropdownStatusInForm();
-        await rewardEmployeePage.clickSeclectWaitingForApproved();
+        await rewardEmployeePage.clickSelectWaitingForApproved();
         await rewardEmployeePage.clickSave();
         await toastPage.getToastAddSuccess();
     });
@@ -198,15 +198,15 @@ test.describe.serial('Reward Employee Tests', () => {
     test('Admin create reward with approved status', async ({ page }) => {
         await beforeTest();
         await rewardEmployeePage.fillRewardName('Reward Employee 2');
-        await rewardEmployeePage.fillChosseEmployee('Minh');
+        await rewardEmployeePage.fillChooseEmployee('Minh');
         await rewardEmployeePage.clickSelectEmployee();
-        await rewardEmployeePage.clickChosseRewardType();
+        await rewardEmployeePage.clickChooseRewardType();
         await rewardEmployeePage.clickSelectRewardType();
-        await rewardEmployeePage.fillMoneyInput('1000000');
+        await rewardEmployeePage.fillMoney('1000000');
         await rewardEmployeePage.fillDescription('Description 2');
         await rewardEmployeePage.fillNote('Note 2');
         await rewardEmployeePage.clickDropdownStatusInFormNth1();
-        await rewardEmployeePage.clickSelectApproved();
+        await rewardEmployeePage.clickApprovedStatus();
         await rewardEmployeePage.clickSave();
         await toastPage.getToastAddSuccess();
     });
@@ -224,11 +224,11 @@ test.describe.serial('Reward Employee Tests', () => {
     test('Create reward with empty description and note ', async ({ page }) => {
         await beforeTest();
         await rewardEmployeePage.fillRewardName('Reward Employee 3');
-        await rewardEmployeePage.fillChosseEmployee('Minh');
+        await rewardEmployeePage.fillChooseEmployee('Minh');
         await rewardEmployeePage.clickSelectEmployee();
-        await rewardEmployeePage.clickChosseRewardType();
+        await rewardEmployeePage.clickChooseRewardType();
         await rewardEmployeePage.clickSelectRewardType();
-        await rewardEmployeePage.fillMoneyInput('1000000');
+        await rewardEmployeePage.fillMoney('1000000');
         await rewardEmployeePage.clickSave();
         await toastPage.getToastAddSuccess();
     });
@@ -236,11 +236,11 @@ test.describe.serial('Reward Employee Tests', () => {
     test('Create reward with chosse day reward', async ({ page }) => {
         await beforeTest();
         await rewardEmployeePage.fillRewardName('Reward Employee 4');
-        await rewardEmployeePage.fillChosseEmployee('Minh');
+        await rewardEmployeePage.fillChooseEmployee('Minh');
         await rewardEmployeePage.clickSelectEmployee();
-        await rewardEmployeePage.clickChosseRewardType();
+        await rewardEmployeePage.clickChooseRewardType();
         await rewardEmployeePage.clickSelectRewardType();
-        await rewardEmployeePage.fillMoneyInput('1000000');
+        await rewardEmployeePage.fillMoney('1000000');
         await rewardEmployeePage.fillDescription('Description 4');
         await rewardEmployeePage.fillNote('Note 4');
         await rewardEmployeePage.clickDayRewardAdd();
@@ -253,12 +253,12 @@ test.describe.serial('Reward Employee Tests', () => {
 
     test('Save with empty reward name, employee, reward type, money', async ({ page }) => {
         await beforeTest();
-        await rewardEmployeePage.clearMoneyInput();
+        await rewardEmployeePage.clearMoney();
         await rewardEmployeePage.clickSave();
-        await rewardEmployeePage.validateValidationRewardName();
-        await rewardEmployeePage.validateValidationEmployee();
-        await rewardEmployeePage.validateValidationRewardType();
-        await rewardEmployeePage.validateValidationMoney();
+        await rewardEmployeePage.verifyValidationRewardName();
+        await rewardEmployeePage.verifyValidationEmployee();
+        await rewardEmployeePage.verifyValidationRewardType();
+        await rewardEmployeePage.verifyValidationMoney();
     });
 
     async function beforeTestSearch() {
@@ -272,7 +272,7 @@ test.describe.serial('Reward Employee Tests', () => {
         await beforeTestSearch();
         await rewardEmployeePage.fillSearchByRewardName('Reward Employee');
         await rewardEmployeePage.clickSearch();
-        await rewardEmployeePage.verifySearchByRewardNameSearch();
+        await rewardEmployeePage.verifyRewardNameSearch('Reward Employee');
         await rewardEmployeePage.clickClearSearch();
     });
 
@@ -280,25 +280,25 @@ test.describe.serial('Reward Employee Tests', () => {
         await beforeTestSearch();
         await rewardEmployeePage.fillSearchByEmployee('Nguyễn Văn Minh');
         await rewardEmployeePage.clickSearch();
-        await rewardEmployeePage.verifySearchByEmployeeSearch();
+        await rewardEmployeePage.verifyEmployeeSearch('Nguyễn Văn Minh');
     });
 
     test('Search by reward type', async ({ page }) => {
         await beforeTestSearch();
         await rewardEmployeePage.fillSearchByRewardType('Khen thưởng 2');
         await rewardEmployeePage.clickSearch();
-        await rewardEmployeePage.verifySearchByRewardTypeSearch();
+        await rewardEmployeePage.verifyRewardTypeSearch('Khen thưởng 2');
     });
 
     test('Search by date', async ({ page }) => {
         await beforeTestSearch();
         await rewardEmployeePage.clickDayReward();
-        await rewardEmployeePage.clickMonthButton();
-        await rewardEmployeePage.clickMonth06Button();
+        await rewardEmployeePage.clickOpenMonthOverlayButton();
+        await rewardEmployeePage.clickChosseMonthPicker(6);
         await rewardEmployeePage.clickDay19();
         await rewardEmployeePage.clickChoose();
         await rewardEmployeePage.clickSearch();
-        await rewardEmployeePage.verifySearchByDateSearch();
+        await rewardEmployeePage.verifyDateSearch('19-06');
         await rewardEmployeePage.clickClearSearch();
     });
 
@@ -309,20 +309,20 @@ test.describe.serial('Reward Employee Tests', () => {
         await rewardEmployeePage.clickDropdownStatusSearch();
         await rewardEmployeePage.clickApprovedStatus();
         await rewardEmployeePage.clickSearch();
-        await rewardEmployeePage.verifyApprovedStatusSearch();
+        await rewardEmployeePage.verifyApprovedStatusSearch('Đã duyệt');
         await rewardEmployeePage.clickClearSearch();
 
         // Search with new status
         await rewardEmployeePage.clickDropdownStatusSearch();
         await rewardEmployeePage.clickNewStatus();
         await rewardEmployeePage.clickSearch();
-        await rewardEmployeePage.verifyNewStatusSearch();
+        await rewardEmployeePage.verifyNewStatusSearch('Mới');
         await rewardEmployeePage.clickClearSearch();
 
         // Search with cancelled status
         await rewardEmployeePage.clickDropdownStatusSearch();
         await rewardEmployeePage.clickCancelledStatus();
         await rewardEmployeePage.clickSearch();
-        await rewardEmployeePage.verifyCancelledStatusSearch();
+        await rewardEmployeePage.verifyCancelledStatusSearch('Đã hủy');
     });
 });

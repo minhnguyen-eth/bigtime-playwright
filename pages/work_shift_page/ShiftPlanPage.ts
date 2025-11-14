@@ -17,9 +17,6 @@ export class ShiftPlanPage extends BasePage {
     readonly EMPLOYEE_CHECKBOX: Locator;
     readonly REQUIRED_FIELD_NAME_SHIFT: Locator;
     readonly REQUIRED_FIELD_NAME_WORK_SHIFT: Locator;
-    readonly CHOOSE_MONTH_BUTTON: Locator;
-    readonly MONTH_08: Locator;
-    readonly CHOOSE_MONTH_SEARCH: Locator;
     readonly SEARCH_BY_NAME_INPUT: Locator;
     readonly SEARCH_BY_NAME_RESULT: Locator;
     readonly WORK_SHIFT_DROP_DOWN: Locator;
@@ -31,19 +28,16 @@ export class ShiftPlanPage extends BasePage {
         this.EDIT_NAME_RESULT = page.locator("//tr[@id='row-0']//span[contains(text(),'Edited ')]");
         this.SEARCH_WORK_SHIFT_RESULT = page.locator("//tr[@id='row-0']//span[contains(text(),'Ca ngày')]");
         this.WORK_SHIFT_DROP_DOWN = page.getByRole('combobox').filter({ hasText: 'Ca làm việc' }).locator('i');
-        this.SEARCH_BY_NAME_RESULT = page.locator("//tr[@id='row-0']//span[contains(text(),'Phân ca tháng 7')]");
-        this.SEARCH_BY_NAME_INPUT = page.locator("//div[2]/div/div[2]/div/div/div/div[3]/div/input");
-        this.CHOOSE_MONTH_SEARCH = page.locator("//div/div[1]/div/div/div/div/div[1]/div/div/div[3]/input");
-        this.MONTH_08 = page.locator("//div[@class='dp__overlay_cell dp__overlay_cell_pad'][normalize-space()='Thg 8']");
-        this.CHOOSE_MONTH_BUTTON = page.locator("button[aria-label='Open months overlay']");
+        this.SEARCH_BY_NAME_RESULT = page.locator("//tr[@id='row-0']//span[contains(text(),'Test search by name')]");
+        this.SEARCH_BY_NAME_INPUT =page.getByRole('textbox', { name: 'Tên bảng phân ca' });
         this.REQUIRED_FIELD_NAME_WORK_SHIFT = page.locator("//div[contains(text(),'Nhập ca làm việc')]");
         this.REQUIRED_FIELD_NAME_SHIFT = page.locator("//div[contains(text(),'Nhập tên bảng phân ca')]");
         this.EMPLOYEE_CHECKBOX = page.locator("//td[1]/div/div/div/input");
         this.SEARCH_EMPLOYEE_INPUT = page.locator("//div[3]/div[1]/div/div/div[2]/div/div/div/div[4]/div/input");
-        this.WORK_SHIFT_OPTION = page.locator("//div[text()='Ca ngày']");
+        this.WORK_SHIFT_OPTION = page.getByText('Ca ngày (08:00:00 - 17:00:00)', { exact: true });
         this.DAY_31_BUTTON = page.locator("//div[@class='dp__cell_inner dp__pointer dp__date_hover'][normalize-space()='31']");
         this.DAY_1_BUTTON = page.locator("//div[@class='dp__cell_inner dp__pointer dp__date_hover'][normalize-space()='1']");
-        this.DEPARTMENT_OPTION = page.locator("//div[text()='Bộ phận IT']");
+        this.DEPARTMENT_OPTION = page.locator("//div[text()='Bộ phận test']");
         this.DEPARTMENT_DROP_DOWN = page.getByRole('textbox', { name: 'Bộ phận ※' });
         this.DEPARTMENT_BUTTON = page.locator("//div[@class='v-overlay-container']//button[@value='1']//span[1]");
         this.END_DATE_INPUT = page.getByRole('textbox', { name: 'Ngày kết thúc ※' });
@@ -70,23 +64,11 @@ export class ShiftPlanPage extends BasePage {
     }
 
     async expectSearchByNameResult() {
-        await this.safeVerifyToHaveText(this.SEARCH_BY_NAME_RESULT, "Phân ca tháng 7");
+        await this.safeVerifyToHaveText(this.SEARCH_BY_NAME_RESULT, "Test search by name");
     }
 
     async fillSearchByNameInput(shiftPlanName: string) {
         await this.safeFill(this.SEARCH_BY_NAME_INPUT, shiftPlanName);
-    }
-
-    async clickChooseMonthSearch() {
-        await this.safeClick(this.CHOOSE_MONTH_SEARCH);
-    }
-
-    async clickMonth08() {
-        await this.safeClick(this.MONTH_08);
-    }
-
-    async clickChooseMonthButton() {
-        await this.safeClick(this.CHOOSE_MONTH_BUTTON);
     }
 
     async fillSearchEmployeeInput(employeeName: string) {

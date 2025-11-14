@@ -53,7 +53,7 @@ test.describe.serial('Overtime Ticket Test Suite', () => {
         await overtimeTicketPage.clickOvertimeTicketButton();
         await overtimeTicketPage.clickAdd();
         await overtimeTicketPage.clickOvertimeTicketDayButton();
-        await overtimeTicketPage.clicktodayDatePicker();
+        await overtimeTicketPage.clickTodayDatePicker();
         await overtimeTicketPage.setOverTimeTicket();
         await overtimeTicketPage.fillReason('Automation test reason');
         await overtimeTicketPage.clickSave();
@@ -65,7 +65,7 @@ test.describe.serial('Overtime Ticket Test Suite', () => {
         await overtimeTicketPage.clickOvertimeTicketButton();
         await overtimeTicketPage.clickAdd();
         await overtimeTicketPage.clickOvertimeTicketDayButton();
-        await overtimeTicketPage.clicktodayDatePicker();
+        await overtimeTicketPage.clickTodayDatePicker();
         await overtimeTicketPage.setOverTimeTicket();
         await overtimeTicketPage.fillReason('Automation test reason');
         await overtimeTicketPage.clickDropdownStatusInFormNth1();
@@ -99,7 +99,7 @@ test.describe.serial('Overtime Ticket Test Suite', () => {
     //     await overtimeTicketPage.clickOvertimeTicketButton();
     //     await overtimeTicketPage.clickAdd();
     //     await overtimeTicketPage.clickOvertimeTicketDayButton();
-    //     await overtimeTicketPage.clicktodayDatePicker();
+    //     await overtimeTicketPage.clickTodayDatePicker();
     //     await overtimeTicketPage.setOverTimeTicket();
     //     await overtimeTicketPage.fillReason('a'.repeat(256));
     //     await overtimeTicketPage.clickSave();
@@ -111,7 +111,7 @@ test.describe.serial('Overtime Ticket Test Suite', () => {
     //     await overtimeTicketPage.clickOvertimeTicketButton();
     //     await overtimeTicketPage.clickAdd();
     //     await overtimeTicketPage.clickOvertimeTicketDayButton();
-    //     await overtimeTicketPage.clicktodayDatePicker();
+    //     await overtimeTicketPage.clickTodayDatePicker();
     //     await overtimeTicketPage.setOverTimeTicket();
     //     await overtimeTicketPage.fillReason('a'.repeat(255));
     //     // await overtimeTicketPage.clickDropdownStatusInFormNth1();
@@ -140,7 +140,7 @@ test.describe.serial('Overtime Ticket Test Suite', () => {
     //     await overtimeTicketPage.clickOvertimeTicketButton();
     //     await overtimeTicketPage.clickAdd();
     //     await overtimeTicketPage.clickOvertimeTicketDayButton();
-    //     await overtimeTicketPage.clicktodayDatePicker();
+    //     await overtimeTicketPage.clickTodayDatePicker();
     //     await overtimeTicketPage.clickStartTime();
     //     await overtimeTicketPage.clickOpenHour();
     //     await overtimeTicketPage.clickHour17();
@@ -160,7 +160,7 @@ test.describe.serial('Overtime Ticket Test Suite', () => {
     //     await overtimeTicketPage.clickOvertimeTicketButton();
     //     await overtimeTicketPage.clickAdd();
     //     await overtimeTicketPage.clickOvertimeTicketDayButton();
-    //     await overtimeTicketPage.clicktodayDatePicker();
+    //     await overtimeTicketPage.clickTodayDatePicker();
     //     await overtimeTicketPage.setOverTimeTicket();
     //     await overtimeTicketPage.fillReason('Automation test reason');
     //     // await overtimeTicketPage.clickDropdownStatusInFormNth1();

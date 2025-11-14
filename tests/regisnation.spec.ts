@@ -276,9 +276,9 @@ test.describe.serial('Resignation Tests', () => {
     await allure.step('Export resignation requests by date range', async () => {
       await regisnationPage.clickExportButton();
       await regisnationPage.clickStartDate();
-      await regisnationPage.clicktodayDatePicker();
+      await regisnationPage.clickTodayDatePicker();
       await regisnationPage.clickEndDate();
-      await regisnationPage.clicktodayDatePicker();
+      await regisnationPage.clickTodayDatePicker();
       await regisnationPage.clickYes();
       await toastPage.getToastExportSuccess();
     });

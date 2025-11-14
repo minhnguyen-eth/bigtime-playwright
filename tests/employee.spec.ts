@@ -132,7 +132,7 @@ test.describe.serial('Employee Tests', () => {
         await employeePage.clickSelectRank();
         await employeePage.fillCitizenIdMaxlength("9".repeat(20));
         await employeePage.clickCitizenIdCardIssueDate();
-        await employeePage.clicktodayDatePicker();
+        await employeePage.clickTodayDatePicker();
         await employeePage.fillPlaceOfIssueOfIdentityCard("z".repeat(255));
         await employeePage.fillBankName('Vietcombank');
         await employeePage.fillBankAccountNumber("9".repeat(20));
@@ -144,7 +144,7 @@ test.describe.serial('Employee Tests', () => {
         // await employeePage.clickSelectMonth();
         await employeePage.clickSelectDay();
         await employeePage.clickDateOfJoiningTheCompany();
-        await employeePage.clicktodayDatePicker();
+        await employeePage.clickTodayDatePicker();
         await employeePage.fillAddress("z".repeat(255));
         await employeePage.fillNote("z".repeat(500));
         await employeePage.clickSave();
@@ -233,7 +233,7 @@ test.describe.serial('Employee Tests', () => {
         await resumePage.verifyMsgEthnicityRequired();
         await resumePage.verifyMsgPlaceOfBirthRequired();
         await resumePage.verifyMsgReligionRequired();
-        await resumePage.verifyMsgHownTownRequired();
+        await resumePage.verifyMsgHomeTownRequired();
     });
 
     test('Add with invalid email', async ({ page }) => {

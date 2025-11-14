@@ -647,7 +647,7 @@ export class EmployeePage extends ValidationPage {
     }); // Scroll up
 
     await this.clickCitizenIdCardIssueDate();
-    await this.clicktodayDatePicker();
+    await this.clickTodayDatePicker();
 
     await this.fillPlaceOfIssueOfIdentityCard('Bien Hoa, Dong Nai');
     await this.fillBankName('Vietcombank');
@@ -665,7 +665,7 @@ export class EmployeePage extends ValidationPage {
     // await this.clickSelectMonth();
     await this.clickSelectDay();
     await this.clickDateOfJoiningTheCompany();
-    await this.clicktodayDatePicker();
+    await this.clickTodayDatePicker();
   }
 
   async testSetSalary() {

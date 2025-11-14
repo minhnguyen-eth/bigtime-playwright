@@ -2,149 +2,149 @@ import { Locator, Page } from '@playwright/test';
 import { BasePage } from '../BasePage';
 
 export class LeaveApplicationPage extends BasePage {
-    readonly leaveApplicationButton: Locator;
-    readonly leaveTypeDropDown: Locator;
-    readonly startDate: Locator;
-    readonly endDate: Locator;
-    readonly numberOfDaysOff: Locator;
-    readonly anualLeave: Locator;
-    readonly regularLeave: Locator;
-    readonly specialLeave: Locator;
-    readonly socialInsuranceLeave: Locator;
-    readonly maternityLeave: Locator;
-    readonly closeDatePicker1: Locator;
-    readonly closeDatePicker2: Locator;
-    readonly verifySpecialLeave: Locator;
-    readonly verifyMaternityLeave: Locator;
-    readonly verifySocialInsuranceLeave: Locator;
-    readonly verifyRegularLeave: Locator;
-    readonly verifyAnualLeave: Locator;
-    readonly restTypeComboBox: Locator;
-    readonly searchByAnualLeave: Locator;
-    readonly searchBySpecialLeave: Locator;
-    readonly searchByMaternityLeave: Locator;
-    readonly searchBySocialInsuranceLeave: Locator;
-    readonly searchByRegularLeave: Locator;
-    readonly closeSearchByMonth: Locator;
-    readonly cancelButtonSearch: Locator;
-    readonly browsedButtonSearch: Locator;
-    readonly waitForBrowsedButtonSearch: Locator;
-    readonly rejectButtonSearch: Locator;
-    readonly searchByCancelResult: Locator;
-    readonly searchByWaitForBrowsedResult: Locator;
-    readonly searchByRejectedResult: Locator;
-    readonly searchByBrowsedResult: Locator;
-    readonly texboxSearchByMonth: Locator;
-    readonly monthOption: Locator;
-    readonly searchByMonthResult: Locator;
-    readonly labelLeaveApplication: Locator;
-    readonly selectNewStatus: Locator;
+    readonly LEAVE_APPLICATION_BUTTON: Locator;
+    readonly LEAVE_TYPE_DROPDOWN: Locator;
+    readonly START_DATE: Locator;
+    readonly END_DATE: Locator;
+    readonly NUMBER_OF_DAYS_OFF: Locator;
+    readonly ANNUAL_LEAVE: Locator;
+    readonly REGULAR_LEAVE: Locator;
+    readonly SPECIAL_LEAVE: Locator;
+    readonly SOCIAL_INSURANCE_LEAVE: Locator;
+    readonly MATERNITY_LEAVE: Locator;
+    readonly CLOSE_DATE_PICKER_1: Locator;
+    readonly CLOSE_DATE_PICKER_2: Locator;
+    readonly VERIFY_SPECIAL_LEAVE: Locator;
+    readonly VERIFY_MATERNITY_LEAVE: Locator;
+    readonly VERIFY_SOCIAL_INSURANCE_LEAVE: Locator;
+    readonly VERIFY_REGULAR_LEAVE: Locator;
+    readonly VERIFY_ANNUAL_LEAVE: Locator;
+    readonly REST_TYPE_COMBOBOX: Locator;
+    readonly SEARCH_BY_ANNUAL_LEAVE: Locator;
+    readonly SEARCH_BY_SPECIAL_LEAVE: Locator;
+    readonly SEARCH_BY_MATERNITY_LEAVE: Locator;
+    readonly SEARCH_BY_SOCIAL_INSURANCE_LEAVE: Locator;
+    readonly SEARCH_BY_REGULAR_LEAVE: Locator;
+    readonly CLOSE_SEARCH_BY_MONTH: Locator;
+    readonly CANCEL_BUTTON_SEARCH: Locator;
+    readonly BROWSED_BUTTON_SEARCH: Locator;
+    readonly WAIT_FOR_BROWSED_BUTTON_SEARCH: Locator;
+    readonly REJECT_BUTTON_SEARCH: Locator;
+    readonly SEARCH_BY_CANCEL_RESULT: Locator;
+    readonly SEARCH_BY_WAIT_FOR_BROWSED_RESULT: Locator;
+    readonly SEARCH_BY_REJECTED_RESULT: Locator;
+    readonly SEARCH_BY_BROWSED_RESULT: Locator;
+    readonly TEXTBOX_SEARCH_BY_MONTH: Locator;
+    readonly MONTH_OPTION: Locator;
+    readonly SEARCH_BY_MONTH_RESULT: Locator;
+    readonly LABEL_LEAVE_APPLICATION: Locator;
+    readonly SELECT_NEW_STATUS: Locator;
 
     constructor(page: Page) {
         super(page);
-        this.selectNewStatus = page.getByRole('option', { name: 'Mới' });
-        this.closeDatePicker2 = page.locator("//div[@class='v-row']/div[4]/div[1]/div[1]/div[1]/div[1]//*[name()='svg']")
-        this.closeDatePicker1 = page.getByRole('dialog').locator('path').first()
-        this.labelLeaveApplication = page.getByRole('main').getByText('Đơn nghỉ phép')
-        this.searchByMonthResult = page.getByText('11-06-').first()
-        this.monthOption = page.getByText('Thg 6')
-        this.texboxSearchByMonth = page.getByRole('textbox', { name: 'Chọn tháng' })
-        this.rejectButtonSearch = page.getByRole('option', { name: 'Từ chối' })
-        this.cancelButtonSearch = page.getByRole('option', { name: 'Hủy' })
-        this.waitForBrowsedButtonSearch = page.getByRole('option', { name: 'Chờ duyệt' })
-        this.browsedButtonSearch = page.getByRole('option', { name: 'Đã duyệt' })
-        this.closeSearchByMonth = page.locator('svg')
-        this.restTypeComboBox = page.getByRole('combobox').filter({ hasText: 'Loại ngày nghỉ' })
-        this.searchByBrowsedResult = page.locator('#row-0').getByRole('cell', { name: 'Đã duyệt' })
-        this.searchByRejectedResult = page.locator('#row-0').getByRole('cell', { name: 'Từ chối' })
-        this.searchByCancelResult = page.locator('#row-0').getByRole('cell', { name: 'Đã hủy' })
-        this.searchByWaitForBrowsedResult = page.locator('#row-0').getByRole('cell', { name: 'Chờ duyệt' })
-        this.searchBySocialInsuranceLeave = page.getByRole('option', { name: 'Nghỉ bảo hiểm xã hội' })
-        this.searchByMaternityLeave = page.getByRole('option', { name: 'Nghỉ thai sản' })
-        this.searchBySpecialLeave = page.getByRole('option', { name: 'Nghỉ đặc biệt' })
-        this.searchByRegularLeave = page.getByRole('option', { name: 'Nghỉ thường' })
-        this.searchByAnualLeave = page.getByRole('option', { name: 'Nghỉ theo phép năm' })
+        this.SELECT_NEW_STATUS = page.getByRole('option', { name: 'Mới' });
+        this.CLOSE_DATE_PICKER_2 = page.locator("//div[@class='v-row']/div[4]/div[1]/div[1]/div[1]/div[1]//*[name()='svg']");
+        this.CLOSE_DATE_PICKER_1 = page.getByRole('dialog').locator('path').first();
+        this.LABEL_LEAVE_APPLICATION = page.getByRole('main').getByText('Đơn nghỉ phép');
+        this.SEARCH_BY_MONTH_RESULT = page.getByText('11-06-').first();
+        this.MONTH_OPTION = page.getByText('Thg 6');
+        this.TEXTBOX_SEARCH_BY_MONTH = page.getByRole('textbox', { name: 'Chọn tháng' });
+        this.REJECT_BUTTON_SEARCH = page.getByRole('option', { name: 'Từ chối' });
+        this.CANCEL_BUTTON_SEARCH = page.getByRole('option', { name: 'Hủy' });
+        this.WAIT_FOR_BROWSED_BUTTON_SEARCH = page.getByRole('option', { name: 'Chờ duyệt' });
+        this.BROWSED_BUTTON_SEARCH = page.getByRole('option', { name: 'Đã duyệt' });
+        this.CLOSE_SEARCH_BY_MONTH = page.locator('svg');
+        this.REST_TYPE_COMBOBOX = page.getByRole('combobox').filter({ hasText: 'Loại ngày nghỉ' });
+        this.SEARCH_BY_BROWSED_RESULT = page.locator('#row-0').getByRole('cell', { name: 'Đã duyệt' });
+        this.SEARCH_BY_REJECTED_RESULT = page.locator('#row-0').getByRole('cell', { name: 'Từ chối' });
+        this.SEARCH_BY_CANCEL_RESULT = page.locator('#row-0').getByRole('cell', { name: 'Đã hủy' });
+        this.SEARCH_BY_WAIT_FOR_BROWSED_RESULT = page.locator('#row-0').getByRole('cell', { name: 'Chờ duyệt' });
+        this.SEARCH_BY_SOCIAL_INSURANCE_LEAVE = page.getByRole('option', { name: 'Nghỉ bảo hiểm xã hội' });
+        this.SEARCH_BY_MATERNITY_LEAVE = page.getByRole('option', { name: 'Nghỉ thai sản' });
+        this.SEARCH_BY_SPECIAL_LEAVE = page.getByRole('option', { name: 'Nghỉ đặc biệt' });
+        this.SEARCH_BY_REGULAR_LEAVE = page.getByRole('option', { name: 'Nghỉ thường' });
+        this.SEARCH_BY_ANNUAL_LEAVE = page.getByRole('option', { name: 'Nghỉ theo phép năm' });
 
-        this.specialLeave = page.locator("//div[contains(text(),'Nghỉ đặc biệt')]")
-        this.maternityLeave = page.locator("//div[contains(text(),'Nghỉ thai sản')]")
-        this.socialInsuranceLeave = page.locator("//div[contains(text(),'Nghỉ bảo hiểm xã hội')]")
-        this.regularLeave = page.locator("//div[contains(text(),'Nghỉ thường')]")
-        this.numberOfDaysOff = page.getByRole('spinbutton', { name: 'Số ngày nghỉ Số ngày nghỉ' })
-        this.endDate = page.getByRole('textbox', { name: 'Đến hết ngày ※' })
-        this.startDate = page.getByRole('textbox', { name: 'Nghỉ từ ngày ※ Nghỉ từ ngày ※' })
-        this.anualLeave = page.locator("//div[contains(text(),'Nghỉ theo phép năm')]")
-        this.leaveTypeDropDown = page.getByRole('combobox').filter({ hasText: 'Loại ngày nghỉ ※Nghỉ' })
-        this.leaveApplicationButton = page.locator("//div[contains(text(),'Đơn nghỉ phép')]")
+        this.SPECIAL_LEAVE = page.locator("//div[contains(text(),'Nghỉ đặc biệt')]");
+        this.MATERNITY_LEAVE = page.locator("//div[contains(text(),'Nghỉ thai sản')]");
+        this.SOCIAL_INSURANCE_LEAVE = page.locator("//div[contains(text(),'Nghỉ bảo hiểm xã hội')]");
+        this.REGULAR_LEAVE = page.locator("//div[contains(text(),'Nghỉ thường')]");
+        this.NUMBER_OF_DAYS_OFF = page.getByRole('spinbutton', { name: 'Số ngày nghỉ Số ngày nghỉ' });
+        this.END_DATE = page.getByRole('textbox', { name: 'Đến hết ngày ※' });
+        this.START_DATE = page.getByRole('textbox', { name: 'Nghỉ từ ngày ※ Nghỉ từ ngày ※' });
+        this.ANNUAL_LEAVE = page.locator("//div[contains(text(),'Nghỉ theo phép năm')]");
+        this.LEAVE_TYPE_DROPDOWN = page.getByRole('combobox').filter({ hasText: 'Loại ngày nghỉ ※Nghỉ' });
+        this.LEAVE_APPLICATION_BUTTON = page.locator("//div[contains(text(),'Đơn nghỉ phép')]");
 
         // verify
-        this.verifySpecialLeave = page.locator('#row-0 span').filter({ hasText: 'Nghỉ đặc biệt' });
-        this.verifyMaternityLeave = page.locator('#row-0 span').filter({ hasText: 'Nghỉ thai sản' });
-        this.verifySocialInsuranceLeave = page.locator('#row-0 span').filter({ hasText: 'Nghỉ bảo hiểm xã hội' });
-        this.verifyRegularLeave = page.locator('#row-0 span').filter({ hasText: 'Nghỉ thường' });
-        this.verifyAnualLeave = page.locator('#row-0 span').filter({ hasText: 'Nghỉ theo phép năm' });
+        this.VERIFY_SPECIAL_LEAVE = page.locator('#row-0 span').filter({ hasText: 'Nghỉ đặc biệt' });
+        this.VERIFY_MATERNITY_LEAVE = page.locator('#row-0 span').filter({ hasText: 'Nghỉ thai sản' });
+        this.VERIFY_SOCIAL_INSURANCE_LEAVE = page.locator('#row-0 span').filter({ hasText: 'Nghỉ bảo hiểm xã hội' });
+        this.VERIFY_REGULAR_LEAVE = page.locator('#row-0 span').filter({ hasText: 'Nghỉ thường' });
+        this.VERIFY_ANNUAL_LEAVE = page.locator('#row-0 span').filter({ hasText: 'Nghỉ theo phép năm' });
     }
 
     async clickSelectNewStatus() {
-        await this.safeClick(this.selectNewStatus);
+        await this.safeClick(this.SELECT_NEW_STATUS);
     }
 
     async clickCloseDatePicker2() {
-        await this.safeClick(this.closeDatePicker2);
+        await this.safeClick(this.CLOSE_DATE_PICKER_2);
     }
 
     async clickCloseDatePicker() {
-        await (this.closeDatePicker2).click();
+        await this.CLOSE_DATE_PICKER_2.click();
     }
 
     async clickCloseDatePicker1() {
-        await this.safeClick(this.closeDatePicker1);
+        await this.safeClick(this.CLOSE_DATE_PICKER_1);
     }
 
     async clickLabelLeaveApplication() {
-        await this.safeClick(this.labelLeaveApplication);
+        await this.safeClick(this.LABEL_LEAVE_APPLICATION);
     }
 
     async expectSearchByMonthResult() {
-        await this.safeVerifyTextContains(this.searchByMonthResult, '11-06-');
+        await this.safeVerifyTextContains(this.SEARCH_BY_MONTH_RESULT, '11-06-');
     }
 
     async searchByMonth() {
         // await this.clickCloseSearchByMonth();
         await this.clickClearSearch();
-        await this.clickTexboxSearchByMonth();
+        await this.clickTextboxSearchByMonth();
         await this.clickMonthOption();
         await this.clickSearch();
     }
 
-    async clickTexboxSearchByMonth() {
-        await this.safeClick(this.texboxSearchByMonth);
+    async clickTextboxSearchByMonth() {
+        await this.safeClick(this.TEXTBOX_SEARCH_BY_MONTH);
     }
 
     async clickMonthOption() {
-        await this.safeClick(this.monthOption);
+        await this.safeClick(this.MONTH_OPTION);
         await this.clickChoose();
     }
 
     async expectSearchByCancelResult() {
-        await this.safeVerifyToHaveText(this.searchByCancelResult, 'Đã hủy');
+        await this.safeVerifyToHaveText(this.SEARCH_BY_CANCEL_RESULT, 'Đã hủy');
     }
 
     async expectSearchByWaitForBrowsedResult() {
-        await this.safeVerifyToHaveText(this.searchByWaitForBrowsedResult, 'Chờ duyệt');
+        await this.safeVerifyToHaveText(this.SEARCH_BY_WAIT_FOR_BROWSED_RESULT, 'Chờ duyệt');
     }
 
     async expectSearchByRejectedResult() {
-        await this.safeVerifyToHaveText(this.searchByRejectedResult, 'Từ chối');
+        await this.safeVerifyToHaveText(this.SEARCH_BY_REJECTED_RESULT, 'Từ chối');
     }
 
     async expectSearchByBrowsedResult() {
-        await this.safeVerifyToHaveText(this.searchByBrowsedResult, 'Đã duyệt');
+        await this.safeVerifyToHaveText(this.SEARCH_BY_BROWSED_RESULT, 'Đã duyệt');
     }
 
     async clickCancelButtonSearch() {
         await this.clickClearSearch();
         await this.clickDropdownStatusSearch();
-        await this.safeClick(this.cancelButtonSearch);
+        await this.safeClick(this.CANCEL_BUTTON_SEARCH);
         await this.clickLabelLeaveApplication();
         await this.clickSearch();
     }
@@ -152,7 +152,7 @@ export class LeaveApplicationPage extends BasePage {
     async clickRejectButtonSearch() {
         await this.clickClearSearch();
         await this.clickDropdownStatusSearch();
-        await this.safeClick(this.rejectButtonSearch);
+        await this.safeClick(this.REJECT_BUTTON_SEARCH);
         await this.clickLabelLeaveApplication();
         await this.clickSearch();
     }
@@ -160,7 +160,7 @@ export class LeaveApplicationPage extends BasePage {
     async clickBrowsedButtonSearch() {
         await this.clickClearSearch();
         await this.clickDropdownStatusSearch();
-        await this.safeClick(this.browsedButtonSearch);
+        await this.safeClick(this.BROWSED_BUTTON_SEARCH);
         await this.clickLabelLeaveApplication();
         await this.clickSearch();
     }
@@ -168,123 +168,123 @@ export class LeaveApplicationPage extends BasePage {
     async clickWaitForBrowsedButtonSearch() {
         await this.clickClearSearch();
         await this.clickDropdownStatusSearch();
-        await this.safeClick(this.waitForBrowsedButtonSearch);
+        await this.safeClick(this.WAIT_FOR_BROWSED_BUTTON_SEARCH);
         await this.clickLabelLeaveApplication();
         await this.clickSearch();
     }
 
     async clickCloseSearchByMonth() {
-        await this.safeClick(this.closeSearchByMonth);
+        await this.safeClick(this.CLOSE_SEARCH_BY_MONTH);
     }
 
     async clickRestTypeComboBox() {
-        await this.safeClick(this.restTypeComboBox);
+        await this.safeClick(this.REST_TYPE_COMBOBOX);
     }
 
-    async clickSearchByAnualLeave() {
+    async clickSearchByAnnualLeave() {
         await this.clickClearSearch();
         await this.clickRestTypeComboBox();
-        await this.safeClick(this.searchByAnualLeave);
+        await this.safeClick(this.SEARCH_BY_ANNUAL_LEAVE);
         await this.clickSearch();
     }
 
     async clickSearchBySpecialLeave() {
         await this.clickClearSearch();
         await this.clickRestTypeComboBox();
-        await this.safeClick(this.searchBySpecialLeave);
+        await this.safeClick(this.SEARCH_BY_SPECIAL_LEAVE);
         await this.clickSearch();
     }
 
     async clickSearchByMaternityLeave() {
         await this.clickClearSearch();
         await this.clickRestTypeComboBox();
-        await this.safeClick(this.searchByMaternityLeave);
+        await this.safeClick(this.SEARCH_BY_MATERNITY_LEAVE);
         await this.clickSearch();
     }
 
     async clickSearchBySocialInsuranceLeave() {
         await this.clickClearSearch();
         await this.clickRestTypeComboBox();
-        await this.safeClick(this.searchBySocialInsuranceLeave);
+        await this.safeClick(this.SEARCH_BY_SOCIAL_INSURANCE_LEAVE);
         await this.clickSearch();
     }
 
     async clickSearchByRegularLeave() {
         await this.clickRestTypeComboBox();
-        await this.safeClick(this.searchByRegularLeave);
+        await this.safeClick(this.SEARCH_BY_REGULAR_LEAVE);
         await this.clickSearch();
     }
 
     async clickSpecialLeave() {
-        await this.safeClick(this.specialLeave);
+        await this.safeClick(this.SPECIAL_LEAVE);
     }
 
     async clickMaternityLeave() {
-        await this.safeClick(this.maternityLeave);
+        await this.safeClick(this.MATERNITY_LEAVE);
     }
 
     async clickSocialInsuranceLeave() {
-        await this.safeClick(this.socialInsuranceLeave);
+        await this.safeClick(this.SOCIAL_INSURANCE_LEAVE);
     }
 
     async clickRegularLeave() {
-        await this.safeClick(this.leaveTypeDropDown);
+        await this.safeClick(this.LEAVE_TYPE_DROPDOWN);
     }
 
     async fillNumberOfDaysOff(number: string) {
-        await this.safeFill(this.numberOfDaysOff, number);
+        await this.safeFill(this.NUMBER_OF_DAYS_OFF, number);
     }
 
     async clickEndDate() {
-        await this.safeClick(this.endDate);
+        await this.safeClick(this.END_DATE);
     }
 
     async clickStartDate() {
-        await this.safeClick(this.startDate);
+        await this.safeClick(this.START_DATE);
     }
 
-    async clickAnualLeave() {
-        await this.safeClick(this.anualLeave);
+    async clickAnnualLeave() {
+        await this.safeClick(this.ANNUAL_LEAVE);
     }
 
     async clickLeaveTypeDropDown() {
-        await this.safeClick(this.leaveTypeDropDown);
+        await this.safeClick(this.LEAVE_TYPE_DROPDOWN);
     }
 
     async clickLeaveApplicationButton() {
-        await this.safeClick(this.leaveApplicationButton);
+        await this.safeClick(this.LEAVE_APPLICATION_BUTTON);
     }
 
     async getVerifyMaternityLeave() {
-        await this.safeVerifyTextContains(this.verifyMaternityLeave, 'Nghỉ thai sản');
+        await this.safeVerifyTextContains(this.VERIFY_MATERNITY_LEAVE, 'Nghỉ thai sản');
     }
 
     async getVerifySpecialLeave() {
-        await this.safeVerifyTextContains(this.verifySpecialLeave, 'Nghỉ đặc biệt');
+        await this.safeVerifyTextContains(this.VERIFY_SPECIAL_LEAVE, 'Nghỉ đặc biệt');
     }
 
     async getVerifySocialInsuranceLeave() {
-        await this.safeVerifyTextContains(this.verifySocialInsuranceLeave, 'Nghỉ bảo hiểm xã hội');
+        await this.safeVerifyTextContains(this.VERIFY_SOCIAL_INSURANCE_LEAVE, 'Nghỉ bảo hiểm xã hội');
     }
 
     async getVerifyRegularLeave() {
-        await this.safeVerifyToHaveText(this.verifyRegularLeave, 'Nghỉ thường');
+        await this.safeVerifyToHaveText(this.VERIFY_REGULAR_LEAVE, 'Nghỉ thường');
     }
 
-    async getVerifyAnualLeave() {
-        await this.safeVerifyTextContains(this.verifyAnualLeave, 'Nghỉ theo phép năm');
+    async getVerifyAnnualLeave() {
+        await this.safeVerifyTextContains(this.VERIFY_ANNUAL_LEAVE, 'Nghỉ theo phép năm');
     }
 
     async setDate() {
         await this.clickStartDate();
-        await this.clicktodayDatePicker();
+        await this.clickTodayDatePicker();
         await this.clickEndDate();
-        await this.clicktodayDatePicker();
+        await this.clickTodayDatePicker();
     }
 
     async setDateForEdit() {
         await this.clickCloseDatePicker();
         await this.clickEndDate();
-        await this.clicktodayDatePicker();
+        await this.clickTodayDatePicker();
     }
 }

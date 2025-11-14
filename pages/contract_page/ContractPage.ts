@@ -4,97 +4,97 @@ import { BasePage } from '../BasePage';
 export class ContractPage extends BasePage {
     readonly CONTRACT_BUTTON: Locator;
     readonly TERMINATE_BUTTON: Locator;
-    readonly EXTENTION_BUTTON: Locator;
+    readonly EXTENSION_BUTTON: Locator;
     readonly EMPLOYEE_INPUT: Locator;
     readonly SELECT_EMPLOYEE: Locator;
     readonly FORMAL_CONTRACT: Locator;
     readonly SEASONAL_CONTRACT: Locator;
-    readonly collaboratorContract: Locator;
+    readonly COLLABORATOR_CONTRACT: Locator;
     readonly SALARY_INPUT: Locator;
-    readonly endDateDropDown: Locator;
-    readonly MonthButton: Locator;
-    readonly selectMonth: Locator;
-    readonly selectDay: Locator;
-    readonly noteInput: Locator;
-    readonly selectAllTerm: Locator;
-    readonly contractTypeDropdown: Locator;
-    readonly searchByCode: Locator;
-    readonly searchByName: Locator;
-    readonly searchByContractType: Locator;
-    readonly probationType: Locator;
-    readonly permanentType: Locator;
-    readonly temporaryType: Locator;
-    readonly freeLanceType: Locator;
-    readonly verifyProbationTypeResult: Locator;
-    readonly verifyPermanentTypeResult: Locator;
-    readonly verifyTemporaryTypeResult: Locator;
-    readonly verifyFreeLanceTypeResult: Locator;
-    readonly startDateSearch: Locator;
-    readonly startDateSearchResult: Locator;
-    readonly verifySearchByCode: Locator;
-    readonly verifySearchByName: Locator;
-    readonly selectMonth2: Locator;
-    readonly selectDay2: Locator;
-    readonly employeeDropdown: Locator;
-    readonly newStatusSearch: Locator;
-    readonly terminatedStatusSearch: Locator;
-    readonly comfirmedStatusSearch: Locator;
-    readonly canceledStatusSearch: Locator;
-    readonly verifyCanceledStatusSearch: Locator;
-    readonly verifyTerminatedStatusSearch: Locator;
-    readonly verifyComfirmedStatusSearch: Locator;
-    readonly verifyNewStatusSearch: Locator;
-    readonly unCheckEditor: Locator;
+    readonly END_DATE_DROPDOWN: Locator;
+    readonly MONTH_BUTTON: Locator;
+    readonly SELECT_MONTH: Locator;
+    readonly SELECT_DAY: Locator;
+    readonly NOTE_INPUT: Locator;
+    readonly SELECT_ALL_TERM: Locator;
+    readonly CONTRACT_TYPE_DROPDOWN: Locator;
+    readonly SEARCH_BY_CODE: Locator;
+    readonly SEARCH_BY_NAME: Locator;
+    readonly SEARCH_BY_CONTRACT_TYPE: Locator;
+    readonly PROBATION_TYPE: Locator;
+    readonly PERMANENT_TYPE: Locator;
+    readonly TEMPORARY_TYPE: Locator;
+    readonly FREELANCE_TYPE: Locator;
+    readonly VERIFY_PROBATION_TYPE_RESULT: Locator;
+    readonly VERIFY_PERMANENT_TYPE_RESULT: Locator;
+    readonly VERIFY_TEMPORARY_TYPE_RESULT: Locator;
+    readonly VERIFY_FREELANCE_TYPE_RESULT: Locator;
+    readonly START_DATE_SEARCH: Locator;
+    readonly START_DATE_SEARCH_RESULT: Locator;
+    readonly VERIFY_SEARCH_BY_CODE: Locator;
+    readonly VERIFY_SEARCH_BY_NAME: Locator;
+    readonly SELECT_MONTH_2: Locator;
+    readonly SELECT_DAY_2: Locator;
+    readonly EMPLOYEE_DROPDOWN: Locator;
+    readonly NEW_STATUS_SEARCH: Locator;
+    readonly TERMINATED_STATUS_SEARCH: Locator;
+    readonly CONFIRMED_STATUS_SEARCH: Locator;
+    readonly CANCELED_STATUS_SEARCH: Locator;
+    readonly VERIFY_CANCELED_STATUS_SEARCH: Locator;
+    readonly VERIFY_TERMINATED_STATUS_SEARCH: Locator;
+    readonly VERIFY_CONFIRMED_STATUS_SEARCH: Locator;
+    readonly VERIFY_NEW_STATUS_SEARCH: Locator;
+    readonly UNCHECK_EDITOR: Locator;
 
     constructor(page: Page) {
         super(page);
-        this.unCheckEditor = page.getByRole('checkbox', { name: 'Có' });
-        this.EXTENTION_BUTTON = page.locator("//span[contains(text(),'Gia hạn')]");
+        this.UNCHECK_EDITOR = page.getByRole('checkbox', { name: 'Có' });
+        this.EXTENSION_BUTTON = page.locator("//span[contains(text(),'Gia hạn')]");
         this.TERMINATE_BUTTON = page.locator("//span[contains(text(),'Chấm dứt')]");
-        this.verifyCanceledStatusSearch = page.locator('#row-0').getByText('Đã hủy');
-        this.verifyTerminatedStatusSearch = page.locator('#row-0').getByText('Đã chấm dứt');
-        this.verifyComfirmedStatusSearch = page.locator('#row-0').getByText('Đã xác nhận');
-        this.verifyNewStatusSearch = page.locator('#row-0').getByText('Mới tạo');
-        this.canceledStatusSearch = page.getByRole('option', { name: 'Đã hủy' });
-        this.comfirmedStatusSearch = page.getByRole('option', { name: 'Đã xác nhận' });
-        this.terminatedStatusSearch = page.getByRole('option', { name: 'Đã chấm dứt' });
-        this.newStatusSearch = page.getByRole('option', { name: 'Mới tạo' });
-        this.selectDay2 = page.locator("//div[@class='dp__cell_inner dp__pointer dp__date_hover'][normalize-space()='30']");
-        this.selectMonth2 = page.locator("//div[@class='dp__overlay_cell_active dp__overlay_cell_pad']")
-        this.verifySearchByName = page.locator("//tr[@id='row-0']//span[contains(text(),'BAT810-Nguyễn Văn Minh')]");
-        this.verifySearchByCode = page.locator("//tr[@id='row-0']//td[2][contains(normalize-space(), 'HD0001')]");
-        this.startDateSearchResult = page.locator("//tr/td[5][contains(normalize-space(), '2025')]");
-        this.startDateSearch = page.getByRole('textbox', { name: 'Ngày bắt đầu' })
-        this.verifyProbationTypeResult = page.locator("//tr[@id='row-0']//div[text()='Thử việc']");
-        this.verifyPermanentTypeResult = page.locator("//tr[@id='row-0']//div[text()='Chính thức']");
-        this.verifyTemporaryTypeResult = page.locator("//tr[@id='row-0']//div[text()='Thời vụ']");
-        this.verifyFreeLanceTypeResult = page.locator("//tr[@id='row-0']//div[text()='Cộng tác viên']");
-        this.temporaryType = page.locator("//div[contains(text(),'Thời vụ')]");
-        this.freeLanceType = page.locator("//div[contains(text(),'Cộng tác viên')]");
-        this.permanentType = page.locator("//div[contains(text(),'Chính thức')]");
-        this.probationType = page.locator("//div[contains(text(),'Thử việc')]");
-        this.searchByContractType = page.getByRole('combobox').filter({ hasText: 'Loại hợp đồng' }).locator('i')
-        this.searchByName = page.getByRole('textbox', { name: 'Mã - tên nhân viên' })
-        this.searchByCode = page.getByRole('textbox', { name: 'Mã hợp đồng' })
-        this.contractTypeDropdown = page.locator("(//div[contains(@class, 'v-field') and contains(@class, 'v-field--active')]//i[@title='Open'])[2]");
-        this.selectAllTerm = page.locator("//th[contains(@class, 'v-data-table__th')]//i[contains(@class, 'mdi-checkbox-blank-outline')]");
-        this.noteInput = page.getByRole('textbox', { name: 'Ghi chú' });
-        this.selectDay = page.locator("//div[@class='dp__cell_inner dp__pointer dp__date_hover'][normalize-space()='31']");
-        this.selectMonth = page.locator("//div[@class='dp__overlay_cell dp__overlay_cell_pad'][normalize-space()='Thg 8']");
-        this.MonthButton = page.getByRole('button', { name: 'Open months overlay' });
-        this.endDateDropDown = page.getByRole('textbox', { name: 'Ngày kết thúc ※' });
+        this.VERIFY_CANCELED_STATUS_SEARCH = page.locator('#row-0').getByText('Đã hủy');
+        this.VERIFY_TERMINATED_STATUS_SEARCH = page.locator('#row-0').getByText('Đã chấm dứt');
+        this.VERIFY_CONFIRMED_STATUS_SEARCH = page.locator('#row-0').getByText('Đã xác nhận');
+        this.VERIFY_NEW_STATUS_SEARCH = page.locator('#row-0').getByText('Mới tạo');
+        this.CANCELED_STATUS_SEARCH = page.getByRole('option', { name: 'Đã hủy' });
+        this.CONFIRMED_STATUS_SEARCH = page.getByRole('option', { name: 'Đã xác nhận' });
+        this.TERMINATED_STATUS_SEARCH = page.getByRole('option', { name: 'Đã chấm dứt' });
+        this.NEW_STATUS_SEARCH = page.getByRole('option', { name: 'Mới tạo' });
+        this.SELECT_DAY_2 = page.locator("//div[@class='dp__cell_inner dp__pointer dp__date_hover'][normalize-space()='30']");
+        this.SELECT_MONTH_2 = page.locator("//div[@class='dp__overlay_cell_active dp__overlay_cell_pad']");
+        this.VERIFY_SEARCH_BY_NAME = page.locator("//tr[@id='row-0']//span[contains(text(),'BAT810-Nguyễn Văn Minh')]");
+        this.VERIFY_SEARCH_BY_CODE = page.locator("//tr[@id='row-0']//td[2][contains(normalize-space(), 'HD0001')]");
+        this.START_DATE_SEARCH_RESULT = page.locator("//tr/td[5][contains(normalize-space(), '2025')]");
+        this.START_DATE_SEARCH = page.getByRole('textbox', { name: 'Ngày bắt đầu' });
+        this.VERIFY_PROBATION_TYPE_RESULT = page.locator("//tr[@id='row-0']//div[text()='Thử việc']");
+        this.VERIFY_PERMANENT_TYPE_RESULT = page.locator("//tr[@id='row-0']//div[text()='Chính thức']");
+        this.VERIFY_TEMPORARY_TYPE_RESULT = page.locator("//tr[@id='row-0']//div[text()='Thời vụ']");
+        this.VERIFY_FREELANCE_TYPE_RESULT = page.locator("//tr[@id='row-0']//div[text()='Cộng tác viên']");
+        this.TEMPORARY_TYPE = page.locator("//div[contains(text(),'Thời vụ')]");
+        this.FREELANCE_TYPE = page.locator("//div[contains(text(),'Cộng tác viên')]");
+        this.PERMANENT_TYPE = page.locator("//div[contains(text(),'Chính thức')]");
+        this.PROBATION_TYPE = page.locator("//div[contains(text(),'Thử việc')]");
+        this.SEARCH_BY_CONTRACT_TYPE = page.getByRole('combobox').filter({ hasText: 'Loại hợp đồng' }).locator('i');
+        this.SEARCH_BY_NAME = page.getByRole('textbox', { name: 'Mã - tên nhân viên' });
+        this.SEARCH_BY_CODE = page.getByRole('textbox', { name: 'Mã hợp đồng' });
+        this.CONTRACT_TYPE_DROPDOWN = page.locator("(//div[contains(@class, 'v-field') and contains(@class, 'v-field--active')]//i[@title='Open'])[2]");
+        this.SELECT_ALL_TERM = page.locator("//th[contains(@class, 'v-data-table__th')]//i[contains(@class, 'mdi-checkbox-blank-outline')]");
+        this.NOTE_INPUT = page.getByRole('textbox', { name: 'Ghi chú' });
+        this.SELECT_DAY = page.locator("//div[@class='dp__cell_inner dp__pointer dp__date_hover'][normalize-space()='31']");
+        this.SELECT_MONTH = page.locator("//div[@class='dp__overlay_cell dp__overlay_cell_pad'][normalize-space()='Thg 8']");
+        this.MONTH_BUTTON = page.getByRole('button', { name: 'Open months overlay' });
+        this.END_DATE_DROPDOWN = page.getByRole('textbox', { name: 'Ngày kết thúc ※' });
         this.SALARY_INPUT = page.getByRole('textbox', { name: 'Lương cơ bản ※' });
-        this.collaboratorContract = page.getByRole('option', { name: 'Cộng tác viên' });
+        this.COLLABORATOR_CONTRACT = page.getByRole('option', { name: 'Cộng tác viên' });
         this.SEASONAL_CONTRACT = page.getByRole('option', { name: 'Thời vụ' });
         this.FORMAL_CONTRACT = page.getByRole('option', { name: 'Chính thức' });
         this.CONTRACT_BUTTON = page.locator("//a[contains(.,'Hợp đồng')]");
-        this.employeeDropdown = page.getByRole('combobox').filter({ hasText: 'Mã - tên nhân viên ※' }).getByLabel('Open');
-        this.EMPLOYEE_INPUT = page.getByRole('textbox', { name: 'Mã - tên nhân viên ※' })
-        this.SELECT_EMPLOYEE = page.getByRole('option', { name: 'BAT810-Nguyễn Văn Minh' })
+        this.EMPLOYEE_DROPDOWN = page.getByRole('combobox').filter({ hasText: 'Mã - tên nhân viên ※' }).getByLabel('Open');
+        this.EMPLOYEE_INPUT = page.getByRole('textbox', { name: 'Mã - tên nhân viên ※' });
+        this.SELECT_EMPLOYEE = page.getByRole('option', { name: 'BAT810-Nguyễn Văn Minh' });
     }
 
     async clickUncheckEditor() {
-        await this.safeClick(this.unCheckEditor);
+        await this.safeClick(this.UNCHECK_EDITOR);
     }
 
     async handleTerminateContract() {
@@ -105,142 +105,141 @@ export class ContractPage extends BasePage {
 
     async handleExtensionContract() {
         await this.clickRow0();
-        await this.safeClick(this.EXTENTION_BUTTON);
+        await this.safeClick(this.EXTENSION_BUTTON);
         await this.clickSave();
         await this.clickYes();
     }
 
     async verifyNewStatusSearchResult() {
-        await this.safeVerifyToHaveText(this.verifyNewStatusSearch, 'Mới tạo');
+        await this.safeVerifyToHaveText(this.VERIFY_NEW_STATUS_SEARCH, 'Mới tạo');
     }
 
-    async verifyComfirmedStatusSearchResult() {
-        await this.safeVerifyToHaveText(this.verifyComfirmedStatusSearch, 'Đã xác nhận');
+    async verifyConfirmedStatusSearchResult() {
+        await this.safeVerifyToHaveText(this.VERIFY_CONFIRMED_STATUS_SEARCH, 'Đã xác nhận');
     }
 
     async verifyTerminatedStatusSearchResult() {
-        await this.safeVerifyToHaveText(this.verifyTerminatedStatusSearch, 'Đã chấm dứt');
+        await this.safeVerifyToHaveText(this.VERIFY_TERMINATED_STATUS_SEARCH, 'Đã chấm dứt');
     }
 
     async verifyCanceledStatusSearchResult() {
-        await this.safeVerifyToHaveText(this.verifyCanceledStatusSearch, 'Đã hủy');
+        await this.safeVerifyToHaveText(this.VERIFY_CANCELED_STATUS_SEARCH, 'Đã hủy');
     }
 
     async clickNewStatusSearch() {
-        await this.safeClick(this.newStatusSearch);
+        await this.safeClick(this.NEW_STATUS_SEARCH);
     }
 
     async clickCanceledStatusSearch() {
-        await this.safeClick(this.canceledStatusSearch);
+        await this.safeClick(this.CANCELED_STATUS_SEARCH);
     }
 
     async clickTerminatedStatusSearch() {
-        await this.safeClick(this.terminatedStatusSearch);
+        await this.safeClick(this.TERMINATED_STATUS_SEARCH);
     }
 
-    async clickComfirmedStatusSearch() {
-        await this.safeClick(this.comfirmedStatusSearch);
+    async clickConfirmedStatusSearch() {
+        await this.safeClick(this.CONFIRMED_STATUS_SEARCH);
     }
 
     async clickSelectMonth2() {
-        await this.safeClick(this.selectMonth2);
+        await this.safeClick(this.SELECT_MONTH_2);
     }
 
     async verifySearchByNameResult() {
-        await this.safeVerifyToHaveText(this.verifySearchByName, 'BAT810-Nguyễn Văn Minh');
+        await this.safeVerifyToHaveText(this.VERIFY_SEARCH_BY_NAME, 'BAT810-Nguyễn Văn Minh');
     }
 
     async verifySearchByCodeResult() {
-        await this.safeVerifyTextContains(this.verifySearchByCode, 'HD0001');
-
+        await this.safeVerifyTextContains(this.VERIFY_SEARCH_BY_CODE, 'HD0001');
     }
 
     async verifyStartDateSearchResult() {
-        const firstResult = this.startDateSearchResult.nth(0);
+        const firstResult = this.START_DATE_SEARCH_RESULT.nth(0);
         await this.safeVerifyTextContains(firstResult, '2025');
     }
 
     async clickStartDateSearch() {
-        await this.safeClick(this.startDateSearch);
+        await this.safeClick(this.START_DATE_SEARCH);
     }
 
     async verifyProbationType() {
-        const firstResult = this.verifyProbationTypeResult.first();
+        const firstResult = this.VERIFY_PROBATION_TYPE_RESULT.first();
         await this.safeVerifyToHaveText(firstResult, 'Thử việc');
     }
 
     async verifyPermanentType() {
-        const firstResult = this.verifyPermanentTypeResult.first();
+        const firstResult = this.VERIFY_PERMANENT_TYPE_RESULT.first();
         await this.safeVerifyToHaveText(firstResult, 'Chính thức');
     }
 
     async verifyTemporaryType() {
-        const firstResult = this.verifyTemporaryTypeResult.first();
+        const firstResult = this.VERIFY_TEMPORARY_TYPE_RESULT.first();
         await this.safeVerifyToHaveText(firstResult, 'Thời vụ');
     }
 
-    async verifyFreeLanceType() {
-        const firstResult = this.verifyFreeLanceTypeResult.first();
+    async verifyFreelanceType() {
+        const firstResult = this.VERIFY_FREELANCE_TYPE_RESULT.first();
         await this.safeVerifyToHaveText(firstResult, 'Cộng tác viên');
     }
 
     async clickProbationType() {
-        await this.safeClick(this.probationType);
+        await this.safeClick(this.PROBATION_TYPE);
     }
 
     async clickPermanentType() {
-        await this.safeClick(this.permanentType);
+        await this.safeClick(this.PERMANENT_TYPE);
     }
 
     async clickTemporaryType() {
-        await this.safeClick(this.temporaryType);
+        await this.safeClick(this.TEMPORARY_TYPE);
     }
 
-    async clickFreeLanceType() {
-        await this.safeClick(this.freeLanceType);
+    async clickFreelanceType() {
+        await this.safeClick(this.FREELANCE_TYPE);
     }
 
     async clickSearchByContractType() {
-        await this.safeClick(this.searchByContractType);
+        await this.safeClick(this.SEARCH_BY_CONTRACT_TYPE);
     }
 
     async fillSearchByName(name: string) {
-        await this.safeFill(this.searchByName, name);
+        await this.safeFill(this.SEARCH_BY_NAME, name);
     }
 
     async fillSearchByCode(code: string) {
-        await this.safeFill(this.searchByCode, code);
+        await this.safeFill(this.SEARCH_BY_CODE, code);
     }
 
     async clickContractTypeDropdown() {
-        await this.safeClick(this.contractTypeDropdown);
+        await this.safeClick(this.CONTRACT_TYPE_DROPDOWN);
     }
 
     async checkSelectAllTerm() {
-        await this.safeClick(this.selectAllTerm, { force: true });
+        await this.safeClick(this.SELECT_ALL_TERM, { force: true });
     }
 
     async selectEndDate() {
-        await this.safeClick(this.endDateDropDown);
-        // await this.safeClick(this.MonthButton);
-        // await this.safeClick(this.selectMonth);
-        // await this.safeClick(this.selectDay);
-        await this.clicktodayDatePicker();
+        await this.safeClick(this.END_DATE_DROPDOWN);
+        // await this.safeClick(this.MONTH_BUTTON);
+        // await this.safeClick(this.SELECT_MONTH);
+        // await this.safeClick(this.SELECT_DAY);
+        await this.clickTodayDatePicker();
     }
 
     async selectEndDate2() {
-        await this.safeClick(this.endDateDropDown);
-        await this.safeClick(this.MonthButton);
-        await this.safeClick(this.selectMonth2);
-        await this.safeClick(this.selectDay2);
+        await this.safeClick(this.END_DATE_DROPDOWN);
+        await this.safeClick(this.MONTH_BUTTON);
+        await this.safeClick(this.SELECT_MONTH_2);
+        await this.safeClick(this.SELECT_DAY_2);
         await this.clickChoose();
     }
 
     async selectStartDate() {
-        await this.safeClick(this.endDateDropDown);
-        await this.safeClick(this.MonthButton);
-        await this.safeClick(this.selectMonth);
-        await this.safeClick(this.selectDay2);
+        await this.safeClick(this.END_DATE_DROPDOWN);
+        await this.safeClick(this.MONTH_BUTTON);
+        await this.safeClick(this.SELECT_MONTH);
+        await this.safeClick(this.SELECT_DAY_2);
     }
 
     async fillSalary(salary: string) {
@@ -248,7 +247,7 @@ export class ContractPage extends BasePage {
     }
 
     async clickCollaboratorContract() {
-        await this.safeClick(this.collaboratorContract);
+        await this.safeClick(this.COLLABORATOR_CONTRACT);
     }
 
     async clickSeasonalContract() {
@@ -269,6 +268,6 @@ export class ContractPage extends BasePage {
     }
 
     async fillNote(note: string) {
-        await this.safeFill(this.noteInput, note);
+        await this.safeFill(this.NOTE_INPUT, note);
     }
 }

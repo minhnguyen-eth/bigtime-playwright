@@ -91,7 +91,7 @@ export class PaysheetHelper {
     await this.paysheet.clickConfirmPaysheet();
     await this.paysheet.clickLatestPaysheetRow();
     await this.paysheet.clickPayslipPayment();
-    await this.paysheet.clickCheckBoxPaylipsFirst();
+    await this.paysheet.clickFirstCheckbox();
     await this.paysheet.clickPayment();
     await this.paysheet.clickPaymentConfirm();
     await this.toastPage.getToastPaymentSuccess();
@@ -101,7 +101,7 @@ export class PaysheetHelper {
   async addPaysheet(employeeName: string = 'Nguyễn Văn Minh') {
     await this.paysheet.clickAdd();
     await this.paysheet.setNamePaysheet('Automation test');
-    await this.paysheet.clickCheckBoxMonthly();
+    await this.paysheet.clickCheckboxMonthly();
     await this.paysheet.clickChooseMonth();
     await this.paysheet.clickMonthOption();
     await this.paysheet.setNote('Automation test');

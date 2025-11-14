@@ -2,64 +2,65 @@ import { Page, Locator } from '@playwright/test';
 import { PaysheetPage } from './PaysheetPage';
 
 export class PayslipPage extends PaysheetPage {
-    readonly verifyCancelledStatus: Locator;
-    readonly exportButton: Locator;
-    readonly exportAllButton: Locator;
+    readonly VERIFY_CANCELLED_STATUS: Locator;
+    readonly EXPORT_BUTTON: Locator;
+    readonly EXPORT_ALL_BUTTON: Locator;
 
     constructor(page: Page) {
         super(page);
-        this.exportAllButton = page.locator("//span[contains(.,'Xuất dữ liệu')]");
-        this.exportButton = page.locator("//span[.='Xuất dữ liệu']");
-        this.verifyCancelledStatus = page.locator("//tr[@id='row-0']//div[@class='v-chip__content']");
+        this.EXPORT_ALL_BUTTON = page.locator("//span[contains(.,'Xuất dữ liệu')]");
+        this.EXPORT_BUTTON = page.locator("//span[.='Xuất dữ liệu']");
+        this.VERIFY_CANCELLED_STATUS = page.locator("//tr[@id='row-0']//div[@class='v-chip__content']");
     }
 
-    async clickExportFirst() {
-        await this.safeClick(this.exportAllButton);
+    
+    async clickExportAll() {
+        await this.safeClick(this.EXPORT_ALL_BUTTON);
     }
 
     async clickExport() {
-        await this.safeClick(this.exportButton);
+        await this.safeClick(this.EXPORT_BUTTON);
     }
 
-    async expectVerifyCancelledStatus() {
-        await this.safeVerifyToHaveText(this.verifyCancelledStatus, 'Đã hủy');
+    async verifyCancelledStatus(expected: string = 'Đã hủy') {
+        await this.safeVerifyToHaveText(this.VERIFY_CANCELLED_STATUS, expected);
     }
 
-    async createPaysheetBase(name: string = 'Automation test', employeeName: string = 'Nguyễn Văn Minh') {
+    // CREATE PAYSHEET
+    async createPaysheetBase(paysheetName: string = 'Automation test', employeeName: string = 'Nguyễn Văn Minh') {
         await this.clickSalary();
         await this.clickPaysheet();
         await this.clickAdd();
-        await this.setNamePaysheet(name);
-        await this.clickCheckBoxMonthly();
+        await this.setNamePaysheet(paysheetName);
+        await this.clickCheckboxMonthly();
         await this.clickChooseMonth();
         await this.clickMonthOption();
-        await this.setNote(name);
+        await this.setNote(paysheetName);
         await this.fillSearchByName(employeeName);
         await this.clickButtonSearch();
         await this.clickSelectEmployee();
         await this.clickSave();
     }
 
-
-    async handleExportByMonth() {
+    async exportPaysheetByMonth() {
         await this.createPaysheetBase();
         await this.clickPayslip();
-        await this.clickExportFirst();
+        await this.clickExportAll();
     }
 
-    async handleExportOnlyOneEmployee() {
+    async exportSingleEmployeePayslip() {
         await this.createPaysheetBase();
         await this.clickPayslip();
         await this.clickSalarySlipCode();
         await this.clickExport();
     }
 
-    async handleCancelPaySlip() {
+    async cancelPayslip(reason: string = 'test') {
         await this.createPaysheetBase();
         await this.clickPayslip();
         await this.clickSalarySlipCode();
         await this.clickCancel();
-        await this.fillReason('test');
-        await this.expectVerifyCancelledStatus();
+        await this.fillReason(reason);
+        await this.verifyCancelledStatus();
     }
 }

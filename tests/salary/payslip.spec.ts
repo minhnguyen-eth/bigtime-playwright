@@ -29,28 +29,28 @@ test.describe.serial('Payslip Tests', () => {
         await loginPage.login(Config.admin_username, Config.admin_password);
     });
 
-    test('Export only one a employee', async ({ page }) => {
+    test('Export single employee payslip', async ({ page }) => {
         await clearPaysheets();
         await clearPayslips();
-        await payslipPage.handleExportOnlyOneEmployee();
+        await payslipPage.exportSingleEmployeePayslip();
         await toastPage.getToastExportSuccess();
     });
 
     test('Export by month', async ({ page }) => {
         await clearPaysheets();
         await clearPayslips();
-        await payslipPage.handleExportByMonth();
+        await payslipPage.exportPaysheetByMonth();
         await toastPage.getToastExportSuccess();
     });
 
     test('Cancel payslip', async ({ page }) => {
         await clearPaysheets();
         await clearPayslips();
-        await payslipPage.handleCancelPaySlip();
+        await payslipPage.cancelPayslip();
 
         // Employe check
         await logoutPage.logout();
         await loginPage.login(Config.employee_username, Config.employee_password);
-        await payslipPage.expectVerifyCancelledStatus();
+        await payslipPage.verifyCancelledStatus();
     });
 });

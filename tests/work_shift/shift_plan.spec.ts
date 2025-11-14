@@ -32,16 +32,6 @@ test.describe.serial('Shift Plan Tests', () => {
     async function testBody() {
         await shiftPlanPage.clickWorkShift();
         await shiftPlanPage.clickWorkShiftOption();
-        await shiftPlanPage.clickStartDateInput();
-        await shiftPlanPage.clickChosseMonthButton();
-        await shiftPlanPage.clickMonth08();
-        await shiftPlanPage.clickDay1Button();
-        await shiftPlanPage.clickChoose();
-        await shiftPlanPage.clickEndDateInput();
-        await shiftPlanPage.clickChosseMonthButton();
-        await shiftPlanPage.clickMonth08();
-        await shiftPlanPage.clickDay31Button();
-        await shiftPlanPage.clickChoose();
         await shiftPlanPage.clickAddNth1();
         await shiftPlanPage.fillSearchEmployeeInput('Nguyễn Văn Minh');
         await shiftPlanPage.clickEmployeeCheckbox();
@@ -81,18 +71,6 @@ test.describe.serial('Shift Plan Tests', () => {
             await shiftPlanPage.fillShiftPlanNameInput(randomName);
             await shiftPlanPage.clickWorkShift();
             await shiftPlanPage.clickWorkShiftOption();
-
-            await shiftPlanPage.clickStartDateInput();
-            await shiftPlanPage.clickChosseMonthButton();
-            await shiftPlanPage.clickMonth08();
-            await shiftPlanPage.clickDay1Button();
-            await shiftPlanPage.clickChoose();
-
-            await shiftPlanPage.clickEndDateInput();
-            await shiftPlanPage.clickChosseMonthButton();
-            await shiftPlanPage.clickMonth08();
-            await shiftPlanPage.clickDay31Button();
-            await shiftPlanPage.clickChoose();
 
             await shiftPlanPage.clickDepartmentButton();
             await shiftPlanPage.clickAddNth1();
@@ -144,8 +122,8 @@ test.describe.serial('Shift Plan Tests', () => {
     });
 
     test.skip('Edit with remove employee', async ({ page }) => {
-        await shiftPlanPage.clickChooseMonthSearch();
-        await shiftPlanPage.clickMonth08();
+        await shiftPlanPage.clickChooseMonthFilter();
+        await shiftPlanPage.clickChosseMonthPicker(8);
         await shiftPlanPage.clickChoose();
         await shiftPlanPage.clickSearch();
 
@@ -157,8 +135,8 @@ test.describe.serial('Shift Plan Tests', () => {
         allure.story('Edit Name of Shift Plan Story');
 
         await allure.step('Edit name of shift plan', async () => {
-            await shiftPlanPage.clickChooseMonthSearch();
-            await shiftPlanPage.clickMonth08();
+            await shiftPlanPage.clickChooseMonthFilter();
+            await shiftPlanPage.clickChosseMonthPicker(8);
             await shiftPlanPage.clickChoose();
             await shiftPlanPage.clickSearch();
 
@@ -175,18 +153,20 @@ test.describe.serial('Shift Plan Tests', () => {
         });
     });
 
-    // test('Search by name', async ({ page }) => {
-    //     allure.story('Search by Name Story');
+    test('Search by name', async ({ page }) => {
+        allure.story('Search by Name Story');
 
-    //     await allure.step('Search by name', async () => {
-    //         await shiftPlanPage.fillSearchByNameInput('Phân ca tháng 7');
-    //         await shiftPlanPage.clickSearch();
-    //     });
+        await allure.step('Search by name', async () => {
+            await shiftPlanPage.clickChooseMonthFilter();
+            await shiftPlanPage.clickChosseMonthPicker(7);
+            await shiftPlanPage.fillSearchByNameInput('Test search by name');
+            await shiftPlanPage.clickSearch();
+        });
 
-    //     await allure.step('Verify search results', async () => {
-    //         await shiftPlanPage.expectSearchByNameResult();
-    //     });
-    // });
+        await allure.step('Verify search results', async () => {
+            await shiftPlanPage.expectSearchByNameResult();
+        });
+    });
 
     test('Search by work shift', async ({ page }) => {
         allure.story('Search by Work Shift Story');
@@ -206,8 +186,8 @@ test.describe.serial('Shift Plan Tests', () => {
         allure.story('Delete Shift Plan Story');
 
         await allure.step('Search and delete shift plan', async () => {
-            await shiftPlanPage.clickChooseMonthSearch();
-            await shiftPlanPage.clickMonth08();
+            await shiftPlanPage.clickChooseMonthFilter();
+            await shiftPlanPage.clickChosseMonthPicker(8);
             await shiftPlanPage.clickChoose();
             await shiftPlanPage.clickSearch();
             await shiftPlanPage.clickDeleteRow0();

@@ -284,9 +284,9 @@ test.describe.serial('Contract Tests', () => {
 
         // Search by freelace type
         await contractPage.clickSearchByContractType();
-        await contractPage.clickFreeLanceType();
+        await contractPage.clickFreelanceType();
         await basePage.clickSearch();
-        await contractPage.verifyFreeLanceType();
+        await contractPage.clickFreelanceType();
     });
 
 
@@ -301,9 +301,9 @@ test.describe.serial('Contract Tests', () => {
 
         // Search by confirmed status
         await contractPage.clickDropdownStatusSearch();
-        await contractPage.clickComfirmedStatusSearch();
+        await contractPage.clickConfirmedStatusSearch();
         await basePage.clickSearch();
-        await contractPage.verifyComfirmedStatusSearchResult();
+        await contractPage.verifyConfirmedStatusSearchResult();
         await basePage.clickClearSearch();
 
         // Search by terminated status
@@ -322,7 +322,7 @@ test.describe.serial('Contract Tests', () => {
 
     test('Search by start date', async ({ page }) => {
         await contractPage.clickStartDateSearch();
-        await basePage.clicktodayDatePicker();
+        await basePage.clickTodayDatePicker();
         await basePage.clickSearch();
         await contractPage.verifyStartDateSearchResult();
         await basePage.clickClearSearch();

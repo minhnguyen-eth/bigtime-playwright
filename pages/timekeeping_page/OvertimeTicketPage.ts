@@ -4,192 +4,193 @@ import { BasePage } from '../BasePage';
 export class OvertimeTicketPage extends BasePage {
 
     // Check in/out
-    readonly checkInOutButton: Locator;
-    readonly checkInButton: Locator;
-    readonly confirmCheckInButton: Locator;
+    readonly CHECK_IN_OUT_BUTTON: Locator;
+    readonly CHECK_IN_BUTTON: Locator;
+    readonly CONFIRM_CHECK_IN_BUTTON: Locator;
 
     // Check in/out history
-    readonly checkInOutHistoryButton: Locator;
+    readonly CHECK_IN_OUT_HISTORY_BUTTON: Locator;
 
     // Overtime ticket
-    readonly overtimeTicketButton: Locator;
-    readonly overtimeTicketDayButton: Locator;
-    readonly startTime: Locator;
-    readonly endTime: Locator;
-    readonly openHour: Locator;
-    readonly hour17: Locator;
-    readonly hour18: Locator;
-    readonly hour19: Locator;
+    readonly OVERTIME_TICKET_BUTTON: Locator;
+    readonly OVERTIME_TICKET_DAY_BUTTON: Locator;
+    readonly START_TIME: Locator;
+    readonly END_TIME: Locator;
+    readonly OPEN_HOUR: Locator;
+    readonly HOUR_17: Locator;
+    readonly HOUR_18: Locator;
+    readonly HOUR_19: Locator;
     
-    readonly toastSendSuccess: Locator;
-    readonly newStatusInfo: Locator;
-    readonly reasonInfo: Locator;
-    readonly startTimeInfo: Locator;
-    readonly endTimeInfo: Locator;
-    readonly workingTimeInfo: Locator;
-    readonly employeeNameInfo: Locator;
-    readonly cancelStatusInfo: Locator;
-    readonly openMinute: Locator;
-    readonly minute10: Locator;
-    readonly pendingStatusInfo: Locator;
-    readonly toastBrowseSuccess: Locator;
-    readonly browsedStatusInfo: Locator;
-    readonly rejectStatusInfo: Locator;
-    readonly dropdownStatus: Locator;
-    readonly selectPendingStatus: Locator;
-    readonly selectNewStatus: Locator;
-    readonly validateDateRequired: Locator;
-    readonly validateWhenUserChosseWrongTime: Locator;
+    readonly TOAST_SEND_SUCCESS: Locator;
+    readonly NEW_STATUS_INFO: Locator;
+    readonly REASON_INFO: Locator;
+    readonly START_TIME_INFO: Locator;
+    readonly END_TIME_INFO: Locator;
+    readonly WORKING_TIME_INFO: Locator;
+    readonly EMPLOYEE_NAME_INFO: Locator;
+    readonly CANCEL_STATUS_INFO: Locator;
+    readonly OPEN_MINUTE: Locator;
+    readonly MINUTE_10: Locator;
+    readonly PENDING_STATUS_INFO: Locator;
+    readonly TOAST_BROWSE_SUCCESS: Locator;
+    readonly BROWSED_STATUS_INFO: Locator;
+    readonly REJECT_STATUS_INFO: Locator;
+    readonly DROPDOWN_STATUS: Locator;
+    readonly SELECT_PENDING_STATUS: Locator;
+    readonly SELECT_NEW_STATUS: Locator;
+    readonly VALIDATE_DATE_REQUIRED: Locator;
+    readonly VALIDATE_WHEN_USER_CHOOSE_WRONG_TIME: Locator;
 
     constructor(page: Page) {
         super(page);
-        this.cancelStatusInfo = page.locator("//div[contains(@class, 'text-body-2') and contains(text(), 'Hủy')]");
-        this.hour19 = page.locator("//div[@class='dp__overlay_cell dp__overlay_cell_pad'][normalize-space()='19']");
-        this.validateWhenUserChosseWrongTime = page.locator("//li[contains(text(),'Đã chấm công ra lúc')]");
-        this.validateDateRequired = page.locator("//div[contains(text(),'Nhập ngày tăng ca')]");
-        this.selectNewStatus = page.locator("//div[contains(text(),'Mới')]");
-        this.selectPendingStatus = page.locator("//div[contains(text(),'Chờ duyệt')]");
-        this.dropdownStatus = page.getByRole('combobox').filter({ hasText: 'Trạng thái ※' }).locator('i');
-        this.rejectStatusInfo = page.locator("//div[contains(@class, 'text-body-2') and contains(text(), 'Từ chối')]");
-        this.browsedStatusInfo = page.locator("//div[contains(text(),'Đã duyệt')]");
-        this.toastBrowseSuccess = page.locator("//div[contains(text(),'Phê duyệt thành công')]");
-        this.pendingStatusInfo = page.locator("//div[contains(text(),'Chờ duyệt')]");
-        this.minute10 = page.locator("//div[@class='dp__overlay_cell dp__overlay_cell_pad'][normalize-space()='10']");
-        this.openMinute = page.locator("//button[@aria-label='Open minutes overlay']");
-        this.employeeNameInfo = page.locator("//tr[@id='row-0']//span[contains(text(),'BAT810 - Nguyễn Văn Minh')]");
-        this.workingTimeInfo = page.locator("//div[normalize-space()='01:00']");
-        this.endTimeInfo = page.locator("//div[normalize-space()='18:00']");
-        this.startTimeInfo = page.locator("//div[normalize-space()='17:00']");
-        this.reasonInfo = page.locator("//div[contains(text(),'Automation test')]");
-        this.newStatusInfo = page.locator("//div[contains(text(),'Mới')]");
-        this.toastSendSuccess = page.locator("//div[contains(text(),'Gửi thành công')]");
-        this.hour18 = page.locator("//div[@class='dp__overlay_cell dp__overlay_cell_pad'][normalize-space()='18']");
-        this.hour17 = page.locator("//div[@class='dp__overlay_cell dp__overlay_cell_pad'][normalize-space()='17']");
-        this.openHour = page.locator("//button[@aria-label='Open hours overlay']");
-        this.endTime = page.getByRole('textbox', { name: 'Giờ kết thúc ※' });
-        this.startTime = page.getByRole('textbox', { name: 'Giờ bắt đầu ※' });
-        this.overtimeTicketDayButton = page.getByRole('textbox', { name: 'Ngày tăng ca ※' });
-        this.overtimeTicketButton = page.locator("//div[contains(text(),'Phiếu tăng ca')]");
-        this.checkInOutHistoryButton = page.locator("//div[@class='v-list-item-title'][contains(text(),'Lịch sử điểm danh')]");
-        this.confirmCheckInButton = page.locator("//span[.='Đồng ý']");
-        this.checkInButton = page.locator("//span[@class='v-btn__content']//p[contains(text(),'Điểm danh')]");
-        this.checkInOutButton = page.locator("//a[@href='/checkin-out']");
+        this.CANCEL_STATUS_INFO = page.locator("//div[contains(@class, 'text-body-2') and contains(text(), 'Hủy')]");
+        this.HOUR_19 = page.locator("//div[@class='dp__overlay_cell dp__overlay_cell_pad'][normalize-space()='19']");
+        this.VALIDATE_WHEN_USER_CHOOSE_WRONG_TIME = page.locator("//li[contains(text(),'Đã chấm công ra lúc')]");
+        this.VALIDATE_DATE_REQUIRED = page.locator("//div[contains(text(),'Nhập ngày tăng ca')]");
+        this.SELECT_NEW_STATUS = page.locator("//div[contains(text(),'Mới')]");
+        this.SELECT_PENDING_STATUS = page.locator("//div[contains(text(),'Chờ duyệt')]");
+        this.DROPDOWN_STATUS = page.getByRole('combobox').filter({ hasText: 'Trạng thái ※' }).locator('i');
+        this.REJECT_STATUS_INFO = page.locator("//div[contains(@class, 'text-body-2') and contains(text(), 'Từ chối')]");
+        this.BROWSED_STATUS_INFO = page.locator("//div[contains(text(),'Đã duyệt')]");
+        this.TOAST_BROWSE_SUCCESS = page.locator("//div[contains(text(),'Phê duyệt thành công')]");
+        this.PENDING_STATUS_INFO = page.locator("//div[contains(text(),'Chờ duyệt')]");
+        this.MINUTE_10 = page.locator("//div[@class='dp__overlay_cell dp__overlay_cell_pad'][normalize-space()='10']");
+        this.OPEN_MINUTE = page.locator("//button[@aria-label='Open minutes overlay']");
+        this.EMPLOYEE_NAME_INFO = page.locator("//tr[@id='row-0']//span[contains(text(),'BAT810 - Nguyễn Văn Minh')]");
+        this.WORKING_TIME_INFO = page.locator("//div[normalize-space()='01:00']");
+        this.END_TIME_INFO = page.locator("//div[normalize-space()='18:00']");
+        this.START_TIME_INFO = page.locator("//div[normalize-space()='17:00']");
+        this.REASON_INFO = page.locator("//div[contains(text(),'Automation test')]");
+        this.NEW_STATUS_INFO = page.locator("//div[contains(text(),'Mới')]");
+        this.TOAST_SEND_SUCCESS = page.locator("//div[contains(text(),'Gửi thành công')]");
+        this.HOUR_18 = page.locator("//div[@class='dp__overlay_cell dp__overlay_cell_pad'][normalize-space()='18']");
+        this.HOUR_17 = page.locator("//div[@class='dp__overlay_cell dp__overlay_cell_pad'][normalize-space()='17']");
+        this.OPEN_HOUR = page.locator("//button[@aria-label='Open hours overlay']");
+        this.END_TIME = page.getByRole('textbox', { name: 'Giờ kết thúc ※' });
+        this.START_TIME = page.getByRole('textbox', { name: 'Giờ bắt đầu ※' });
+        this.OVERTIME_TICKET_DAY_BUTTON = page.getByRole('textbox', { name: 'Ngày tăng ca ※' });
+        this.OVERTIME_TICKET_BUTTON = page.locator("//div[contains(text(),'Phiếu tăng ca')]");
+        this.CHECK_IN_OUT_HISTORY_BUTTON = page.locator("//div[@class='v-list-item-title'][contains(text(),'Lịch sử điểm danh')]");
+        this.CONFIRM_CHECK_IN_BUTTON = page.locator("//span[.='Đồng ý']");
+        this.CHECK_IN_BUTTON = page.locator("//span[@class='v-btn__content']//p[contains(text(),'Điểm danh')]");
+        this.CHECK_IN_OUT_BUTTON = page.locator("//a[@href='/checkin-out']");
     }
 
     async verifyCancelStatus() {
-        await this.safeVerifyTextContains(this.cancelStatusInfo, "Hủy");
+        await this.safeVerifyTextContains(this.CANCEL_STATUS_INFO, "Hủy");
     }
 
     async clickHour19() {
-        await this.safeClick(this.hour19);
+        await this.safeClick(this.HOUR_19);
     }
 
-    async verifyValidateWhenUserChosseWrongTime() {
-        await this.safeVerifyTextContains(this.validateWhenUserChosseWrongTime, "Đã chấm công ra lúc");
+    async verifyValidateWhenUserChooseWrongTime() {
+        await this.safeVerifyTextContains(this.VALIDATE_WHEN_USER_CHOOSE_WRONG_TIME, "Đã chấm công ra lúc");
     }
 
     async verifyValidateDateRequired() {
-        await this.safeVerifyTextContains(this.validateDateRequired, "Nhập ngày tăng ca");
+        await this.safeVerifyTextContains(this.VALIDATE_DATE_REQUIRED, "Nhập ngày tăng ca");
     }
 
     async clickSelectNewStatus() {
-        await this.safeClick(this.selectNewStatus);
+        await this.safeClick(this.SELECT_NEW_STATUS);
     }
 
     async clickSelectPendingStatus() {
-        await this.safeClick(this.selectPendingStatus);
+        await this.safeClick(this.SELECT_PENDING_STATUS);
     }
 
     async verifyRejectStatus() {
-        await this.safeVerifyTextContains(this.rejectStatusInfo, "Từ chối");
+        await this.safeVerifyTextContains(this.REJECT_STATUS_INFO, "Từ chối");
     }
 
     async getToastBrowseSuccess() {
-        await this.safeVerifyTextContains(this.toastBrowseSuccess, "Phê duyệt thành công")
+        await this.safeVerifyTextContains(this.TOAST_BROWSE_SUCCESS, "Phê duyệt thành công");
     }
 
     async clickMinute10() {
-        await this.safeClick(this.minute10);
+        await this.safeClick(this.MINUTE_10);
         await this.clickChoose();
     }
 
     async verifyPendingStatus() {
-        await this.safeVerifyTextContains(this.pendingStatusInfo, "Chờ duyệt");
+        await this.safeVerifyTextContains(this.PENDING_STATUS_INFO, "Chờ duyệt");
     }
 
     async clickOpenMinute() {
-        await this.safeClick(this.openMinute);
+        await this.safeClick(this.OPEN_MINUTE);
     }
 
     async verifyEmployeeName() {
-        await this.safeVerifyTextContains(this.employeeNameInfo, "BAT810 - Nguyễn Văn Minh");
+        await this.safeVerifyTextContains(this.EMPLOYEE_NAME_INFO, "BAT810 - Nguyễn Văn Minh");
     }
 
     async verifyWorkingTime() {
-        await this.safeVerifyTextContains(this.workingTimeInfo, "01:00");
+        await this.safeVerifyTextContains(this.WORKING_TIME_INFO, "01:00");
     }
 
     async verifyEndTime() {
-        await this.safeVerifyTextContains(this.endTimeInfo, "18:00");
+        await this.safeVerifyTextContains(this.END_TIME_INFO, "18:00");
     }
 
     async verifyStartTime() {
-        await this.safeVerifyTextContains(this.startTimeInfo, "17:00");
+        await this.safeVerifyTextContains(this.START_TIME_INFO, "17:00");
     }
 
     async verifyReason() {
-        await this.safeVerifyTextContains(this.reasonInfo, "Automation test");
+        await this.safeVerifyTextContains(this.REASON_INFO, "Automation test");
     }
 
     async verifyNewStatus() {
-        await this.safeVerifyTextContains(this.newStatusInfo, "Mới");
+        await this.safeVerifyTextContains(this.NEW_STATUS_INFO, "Mới");
     }
 
     async getToastSendSuccess() {
-        await this.safeVerifyTextContains(this.toastSendSuccess, "Gửi thành công");
+        await this.safeVerifyTextContains(this.TOAST_SEND_SUCCESS, "Gửi thành công");
     }
 
     async clickHour18() {
-        await this.safeClick(this.hour18);
+        await this.safeClick(this.HOUR_18);
     }
 
     async clickHour17() {
-        await this.safeClick(this.hour17);
+        await this.safeClick(this.HOUR_17);
     }
+
     async clickOpenHour() {
-        await this.safeClick(this.openHour);
+        await this.safeClick(this.OPEN_HOUR);
     }
 
     async clickEndTime() {
-        await this.safeClick(this.endTime);
+        await this.safeClick(this.END_TIME);
     }
 
     async clickStartTime() {
-        await this.safeClick(this.startTime);
+        await this.safeClick(this.START_TIME);
     }
 
     async clickOvertimeTicketDayButton() {
-        await this.safeClick(this.overtimeTicketDayButton);
+        await this.safeClick(this.OVERTIME_TICKET_DAY_BUTTON);
     }
 
     async clickOvertimeTicketButton() {
-        await this.safeClick(this.overtimeTicketButton);
+        await this.safeClick(this.OVERTIME_TICKET_BUTTON);
     }
 
     async clickCheckInOutHistoryButton() {
-        await this.safeClick(this.checkInOutHistoryButton);
+        await this.safeClick(this.CHECK_IN_OUT_HISTORY_BUTTON);
     }
 
     async clickConfirmCheckInButton() {
-        await this.safeClick(this.confirmCheckInButton);
+        await this.safeClick(this.CONFIRM_CHECK_IN_BUTTON);
     }
 
     async clickCheckInOutButton() {
-        await this.safeClick(this.checkInOutButton);
+        await this.safeClick(this.CHECK_IN_OUT_BUTTON);
     }
 
     async clickCheckInButton() {
-        await this.safeClick(this.checkInButton);
+        await this.safeClick(this.CHECK_IN_BUTTON);
     }
 
     // Functions for testing
@@ -247,5 +248,9 @@ export class OvertimeTicketPage extends BasePage {
         await this.verifyWorkingTime();
         await this.verifyCancelStatus();
         await this.verifyEmployeeName();
+    }
+
+    async verifyBrowsedStatus() {
+        await this.safeVerifyTextContains(this.BROWSED_STATUS_INFO, "Đã duyệt");
     }
 }

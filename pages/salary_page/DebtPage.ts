@@ -87,7 +87,7 @@ export class DebtPage extends BasePage {
     async clickEditButton() {
         await this.safeFill(this.searchNameInput, 'BAT810 - Nguyễn Văn Minh');
         await this.safeClick(this.selectEmployee);
-        await this.safeClick(this.searchButton);
+        await this.clickSearch
         await this.page.getByRole('row', { name: '1 BAT810 - Nguyễn Văn Minh 1.000.000 đ add debt test for edit Admin Tạo mới', exact: true }).getByRole('button').click();
         await this.clickEdit();
     }
@@ -99,7 +99,7 @@ export class DebtPage extends BasePage {
     async clickActionCancelButton() {
         await this.safeFill(this.searchNameInput, 'BAT810 - Nguyễn Văn Minh');
         await this.safeClick(this.selectEmployee);
-        await this.safeClick(this.searchButton);
+        await this.clickSearch();
         await this.page.getByRole('row', { name: '1 BAT810 - Nguyễn Văn Minh 1.000.000 đ add debt test for cancel Admin Tạo mới', exact: true }).getByRole('button').click();
         await this.clickCancel();
     }
