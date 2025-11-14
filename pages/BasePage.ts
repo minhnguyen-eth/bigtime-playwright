@@ -63,7 +63,7 @@ export class BasePage extends SafeActions {
         super(page);
         this.OPEN_YEAR_OVERLAY_BUTTON = page.getByRole('button', { name: 'Open years overlay' })
         this.OPEN_MONTH_OVERLAY_BUTTON = page.getByRole('button', { name: 'Open months overlay' })
-        this.CHOOSE_MONTH_FILTER = page.getByRole('button', { name: 'Chọn tháng' })
+        this.CHOOSE_MONTH_FILTER = page.getByRole('textbox', { name: 'Chọn tháng' });
         this.OPEN_HOURS_OVERLAY_BUTTON = page.getByRole('button', { name: 'Open hours overlay' })
         this.OPEN_MINUTES_OVERLAY_BUTTON = page.getByRole('button', { name: 'Open minutes overlay' })
         this.statusDropDownInForm = page.getByRole('combobox').filter({ hasText: 'Trạng thái' }).locator('i');
