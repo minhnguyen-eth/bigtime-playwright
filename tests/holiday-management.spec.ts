@@ -126,8 +126,9 @@ test.describe.serial('Holiday Management', () => {
     });
 
     test('Delete Holiday', async ({ page }) => {
+        await clearHolidayManagement();
         await holidayManagementPage.clickAdd();
-        await holidayManagementPage.fillHolidayName("Test");
+        await holidayManagementPage.fillHolidayName("Test delete");
         await holidayManagementPage.clickStartDate();
         await holidayManagementPage.clicktodayDatePicker();
         await holidayManagementPage.clickEndDate();

@@ -11,7 +11,7 @@ export class EvaluationTypePage extends BasePage {
     constructor(page: Page) {
         super(page);
         this.desciptionInput = page.getByRole('textbox', { name: 'Mô tả chi tiết' })
-        this.evaluationTypeButton = page.locator("//div[contains(text(),'Phân loại đánh giá')]");
+        this.evaluationTypeButton = page.locator("//div[contains(text(),'Loại đánh giá')]");
         this.evaluationTypeNameInput = page.getByRole('textbox', { name: 'Tên loại đánh giá ※' })
         this.searchEvaluationTypeInput = page.getByRole('textbox', { name: 'Tên loại đánh giá ' })
         this.exptectedSearchEvaluationTypeName = page.locator("//tr[@id='row-0']//span[contains(text(),'Đánh giá chuyên cần')]");
