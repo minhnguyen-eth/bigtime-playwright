@@ -25,51 +25,37 @@ export class PayslipPage extends PaysheetPage {
         await this.safeVerifyToHaveText(this.verifyCancelledStatus, 'Đã hủy');
     }
 
-    async handleExportByMonth() {
+    async createPaysheetBase(name: string = 'Automation test', employeeName: string = 'Nguyễn Văn Minh') {
         await this.clickSalary();
         await this.clickPaysheet();
         await this.clickAdd();
-        await this.setNamePaysheet('Automation test');
+        await this.setNamePaysheet(name);
         await this.clickCheckBoxMonthly();
         await this.clickChooseMonth();
         await this.clickMonthOption();
-        await this.setNote('Automation test');
-        await this.clickAndSetDropDownEmployee('Nguyễn Văn Minh');
-        await this.clickEmployeeOption();
+        await this.setNote(name);
+        await this.fillSearchByName(employeeName);
+        await this.clickButtonSearch();
+        await this.clickSelectEmployee();
         await this.clickSave();
+    }
+
+
+    async handleExportByMonth() {
+        await this.createPaysheetBase();
         await this.clickPayslip();
         await this.clickExportFirst();
     }
 
     async handleExportOnlyOneEmployee() {
-        await this.clickSalary();
-        await this.clickPaysheet();
-        await this.clickAdd();
-        await this.setNamePaysheet('Automation test');
-        await this.clickCheckBoxMonthly();
-        await this.clickChooseMonth();
-        await this.clickMonthOption();
-        await this.setNote('Automation test');
-        await this.clickAndSetDropDownEmployee('Nguyễn Văn Minh');
-        await this.clickEmployeeOption();
-        await this.clickSave();
+        await this.createPaysheetBase();
         await this.clickPayslip();
         await this.clickSalarySlipCode();
         await this.clickExport();
     }
 
     async handleCancelPaySlip() {
-        await this.clickSalary();
-        await this.clickPaysheet();
-        await this.clickAdd();
-        await this.setNamePaysheet('Automation test');
-        await this.clickCheckBoxMonthly();
-        await this.clickChooseMonth();
-        await this.clickMonthOption();
-        await this.setNote('Automation test');
-        await this.clickAndSetDropDownEmployee('Nguyễn Văn Minh');
-        await this.clickEmployeeOption();
-        await this.clickSave();
+        await this.createPaysheetBase();
         await this.clickPayslip();
         await this.clickSalarySlipCode();
         await this.clickCancel();
