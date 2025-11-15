@@ -19,7 +19,7 @@ export async function addAnnualLeaveForEmployeeAndAdmin(page: Page) {
     await leaveManagementPage.clickAdd();
     await leaveManagementPage.clickAddEmployee();
     await leaveManagementPage.fillSearchByName();
-    await leaveManagementPage.clickSelectAEmployee();
+    await leaveManagementPage.clickSelectAnEmployee();
     await leaveManagementPage.clickSaveEmployee();
     await page.waitForTimeout(1000);
     await leaveManagementPage.clickSave();

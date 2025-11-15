@@ -36,7 +36,7 @@ test.describe.serial('Leave Application Tests', () => {
     async function addLeaveApplication() {
         await leaveApplicationPage.clickAdd();
         await leaveApplicationPage.clickLeaveTypeDropDown();
-        await leaveApplicationPage.clickAnualLeave();
+        await leaveApplicationPage.clickAnnualLeave();
         await leaveApplicationPage.setDate();
         await leaveApplicationPage.clickDropdownStatusInFormNth1();
         await leaveApplicationPage.clickSelectNewStatus();
@@ -75,7 +75,7 @@ test.describe.serial('Leave Application Tests', () => {
         await beforeTest();
         await leaveApplicationPage.clickAdd();
         await leaveApplicationPage.clickLeaveTypeDropDown();
-        await leaveApplicationPage.clickAnualLeave();
+        await leaveApplicationPage.clickAnnualLeave();
         await leaveApplicationPage.setDate();
         await leaveApplicationPage.fillReason('a'.repeat(255));
         await leaveApplicationPage.clickSave();
@@ -86,7 +86,7 @@ test.describe.serial('Leave Application Tests', () => {
         await beforeTest();
         await leaveApplicationPage.clickAdd();
         await leaveApplicationPage.clickLeaveTypeDropDown();
-        await leaveApplicationPage.clickAnualLeave();
+        await leaveApplicationPage.clickAnnualLeave();
         await leaveApplicationPage.setDate();
         await leaveApplicationPage.fillReason('a'.repeat(256));
         await leaveApplicationPage.clickSave();
@@ -130,7 +130,7 @@ test.describe.serial('Leave Application Tests', () => {
 
             await beforeTest();
             await addLeaveApplication();
-            await leaveApplicationPage.getVerifyAnualLeave();
+            await leaveApplicationPage.getVerifyAnnualLeave();
             await leaveApplicationPage.clickRow0();
             await leaveApplicationPage.clickSendAndClickYes();
             await toastPage.getToastSendBrowseSuccess();
@@ -290,8 +290,8 @@ test.describe.serial('Leave Application Tests', () => {
 
     test('Search by anual leave application', async ({ page }) => {
         await beforeSearchTest();
-        await leaveApplicationPage.clickSearchByAnualLeave();
-        await leaveApplicationPage.getVerifyAnualLeave();
+        await leaveApplicationPage.clickSearchByAnnualLeave();
+        await leaveApplicationPage.getVerifyAnnualLeave();
     });
 
     test('Search by special leave application', async ({ page }) => {

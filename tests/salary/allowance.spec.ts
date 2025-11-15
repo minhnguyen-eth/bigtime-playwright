@@ -32,7 +32,7 @@ test.describe.serial('Allowance Tests', () => {
     test('Save with empty data', async ({ page }) => {
         await clearAllowanceTypes();
         await allowancePage.clickAdd();
-        await allowancePage.fillAllwanceMoney('');
+        await allowancePage.fillAllowanceMoney('');
         await allowancePage.clickSave();
         await allowancePage.checkMsgAllowanceNameRequired();
         await allowancePage.checkValidationMoneyRequired();
@@ -41,8 +41,8 @@ test.describe.serial('Allowance Tests', () => {
     test('E2E - Create allowance type daily with valid data and verify', async ({ page }) => {
         const randomString = Math.random().toString(36).substring(7);
         await allowancePage.clickAdd();
-        await allowancePage.fillAllwanceName(randomString);
-        await allowancePage.fillAllwanceMoney('250000');
+        await allowancePage.fillAllowanceName(randomString);
+        await allowancePage.fillAllowanceMoney('250000');
         await allowancePage.fillNote('Automation test allowance');
         await allowancePage.clickSave();
         await toastPage.getToastAddSuccess();
@@ -50,13 +50,13 @@ test.describe.serial('Allowance Tests', () => {
 
     test('Create duplicate allowance name', async ({ page }) => {
         await allowancePage.clickAdd();
-        await allowancePage.fillAllwanceName('Phụ cấp tiền ăn');
+        await allowancePage.fillAllowanceName('Phụ cấp tiền ăn');
         await allowancePage.clickSave();
         await validationPage.validateNameAlreadyExists();
     });
     test('Create duplicate allowance name with backspace', async ({ page }) => {
         await allowancePage.clickAdd();
-        await allowancePage.fillAllwanceName('Phụ cấp   tiền ăn');
+        await allowancePage.fillAllowanceName('Phụ cấp   tiền ăn');
         await allowancePage.clickSave();
         await validationPage.validateNameAlreadyExists();
     });
@@ -64,8 +64,8 @@ test.describe.serial('Allowance Tests', () => {
     test('Create allowance type monthly with valid data', async ({ page }) => {
         const randomString = Math.random().toString(36).substring(7);
         await allowancePage.clickAdd();
-        await allowancePage.fillAllwanceName(randomString);
-        await allowancePage.fillAllwanceMoney('250000');
+        await allowancePage.fillAllowanceName(randomString);
+        await allowancePage.fillAllowanceMoney('250000');
         await allowancePage.fillNote('Automation test allowance');
         await allowancePage.clickAllowanceTypeDropdown();
         await allowancePage.clickMonthly();
@@ -76,7 +76,7 @@ test.describe.serial('Allowance Tests', () => {
     test('Create with lock status', async ({ page }) => {
         const randomString = Math.random().toString(36).substring(7);
         await allowancePage.clickAdd();
-        await allowancePage.fillAllwanceName(randomString);
+        await allowancePage.fillAllowanceName(randomString);
         await allowancePage.clickDropdownStatusInFormNth1();
         await allowancePage.clickLockStatus();
         await allowancePage.clickSave();
@@ -86,7 +86,7 @@ test.describe.serial('Allowance Tests', () => {
     test('Create allowance with empty note', async ({ page }) => {
         const randomString = Math.random().toString(36).substring(7);
         await allowancePage.clickAdd();
-        await allowancePage.fillAllwanceName(randomString);
+        await allowancePage.fillAllowanceName(randomString);
         await allowancePage.clickSave();
         await toastPage.getToastAddSuccess();
     });
@@ -94,21 +94,21 @@ test.describe.serial('Allowance Tests', () => {
     test('Max length of allowance name 255 characters', async ({ page }) => {
         await clearAllowanceTypes();
         await allowancePage.clickAdd();
-        await allowancePage.fillAllwanceName('a'.repeat(255));
+        await allowancePage.fillAllowanceName('a'.repeat(255));
         await allowancePage.clickSave();
         await toastPage.getToastAddSuccess();
     });
 
     test('Max length of allowance over 255 characters', async ({ page }) => {
         await allowancePage.clickAdd();
-        await allowancePage.fillAllwanceName('a'.repeat(256));
+        await allowancePage.fillAllowanceName('a'.repeat(256));
         await allowancePage.clickSave();
         await validationPage.validateMaxLength255Characters();
     });
 
     test('Max length of note 500 characters', async ({ page }) => {
         await allowancePage.clickAdd();
-        await allowancePage.fillAllwanceName('Automation test');
+        await allowancePage.fillAllowanceName('Automation test');
         await allowancePage.fillNote('a'.repeat(500));
         await allowancePage.clickSave();
         await toastPage.getToastAddSuccess();
@@ -116,7 +116,7 @@ test.describe.serial('Allowance Tests', () => {
 
     test('Max length of note over 500 characters', async ({ page }) => {
         await allowancePage.clickAdd();
-        await allowancePage.fillAllwanceName('Automation test');
+        await allowancePage.fillAllowanceName('Automation test');
         await allowancePage.fillNote('a'.repeat(501));
         await allowancePage.clickSave();
         await validationPage.validateMaxLength500Characters();
@@ -124,14 +124,14 @@ test.describe.serial('Allowance Tests', () => {
 
     test('Edit allowance name', async ({ page }) => {
         await allowancePage.clickEditRow0();
-        await allowancePage.fillAllwanceName('Automation test edit');
+        await allowancePage.fillAllowanceName('Automation test edit');
         await allowancePage.clickSave();
         await toastPage.getToastUpdateSuccess();
     });
 
     test('Edit allowance money', async ({ page }) => {
         await allowancePage.clickEditRow0();
-        await allowancePage.fillAllwanceMoney('999999');
+        await allowancePage.fillAllowanceMoney('999999');
         await allowancePage.clickSave();
         await toastPage.getToastUpdateSuccess();
     });

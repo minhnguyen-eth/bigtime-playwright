@@ -13,14 +13,12 @@ test.describe.serial('Payslip Tests', () => {
     let payslipPage: PayslipPage;
     let toastPage: ToastPage;
     let logoutPage: LogoutPage;
-    let basePage: BasePage;
 
     test.beforeEach(async ({ page }) => {
         allure.feature('Paysheet Feature');
         allure.owner('Minh Nguyen');
         allure.severity('Critical');
 
-        basePage = new BasePage(page);
         toastPage = new ToastPage(page);
         loginPage = new LoginPage(page);
         payslipPage = new PayslipPage(page);
