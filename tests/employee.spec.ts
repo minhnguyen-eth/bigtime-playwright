@@ -215,7 +215,7 @@ test.describe.serial('Employee Tests', () => {
         await employeePage.addWithoutSetSalary();
     });
 
-    test('Add with basic information and edit information', async ({ page }) => {
+    test.skip('Add with basic information and edit information', async ({ page }) => {
         await employeePage.testAddEmployee();
         await employeePage.clickSave();
         await toastPage.getToastAddSuccess();

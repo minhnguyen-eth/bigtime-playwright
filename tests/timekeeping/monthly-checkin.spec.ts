@@ -130,7 +130,7 @@ test.describe.serial('Monthly Checkin Tests', () => {
     });
 
     test('Navigate from Monthly Checkin to History Checkin', async ({ page }) => {
-      
+
         // ADMIN LOGIN
         await loginPage.login(Config.admin_username, Config.admin_password);
         await monthlyCheckinPage.clickTimeKeepingManagement();
@@ -140,10 +140,10 @@ test.describe.serial('Monthly Checkin Tests', () => {
         // HANDLE NAVIGATION TO HISTORY CHECKIN PAGE
         await monthlyCheckinPage.clickEmployeeCodeNavigation();
         await monthlyCheckinPage.checkHistoryCheckinTitle();
-     
+
     });
 
-      test('E2E Flow - admin monthly approval, monthly closing at history checkin page', async ({ page }) => {
+    test('E2E Flow - admin monthly approval, monthly closing at history checkin page', async ({ page }) => {
         const MONTH = 11;
 
         // USER LOGIN

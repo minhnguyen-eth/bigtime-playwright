@@ -656,7 +656,7 @@ export class EmployeePage extends ValidationPage {
     await this.fillAddress('Bien Hoa, Dong Nai');
     await this.fillNote('Automation testing');
     await this.page.evaluate(() => {
-      window.scrollBy(0, -500);
+      window.scrollBy(0, -1000);
     });
     await this.clickDateOfBirth();
     await this.clickOpenYearOverlayButton();

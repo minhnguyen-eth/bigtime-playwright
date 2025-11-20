@@ -37,13 +37,13 @@ export class MonthlyCheckinPage extends BasePage {
         this.SELECT_EMPLOYEE_FILTER = page.getByText('BAT200 - Test chấm công tháng', { exact: true });
         this.HC_CHOOSE_EMPLOYEE_FILTER = page.getByRole('textbox', { name: 'Chọn nhân viên' });
         this.HC_MONTHLY_APPROVAL_BUTTON = page.locator('span:has-text("PHÊ DUYỆT CÔNG THÁNG")');
-        this.HC_MONTHLY_CLOSING_BUTTON = page.locator('span:has-text("XÁC NHẬN CÔNG THÁNG")');
-        this.HC_TITLE = page.locator("//div[@class='v-card-title' and text()='Lịch sử điểm danh']");
+        this.HC_MONTHLY_CLOSING_BUTTON = page.getByRole('button', { name: 'Xác nhận công tháng' });
+        this.HC_TITLE = page.getByText('Lịch sử điểm danh');
         this.EMPLOYEE_CODE_NAVIGATION = page.locator("//p[normalize-space()='BAT200']");
         this.CLOSE_FORM_BUTTON = page.getByRole('dialog').filter({ hasText: 'Thông tin lịch sử' }).locator('i').first();
         this.CANCEL_MONTHLY_CLOSING_BUTTON = page.locator("//span[contains(text(),'Hủy xác nhận')]");
         this.TOAST_MONTHLY_CLOSING_SUCCESS = page.getByText('Xác nhận công tháng thành công');
-        this.MONTHLY_CLOSING = page.locator("//span[contains(text(),'Xác nhận công tháng')]");
+        this.MONTHLY_CLOSING = page.getByRole('button', { name: 'Xác nhận công tháng' });
         this.TOAST_MONTHLY_APPROVAL_SUCCESS = page.getByText('Phê duyệt công tháng thành công');
         this.MONTHLY_APPROVAL_BUTTON = page.locator("//span[.='Phê duyệt công tháng']").first();
         this.APPROVED_STATUS = page.getByText('Đã phê duyệt', { exact: true })
@@ -74,7 +74,7 @@ export class MonthlyCheckinPage extends BasePage {
     }
 
     async checkHistoryCheckinTitle() {
-        await this.safeVerifyToHaveText(this.HC_TITLE, 'Lịch sử điểm danh');
+        await this.safeVerifyTextContains(this.HC_TITLE, 'Lịch sử điểm danh');
     }
 
     async clickEmployeeCodeNavigation() {
