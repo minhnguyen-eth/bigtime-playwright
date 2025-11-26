@@ -315,7 +315,7 @@ test.describe.serial('Reward Employee Tests', () => {
         await rewardEmployeePage.clickDropdownStatusSearch();
         await rewardEmployeePage.clickNewStatus();
         await rewardEmployeePage.clickSearch();
-        await rewardEmployeePage.verifyNewStatusSearch('Mới');
+        await rewardEmployeePage.verifyNewStatusSearch('Mới tạo');
         await rewardEmployeePage.clickClearSearch();
 
         // Search with cancelled status

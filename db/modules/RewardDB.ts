@@ -1,7 +1,7 @@
 import { clearTable, getConnection, importFromCSV } from '../helpers/DBHelper';
 
 export async function clearRewardUsers() {
-  await clearTable('reward_users', "name NOT LIKE '%Test data%'");
+  await clearTable('reward_users', "id NOT LIKE '%testdata%'");
 }
 
 export async function clearRewardType() {
