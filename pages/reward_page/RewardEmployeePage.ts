@@ -69,25 +69,79 @@ export class RewardEmployeePage extends BasePage {
     }
 
 
-    async clickRewardEmployee() { await this.safeClick(this.REWARD_EMPLOYEE); }
-    async fillRewardName(name: string) { await this.safeFill(this.REWARD_NAME_INPUT, name); }
-    async fillChooseEmployee(name: string) { await this.safeFill(this.CHOOSE_EMPLOYEE_INPUT, name); }
-    async clickSelectEmployee() { await this.safeClick(this.SELECT_EMPLOYEE); }
-    async clickChooseRewardType() { await this.safeClick(this.CHOOSE_REWARD_TYPE_INPUT); }
-    async clickSelectRewardType() { await this.safeClick(this.SELECT_REWARD_TYPE); }
-    async fillMoney(money: string) { await this.safeFill(this.MONEY_INPUT, money); }
-    async clearMoney() { await this.MONEY_INPUT.clear(); }
-    async clickSelectWaitingForApproved() { await this.safeClick(this.SELECT_WAITING_FOR_APPROVED); }
-    async clickApprovedStatus() { await this.safeClick(this.APPROVED_STATUS); }
-    async clickCancelledStatus() { await this.safeClick(this.CANCELLED_STATUS); }
-    async clickNewStatus() { await this.safeClick(this.NEW_STATUS); }
-    async clickDayReward() { await this.safeClick(this.DAY_REWARD_INPUT); }
-    async clickDay19() { await this.safeClick(this.DAY_19); }
-    async clickDayRewardAdd() { await this.safeClick(this.DAY_REWARD_ADD); }
-    async fillSearchByRewardName(search: string) { await this.safeFill(this.SEARCH_BY_REWARD_NAME, search); }
-    async fillSearchByEmployee(search: string) { await this.safeFill(this.SEARCH_BY_EMPLOYEE, search); }
-    async fillSearchByRewardType(search: string) { await this.safeFill(this.SEARCH_BY_REWARD_TYPE, search); }
-    async clickSearchByDate() { await this.safeClick(this.SEARCH_BY_DATE); }
+    async clickRewardEmployee() {
+        await this.safeClick(this.REWARD_EMPLOYEE);
+    }
+
+    async fillRewardName(name: string) {
+        await this.safeFill(this.REWARD_NAME_INPUT, name);
+    }
+
+    async fillChooseEmployee(name: string) {
+        await this.safeFill(this.CHOOSE_EMPLOYEE_INPUT, name);
+    }
+
+    async clickSelectEmployee() {
+        await this.safeClick(this.SELECT_EMPLOYEE);
+    }
+
+    async clickChooseRewardType() {
+        await this.safeClick(this.CHOOSE_REWARD_TYPE_INPUT);
+    }
+
+    async clickSelectRewardType() {
+        await this.safeClick(this.SELECT_REWARD_TYPE);
+    }
+
+    async fillMoney(money: string) {
+        await this.safeFill(this.MONEY_INPUT, money);
+    }
+
+    async clearMoney() {
+        await this.MONEY_INPUT.clear();
+    }
+    async clickSelectWaitingForApproved() {
+        await this.safeClick(this.SELECT_WAITING_FOR_APPROVED);
+    }
+    async clickApprovedStatus() {
+        await this.safeClick(this.APPROVED_STATUS);
+    }
+
+    async clickCancelledStatus() {
+        await this.safeClick(this.CANCELLED_STATUS);
+    }
+
+    async clickNewStatus() {
+        await this.safeClick(this.NEW_STATUS);
+    }
+
+    async clickDayReward() {
+        await this.safeClick(this.DAY_REWARD_INPUT);
+    }
+
+    async clickDay19() {
+        await this.safeClick(this.DAY_19);
+    }
+
+    async clickDayRewardAdd() {
+        await this.safeClick(this.DAY_REWARD_ADD);
+    }
+
+    async fillSearchByRewardName(search: string) {
+        await this.safeFill(this.SEARCH_BY_REWARD_NAME, search);
+    }
+
+    async fillSearchByEmployee(search: string) {
+        await this.safeFill(this.SEARCH_BY_EMPLOYEE, search);
+    }
+
+    async fillSearchByRewardType(search: string) {
+        await this.safeFill(this.SEARCH_BY_REWARD_TYPE, search);
+    }
+
+    async clickSearchByDate() {
+        await this.safeClick(this.SEARCH_BY_DATE);
+    }
 
     async verifyRewardNameSearch(result: string) {
         const locator = this.page.locator(`(//tr[.//span[normalize-space(text())='${result}']]/td)[2]`);
@@ -95,27 +149,45 @@ export class RewardEmployeePage extends BasePage {
     }
 
     async verifyEmployeeSearch(expected: string) {
-         await this.safeVerifyToHaveText(this.VERIFY_SEARCH_BY_EMPLOYEE, expected);
-         }
+        await this.safeVerifyToHaveText(this.VERIFY_SEARCH_BY_EMPLOYEE, expected);
+    }
 
-    async verifyRewardTypeSearch(expected: string) { await this.safeVerifyToHaveText(this.VERIFY_SEARCH_BY_REWARD_TYPE, expected); }
+    async verifyRewardTypeSearch(expected: string) {
+        await this.safeVerifyToHaveText(this.VERIFY_SEARCH_BY_REWARD_TYPE, expected);
+    }
 
-    async verifyDateSearch(expected: string) { await this.safeVerifyTextContains(this.VERIFY_SEARCH_BY_DATE, expected); }
+    async verifyDateSearch(expected: string) {
+        await this.safeVerifyTextContains(this.VERIFY_SEARCH_BY_DATE, expected);
+    }
 
-    async verifyNewStatusSearch(expected: string) { await this.safeVerifyToHaveText(this.VERIFY_NEW_STATUS, expected); }
+    async verifyNewStatusSearch(expected: string) {
+        await this.safeVerifyToHaveText(this.VERIFY_NEW_STATUS, expected);
+    }
 
-    async verifyApprovedStatusSearch(expected: string) { await this.safeVerifyToHaveText(this.VERIFY_APPROVED_STATUS, expected); }
+    async verifyApprovedStatusSearch(expected: string) {
+        await this.safeVerifyToHaveText(this.VERIFY_APPROVED_STATUS, expected);
+    }
 
-    async verifyCancelledStatusSearch(expected: string) { await this.safeVerifyToHaveText(this.VERIFY_CANCELLED_STATUS, expected); }
+    async verifyCancelledStatusSearch(expected: string) {
+        await this.safeVerifyToHaveText(this.VERIFY_CANCELLED_STATUS, expected);
+    }
 
     // VALIDATION
-    async verifyValidationRewardName() { await this.safeVerifyToHaveText(this.VALIDATION_REWARD_NAME, 'Nhập tên khen thưởng'); }
+    async verifyValidationRewardName() {
+        await this.safeVerifyToHaveText(this.VALIDATION_REWARD_NAME, 'Nhập tên khen thưởng');
+    }
 
-    async verifyValidationEmployee() { await this.safeVerifyToHaveText(this.VALIDATION_EMPLOYEE, 'Nhập chọn nhân viên'); }
+    async verifyValidationEmployee() {
+        await this.safeVerifyToHaveText(this.VALIDATION_EMPLOYEE, 'Nhập chọn nhân viên');
+    }
 
-    async verifyValidationRewardType() { await this.safeVerifyToHaveText(this.VALIDATION_REWARD_TYPE, 'Nhập chọn loại khen thưởng'); }
+    async verifyValidationRewardType() {
+        await this.safeVerifyToHaveText(this.VALIDATION_REWARD_TYPE, 'Nhập chọn loại khen thưởng');
+    }
 
-    async verifyValidationMoney() { await this.safeVerifyToHaveText(this.VALIDATION_MONEY, 'Nhập tiền thưởng'); }
+    async verifyValidationMoney() {
+        await this.safeVerifyToHaveText(this.VALIDATION_MONEY, 'Nhập tiền thưởng');
+    }
 
     async createReward() {
         await this.fillRewardName('Reward Employee');
@@ -126,7 +198,4 @@ export class RewardEmployeePage extends BasePage {
         await this.fillMoney('1000000');
         await this.fillDescription('Description'); await this.fillNote('Note');
     }
-
-
-
 }

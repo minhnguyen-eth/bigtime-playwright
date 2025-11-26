@@ -202,6 +202,10 @@ export class PaysheetPage extends BasePage {
         await this.safeClick(this.BUTTON_SEARCH);
     }
 
+    async clickConfirmPaysheet() {
+        await this.safeClick(this.CONFIRM_BUTTON);
+    }
+
     async fillSearchByName(name: string) {
         await this.safeFill(this.SEARCH_BY_NAME, name);
     }

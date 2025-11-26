@@ -377,6 +377,19 @@ test.describe.serial('Paysheet Tests', () => {
             await paysheet.clickYes();
             await toastPage.getToastSeparatePaysheetSuccess();
 
+            // Payment 
+            await paysheet.fillSearchPaysheet('T01');
+            await paysheet.clickSearch();
+            await paysheet.clickLatestPaysheetRow();
+            await paysheet.clickViewPayroll();
+            await paysheet.clickSalaryClosing();
+            await paysheet.clickConfirmPaysheet();
+            await paysheet.clickLatestPaysheetRow();
+            await paysheet.clickPayslipPayment();
+            await paysheet.clickFirstCheckbox();
+            await paysheet.clickPayment();
+            await paysheet.clickPaymentConfirm();
+            await toastPage.getToastPaymentSuccess();
         });
     });
 

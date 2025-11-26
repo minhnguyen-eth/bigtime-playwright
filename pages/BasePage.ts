@@ -212,7 +212,6 @@ export class BasePage extends SafeActions {
         await this.safeClick(this.YES_BUTTON);
     }
 
-    async clickConfirmPaysheet() { await this.safeClick(this.CONFIRM_BUTTON); }
     async clickReject() { await this.safeClick(this.REJECT_BUTTON); }
 
     async clickBrowse() {
