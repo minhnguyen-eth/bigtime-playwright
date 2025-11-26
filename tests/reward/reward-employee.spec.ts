@@ -279,7 +279,7 @@ test.describe.serial('Reward Employee Tests', () => {
         await beforeTestSearch();
         await rewardEmployeePage.fillSearchByEmployee('Nguyễn Văn Minh');
         await rewardEmployeePage.clickSearch();
-        await rewardEmployeePage.verifyEmployeeSearch('Nguyễn Văn Minh');
+        await rewardEmployeePage.verifyEmployeeSearch('BAT810 - Nguyễn Văn Minh');
     });
 
     test('Search by reward type', async ({ page }) => {

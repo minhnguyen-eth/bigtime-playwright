@@ -94,7 +94,9 @@ export class RewardEmployeePage extends BasePage {
         await this.safeVerifyToHaveText(locator, result);
     }
 
-    async verifyEmployeeSearch(expected: string) { await this.safeVerifyToHaveText(this.VERIFY_SEARCH_BY_EMPLOYEE, expected); }
+    async verifyEmployeeSearch(expected: string) {
+         await this.safeVerifyToHaveText(this.VERIFY_SEARCH_BY_EMPLOYEE, expected);
+         }
 
     async verifyRewardTypeSearch(expected: string) { await this.safeVerifyToHaveText(this.VERIFY_SEARCH_BY_REWARD_TYPE, expected); }
 
