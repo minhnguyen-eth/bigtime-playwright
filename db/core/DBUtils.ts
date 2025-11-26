@@ -24,18 +24,33 @@ export async function checkExistsWithConditions(
 
 // Clear full table or with condition
 export async function clearTable(tableName: string, condition?: string): Promise<void> {
-    const sql = condition
-        ? `DELETE FROM ${tableName} WHERE ${condition}`
-        : `TRUNCATE TABLE ${tableName}`;
+    try {
+        // Nếu có điều kiện → chỉ xóa theo condition
+        if (condition) {
+            const sql = `DELETE FROM ${tableName} WHERE ${condition}`;
+            const result = await executeQuery(sql);
 
-    const result = await executeQuery(sql);
+            console.info(`Cleared ${result.affectedRows} rows in ${tableName} with condition: ${condition}.`);
+        } 
+        // Không có điều kiện → xóa toàn bộ
+        else {
+            const deleteSql = `DELETE FROM ${tableName}`;
+            const deleteResult = await executeQuery(deleteSql);
 
-    if ('affectedRows' in result) {
-        console.info(`Cleared ${result.affectedRows} rows in ${tableName} ${condition ? 'with condition' : ''}.`);
-    } else {
-        console.info(`Truncated table ${tableName}.`);
+            console.info(`Cleared ${deleteResult.affectedRows} rows in ${tableName}.`);
+
+            // Reset auto increment nếu cần (KHÔNG gây lỗi DROP)
+            const resetSql = `ALTER TABLE ${tableName} AUTO_INCREMENT = 1`;
+            await executeQuery(resetSql);
+
+            console.info(`Reset AUTO_INCREMENT for ${tableName}.`);
+        }
+    } catch (error) {
+        console.error(`Failed to clear table ${tableName}:`, error);
+        throw error;
     }
 }
+
 
 // Hàm chung import CSV vào MySQL
 export async function importFromCSV(
