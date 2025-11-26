@@ -273,7 +273,6 @@ test.describe.serial('Reward Employee Tests', () => {
         await rewardEmployeePage.fillSearchByRewardName('Reward Employee');
         await rewardEmployeePage.clickSearch();
         await rewardEmployeePage.verifyRewardNameSearch('Reward Employee');
-        await rewardEmployeePage.clickClearSearch();
     });
 
     test('Search by employee name', async ({ page }) => {

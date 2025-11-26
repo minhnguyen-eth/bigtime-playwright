@@ -89,7 +89,10 @@ export class RewardEmployeePage extends BasePage {
     async fillSearchByRewardType(search: string) { await this.safeFill(this.SEARCH_BY_REWARD_TYPE, search); }
     async clickSearchByDate() { await this.safeClick(this.SEARCH_BY_DATE); }
 
-    async verifyRewardNameSearch(expected: string) { await this.safeVerifyToHaveText(this.VERIFY_SEARCH_BY_REWARD_NAME, expected); }
+    async verifyRewardNameSearch(result: string) {
+        const locator = this.page.locator(`(//tr[.//span[normalize-space(text())='${result}']]/td)[2]`);
+        await this.safeVerifyToHaveText(locator, result);
+    }
 
     async verifyEmployeeSearch(expected: string) { await this.safeVerifyToHaveText(this.VERIFY_SEARCH_BY_EMPLOYEE, expected); }
 
