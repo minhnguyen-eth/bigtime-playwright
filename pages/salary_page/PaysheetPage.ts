@@ -411,8 +411,10 @@ export class PaysheetPage extends BasePage {
         await this.safeClick(this.DROPDOWN_MONTH);
     }
 
-    async clickMonthOption02() {
-        const month = 11;
+
+    // Hàm tùy chỉnh tháng
+    async clickCustomMonth(month: number) {
+        // const month = 11;
         const year = new Date().getFullYear();
         const firstDay = `1/${month}/${year}`;
         const lastDayOfMonth = new Date(year, month, 0).getDate();
@@ -426,6 +428,8 @@ export class PaysheetPage extends BasePage {
         await this.safeClick(monthOption);
     }
 
+
+    // Hàm chọn tháng hiện tại
     async clickMonthOption() {
         const now = new Date();
         const month = now.getMonth() + 1;

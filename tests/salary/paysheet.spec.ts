@@ -411,7 +411,7 @@ test.describe.serial('Paysheet Tests', () => {
             await paysheet.setNamePaysheet('Automation test');
             await paysheet.clickCheckboxMonthly();
             await paysheet.clickChooseMonth();
-            await paysheet.clickMonthOption02();
+            await paysheet.clickCustomMonth(11);
             await paysheet.fillSearchByName('BAT100');
             await page.keyboard.press('Enter');
             await paysheet.clickSelectEmployee();
@@ -442,7 +442,7 @@ test.describe.serial('Paysheet Tests', () => {
             await paysheet.setNamePaysheet('Automation test');
             await paysheet.clickCheckboxMonthly();
             await paysheet.clickChooseMonth();
-            await paysheet.clickMonthOption02();
+            await paysheet.clickCustomMonth(11);
             await paysheet.fillSearchByName('BAT101');
             await page.keyboard.press('Enter');
             await paysheet.clickSelectEmployee();
@@ -473,7 +473,7 @@ test.describe.serial('Paysheet Tests', () => {
             await paysheet.setNamePaysheet('Automation test');
             await paysheet.clickCheckboxMonthly();
             await paysheet.clickChooseMonth();
-            await paysheet.clickMonthOption02();
+            await paysheet.clickCustomMonth(11);
             await paysheet.fillSearchByName('BAT102');
             await page.keyboard.press('Enter');
             await paysheet.clickSelectEmployee();
