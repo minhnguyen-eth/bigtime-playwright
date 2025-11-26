@@ -8,7 +8,7 @@ import { allure } from "allure-playwright";
 import { createCriteria } from "../evaluation/evaluation-helper";
 import { ValidationPage } from "../../pages/ValidationPage";
 
-test.describe.serial("Evaluation Criteria Tests", () => {
+test.describe.serial("Evaluation Process Tests", () => {
 
     let loginPage: LoginPage;
     let evaluationProcess: EvaluationProcessPage;
@@ -236,7 +236,7 @@ test.describe.serial("Evaluation Criteria Tests", () => {
     test('Search by evaluation type', async ({ page }) => {
         await evaluationProcess.clickAdmin();
         await evaluationProcess.clickEvaluationProcessButton();
-        await evaluationProcess.fillSearchByEvaluationTypeInput('Đánh giá nhân viên');
+        await evaluationProcess.fillSearchByEvaluationTypeInput('Đánh giá chuyên ');
         await evaluationProcess.clickSearch();
         await evaluationProcess.expectSearchByEvaluationType();
     });
