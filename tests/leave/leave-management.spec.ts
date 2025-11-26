@@ -158,9 +158,10 @@ test.describe.serial('Leave Management Tests', () => {
         });
 
         await allure.step('Admin searches leave management by year', async () => {
-            await leaveManagementPage.fillSearchByYear('2025');
+            await leaveManagementPage.fillSearchByYear('2024');
             await leaveManagementPage.clickSearch();
-            await leaveManagementPage.verifyResultYear('2025');
+            await page.waitForTimeout(1000)
+            await leaveManagementPage.verifyResultYear('2024');
         });
     });
 

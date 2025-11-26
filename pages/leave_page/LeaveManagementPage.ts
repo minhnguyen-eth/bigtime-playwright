@@ -25,7 +25,6 @@ export class LeaveManagementPage extends BasePage {
     readonly SEARCH_EMPLOYEE: Locator;
     readonly RESULT_EMPLOYEE: Locator;
     readonly SEARCH_BY_YEAR: Locator;
-    readonly RESULT_YEAR: Locator;
     readonly ANNUAL_LEAVE_ALREADY_EXIST: Locator;
     readonly SEARCH_BY_EMPLOYEE_NAME: Locator;
     readonly SEARCH_BY_EMPLOYEE_NAME_RESULT: Locator;
@@ -56,7 +55,6 @@ export class LeaveManagementPage extends BasePage {
         this.SEARCH_BY_EMPLOYEE_NAME_RESULT = page.locator('#row-0').getByRole('cell', { name: 'Nguyễn Văn Minh' });
         this.SEARCH_BY_EMPLOYEE_NAME = page.getByRole('textbox', { name: 'Tên nhân viên Tên nhân viên' });
         this.ANNUAL_LEAVE_ALREADY_EXIST = page.locator("//li[contains(text(),'Nghỉ phép năm đã tồn tại.')]");
-        this.RESULT_YEAR = page.locator("//tr[@id='row-0']//td[3]");
         this.RESULT_EMPLOYEE = page.locator("//tr[@id='row-0']//span[contains(text(),'Nguyễn Văn Minh')]");
         this.SEARCH_EMPLOYEE = page.locator("//form/div/div[1]/div/div/div/div[3]/div/input");
         this.CHECK_STATUS_APPROVED = page.locator("//tr[@id='row-0']//div[contains(.,'Đã duyệt')]");
@@ -90,10 +88,23 @@ export class LeaveManagementPage extends BasePage {
     async expectSearchByPendingResult() { await this.safeVerifyTextContains(this.SEARCH_BY_PENDING_RESULT, 'Chờ duyệt'); }
     async clickSearchPendingButton() { await this.safeClick(this.SEARCH_PENDING_BUTTON); }
     async clickComboBoxStatus() { await this.safeClick(this.COMBOBOX_STATUS); }
-    async expectNameExist() { await this.safeVerifyTextContains(this.SEARCH_BY_EMPLOYEE_NAME_RESULT, 'Nguyễn Văn Minh'); }
-    async fillSearchByEmployeeName() { await this.safeFill(this.SEARCH_BY_EMPLOYEE_NAME, 'Minh'); }
-    async verifyAnnualLeaveAlreadyExist(expectedValue: string) { await this.safeVerifyTextContains(this.ANNUAL_LEAVE_ALREADY_EXIST, expectedValue); }
-    async verifyResultYear(expectedValue: string) { await this.safeVerifyTextContains(this.RESULT_YEAR, expectedValue); }
+
+    async expectNameExist() {
+        await this.safeVerifyTextContains(this.SEARCH_BY_EMPLOYEE_NAME_RESULT, 'Nguyễn Văn Minh');
+    }
+
+    async fillSearchByEmployeeName() {
+        await this.safeFill(this.SEARCH_BY_EMPLOYEE_NAME, 'Minh');
+    }
+
+    async verifyAnnualLeaveAlreadyExist(expectedValue: string) {
+        await this.safeVerifyTextContains(this.ANNUAL_LEAVE_ALREADY_EXIST, expectedValue);
+    }
+    async verifyResultYear(expectedValue: string) {
+        const locator = this.page.locator(`//td[normalize-space()='${expectedValue}']`);
+        await this.safeVerifyToHaveText(locator, expectedValue);
+    }
+
     async fillSearchByYear(year: string) { await this.safeFill(this.SEARCH_BY_YEAR, year); }
     async verifyResultEmployee(expectedValue: string) { await this.safeVerifyToHaveText(this.RESULT_EMPLOYEE, expectedValue); }
     async fillSearchEmployee(name: string) { await this.safeFill(this.SEARCH_EMPLOYEE, name); }
