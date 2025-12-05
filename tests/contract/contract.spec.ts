@@ -286,7 +286,7 @@ test.describe.serial('Contract Tests', () => {
         await contractPage.clickSearchByContractType();
         await contractPage.clickFreelanceType();
         await basePage.clickSearch();
-        await contractPage.clickFreelanceType();
+        await contractPage.verifyFreelanceType();
     });
 
 

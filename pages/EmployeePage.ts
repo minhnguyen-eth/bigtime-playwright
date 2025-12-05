@@ -16,7 +16,6 @@ export class EmployeePage extends ValidationPage {
   readonly setSalary: Locator;
   readonly fillSalary: Locator;
   readonly fillInsurance: Locator;
-  readonly openAllowance: Locator;
   readonly addAllowance: Locator;
   readonly dropdownAllowance: Locator;
   readonly selectAllowance: Locator;
@@ -52,7 +51,7 @@ export class EmployeePage extends ValidationPage {
   readonly resultSearchByName: Locator;
   readonly dropdownRoleName: Locator;
   readonly managementDepartmentRole: Locator;
-  readonly emailError: Locator;
+  readonly VALIDATE_EMAIL: Locator;
   readonly dailySalary: Locator;
   readonly dropdownSalaryType: Locator;
   readonly selectAdmin: Locator;
@@ -82,7 +81,7 @@ export class EmployeePage extends ValidationPage {
 
   constructor(page: Page) {
     super(page);
-    this.payUnionDueCheckBox = page.locator("(//input[@type='checkbox'])[4]");
+    this.payUnionDueCheckBox = page.getByRole('checkbox', { name: 'Đóng tiền đoàn phí công đoàn' });
     this.checkBoxJustCheckImAtLeastOneceWhenEnteingWork = page.locator("//input[@aria-label='Chỉ cần điểm danh ít nhất 1 lần khi vào ca']");
     this.checkBoxJustCheckInAtLeastOnceADay = page.locator("//input[@aria-label='Chỉ cần điểm danh ít nhất 1 lần trong ngày']");
     this.toastPage = new ToastPage(page);
@@ -108,7 +107,7 @@ export class EmployeePage extends ValidationPage {
     this.emailAddressExisted = page.locator("//li[contains(text(),'Địa chỉ email đã tồn tại.')]");
     this.dropdownSalaryType = page.getByRole('combobox').filter({ hasText: 'Loại lương Cố định' }).locator('i');
     this.dailySalary = page.locator("//div[contains(text(),'Theo ngày')]");
-    this.emailError = page.locator("//li[contains(text(),'Định dạng Địa chỉ email không hợp lệ.')]");
+    this.VALIDATE_EMAIL = page.locator("//li[contains(text(),'Định dạng Địa chỉ email không hợp lệ.')]").first();
     this.managementDepartmentRole = page.locator("//div[text()='Trưởng bộ phận']");
     this.dropdownRoleName = page.getByRole('textbox', { name: 'Tên quyền ※' });
     this.resultSearchByName = page.locator("//tr[@id='row-0']//span[contains(text(),'Nguyễn Văn Minh')]");
@@ -144,7 +143,6 @@ export class EmployeePage extends ValidationPage {
     this.dropdownAllowance = page.getByRole('combobox').filter({ hasText: /^$/ }).locator('i');
     this.dropdownAllowance2 = page.getByRole('combobox').filter({ hasText: /^$/ }).locator('i');
     this.addAllowance = page.locator("//span[contains(.,'+Thêm phụ cấp')]");
-    this.openAllowance = page.locator("(//input[@type='checkbox'])[5]");
     this.fillInsurance = page.getByRole('textbox', { name: 'Mức bảo hiểm' })
     this.fillSalary = page.getByRole('textbox', { name: 'Mức lương' })
     this.setSalary = page.locator("//span[contains(normalize-space(),'Thiết lập lương')]");
@@ -373,9 +371,9 @@ export class EmployeePage extends ValidationPage {
   async clickAddAllowance() {
     await this.safeClick(this.addAllowance);
   }
-
-  async clickOpenAllowance() {
-    await this.openAllowance.check();
+  async toggleAllowance() {
+    const wrapper = this.page.locator('div.v-switch');
+    await wrapper.click();
   }
 
   async fillFillInsurance(insurance: string) {
@@ -446,8 +444,8 @@ export class EmployeePage extends ValidationPage {
     await this.safeVerifyToHaveText(this.emailAddressExisted, "Địa chỉ email đã tồn tại.");
   }
 
-  async verifyEmailError() {
-    await this.safeVerifyToHaveText(this.emailError, "Định dạng Địa chỉ email không hợp lệ.");
+  async verifyValidateEmail() {
+    await this.safeVerifyToHaveText(this.VALIDATE_EMAIL, "Định dạng Địa chỉ email không hợp lệ.");
   }
 
   async verifySearchByCode() {
@@ -529,7 +527,7 @@ export class EmployeePage extends ValidationPage {
     await this.testAddEmployee();
     await this.fillEmail('Tét123456');
     await this.clickSave();
-    await this.verifyEmailError();
+    await this.verifyValidateEmail();
     await this.toastPage.getToastAddFailed();
   }
 
@@ -641,7 +639,7 @@ export class EmployeePage extends ValidationPage {
     await this.clickDropdownRank();
     await this.clickSelectRank();
     await this.fillCitizenId(random10Digits);
-    
+
     await this.page.evaluate(() => {
       window.scrollBy(0, -1000);
     }); // Scroll up
@@ -672,7 +670,7 @@ export class EmployeePage extends ValidationPage {
     await this.clickSetSalary();
     await this.fillFillSalary('22000000');
     await this.fillFillInsurance('500000');
-    await this.clickOpenAllowance();
+    await this.toggleAllowance();
     await this.clickAddAllowance();
     await this.clickDropdownAllowance();
     await this.clickSelectAllowance();

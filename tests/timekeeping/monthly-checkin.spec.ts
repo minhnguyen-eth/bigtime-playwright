@@ -192,6 +192,8 @@ test.describe.serial('Monthly Checkin Tests', () => {
         await monthlyCheckinPage.clickHistoryLinkButton();
         await monthlyCheckinPage.chooseEmployeeFilter('Test chấm công tháng');
         await monthlyCheckinPage.selectEmployeeFilter();
+        await monthlyCheckinPage.clickChooseMonthFilter();
+        await monthlyCheckinPage.clickChosseMonthPicker(MONTH);
 
         // MONTHLY APPROVAL
         await monthlyCheckinPage.clickMonthlyApprovalButtonAtHistoryCheckinPage();

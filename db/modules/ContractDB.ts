@@ -12,7 +12,7 @@ export async function checkContractExists(note: string, type: number, status: nu
 
 // clear data 
 export const clearEmploymentContract = async () => {
-  await clearTable('employment_contracts', "user_id LIKE '%4cMiTbHpAz%'");
+  await clearTable('employment_contracts', "user_id LIKE '%minh%' and id not like '%TestData%'");
 }
 
 // import contracts from csv file
