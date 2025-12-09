@@ -4,7 +4,7 @@
 
 ```bash
 # run with: 
-npx playwright test
+npx playwright test tests 
 
 # clear allure results folder before running tests: 
 npm run test
