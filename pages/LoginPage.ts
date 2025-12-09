@@ -13,9 +13,12 @@ export class LoginPage extends BasePage {
   readonly DASHBOARD: Locator;
   readonly VALIDATE_USERNAME: Locator;
   readonly VALIDATE_PASSWORD: Locator;
+  readonly VALIDATE_ACCOUNT_LOCKED: Locator;
+
 
   constructor(page: Page) {
     super(page);
+    this.VALIDATE_ACCOUNT_LOCKED = page.getByText('Tài khoản hiện đang bị khoá');
     this.VALIDATE_USERNAME = page.locator("//div[contains(text(),'Nhập email hoặc số điện thoại')]");
     this.VALIDATE_PASSWORD = page.locator("//div[contains(text(),'Nhập mật khẩu')]");
     this.DASHBOARD = page.locator("//div[contains(text(),'BigTime')]");
@@ -39,7 +42,10 @@ export class LoginPage extends BasePage {
   async expectPasswordValidate() {
     await this.safeVerifyToHaveText(this.VALIDATE_PASSWORD, 'Nhập mật khẩu');
   }
-
+  async expectAccountLockedValidate() {
+    await this.safeVerifyToHaveText(this.VALIDATE_ACCOUNT_LOCKED, 'Tài khoản hiện đang bị khoá');
+  }
+  
   async login(username: string, password: string) {
     await this.safeFill(this.USERNAME_INPUT, username);
     await this.safeFill(this.PASSWORD_INPUT, password);
