@@ -42,6 +42,7 @@ export class LoginPage extends BasePage {
   async expectPasswordValidate() {
     await this.safeVerifyToHaveText(this.VALIDATE_PASSWORD, 'Nhập mật khẩu');
   }
+  
   async expectAccountLockedValidate() {
     await this.safeVerifyToHaveText(this.VALIDATE_ACCOUNT_LOCKED, 'Tài khoản hiện đang bị khoá');
   }
