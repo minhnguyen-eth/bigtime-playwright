@@ -7,7 +7,7 @@ test.describe.serial('Login Tests', () => {
   let loginPage: LoginPage;
 
   test.beforeEach(async ({ page }) => {
-  
+
     allure.feature('Login Feature');
     allure.owner('Minh Nguyen');
     allure.severity('Critical');
@@ -89,27 +89,36 @@ test.describe.serial('Login Tests', () => {
     });
   });
 
-  test('Login Unsuccessful With Invalid Username', async () => {
-    allure.story('Invalid Username Login Story');
+  test('login with locked account', async () => {
+    allure.story('Locked Account Login Story');
 
-    await allure.step('Login with invalid username', async () => {
-      await loginPage.login('admin@bigapptech.vn', Config.admin_password);
-    });
-
-    await allure.step('Verify login failure message', async () => {
-      await loginPage.expectLoginError();
+    await allure.step('Login with locked account', async () => {
+      await loginPage.login('admin@gmail.com', '123456');
+      await loginPage.expectAccountLockedValidate();
     });
   });
 
-  test('Login Unsuccessful With Invalid Password', async () => {
-    allure.story('Invalid Password Login Story');
+    test('Login Unsuccessful With Invalid Username', async () => {
+      allure.story('Invalid Username Login Story');
 
-    await allure.step('Login with invalid password', async () => {
-      await loginPage.login(Config.admin_username, 'asfasfasfas');
+      await allure.step('Login with invalid username', async () => {
+        await loginPage.login('admin@bigapptech.vn', Config.admin_password);
+      });
+
+      await allure.step('Verify login failure message', async () => {
+        await loginPage.expectLoginError();
+      });
     });
 
-    await allure.step('Verify login failure message', async () => {
-      await loginPage.expectLoginError();
+    test('Login Unsuccessful With Invalid Password', async () => {
+      allure.story('Invalid Password Login Story');
+
+      await allure.step('Login with invalid password', async () => {
+        await loginPage.login(Config.admin_username, 'asfasfasfas');
+      });
+
+      await allure.step('Verify login failure message', async () => {
+        await loginPage.expectLoginError();
+      });
     });
   });
-});

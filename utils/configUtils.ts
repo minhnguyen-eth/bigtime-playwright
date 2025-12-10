@@ -48,9 +48,9 @@ export class Config {
     return process.env.ADMIN_USERNAME || '';
   }
 
-  static get admin_password(): string {
-    return process.env.ADMIN_PASSWORD || '';
-  }
+    static get admin_password(): string {
+      return process.env.ADMIN_PASSWORD || '';
+    }
 
   // Connect database
   static get db_host(): string {
