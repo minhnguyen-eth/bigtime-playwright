@@ -9,6 +9,7 @@ import { ToastPage } from '../../pages/ToastPage';
 import { LogoutPage } from '../../pages/LogoutPage';
 import { ValidationPage } from '../../pages/ValidationPage';
 import { importShiftPlan } from '../../db/modules/ShiftplanDB';
+import { BasePage } from '../../pages/BasePage';
 
 test.describe.serial('Leave Application Tests', () => {
     let loginPage: LoginPage;
@@ -254,6 +255,8 @@ test.describe.serial('Leave Application Tests', () => {
 
     test('Search by cancel status', async ({ page }) => {
         await beforeSearchTest();
+        // await leaveApplicationPage.clickChooseMonthFilter();
+        // await leaveApplicationPage.clickChosseMonthPicker(11);
         await leaveApplicationPage.clickCancelButtonSearch();
         await leaveApplicationPage.expectSearchByCancelResult();
     });

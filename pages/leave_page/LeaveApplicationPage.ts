@@ -74,7 +74,7 @@ export class LeaveApplicationPage extends BasePage {
         this.START_DATE = page.getByRole('textbox', { name: 'Nghỉ từ ngày ※ Nghỉ từ ngày ※' });
         this.ANNUAL_LEAVE = page.locator("//div[contains(text(),'Nghỉ theo phép năm')]");
         this.LEAVE_TYPE_DROPDOWN = page.getByRole('combobox').filter({ hasText: 'Loại ngày nghỉ ※Nghỉ' });
-        this.LEAVE_APPLICATION_BUTTON = page.locator("//div[contains(text(),'Đơn nghỉ phép')]");
+        this.LEAVE_APPLICATION_BUTTON = page.getByRole('link', { name: 'Đơn nghỉ phép' });
 
         // verify
         this.VERIFY_SPECIAL_LEAVE = page.locator('#row-0 span').filter({ hasText: 'Nghỉ đặc biệt' });

@@ -136,9 +136,9 @@ export class BasePage extends SafeActions {
     async clickOpenMonthOverlayButton() { await this.safeClick(this.OPEN_MONTH_OVERLAY_BUTTON); }
 
     async clickChosseMonthPicker(month: number) {
-        const locator = this.page.locator(`//div[text()='Thg ${month}']`);
-        await this.safeClick(locator);
+        await this.page.locator(`//div[text()='Thg ${month}']`).click();
         await this.clickChoose();
+        
     }
 
     async clickChooseMonthFilter() { await this.safeClick(this.CHOOSE_MONTH_FILTER); }
@@ -205,7 +205,9 @@ export class BasePage extends SafeActions {
 
     async verifyBrowsedStatus() { await this.safeVerifyToHaveText(this.BROWSED_STATUS, 'Đã duyệt'); }
 
-    async clickChoose() { await this.safeClick(this.CHOSSE_BUTTON); }
+    async clickChoose() {
+    await this.safeClick(this.CHOSSE_BUTTON);
+}
 
     async clickConfirm() {
         await this.safeClick(this.CONFIRM_BUTTON);
