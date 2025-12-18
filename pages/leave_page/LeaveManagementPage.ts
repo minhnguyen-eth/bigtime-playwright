@@ -124,7 +124,7 @@ export class LeaveManagementPage extends BasePage {
     }
     async clickSelectAnEmployee() {
         await this.page.waitForLoadState('load');
-        await this.page.waitForTimeout(2000);
+        await this.page.waitForTimeout(1000);
         await this.SELECT_AN_EMPLOYEE.click();
     }
     async fillSearchByName() {

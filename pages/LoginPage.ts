@@ -32,7 +32,7 @@ export class LoginPage extends BasePage {
 
   async goto() {
     await this.page.waitForLoadState('load');
-    await this.page.goto(Config.urlStaging);
+    await this.page.goto(process.env.URL_BIGTIME as string);
   }
 
   async expectUsernameValidate() {
