@@ -62,7 +62,6 @@ export class EmployeePage extends ValidationPage {
   readonly validateEmployeeName: Locator;
   readonly validateRoleName: Locator;
   readonly dropdownGenderSearch: Locator;
-  readonly checkBoxGender: Locator;
   readonly verifyMaleSearch: Locator;
   readonly verifyFemaleSearch: Locator;
   readonly verifyDataOfBirth: Locator;
@@ -97,7 +96,6 @@ export class EmployeePage extends ValidationPage {
     this.verifyDataOfBirth = page.locator("//div[normalize-space()='08-08-2014']");
     this.verifyFemaleSearch = page.locator("//tr[@id='row-0']//div[contains(text(),'Nữ')]").first();
     this.verifyMaleSearch = page.locator("//tr[@id='row-0']//div[contains(text(),'Nam')]").first();
-    this.checkBoxGender = page.locator("//input[@type='checkbox']");
     this.dropdownGenderSearch = page.getByRole('combobox').filter({ hasText: 'Giới tính' }).locator('i')
     this.validateRoleName = page.locator("//div[contains(text(),'Nhập tên quyền')]");
     this.validateEmail = page.locator("//div[contains(text(),'Nhập Email')]");
@@ -154,7 +152,12 @@ export class EmployeePage extends ValidationPage {
     this.email = page.getByRole('textbox', { name: 'Email ※' })
     this.employeeName = page.getByRole('textbox', { name: 'Tên nhân viên ※' })
     this.employeeCode = page.getByRole('textbox', { name: 'Mã nhân viên ※' })
-    this.userButton = page.locator("//div[contains(text(),'Nhân viên')]");
+    this.userButton = page.getByRole('link', { name: 'Nhân viên', exact: true });
+  }
+
+  async selectGenderSearch(value: string) {
+    const locator = this.page.getByRole('option', { name: value });
+    await this.safeClick(locator);
   }
 
   async selectPayUnionDue() {
@@ -199,14 +202,6 @@ export class EmployeePage extends ValidationPage {
 
   async expectDateOfBirthIsDisplayed() {
     await this.safeVerifyTextContains(this.verifyDataOfBirth, '08-08-2014');
-  }
-
-  async selectMaleSearch() {
-    await this.checkBoxGender.first().check();
-  }
-
-  async selectFemaleSearch() {
-    await this.checkBoxGender.nth(1).check();
   }
 
   async clickDropdownGenderSearch() {
@@ -617,13 +612,13 @@ export class EmployeePage extends ValidationPage {
   async searchByGender() {
     // Search by gender
     await this.clickDropdownGenderSearch();
-    await this.selectMaleSearch();
+    await this.selectGenderSearch('Nam');
     await this.clickSearch();
     await this.verifyVerifyMaleSearch();
     await this.clickClearSearch();
 
     await this.clickDropdownGenderSearch();
-    await this.selectFemaleSearch();
+    await this.selectGenderSearch('Nữ');
     await this.clickSearch();
     await this.verifyVerifyFemaleSearch();
     await this.clickClearSearch();

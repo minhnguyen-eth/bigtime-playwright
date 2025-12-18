@@ -50,7 +50,7 @@ export class RegisnationPage extends BasePage {
         this.notificaOfLeave = page.locator("//form/div/div[2]/div/div/div/div/div[1]/div/div/div[3]/input");
         this.verifyEmployeeNameSearch = page.locator("//tr[@id='row-0']//span[contains(text(),'BAT810 - Nguyễn Văn Minh')]");
         this.employeeNameSearch = page.locator('//form/div/div[1]/div/div/div/div[3]/div/input');
-        this.regisnationButton = page.locator("//div[contains(text(),'Đơn thôi việc')]");
+        this.regisnationButton = page.getByRole('link', { name: 'Đơn thôi việc' });
     }
 
     async clickMonth06Button() {
