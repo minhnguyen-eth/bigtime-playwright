@@ -93,7 +93,7 @@ test.describe.serial('Login Tests', () => {
     allure.story('Locked Account Login Story');
 
     await allure.step('Login with locked account', async () => {
-      await loginPage.login('admin@gmail.com', '123456');
+      await loginPage.login('AccountIsLocked@gmail.com', '123456');
       await loginPage.expectAccountLockedValidate();
     });
   });

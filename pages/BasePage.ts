@@ -138,7 +138,6 @@ export class BasePage extends SafeActions {
     async clickChosseMonthPicker(month: number) {
         await this.page.locator(`//div[text()='Thg ${month}']`).click();
         await this.clickChoose();
-        
     }
 
     async clickChooseMonthFilter() { await this.safeClick(this.CHOOSE_MONTH_FILTER); }
@@ -234,8 +233,7 @@ export class BasePage extends SafeActions {
     async clickCancelNth1() { await this.safeClick(this.CANCEL_BUTTON, { nth: 1 }); }
 
     async clickSave() {
-        await this.page.waitForTimeout(700);
-        await this.safeClick(this.SAVE_BUTTON);
+        await this.safeClick(this.SAVE_BUTTON, { timeout: 700 });
     }
 
     async clickSaveNth1() { await this.safeClick(this.SAVE_BUTTON, { nth: 1 }); }
