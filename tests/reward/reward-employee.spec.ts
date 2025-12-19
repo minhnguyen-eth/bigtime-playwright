@@ -243,7 +243,7 @@ test.describe.serial('Reward Employee Tests', () => {
         await rewardEmployeePage.fillMoney('1000000');
         await rewardEmployeePage.fillDescription('Description 4');
         await rewardEmployeePage.fillNote('Note 4');
-        await rewardEmployeePage.clickDayRewardAdd();
+        await rewardEmployeePage.clickDayRewardInForm();
         await rewardEmployeePage.clickDay19();
         await rewardEmployeePage.clickChoose();
         await rewardEmployeePage.clickSave();

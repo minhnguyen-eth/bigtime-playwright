@@ -47,7 +47,7 @@ export class RegisnationPage extends BasePage {
         this.submittedButton = page.locator("//div[contains(text(),'Đã gửi')]");
         this.newStatusOption = page.locator("//div[contains(text(),'Tạo mới')]");
         this.Day09 = page.locator("//div[contains(@class, 'dp__cell_inner') and normalize-space()='9']");
-        this.notificaOfLeave = page.locator("//form/div/div[2]/div/div/div/div/div[1]/div/div/div[3]/input");
+        this.notificaOfLeave = page.getByRole('textbox', { name: 'Ngày thông báo nghỉ' });
         this.verifyEmployeeNameSearch = page.locator("//tr[@id='row-0']//span[contains(text(),'BAT810 - Nguyễn Văn Minh')]");
         this.employeeNameSearch = page.locator('//form/div/div[1]/div/div/div/div[3]/div/input');
         this.regisnationButton = page.getByRole('link', { name: 'Đơn thôi việc' });

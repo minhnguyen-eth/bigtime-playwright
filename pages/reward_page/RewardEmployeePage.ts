@@ -30,7 +30,7 @@ export class RewardEmployeePage extends BasePage {
     readonly VERIFY_NEW_STATUS: Locator;
     readonly VERIFY_APPROVED_STATUS: Locator;
     readonly VERIFY_CANCELLED_STATUS: Locator;
-    readonly DAY_REWARD_ADD: Locator;
+    readonly DAY_REWARD_IN_FORM: Locator;
 
     constructor(page: Page) {
         super(page);
@@ -51,7 +51,7 @@ export class RewardEmployeePage extends BasePage {
 
         this.DAY_REWARD_INPUT = page.getByRole('textbox', { name: 'Ngày khen thưởng' });
         this.DAY_19 = page.locator("//div[contains(@class, 'dp__cell_inner') and normalize-space()='19']");
-        this.DAY_REWARD_ADD = page.locator("//div[7]/div/div/div/div/div[1]/div/div/div[3]/input");
+        this.DAY_REWARD_IN_FORM = page.locator('.v-field.v-field--active > .v-field__prepend-inner > .mdi-calendar-plus').first();
         this.SEARCH_BY_REWARD_NAME = page.getByRole('textbox', { name: 'Tên khen thưởng' });
         this.SEARCH_BY_EMPLOYEE = page.getByRole('textbox', { name: 'Nhân viên được khen thưởng' });
         this.SEARCH_BY_REWARD_TYPE = page.getByRole('textbox', { name: 'Tên loại khen thưởng' });
@@ -123,8 +123,8 @@ export class RewardEmployeePage extends BasePage {
         await this.safeClick(this.DAY_19);
     }
 
-    async clickDayRewardAdd() {
-        await this.safeClick(this.DAY_REWARD_ADD);
+    async clickDayRewardInForm() {
+        await this.safeClick(this.DAY_REWARD_IN_FORM);
     }
 
     async fillSearchByRewardName(search: string) {

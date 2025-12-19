@@ -137,7 +137,7 @@ export class EmployeePage extends ValidationPage {
     this.dropdownInfoMore = page.getByRole('button', { name: 'Thông tin thêm' });
     this.selectBranch = page.locator("//div[text()='Biên Hòa']");
     this.dropdownBranch = page.getByRole('textbox', { name: 'Tên chi nhánh ※' });
-    this.selectAllowance = page.locator("//div[contains(text(),'Phụ cấp tiền ăn')]");
+    this.selectAllowance = page.getByText('Phụ cấp tiền ăn', { exact: true });
     this.dropdownAllowance = page.getByRole('combobox').filter({ hasText: /^$/ }).locator('i');
     this.dropdownAllowance2 = page.getByRole('combobox').filter({ hasText: /^$/ }).locator('i');
     this.addAllowance = page.locator("//span[contains(.,'+Thêm phụ cấp')]");
