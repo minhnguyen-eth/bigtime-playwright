@@ -129,14 +129,15 @@ export class BasePage extends SafeActions {
     }
 
     async clickFirstCheckbox() { await this.safeClick(this.FISRT_CHECKBOX); }
-    
+
     async clickSecondCheckbox() { await this.safeClick(this.SECOND_CHECKBOX); }
 
     async clickOpenYearOverlayButton() { await this.safeClick(this.OPEN_YEAR_OVERLAY_BUTTON); }
     async clickOpenMonthOverlayButton() { await this.safeClick(this.OPEN_MONTH_OVERLAY_BUTTON); }
 
     async clickChosseMonthPicker(month: number) {
-        await this.page.locator(`//div[text()='Thg ${month}']`).click();
+        const monthLocator = this.page.getByText(`Thg ${month}`, { exact: true });
+        await this.safeClick(monthLocator);
         await this.clickChoose();
     }
 
@@ -205,8 +206,8 @@ export class BasePage extends SafeActions {
     async verifyBrowsedStatus() { await this.safeVerifyToHaveText(this.BROWSED_STATUS, 'Đã duyệt'); }
 
     async clickChoose() {
-    await this.safeClick(this.CHOSSE_BUTTON);
-}
+        await this.safeClick(this.CHOSSE_BUTTON, { force: true });
+    }
 
     async clickConfirm() {
         await this.safeClick(this.CONFIRM_BUTTON);

@@ -255,56 +255,72 @@ test.describe.serial('Leave Application Tests', () => {
 
     test('Search by cancel status', async ({ page }) => {
         await beforeSearchTest();
-        // await leaveApplicationPage.clickChooseMonthFilter();
-        // await leaveApplicationPage.clickChosseMonthPicker(11);
+        await leaveApplicationPage.clickChooseMonthFilter();
+        await leaveApplicationPage.clickChosseMonthPicker(11);
         await leaveApplicationPage.clickCancelButtonSearch();
         await leaveApplicationPage.expectSearchByCancelResult();
     });
 
     test('Search by pending status', async ({ page }) => {
         await beforeSearchTest();
+        await leaveApplicationPage.clickChooseMonthFilter();
+        await leaveApplicationPage.clickChosseMonthPicker(11);
         await leaveApplicationPage.clickWaitForBrowsedButtonSearch();
         await leaveApplicationPage.expectSearchByWaitForBrowsedResult();
     });
 
     test('Search by approved status', async ({ page }) => {
-        await beforeSearchTest();
+        await beforeSearchTest();   
+        await leaveApplicationPage.clickChooseMonthFilter();
+        await leaveApplicationPage.clickChosseMonthPicker(11);
         await leaveApplicationPage.clickBrowsedButtonSearch();
         await leaveApplicationPage.expectSearchByBrowsedResult();
     });
 
     test('Search by rejected status', async ({ page }) => {
         await beforeSearchTest();
+        await leaveApplicationPage.clickChooseMonthFilter();
+        await leaveApplicationPage.clickChosseMonthPicker(11);
         await leaveApplicationPage.clickRejectButtonSearch();
         await leaveApplicationPage.expectSearchByRejectedResult();
     });
 
     test('Search by regular leave application', async ({ page }) => {
         await beforeSearchTest();
+        await leaveApplicationPage.clickChooseMonthFilter();
+        await leaveApplicationPage.clickChosseMonthPicker(11);
         await leaveApplicationPage.clickSearchByRegularLeave();
         await leaveApplicationPage.getVerifyRegularLeave();
     });
 
     test('Search by social insurance leave application', async ({ page }) => {
         await beforeSearchTest();
+        await leaveApplicationPage.clickChooseMonthFilter();
+        await leaveApplicationPage.clickChosseMonthPicker(11);
         await leaveApplicationPage.clickSearchBySocialInsuranceLeave();
         await leaveApplicationPage.getVerifySocialInsuranceLeave();
     });
 
     test('Search by anual leave application', async ({ page }) => {
         await beforeSearchTest();
+        await leaveApplicationPage.clickChooseMonthFilter();
+        await leaveApplicationPage.clickChosseMonthPicker(11);
         await leaveApplicationPage.clickSearchByAnnualLeave();
         await leaveApplicationPage.getVerifyAnnualLeave();
     });
 
     test('Search by special leave application', async ({ page }) => {
         await beforeSearchTest();
+        await leaveApplicationPage.clickChooseMonthFilter();
+        await leaveApplicationPage.clickChosseMonthPicker(11);
         await leaveApplicationPage.clickSearchBySpecialLeave();
         await leaveApplicationPage.getVerifySpecialLeave();
     });
 
     test('Search by maternity leave application', async ({ page }) => {
         await beforeSearchTest();
+        await leaveApplicationPage.clickChooseMonthFilter();
+        await leaveApplicationPage.clickChosseMonthPicker(11);
         await leaveApplicationPage.clickSearchByMaternityLeave();
         await leaveApplicationPage.getVerifyMaternityLeave();
     });

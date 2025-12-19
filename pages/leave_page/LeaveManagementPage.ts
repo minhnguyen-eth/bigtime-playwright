@@ -101,7 +101,7 @@ export class LeaveManagementPage extends BasePage {
         await this.safeVerifyTextContains(this.ANNUAL_LEAVE_ALREADY_EXIST, expectedValue);
     }
     async verifyResultYear(expectedValue: string) {
-        const locator = this.page.locator(`//td[normalize-space()='${expectedValue}']`);
+        const locator = this.page.locator(`//td[normalize-space()='${expectedValue}']`).first();
         await this.safeVerifyToHaveText(locator, expectedValue);
     }
 
@@ -121,6 +121,7 @@ export class LeaveManagementPage extends BasePage {
         await this.page.waitForLoadState('load');
         await expect(this.SAVE_EMPLOYEE.nth(1)).toBeVisible();
         await this.SAVE_EMPLOYEE.nth(1).click();
+        await this.page.waitForTimeout(1000);
     }
     async clickSelectAnEmployee() {
         await this.page.waitForLoadState('load');
@@ -131,7 +132,10 @@ export class LeaveManagementPage extends BasePage {
         await this.page.waitForTimeout(1000);
         await this.SEARCH_BY_NAME.fill('Nguyễn Văn Minh');
     }
-    async clickSaveDepartmentAndTeam() { await this.safeClick(this.SAVE_DEPARTMENT_AND_TEAM); }
+    async clickSaveDepartmentAndTeam() {
+        await this.safeClick(this.SAVE_DEPARTMENT_AND_TEAM);
+        await this.page.waitForTimeout(1000);
+    }
     async clickDepartmentIT() { await this.safeClick(this.DEPARTMENT_IT); }
     async clickDepartmentAndTeam() { await this.safeClick(this.DEPARTMENT_AND_TEAM); }
     async clickAddDepartment() { await this.safeClick(this.ADD_DEPARTMENT); }

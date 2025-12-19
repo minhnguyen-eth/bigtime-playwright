@@ -142,7 +142,6 @@ export class LeaveApplicationPage extends BasePage {
     }
 
     async clickCancelButtonSearch() {
-        await this.clickClearSearch();
         await this.clickDropdownStatusSearch();
         await this.safeClick(this.CANCEL_BUTTON_SEARCH);
         await this.clickLabelLeaveApplication();
@@ -150,7 +149,6 @@ export class LeaveApplicationPage extends BasePage {
     }
 
     async clickRejectButtonSearch() {
-        await this.clickClearSearch();
         await this.clickDropdownStatusSearch();
         await this.safeClick(this.REJECT_BUTTON_SEARCH);
         await this.clickLabelLeaveApplication();
@@ -158,7 +156,6 @@ export class LeaveApplicationPage extends BasePage {
     }
 
     async clickBrowsedButtonSearch() {
-        await this.clickClearSearch();
         await this.clickDropdownStatusSearch();
         await this.safeClick(this.BROWSED_BUTTON_SEARCH);
         await this.clickLabelLeaveApplication();
@@ -166,7 +163,6 @@ export class LeaveApplicationPage extends BasePage {
     }
 
     async clickWaitForBrowsedButtonSearch() {
-        await this.clickClearSearch();
         await this.clickDropdownStatusSearch();
         await this.safeClick(this.WAIT_FOR_BROWSED_BUTTON_SEARCH);
         await this.clickLabelLeaveApplication();
@@ -182,28 +178,24 @@ export class LeaveApplicationPage extends BasePage {
     }
 
     async clickSearchByAnnualLeave() {
-        await this.clickClearSearch();
         await this.clickRestTypeComboBox();
         await this.safeClick(this.SEARCH_BY_ANNUAL_LEAVE);
         await this.clickSearch();
     }
 
     async clickSearchBySpecialLeave() {
-        await this.clickClearSearch();
         await this.clickRestTypeComboBox();
         await this.safeClick(this.SEARCH_BY_SPECIAL_LEAVE);
         await this.clickSearch();
     }
 
     async clickSearchByMaternityLeave() {
-        await this.clickClearSearch();
         await this.clickRestTypeComboBox();
         await this.safeClick(this.SEARCH_BY_MATERNITY_LEAVE);
         await this.clickSearch();
     }
 
     async clickSearchBySocialInsuranceLeave() {
-        await this.clickClearSearch();
         await this.clickRestTypeComboBox();
         await this.safeClick(this.SEARCH_BY_SOCIAL_INSURANCE_LEAVE);
         await this.clickSearch();
