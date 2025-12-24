@@ -22,16 +22,16 @@ test.describe.serial("Evaluation Type Tests", () => {
         loginPage = new LoginPage(page);
         evaluationtype = new EvaluationTypePage(page);
         toastPage = new ToastPage(page);
-        
+
 
         await loginPage.goto();
         await loginPage.login(Config.admin_username, Config.admin_password);
     });
 
-    test("Max lenghth of evaluation type name is 255 characters", async ({ page }) => {
+    test("Max lenghth of evaluation type name is 255 characters - Kiểm tra tên loại đánh giá có độ dài tối đa là 255 ký tự", async ({ page }) => {
         await clearEluationTypes();
         allure.story("Evaluation Type Name Length Validation");
-        
+
         await evaluationtype.clickAdmin();
         await evaluationtype.clickEvaluationType();
         await evaluationtype.clickAdd();
@@ -40,9 +40,9 @@ test.describe.serial("Evaluation Type Tests", () => {
         await toastPage.getToastAddSuccess();
     });
 
-     test("Max lenghth of evaluation type name over 255 characters", async ({ page }) => {
+    test("Max lenghth of evaluation type name over 255 characters - Kiểm tra tên loại đánh giá có độ dài lớn hơn 255 ký tự", async ({ page }) => {
         allure.story("Evaluation Type Name Length Validation");
-        
+
         await evaluationtype.clickAdmin();
         await evaluationtype.clickEvaluationType();
         await evaluationtype.clickAdd();
@@ -51,9 +51,9 @@ test.describe.serial("Evaluation Type Tests", () => {
         await validationPage.validateMaxLength255Characters();
     });
 
-    test("Max lenghth of evaluation type description is 500 characters", async ({ page }) => {
+    test("Max lenghth of evaluation type description is 500 characters - Kiểm tra mô tả loại đánh giá có độ dài tối đa là 500 ký tự", async ({ page }) => {
         allure.story("Evaluation Type Description Length Validation");
-        
+
         await evaluationtype.clickAdmin();
         await evaluationtype.clickEvaluationType();
         await evaluationtype.clickAdd();
@@ -63,9 +63,9 @@ test.describe.serial("Evaluation Type Tests", () => {
         await toastPage.getToastAddSuccess();
     });
 
-    test("Max lenghth of evaluation type description over 500 characters", async ({ page }) => {
+    test("Max lenghth of evaluation type description over 500 characters - Kiểm tra mô tả loại đánh giá có độ dài lớn hơn 500 ký tự", async ({ page }) => {
         allure.story("Evaluation Type Description Length Validation");
-        
+
         await evaluationtype.clickAdmin();
         await evaluationtype.clickEvaluationType();
         await evaluationtype.clickAdd();
@@ -76,7 +76,7 @@ test.describe.serial("Evaluation Type Tests", () => {
     });
 
 
-    test("Add evaluation type with valid data and check in database", async ({ page }) => {
+    test("Add evaluation type with valid data and check in database - Tạo loại đánh giá với dữ liệu hợp lệ và kiểm tra trong database", async ({ page }) => {
         allure.story("Create Evaluation Type with Valid Data");
         allure.description("Create Evaluation Type with Valid Data and Check Existence in Database.");
         await clearEluationTypes();
@@ -101,7 +101,7 @@ test.describe.serial("Evaluation Type Tests", () => {
         }
     });
 
-    test("Add evaluation type with empty description", async ({ page }) => {
+    test("Add evaluation type with empty description - Tạo loại đánh giá với mô tả để trống và kiểm tra tồn tại trong database", async ({ page }) => {
         allure.story("Create Evaluation Type with Empty Description");
         allure.description("Tạo loại đánh giá với mô tả để trống và kiểm tra tồn tại trong database.");
 
@@ -120,7 +120,7 @@ test.describe.serial("Evaluation Type Tests", () => {
     });
 
 
-    test("Edit activity to lock status", async ({ page }) => {
+    test("Edit activity to lock status - Chỉnh sửa loại đánh giá từ trạng thái hoạt động sang trạng thái khóa", async ({ page }) => {
         allure.story("Edit Evaluation Type Status");
         allure.description("Chỉnh sửa loại đánh giá từ trạng thái hoạt động sang trạng thái khóa.");
 
@@ -133,7 +133,7 @@ test.describe.serial("Evaluation Type Tests", () => {
         await toastPage.getToastUpdateSuccess();
     });
 
-    test("Add evaluation type with lock status", async ({ page }) => {
+    test("Add evaluation type with lock status - Tạo loại đánh giá với trạng thái khóa và kiểm tra tồn tại trong database", async ({ page }) => {
         allure.story("Create Evaluation Type with Lock Status");
         allure.description("Tạo loại đánh giá với trạng thái khóa và kiểm tra tồn tại trong database.");
 
@@ -154,7 +154,7 @@ test.describe.serial("Evaluation Type Tests", () => {
         expect(existsInDB).toBeTruthy();
     });
 
-    test("Search Evaluation Type", async ({ page }) => {
+    test("Search Evaluation Type - Tìm kiếm loại đánh giá theo tên cụ thể và xác minh kết quả", async ({ page }) => {
         allure.story("Search Evaluation Type by Name");
         allure.description("Tìm kiếm loại đánh giá theo tên cụ thể và xác minh kết quả.");
 
@@ -165,13 +165,16 @@ test.describe.serial("Evaluation Type Tests", () => {
         await evaluationtype.expectSearchEvaluationTypeName("Đánh giá chuyên cần");
     });
 
-    test('Delete evaluation type', async ({ page }) => {
+    test('Delete evaluation type - Xóa loại đánh giá và xác minh thông báo thành công', async ({ page }) => {
         allure.story("Delete Evaluation Type");
         allure.description("Xóa loại đánh giá và xác minh thông báo thành công.");
 
         await evaluationtype.clickAdmin();
         await evaluationtype.clickEvaluationType();
         await evaluationtype.clickDeleteRow0();
-        await toastPage.getToastDeleteSuccess();
+
+        await allure.step("Verify delete success toast message - Xác minh thông báo xóa thành công" , async () => {
+            await toastPage.getToastDeleteSuccess();
+        });
     });
 });

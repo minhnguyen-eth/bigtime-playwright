@@ -29,7 +29,134 @@ test.describe.serial('Employee Tests', () => {
         await employeePage.clickUser();
     });
 
-    test('Create employee with select pay union due', async ({ page }) => {
+    test('Add a dependents but not fill start date of dependents - Thêm một người phụ thuộc không nhập giảm trừ từ ngày ', async ({ page }) => {
+        await employeePage.fillSearchByName('Nguyễn Văn Minh');
+        await employeePage.clickSearch();
+        await employeePage.clickRow0();
+        await employeePage.clickEdit();
+        await employeePage.clickFamilyInformation();
+        await employeePage.clickAddNth1();
+        await employeePage.fillNameDependents('Automation test');
+        await employeePage.checkIsDependents();
+        await employeePage.clickSaveNth1();
+        await employeePage.verifyValidateStartDateDependents();
+    });
+
+    test('Add a dependents but not fill name - Thêm một người phụ thuộc không nhập họ tên ', async ({ page }) => {
+        await employeePage.fillSearchByName('Nguyễn Văn Minh');
+        await employeePage.clickSearch();
+        await employeePage.clickRow0();
+        await employeePage.clickEdit();
+        await employeePage.clickFamilyInformation();
+        await employeePage.clickAddNth1();
+        await employeePage.clickSaveNth1();
+        await employeePage.validateRequiredFillName();
+    });
+
+    test('Add a dependents fill all information - Thêm một người phụ thuộc nhập đầy đủ thông tin ', async ({ page }) => {
+        await employeePage.fillSearchByName('Nguyễn Văn Minh');
+        await employeePage.clickSearch();
+        await employeePage.clickRow0();
+        await employeePage.clickEdit();
+        await employeePage.clickFamilyInformation();
+        await employeePage.clickAddNth1();
+        await employeePage.fillNameDependents('Automation test dependents');
+        await employeePage.clickDateOfBirth();
+        await employeePage.clickTodayDatePicker();
+        await employeePage.checkIsDependents();
+        await employeePage.clickStartDateDependents();
+        await employeePage.clickTodayDatePicker();
+        await employeePage.clickEndDateDependents();
+        await employeePage.clickTodayDatePicker();
+        await employeePage.fillTaxCode('01234564895');
+        await employeePage.fillPhoneNumber('0351569856');
+
+        // Relationship
+        await employeePage.clickRelationshipDropdown();
+        await employeePage.selectRelationship('Con trai');
+
+        await employeePage.fillAddress('A'.repeat(500));
+        await employeePage.fillNote('A'.repeat(500));
+        await employeePage.clickSaveNth1();
+        await employeePage.clickSave();
+
+        // Verify
+        await toastPage.getToastUpdateSuccess();
+
+        await page.waitForTimeout(800);
+        await employeePage.clickRow0();
+        await employeePage.clickEdit();
+        await employeePage.clickFamilyInformation();
+        await employeePage.verifyRelationship('Con trai');
+        await employeePage.verifyNameDependents('Automation test dependent');
+        await employeePage.verifyTaxCode('01234564895');
+        await employeePage.verifyIsDependents();
+    });
+
+    test('Update dependents - Chỉnh sửa thông tin người phụ thuộc ', async ({ page }) => {
+        await employeePage.clickRow0();
+        await employeePage.clickEdit();
+        await employeePage.clickFamilyInformation();
+        await employeePage.clickEditNth1();
+        await employeePage.fillNameDependents('Automation test dependents updated');
+        await employeePage.clickDateOfBirth();
+        await employeePage.clickTodayDatePicker();
+        await employeePage.checkIsDependents();
+        await employeePage.clickStartDateDependents();
+        await employeePage.clickTodayDatePicker();
+        await employeePage.clickEndDateDependents();
+        await employeePage.clickTodayDatePicker();
+        await employeePage.fillTaxCode('01234567899');
+        await employeePage.fillPhoneNumber('0123456788');
+
+        // Relationship
+        await employeePage.clickRelationshipDropdown();
+        await employeePage.selectRelationship('Con gái');
+        await employeePage.clickSaveNth1();
+        await employeePage.clickSave();
+        await toastPage.getToastUpdateSuccess();
+    });
+
+    test('Delete dependents - Xóa người phụ thuộc', async ({ page }) => {
+        await employeePage.fillSearchByName('Nguyễn Văn Minh');
+        await employeePage.clickSearch();
+        await employeePage.clickRow0();
+        await employeePage.clickEdit();
+        await employeePage.clickFamilyInformation();
+        await employeePage.clickDeleteNth1();
+        await employeePage.clickSave();
+        await toastPage.getToastUpdateSuccess();
+
+        // Verify deleted
+        await employeePage.clickRow0();
+        await employeePage.clickEdit();
+        await employeePage.clickFamilyInformation();
+        await employeePage.validateNoExistData();
+    });
+
+    test('Add a member of family not check is dependents - Thêm một người trong gia đình không chọn là người phụ thuộc ', async ({ page }) => {
+        await employeePage.fillSearchByName('Nguyễn Văn Minh');
+        await employeePage.clickSearch();
+        await employeePage.clickRow0();
+        await employeePage.clickEdit();
+        await employeePage.clickFamilyInformation();
+        await employeePage.clickAddNth1();
+        await employeePage.fillNameDependents('Automation test');
+        await employeePage.clickSaveNth1();
+        await employeePage.clickSave();
+        await toastPage.getToastUpdateSuccess();
+
+        // Delete 
+        await page.waitForTimeout(800);
+        await employeePage.clickRow0();
+        await employeePage.clickEdit();
+        await employeePage.clickFamilyInformation();
+        await employeePage.clickDeleteNth1();
+        await employeePage.clickSave();
+        await toastPage.getToastUpdateSuccess();
+    });
+
+    test('Create employee with check pay union due - Tạo mới nhân viên chọn đóng đoàn phí ', async ({ page }) => {
         const randomSuffix = Math.random().toString(36).substring(2, 8);
         const randomAllowanceName = `Phụ cấp${randomSuffix}`;
         const userCode = `userCode${randomSuffix}`;

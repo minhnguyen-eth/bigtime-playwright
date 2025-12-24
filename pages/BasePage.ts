@@ -30,6 +30,7 @@ export class BasePage extends SafeActions {
     readonly NOTE_INPUT: Locator;
     readonly DESCRIPTION_INPUT: Locator;
     readonly TEXTAREA_INPUT: Locator;
+    readonly TAX_CODE_INPUT: Locator;
 
     // Status Indicators / Labels
     readonly BROWSED_STATUS: Locator;
@@ -39,8 +40,7 @@ export class BasePage extends SafeActions {
     readonly ACTIVITY_STATUS: Locator;
 
     // Dropdowns 
-    readonly DROPDOWN_STATUS_SEARCH: Locator;
-    readonly STATUS_DROPDOWN_IN_FORM: Locator;
+    readonly STATUS_DROPDOWN: Locator;
 
     // Others
     readonly TODAY_DATE_PICKER: Locator;
@@ -78,14 +78,14 @@ export class BasePage extends SafeActions {
         this.OPEN_MINUTES_OVERLAY_BUTTON = page.getByRole('button', { name: 'Open minutes overlay' });
 
         // Dropdowns
-        this.STATUS_DROPDOWN_IN_FORM = page.getByRole('combobox').filter({ hasText: 'Trạng thái' }).locator('i');
-        this.DROPDOWN_STATUS_SEARCH = page.getByRole('combobox').filter({ hasText: 'Trạng thái' }).locator('i');
+        this.STATUS_DROPDOWN = page.getByRole('combobox').filter({ hasText: 'Trạng thái' }).locator('i');
 
         // Inputs / Textarea
         this.NOTE_INPUT = page.getByRole('textbox', { name: 'Ghi chú' });
         this.REASON_INPUT = page.getByRole('textbox', { name: 'Lý do' });
         this.DESCRIPTION_INPUT = page.getByRole('textbox', { name: 'Mô tả' });
         this.TEXTAREA_INPUT = page.locator("//textarea[1]");
+        this.TAX_CODE_INPUT = page.getByRole('textbox', { name: 'Mã số thuế' });
 
         // Row & statuses
         this.ROW0 = page.locator("//tr[@id='row-0']");
@@ -128,6 +128,10 @@ export class BasePage extends SafeActions {
         this.SEARCH_BUTTON = page.locator("//span[contains(normalize-space(),'Tìm kiếm')]");
     }
 
+    async fillTaxCode(taxCode: string) {
+        await this.safeFill(this.TAX_CODE_INPUT, taxCode);
+    }
+
     async clickFirstCheckbox() { await this.safeClick(this.FISRT_CHECKBOX); }
 
     async clickSecondCheckbox() { await this.safeClick(this.SECOND_CHECKBOX); }
@@ -165,8 +169,8 @@ export class BasePage extends SafeActions {
     async clickLockStatus() { await this.safeClick(this.LOCK_STATUS); }
     async clickActivityStatus() { await this.safeClick(this.ACTIVITY_STATUS); }
 
-    async clickDropdownStatusSearch() { await this.safeClick(this.DROPDOWN_STATUS_SEARCH); }
-    async clickDropdownStatusSearchNth1() { await this.safeClick(this.DROPDOWN_STATUS_SEARCH, { nth: 1 }); }
+    async clickDropdownStatusSearch() { await this.safeClick(this.STATUS_DROPDOWN); }
+    async clickDropdownStatusSearchNth1() { await this.safeClick(this.STATUS_DROPDOWN, { nth: 1 }); }
 
     async verifyActivityStatusRow0() { await this.safeVerifyToHaveText(this.ACTIVITY_STATUS_ROW0, 'Hoạt động'); }
     async verifyLockStatusRow0() { await this.safeVerifyToHaveText(this.LOCK_STATUS_ROW0, 'Khóa'); }
@@ -188,8 +192,8 @@ export class BasePage extends SafeActions {
         await this.safeClick(this.YES_BUTTON);
     }
 
-    async clickDeleteFirst() {
-        await this.safeClick(this.DELETE_BUTTON, { first: true });
+    async clickDeleteNth1() {
+        await this.safeClick(this.DELETE_BUTTON, { nth: 1 });
         await this.safeClick(this.YES_BUTTON);
     }
 
@@ -234,7 +238,7 @@ export class BasePage extends SafeActions {
     async clickCancelNth1() { await this.safeClick(this.CANCEL_BUTTON, { nth: 1 }); }
 
     async clickSave() {
-        await this.safeClick(this.SAVE_BUTTON, { timeout: 700 });
+        await this.safeClick(this.SAVE_BUTTON, { first: true, timeout: 700 });
     }
 
     async clickSaveNth1() { await this.safeClick(this.SAVE_BUTTON, { nth: 1 }); }
@@ -256,6 +260,6 @@ export class BasePage extends SafeActions {
     async fillNote(note: string) { await this.safeFill(this.NOTE_INPUT, note); }
     async fillDescription(description: string) { await this.safeFill(this.DESCRIPTION_INPUT, description); }
 
-    async clickDropdownStatusInForm() { await this.safeClick(this.STATUS_DROPDOWN_IN_FORM); }
-    async clickDropdownStatusInFormNth1() { await this.safeClick(this.STATUS_DROPDOWN_IN_FORM, { nth: 1 }); }
+    async clickDropdownStatusInForm() { await this.safeClick(this.STATUS_DROPDOWN); }
+    async clickDropdownStatusInFormNth1() { await this.safeClick(this.STATUS_DROPDOWN, { nth: 1 }); }
 }

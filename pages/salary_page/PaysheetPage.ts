@@ -87,7 +87,7 @@ export class PaysheetPage extends BasePage {
         this.NUMBER_OF_WORKING_DAYS = page.locator("//tr/td[4]/div/div/div/div[3]/div/input");
         this.BASE_SALARY = page.locator("//tbody/tr/td[4]/p[1]");
         this.SELECT_MORE_EMPLOYEE = page.getByRole('option', { name: /Big App Tech/ });
-        this.SELECT_MORE_EMPLOYEE_2 = page.getByRole('option', { name: 'BAT810 - Nguyễn Văn Minh' });
+        this.SELECT_MORE_EMPLOYEE_2 = page.getByText('BAT501 - Test Lương', { exact: true });
         this.FILL_EMPLOYEE_NAME = page.locator("//div[3]/div[2]/div/div/div/div[3]/div/input");
         this.ADD_MORE_EMPLOYEE = page.locator("//span[normalize-space()='Thêm nhân viên']");
         this.EXPORT_ONLY_1_PAYSHEET = page.getByRole('table').getByRole('button', { name: 'Xuất dữ liệu' });
@@ -136,7 +136,7 @@ export class PaysheetPage extends BasePage {
     }
 
     async verifyTotalReceived(amount: string) {
-        const locator = this.page.locator(`(//td[@class='text-right'][contains(text(),'${amount} đ')])[3]`);
+        const locator = this.page.locator('td').filter({ hasText: `${amount} đ` }).first();
         await this.safeVerifyTextContains(locator, amount);
     }
 
@@ -151,6 +151,12 @@ export class PaysheetPage extends BasePage {
     }
 
     async verifyTax(amount: string) {
+        const locator = this.page.locator(`(//p[contains(text(),'${amount} đ')])[7]`);
+        await this.safeVerifyTextContains(locator, amount);
+    }
+
+
+    async verifyTaxOf1Dependent(amount: string) {
         const locator = this.page.locator(`//p[contains(text(),'${amount} đ')]`);
         await this.safeVerifyTextContains(locator, amount);
     }

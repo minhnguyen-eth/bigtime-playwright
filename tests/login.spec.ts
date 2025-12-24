@@ -16,31 +16,31 @@ test.describe.serial('Login Tests', () => {
     await loginPage.goto();
   });
 
-  test('Login Successful With Valid Credentials', async () => {
+  test('Login Successful With Valid Credentials - Đăng nhập thành công với tài khoản admin', async () => {
     allure.story('Valid Admin Login Story');
 
     await allure.step('Login with admin account', async () => {
       await loginPage.login(Config.admin_username, Config.admin_password);
     });
 
-    await allure.step('Verify successful admin login', async () => {
+    await allure.step('Verify successful admin login - Kiểm tra đăng nhập thành công với tài khoản admin', async () => {
       await loginPage.expectLoginSuccess();
     });
   });
 
-  test('Login Successful With Employee Account', async () => {
+  test('Login Successful With Employee Account - Đăng nhập thành công với tài khoản nhân viên', async () => {
     allure.story('Valid Employee Login Story');
 
     await allure.step('Login with employee account', async () => {
       await loginPage.login(Config.employee_username, Config.employee_password);
     });
 
-    await allure.step('Verify successful employee login', async () => {
+    await allure.step('Verify successful employee login - Kiểm tra đăng nhập thành công với tài khoản nhân viên', async () => {
       await loginPage.expectLoginSuccess();
     });
   });
 
-  test('Login Unsuccessful With Invalid Credentials', async () => {
+  test('Login Unsuccessful With Invalid Credentials - Đăng nhập thất bại với tài khoản không tồn tại', async () => {
     allure.story('Invalid Login Story');
 
     await allure.step('Login with invalid credentials', async () => {
@@ -52,7 +52,7 @@ test.describe.serial('Login Tests', () => {
     });
   });
 
-  test('Login Unsuccessful With Empty Credentials', async () => {
+  test('Login Unsuccessful With Empty Credentials - Đăng nhập thất bại với tài khoản và mật khẩu rỗng', async () => {
     allure.story('Empty Login Story');
 
     await allure.step('Login with empty credentials', async () => {
@@ -65,19 +65,19 @@ test.describe.serial('Login Tests', () => {
     });
   });
 
-  test('Login Unsuccessful With Empty Username', async () => {
+  test('Login Unsuccessful With Empty Username - Đăng nhập thất bại với tài khoản rỗng', async () => {
     allure.story('Empty Username Login Story');
 
     await allure.step('Login with empty username', async () => {
       await loginPage.login('', Config.admin_password);
     });
 
-    await allure.step('Verify login failure message', async () => {
+    await allure.step('Verify login failure message - Kiểm tra thông báo lỗi khi đăng nhập với tài khoản rỗng', async () => {
       await loginPage.expectUsernameValidate();
     });
   });
 
-  test('Login Unsuccessful With Empty Password', async () => {
+  test('Login Unsuccessful With Empty Password - Đăng nhập thất bại với mật khẩu rỗng', async () => {
     allure.story('Empty Password Login Story');
 
     await allure.step('Login with empty password', async () => {
@@ -89,7 +89,7 @@ test.describe.serial('Login Tests', () => {
     });
   });
 
-  test('login with locked account', async () => {
+  test('Login with locked account - Đăng nhập thất bại với tài khoản bị khóa', async () => {
     allure.story('Locked Account Login Story');
 
     await allure.step('Login with locked account', async () => {
@@ -98,27 +98,27 @@ test.describe.serial('Login Tests', () => {
     });
   });
 
-    test('Login Unsuccessful With Invalid Username', async () => {
-      allure.story('Invalid Username Login Story');
+  test('Login Unsuccessful With Invalid Username - Đăng nhập thất bại với tài khoản không tồn tại', async () => {
+    allure.story('Invalid Username Login Story');
 
-      await allure.step('Login with invalid username', async () => {
-        await loginPage.login('admin@bigapptech.vn', Config.admin_password);
-      });
-
-      await allure.step('Verify login failure message', async () => {
-        await loginPage.expectLoginError();
-      });
+    await allure.step('Login with invalid username', async () => {
+      await loginPage.login('admin@bigapptech.vn', Config.admin_password);
     });
 
-    test('Login Unsuccessful With Invalid Password', async () => {
-      allure.story('Invalid Password Login Story');
-
-      await allure.step('Login with invalid password', async () => {
-        await loginPage.login(Config.admin_username, 'asfasfasfas');
-      });
-
-      await allure.step('Verify login failure message', async () => {
-        await loginPage.expectLoginError();
-      });
+    await allure.step('Verify login failure message', async () => {
+      await loginPage.expectLoginError();
     });
   });
+
+  test('Login Unsuccessful With Invalid Password - Đăng nhập thất bại với mật khẩu không chính xác', async () => {
+    allure.story('Invalid Password Login Story');
+
+    await allure.step('Login with invalid password', async () => {
+      await loginPage.login(Config.admin_username, 'asfasfasfas');
+    });
+
+    await allure.step('Verify login failure message - Kiểm tra thông báo lỗi khi đăng nhập với mật khẩu không chính xác', async () => {
+      await loginPage.expectLoginError();
+    });
+  });
+});

@@ -29,7 +29,7 @@ test.describe.serial('Term Tests', () => {
         await termPage.clickTerm();
     });
 
-    test('Create term with empty name', async ({ page }) => {
+    test('Create term with empty name - Tạo điều khoản với tên rỗng', async ({ page }) => {
         await clearTerm();
         await termPage.clickAdd();
         await termPage.fillContent('Automatic created term');
@@ -37,14 +37,14 @@ test.describe.serial('Term Tests', () => {
         await termPage.validateNameError();
     });
 
-    test('Create term with empty content', async ({ page }) => {
+    test('Create term with empty content - Tạo điều khoản với nội dung rỗng', async ({ page }) => {
         await termPage.clickAdd();
         await termPage.fillName('Automatic created term');
         await termPage.clickSave();
         await termPage.validateContentError();
     });
 
-    test('Create term with valid data', async ({ page }) => {
+    test('Create term with valid data - Tạo điều khoản với dữ liệu hợp lệ', async ({ page }) => {
         await termPage.clickAdd();
         await termPage.fillName('Automatic created term 1');
         await termPage.fillContent('Automatic created term');
@@ -52,7 +52,7 @@ test.describe.serial('Term Tests', () => {
         await toastPage.getToastAddSuccess();
     });
 
-    test('Create term with duplicate name', async ({ page }) => {
+    test('Create term with duplicate name - Tạo điều khoản với tên trùng', async ({ page }) => {
         await termPage.clickAdd();
         await termPage.fillName('Automatic created term 1');
         await termPage.fillContent('Automatic created term');
@@ -61,7 +61,7 @@ test.describe.serial('Term Tests', () => {
         await toastPage.getToastAddFailed();
     });
 
-    test('Create term with lock status', async ({ page }) => {
+    test('Create term with lock status - Tạo điều khoản với trạng thái khóa', async ({ page }) => {
         await termPage.clickAdd();
         await termPage.fillName('Automatic created term with lock status');
         await termPage.fillContent('Automatic created term');
@@ -71,7 +71,7 @@ test.describe.serial('Term Tests', () => {
         await toastPage.getToastAddSuccess();
     });
 
-    test('Max length name 255 character', async ({ page }) => {
+    test('Max length name 255 character - Tên tối đa 255 ký tự', async ({ page }) => {
         await termPage.clickAdd();
         await termPage.fillName('a'.repeat(255));
         await termPage.fillContent('Automatic created term');
@@ -79,7 +79,7 @@ test.describe.serial('Term Tests', () => {
         await toastPage.getToastAddSuccess();
     });
 
-    test('Max length name over 255 character', async ({ page }) => {
+    test('Max length name over 255 character - Tên tối đa 255 ký tự', async ({ page }) => {
         await termPage.clickAdd();
         await termPage.fillName('a'.repeat(256));
         await termPage.fillContent('Automatic created term');
@@ -87,7 +87,7 @@ test.describe.serial('Term Tests', () => {
         await termPage.validateMaxLengthNameError();
     });
 
-    test('Max length note 255 character', async ({ page }) => {
+    test('Max length note 255 character - Ghi chú tối đa 255 ký tự', async ({ page }) => {
         await termPage.clickAdd();
         await termPage.fillName('Automatic created term max length note');
         await termPage.fillContent('a'.repeat(255));
@@ -95,7 +95,7 @@ test.describe.serial('Term Tests', () => {
         await toastPage.getToastAddSuccess();
     });
 
-    test('Max length note over 255 character', async ({ page }) => {
+    test('Max length note over 255 character - Ghi chú tối đa 255 ký tự', async ({ page }) => {
         await termPage.clickAdd();
         await termPage.fillName('Automatic created term max length note');
         await termPage.fillContent('a'.repeat(256));
@@ -103,7 +103,7 @@ test.describe.serial('Term Tests', () => {
         await validation.validateMaxLength255Characters();
     });
 
-    test('Edit status', async ({ page }) => {
+    test('Edit status - Chỉnh sửa trạng thái', async ({ page }) => {
         await termPage.clickEditRow0();
         await termPage.clickDropdownStatusInFormNth1();
         await termPage.clickLockStatus();
@@ -111,35 +111,35 @@ test.describe.serial('Term Tests', () => {
         await toastPage.getToastUpdateSuccess();
     });
 
-    test('Edit name with empty name', async ({ page }) => {
+    test('Edit name with empty name - Chỉnh sửa tên với tên rỗng', async ({ page }) => {
         await termPage.clickEditRow0();
         await termPage.fillName('');
         await termPage.clickSave();
         await termPage.validateNameError();
     });
 
-    test('Edit content with empty content', async ({ page }) => {
+    test('Edit content with empty content - Chỉnh sửa nội dung với nội dung rỗng', async ({ page }) => {
         await termPage.clickEditRow0();
         await termPage.fillContent('');
         await termPage.clickSave();
         await termPage.validateContentError();
     });
 
-    test('Edit name with valid data', async ({ page }) => {
+    test('Edit name with valid data - Chỉnh sửa tên với dữ liệu hợp lệ', async ({ page }) => {
         await termPage.clickEditRow0();
         await termPage.fillName('Automatic edit name');
         await termPage.clickSave();
         await toastPage.getToastUpdateSuccess();
     });
 
-    test('Edit content with valid data', async ({ page }) => {
+    test('Edit content with valid data - Chỉnh sửa nội dung với dữ liệu hợp lệ', async ({ page }) => {
         await termPage.clickEditRow0();
         await termPage.fillContent('Automatic edit content');
         await termPage.clickSave();
         await toastPage.getToastUpdateSuccess();
     });
 
-    test('Search by status', async ({ page }) => {
+    test('Search by status - Tìm kiếm theo trạng thái', async ({ page }) => {
         // Search by lock status
         await termPage.clickDropdownStatusSearch();
         await termPage.clickLockStatus();
@@ -154,7 +154,7 @@ test.describe.serial('Term Tests', () => {
         await termPage.verifyActivityStatusRow0();
     });
 
-    test('Delete term', async ({ page }) => {
+    test('Delete term - Xóa điều khoản', async ({ page }) => {
         await termPage.clickDeleteRow0();
         await toastPage.getToastDeleteSuccess();
     });

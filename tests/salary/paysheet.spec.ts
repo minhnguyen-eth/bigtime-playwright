@@ -38,23 +38,26 @@ test.describe.serial('Paysheet Tests', () => {
         await paysheet.clickPaysheet();
     }
 
-    test('E2E Payroll and Payment Process', async ({ page }) => {
-        await allure.step('Admin creates and sends paysheet and completes payment', async () => {
-            await clearPaysheets();
-            await beforeTest();
+    test('E2E Payroll and Payment Process - Kiểm tra quy trình tính lương và thanh toán', async ({ page }) => {
+        await clearPaysheets();
+        await beforeTest();
+        await allure.step('Admin creates and sends paysheet', async () => {
             await paysheetHelper.addPaysheet();
+        });
+
+        await allure.step('Employee browses payslip => Admin payment ', async () => {
             await paysheetHelper.sendAndBrowse03();
         });
     });
 
-    test('Add duplicate employee in paysheet', async ({ page }) => {
+    test('Add duplicate employee in a paysheet - Thêm nhân viên trùng trong 1 bảng lương', async ({ page }) => {
         await allure.step('Admin creates and sends paysheet', async () => {
             await beforeTest();
             await paysheetHelper.addPaysheet();
             await paysheet.clickLatestPaysheetRow();
             await paysheet.clickViewPayroll();
             await paysheet.clickAddMoreEmployee();
-            await paysheet.fillEmployeeNameInput('Nguyễn Văn Minh');
+            await paysheet.fillEmployeeNameInput('test lương');
             await paysheet.clickSelectEmployee2();
             await paysheet.clickSave();
             await toastPage.getToastEmployeeExisted();
@@ -80,7 +83,7 @@ test.describe.serial('Paysheet Tests', () => {
         });
 
         await allure.step('Employee 1 approves payslip', async () => {
-            await loginPage.login(Config.employee_username, Config.employee_password);
+            await loginPage.login('testluong@gmail.com', '123456');
             await paysheet.clickSalary();
             await paysheet.clickPayslip();
             await paysheet.clickSalarySlipCode();
@@ -109,7 +112,7 @@ test.describe.serial('Paysheet Tests', () => {
         await toastPage.getToastValidateCloseSalary();
     });
 
-    test('Search Paysheet', async ({ page }) => {
+    test('Search Paysheet - Tìm kiếm bảng lương theo ID', async ({ page }) => {
         allure.story('Search Paysheet Story');
 
         await beforeTest();
@@ -307,7 +310,7 @@ test.describe.serial('Paysheet Tests', () => {
             await paysheet.clickCheckboxMonthly();
             await paysheet.clickChooseMonth();
             await paysheet.clickMonthOption();
-            await paysheet.fillSearchByName('Nguyễn Văn Minh');
+            await paysheet.fillSearchByName('test lương');
             await paysheet.clickButtonSearch();
             await paysheet.clickSelectEmployee();
             await paysheet.setNote('a'.repeat(255));
@@ -326,7 +329,7 @@ test.describe.serial('Paysheet Tests', () => {
             await paysheet.clickCheckboxMonthly();
             await paysheet.clickChooseMonth();
             await paysheet.clickMonthOption();
-            await paysheet.fillSearchByName('Nguyễn Văn Minh');
+            await paysheet.fillSearchByName('test lương');
             await paysheet.clickButtonSearch();
             await paysheet.clickSelectEmployee();
             await paysheet.setNote('Automation test');
@@ -346,7 +349,7 @@ test.describe.serial('Paysheet Tests', () => {
             await paysheet.clickChooseMonth();
             await paysheet.clickMonthOption();
             await paysheet.setNote('Automation test');
-            await paysheet.fillSearchByName('Nguyễn Văn Minh');
+            await paysheet.fillSearchByName('test lương');
             await paysheet.clickButtonSearch();
             await paysheet.clickSelectEmployee();
             await paysheet.fillSearchByName('Big app tech');
@@ -362,7 +365,7 @@ test.describe.serial('Paysheet Tests', () => {
             await logoutPage.logout();
 
             await loginPage.goto();
-            await loginPage.login(Config.employee_username, Config.employee_password);
+            await loginPage.login('testluong@gmail.com', '123456');
             await paysheetHelper.browsePayslip();
             await logoutPage.logout();
 
@@ -393,6 +396,79 @@ test.describe.serial('Paysheet Tests', () => {
         });
     });
 
+    //=== Test thuế với nhân viên có 1 người phụ thuộc===========================================================
+    // Test Data : Lương chính = 14.000.000, 
+    // Mức đóng bảo hiểm 14.000.000, BHXH 8%, BHYT 1.5%, BHTN 1% 
+    // Phụ cấp = 3.000.000 (Miễn thuế 2.730.000)
+    // Mức đóng thuế = 17.000.000 - 1.470.140(Bảo hiểm) - 11.000.000(miễn bản thân) - 2.730.000(miễn phụ cấp) = 1.799.860
+    // Thuế bậc 1 = 1.799.860 * 5% = 89.993 
+    // Tổng nhận = 17.000.000 - 1.470.140(Bảo hiểm) - 89.993(Thuế) = 15.439.867
+    //==================================================================================================
+    test('E2E Calculate tax with 1 dependents  ', async ({ page }) => {
+        allure.story('Calculate tax without dependents Story');
+        await beforeTest();
+
+        await allure.step('Add paysheet for 1 employees', async () => {
+            await paysheet.clickAdd();
+            await paysheet.setNamePaysheet('Automation test');
+            await paysheet.clickCheckboxMonthly();
+            await paysheet.clickChooseMonth();
+            await paysheet.clickCustomMonth(12);
+            await paysheet.fillSearchByName('BAT101');
+            await page.keyboard.press('Enter');
+            await paysheet.clickSelectEmployee();
+            await paysheet.setNote('Automation test tax');
+            await paysheet.clickSave();
+            await toastPage.getToastAddSuccess();
+            await paysheet.clickLatestPaysheetRow();
+            await paysheet.clickViewPayroll();
+
+            // verify salary and tax
+            await paysheet.verifyMainSalary('20.000.000');
+            await paysheet.verifyTotalSalary('20.000.000');
+            await paysheet.verifyInsurance('2.100.000');
+            await paysheet.verifyTaxOf1Dependent('125.000');
+            await paysheet.verifyTotalReceived('17.775.000');
+        });
+
+    });
+
+    //=== Test thuế nhân viên có 2 người phụ thuộc===========================================================
+    // Test Data : Lương chính = [20.000.00] 
+    // Mức đóng bảo hiểm 20.000.000 * (BHXH 8% = 1.600.000) + (BHYT 1.5% = 300.000) + (BHTN 1% = 200.000) + (ĐOÀN PHÍ = 0) = [2.100.000]
+    // Mức đóng thuế = (20.000.000 Tổng lương) - (2.100.000 Bảo hiểm) - (11.000.000 miễn bản thân) - (8.800.000 2 NPT) = [0]
+    // Thuế = 0
+    // Tổng nhận = (20.000.000 lương chính - (2.100.000 Bảo hiểm) = [17.900.000]
+    test('E2E Calculate tax with 2 dependents  ', async ({ page }) => {
+        allure.story('Calculate tax without dependents Story');
+        await beforeTest();
+
+        await allure.step('Add paysheet for 1 employees', async () => {
+            await paysheet.clickAdd();
+            await paysheet.setNamePaysheet('Automation test');
+            await paysheet.clickCheckboxMonthly();
+            await paysheet.clickChooseMonth();
+            await paysheet.clickCustomMonth(12);
+            await paysheet.fillSearchByName('BAT102');
+            await page.keyboard.press('Enter');
+            await paysheet.clickSelectEmployee();
+            await paysheet.setNote('Automation test tax');
+            await paysheet.clickSave();
+            await toastPage.getToastAddSuccess();
+            await paysheet.clickLatestPaysheetRow();
+            await paysheet.clickViewPayroll();
+
+            // verify salary and tax
+            await paysheet.verifyMainSalary('20.000.000');
+            await paysheet.verifyTotalSalary('20.000.000');
+            await paysheet.verifyInsurance('2.100.000');
+            await paysheet.verifyTax('0');
+            await paysheet.verifyTotalReceived('17.900.000');
+
+        });
+
+    });
+
     //=== Test thuế không có người phụ thuộc===========================================================
     // Test Data : Lương chính = 14.000.000, 
     // Mức đóng bảo hiểm 14.000.000, BHXH 8%, BHYT 1.5%, BHTN 1% , ĐOÀN PHÍ 1% = 1.470.140
@@ -401,7 +477,6 @@ test.describe.serial('Paysheet Tests', () => {
     // Thuế bậc 1 = 1.799.860 * 5% = 89.993 
     // Tổng nhận = 17.000.000 - 1.470.140(Bảo hiểm) - 89.993(Thuế) = 15.439.867
     //==================================================================================================
-
     test('E2E Calculate tax without dependents  ', async ({ page }) => {
         allure.story('Calculate tax without dependents Story');
         await beforeTest();
@@ -411,7 +486,7 @@ test.describe.serial('Paysheet Tests', () => {
             await paysheet.setNamePaysheet('Automation test');
             await paysheet.clickCheckboxMonthly();
             await paysheet.clickChooseMonth();
-            await paysheet.clickCustomMonth(11);
+            await paysheet.clickCustomMonth(12);
             await paysheet.fillSearchByName('BAT100');
             await page.keyboard.press('Enter');
             await paysheet.clickSelectEmployee();
@@ -433,64 +508,4 @@ test.describe.serial('Paysheet Tests', () => {
 
     });
 
-    test('E2E Calculate tax with 1 dependents  ', async ({ page }) => {
-        allure.story('Calculate tax without dependents Story');
-        await beforeTest();
-
-        await allure.step('Add paysheet for 1 employees', async () => {
-            await paysheet.clickAdd();
-            await paysheet.setNamePaysheet('Automation test');
-            await paysheet.clickCheckboxMonthly();
-            await paysheet.clickChooseMonth();
-            await paysheet.clickCustomMonth(11);
-            await paysheet.fillSearchByName('BAT101');
-            await page.keyboard.press('Enter');
-            await paysheet.clickSelectEmployee();
-            await paysheet.setNote('Automation test tax');
-            await paysheet.clickSave();
-            await toastPage.getToastAddSuccess();
-            await paysheet.clickLatestPaysheetRow();
-            await paysheet.clickViewPayroll();
-
-            // verify salary and tax
-            await paysheet.verifyMainSalary('14.000.000');
-            await paysheet.verifyAllowance('3.000.000');
-            await paysheet.verifyTotalSalary('17.000.000');
-            await paysheet.verifyInsurance('1.470.140');
-            await paysheet.verifyTax('89.993');
-            await paysheet.verifyTotalReceived('15.439.867');
-
-        });
-
-    });
-
-    test('E2E Calculate tax with 2 dependents  ', async ({ page }) => {
-        allure.story('Calculate tax without dependents Story');
-        await beforeTest();
-
-        await allure.step('Add paysheet for 1 employees', async () => {
-            await paysheet.clickAdd();
-            await paysheet.setNamePaysheet('Automation test');
-            await paysheet.clickCheckboxMonthly();
-            await paysheet.clickChooseMonth();
-            await paysheet.clickCustomMonth(11);
-            await paysheet.fillSearchByName('BAT102');
-            await page.keyboard.press('Enter');
-            await paysheet.clickSelectEmployee();
-            await paysheet.setNote('Automation test tax');
-            await paysheet.clickSave();
-            await toastPage.getToastAddSuccess();
-            await paysheet.clickLatestPaysheetRow();
-            await paysheet.clickViewPayroll();
-
-            // verify salary and tax
-            await paysheet.verifyMainSalary('20.000.000');
-            await paysheet.verifyTotalSalary('20.000.000');
-            await paysheet.verifyInsurance('2.300.000');
-            await paysheet.verifyTax('0');
-            await paysheet.verifyTotalReceived('17.700.000');
-
-        });
-
-    });
 });

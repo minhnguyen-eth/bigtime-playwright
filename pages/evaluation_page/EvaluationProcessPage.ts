@@ -43,7 +43,7 @@ export class EvaluationProcessPage extends BasePage {
     constructor(page: Page) {
         super(page);
         // List Evaluation
-        this.LIST_EVALUATION_SEARCH_BY_NAME = page.getByRole('textbox', { name: 'Mã / tên nhân viên' });
+        this.LIST_EVALUATION_SEARCH_BY_NAME = page.getByRole('textbox', { name: 'Tên nhân viên' });
         this.LIST_EVALUATION_VERIFY_NEW_STATUS = page.locator("//div[.=' Mới tạo']").first();
         this.LIST_EVALUATION_VERIFY_CANCEL_STATUS = page.locator("//div[.=' Đã hủy']").first();
         this.LIST_EVALUATION_VERIFY_COMPLETE_STATUS = page.locator("//div[.=' Hoàn thành']").first();

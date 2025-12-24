@@ -143,4 +143,94 @@ export class SafeActions {
         await locator.waitFor({ state: 'visible', timeout });
         await expect(locator).toHaveValue(expectedValue, { timeout });
     }
+
+    /**
+     * Safely check a checkbox or radio button
+     * @param locator - The checkbox/radio locator
+     * @param options - Optional configuration
+     */
+    async safeCheckbox(
+        locator: Locator,
+        options?: {
+            force?: boolean;
+            timeout?: number;
+            skipIfChecked?: boolean;
+        }
+    ): Promise<void> {
+        const timeout = options?.timeout ?? 30000;
+        const skipIfChecked = options?.skipIfChecked ?? true;
+
+        try {
+            await this.page.waitForLoadState('domcontentloaded', { timeout });
+            await this.waitForOverlayToDisappear(undefined, timeout);
+
+            await locator.waitFor({ state: 'attached', timeout });
+            await locator.waitFor({ state: 'visible', timeout });
+            await expect(locator).toBeEnabled({ timeout });
+
+            // Check if already checked
+            if (skipIfChecked) {
+                const isChecked = await locator.isChecked();
+                if (isChecked) {
+                    logDebug('Checkbox is already checked, skipping...');
+                    return;
+                }
+            }
+
+            await this.page.waitForTimeout(100); // Stabilize layout
+            logDebug('Checking checkbox...');
+            await locator.check({ force: options?.force ?? false, timeout });
+
+            // Verify it's checked
+            await expect(locator).toBeChecked({ timeout: 5000 });
+        } catch (error) {
+            console.error("safeCheckbox error:", (error as Error).message);
+            throw error;
+        }
+    }
+
+    /**
+     * Safely uncheck a checkbox
+     * @param locator - The checkbox locator
+     * @param options - Optional configuration
+     */
+    async safeUncheck(
+        locator: Locator,
+        options?: {
+            force?: boolean;
+            timeout?: number;
+            skipIfUnchecked?: boolean;
+        }
+    ): Promise<void> {
+        const timeout = options?.timeout ?? 30000;
+        const skipIfUnchecked = options?.skipIfUnchecked ?? true;
+
+        try {
+            await this.page.waitForLoadState('domcontentloaded', { timeout });
+            await this.waitForOverlayToDisappear(undefined, timeout);
+
+            await locator.waitFor({ state: 'attached', timeout });
+            await locator.waitFor({ state: 'visible', timeout });
+            await expect(locator).toBeEnabled({ timeout });
+
+            // Check if already unchecked
+            if (skipIfUnchecked) {
+                const isChecked = await locator.isChecked();
+                if (!isChecked) {
+                    logDebug('Checkbox is already unchecked, skipping...');
+                    return;
+                }
+            }
+
+            await this.page.waitForTimeout(100); // Stabilize layout
+            logDebug('Unchecking checkbox...');
+            await locator.uncheck({ force: options?.force ?? false, timeout });
+
+            // Verify it's unchecked
+            await expect(locator).not.toBeChecked({ timeout: 5000 });
+        } catch (error) {
+            console.error("safeUncheck error:", (error as Error).message);
+            throw error;
+        }
+    }
 }

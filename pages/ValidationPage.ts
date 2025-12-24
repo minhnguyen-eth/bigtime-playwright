@@ -13,9 +13,14 @@ export class ValidationPage extends BasePage {
     readonly MAX_LENGTH_100_CHARACTERS = this.page.getByText('Không nhập quá 100 kí tự.');
     readonly MAX_LENGTH_50_CHARACTERS = this.page.getByText('Không nhập quá 50 kí tự.');
     readonly NO_EXIST_DATA = this.page.getByText('Không có dữ liệu');
+    readonly REQUIRED_FILL_NAME = this.page.getByText('Nhập họ và tên');
 
     constructor(page: Page) {
         super(page);
+    }
+
+    async validateRequiredFillName() {
+        await this.validate(this.REQUIRED_FILL_NAME, 'Nhập họ và tên');
     }
 
     async validateMinlengthEmail() {

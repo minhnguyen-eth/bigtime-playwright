@@ -7,7 +7,7 @@ import { allure } from "allure-playwright";
 import { ToastPage } from "../../pages/ToastPage";
 import { ValidationPage } from '../../pages/ValidationPage';
 
-test.describe.serial("Evaluation Criteria Tests", () => {
+test.describe.serial("Evaluation Criteria Tests - Kiểm tra tiêu chí đánh giá", () => {
     let loginPage: LoginPage;
     let evaluationCriteriaPage: EvaluationCriteriaPage;
     let toastPage: ToastPage;
@@ -26,7 +26,7 @@ test.describe.serial("Evaluation Criteria Tests", () => {
         await loginPage.login(Config.admin_username, Config.admin_password);
     });
 
-    test("Max length of Evaluation Criteria Name is 255 characters", async ({ page }) => {
+    test("Max length of Evaluation Criteria Name is 255 characters - Kiểm tra tiêu chí đánh giá có độ dài tối đa là 255 ký tự", async ({ page }) => {
         allure.story("Validation on Create Criteria");
         await clearEvaluationCriterias();
         await evaluationCriteriaPage.clickAdmin();
@@ -39,7 +39,7 @@ test.describe.serial("Evaluation Criteria Tests", () => {
         await toastPage.getToastAddSuccess();
     });
 
-    test("Max length of Evaluation Criteria Name over 255 characters", async ({ page }) => {
+    test("Max length of Evaluation Criteria Name over 255 characters - Kiểm tra tiêu chí đánh giá có độ dài lớn hơn 255 ký tự", async ({ page }) => {
         allure.story("Validation on Create Criteria");
         await evaluationCriteriaPage.clickAdmin();
         await evaluationCriteriaPage.clickEvaluationCriteria();
@@ -51,7 +51,7 @@ test.describe.serial("Evaluation Criteria Tests", () => {
         await validationPage.validateMaxLength255Characters();
     });
 
-    test("Max length of Evaluation Criteria Description is 500 characters", async ({ page }) => {
+    test("Max length of Evaluation Criteria Description is 500 characters - Kiểm tra tiêu chí đánh giá có độ dài tối đa là 500 ký tự", async ({ page }) => {
         allure.story("Validation on Create Criteria");
         await evaluationCriteriaPage.clickAdmin();
         await evaluationCriteriaPage.clickEvaluationCriteria();
@@ -64,7 +64,7 @@ test.describe.serial("Evaluation Criteria Tests", () => {
         await toastPage.getToastAddSuccess();
     });
 
-    test("Max length of Evaluation Criteria Description over 500 characters", async ({ page }) => {
+    test("Max length of Evaluation Criteria Description over 500 characters - Kiểm tra tiêu chí đánh giá có độ dài lớn hơn 500 ký tự", async ({ page }) => {
         allure.story("Validation on Create Criteria");
         await evaluationCriteriaPage.clickAdmin();
         await evaluationCriteriaPage.clickEvaluationCriteria();
@@ -78,7 +78,7 @@ test.describe.serial("Evaluation Criteria Tests", () => {
     });
 
 
-    test("Create Criteria without any field", async ({ page }) => {
+    test("Create Criteria without any field - Tạo tiêu chí đánh giá không nhập bất kỳ trường nào", async ({ page }) => {
         allure.story("Validation on Create Criteria");
         await clearEvaluationCriterias();
         await evaluationCriteriaPage.clickAdmin();
@@ -89,7 +89,7 @@ test.describe.serial("Evaluation Criteria Tests", () => {
         await evaluationCriteriaPage.getRequiredCriteriaName();
     });
 
-    test("Create with lock status", async ({ page }) => {
+    test("Create with lock status - Tạo tiêu chí đánh giá với trạng thái khóa", async ({ page }) => {
         allure.story("Create Criteria with Lock Status");
         const randomSuffix = Math.random().toString(36).substring(2, 8);
         const EvaluationCriteriaNameRandom = `Automation test ${randomSuffix}`;
@@ -107,7 +107,7 @@ test.describe.serial("Evaluation Criteria Tests", () => {
         await evaluationCriteriaPage.verifyLockStatusRow0();
     });
 
-    test("Create criteria with activity status", async ({ page }) => {
+    test("Create criteria with activity status - Tạo tiêu chí đánh giá với trạng thái hoạt động", async ({ page }) => {
         allure.story("Create Criteria with Activity Status");
         const randomSuffix = Math.random().toString(36).substring(2, 8);
         const EvaluationCriteriaNameRandom = `Automation test ${randomSuffix}`;
@@ -122,7 +122,7 @@ test.describe.serial("Evaluation Criteria Tests", () => {
         await toastPage.getToastAddSuccess();
     });
 
-    test("Search Evaluation Criteria by status", async ({ page }) => {
+    test("Search Evaluation Criteria by status - Tìm kiếm tiêu chí đánh giá theo trạng thái", async ({ page }) => {
         allure.story("Search Criteria by Name and Status");
         await evaluationCriteriaPage.clickAdmin();
         await evaluationCriteriaPage.clickEvaluationCriteria();
@@ -150,7 +150,7 @@ test.describe.serial("Evaluation Criteria Tests", () => {
         await evaluationCriteriaPage.verifyActivityStatusRow0();
     });
 
-    test("Edit Evaluation Criteria", async ({ page }) => {
+    test("Edit Evaluation Criteria - Chỉnh sửa tiêu chí đánh giá", async ({ page }) => {
         allure.story("Edit Evaluation Criteria");
         const randomSuffix = Math.random().toString(36).substring(2, 8);
         const EvaluationCriteriaNameEdited = `Automation test edited ${randomSuffix}`;
@@ -176,7 +176,7 @@ test.describe.serial("Evaluation Criteria Tests", () => {
         await evaluationCriteriaPage.verifyActivityStatusRow0();
     });
 
-    test("Delete Evaluation Criteria", async ({ page }) => {
+    test("Delete Evaluation Criteria - Xóa tiêu chí đánh giá", async ({ page }) => {
         allure.story("Delete Evaluation Criteria");
         await evaluationCriteriaPage.clickAdmin();
         await evaluationCriteriaPage.clickEvaluationCriteria();

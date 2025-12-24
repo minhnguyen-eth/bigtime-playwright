@@ -34,7 +34,7 @@ export class EmployeePage extends ValidationPage {
   readonly selectYear: Locator;
   readonly selectDay: Locator;
   readonly placeOfIssueOfIdentityCard: Locator;
-  readonly bankName: Locator;
+  readonly BANK_NAME: Locator;
   readonly bankAccountNumber: Locator;
   readonly phoneNumber: Locator;
   readonly dateOfJoiningTheCompany: Locator;
@@ -51,7 +51,7 @@ export class EmployeePage extends ValidationPage {
   readonly resultSearchByName: Locator;
   readonly dropdownRoleName: Locator;
   readonly managementDepartmentRole: Locator;
-  readonly VALIDATE_EMAIL: Locator;
+
   readonly dailySalary: Locator;
   readonly dropdownSalaryType: Locator;
   readonly selectAdmin: Locator;
@@ -78,8 +78,35 @@ export class EmployeePage extends ValidationPage {
   readonly checkBoxJustCheckImAtLeastOneceWhenEnteingWork: Locator;
   readonly payUnionDueCheckBox: Locator;
 
+  // DEPENDENTS
+  readonly FAMILY_INFORMATION: Locator;
+  readonly NAME_DEPENDENTS: Locator;
+  readonly IS_DEPENDENTS_CHECKBOX: Locator;
+  readonly START_DATE_DEPENDENTS: Locator;
+  readonly END_DATE_DEPENDENTS: Locator;
+  readonly RELATIONSHIP_DROPDOWN: Locator;
+
+  // VALIDATE 
+  readonly VALIDATE_EMAIL: Locator;
+  readonly VALIDATE_START_DATE_DEPENDENTS: Locator;
+
+  // VERIFY
+  readonly VERIFY_RELATIONSHIP: Locator;
+
   constructor(page: Page) {
     super(page);
+
+    // VERIFY
+    this.VERIFY_RELATIONSHIP = page.getByText('Con trai', { exact: true })
+
+    // VALIDATE
+    this.VALIDATE_START_DATE_DEPENDENTS = page.getByText('Nhập giảm trừ từ ngày');
+    this.RELATIONSHIP_DROPDOWN = page.getByRole('combobox').filter({ hasText: 'Mối quan hệ ※' }).locator('i');
+    this.END_DATE_DEPENDENTS = page.getByRole('textbox', { name: 'Giảm trừ đến ngày' });
+    this.START_DATE_DEPENDENTS = page.getByRole('textbox', { name: 'Giảm trừ từ ngày ※' });
+    this.IS_DEPENDENTS_CHECKBOX = page.getByRole('checkbox', { name: 'Là người phụ thuộc' });
+    this.NAME_DEPENDENTS = page.getByRole('textbox', { name: 'Họ và tên ※' })
+    this.FAMILY_INFORMATION = page.getByText('Thông tin gia đình', { exact: true });
     this.payUnionDueCheckBox = page.getByRole('checkbox', { name: 'Đóng tiền đoàn phí công đoàn' });
     this.checkBoxJustCheckImAtLeastOneceWhenEnteingWork = page.locator("//input[@aria-label='Chỉ cần điểm danh ít nhất 1 lần khi vào ca']");
     this.checkBoxJustCheckInAtLeastOnceADay = page.locator("//input[@aria-label='Chỉ cần điểm danh ít nhất 1 lần trong ngày']");
@@ -121,7 +148,7 @@ export class EmployeePage extends ValidationPage {
     this.dateOfJoiningTheCompany = page.getByRole('textbox', { name: 'Ngày vào công ty' });
     this.phoneNumber = page.getByRole('spinbutton', { name: 'Số điện thoại' });
     this.bankAccountNumber = page.getByRole('spinbutton', { name: 'Số tài khoản ngân hàng' });
-    this.bankName = page.getByRole('textbox', { name: 'Tên ngân hàng' })
+    this.BANK_NAME = page.getByRole('textbox', { name: 'Tên ngân hàng' })
     this.placeOfIssueOfIdentityCard = page.getByRole('textbox', { name: 'Nơi cấp CCCD' })
     this.selectRank = page.locator("//div[@class='v-list-item-title'][normalize-space()='Intern']");
     this.selectDay = page.locator("//div[@class='dp__cell_inner dp__pointer dp__date_hover'][normalize-space()='8']");
@@ -153,6 +180,62 @@ export class EmployeePage extends ValidationPage {
     this.employeeName = page.getByRole('textbox', { name: 'Tên nhân viên ※' })
     this.employeeCode = page.getByRole('textbox', { name: 'Mã nhân viên ※' })
     this.userButton = page.getByRole('link', { name: 'Nhân viên', exact: true });
+  }
+
+  // VERIFY
+  async verifyRelationship(relationship: string) {
+    const locator = this.page.getByText(relationship, { exact: true });
+    await this.safeVerifyToHaveText(locator, relationship);
+  }
+
+  async verifyNameDependents(name: string) {
+    const locator = this.page.getByText('Automation test dependent...', { exact: true });
+    await this.safeVerifyTextContains(locator, name);
+  }
+
+  async verifyTaxCode(taxCode: string) {
+    const locator = this.page.getByText('01234564895', { exact: true });
+    await this.safeVerifyToHaveText(locator, taxCode);
+  }
+
+  async verifyIsDependents() {
+    const locator = this.page.locator("//td[normalize-space()='Có']") ;
+    await this.safeVerifyToHaveText(locator, 'Có');
+  }
+
+  // VALIDATE
+
+  async verifyValidateStartDateDependents() {
+    await this.safeVerifyToHaveText(this.VALIDATE_START_DATE_DEPENDENTS, 'Nhập giảm trừ từ ngày');
+  }
+
+  async selectRelationship(relationship: string) {
+    const locator = this.page.locator(`//div[contains(text(),'${relationship}')]`);
+    await this.safeClick(locator);
+  }
+
+  async clickRelationshipDropdown() {
+    await this.safeClick(this.RELATIONSHIP_DROPDOWN, { first: true });
+  }
+
+  async clickStartDateDependents() {
+    await this.safeClick(this.START_DATE_DEPENDENTS);
+  }
+
+  async clickEndDateDependents() {
+    await this.safeClick(this.END_DATE_DEPENDENTS);
+  }
+
+  async checkIsDependents() {
+    await this.safeCheckbox(this.IS_DEPENDENTS_CHECKBOX);
+  }
+
+  async fillNameDependents(name: string) {
+    await this.safeFill(this.NAME_DEPENDENTS, name);
+  }
+
+  async clickFamilyInformation() {
+    await this.safeClick(this.FAMILY_INFORMATION, { nth: 1 });
   }
 
   async selectGenderSearch(value: string) {
@@ -281,7 +364,7 @@ export class EmployeePage extends ValidationPage {
   }
 
   async fillBankName(bank: string) {
-    await this.safeFill(this.bankName, bank);
+    await this.safeFill(this.BANK_NAME, bank);
   }
 
   async fillPlaceOfIssueOfIdentityCard(place: string) {

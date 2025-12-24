@@ -33,7 +33,7 @@ test.describe.serial('Contract Tests', () => {
         await contractPage.clickContract();
     });
 
-    test('Max lenghth of note is 255 characters', async ({ page }) => {
+    test('Max lenghth of note is 255 characters - Kiểm tra nhập ghi chú tối đa 255 ký tự', async ({ page }) => {
         await clearEmploymentContract();
         await basePage.clickAdd();
         await contractPage.fillEmployeeName();
@@ -46,7 +46,7 @@ test.describe.serial('Contract Tests', () => {
         await toastPage.getToastAddSuccess();
     });
 
-    test('Max lenghth of note over 255 characters', async ({ page }) => {
+    test('Max lenghth of note over 255 characters - Kiểm tra nhập ghi chú quá 255 ký tự', async ({ page }) => {
         await clearEmploymentContract();
         await basePage.clickAdd();
         await contractPage.fillEmployeeName();
@@ -59,7 +59,7 @@ test.describe.serial('Contract Tests', () => {
         await validationPage.validateMaxLength255Characters();
     });
 
-    test('Create contract with no select term and blank note', async ({ page }) => {
+    test('Create contract with no select term and blank note - Tạo hợp đồng không chọn điều khoản và ghi chú rỗng', async ({ page }) => {
         await clearEmploymentContract();
         await basePage.clickAdd();
         await contractPage.fillEmployeeName();
@@ -69,7 +69,7 @@ test.describe.serial('Contract Tests', () => {
         await toastPage.getToastAddSuccess();
     });
 
-    test('Edit contract type - Probation to Permanent', async ({ page }) => {
+    test('Edit contract type - Probation to Permanent - Chỉnh sửa hợp đồng từ thử việc sang chính thức', async ({ page }) => {
         await createContractWithProbation(basePage, contractPage, toastPage);
         await contractPage.clickRow0();
         await contractPage.clickEdit();
@@ -81,7 +81,7 @@ test.describe.serial('Contract Tests', () => {
 
     });
 
-    test('Edit base salary', async ({ page }) => {
+    test('Edit base salary - Chỉnh sửa lương cơ bản', async ({ page }) => {
         await contractPage.clickRow0();
         await contractPage.clickEdit();
         await contractPage.fillSalary("20000000");
@@ -89,7 +89,7 @@ test.describe.serial('Contract Tests', () => {
         await toastPage.getToastUpdateSuccess();
     });
 
-    test('Edit note ', async ({ page }) => {
+    test('Edit note - Chỉnh sửa ghi chú ', async ({ page }) => {
         await basePage.clickRow0();
         await basePage.clickEdit();
         await contractPage.fillNote('Automation test edit');
@@ -97,7 +97,7 @@ test.describe.serial('Contract Tests', () => {
         await toastPage.getToastUpdateSuccess();
     });
 
-    test('E2E - Create contract with probation and confirm contract', async ({ page }) => {
+    test('E2E - Create contract with probation and confirm contract - Tạo hợp đồng thử việc và xác nhận hợp đồng', async ({ page }) => {
         await clearEmploymentContract();
         await createContractWithProbation(basePage, contractPage, toastPage);
         await contractPage.clickRow0();
@@ -109,7 +109,7 @@ test.describe.serial('Contract Tests', () => {
         expect(existsInDB).toBeTruthy();
     });
 
-    test('Create with formal contract ', async ({ page }) => {
+    test('Create with formal contract - Tạo hợp đồng chính thức', async ({ page }) => {
         await clearEmploymentContract();
         await contractPage.clickAdd();
         await contractPage.fillEmployeeName();
@@ -133,7 +133,7 @@ test.describe.serial('Contract Tests', () => {
         expect(existsInDB).toBeTruthy();
     });
 
-    test('E2E - Create a contract when there is an approved contract', async ({ page }) => {
+    test('E2E - Create a contract when there is an approved contract - Tạo hợp đồng khi đã có hợp đồng được duyệt', async ({ page }) => {
         await basePage.clickAdd();
         await contractPage.fillEmployeeName();
         await contractPage.clickContractTypeDropdown();
@@ -148,7 +148,7 @@ test.describe.serial('Contract Tests', () => {
 
     });
 
-    test('E2E - Create with seasonal contract and confirm contract', async ({ page }) => {
+    test('E2E - Create with seasonal contract and confirm contract - Tạo hợp đồng thời vụ và xác nhận hợp đồng', async ({ page }) => {
         await clearEmploymentContract();
         await basePage.clickAdd();
         await contractPage.fillEmployeeName();
@@ -173,7 +173,7 @@ test.describe.serial('Contract Tests', () => {
         expect(existsInDB).toBeTruthy();
     });
 
-    test('E2E - Terminate contract', async ({ page }) => {
+    test('E2E - Terminate contract - Chấm dứt hợp đồng', async ({ page }) => {
         await clearEmploymentContract();
         await basePage.clickAdd();
         await contractPage.fillEmployeeName();
@@ -202,7 +202,7 @@ test.describe.serial('Contract Tests', () => {
         await contractPage.verifyTerminatedStatusSearchResult();
     });
 
-    test('E2E - Extension contract', async ({ page }) => {
+    test('E2E - Extension contract - Gia hạn hợp đồng', async ({ page }) => {
         await clearEmploymentContract();
         await basePage.clickAdd();
         await contractPage.fillEmployeeName();
@@ -231,7 +231,7 @@ test.describe.serial('Contract Tests', () => {
 
     });
 
-    test('Edit end date', async ({ page }) => {
+    test('Edit end date - Chỉnh sửa ngày kết thúc', async ({ page }) => {
         await clearEmploymentContract();
         await createContractWithProbation(basePage, contractPage, toastPage);
         await basePage.clickRow0();
@@ -241,7 +241,7 @@ test.describe.serial('Contract Tests', () => {
         await toastPage.getToastUpdateSuccess();
     });
 
-    test('Create with collaborator contract ', async ({ page }) => {
+    test('Create with collaborator contract - Tạo hợp đồng cộng tác viên', async ({ page }) => {
         await basePage.clickAdd();
         await contractPage.fillEmployeeName();
         await contractPage.clickContractTypeDropdown();
@@ -257,8 +257,8 @@ test.describe.serial('Contract Tests', () => {
         expect(exitsInDB).toBeTruthy();
     });
 
-    test('Search by contract type ', async ({ page }) => {
-         // import data
+    test('Search by contract type - Tìm kiếm theo loại hợp đồng', async ({ page }) => {
+        // import data
         await importEmploymentContract();
 
         // Search by probation type
@@ -290,7 +290,7 @@ test.describe.serial('Contract Tests', () => {
     });
 
 
-    test('Search by status ', async ({ page }) => {
+    test('Search by status - Tìm kiếm theo trạng thái', async ({ page }) => {
 
         // Search by new status
         await contractPage.clickDropdownStatusSearch();
@@ -320,7 +320,7 @@ test.describe.serial('Contract Tests', () => {
         await contractPage.verifyCanceledStatusSearchResult();
     })
 
-    test('Search by start date', async ({ page }) => {
+    test('Search by start date - Tìm kiếm theo ngày bắt đầu', async ({ page }) => {
         await contractPage.clickStartDateSearch();
         await basePage.clickTodayDatePicker();
         await basePage.clickSearch();
@@ -329,7 +329,7 @@ test.describe.serial('Contract Tests', () => {
 
     });
 
-    test('Search by code', async ({ page }) => {
+    test('Search by code - Tìm kiếm theo mã hợp đồng', async ({ page }) => {
         await contractPage.fillSearchByCode('HD0001');
         await basePage.clickSearch();
         await contractPage.verifySearchByCodeResult();
@@ -341,7 +341,7 @@ test.describe.serial('Contract Tests', () => {
         await validationPage.validateNoExistData();
     });
 
-    test('Search by name', async ({ page }) => {
+    test('Search by name - Tìm kiếm theo tên nhân viên', async ({ page }) => {
         await contractPage.fillSearchByName('Nguyễn Văn Minh');
         await basePage.clickSearch();
         await contractPage.verifySearchByNameResult();
@@ -352,7 +352,7 @@ test.describe.serial('Contract Tests', () => {
         await validationPage.validateNoExistData();
     });
 
-    test('Delete contract', async ({ page }) => {
+    test('Delete contract - Xóa hợp đồng', async ({ page }) => {
         await createContractWithProbation(basePage, contractPage, toastPage);
         await contractPage.clickRow0();
         await contractPage.clickDelete();

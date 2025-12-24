@@ -20,7 +20,7 @@ export class PaysheetHelper {
     await this.paysheet.clickConfirmPaysheet();
     await this.logoutPage.logout();
 
-    await this.loginPage.login(Config.employee_username, Config.employee_password);
+    await this.loginPage.login('testluong@gmail.com', '123456');
     await this.browsePayslip();
     await this.logoutPage.logout();
 
@@ -50,7 +50,7 @@ export class PaysheetHelper {
     await this.paysheet.clickConfirmPaysheet();
     await this.logoutPage.logout();
 
-    await this.loginPage.login(Config.employee_username, Config.employee_password);
+    await this.loginPage.login('testluong@gmail.com', '123456');
     await this.browsePayslip();
     await this.logoutPage.logout();
 
@@ -77,7 +77,7 @@ export class PaysheetHelper {
     await this.logoutPage.logout();
 
     await this.loginPage.goto();
-    await this.loginPage.login(Config.employee_username, Config.employee_password);
+    await this.loginPage.login('testluong@gmail.com', '123456');
     await this.browsePayslip();
     await this.logoutPage.logout();
 
@@ -98,7 +98,7 @@ export class PaysheetHelper {
   }
 
   // Tạo bảng lương mới
-  async addPaysheet(employeeName: string = 'Nguyễn Văn Minh') {
+  async addPaysheet(employeeName: string = 'test lương') {
     await this.paysheet.clickAdd();
     await this.paysheet.setNamePaysheet('Automation test');
     await this.paysheet.clickCheckboxMonthly();
