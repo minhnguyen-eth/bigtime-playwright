@@ -64,7 +64,7 @@ test.describe.serial('Paysheet Tests', () => {
         });
     });
 
-    test('E2E Payroll and Payment Process with add more employee', async ({ page }) => {
+    test('E2E Payroll and Payment Process with add more employee - Kiểm tra quy trình tính lương, thêm 1 nhân viên vào bảng lương', async ({ page }) => {
         allure.story('Complete Paysheet Process Story');
         await allure.step('Admin creates and sends paysheet', async () => {
             await beforeTest();
@@ -102,7 +102,7 @@ test.describe.serial('Paysheet Tests', () => {
         });
     });
 
-    test('Test close salary but not browse', async ({ page }) => {
+    test('Test close salary when employee not browse - Kiểm tra chốt luong khi nhân viên chưa duyệt phiếu lương', async ({ page }) => {
         await beforeTest();
         await paysheetHelper.addPaysheet();
         await paysheet.clickLatestPaysheetRow();

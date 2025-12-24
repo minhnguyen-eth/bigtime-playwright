@@ -5,24 +5,24 @@ import { ValidationPage } from './ValidationPage';
 
 export class EmployeePage extends ValidationPage {
   readonly toastPage: ToastPage;
-  readonly userButton: Locator;
-  readonly employeeName: Locator;
-  readonly employeeCode: Locator;
-  readonly email: Locator;
-  readonly dropdownEmployeeType: Locator;
-  readonly dropdownDepartment: Locator;
-  readonly selectDepartment: Locator;
-  readonly selectStaff: Locator;
-  readonly setSalary: Locator;
-  readonly fillSalary: Locator;
-  readonly fillInsurance: Locator;
-  readonly addAllowance: Locator;
-  readonly dropdownAllowance: Locator;
-  readonly selectAllowance: Locator;
-  readonly dropdownBranch: Locator;
-  readonly selectBranch: Locator;
-  readonly dropdownInfoMore: Locator;
-  readonly dropdownPosition: Locator;
+  readonly USER_BUTTON: Locator;
+  readonly EMPLOYEE_NAME: Locator;
+  readonly EMPLOYEE_CODE: Locator;
+  readonly EMAIL: Locator;
+  readonly DROPDOWN_EMPLOYEE_TYPE: Locator;
+  readonly DROPDOWN_DEPARTMENT: Locator;
+  readonly SELECT_DEPARTMENT: Locator;
+  readonly SELECT_STAFF: Locator;
+  readonly SET_SALARY: Locator;
+  readonly SALARY_INPUT: Locator;
+  readonly INSURANCE_INPUT: Locator;
+  readonly ADD_ALLOWANCE: Locator;
+  readonly DROPDOWN_ALLOWANCE: Locator;
+  readonly SELECT_ALLOWANCE: Locator;
+  readonly DROPDOWN_BRANCH: Locator;
+  readonly SELECT_BRANCH: Locator;
+  readonly DROPDOWN_INFO_MORE: Locator;
+  readonly DROPDOWN_POSITION: Locator;
   readonly selectPosition: Locator;
   readonly dropdownRank: Locator;
   readonly selectRank: Locator;
@@ -31,22 +31,22 @@ export class EmployeePage extends ValidationPage {
   readonly chosseMonth: Locator;
   readonly selectMonth: Locator;
   readonly chosseYear: Locator;
-  readonly selectYear: Locator;
-  readonly selectDay: Locator;
+  readonly SELECT_YEAR: Locator;
+  readonly SELECT_DAY: Locator;
   readonly placeOfIssueOfIdentityCard: Locator;
   readonly BANK_NAME: Locator;
   readonly bankAccountNumber: Locator;
   readonly phoneNumber: Locator;
   readonly dateOfJoiningTheCompany: Locator;
-  readonly address: Locator;
-  readonly dateOfBirth: Locator;
+  readonly ADDRESS: Locator;
+  readonly DATE_OF_BIRTH: Locator;
   readonly selectMale: Locator;
   readonly addAllowanceTypeButton: Locator;
   readonly allowanceTypeName: Locator;
   readonly moneyAllowance: Locator;
   readonly dropdownAllowance2: Locator;
-  readonly searchByCode: Locator;
-  readonly searchByName: Locator;
+  readonly SEARCH_BY_CODE: Locator;
+  readonly SEARCH_BY_NAME: Locator;
   readonly resultSearchByCode: Locator;
   readonly resultSearchByName: Locator;
   readonly dropdownRoleName: Locator;
@@ -57,28 +57,16 @@ export class EmployeePage extends ValidationPage {
   readonly selectAdmin: Locator;
   readonly emailAddressExisted: Locator;
   readonly employeeCodeExisted: Locator;
-  readonly validateEmployeeCode: Locator;
-  readonly validateEmail: Locator;
-  readonly validateEmployeeName: Locator;
-  readonly validateRoleName: Locator;
   readonly dropdownGenderSearch: Locator;
-  readonly verifyMaleSearch: Locator;
-  readonly verifyFemaleSearch: Locator;
-  readonly verifyDataOfBirth: Locator;
-  readonly verifyAddress: Locator;
-  readonly verifyJoningTheCompany: Locator;
-  readonly verifyDepartment: Locator;
-  readonly verifyTeam: Locator;
-  readonly verifyPosition: Locator;
-  readonly verifyMinlenghtEmail: Locator;
+
   readonly dropdownDepartmentSearch: Locator;
   readonly departmentOption: Locator;
   readonly verifyDepartmentSearch: Locator;
   readonly checkBoxJustCheckInAtLeastOnceADay: Locator;
   readonly checkBoxJustCheckImAtLeastOneceWhenEnteingWork: Locator;
-  readonly payUnionDueCheckBox: Locator;
+  readonly PAY_UNION_DUE_CHECKBOX: Locator;
 
-  // DEPENDENTS
+  // DEPENDENTS (NGUOI PHU THUOC)
   readonly FAMILY_INFORMATION: Locator;
   readonly NAME_DEPENDENTS: Locator;
   readonly IS_DEPENDENTS_CHECKBOX: Locator;
@@ -89,12 +77,26 @@ export class EmployeePage extends ValidationPage {
   // VALIDATE 
   readonly VALIDATE_EMAIL: Locator;
   readonly VALIDATE_START_DATE_DEPENDENTS: Locator;
+  readonly validateEmployeeCode: Locator;
+  readonly validateEmail: Locator;
+  readonly validateEmployeeName: Locator;
+  readonly validateRoleName: Locator;
 
   // VERIFY
   readonly VERIFY_RELATIONSHIP: Locator;
+  readonly verifyMaleSearch: Locator;
+  readonly verifyFemaleSearch: Locator;
+  readonly verifyDataOfBirth: Locator;
+  readonly verifyAddress: Locator;
+  readonly verifyJoningTheCompany: Locator;
+  readonly verifyDepartment: Locator;
+  readonly verifyTeam: Locator;
+  readonly verifyPosition: Locator;
+  readonly verifyMinlenghtEmail: Locator;
 
   constructor(page: Page) {
     super(page);
+    this.toastPage = new ToastPage(page);
 
     // VERIFY
     this.VERIFY_RELATIONSHIP = page.getByText('Con trai', { exact: true })
@@ -107,10 +109,9 @@ export class EmployeePage extends ValidationPage {
     this.IS_DEPENDENTS_CHECKBOX = page.getByRole('checkbox', { name: 'Là người phụ thuộc' });
     this.NAME_DEPENDENTS = page.getByRole('textbox', { name: 'Họ và tên ※' })
     this.FAMILY_INFORMATION = page.getByText('Thông tin gia đình', { exact: true });
-    this.payUnionDueCheckBox = page.getByRole('checkbox', { name: 'Đóng tiền đoàn phí công đoàn' });
+    this.PAY_UNION_DUE_CHECKBOX = page.getByRole('checkbox', { name: 'Đóng tiền đoàn phí công đoàn' });
     this.checkBoxJustCheckImAtLeastOneceWhenEnteingWork = page.locator("//input[@aria-label='Chỉ cần điểm danh ít nhất 1 lần khi vào ca']");
     this.checkBoxJustCheckInAtLeastOnceADay = page.locator("//input[@aria-label='Chỉ cần điểm danh ít nhất 1 lần trong ngày']");
-    this.toastPage = new ToastPage(page);
     this.verifyDepartmentSearch = page.locator('#row-0').getByText('Bộ phận IT', { exact: true })
     this.departmentOption = page.getByRole('option', { name: 'Bộ phận IT' })
     this.dropdownDepartmentSearch = page.getByRole('combobox').filter({ hasText: 'Bộ phận Bộ phận' }).locator('i');
@@ -137,49 +138,49 @@ export class EmployeePage extends ValidationPage {
     this.dropdownRoleName = page.getByRole('textbox', { name: 'Tên quyền ※' });
     this.resultSearchByName = page.locator("//tr[@id='row-0']//span[contains(text(),'Nguyễn Văn Minh')]");
     this.resultSearchByCode = page.locator("//a[normalize-space()='BAT810']");
-    this.searchByName = page.getByRole('textbox', { name: 'Tên nhân viên' });
-    this.searchByCode = page.getByRole('textbox', { name: 'Mã nhân viên' });
+    this.SEARCH_BY_NAME = page.getByRole('textbox', { name: 'Tên nhân viên' });
+    this.SEARCH_BY_CODE = page.getByRole('textbox', { name: 'Mã nhân viên' });
     this.moneyAllowance = page.getByRole('textbox', { name: 'Phụ cấp thụ hưởng ※' });
     this.allowanceTypeName = page.getByRole('textbox', { name: 'Tên phụ cấp ※' });
     this.addAllowanceTypeButton = page.locator("//span[contains(normalize-space(),'+ Thêm loại phụ cấp')]");
     this.selectMale = page.locator("//input[@aria-label='Nam']");
-    this.dateOfBirth = page.getByRole('textbox', { name: 'Ngày sinh' });
-    this.address = page.getByRole('textbox', { name: 'Địa chỉ' });
+    this.DATE_OF_BIRTH = page.getByRole('textbox', { name: 'Ngày sinh' });
+    this.ADDRESS = page.getByRole('textbox', { name: 'Địa chỉ' });
     this.dateOfJoiningTheCompany = page.getByRole('textbox', { name: 'Ngày vào công ty' });
     this.phoneNumber = page.getByRole('spinbutton', { name: 'Số điện thoại' });
     this.bankAccountNumber = page.getByRole('spinbutton', { name: 'Số tài khoản ngân hàng' });
     this.BANK_NAME = page.getByRole('textbox', { name: 'Tên ngân hàng' })
     this.placeOfIssueOfIdentityCard = page.getByRole('textbox', { name: 'Nơi cấp CCCD' })
     this.selectRank = page.locator("//div[@class='v-list-item-title'][normalize-space()='Intern']");
-    this.selectDay = page.locator("//div[@class='dp__cell_inner dp__pointer dp__date_hover'][normalize-space()='8']");
+    this.SELECT_DAY = page.locator("//div[@class='dp__cell_inner dp__pointer dp__date_hover'][normalize-space()='8']");
     this.selectMonth = page.locator("//div[@class='dp__overlay_cell dp__overlay_cell_pad'][normalize-space()='Thg 8']");
-    this.selectYear = page.locator("//div[@class='dp__overlay_cell dp__overlay_cell_pad'][normalize-space()='2014']");
+    this.SELECT_YEAR = page.locator("//div[@class='dp__overlay_cell dp__overlay_cell_pad'][normalize-space()='2014']");
     this.chosseYear = page.getByRole('button', { name: 'Open years overlay' });
     this.chosseMonth = page.getByRole('button', { name: 'Open months overlay' });
     this.citizenIdCardIssueDate = page.getByRole('textbox', { name: 'Ngày cấp CCCD' });
     this.citizenId = page.getByRole('spinbutton', { name: 'CCCD' })
     this.dropdownRank = page.getByRole('textbox', { name: 'Tên cấp bậc' });
     this.selectPosition = page.locator("//div[@class='v-list-item-title'][normalize-space()='QA']");
-    this.dropdownPosition = page.getByRole('textbox', { name: 'Tên chức vụ' });
-    this.dropdownInfoMore = page.getByRole('button', { name: 'Thông tin thêm' });
-    this.selectBranch = page.locator("//div[text()='Biên Hòa']");
-    this.dropdownBranch = page.getByRole('textbox', { name: 'Tên chi nhánh ※' });
-    this.selectAllowance = page.getByText('Phụ cấp tiền ăn', { exact: true });
-    this.dropdownAllowance = page.getByRole('combobox').filter({ hasText: /^$/ }).locator('i');
+    this.DROPDOWN_POSITION = page.getByRole('textbox', { name: 'Tên chức vụ' });
+    this.DROPDOWN_INFO_MORE = page.getByRole('button', { name: 'Thông tin thêm' });
+    this.SELECT_BRANCH = page.locator("//div[text()='Biên Hòa']");
+    this.DROPDOWN_BRANCH = page.getByRole('textbox', { name: 'Tên chi nhánh ※' });
+    this.SELECT_ALLOWANCE = page.getByText('Phụ cấp tiền ăn', { exact: true });
+    this.DROPDOWN_ALLOWANCE = page.getByRole('combobox').filter({ hasText: /^$/ }).locator('i');
     this.dropdownAllowance2 = page.getByRole('combobox').filter({ hasText: /^$/ }).locator('i');
-    this.addAllowance = page.locator("//span[contains(.,'+Thêm phụ cấp')]");
-    this.fillInsurance = page.getByRole('textbox', { name: 'Mức bảo hiểm' })
-    this.fillSalary = page.getByRole('textbox', { name: 'Mức lương' })
-    this.setSalary = page.locator("//span[contains(normalize-space(),'Thiết lập lương')]");
-    this.selectDepartment = page.locator("//div[text()='Bộ phận Marketing']");
-    this.dropdownDepartment = page.getByRole('textbox', { name: 'Thuộc bộ phận' });
-    this.selectStaff = page.getByRole('option', { name: 'Nhân viên' });
+    this.ADD_ALLOWANCE = page.locator("//span[contains(.,'+Thêm phụ cấp')]");
+    this.INSURANCE_INPUT = page.getByRole('textbox', { name: 'Mức bảo hiểm' })
+    this.SALARY_INPUT = page.getByRole('textbox', { name: 'Mức lương' })
+    this.SET_SALARY = page.locator("//span[contains(normalize-space(),'Thiết lập lương')]");
+    this.SELECT_DEPARTMENT = page.locator("//div[text()='Bộ phận Marketing']");
+    this.DROPDOWN_DEPARTMENT = page.getByRole('textbox', { name: 'Thuộc bộ phận' });
+    this.SELECT_STAFF = page.getByRole('option', { name: 'Nhân viên' });
     this.selectAdmin = page.getByRole('option', { name: 'Quản lý' });
-    this.dropdownEmployeeType = page.getByRole('textbox', { name: 'Loại nhân viên ※' });
-    this.email = page.getByRole('textbox', { name: 'Email ※' })
-    this.employeeName = page.getByRole('textbox', { name: 'Tên nhân viên ※' })
-    this.employeeCode = page.getByRole('textbox', { name: 'Mã nhân viên ※' })
-    this.userButton = page.getByRole('link', { name: 'Nhân viên', exact: true });
+    this.DROPDOWN_EMPLOYEE_TYPE = page.getByRole('textbox', { name: 'Loại nhân viên ※' });
+    this.EMAIL = page.getByRole('textbox', { name: 'Email ※' })
+    this.EMPLOYEE_NAME = page.getByRole('textbox', { name: 'Tên nhân viên ※' })
+    this.EMPLOYEE_CODE = page.getByRole('textbox', { name: 'Mã nhân viên ※' })
+    this.USER_BUTTON = page.getByRole('link', { name: 'Nhân viên', exact: true });
   }
 
   // VERIFY
@@ -199,7 +200,7 @@ export class EmployeePage extends ValidationPage {
   }
 
   async verifyIsDependents() {
-    const locator = this.page.locator("//td[normalize-space()='Có']") ;
+    const locator = this.page.locator("//td[normalize-space()='Có']");
     await this.safeVerifyToHaveText(locator, 'Có');
   }
 
@@ -244,7 +245,7 @@ export class EmployeePage extends ValidationPage {
   }
 
   async selectPayUnionDue() {
-    await this.safeClick(this.payUnionDueCheckBox);
+    await this.safeClick(this.PAY_UNION_DUE_CHECKBOX);
   }
 
   async checkJustCheckInAtLeastOnceADay() {
@@ -312,11 +313,11 @@ export class EmployeePage extends ValidationPage {
   }
 
   async fillSearchByCode(code: string) {
-    await this.safeFill(this.searchByCode, code);
+    await this.safeFill(this.SEARCH_BY_CODE, code);
   }
 
   async fillSearchByName(name: string) {
-    await this.safeFill(this.searchByName, name);
+    await this.safeFill(this.SEARCH_BY_NAME, name);
   }
 
   async clickDropdownAllowance2() {
@@ -344,11 +345,11 @@ export class EmployeePage extends ValidationPage {
   }
 
   async clickDateOfBirth() {
-    await this.safeClick(this.dateOfBirth);
+    await this.safeClick(this.DATE_OF_BIRTH);
   }
 
   async fillAddress(address: string) {
-    await this.safeFill(this.address, address);
+    await this.safeFill(this.ADDRESS, address);
   }
 
   async clickDateOfJoiningTheCompany() {
@@ -376,7 +377,7 @@ export class EmployeePage extends ValidationPage {
   }
 
   async clickSelectDay() {
-    await this.safeClick(this.selectDay);
+    await this.safeClick(this.SELECT_DAY);
     await this.clickChoose();
   }
 
@@ -385,7 +386,7 @@ export class EmployeePage extends ValidationPage {
   }
 
   async clickSelectYear() {
-    await this.safeClick(this.selectYear);
+    await this.safeClick(this.SELECT_YEAR);
   }
 
   async clickChosseMonth() {
@@ -419,11 +420,11 @@ export class EmployeePage extends ValidationPage {
   }
 
   async clickDropdownPosition() {
-    await this.safeClick(this.dropdownPosition);
+    await this.safeClick(this.DROPDOWN_POSITION);
   }
 
   async clickDropdownInfoMore() {
-    await this.safeClick(this.dropdownInfoMore);
+    await this.safeClick(this.DROPDOWN_INFO_MORE);
   }
 
   async clickDepartmentOptions() {
@@ -431,23 +432,23 @@ export class EmployeePage extends ValidationPage {
   }
 
   async clickSelectBranch() {
-    await this.safeClick(this.selectBranch);
+    await this.safeClick(this.SELECT_BRANCH);
   }
 
   async clickDropdownBranch() {
-    await this.safeClick(this.dropdownBranch);
+    await this.safeClick(this.DROPDOWN_BRANCH);
   }
 
   async clickSelectAllowance() {
-    await this.safeClick(this.selectAllowance);
+    await this.safeClick(this.SELECT_ALLOWANCE);
   }
 
   async clickDropdownAllowance() {
-    await this.safeClick(this.dropdownAllowance);
+    await this.safeClick(this.DROPDOWN_ALLOWANCE);
   }
 
   async clickAddAllowance() {
-    await this.safeClick(this.addAllowance);
+    await this.safeClick(this.ADD_ALLOWANCE);
   }
   async toggleAllowance() {
     const wrapper = this.page.locator('div.v-switch');
@@ -455,31 +456,31 @@ export class EmployeePage extends ValidationPage {
   }
 
   async fillFillInsurance(insurance: string) {
-    await this.safeFill(this.fillInsurance, insurance);
+    await this.safeFill(this.INSURANCE_INPUT, insurance);
   }
 
   async clickSetSalary() {
-    await this.safeClick(this.setSalary);
+    await this.safeClick(this.SET_SALARY);
   }
 
   async fillFillSalary(salary: string) {
-    await this.safeFill(this.fillSalary, salary);
+    await this.safeFill(this.SALARY_INPUT, salary);
   }
 
   async fillEmail(email: string) {
-    await this.safeFill(this.email, email);
+    await this.safeFill(this.EMAIL, email);
   }
 
   async clickDropdownEmployeeType() {
-    await this.safeClick(this.dropdownEmployeeType);
+    await this.safeClick(this.DROPDOWN_EMPLOYEE_TYPE);
   }
 
   async clickStaff() {
-    await this.safeClick(this.selectStaff);
+    await this.safeClick(this.SELECT_STAFF);
   }
 
   async clickDropdownDepartment() {
-    await this.safeClick(this.dropdownDepartment);
+    await this.safeClick(this.DROPDOWN_DEPARTMENT);
   }
 
   async clickSelectDepartment(departmentName: string) {
@@ -488,16 +489,16 @@ export class EmployeePage extends ValidationPage {
   }
 
   async fillEmployeeName(name: string) {
-    await this.employeeName.clear();
-    await this.safeFill(this.employeeName, name);
+    await this.EMPLOYEE_NAME.clear();
+    await this.safeFill(this.EMPLOYEE_NAME, name);
   }
 
   async fillEmployeeCode(code: string) {
-    await this.safeFill(this.employeeCode, code);
+    await this.safeFill(this.EMPLOYEE_CODE, code);
   }
 
   async clickUser() {
-    await this.safeClick(this.userButton);
+    await this.safeClick(this.USER_BUTTON);
   }
 
   // FUNCTION VERIFY 

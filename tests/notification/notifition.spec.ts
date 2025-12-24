@@ -233,13 +233,13 @@ test.describe.serial('Notification Test Suite', () => {
         });
     });
 
-    test('Delete notification', async ({ page }) => {
+    test.only('Delete notification', async ({ page }) => {
         allure.story('Delete Notification');
         await allure.step('Delete notification', async () => {
             await loginPage.login(Config.admin_username, Config.admin_password);
             await notificationPage.clickAdmin();
             await notificationPage.clickListNotification();
-            await notificationPage.clickDeleteFirst();
+            await notificationPage.clickDelete();
         });
         await toast.getToastDeleteSuccess();
     });

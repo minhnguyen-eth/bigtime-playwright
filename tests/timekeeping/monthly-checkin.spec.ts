@@ -10,7 +10,7 @@ import { MonthlyCheckinPage } from '../../pages/timekeeping_page/MonthlyCheckinP
 import { clearDataForTestMonthlyCheckin } from '../../db/modules/MonthlyCheckinDB';
 import { LogoutPage } from '../../pages/LogoutPage';
 
-test.describe.serial('Monthly Checkin Tests', () => {
+test.describe.serial('Monthly Checkin Tests - Chấm công tháng', () => {
     let loginPage: LoginPage;
     let shiftPlanPage: ShiftPlanPage;
     let toastPage: ToastPage;

@@ -64,6 +64,7 @@ export class BasePage extends SafeActions {
 
     constructor(page: Page) {
         super(page);
+
         // CHECKBOX
         this.FISRT_CHECKBOX = page.locator("(//input[@type='checkbox'])[1]");
         this.SECOND_CHECKBOX = page.locator("(//input[@type='checkbox'])[2]");
@@ -132,12 +133,21 @@ export class BasePage extends SafeActions {
         await this.safeFill(this.TAX_CODE_INPUT, taxCode);
     }
 
-    async clickFirstCheckbox() { await this.safeClick(this.FISRT_CHECKBOX); }
+    async clickFirstCheckbox() {
+        await this.safeClick(this.FISRT_CHECKBOX);
+    }
 
-    async clickSecondCheckbox() { await this.safeClick(this.SECOND_CHECKBOX); }
+    async clickSecondCheckbox() {
+        await this.safeClick(this.SECOND_CHECKBOX);
+    }
 
-    async clickOpenYearOverlayButton() { await this.safeClick(this.OPEN_YEAR_OVERLAY_BUTTON); }
-    async clickOpenMonthOverlayButton() { await this.safeClick(this.OPEN_MONTH_OVERLAY_BUTTON); }
+    async clickOpenYearOverlayButton() {
+        await this.safeClick(this.OPEN_YEAR_OVERLAY_BUTTON);
+    }
+
+    async clickOpenMonthOverlayButton() {
+        await this.safeClick(this.OPEN_MONTH_OVERLAY_BUTTON);
+    }
 
     async clickChosseMonthPicker(month: number) {
         const monthLocator = this.page.getByText(`Thg ${month}`, { exact: true });
@@ -145,7 +155,9 @@ export class BasePage extends SafeActions {
         await this.clickChoose();
     }
 
-    async clickChooseMonthFilter() { await this.safeClick(this.CHOOSE_MONTH_FILTER); }
+    async clickChooseMonthFilter() {
+        await this.safeClick(this.CHOOSE_MONTH_FILTER);
+    }
 
     async verifyTotalReceived(amount: string) {
         const locator = this.page.locator(`(//td[@class='text-right'][contains(text(),'${amount} đ')])[3]`);
@@ -160,26 +172,40 @@ export class BasePage extends SafeActions {
         await this.safeClick(this.page.getByText(`${minute}`, { exact: true }));
     }
 
-    async clickOpenHoursOverlayButton() { await this.safeClick(this.OPEN_HOURS_OVERLAY_BUTTON); }
-    async clickOpenMinutesOverlayButton() { await this.safeClick(this.OPEN_MINUTES_OVERLAY_BUTTON); }
+    async clickOpenHoursOverlayButton() {
+        await this.safeClick(this.OPEN_HOURS_OVERLAY_BUTTON);
+    }
+
+    async clickOpenMinutesOverlayButton() {
+        await this.safeClick(this.OPEN_MINUTES_OVERLAY_BUTTON);
+    }
 
     async fillTextarea(text: string) { await this.safeFill(this.TEXTAREA_INPUT, text); }
 
     async clickRow0() { await this.safeClick(this.ROW0); }
+
     async clickLockStatus() { await this.safeClick(this.LOCK_STATUS); }
+
     async clickActivityStatus() { await this.safeClick(this.ACTIVITY_STATUS); }
 
     async clickDropdownStatusSearch() { await this.safeClick(this.STATUS_DROPDOWN); }
+
     async clickDropdownStatusSearchNth1() { await this.safeClick(this.STATUS_DROPDOWN, { nth: 1 }); }
 
     async verifyActivityStatusRow0() { await this.safeVerifyToHaveText(this.ACTIVITY_STATUS_ROW0, 'Hoạt động'); }
+
     async verifyLockStatusRow0() { await this.safeVerifyToHaveText(this.LOCK_STATUS_ROW0, 'Khóa'); }
 
     async clickNoButton() { await this.safeClick(this.NO_BUTTON); }
+
     async clickAdmin() { await this.safeClick(this.ADMIN_BUTTON); }
+
     async clickTimeKeepingManagement() { await this.safeClick(this.TIMEKEEPING_MANAGEMENT_BUTTON); }
+
     async clickSalary() { await this.safeClick(this.SALARY_BUTTON); }
+
     async clickSetting() { await this.safeClick(this.SETTING_BUTTON); }
+
     async clickIconAction() { await this.safeClick(this.ICON_ACTION); }
 
     async clickTodayDatePicker() {
@@ -188,7 +214,7 @@ export class BasePage extends SafeActions {
     }
 
     async clickDelete() {
-        await this.safeClick(this.DELETE_BUTTON);
+        await this.safeClick(this.DELETE_BUTTON, { first: true });
         await this.safeClick(this.YES_BUTTON);
     }
 
@@ -230,11 +256,22 @@ export class BasePage extends SafeActions {
         await this.safeClick(this.YES_BUTTON);
     }
 
-    async clickSend() { await this.safeClick(this.SEND_BUTTON); }
-    async clickYes() { await this.safeClick(this.YES_BUTTON); }
-    async clickNo() { await this.safeClick(this.NO_BUTTON); }
+    async clickSend() {
+        await this.safeClick(this.SEND_BUTTON);
+    }
 
-    async clickCancel() { await this.safeClick(this.CANCEL_BUTTON); }
+    async clickYes() {
+        await this.safeClick(this.YES_BUTTON);
+    }
+
+    async clickNo() {
+        await this.safeClick(this.NO_BUTTON);
+    }
+
+    async clickCancel() {
+        await this.safeClick(this.CANCEL_BUTTON);
+    }
+
     async clickCancelNth1() { await this.safeClick(this.CANCEL_BUTTON, { nth: 1 }); }
 
     async clickSave() {
@@ -248,18 +285,39 @@ export class BasePage extends SafeActions {
         await this.safeClick(this.YES_BUTTON);
     }
 
-    async clickEditRow0() { await this.safeClick(this.EDIT_ROW0_BUTTON); }
+    async clickEditRow0() {
+        await this.safeClick(this.EDIT_ROW0_BUTTON);
+    }
 
-    async clickClearSearch() { await this.safeClick(this.CLEAR_SEARCH_BUTTON); }
+    async clickClearSearch() {
+        await this.safeClick(this.CLEAR_SEARCH_BUTTON);
+    }
 
-    async clickAdd() { await this.safeClick(this.ADD_BUTTON); }
-    async clickAddNth1() { await this.safeClick(this.ADD_BUTTON, { nth: 1 }); }
+    async clickAdd() {
+        await this.safeClick(this.ADD_BUTTON);
+    }
 
-    async clickSearch() { await this.safeClick(this.SEARCH_BUTTON); }
+    async clickAddNth1() {
+        await this.safeClick(this.ADD_BUTTON, { nth: 1 });
+    }
 
-    async fillNote(note: string) { await this.safeFill(this.NOTE_INPUT, note); }
-    async fillDescription(description: string) { await this.safeFill(this.DESCRIPTION_INPUT, description); }
+    async clickSearch() {
+        await this.safeClick(this.SEARCH_BUTTON);
+    }
 
-    async clickDropdownStatusInForm() { await this.safeClick(this.STATUS_DROPDOWN); }
-    async clickDropdownStatusInFormNth1() { await this.safeClick(this.STATUS_DROPDOWN, { nth: 1 }); }
+    async fillNote(note: string) {
+        await this.safeFill(this.NOTE_INPUT, note);
+    }
+
+    async fillDescription(description: string) {
+        await this.safeFill(this.DESCRIPTION_INPUT, description);
+    }
+
+    async clickDropdownStatusInForm() {
+        await this.safeClick(this.STATUS_DROPDOWN);
+    }
+
+    async clickDropdownStatusInFormNth1() {
+        await this.safeClick(this.STATUS_DROPDOWN, { nth: 1 });
+    }
 }
