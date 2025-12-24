@@ -233,7 +233,7 @@ test.describe.serial('Notification Test Suite', () => {
         });
     });
 
-    test.only('Delete notification', async ({ page }) => {
+    test('Delete notification', async ({ page }) => {
         allure.story('Delete Notification');
         await allure.step('Delete notification', async () => {
             await loginPage.login(Config.admin_username, Config.admin_password);
