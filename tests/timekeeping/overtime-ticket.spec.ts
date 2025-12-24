@@ -196,6 +196,7 @@ test.describe.serial('Overtime Ticket Test Suite', () => {
         await loginPage.login(Config.admin_username, Config.admin_password);
         await overtimeTicketPage.clickRow0();
         await overtimeTicketPage.clickBrowse();
+        await overtimeTicketPage.clickRow0();
         await overtimeTicketPage.verifyOvertimeTicketBrowsedStatus();
     });
 
@@ -235,7 +236,7 @@ test.describe.serial('Overtime Ticket Test Suite', () => {
 
     });
 
-    test('E2E - Edit Pending Overtime Ticket When Rejected', async ({ page }) => {
+    test('E2E - Edit Pending Overtime Ticket When Rejected - Chỉnh sửa đơn tăng ca khi bị từ chối', async ({ page }) => {
         // Add Overtime Ticket
         await addOverTimeTicket();
 

@@ -20,12 +20,9 @@ export class OvertimeTicketPage extends BasePage {
     readonly HOUR_17: Locator;
     readonly HOUR_18: Locator;
     readonly HOUR_19: Locator;
-    
     readonly TOAST_SEND_SUCCESS: Locator;
     readonly NEW_STATUS_INFO: Locator;
     readonly REASON_INFO: Locator;
-    readonly START_TIME_INFO: Locator;
-    readonly END_TIME_INFO: Locator;
     readonly WORKING_TIME_INFO: Locator;
     readonly EMPLOYEE_NAME_INFO: Locator;
     readonly CANCEL_STATUS_INFO: Locator;
@@ -40,9 +37,11 @@ export class OvertimeTicketPage extends BasePage {
     readonly SELECT_NEW_STATUS: Locator;
     readonly VALIDATE_DATE_REQUIRED: Locator;
     readonly VALIDATE_WHEN_USER_CHOOSE_WRONG_TIME: Locator;
+    readonly VERIFY_TIME: (time: string) => Locator;
 
     constructor(page: Page) {
         super(page);
+        this.VERIFY_TIME = (time: string) => page.getByRole('cell', { name: time, exact: true });
         this.CANCEL_STATUS_INFO = page.locator("//div[contains(@class, 'text-body-2') and contains(text(), 'Hủy')]");
         this.HOUR_19 = page.locator("//div[@class='dp__overlay_cell dp__overlay_cell_pad'][normalize-space()='19']");
         this.VALIDATE_WHEN_USER_CHOOSE_WRONG_TIME = page.locator("//li[contains(text(),'Đã chấm công ra lúc')]");
@@ -58,8 +57,6 @@ export class OvertimeTicketPage extends BasePage {
         this.OPEN_MINUTE = page.locator("//button[@aria-label='Open minutes overlay']");
         this.EMPLOYEE_NAME_INFO = page.locator("//tr[@id='row-0']//span[contains(text(),'BAT810 - Nguyễn Văn Minh')]");
         this.WORKING_TIME_INFO = page.locator("//div[normalize-space()='01:00']");
-        this.END_TIME_INFO = page.locator("//div[normalize-space()='18:00']");
-        this.START_TIME_INFO = page.locator("//div[normalize-space()='17:00']");
         this.REASON_INFO = page.locator("//div[contains(text(),'Automation test')]");
         this.NEW_STATUS_INFO = page.locator("//div[contains(text(),'Mới')]");
         this.TOAST_SEND_SUCCESS = page.locator("//div[contains(text(),'Gửi thành công')]");
@@ -125,17 +122,27 @@ export class OvertimeTicketPage extends BasePage {
         await this.safeVerifyTextContains(this.EMPLOYEE_NAME_INFO, "BAT810 - Nguyễn Văn Minh");
     }
 
-    async verifyWorkingTime() {
-        await this.safeVerifyTextContains(this.WORKING_TIME_INFO, "01:00");
+    async verifyTotalOvertime(expectedTime: string) {
+        await this.safeVerifyTextContains(
+            this.VERIFY_TIME(expectedTime),
+            expectedTime
+        );
     }
 
-    async verifyEndTime() {
-        await this.safeVerifyTextContains(this.END_TIME_INFO, "18:00");
+    async verifyEndTime(expectedTime: string) {
+        await this.safeVerifyTextContains(
+            this.VERIFY_TIME(expectedTime),
+            expectedTime
+        );
     }
 
-    async verifyStartTime() {
-        await this.safeVerifyTextContains(this.START_TIME_INFO, "17:00");
+    async verifyStartTime(expectedTime: string) {
+        await this.safeVerifyTextContains(
+            this.VERIFY_TIME(expectedTime),
+            expectedTime
+        );
     }
+
 
     async verifyReason() {
         await this.safeVerifyTextContains(this.REASON_INFO, "Automation test");
@@ -207,45 +214,45 @@ export class OvertimeTicketPage extends BasePage {
 
     async verifyOvertimeTicketNewStatus() {
         await this.verifyReason();
-        await this.verifyStartTime();
-        await this.verifyEndTime();
-        await this.verifyWorkingTime();
+        await this.verifyStartTime('17:00');
+        await this.verifyEndTime('18:00');
+        await this.verifyTotalOvertime('01:00');
         await this.verifyNewStatus();
         await this.verifyEmployeeName();
     }
 
     async verifyOvertimeTicketPendingStatus() {
         await this.verifyReason();
-        await this.verifyStartTime();
-        await this.verifyEndTime();
-        await this.verifyWorkingTime();
+        await this.verifyStartTime('17:00');
+        await this.verifyEndTime('18:00');
+        await this.verifyTotalOvertime('01:00');
         await this.verifyPendingStatus();
         await this.verifyEmployeeName();
     }
 
     async verifyOvertimeTicketBrowsedStatus() {
         await this.verifyReason();
-        await this.verifyStartTime();
-        await this.verifyEndTime();
-        await this.verifyWorkingTime();
+        await this.verifyStartTime('17:00');
+        await this.verifyEndTime('18:00');
+        await this.verifyTotalOvertime('01:00');
         await this.verifyBrowsedStatus();
         await this.verifyEmployeeName();
     }
 
     async verifyOvertimeTicketRejectStatus() {
         await this.verifyReason();
-        await this.verifyStartTime();
-        await this.verifyEndTime();
-        await this.verifyWorkingTime();
+        await this.verifyStartTime('17:00');
+        await this.verifyEndTime('18:00');
+        await this.verifyTotalOvertime('01:00');
         await this.verifyRejectStatus();
         await this.verifyEmployeeName();
     }
 
     async verifyOvertimeTicketCancelStatus() {
         await this.verifyReason();
-        await this.verifyStartTime();
-        await this.verifyEndTime();
-        await this.verifyWorkingTime();
+        await this.verifyStartTime('17:00');
+        await this.verifyEndTime('18:00');
+        await this.verifyTotalOvertime('01:00');
         await this.verifyCancelStatus();
         await this.verifyEmployeeName();
     }
