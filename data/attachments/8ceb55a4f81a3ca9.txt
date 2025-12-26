@@ -1,0 +1,12 @@
+safeClick error: locator.waitFor: Error: strict mode violation: locator('//span[normalize-space()=\'Quản lý\']') resolved to 7 elements:
+    1) <span data-no-activator="" class="v-btn__content">…</span> aka getByRole('button', { name: 'Quản lý' })
+    2) <span draggable="false" class="v-chip v-theme--lightColor7 text-blue v-chip--density-default rounded-lg v-chip--size-small v-chip--variant-tonal py-2">…</span> aka getByRole('row', { name: 'testtet tesete Quản lý Nữ' }).locator('span').nth(1)
+    3) <span aria-describedby="v-tooltip-151">Quản lý</span> aka locator('#row-12').getByText('Quản lý')
+    4) <span draggable="false" class="v-chip v-theme--lightColor7 text-blue v-chip--density-default rounded-lg v-chip--size-small v-chip--variant-tonal py-2">…</span> aka getByRole('row', { name: 'TESST TEST Quản lý Nữ' }).locator('span').nth(1)
+    5) <span aria-describedby="v-tooltip-154">Quản lý</span> aka locator('#row-13').getByText('Quản lý')
+    6) <span>Quản lý</span> aka locator('#v-tooltip-151').getByText('Quản lý')
+    7) <span>Quản lý</span> aka locator('#v-tooltip-154').getByText('Quản lý')
+
+Call log:
+  - waiting for locator('//span[normalize-space()=\'Quản lý\']')
+

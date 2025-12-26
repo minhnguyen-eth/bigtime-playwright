@@ -1,0 +1,7 @@
+Importing file into [check_times] from: E:\BigAppTech\bigtime-playwright\test-data\check_times.csv
+Imported data into check_times from E:\BigAppTech\bigtime-playwright\test-data\check_times.csv
+Importing file into [check_days] from: E:\BigAppTech\bigtime-playwright\test-data\check_days.csv
+Imported data into check_days from E:\BigAppTech\bigtime-playwright\test-data\check_days.csv
+Importing file into [payrolls] from: E:\BigAppTech\bigtime-playwright\test-data\payrolls.csv
+Imported data into payrolls from E:\BigAppTech\bigtime-playwright\test-data\payrolls.csv
+Cleared 1 rows in paysheets with condition: name not like '%Test Data%'.

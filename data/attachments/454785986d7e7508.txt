@@ -1,0 +1,7 @@
+safeClick error: locator.click: Timeout 700ms exceeded.
+Call log:
+  - waiting for locator('//span[normalize-space()=\'Lưu\']').first()
+    - locator resolved to <span data-no-activator="" class="v-btn__content">…</span>
+  - attempting click action
+    - waiting for element to be visible, enabled and stable
+

@@ -1,0 +1,4 @@
+Cleared 2 rows in evaluation_types with condition.
+Found 1 records in evaluation_types with conditions: { name: { value: 'Automation test qxrypg', like: true } }
+Deleted 1 rows from evaluation_types where name like 'Automation test qxrypg'
+Đã xóa loại đánh giá "Automation test qxrypg": true

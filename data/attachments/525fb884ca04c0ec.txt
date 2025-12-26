@@ -1,0 +1,2 @@
+Cleared 1 rows in leave_applications with condition.
+📸 Screenshot saved: D:\BigAppTech\playwright-typescripts\screenshots\admin_reject_leave_application.png

@@ -1,0 +1,168 @@
+# Page snapshot
+
+```yaml
+- banner:
+  - button
+  - text: Bigtime
+  - button "Quản lý":
+    - paragraph: Quản lý
+  - button "Chấm công":
+    - paragraph: Chấm công
+  - button "Lương":
+    - paragraph: Lương
+  - img
+  - text: Quản lý bộ phận IT
+  - button "Badge":
+    - status "Badge"
+  - button
+  - button "Đăng xuất"
+- banner:
+  - text: Version 1.1.2
+  - list:
+    - listitem "English":
+      - img
+    - listitem "Tiếng Việt":
+      - img
+  - button
+- navigation:
+  - listbox:
+    - link "Trung tâm":
+      - /url: /dashboard-admin
+    - link "Quản lý thông báo":
+      - /url: /notification
+    - link "Danh sách thông báo":
+      - /url: /list-notification
+    - link "Phân loại đánh giá":
+      - /url: /evaluation-type
+    - link "Tiêu chí đánh giá":
+      - /url: /evaluation-criteria
+    - link "Quy trình đánh giá":
+      - /url: /evaluation-progress
+    - link "Danh sách đánh giá":
+      - /url: /list-evaluation
+    - link "Loại khen thưởng":
+      - /url: /reward-type
+    - link "Khen thưởng nhân viên":
+      - /url: /reward-user
+    - separator
+    - text: Chung
+    - link "Quản lý nghỉ phép năm":
+      - /url: /leave-management
+    - link "Quản lý ngày nghỉ":
+      - /url: /holiday-management
+    - link "Đơn thôi việc":
+      - /url: /resignation
+    - link "Chi nhánh":
+      - /url: /branch
+    - link "Bộ phận":
+      - /url: /department
+    - link "Chức vụ":
+      - /url: /position
+    - link "Cấp bậc":
+      - /url: /level
+    - link "Nhóm":
+      - /url: /team
+    - separator
+    - text: Thống kê
+    - separator
+    - text: Quản lý nhân viên
+    - link "Nhân viên":
+      - /url: /user
+- main:
+  - text: Khen thưởng nhân viên
+  - button "Làm mới"
+  - button "Thêm"
+  - text: Tên khen thưởng
+  - textbox "Tên khen thưởng Tên khen thưởng"
+  - text: Nhân viên được khen thưởng
+  - textbox "Nhân viên được khen thưởng Nhân viên được khen thưởng"
+  - text: Tên loại khen thưởng
+  - textbox "Tên loại khen thưởng Tên loại khen thưởng"
+  - text: Ngày khen thưởng
+  - textbox "Ngày khen thưởng Ngày khen thưởng"
+  - combobox:
+    - text: Trạng thái
+    - textbox "Open"
+  - button "Tìm kiếm"
+  - button "Xóa"
+  - table:
+    - rowgroup:
+      - row "# Tên khen thưởng Nhân viên được khen thưởng Tên loại khen thưởng Tiền thưởng Ngày khen thưởng Mô tả Ghi chú Trạng thái":
+        - columnheader "#"
+        - columnheader "Tên khen thưởng"
+        - columnheader "Nhân viên được khen thưởng"
+        - columnheader "Tên loại khen thưởng"
+        - columnheader "Tiền thưởng"
+        - columnheader "Ngày khen thưởng"
+        - columnheader "Mô tả"
+        - columnheader "Ghi chú"
+        - columnheader "Trạng thái"
+    - rowgroup:
+      - row "1 Reward Employee BAT810 - Nguyễn Văn Minh Khen thưởng 2 1.000.000 đ 21-07-2025 Description Note Từ chối":
+        - cell "1"
+        - cell "Reward Employee"
+        - cell "BAT810 - Nguyễn Văn Minh"
+        - cell "Khen thưởng 2"
+        - cell "1.000.000 đ"
+        - cell "21-07-2025"
+        - cell "Description"
+        - cell "Note"
+        - cell "Từ chối"
+      - row "2 Reward Employee BAT810 - Nguyễn Văn Minh Khen thưởng 2 1.000.000 đ 21-07-2025 Description Note Đã duyệt":
+        - cell "2"
+        - cell "Reward Employee"
+        - cell "BAT810 - Nguyễn Văn Minh"
+        - cell "Khen thưởng 2"
+        - cell "1.000.000 đ"
+        - cell "21-07-2025"
+        - cell "Description"
+        - cell "Note"
+        - cell "Đã duyệt"
+  - text: Tổng 2, Hiển thị
+  - combobox:
+    - text: "20"
+    - textbox "Open": "20"
+  - navigation "Pagination Navigation":
+    - list:
+      - listitem:
+        - button "Previous page" [disabled]
+      - listitem:
+        - button "Page 1, Current page" [disabled]: "1"
+      - listitem:
+        - button "Next page" [disabled]
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- dialog:
+  - text: Thêm khen thưởng
+  - textbox "Tên khen thưởng ※ Tên khen thưởng ※": Reward Employee 2
+  - combobox:
+    - text: BAT810 - Nguyễn Văn Minh
+    - textbox "Chọn nhân viên ※ Chọn nhân viên ※": BAT810 - Nguyễn Văn Minh
+    - button "Clear": 󰅙
+    - button "Open": 󰍝
+  - combobox:
+    - text: Khen thưởng 2
+    - textbox "Chọn loại khen thưởng ※ Chọn loại khen thưởng ※": Khen thưởng 2
+    - button "Clear": 󰅙
+    - button "Open": 󰍝
+  - textbox "Tiền thưởng ※ Tiền thưởng ※": 1.000.000 ₫
+  - textbox "Mô tả Mô tả": Description 2
+  - textbox "Ghi chú Ghi chú": Note 2
+  - textbox "Ngày khen thưởng Ngày khen thưởng": 21-07-2025
+  - combobox:
+    - text: Mới tạo
+    - textbox "Open": "0"
+  - textbox "Ngày tạo Ngày tạo" [disabled]: 21-07-2025 15:17
+  - textbox "Người tạo Người tạo" [disabled]: Quản lý bộ phận IT
+  - button "Lưu"
+  - button "Hủy"
+```

@@ -1,0 +1,122 @@
+# Page snapshot
+
+```yaml
+- banner:
+  - button
+  - text: BigTime - Prepare
+  - button "Quản lý":
+    - paragraph: Quản lý
+  - button "Chấm công":
+    - paragraph: Chấm công
+  - button "Lương":
+    - paragraph: Lương
+  - button "Cài đặt":
+    - paragraph: Cài đặt
+  - img
+  - text: admin
+  - button "Badge":
+    - status "Badge"
+  - button
+  - button "Đăng xuất"
+- banner:
+  - text: Version 1.0.10
+  - list:
+    - listitem "English":
+      - img
+    - listitem "Tiếng Việt":
+      - img
+  - button
+- navigation:
+  - listbox:
+    - link "Trung tâm":
+      - /url: /dashboard-salary
+    - separator
+    - text: Lương
+    - link "Loại phụ cấp":
+      - /url: /salary/allowance-type
+    - link "Bảng lương":
+      - /url: /salary/pay-sheet
+    - link "Phiếu lương":
+      - /url: /salary/payslip
+    - link "Tạm ứng":
+      - /url: /salary/debt
+    - separator
+    - text: Thống kê
+    - link "Thống kê lương":
+      - /url: /salary/salary-statistic
+    - link "Thống kê thuế":
+      - /url: /tax-statistic
+- main:
+  - button "󰳝"
+  - paragraph: Cập nhật bảng tính lương
+  - combobox:
+    - textbox "Tùy chọn nhân viên Tùy chọn nhân viên"
+    - button "Clear": 󰅙
+    - button "Open": 󰍝
+  - alert: Tìm kiếm theo tên hoặc mã nhân viên
+  - button "Lưu tạm"
+  - button "Chốt lương"
+  - button "Thêm nhân viên"
+  - button "Gửi tất cả"
+  - text: "Đã gửi: Đã duyệt: Từ chối:"
+  - table:
+    - rowgroup:
+      - row "# Tên nhân viên Lương chính Tăng ca Phụ cấp Thưởng Giảm trừ Tổng lương Bảo hiểm Thuế Tổng nhận được Đã trả Còn cần trả":
+        - cell
+        - cell "#"
+        - cell "Tên nhân viên"
+        - cell "Lương chính"
+        - cell "Tăng ca"
+        - cell "Phụ cấp"
+        - cell "Thưởng"
+        - cell "Giảm trừ"
+        - cell "Tổng lương"
+        - cell "Bảo hiểm"
+        - cell "Thuế"
+        - cell "Tổng nhận được"
+        - cell "Đã trả"
+        - cell "Còn cần trả"
+      - row "0 đ 0 đ 0 đ 0 đ 0 đ 0 đ 2.100.000 đ 0 đ -2.100.000 đ 0 đ -2.100.000 đ":
+        - cell
+        - cell "0 đ"
+        - cell "0 đ"
+        - cell "0 đ"
+        - cell "0 đ"
+        - cell "0 đ"
+        - cell "0 đ"
+        - cell "2.100.000 đ"
+        - cell "0 đ"
+        - cell "-2.100.000 đ"
+        - cell "0 đ"
+        - cell "-2.100.000 đ"
+    - rowgroup:
+      - row "1 Test thue (Có 2 NPT) BAT102 0 đ 0 đ 0 đ 0 đ 0 đ 0 đ 2.100.000 đ 0 đ -2.100.000 đ 0 đ -2.100.000 đ":
+        - cell:
+          - button
+        - cell "1"
+        - cell "Test thue (Có 2 NPT) BAT102":
+          - paragraph: Test thue (Có 2 NPT)
+          - paragraph: BAT102
+        - cell "0 đ":
+          - paragraph: 0 đ
+        - cell "0 đ":
+          - paragraph: 0 đ
+        - cell "0 đ":
+          - paragraph: 0 đ
+        - cell "0 đ":
+          - paragraph: 0 đ
+        - cell "0 đ":
+          - paragraph: 0 đ
+        - cell "0 đ"
+        - cell "2.100.000 đ":
+          - paragraph: 2.100.000 đ
+        - cell "0 đ":
+          - paragraph: 0 đ
+        - cell "-2.100.000 đ"
+        - cell "0 đ"
+        - cell "-2.100.000 đ"
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+```

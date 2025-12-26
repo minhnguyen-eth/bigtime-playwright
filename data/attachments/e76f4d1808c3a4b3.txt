@@ -1,0 +1,198 @@
+# Page snapshot
+
+```yaml
+- banner:
+  - button
+  - text: Bigtime
+  - button "Quản lý":
+    - paragraph: Quản lý
+  - button "Chấm công":
+    - paragraph: Chấm công
+  - button "Lương":
+    - paragraph: Lương
+  - button "Cài đặt":
+    - paragraph: Cài đặt
+  - img
+  - text: Admin
+  - button "Badge":
+    - status "Badge"
+  - button
+  - button "Đăng xuất"
+- banner:
+  - text: Version 1.1.2
+  - list:
+    - listitem "English":
+      - img
+    - listitem "Tiếng Việt":
+      - img
+  - button
+- navigation:
+  - listbox:
+    - link "Trung tâm":
+      - /url: /dashboard-admin
+    - separator
+    - text: Thông báo
+    - link "Quản lý thông báo":
+      - /url: /notification
+    - link "Danh sách thông báo":
+      - /url: /list-notification
+    - separator
+    - text: Đánh giá
+    - link "Phân loại đánh giá":
+      - /url: /evaluation-type
+    - link "Tiêu chí đánh giá":
+      - /url: /evaluation-criteria
+    - link "Quy trình đánh giá":
+      - /url: /evaluation-progress
+    - link "Danh sách đánh giá":
+      - /url: /list-evaluation
+    - separator
+    - text: Khen thưởng
+    - link "Loại khen thưởng":
+      - /url: /reward-type
+    - link "Khen thưởng nhân viên":
+      - /url: /reward-user
+    - separator
+    - text: Chung
+    - link "Quản lý nghỉ phép năm":
+      - /url: /leave-management
+    - link "Quản lý ngày nghỉ":
+      - /url: /holiday-management
+    - link "Đơn thôi việc":
+      - /url: /resignation
+    - link "Chi nhánh":
+      - /url: /branch
+    - link "Bộ phận":
+      - /url: /department
+    - link "Chức vụ":
+      - /url: /position
+    - link "Cấp bậc":
+      - /url: /level
+    - link "Nhóm":
+      - /url: /team
+    - separator
+    - text: Hợp đồng
+    - link "Hợp đồng":
+      - /url: /contract
+    - link "Điều khoản":
+      - /url: /term
+    - separator
+    - text: Thống kê
+    - link "Thống kê hợp đồng":
+      - /url: /contract-statistic
+    - separator
+    - text: Quản lý nhân viên
+    - link "Nhân viên":
+      - /url: /user
+- main:
+  - text: Chức vụ
+  - button "Làm mới"
+  - button "Thêm"
+  - text: Tên chức vụ
+  - textbox "Tên chức vụ Tên chức vụ"
+  - combobox:
+    - text: Trạng thái
+    - textbox "Open"
+  - button "Tìm kiếm"
+  - button "Xóa"
+  - table:
+    - rowgroup:
+      - row "# Tên chức vụ Ghi chú Trạng thái Hành động":
+        - columnheader "#"
+        - columnheader "Tên chức vụ"
+        - columnheader "Ghi chú"
+        - columnheader "Trạng thái"
+        - columnheader "Hành động"
+    - rowgroup:
+      - row "1 zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz... AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA... Hoạt động Sửa Xóa":
+        - cell "1"
+        - cell "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz..."
+        - cell "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA..."
+        - cell "Hoạt động":
+          - button "Hoạt động"
+        - cell "Sửa Xóa":
+          - button "Sửa"
+          - button "Xóa"
+      - row "2 Leader developer Leader developer Hoạt động Sửa Xóa":
+        - cell "2"
+        - cell "Leader developer"
+        - cell "Leader developer"
+        - cell "Hoạt động":
+          - button "Hoạt động"
+        - cell "Sửa Xóa":
+          - button "Sửa"
+          - button "Xóa"
+      - row "3 HR HR Hoạt động Sửa Xóa":
+        - cell "3"
+        - cell "HR"
+        - cell "HR"
+        - cell "Hoạt động":
+          - button "Hoạt động"
+        - cell "Sửa Xóa":
+          - button "Sửa"
+          - button "Xóa"
+      - row "4 Project manager Project manager Hoạt động Sửa Xóa":
+        - cell "4"
+        - cell "Project manager"
+        - cell "Project manager"
+        - cell "Hoạt động":
+          - button "Hoạt động"
+        - cell "Sửa Xóa":
+          - button "Sửa"
+          - button "Xóa"
+      - row "5 QA QA Hoạt động Sửa Xóa":
+        - cell "5"
+        - cell "QA"
+        - cell "QA"
+        - cell "Hoạt động":
+          - button "Hoạt động"
+        - cell "Sửa Xóa":
+          - button "Sửa"
+          - button "Xóa"
+      - row "6 Developer Developer Hoạt động Sửa Xóa":
+        - cell "6"
+        - cell "Developer"
+        - cell "Developer"
+        - cell "Hoạt động":
+          - button "Hoạt động"
+        - cell "Sửa Xóa":
+          - button "Sửa"
+          - button "Xóa"
+  - text: Tổng 6, Hiển thị
+  - combobox:
+    - text: "20"
+    - textbox "Open": "20"
+  - navigation "Pagination Navigation":
+    - list:
+      - listitem:
+        - button "Previous page" [disabled]
+      - listitem:
+        - button "Page 1, Current page" [disabled]: "1"
+      - listitem:
+        - button "Next page" [disabled]
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- dialog:
+  - text: Thêm chức vụ
+  - textbox "Tên chức vụ ※ Tên chức vụ ※": zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz
+  - alert: Không nhập quá 255 kí tự.
+  - textbox "Ghi chú Ghi chú": a
+  - combobox:
+    - text: Hoạt động
+    - textbox "Open": "true"
+  - textbox "Ngày tạo Ngày tạo" [disabled]: 21-07-2025 14:24
+  - textbox "Người tạo Người tạo" [disabled]: Admin
+  - button "Lưu"
+  - button "Hủy"
+```

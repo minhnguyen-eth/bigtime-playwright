@@ -1,0 +1,3 @@
+Cleared 1 rows in paysheets with condition: name not like '%Test Data%'.
+Cleared 1 rows in payslips with condition: paysheet_id NOT LIKE '%testData%'.
+ Screenshot saved: E:\BigAppTech\bigtime-playwright\screenshots\export_by_month.png

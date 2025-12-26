@@ -1,0 +1,2 @@
+Cleared 1 rows in shift_plans with condition.
+Found 1 records in shift_plans with conditions: { name: { value: 'o60vt8', like: true } }

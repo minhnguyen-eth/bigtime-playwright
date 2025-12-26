@@ -1,0 +1,3 @@
+Importing file into [shift_plans] from: E:\BigAppTech\bigtime-playwright\test-data\shift_plans.csv
+Imported data into shift_plans from E:\BigAppTech\bigtime-playwright\test-data\shift_plans.csv
+Cleared 16 rows in leave_managements with condition: id NOT LIKE '%testData%'.

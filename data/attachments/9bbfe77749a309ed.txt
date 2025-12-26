@@ -1,0 +1,9 @@
+Cleared 1 rows in leave_applications with condition: reason NOT LIKE '%Test data%'.
+Found 1 records in leave_applications with conditions: {
+  reason: { value: 'Automation test reason', like: true },
+  status: { value: 1 }
+}
+Found 1 records in leave_applications with conditions: {
+  reason: { value: 'Automation test reason', like: true },
+  status: { value: 2 }
+}

@@ -1,0 +1,2 @@
+Cleared 7 rows in debts with condition.
+📸 Screenshot saved: D:\BigAppTech\playwright-typescripts\screenshots\cancel_debt_with_empty_reason.png

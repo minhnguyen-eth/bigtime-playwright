@@ -1,0 +1,116 @@
+# Page snapshot
+
+```yaml
+- banner:
+  - button
+  - text: Bigtime
+  - button "Quản lý":
+    - paragraph: Quản lý
+  - button "Chấm công":
+    - paragraph: Chấm công
+  - button "Lương":
+    - paragraph: Lương
+  - button "Cài đặt":
+    - paragraph: Cài đặt
+  - img
+  - text: Admin
+  - button "Badge":
+    - status "Badge"
+  - button
+  - button "Đăng xuất"
+- banner:
+  - text: Version 1.1.2
+  - list:
+    - listitem "English":
+      - img
+    - listitem "Tiếng Việt":
+      - img
+  - button
+- navigation:
+  - listbox:
+    - link "Trung tâm":
+      - /url: /dashboard-salary
+    - separator
+    - text: Lương
+    - link "Loại phụ cấp":
+      - /url: /salary/allowance-type
+    - link "Bảng lương":
+      - /url: /salary/pay-sheet
+    - link "Phiếu lương":
+      - /url: /salary/payslip
+    - link "Tạm ứng":
+      - /url: /salary/debt
+    - separator
+    - text: Thống kê
+    - link "Thống kê lương":
+      - /url: /salary/salary-statistic
+    - link "Thống kê thuế":
+      - /url: /tax-statistic
+- main:
+  - text: Tạm ứng
+  - button "Làm mới"
+  - button "Thêm"
+  - textbox "Khoảng thời gian Khoảng thời gian": 01-07-2025 - 31-07-2025
+  - combobox:
+    - textbox "Tên nhân viên Tên nhân viên"
+    - button "Clear": 󰅙
+    - button "Open": 󰍝
+  - combobox:
+    - textbox "Tên bộ phận Tên bộ phận"
+    - button "Clear": 󰅙
+    - button "Open": 󰍝
+  - button "Tìm kiếm"
+  - button "Xóa"
+  - table:
+    - rowgroup:
+      - row "# Tên người nợ Tiền Ghi chú Tên người tạo Trạng thái Hành động":
+        - columnheader "#"
+        - columnheader "Tên người nợ"
+        - columnheader "Tiền"
+        - columnheader "Ghi chú"
+        - columnheader "Tên người tạo"
+        - columnheader "Trạng thái"
+        - columnheader "Hành động"
+    - rowgroup:
+      - row "1 BAT810 - Nguyễn Văn Minh 1.000.000 đ add debt test for cancel Admin Mới tạo":
+        - cell "1"
+        - cell "BAT810 - Nguyễn Văn Minh"
+        - cell "1.000.000 đ"
+        - cell "add debt test for cancel"
+        - cell "Admin"
+        - cell "Mới tạo"
+        - cell:
+          - button [expanded]:
+            - listbox:
+              - button "Sửa"
+              - button "Gửi"
+              - button "Hủy"
+              - button "Lịch sử"
+              - button "In"
+      - row "2 BAT125 - Quản lý bộ phận IT 10.000.000 đ Test data Admin Mới tạo":
+        - cell "2"
+        - cell "BAT125 - Quản lý bộ phận IT"
+        - cell "10.000.000 đ"
+        - cell "Test data"
+        - cell "Admin"
+        - cell "Mới tạo"
+        - cell:
+          - button
+  - text: Tổng 2, Hiển thị
+  - combobox:
+    - text: "20"
+    - textbox "Open": "20"
+  - navigation "Pagination Navigation":
+    - list:
+      - listitem:
+        - button "Previous page" [disabled]
+      - listitem:
+        - button "Page 1, Current page" [disabled]: "1"
+      - listitem:
+        - button "Next page" [disabled]
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+```

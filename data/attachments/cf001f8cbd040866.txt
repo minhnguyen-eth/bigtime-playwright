@@ -1,0 +1,1 @@
+Cleared 0 rows in allowance_types with condition.

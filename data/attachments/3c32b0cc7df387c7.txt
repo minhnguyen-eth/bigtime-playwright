@@ -1,0 +1,27 @@
+# Page snapshot
+
+```yaml
+- banner:
+  - text: BigTime - Prepare
+  - img
+  - text: Test chấm công tháng
+  - button "Badge":
+    - status "Badge"
+  - button
+  - button "Đăng xuất"
+- banner:
+  - text: Version 1.0.10
+  - list:
+    - listitem "English":
+      - img
+    - listitem "Tiếng Việt":
+      - img
+  - button
+- heading "Quản lý" [level=3]
+- paragraph: Quản lý người dùng và hệ thống
+- heading "Chấm công" [level=3]
+- paragraph: Theo dõi thời gian làm việc
+- heading "Lương" [level=3]
+- paragraph: Quản lý lương và thưởng
+- tooltip
+```

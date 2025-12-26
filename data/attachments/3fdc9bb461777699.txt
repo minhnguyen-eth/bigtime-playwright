@@ -1,0 +1,279 @@
+# Page snapshot
+
+```yaml
+- banner:
+  - button
+  - text: BigTime - Prepare
+  - button "Quản lý":
+    - paragraph: Quản lý
+  - button "Chấm công":
+    - paragraph: Chấm công
+  - button "Lương":
+    - paragraph: Lương
+  - button "Cài đặt":
+    - paragraph: Cài đặt
+  - img
+  - text: admin
+  - button "Badge":
+    - status "Badge"
+  - button
+  - button "Đăng xuất"
+- banner:
+  - text: Version 1.0.10
+  - list:
+    - listitem "English":
+      - img
+    - listitem "Tiếng Việt":
+      - img
+  - button
+- navigation:
+  - listbox:
+    - link "Trung tâm":
+      - /url: /dashboard-time-keeping
+    - separator
+    - text: Chấm công
+    - link "Chấm công tháng":
+      - /url: /user-checkin-and-checkout-statistic
+    - link "Lịch sử điểm danh":
+      - /url: /checkin-out-history
+    - link "Điểm danh hôm nay":
+      - /url: /checkin-out-today
+    - link "Phiếu tăng ca":
+      - /url: /overtime-ticket
+    - separator
+    - text: Ca làm việc
+    - link "Ca làm việc":
+      - /url: /working-shift
+    - link "Phân ca nhanh":
+      - /url: /shift-plan
+    - link "Lịch làm việc tổng hợp":
+      - /url: /time-working
+    - separator
+    - text: Thống kê
+    - link "Thống kê ngày công tháng":
+      - /url: /monthly-workday-statistic
+    - link "Thống kê tổng thời gian":
+      - /url: /user-checkin-statistic
+    - link "Thống kê việc làm tháng":
+      - /url: /employment-statistic-month
+- main:
+  - text: Phân ca nhanh
+  - button "Làm mới"
+  - button "Thêm"
+  - button
+  - textbox "Chọn tháng Chọn tháng": 12-2025
+  - text: Tên bảng phân ca
+  - textbox "Tên bảng phân ca Tên bảng phân ca"
+  - combobox:
+    - text: Ca làm việc
+    - textbox "Open"
+  - button "Tìm kiếm"
+  - button "Xóa"
+  - table:
+    - rowgroup:
+      - row "# Tên bảng phân ca Ca làm việc Thời gian áp dụng Đối tượng áp dụng Bộ phận áp dụng Hành động":
+        - columnheader "#"
+        - columnheader "Tên bảng phân ca"
+        - columnheader "Ca làm việc"
+        - columnheader "Thời gian áp dụng"
+        - columnheader "Đối tượng áp dụng"
+        - columnheader "Bộ phận áp dụng"
+        - columnheader "Hành động"
+    - rowgroup:
+      - row "1 Test data cho nhân viên tính l... Ca hành chính 23-12-2025 - 23-12-2025 Test thue (Có 2 NPT),Test... Sửa Xóa":
+        - cell "1"
+        - cell "Test data cho nhân viên tính l...":
+          - paragraph: Test data cho nhân viên tính l...
+        - cell "Ca hành chính"
+        - cell "23-12-2025 - 23-12-2025"
+        - cell "Test thue (Có 2 NPT),Test..."
+        - cell
+        - cell "Sửa Xóa":
+          - button "Sửa" [disabled]
+          - button "Xóa" [disabled]
+      - row "2 Test data Ca hành chính 23-12-2025 - 31-03-2026 Test Lương Sửa Xóa":
+        - cell "2"
+        - cell "Test data":
+          - paragraph: Test data
+        - cell "Ca hành chính"
+        - cell "23-12-2025 - 31-03-2026"
+        - cell "Test Lương"
+        - cell
+        - cell "Sửa Xóa":
+          - button "Sửa" [disabled]
+          - button "Xóa" [disabled]
+      - row "3 Test data 100 Ca hành chính 23-12-2025 - 31-03-2026 Nguyễn Văn Minh Sửa Xóa":
+        - cell "3"
+        - cell "Test data 100":
+          - paragraph: Test data 100
+        - cell "Ca hành chính"
+        - cell "23-12-2025 - 31-03-2026"
+        - cell "Nguyễn Văn Minh"
+        - cell
+        - cell "Sửa Xóa":
+          - button "Sửa" [disabled]
+          - button "Xóa" [disabled]
+      - row "4 Test data 5 Ca hành chính 19-12-2025 - 19-12-2025 Sửa Xóa":
+        - cell "4"
+        - cell "Test data 5":
+          - paragraph: Test data 5
+        - cell "Ca hành chính"
+        - cell "19-12-2025 - 19-12-2025"
+        - cell
+        - cell
+        - cell "Sửa Xóa":
+          - button "Sửa" [disabled]
+          - button "Xóa" [disabled]
+      - row "5 Test data 4 Ca hành chính nhân viên kinh d... 19-12-2025 - 19-12-2025 Sửa Xóa":
+        - cell "5"
+        - cell "Test data 4":
+          - paragraph: Test data 4
+        - cell "Ca hành chính nhân viên kinh d..."
+        - cell "19-12-2025 - 19-12-2025"
+        - cell
+        - cell
+        - cell "Sửa Xóa":
+          - button "Sửa" [disabled]
+          - button "Xóa" [disabled]
+      - row "6 Test data 3 Ca ngày 19-12-2025 - 19-12-2025 Sửa Xóa":
+        - cell "6"
+        - cell "Test data 3":
+          - paragraph: Test data 3
+        - cell "Ca ngày"
+        - cell "19-12-2025 - 19-12-2025"
+        - cell
+        - cell
+        - cell "Sửa Xóa":
+          - button "Sửa" [disabled]
+          - button "Xóa" [disabled]
+      - row "7 Test data 2 Ca thứ 7 19-12-2025 - 19-12-2025 Sửa Xóa":
+        - cell "7"
+        - cell "Test data 2":
+          - paragraph: Test data 2
+        - cell "Ca thứ 7"
+        - cell "19-12-2025 - 19-12-2025"
+        - cell
+        - cell
+        - cell "Sửa Xóa":
+          - button "Sửa" [disabled]
+          - button "Xóa" [disabled]
+      - row "8 Test data 1 Ca hành chính 19-12-2025 - 19-12-2025 Nguyễn Văn Minh Sửa Xóa":
+        - cell "8"
+        - cell "Test data 1":
+          - paragraph: Test data 1
+        - cell "Ca hành chính"
+        - cell "19-12-2025 - 19-12-2025"
+        - cell "Nguyễn Văn Minh"
+        - cell
+        - cell "Sửa Xóa":
+          - button "Sửa" [disabled]
+          - button "Xóa" [disabled]
+  - text: Tổng 8, Hiển thị
+  - combobox:
+    - text: "20"
+    - textbox "Open": "20"
+  - navigation "Pagination Navigation":
+    - list:
+      - listitem:
+        - button "Previous page" [disabled]
+      - listitem:
+        - button "Page 1, Current page" [disabled]: "1"
+      - listitem:
+        - button "Next page" [disabled]
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- dialog:
+  - text: Thêm phân ca nhanh
+  - alert:
+    - list:
+      - listitem: "SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'status' cannot be null (Connection: mysql, SQL: insert into `shift_plans` (`id`, `name`, `start_date`, `end_date`, `repeat_config`, `object_type`, `repeat_type`, `status`, `working_shift_options`, `objects`, `created_at`, `updated_at`, `deleted_by`, `deleted_at`, `created_by`, `updated_by`) values (ut1WxKOjSH, 5wj7px, 2025-12-24, 2025-12-24, {\"repeat_working_time\":1,\"repeat_time_off\":0}, 1, 1, 1, [{\"shift\":\"PxdxhOfve5\",\"day_of_week\":[2,3,4,5,6]}], [{\"id\":\"6atvEz1yVy\",\"name\":\"B\\u1ed9 ph\\u1eadn test\",\"teams\":[\"bO6YvrPSW5\"],\"teams_name\":\"Nh\\u00f3m test 2\"}], 2025-12-24 16:13:01, 2025-12-24 16:13:01, ?, ?, 0000000000, 0000000000))"
+  - text: Thông tin chung
+  - textbox "Tên bảng phân ca ※ Tên bảng phân ca ※": 5wj7px
+  - text: Thời gian áp dụng
+  - textbox "Ngày bắt đầu ※ Ngày bắt đầu ※": 24-12-2025
+  - textbox "Ngày kết thúc ※ Ngày kết thúc ※": 24-12-2025
+  - text: Lặp lại
+  - combobox:
+    - text: Tuần
+    - textbox "Open": "1"
+  - spinbutton "Chu kỳ nghỉ ※ Chu kỳ nghỉ ※": "0"
+  - spinbutton "Chu kỳ làm ※ Chu kỳ làm ※": "1"
+  - text: Thiết lập ca làm việc
+  - button "Thêm ca làm việc"
+  - text: Ca làm việc 1
+  - button [disabled]
+  - combobox:
+    - text: Ca hành chính (08:00:00 - 17:00:00)
+    - textbox "Ca làm việc ※ Ca làm việc ※": Ca hành chính (08:00:00 - 17:00:00)
+    - button "Open": 󰍝
+  - text: Chọn các thứ trong tuần
+  - checkbox "Thứ hai" [checked]
+  - text: Thứ hai
+  - checkbox "Thứ ba" [checked]
+  - text: Thứ ba
+  - checkbox "Thứ tư" [checked]
+  - text: Thứ tư
+  - checkbox "Thứ năm" [checked]
+  - text: Thứ năm
+  - checkbox "Thứ sáu" [checked]
+  - text: Thứ sáu
+  - checkbox "Thứ bảy"
+  - text: Thứ bảy
+  - checkbox "Chủ nhật"
+  - text: Chủ nhật Áp dụng với
+  - tablist:
+    - tab "Nhân viên"
+    - tab "Bộ phận" [selected]
+    - button "Thêm"
+  - table:
+    - rowgroup:
+      - row "# Tên bộ phận Nhóm Hành động":
+        - cell "#"
+        - cell "Tên bộ phận"
+        - cell "Nhóm"
+        - cell "Hành động"
+    - rowgroup:
+      - row "1 Bộ phận test Nhóm test 2":
+        - cell "1"
+        - cell "Bộ phận test"
+        - cell "Nhóm test 2"
+        - cell:
+          - button
+  - separator
+  - text: Hiển thị
+  - combobox:
+    - text: "10"
+    - textbox "Open": "10"
+  - text: 1-1 of 1
+  - navigation "Pagination Navigation":
+    - list:
+      - listitem:
+        - button "First page" [disabled]
+      - listitem:
+        - button "Previous page" [disabled]
+      - listitem:
+        - button "Next page" [disabled]
+      - listitem:
+        - button "Last page" [disabled]
+  - button "Lưu"
+  - button "Hủy"
+```

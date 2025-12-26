@@ -1,0 +1,397 @@
+# Page snapshot
+
+```yaml
+- banner:
+  - button
+  - text: Bigtime
+  - button "Quản lý":
+    - paragraph: Quản lý
+  - button "Chấm công":
+    - paragraph: Chấm công
+  - button "Lương":
+    - paragraph: Lương
+  - button "Cài đặt":
+    - paragraph: Cài đặt
+  - img
+  - text: Admin
+  - button "Badge":
+    - status "Badge"
+  - button
+  - button "Đăng xuất"
+- banner:
+  - text: Version 1.1.2
+  - list:
+    - listitem "English":
+      - img
+    - listitem "Tiếng Việt":
+      - img
+  - button
+- navigation:
+  - listbox:
+    - link "Trung tâm":
+      - /url: /dashboard-admin
+    - separator
+    - text: Thông báo
+    - link "Quản lý thông báo":
+      - /url: /notification
+    - link "Danh sách thông báo":
+      - /url: /list-notification
+    - separator
+    - text: Đánh giá
+    - link "Phân loại đánh giá":
+      - /url: /evaluation-type
+    - link "Tiêu chí đánh giá":
+      - /url: /evaluation-criteria
+    - link "Quy trình đánh giá":
+      - /url: /evaluation-progress
+    - link "Danh sách đánh giá":
+      - /url: /list-evaluation
+    - separator
+    - text: Khen thưởng
+    - link "Loại khen thưởng":
+      - /url: /reward-type
+    - link "Khen thưởng nhân viên":
+      - /url: /reward-user
+    - separator
+    - text: Chung
+    - link "Quản lý nghỉ phép năm":
+      - /url: /leave-management
+    - link "Quản lý ngày nghỉ":
+      - /url: /holiday-management
+    - link "Đơn thôi việc":
+      - /url: /resignation
+    - link "Chi nhánh":
+      - /url: /branch
+    - link "Bộ phận":
+      - /url: /department
+    - link "Chức vụ":
+      - /url: /position
+    - link "Cấp bậc":
+      - /url: /level
+    - link "Nhóm":
+      - /url: /team
+    - separator
+    - text: Hợp đồng
+    - link "Hợp đồng":
+      - /url: /contract
+    - link "Điều khoản":
+      - /url: /term
+    - separator
+    - text: Thống kê
+    - link "Thống kê hợp đồng":
+      - /url: /contract-statistic
+    - separator
+    - text: Quản lý nhân viên
+    - link "Nhân viên":
+      - /url: /user
+- main:
+  - text: Nhân viên
+  - button "Làm mới"
+  - button "Thêm"
+  - text: Mã nhân viên
+  - textbox "Mã nhân viên Mã nhân viên"
+  - text: Tên nhân viên
+  - textbox "Tên nhân viên Tên nhân viên"
+  - combobox:
+    - text: Giới tính
+    - textbox "Open"
+  - combobox:
+    - text: Bộ phận
+    - textbox "Open"
+  - combobox:
+    - text: Nhóm
+    - textbox "Open"
+  - button "Tìm kiếm"
+  - button "Xóa"
+  - table:
+    - rowgroup:
+      - row "# Mã nhân viên Tên nhân viên Tên loại nhân viên Giới tính Bộ phận Nhóm":
+        - columnheader "#"
+        - columnheader "Mã nhân viên"
+        - columnheader "Tên nhân viên"
+        - columnheader "Tên loại nhân viên"
+        - columnheader "Giới tính"
+        - columnheader "Bộ phận"
+        - columnheader "Nhóm"
+    - rowgroup:
+      - row "1 userCodeh65ugx Automation test Nhân viên (Bộ phận Marketing - Nhóm 1 Marketing ) Nam Bộ phận Marketing Nhóm 1 Marketing":
+        - cell "1"
+        - cell "userCodeh65ugx"
+        - cell "Automation test"
+        - cell "Nhân viên (Bộ phận Marketing - Nhóm 1 Marketing )"
+        - cell "Nam"
+        - cell "Bộ phận Marketing"
+        - cell "Nhóm 1 Marketing"
+      - row "2 userCodefhi080 Automation test Nhân viên (Bộ phận Marketing - Nhóm 1 Marketing ) Nam Bộ phận Marketing Nhóm 1 Marketing":
+        - cell "2"
+        - cell "userCodefhi080"
+        - cell "Automation test"
+        - cell "Nhân viên (Bộ phận Marketing - Nhóm 1 Marketing )"
+        - cell "Nam"
+        - cell "Bộ phận Marketing"
+        - cell "Nhóm 1 Marketing"
+      - row "3 userCodeojawxr Automation test Nhân viên (Bộ phận Marketing - Nhóm 1 Marketing ) Nam Bộ phận Marketing Nhóm 1 Marketing":
+        - cell "3"
+        - cell "userCodeojawxr"
+        - cell "Automation test"
+        - cell "Nhân viên (Bộ phận Marketing - Nhóm 1 Marketing )"
+        - cell "Nam"
+        - cell "Bộ phận Marketing"
+        - cell "Nhóm 1 Marketing"
+      - row "4 zzzzzzzzzzzzzzzzzzzz zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz... Nhân viên (Bộ phận Marketing - Nhóm 1 Marketing ) Nam Bộ phận Marketing Nhóm 1 Marketing":
+        - cell "4"
+        - cell "zzzzzzzzzzzzzzzzzzzz"
+        - cell "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz..."
+        - cell "Nhân viên (Bộ phận Marketing - Nhóm 1 Marketing )"
+        - cell "Nam"
+        - cell "Bộ phận Marketing"
+        - cell "Nhóm 1 Marketing"
+      - row "5 BAT810 Nguyễn Văn Minh Nhân viên (Bộ phận IT - Nhóm It1 ) Nữ Bộ phận IT Nhóm It1":
+        - cell "5"
+        - cell "BAT810"
+        - cell "Nguyễn Văn Minh"
+        - cell "Nhân viên (Bộ phận IT - Nhóm It1 )"
+        - cell "Nữ"
+        - cell "Bộ phận IT"
+        - cell "Nhóm It1"
+      - row "6 Testing02 Testing02(Chỉ cần điểm danh ít nhất 1 lần khi vào ... Nhân viên (Bộ phận Marketing - Nhóm 1 Marketing ) Nữ Bộ phận Marketing Nhóm 1 Marketing":
+        - cell "6"
+        - cell "Testing02"
+        - cell "Testing02(Chỉ cần điểm danh ít nhất 1 lần khi vào ..."
+        - cell "Nhân viên (Bộ phận Marketing - Nhóm 1 Marketing )"
+        - cell "Nữ"
+        - cell "Bộ phận Marketing"
+        - cell "Nhóm 1 Marketing"
+      - row "7 BAT125 Quản lý bộ phận IT Quản lý Bộ phận (Bộ phận IT) Nữ Bộ phận IT":
+        - cell "7"
+        - cell "BAT125"
+        - cell "Quản lý bộ phận IT"
+        - cell "Quản lý Bộ phận (Bộ phận IT)"
+        - cell "Nữ"
+        - cell "Bộ phận IT"
+        - cell
+      - row "8 BAT Big App Tech Nhân viên (Bộ phận IT - Nhóm It1 ) Nữ Bộ phận IT Nhóm It1":
+        - cell "8"
+        - cell "BAT"
+        - cell "Big App Tech"
+        - cell "Nhân viên (Bộ phận IT - Nhóm It1 )"
+        - cell "Nữ"
+        - cell "Bộ phận IT"
+        - cell "Nhóm It1"
+      - row "9 Testing01 Testing01(Chỉ cần điểm danh ít nhất 1 lần trong ng... Nhân viên (Bộ phận Marketing - Nhóm 1 Marketing ) Nữ Bộ phận Marketing Nhóm 1 Marketing":
+        - cell "9"
+        - cell "Testing01"
+        - cell "Testing01(Chỉ cần điểm danh ít nhất 1 lần trong ng..."
+        - cell "Nhân viên (Bộ phận Marketing - Nhóm 1 Marketing )"
+        - cell "Nữ"
+        - cell "Bộ phận Marketing"
+        - cell "Nhóm 1 Marketing"
+      - row "10 namdemo namdemo Nhân viên (Bộ phận Marketing - Nhóm 1 Marketing ) Nữ Bộ phận Marketing Nhóm 1 Marketing":
+        - cell "10"
+        - cell "namdemo"
+        - cell "namdemo"
+        - cell "Nhân viên (Bộ phận Marketing - Nhóm 1 Marketing )"
+        - cell "Nữ"
+        - cell "Bộ phận Marketing"
+        - cell "Nhóm 1 Marketing"
+      - row "11 BAT2001 Quan ly nhom it 1 Quản lý Nhóm (Bộ phận IT - Nhóm It1) Nữ Bộ phận IT Nhóm It1":
+        - cell "11"
+        - cell "BAT2001"
+        - cell "Quan ly nhom it 1"
+        - cell "Quản lý Nhóm (Bộ phận IT - Nhóm It1)"
+        - cell "Nữ"
+        - cell "Bộ phận IT"
+        - cell "Nhóm It1"
+      - row "12 Testing Testing Trim Nhân viên (Bộ phận Marketing - Nhóm 1 Marketing ) Nữ Bộ phận Marketing Nhóm 1 Marketing":
+        - cell "12"
+        - cell "Testing"
+        - cell "Testing Trim"
+        - cell "Nhân viên (Bộ phận Marketing - Nhóm 1 Marketing )"
+        - cell "Nữ"
+        - cell "Bộ phận Marketing"
+        - cell "Nhóm 1 Marketing"
+      - row "13 testtet tesete Quản lý Nữ":
+        - cell "13"
+        - cell "testtet"
+        - cell "tesete"
+        - cell "Quản lý"
+        - cell "Nữ"
+        - cell
+        - cell
+      - row "14 TESST TEST Quản lý Nữ":
+        - cell "14"
+        - cell "TESST"
+        - cell "TEST"
+        - cell "Quản lý"
+        - cell "Nữ"
+        - cell
+        - cell
+      - row "15 Test Test max length resume Nhân viên (Bộ phận Marketing - Nhóm 1 Marketing ) Nữ Bộ phận Marketing Nhóm 1 Marketing":
+        - cell "15"
+        - cell "Test"
+        - cell "Test max length resume"
+        - cell "Nhân viên (Bộ phận Marketing - Nhóm 1 Marketing )"
+        - cell "Nữ"
+        - cell "Bộ phận Marketing"
+        - cell "Nhóm 1 Marketing"
+  - text: Tổng 15, Hiển thị
+  - combobox:
+    - text: "20"
+    - textbox "Open": "20"
+  - navigation "Pagination Navigation":
+    - list:
+      - listitem:
+        - button "Previous page" [disabled]
+      - listitem:
+        - button "Page 1, Current page" [disabled]: "1"
+      - listitem:
+        - button "Next page" [disabled]
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- dialog:
+  - text: Thêm nhân viên
+  - tablist:
+    - tab "Thông tin cá nhân" [selected]
+    - tab "Thiết lập lương"
+  - text: Thông tin cá nhân Hình
+  - img
+  - status "Badge"
+  - textbox "Mã nhân viên ※ Mã nhân viên ※": userCodekbk1dj
+  - textbox "Tên nhân viên ※ Tên nhân viên ※": Automation test
+  - text: Giới tính
+  - radiogroup:
+    - radio "Nam" [checked]
+    - text: Nam
+    - radio "Nữ"
+    - text: Nữ
+  - textbox "Email ※ Email ※": minh
+  - alert: Không nhập dưới 6 kí tự.
+  - combobox:
+    - text: "@gmail.com"
+    - textbox "Open": "0"
+  - combobox:
+    - text: Biên Hòa
+    - textbox "Tên chi nhánh ※ Tên chi nhánh ※": Biên Hòa
+    - button "Open": 󰍝
+  - checkbox "Cho phép chấm công bằng điện thoại"
+  - text: Cho phép chấm công bằng điện thoại
+  - textbox "Nhập mật khẩu ※ Nhập mật khẩu ※": "123456"
+  - button "appended action": 󰈉
+  - button
+  - textbox "Nhập lại mật khẩu ※ Nhập lại mật khẩu ※": "123456"
+  - button "appended action": 󰈉
+  - checkbox "Chỉ cần điểm danh ít nhất 1 lần trong ngày"
+  - text: Chỉ cần điểm danh ít nhất 1 lần trong ngày
+  - checkbox "Chỉ cần điểm danh ít nhất 1 lần khi vào ca"
+  - text: Chỉ cần điểm danh ít nhất 1 lần khi vào ca
+  - combobox:
+    - text: Bộ phận Marketing
+    - textbox "Thuộc bộ phận ※ Thuộc bộ phận ※": Bộ phận Marketing
+    - button "Clear": 󰅙
+    - button "Open": 󰍝
+  - combobox:
+    - text: Nhóm 1 Marketing
+    - textbox "Tên nhóm ※ Tên nhóm ※"
+    - button "Clear": 󰅙
+    - button "Open": 󰍝
+  - combobox:
+    - text: Staff
+    - textbox "Loại nhân viên ※ Loại nhân viên ※": Staff
+    - button "Open": 󰍝
+  - combobox:
+    - text: Nhân viên
+    - textbox "Tên quyền ※ Tên quyền ※"
+    - button "Open": 󰍝
+  - button "Thông tin thêm" [expanded]
+  - text: Thông tin công việc
+  - combobox:
+    - text: Tên chức vụ
+    - textbox "Tên chức vụ Tên chức vụ"
+    - button "Open": 󰍝
+  - combobox:
+    - text: Tên cấp bậc
+    - textbox "Tên cấp bậc Tên cấp bậc"
+    - button "Open": 󰍝
+  - text: Thông tin khác CCCD
+  - spinbutton "CCCD CCCD"
+  - text: Ngày cấp CCCD
+  - textbox "Ngày cấp CCCD Ngày cấp CCCD"
+  - text: Nơi cấp CCCD
+  - textbox "Nơi cấp CCCD Nơi cấp CCCD"
+  - text: Tên ngân hàng
+  - textbox "Tên ngân hàng Tên ngân hàng"
+  - text: Số tài khoản ngân hàng
+  - spinbutton "Số tài khoản ngân hàng Số tài khoản ngân hàng"
+  - text: Số điện thoại
+  - spinbutton "Số điện thoại Số điện thoại"
+  - text: Ngày sinh
+  - textbox "Ngày sinh Ngày sinh"
+  - text: Ngày vào công ty
+  - textbox "Ngày vào công ty Ngày vào công ty"
+  - text: Địa chỉ
+  - textbox "Địa chỉ Địa chỉ"
+  - text: Ghi chú
+  - textbox "Ghi chú Ghi chú"
+  - combobox:
+    - text: Đang làm
+    - textbox "Open": "1"
+  - combobox:
+    - text: Hoạt động
+    - textbox "Open": "1"
+  - button "Lưu"
+  - button "Hủy"
+```
