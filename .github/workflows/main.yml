@@ -8,9 +8,13 @@ on:
   pull_request:
     branches: [main, master]
 
+concurrency:
+  group: playwright-e2e
+  cancel-in-progress: true
+
 jobs:
   test:
-    timeout-minutes: 60
+    timeout-minutes: 160 # thời gian kết thúc là 160 minutes = 2.6 hours
     runs-on: ubuntu-latest
 
     steps:

@@ -53,6 +53,7 @@ Thư mục db chưa các file liên quan đến database, trong đó:
 - helpers chứa các file liên quan đến các hàm helper để tương tác với database
 - modules chứa các file liên quan đến các module của hệ thống, mỗi module sẽ có các hàm để tương tác với database của module đó
 
-Tư mục test-data chứa các file csv dùng để import dữ liệu vào database cho các test case
+Thư mục test-data chứa các file csv dùng để import dữ liệu vào database cho các test case
 
+Thư mục github/workflows chứa file cấu hình cho github actions để chạy tự động các test case khi có push hoặc pull request vào branch main
 
