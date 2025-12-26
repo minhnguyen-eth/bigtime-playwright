@@ -151,7 +151,7 @@ export class PaysheetPage extends BasePage {
     }
 
     async verifyTax(amount: string) {
-        const locator = this.page.locator(`(//p[contains(text(),'${amount} đ')])[7]`);
+        const locator = this.page.getByRole('paragraph').filter({ hasText: `${amount} đ` });
         await this.safeVerifyTextContains(locator, amount);
     }
 

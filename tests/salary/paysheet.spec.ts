@@ -137,7 +137,7 @@ test.describe.serial('Paysheet Tests', () => {
         });
     });
 
-    test('Search with data not exist', async ({ page }) => {
+    test('Search with data not exist - Tìm kiếm bảng lương không tồn tại', async ({ page }) => {
         allure.story('Search Paysheet Story');
         await beforeTest();
 
@@ -148,7 +148,7 @@ test.describe.serial('Paysheet Tests', () => {
         });
     });
 
-    test('Add Paysheet Without Name', async ({ page }) => {
+    test('Add Paysheet Without Name - Tạo bảng lương không nhập tên', async ({ page }) => {
         allure.story('Validation Paysheet Creation Story');
         await beforeTest();
 
@@ -159,7 +159,7 @@ test.describe.serial('Paysheet Tests', () => {
         });
     });
 
-    test('Add Paysheet With All Employees', async ({ page }) => {
+    test('Add Paysheet With All Employees - Tạo bảng lương cho tất cả nhân viên', async ({ page }) => {
         allure.story('Add Paysheet For All Employees Story');
         await beforeTest();
 
@@ -176,7 +176,7 @@ test.describe.serial('Paysheet Tests', () => {
         });
     });
 
-    test('Cancel Paysheet', async ({ page }) => {
+    test('Cancel Paysheet - Hủy bảng lương', async ({ page }) => {
         allure.story('Cancel Paysheet Story');
         await beforeTest();
 
@@ -192,7 +192,7 @@ test.describe.serial('Paysheet Tests', () => {
         });
     });
 
-    test('Export excel by all current month', async ({ page }) => {
+    test('Export excel by all current month - Xuất excel của tháng hiện tại', async ({ page }) => {
         allure.story('Export Excel by Month Story');
         await beforeTest();
 
@@ -207,7 +207,7 @@ test.describe.serial('Paysheet Tests', () => {
         });
     });
 
-    test('Export excel by only one paysheet', async ({ page }) => {
+    test('Export excel by only one paysheet - Xuất excel của 1 bảng lương', async ({ page }) => {
         allure.story('Export Excel by 1 Paysheet Story');
         await beforeTest();
 
@@ -222,7 +222,7 @@ test.describe.serial('Paysheet Tests', () => {
         });
     });
 
-    test('Export excel by last month', async ({ page }) => {
+    test('Export excel by last month - Xuất excel của tháng trước', async ({ page }) => {
         allure.story('Export Excel by last month Story');
         await beforeTest();
 
@@ -236,7 +236,7 @@ test.describe.serial('Paysheet Tests', () => {
         });
     });
 
-    test('E2E update salary in paysheet', async ({ page }) => {
+    test('E2E update salary in paysheet - Kiểm tra chỉnh sửa lương trong bảng lương', async ({ page }) => {
         allure.story('Edit Paysheet Process Story');
 
         await allure.step('Admin create paysheet', async () => {
@@ -351,7 +351,7 @@ test.describe.serial('Paysheet Tests', () => {
         });
     });
 
-    test('E2E Separate payroll', async ({ page }) => {
+    test('E2E Separate payroll - Kiểm tra tách bảng lương', async ({ page }) => {
         allure.story('separate payroll Story');
         await beforeTest();
 
@@ -409,15 +409,14 @@ test.describe.serial('Paysheet Tests', () => {
         });
     });
 
-    //=== Test thuế với nhân viên có 1 người phụ thuộc===========================================================
-    // Test Data : Lương chính = 14.000.000, 
-    // Mức đóng bảo hiểm 14.000.000, BHXH 8%, BHYT 1.5%, BHTN 1% 
-    // Phụ cấp = 3.000.000 (Miễn thuế 2.730.000)
-    // Mức đóng thuế = 17.000.000 - 1.470.140(Bảo hiểm) - 11.000.000(miễn bản thân) - 2.730.000(miễn phụ cấp) = 1.799.860
-    // Thuế bậc 1 = 1.799.860 * 5% = 89.993 
-    // Tổng nhận = 17.000.000 - 1.470.140(Bảo hiểm) - 89.993(Thuế) = 15.439.867
-    //==================================================================================================
-    test('E2E Calculate tax with 1 dependents  ', async ({ page }) => {
+    /* Test thuế với nhân viên có 1 người phụ thuộc
+       Test Data : Lương chính = 14.000.000, 
+       Mức đóng bảo hiểm 14.000.000, BHXH 8%, BHYT 1.5%, BHTN 1% 
+       Phụ cấp = 3.000.000 (Miễn thuế 2.730.000)
+       Mức đóng thuế = 17.000.000 - 1.470.140(Bảo hiểm) - 11.000.000(miễn bản thân) - 2.730.000(miễn phụ cấp) = 1.799.860
+       Thuế bậc 1 = 1.799.860 * 5% = 89.993 
+       Tổng nhận = 17.000.000 - 1.470.140(Bảo hiểm) - 89.993(Thuế) = 15.439.867 */
+    test('E2E Calculate tax with 1 dependents - Kiểm tra tính thuế khi có 1 người phụ thuộc ', async ({ page }) => {
         allure.story('Calculate tax without dependents Story');
         await beforeTest();
 
@@ -446,12 +445,13 @@ test.describe.serial('Paysheet Tests', () => {
 
     });
 
-    //=== Test thuế nhân viên có 2 người phụ thuộc===========================================================
-    // Test Data : Lương chính = [20.000.00] 
-    // Mức đóng bảo hiểm 20.000.000 * (BHXH 8% = 1.600.000) + (BHYT 1.5% = 300.000) + (BHTN 1% = 200.000) + (ĐOÀN PHÍ = 0) = [2.100.000]
-    // Mức đóng thuế = (20.000.000 Tổng lương) - (2.100.000 Bảo hiểm) - (11.000.000 miễn bản thân) - (8.800.000 2 NPT) = [0]
-    // Thuế = 0
-    // Tổng nhận = (20.000.000 lương chính - (2.100.000 Bảo hiểm) = [17.900.000]
+    /* Test thuế nhân viên có 2 người phụ thuộc
+
+        Test Data : Lương chính = [20.000.00] 
+        Mức đóng bảo hiểm 20.000.000 * (BHXH 8% = 1.600.000) + (BHYT 1.5% = 300.000) + (BHTN 1% = 200.000) + (ĐOÀN PHÍ = 0) = [2.100.000]
+        Mức đóng thuế = (20.000.000 Tổng lương) - (2.100.000 Bảo hiểm) - (11.000.000 miễn bản thân) - (8.800.000 2 NPT) = [0]
+        Thuế = 0
+        Tổng nhận = (20.000.000 lương chính - (2.100.000 Bảo hiểm) = [17.900.000] */
     test('E2E Calculate tax with 2 dependents - Kiểm tra tính thuế với 2 người phụ thuộc ', async ({ page }) => {
         await allure.description(`
     Mức đóng bảo hiểm: 20.000.000 * (BHXH 8% = 1.600.000) + (BHYT 1.5% = 300.000) + (BHTN 1% = 200.000) + (ĐOÀN PHÍ = 0) = [2.100.000]
@@ -487,15 +487,228 @@ test.describe.serial('Paysheet Tests', () => {
 
     });
 
-    //=== Test thuế không có người phụ thuộc===========================================================
-    // Test Data : Lương chính = 14.000.000, 
-    // Mức đóng bảo hiểm 14.000.000, BHXH 8%, BHYT 1.5%, BHTN 1% , ĐOÀN PHÍ 1% = 1.470.140
-    // Phụ cấp = 3.000.000 (Miễn thuế 2.730.000)
-    // Mức đóng thuế = 17.000.000 - 1.470.140(Bảo hiểm) - 11.000.000(miễn bản thân) - 2.730.000(miễn phụ cấp) = 1.799.860
-    // Thuế bậc 1 = 1.799.860 * 5% = 89.993 
-    // Tổng nhận = 17.000.000 - 1.470.140(Bảo hiểm) - 89.993(Thuế) = 15.439.867
-    //==================================================================================================
-    test('E2E Calculate tax without dependents  ', async ({ page }) => {
+    
+    /* Test thuế nhân viên có phát sinh người phụ thuộc giữa tháng */
+    test('E2E Calculate tax with dependents in the middle of the month - Kiểm tra tính thuế khi phát sinh NPT giữa tháng', async ({ page }) => {
+        allure.description(`
+        Employee: BAT107
+        Payroll month: 12/2025
+        Base salary: 20,000,000 VND
+        Dependent deduction start date: 15/12/2025
+
+        Insurance deduction: 2,100,000 VND
+        Personal deduction: 11,000,000 VND
+        Dependent deduction: 4,400,000 VND
+
+        Taxable income: 2,500,000 VND
+        PIT (5%): 125,000 VND
+
+        Expected:
+        - Dependent deduction is applied
+        - Net salary: 17,775,000 VND
+        `);
+
+        await beforeTest();
+        await allure.step('Add paysheet for 1 employees', async () => {
+            await paysheet.clickAdd();
+            await paysheet.setNamePaysheet('Automation test');
+            await paysheet.clickCheckboxMonthly();
+            await paysheet.clickChooseMonth();
+            await paysheet.clickCustomMonth(12);
+            await paysheet.fillSearchByName('BAT107');
+            await page.keyboard.press('Enter');
+            await paysheet.clickSelectEmployee();
+            await paysheet.setNote('Automation test tax');
+            await paysheet.clickSave();
+            await toastPage.getToastAddSuccess();
+            await paysheet.clickLatestPaysheetRow();
+            await paysheet.clickViewPayroll();
+
+            // verify salary and tax
+            await paysheet.verifyMainSalary('20.000.000');
+            await paysheet.verifyTotalSalary('20.000.000');
+            await paysheet.verifyInsurance('2.100.000');
+            await paysheet.verifyTax('125.000');
+            await paysheet.verifyTotalReceived('17.775.000');
+
+        });
+    });
+
+    /* Test thuế nhân viên có người phụ thuộc hết hạn giảm trừ giữa tháng */
+    test('E2E Calculate tax with dependents expired in the middle of the month - Kiểm tra tính thuế kh NPT hết hạn giảm trừ giữa tháng', async ({ page }) => {
+        allure.description(`
+        Employee: BAT108
+        Payroll month: 12/2025
+        Base salary: 20,000,000 VND
+        Dependent deduction expiry date: 18/12/2025
+
+        Insurance deduction:
+        - Social insurance (8%): 1,600,000 VND
+        - Health insurance (1.5%): 300,000 VND
+        - Unemployment insurance (1%): 200,000 VND
+        Total insurance: 2,100,000 VND
+
+        Tax calculation:
+        - Gross salary: 20,000,000 VND
+        - Insurance deduction: 2,100,000 VND
+        - Personal deduction: 11,000,000 VND
+        - Dependent deduction (1 dependent): 4,400,000 VND
+        - Taxable income: 2,500,000 VND
+        - PIT (5%): 125,000 VND
+
+        Expected result:
+        - Dependent deduction is applied
+        - Net salary: 17,775,000 VND
+        `);
+        await beforeTest();
+        await allure.step('Add paysheet for 1 employees', async () => {
+            await paysheet.clickAdd();
+            await paysheet.setNamePaysheet('Automation test');
+            await paysheet.clickCheckboxMonthly();
+            await paysheet.clickChooseMonth();
+            await paysheet.clickCustomMonth(12);
+            await paysheet.fillSearchByName('BAT108');
+            await page.keyboard.press('Enter');
+            await paysheet.clickSelectEmployee();
+            await paysheet.setNote('Automation test tax');
+            await paysheet.clickSave();
+            await toastPage.getToastAddSuccess();
+            await paysheet.clickLatestPaysheetRow();
+            await paysheet.clickViewPayroll();
+
+            // verify salary and tax
+            await paysheet.verifyMainSalary('20.000.000');
+            await paysheet.verifyTotalSalary('20.000.000');
+            await paysheet.verifyInsurance('2.100.000');
+            await paysheet.verifyTax('125.000');
+            await paysheet.verifyTotalReceived('17.775.000');
+
+        });
+
+    });
+
+    /*  Chưa đến ngày giảm trừ NPT */
+    test('E2E Calculate tax with dependents not yet effective - Kiểm tra tính thuế khi chưa đến ngày giảm trừ NPT', async ({ page }) => {
+        allure.description(`
+        Employee: BAT105
+        Payroll month: 12/2025
+        Base salary: 20,000,000 VND
+        Dependent deduction effective date: 30/09/2026
+
+        Insurance deduction:
+        - Social insurance (8%): 1,600,000 VND
+        - Health insurance (1.5%): 300,000 VND
+        - Unemployment insurance (1%): 200,000 VND
+        Total insurance: 2,100,000 VND
+
+        Tax calculation:
+        - Gross salary: 20,000,000 VND
+        - Insurance deduction: 2,100,000 VND
+        - Personal deduction: 11,000,000 VND
+        - Taxable income: 6,900,000 VND
+      
+        Progressive PIT calculation:
+        - First 5,000,000 VND × 5% = 250,000 VND
+        - Remaining 1,900,000 VND × 10% = 190,000 VND
+        - Total PIT: 440,000 VND
+
+
+        Expected result:
+        - Dependent deduction is NOT applied
+        - Net salary: 17,460,000 VND`);
+
+        await beforeTest();
+        await allure.step('Add paysheet for 1 employees', async () => {
+            await paysheet.clickAdd();
+            await paysheet.setNamePaysheet('Automation test');
+            await paysheet.clickCheckboxMonthly();
+            await paysheet.clickChooseMonth();
+            await paysheet.clickCustomMonth(12);
+            await paysheet.fillSearchByName('BAT105');
+            await page.keyboard.press('Enter');
+            await paysheet.clickSelectEmployee();
+            await paysheet.setNote('Automation test tax');
+            await paysheet.clickSave();
+            await toastPage.getToastAddSuccess();
+            await paysheet.clickLatestPaysheetRow();
+            await paysheet.clickViewPayroll();
+
+            // verify salary and tax
+            await paysheet.verifyMainSalary('20.000.000');
+            await paysheet.verifyTotalSalary('20.000.000');
+            await paysheet.verifyInsurance('2.100.000');
+            await paysheet.verifyTax('440.000');
+            await paysheet.verifyTotalReceived('17.460.000');
+
+        });
+
+    });
+
+    /* Đã hết hạn giảm trừ NPT */
+    test('E2E Calculate tax with dependents expired - Kiểm tra tính thuế khi NPT hết hạn giảm trừ', async ({ page }) => {
+        allure.description(`
+        Employee: BAT106
+        Payroll month: 12/2025
+        Base salary: 20,000,000 VND
+        Dependent deduction expiry date: 01/11/2025
+
+        Insurance deduction:
+        - Social insurance (8%): 1,600,000 VND
+        - Health insurance (1.5%): 300,000 VND
+        - Unemployment insurance (1%): 200,000 VND
+        Total insurance: 2,100,000 VND
+
+        Tax calculation:
+        - Gross salary: 20,000,000 VND
+        - Insurance deduction: 2,100,000 VND
+        - Personal deduction: 11,000,000 VND
+        - Taxable income: 6,900,000 VND
+
+        Progressive PIT calculation:
+        - First 5,000,000 VND × 5% = 250,000 VND
+        - Remaining 1,900,000 VND × 10% = 190,000 VND
+        - Total PIT: 440,000 VND
+
+        Expected result:
+        - Dependent deduction is NOT applied
+        - Net salary: 17,555,000 VND
+        `);
+
+        await beforeTest();
+        await allure.step('Add paysheet for 1 employees', async () => {
+            await paysheet.clickAdd();
+            await paysheet.setNamePaysheet('Automation test');
+            await paysheet.clickCheckboxMonthly();
+            await paysheet.clickChooseMonth();
+            await paysheet.clickCustomMonth(12);
+            await paysheet.fillSearchByName('BAT106');
+            await page.keyboard.press('Enter');
+            await paysheet.clickSelectEmployee();
+            await paysheet.setNote('Automation test tax');
+            await paysheet.clickSave();
+            await toastPage.getToastAddSuccess();
+            await paysheet.clickLatestPaysheetRow();
+            await paysheet.clickViewPayroll();
+
+            // verify salary and tax
+            await paysheet.verifyMainSalary('20.000.000');
+            await paysheet.verifyTotalSalary('20.000.000');
+            await paysheet.verifyInsurance('2.100.000');
+            await paysheet.verifyTax('440.000');
+            await paysheet.verifyTotalReceived('17.460.000');
+
+        });
+    });
+
+    /* Test thuế không có người phụ thuộc
+
+        Test Data : Lương chính = 14.000.000, 
+        Mức đóng bảo hiểm 14.000.000, BHXH 8%, BHYT 1.5%, BHTN 1% , ĐOÀN PHÍ 1% = 1.470.140
+        Phụ cấp = 3.000.000 (Miễn thuế 2.730.000)
+        Mức đóng thuế = 17.000.000 - 1.470.140(Bảo hiểm) - 11.000.000(miễn bản thân) - 2.730.000(miễn phụ cấp) = 1.799.860
+        Thuế bậc 1 = 1.799.860 * 5% = 89.993 
+        Tổng nhận = 17.000.000 - 1.470.140(Bảo hiểm) - 89.993(Thuế) = 15.439.867 */
+    test('E2E Calculate tax without dependents - Kiểm tra tính thuế khi không có người phụ thuộc ', async ({ page }) => {
         allure.story('Calculate tax without dependents Story');
         await beforeTest();
 
@@ -523,7 +736,6 @@ test.describe.serial('Paysheet Tests', () => {
             await paysheet.verifyTotalReceived('15.439.867');
 
         });
-
     });
-
 });
+
