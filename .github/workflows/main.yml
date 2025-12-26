@@ -37,7 +37,7 @@ jobs:
       - name: Run Playwright tests
         run: npx playwright test
         env:
-          URL_BIGTIME_STG: ${{ secrets.URL_BIGTIME_STG }}
+          BASE_URL: ${{ secrets.BASE_URL }}
           EMPLOYEE_USERNAME: ${{ secrets.EMPLOYEE_USERNAME }}
           EMPLOYEE_PASSWORD: ${{ secrets.EMPLOYEE_PASSWORD }}
           EMPLOYEE2_USERNAME: ${{ secrets.EMPLOYEE2_USERNAME }}
@@ -86,4 +86,3 @@ jobs:
             **/*.webm
             **/*.zip
             playwright-report/
-            

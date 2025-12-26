@@ -106,7 +106,7 @@ test.describe.serial('Paysheet Tests', () => {
         });
 
         await allure.step('Employee 2 approves payslip', async () => {
-            await loginPage.login(Config.employee2_username, Config.employee2_password);
+            await loginPage.login('bigapptech@gmail.com', '123456');
             await paysheet.clickSalary();
             await paysheet.clickPayslip();
             await paysheet.clickSalarySlipCode();
