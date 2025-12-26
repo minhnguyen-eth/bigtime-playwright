@@ -10,7 +10,7 @@ export class HolidayManagementPage extends BasePage {
     readonly TIME_KEEPING: Locator;
     readonly CHECK_IN_OUT_HISTORY: Locator;
     readonly CHOOSE_USER_INPUT: Locator;
-    readonly SELECT_USER: Locator;
+    readonly SELECT_USER: (user: string) => Locator;
     readonly REST_HOLIDAY_HAVE_SALARY: Locator;
     readonly REST_HOLIDAY_NO_SALARY: Locator;
     readonly MSG_NAME_REQUIRED: Locator;
@@ -28,7 +28,7 @@ export class HolidayManagementPage extends BasePage {
         this.MSG_START_DATE_REQUIRED = page.locator("//div[contains(text(),'Nhập bắt đầu từ ngày')]");
         this.MSG_NAME_REQUIRED = page.locator("//div[contains(text(),'Nhập tên ngày lễ')]");
         this.REST_HOLIDAY_HAVE_SALARY = page.locator("//td[contains(text(),'Ngày lễ có lương')]");
-        this.SELECT_USER = page.locator("//div[text()='BAT810 - Nguyễn Văn Minh']");
+        this.SELECT_USER = (user: string) => page.locator(`//div[text()='${user}']`);
         this.CHOOSE_USER_INPUT = page.getByRole('textbox', { name: 'Chọn nhân viên' });
         this.CHECK_IN_OUT_HISTORY = page.locator("//div[contains(text(),'Lịch sử điểm danh')]");
         this.TIME_KEEPING = page.locator("//p[contains(text(),'Chấm công')]");
@@ -70,9 +70,9 @@ export class HolidayManagementPage extends BasePage {
     }
 
     // FILL
-    async fillAndSelectUser() {
-        await this.safeFill(this.CHOOSE_USER_INPUT, 'BAT810 - Nguyễn Văn Minh');
-        await this.safeClick(this.SELECT_USER);
+    async fillAndSelectUser(user: string) {
+        await this.safeFill(this.CHOOSE_USER_INPUT, 'BAT300 - Test quản lý nghỉ lễ');
+        await this.safeClick(this.SELECT_USER(user));
     }
 
     async fillHolidayName(name: string) {

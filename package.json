@@ -1,12 +1,13 @@
 {
+  "type": "module",
   "homepage": "https://minhnguyen-eth.github.io/bigtime-playwright",
   "scripts": {
     "pretest": "rimraf allure-results allure-report",
     "test": "npx playwright test",
     "generate": "node generate-report.js",
     "predeploy": "rimraf allure-results",
-    "deploy": "powershell ./deploy.ps1",
-    "report": "npm run generate && npm run deploy"
+    "deploy": "node deploy.js",
+    "report": "npm run test && npm run generate && npm run deploy"
   },
   "devDependencies": {
     "@playwright/test": "^1.53.0",

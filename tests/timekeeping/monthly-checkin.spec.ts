@@ -58,7 +58,6 @@ test.describe.serial('Monthly Checkin Tests - Chấm công tháng', () => {
         await monthlyCheckinPage.clickSecondCheckbox();
         await monthlyCheckinPage.clickExportButton();
         await toastPage.getToastExportSuccess();
-
     });
 
     test('E2E Flow - User check in/out, submit checkday => admin monthly approval, monthly closing', async ({ page }) => {

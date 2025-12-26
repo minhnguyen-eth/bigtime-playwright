@@ -25,7 +25,7 @@ test.describe.serial('Team', () => {
         await loginPage.goto();
     });
 
-    test('Create a new team', async ({ page }) => {
+    test('Create a new team - Tạo mới một nhóm', async ({ page }) => {
         await clearTeam();
         const randomSuffix = Math.random().toString(36).substring(2, 8);
         const teamNameRandom = `team${randomSuffix}`;
@@ -42,19 +42,37 @@ test.describe.serial('Team', () => {
         await toastPage.getToastAddSuccess();
     });
 
-    test('Create a new team with existing team name', async ({ page }) => {
+    test('Create a new team with existing team name - Tạo mới một nhóm với tên đã tồn tại', async ({ page }) => {
         const randomSuffix = Math.random().toString(36).substring(2, 8);
         const teamNameRandom = `team${randomSuffix}`;
-        await loginPage.login(Config.admin_username, Config.admin_password);
-        await teamPage.clickAdmin();
-        await teamPage.clickTeamButton();
-        await teamPage.clickAdd();
-        await teamPage.fillTeamCode(teamNameRandom);
-        await teamPage.fillTeamName('nhóm it1');
-        await teamPage.clickSelectDepartment();
-        await teamPage.clickSave();
-        await toastPage.getToastAddFailed();
-        await validation.validateNameAlreadyExists();
+
+        await allure.step('Login with admin account - Login với tài khoản Admin', async () => {
+            await loginPage.login(Config.admin_username, Config.admin_password);
+        });
+
+        await allure.step('Navigate to Team page - Truy cập trang quản lý Team', async () => {
+            await teamPage.clickAdmin();
+            await teamPage.clickTeamButton();
+        });
+
+        await allure.step('Click Add button - Click nút Add để tạo Team mới', async () => {
+            await teamPage.clickAdd();
+        });
+
+        await allure.step('Fill in team information - Nhập thông tin Team', async () => {
+            await teamPage.fillTeamCode(teamNameRandom);
+            await teamPage.fillTeamName('nhóm it1'); // tên đã tồn tại
+            await teamPage.clickSelectDepartment();
+        });
+
+        await allure.step('Click Save button - Click Save để tạo Team', async () => {
+            await teamPage.clickSave();
+        });
+
+        await allure.step('Verify create team failed and display validate error - Verify tạo Team thất bại và hiển thị validate lỗi', async () => {
+            await toastPage.getToastAddFailed();
+            await validation.validateNameAlreadyExists();
+        });
     });
 
     test('Create a new team with existing team code', async ({ page }) => {

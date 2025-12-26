@@ -95,6 +95,13 @@ test.describe.serial('Overtime Ticket Test Suite', () => {
     //     }
     // });
 
+    test('Check in', async ({ page }) => {
+        await overtimeTicketPage.clickCheckInOutButton();
+        await overtimeTicketPage.clickCheckInButton();
+        await overtimeTicketPage.clickConfirmCheckInButton();
+        await toastPage.getToastCheckinSuccess();
+    });
+
     test('Maxlength of reason over 255 characters', async ({ page }) => {
         await overtimeTicketPage.clickOvertimeTicketButton();
         await overtimeTicketPage.clickAdd();
@@ -118,13 +125,6 @@ test.describe.serial('Overtime Ticket Test Suite', () => {
         // await overtimeTicketPage.clickSelectPendingStatus();
         await overtimeTicketPage.clickSave();
         await toastPage.getToastAddSuccess();
-    });
-
-    test('Check in', async ({ page }) => {
-        await overtimeTicketPage.clickCheckInOutButton();
-        await overtimeTicketPage.clickCheckInButton();
-        await overtimeTicketPage.clickConfirmCheckInButton();
-        await toastPage.getToastCheckinSuccess();
     });
 
     test('Create with blank name and reason', async ({ page }) => {

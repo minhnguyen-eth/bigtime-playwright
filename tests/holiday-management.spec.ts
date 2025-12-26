@@ -90,7 +90,7 @@ test.describe.serial('Holiday Management', () => {
         await toastPage.getToastAddSuccess();
         await holidayManagementPage.clickTimeKeeping();
         await holidayManagementPage.clickCheckInOutHistory();
-        await holidayManagementPage.fillAndSelectUser();
+        await holidayManagementPage.fillAndSelectUser('BAT300 - Test quản lý nghỉ lễ');
         await holidayManagementPage.verifyRestHolidayHaveSalary();
     });
 

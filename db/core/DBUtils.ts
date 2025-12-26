@@ -31,7 +31,7 @@ export async function clearTable(tableName: string, condition?: string): Promise
             const result = await executeQuery(sql);
 
             console.info(`Cleared ${result.affectedRows} rows in ${tableName} with condition: ${condition}.`);
-        } 
+        }
         // Không có điều kiện → xóa toàn bộ
         else {
             const deleteSql = `DELETE FROM ${tableName}`;
@@ -82,3 +82,46 @@ export async function importFromCSV(
         await conn.end();
     }
 }
+
+// Update table with dynamic fields and conditions
+export async function updateTable(
+    tableName: string,
+    updateData: Record<string, any>,
+    conditions: Record<string, any>
+): Promise<number> {
+    try {
+        const updateKeys = Object.keys(updateData);
+        const conditionKeys = Object.keys(conditions);
+
+        if (updateKeys.length === 0) {
+            throw new Error('updateData cannot be empty');
+        }
+
+        if (conditionKeys.length === 0) {
+            throw new Error('conditions cannot be empty (to prevent full-table update)');
+        }
+
+        const setClause = updateKeys.map(key => `${key} = ?`).join(', ');
+        const whereClause = conditionKeys.map(key => `${key} = ?`).join(' AND ');
+
+        const values = [
+            ...updateKeys.map(key => updateData[key]),
+            ...conditionKeys.map(key => conditions[key]),
+        ];
+
+        const sql = `UPDATE ${tableName} SET ${setClause} WHERE ${whereClause}`;
+
+        const result = await executeQuery(sql, values);
+
+        console.info(
+            `Updated ${result.affectedRows} rows in ${tableName}`,
+            { updateData, conditions }
+        );
+
+        return result.affectedRows;
+    } catch (error) {
+        console.error(`Failed to update table ${tableName}:`, error);
+        throw error;
+    }
+}
+

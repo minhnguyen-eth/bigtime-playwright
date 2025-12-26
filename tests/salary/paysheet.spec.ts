@@ -8,6 +8,9 @@ import { LogoutPage } from '../../pages/LogoutPage';
 import { ValidationPage } from '../../pages/ValidationPage';
 import { PaysheetHelper } from './paysheet-helper';
 import { clearPaysheets } from '../../db/modules/PaysheetDB';
+import { importCheckTime } from '../../db/modules/CheckTimeDB';
+import { importCheckDay } from '../../db/modules/CheckDayDB';
+import { importPayrolls } from '../../db/modules/PayrollsDB';
 
 test.describe.serial('Paysheet Tests', () => {
     let loginPage: LoginPage;
@@ -21,6 +24,10 @@ test.describe.serial('Paysheet Tests', () => {
         allure.feature('Paysheet Feature');
         allure.owner('Minh Nguyen');
         allure.severity('Critical');
+
+        await importCheckTime();
+        await importCheckDay();
+        await importPayrolls();
 
         validation = new ValidationPage(page);
         toastPage = new ToastPage(page);
@@ -51,15 +58,21 @@ test.describe.serial('Paysheet Tests', () => {
     });
 
     test('Add duplicate employee in a paysheet - Thêm nhân viên trùng trong 1 bảng lương', async ({ page }) => {
-        await allure.step('Admin creates and sends paysheet', async () => {
-            await beforeTest();
+        await beforeTest();
+        await allure.step('Admin creates paysheet - Quản lý tạo bảng lương', async () => {
             await paysheetHelper.addPaysheet();
+        });
+
+        await allure.step('Add duplicate employee - Thêm nhân viên trùng trong 1 bảng lương', async () => {
             await paysheet.clickLatestPaysheetRow();
             await paysheet.clickViewPayroll();
             await paysheet.clickAddMoreEmployee();
             await paysheet.fillEmployeeNameInput('test lương');
             await paysheet.clickSelectEmployee2();
             await paysheet.clickSave();
+        });
+
+        await allure.step('Verify employee existed - Verify nhân viên đã tồn tại trong bảng lương', async () => {
             await toastPage.getToastEmployeeExisted();
         });
     });
@@ -439,10 +452,14 @@ test.describe.serial('Paysheet Tests', () => {
     // Mức đóng thuế = (20.000.000 Tổng lương) - (2.100.000 Bảo hiểm) - (11.000.000 miễn bản thân) - (8.800.000 2 NPT) = [0]
     // Thuế = 0
     // Tổng nhận = (20.000.000 lương chính - (2.100.000 Bảo hiểm) = [17.900.000]
-    test('E2E Calculate tax with 2 dependents  ', async ({ page }) => {
-        allure.story('Calculate tax without dependents Story');
-        await beforeTest();
+    test('E2E Calculate tax with 2 dependents - Kiểm tra tính thuế với 2 người phụ thuộc ', async ({ page }) => {
+        await allure.description(`
+    Mức đóng bảo hiểm: 20.000.000 * (BHXH 8% = 1.600.000) + (BHYT 1.5% = 300.000) + (BHTN 1% = 200.000) + (ĐOÀN PHÍ = 0) = [2.100.000]
+    Mức đóng thuế: (20.000.000 Tổng lương) - (2.100.000 Bảo hiểm) - (11.000.000 miễn bản thân) - (8.800.000 2 NPT)= [0]
+    Thuế = 0
+    Tổng nhận = (20.000.000 - 2.100.000) = [17.900.000]`);
 
+        await beforeTest();
         await allure.step('Add paysheet for 1 employees', async () => {
             await paysheet.clickAdd();
             await paysheet.setNamePaysheet('Automation test');
@@ -457,8 +474,9 @@ test.describe.serial('Paysheet Tests', () => {
             await toastPage.getToastAddSuccess();
             await paysheet.clickLatestPaysheetRow();
             await paysheet.clickViewPayroll();
+        });
 
-            // verify salary and tax
+        await allure.step('Verify salary and tax', async () => {
             await paysheet.verifyMainSalary('20.000.000');
             await paysheet.verifyTotalSalary('20.000.000');
             await paysheet.verifyInsurance('2.100.000');
