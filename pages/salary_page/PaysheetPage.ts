@@ -150,8 +150,8 @@ export class PaysheetPage extends BasePage {
         await this.safeVerifyTextContains(locator, amount);
     }
 
-    async verifyTax(amount: string) {
-        const locator = this.page.getByRole('paragraph').filter({ hasText: `${amount} đ` });
+    async verifyTax(amount: string, nth: number) {
+        const locator = this.page.getByRole('paragraph').filter({ hasText: `${amount} đ` }).nth(nth);
         await this.safeVerifyTextContains(locator, amount);
     }
 
@@ -162,7 +162,7 @@ export class PaysheetPage extends BasePage {
     }
 
     async verifyMainSalary(amount: string) {
-        const locator = this.page.locator(`//p[contains(text(),'${amount} đ')]`);
+        const locator = this.page.getByRole('paragraph').filter({ hasText: `${amount} đ` });
         await this.safeVerifyTextContains(locator, amount);
     }
 

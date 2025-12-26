@@ -453,12 +453,23 @@ test.describe.serial('Paysheet Tests', () => {
         Thuế = 0
         Tổng nhận = (20.000.000 lương chính - (2.100.000 Bảo hiểm) = [17.900.000] */
     test('E2E Calculate tax with 2 dependents - Kiểm tra tính thuế với 2 người phụ thuộc ', async ({ page }) => {
-        await allure.description(`
-    Mức đóng bảo hiểm: 20.000.000 * (BHXH 8% = 1.600.000) + (BHYT 1.5% = 300.000) + (BHTN 1% = 200.000) + (ĐOÀN PHÍ = 0) = [2.100.000]
-    Mức đóng thuế: (20.000.000 Tổng lương) - (2.100.000 Bảo hiểm) - (11.000.000 miễn bản thân) - (8.800.000 2 NPT)= [0]
-    Thuế = 0
-    Tổng nhận = (20.000.000 - 2.100.000) = [17.900.000]`);
+        allure.description(`
+        Employee: BAT102
+        Payroll month: 12/2025
+        Base salary: 30,000,000 VND
+        Dependent deduction start date: 15/12/2025
 
+        Insurance deduction: 3.150.000 VND (30.000.000 * (BHXH 8%) + (BHYT 1.5%) + (BHTN 1%) + (ĐOÀN PHÍ 0%))
+        Personal deduction: 11,000,000 VND
+        Dependent deduction: 8,800,000 VND (2 dependents)
+
+        Taxable income: 7,050,000 VND
+        PIT (5%): 455.000 VND
+
+        Expected:
+        - Dependent deduction is applied
+        - Net salary: 26,395,000 VND
+        `);
         await beforeTest();
         await allure.step('Add paysheet for 1 employees', async () => {
             await paysheet.clickAdd();
@@ -477,17 +488,15 @@ test.describe.serial('Paysheet Tests', () => {
         });
 
         await allure.step('Verify salary and tax', async () => {
-            await paysheet.verifyMainSalary('20.000.000');
-            await paysheet.verifyTotalSalary('20.000.000');
-            await paysheet.verifyInsurance('2.100.000');
-            await paysheet.verifyTax('0');
-            await paysheet.verifyTotalReceived('17.900.000');
-
+            await paysheet.verifyMainSalary('30.000.000');
+            await paysheet.verifyTotalSalary('30.000.000');
+            await paysheet.verifyInsurance('3.150.000');
+            await paysheet.verifyTax('455.000 ', 0);
+            await paysheet.verifyTotalReceived('26.395.000');
         });
-
     });
 
-    
+
     /* Test thuế nhân viên có phát sinh người phụ thuộc giữa tháng */
     test('E2E Calculate tax with dependents in the middle of the month - Kiểm tra tính thuế khi phát sinh NPT giữa tháng', async ({ page }) => {
         allure.description(`
@@ -496,9 +505,9 @@ test.describe.serial('Paysheet Tests', () => {
         Base salary: 20,000,000 VND
         Dependent deduction start date: 15/12/2025
 
-        Insurance deduction: 2,100,000 VND
-        Personal deduction: 11,000,000 VND
-        Dependent deduction: 4,400,000 VND
+        Insurance deduction: 2,100,000 VND (20.000.000 * (BHXH 8%) + (BHYT 1.5%) + (BHTN 1%) + (ĐOÀN PHÍ 0%))
+        Personal deduction: 11,000,000 VND (free tax)
+        Dependent deduction: 4,400,000 VND (1 dependent)
 
         Taxable income: 2,500,000 VND
         PIT (5%): 125,000 VND
@@ -528,7 +537,7 @@ test.describe.serial('Paysheet Tests', () => {
             await paysheet.verifyMainSalary('20.000.000');
             await paysheet.verifyTotalSalary('20.000.000');
             await paysheet.verifyInsurance('2.100.000');
-            await paysheet.verifyTax('125.000');
+            await paysheet.verifyTax('125.000', 0);
             await paysheet.verifyTotalReceived('17.775.000');
 
         });
@@ -542,15 +551,9 @@ test.describe.serial('Paysheet Tests', () => {
         Base salary: 20,000,000 VND
         Dependent deduction expiry date: 18/12/2025
 
-        Insurance deduction:
-        - Social insurance (8%): 1,600,000 VND
-        - Health insurance (1.5%): 300,000 VND
-        - Unemployment insurance (1%): 200,000 VND
-        Total insurance: 2,100,000 VND
-
         Tax calculation:
         - Gross salary: 20,000,000 VND
-        - Insurance deduction: 2,100,000 VND
+        - Insurance deduction: 2,100,000 VND (20.000.000 * (BHXH 8%) + (BHYT 1.5%) + (BHTN 1%) + (ĐOÀN PHÍ 0%))
         - Personal deduction: 11,000,000 VND
         - Dependent deduction (1 dependent): 4,400,000 VND
         - Taxable income: 2,500,000 VND
@@ -580,7 +583,7 @@ test.describe.serial('Paysheet Tests', () => {
             await paysheet.verifyMainSalary('20.000.000');
             await paysheet.verifyTotalSalary('20.000.000');
             await paysheet.verifyInsurance('2.100.000');
-            await paysheet.verifyTax('125.000');
+            await paysheet.verifyTax('125.000', 0);
             await paysheet.verifyTotalReceived('17.775.000');
 
         });
@@ -637,7 +640,7 @@ test.describe.serial('Paysheet Tests', () => {
             await paysheet.verifyMainSalary('20.000.000');
             await paysheet.verifyTotalSalary('20.000.000');
             await paysheet.verifyInsurance('2.100.000');
-            await paysheet.verifyTax('440.000');
+            await paysheet.verifyTax('440.000', 0);
             await paysheet.verifyTotalReceived('17.460.000');
 
         });
@@ -660,7 +663,7 @@ test.describe.serial('Paysheet Tests', () => {
 
         Tax calculation:
         - Gross salary: 20,000,000 VND
-        - Insurance deduction: 2,100,000 VND
+        - Insurance deduction: 2,100,000 VND (20.000.000 * (BHXH 8%) + (BHYT 1.5%) + (BHTN 1%) + (ĐOÀN PHÍ 0%))
         - Personal deduction: 11,000,000 VND
         - Taxable income: 6,900,000 VND
 
@@ -694,7 +697,7 @@ test.describe.serial('Paysheet Tests', () => {
             await paysheet.verifyMainSalary('20.000.000');
             await paysheet.verifyTotalSalary('20.000.000');
             await paysheet.verifyInsurance('2.100.000');
-            await paysheet.verifyTax('440.000');
+            await paysheet.verifyTax('440.000', 0);
             await paysheet.verifyTotalReceived('17.460.000');
 
         });
@@ -732,7 +735,7 @@ test.describe.serial('Paysheet Tests', () => {
             await paysheet.verifyAllowance('3.000.000');
             await paysheet.verifyTotalSalary('17.000.000');
             await paysheet.verifyInsurance('1.470.140');
-            await paysheet.verifyTax('89.993');
+            await paysheet.verifyTax('89.993', 0);
             await paysheet.verifyTotalReceived('15.439.867');
 
         });
