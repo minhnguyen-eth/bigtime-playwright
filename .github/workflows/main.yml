@@ -1,5 +1,10 @@
 name: Playwright Tests
 
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
 on:
   # schedule:
   #   - cron: "0 1 * * *" # Runs at 8:00 AM UTC every day
