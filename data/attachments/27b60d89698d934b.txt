@@ -1,5 +1,0 @@
-Cleared 0 rows in check_days with condition: reason NOT LIKE '%Test Data%'.
-Cleared 0 rows in check_times with condition: reason NOT LIKE '%Test Data%'.
-Cleared 0 rows in overtime_submissions.
-Reset AUTO_INCREMENT for overtime_submissions.
- Screenshot saved: E:\BigAppTech\bigtime-playwright\screenshots\check_in.png

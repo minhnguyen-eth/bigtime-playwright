@@ -1,1 +1,0 @@
-📸 Screenshot saved: D:\BigAppTech\playwright-typescripts\screenshots\max_length_of_reward_name_is_255_characters.png

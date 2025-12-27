@@ -1,6 +1,0 @@
-Cleared 0 rows in payrolls.
-Reset AUTO_INCREMENT for payrolls.
-Cleared 1 rows in holiday_managements.
-Reset AUTO_INCREMENT for holiday_managements.
-Cleared 0 rows in check_days with condition: reason NOT LIKE '%Test Data%'.
-Cleared 0 rows in check_times with condition: reason NOT LIKE '%Test Data%'.

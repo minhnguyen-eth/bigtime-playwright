@@ -1,1 +1,0 @@
-Cleared 4 rows in leave_managements with condition.

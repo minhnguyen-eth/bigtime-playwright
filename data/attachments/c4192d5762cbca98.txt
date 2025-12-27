@@ -1,7 +1,0 @@
-Cleared 1 rows in employment_contracts with condition.
-Cleared 0 rows in users with condition.
-Found 2 records in employment_contracts with conditions: {
-  note: { value: 'Automation test contract', like: true },
-  type: { value: 0 },
-  status: { value: 0 }
-}

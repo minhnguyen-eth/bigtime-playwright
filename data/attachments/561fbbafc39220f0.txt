@@ -1,2 +1,0 @@
-Importing file into [reward_users] from: E:\BigAppTech\bigtime-playwright\test-data\reward_users.csv
-Imported data into reward_users from E:\BigAppTech\bigtime-playwright\test-data\reward_users.csv

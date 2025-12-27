@@ -1,4 +1,0 @@
-safeClick error: locator.waitFor: Timeout 30000ms exceeded.
-Call log:
-  - waiting for getByRole('combobox').filter({ hasText: 'Trạng thái ※' }).locator('i').nth(1)
-

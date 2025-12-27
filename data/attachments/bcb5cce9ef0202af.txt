@@ -1,2 +1,0 @@
-Cleared 1 rows in shift_plans with condition: name NOT LIKE '%Test Data%'.
- Screenshot saved: E:\BigAppTech\bigtime-playwright\screenshots\add_shift_plan_for_department.png

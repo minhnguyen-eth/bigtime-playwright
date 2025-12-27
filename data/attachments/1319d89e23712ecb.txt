@@ -1,4 +1,0 @@
-Cleared 0 rows in check_days .
-Cleared 0 rows in check_times .
-Cleared 0 rows in overtime_submissions .
-Mock data created successfully

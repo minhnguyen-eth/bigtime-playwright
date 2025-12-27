@@ -1,1 +1,0 @@
-Cleared 11 rows in reward_users with condition.

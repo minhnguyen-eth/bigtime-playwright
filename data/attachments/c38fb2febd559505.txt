@@ -1,7 +1,0 @@
-safeClick error: locator.waitFor: Error: strict mode violation: locator('//div[3]/div/div[1]/table/tbody/tr/td[1]/div/div/div/input') resolved to 2 elements:
-    1) <input value="true" id="input-142" type="checkbox" aria-disabled="false"/> aka locator('#input-142')
-    2) <input value="true" id="input-144" type="checkbox" aria-disabled="false"/> aka locator('#input-144')
-
-Call log:
-  - waiting for locator('//div[3]/div/div[1]/table/tbody/tr/td[1]/div/div/div/input')
-

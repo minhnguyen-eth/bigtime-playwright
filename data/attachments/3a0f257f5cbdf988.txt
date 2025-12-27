@@ -1,1 +1,0 @@
-📸 Screenshot saved: D:\BigAppTech\playwright-typescripts\screenshots\manager_create_reward_with_approved_status.png

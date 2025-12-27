@@ -1,1 +1,0 @@
-Cleared 1 rows in evaluation_types with condition.

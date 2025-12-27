@@ -1,2 +1,0 @@
-Importing file into [leave_managements] from: E:\BigAppTech\bigtime-playwright\test-data\leave_managements.csv
-Imported data into leave_managements from E:\BigAppTech\bigtime-playwright\test-data\leave_managements.csv

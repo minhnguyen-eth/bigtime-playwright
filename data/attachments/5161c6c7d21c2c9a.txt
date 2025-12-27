@@ -1,2 +1,0 @@
-Cleared 0 rows in evaluation_progress with condition.
-📸 Screenshot saved: D:\BigAppTech\playwright-typescripts\screenshots\evaluation_process_-_search_by_status.png

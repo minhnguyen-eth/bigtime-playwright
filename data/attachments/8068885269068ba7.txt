@@ -1,5 +1,0 @@
-Found 1 records in employment_contracts with conditions: {
-  note: { value: 'Automation test collaborator', like: true },
-  type: { value: 3 },
-  status: { value: 0 }
-}

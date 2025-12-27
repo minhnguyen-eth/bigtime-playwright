@@ -1,2 +1,0 @@
-Cleared 0 rows in allowance_types with condition.
-Cleared 4 rows in users with condition.

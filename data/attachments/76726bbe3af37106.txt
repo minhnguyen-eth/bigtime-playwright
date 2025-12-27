@@ -1,1 +1,0 @@
-Cleared 1 rows in working_shifts with condition.
