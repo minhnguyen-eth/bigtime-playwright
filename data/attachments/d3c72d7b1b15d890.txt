@@ -1,0 +1,3 @@
+Cleared 2 rows in evaluation_progress with condition: user_id = 'minh'.
+Importing file from: /home/runner/work/bigtime-playwright/bigtime-playwright/test-data/evaluation_progress.csv
+ Imported evaluation progress from /home/runner/work/bigtime-playwright/bigtime-playwright/test-data/evaluation_progress.csv

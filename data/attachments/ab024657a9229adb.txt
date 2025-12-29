@@ -1,0 +1,2 @@
+Importing file into [employment_contracts] from: /home/runner/work/bigtime-playwright/bigtime-playwright/test-data/contract.csv
+Imported data into employment_contracts from /home/runner/work/bigtime-playwright/bigtime-playwright/test-data/contract.csv
