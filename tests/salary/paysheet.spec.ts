@@ -703,44 +703,6 @@ test.describe.serial('Paysheet Tests', () => {
         });
     });
 
-    /* Test thuế không có người phụ thuộc
-
-        Test Data : Lương chính = 14.000.000, 
-        Mức đóng bảo hiểm 14.000.000, BHXH 8%, BHYT 1.5%, BHTN 1% , ĐOÀN PHÍ 1% = 1.470.140
-        Phụ cấp = 3.000.000 (Miễn thuế 2.730.000)
-        Mức đóng thuế = 17.000.000 - 1.470.140(Bảo hiểm) - 11.000.000(miễn bản thân) - 2.730.000(miễn phụ cấp) = 1.799.860
-        Thuế bậc 1 = 1.799.860 * 5% = 89.993 
-        Tổng nhận = 17.000.000 - 1.470.140(Bảo hiểm) - 89.993(Thuế) = 15.439.867 */
-    test('E2E Calculate tax without dependents - Kiểm tra tính thuế khi không có người phụ thuộc ', async ({ page }) => {
-        allure.story('Calculate tax without dependents Story');
-        await beforeTest();
-
-        await allure.step('Add paysheet for 1 employees', async () => {
-            await paysheet.clickAdd();
-            await paysheet.setNamePaysheet('Automation test');
-            await paysheet.clickCheckboxMonthly();
-            await paysheet.clickChooseMonth();
-            await paysheet.clickCustomMonth(12);
-            await paysheet.fillSearchByName('BAT100');
-            await page.keyboard.press('Enter');
-            await paysheet.clickSelectEmployee();
-            await paysheet.setNote('Automation test tax');
-            await paysheet.clickSave();
-            await toastPage.getToastAddSuccess();
-            await paysheet.clickLatestPaysheetRow();
-            await paysheet.clickViewPayroll();
-
-            // verify salary and tax
-            await paysheet.verifyMainSalary('14.000.000');
-            await paysheet.verifyAllowance('3.000.000', 0);
-            await paysheet.verifyTotalSalary('17.000.000');
-            await paysheet.verifyInsurance('1.470.140');
-            await paysheet.verifyTax('89.993', 0);
-            await paysheet.verifyTotalReceived('15.439.867');
-
-        });
-    });
-
     /* Test tính lương cho nhân viên có 1 ngày nghỉ phép năm */
     test('E2E Calculate salary with 1 day annual leave - Kiểm tra tính lương khi có 1 ngày nghỉ phép năm ', async ({ page }) => {
         allure.story('Calculate salary with 1 day leave Story');
@@ -810,6 +772,44 @@ test.describe.serial('Paysheet Tests', () => {
             await paysheet.verifyInsurance('1.050.000');
             await paysheet.verifyTax('0', 4);
             await paysheet.verifyTotalReceived('3.950.000');
+
+        });
+    });
+
+      /* Test thuế không có người phụ thuộc
+
+        Test Data : Lương chính = 14.000.000, 
+        Mức đóng bảo hiểm 14.000.000, BHXH 8%, BHYT 1.5%, BHTN 1% , ĐOÀN PHÍ 1% = 1.470.140
+        Phụ cấp = 3.000.000 (Miễn thuế 2.730.000)
+        Mức đóng thuế = 17.000.000 - 1.470.140(Bảo hiểm) - 11.000.000(miễn bản thân) - 2.730.000(miễn phụ cấp) = 1.799.860
+        Thuế bậc 1 = 1.799.860 * 5% = 89.993 
+        Tổng nhận = 17.000.000 - 1.470.140(Bảo hiểm) - 89.993(Thuế) = 15.439.867 */
+    test('E2E Calculate tax without dependents - Kiểm tra tính thuế khi không có người phụ thuộc ', async ({ page }) => {
+        allure.story('Calculate tax without dependents Story');
+        await beforeTest();
+
+        await allure.step('Add paysheet for 1 employees', async () => {
+            await paysheet.clickAdd();
+            await paysheet.setNamePaysheet('Automation test');
+            await paysheet.clickCheckboxMonthly();
+            await paysheet.clickChooseMonth();
+            await paysheet.clickCustomMonth(12);
+            await paysheet.fillSearchByName('BAT100');
+            await page.keyboard.press('Enter');
+            await paysheet.clickSelectEmployee();
+            await paysheet.setNote('Automation test tax');
+            await paysheet.clickSave();
+            await toastPage.getToastAddSuccess();
+            await paysheet.clickLatestPaysheetRow();
+            await paysheet.clickViewPayroll();
+
+            // verify salary and tax
+            await paysheet.verifyMainSalary('14.000.000');
+            await paysheet.verifyAllowance('3.000.000', 0);
+            await paysheet.verifyTotalSalary('17.000.000');
+            await paysheet.verifyInsurance('1.470.140');
+            await paysheet.verifyTax('89.993', 0);
+            await paysheet.verifyTotalReceived('15.439.867');
 
         });
     });
