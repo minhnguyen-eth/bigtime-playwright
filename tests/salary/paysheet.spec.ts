@@ -282,7 +282,7 @@ test.describe.serial('Paysheet Tests', () => {
             // await paysheet.expectOverTime();
             await paysheet.verifyBonus('1.000.000');
             await paysheet.verifyDeduction('300.000');
-            await paysheet.verifyAllowance('2.000.000');
+            await paysheet.verifyAllowance('2.000.000', 0);
         });
     });
 
@@ -352,7 +352,7 @@ test.describe.serial('Paysheet Tests', () => {
     });
 
     test('E2E Separate payroll - Kiểm tra tách bảng lương', async ({ page }) => {
-        allure.story('separate payroll Story');
+        allure.story('Separate payroll Story');
         await beforeTest();
 
         await allure.step('Add paysheet for 2 employees', async () => {
@@ -732,11 +732,84 @@ test.describe.serial('Paysheet Tests', () => {
 
             // verify salary and tax
             await paysheet.verifyMainSalary('14.000.000');
-            await paysheet.verifyAllowance('3.000.000');
+            await paysheet.verifyAllowance('3.000.000', 0);
             await paysheet.verifyTotalSalary('17.000.000');
             await paysheet.verifyInsurance('1.470.140');
             await paysheet.verifyTax('89.993', 0);
             await paysheet.verifyTotalReceived('15.439.867');
+
+        });
+    });
+
+    /* Test tính lương cho nhân viên có 1 ngày nghỉ phép năm */
+    test('E2E Calculate salary with 1 day annual leave - Kiểm tra tính lương khi có 1 ngày nghỉ phép năm ', async ({ page }) => {
+        allure.story('Calculate salary with 1 day leave Story');
+        await beforeTest();
+        await allure.step('Add paysheet for 1 employees', async () => {
+            await paysheet.clickAdd();
+            await paysheet.setNamePaysheet('Automation test');
+            await paysheet.clickCheckboxMonthly();
+            await paysheet.clickChooseMonth();
+            await paysheet.clickCustomMonth(12);
+            await paysheet.fillSearchByName('BAT400');
+            await page.keyboard.press('Enter');
+            await paysheet.clickSelectEmployee();
+            await paysheet.setNote('Automation test salary');
+            await paysheet.clickSave();
+            await toastPage.getToastAddSuccess();
+            await paysheet.clickLatestPaysheetRow();
+            await paysheet.clickViewPayroll();
+
+            // verify salary
+            await paysheet.verifyMainSalary('10.000.000');
+            await paysheet.verifyAllowance('0', 0);
+            await paysheet.verifyTotalSalary('10.000.000');
+            await paysheet.verifyInsurance('1.050.000');
+            await paysheet.verifyTax('0', 4);
+            await paysheet.verifyTotalReceived('8.950.000');
+
+        });
+    });
+
+    /* Test tính lương cho nhân viên có 1 ngày nghỉ thường */
+    test('E2E Calculate salary with 1 day regular leave - Kiểm tra tính lương khi có 1 ngày nghỉ thường ', async ({ page }) => {
+        allure.story('Calculate salary with 1 day regular leave Story');
+        allure.description(`
+        Employee: BAT402
+        Payroll month: 12/2025
+        Base salary: 10,000,000 VND
+        Standard work: 2
+        Working days: 1
+        Regular leave: 1 day
+
+        Expected:
+        Main salary: 5,000,000 VND
+        Insurance deduction: 1.050.000 VND
+        Net salary: 3,950,000 VND
+        `)
+        await beforeTest();
+        await allure.step('Add paysheet for 1 employees', async () => {
+            await paysheet.clickAdd();
+            await paysheet.setNamePaysheet('Automation test');
+            await paysheet.clickCheckboxMonthly();
+            await paysheet.clickChooseMonth();
+            await paysheet.clickCustomMonth(12);
+            await paysheet.fillSearchByName('BAT402');
+            await page.keyboard.press('Enter');
+            await paysheet.clickSelectEmployee();
+            await paysheet.setNote('Automation test salary');
+            await paysheet.clickSave();
+            await toastPage.getToastAddSuccess();
+            await paysheet.clickLatestPaysheetRow();
+            await paysheet.clickViewPayroll();
+
+            // verify salary
+            await paysheet.verifyMainSalary('5.000.000');
+            await paysheet.verifyAllowance('0', 0);
+            await paysheet.verifyTotalSalary('5.000.000');
+            await paysheet.verifyInsurance('1.050.000');
+            await paysheet.verifyTax('0', 4);
+            await paysheet.verifyTotalReceived('3.950.000');
 
         });
     });

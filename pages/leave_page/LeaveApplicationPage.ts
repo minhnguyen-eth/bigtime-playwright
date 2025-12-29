@@ -1,5 +1,6 @@
 import { Locator, Page } from '@playwright/test';
 import { BasePage } from '../BasePage';
+import { selectDateOffset } from '../../utils/dateUtils';
 
 export class LeaveApplicationPage extends BasePage {
     readonly LEAVE_APPLICATION_BUTTON: Locator;
@@ -39,9 +40,11 @@ export class LeaveApplicationPage extends BasePage {
     readonly SEARCH_BY_MONTH_RESULT: Locator;
     readonly LABEL_LEAVE_APPLICATION: Locator;
     readonly SELECT_NEW_STATUS: Locator;
+    readonly END_DATE_MUST_AFTER_START_DATE: Locator;
 
     constructor(page: Page) {
         super(page);
+        this.END_DATE_MUST_AFTER_START_DATE = page.getByText('Ngày kết thúc phải là ngày sau hoặc bằng ngày bắt đầu.', { exact: true });
         this.SELECT_NEW_STATUS = page.getByRole('option', { name: 'Mới' });
         this.CLOSE_DATE_PICKER_2 = page.locator("//div[@class='v-row']/div[4]/div[1]/div[1]/div[1]/div[1]//*[name()='svg']");
         this.CLOSE_DATE_PICKER_1 = page.getByRole('dialog').locator('path').first();
@@ -71,7 +74,7 @@ export class LeaveApplicationPage extends BasePage {
         this.REGULAR_LEAVE = page.locator("//div[contains(text(),'Nghỉ thường')]");
         this.NUMBER_OF_DAYS_OFF = page.getByRole('spinbutton', { name: 'Số ngày nghỉ Số ngày nghỉ' });
         this.END_DATE = page.getByRole('textbox', { name: 'Đến hết ngày ※' });
-        this.START_DATE = page.getByRole('textbox', { name: 'Nghỉ từ ngày ※ Nghỉ từ ngày ※' });
+        this.START_DATE = page.getByRole('textbox', { name: 'Nghỉ từ ngày ※' });
         this.ANNUAL_LEAVE = page.locator("//div[contains(text(),'Nghỉ theo phép năm')]");
         this.LEAVE_TYPE_DROPDOWN = page.getByRole('combobox').filter({ hasText: 'Loại ngày nghỉ ※Nghỉ' });
         this.LEAVE_APPLICATION_BUTTON = page.getByRole('link', { name: 'Đơn nghỉ phép' });
@@ -82,6 +85,16 @@ export class LeaveApplicationPage extends BasePage {
         this.VERIFY_SOCIAL_INSURANCE_LEAVE = page.locator('#row-0 span').filter({ hasText: 'Nghỉ bảo hiểm xã hội' });
         this.VERIFY_REGULAR_LEAVE = page.locator('#row-0 span').filter({ hasText: 'Nghỉ thường' });
         this.VERIFY_ANNUAL_LEAVE = page.locator('#row-0 span').filter({ hasText: 'Nghỉ theo phép năm' });
+    }
+
+    async verifyEndDateMustAfterStartDate() {
+        await this.safeVerifyToHaveText(this.END_DATE_MUST_AFTER_START_DATE, 'Ngày kết thúc phải là ngày sau hoặc bằng ngày bắt đầu.');
+    }
+
+    async selectStartDateAfterToday() {
+        await this.clickStartDate();
+        await selectDateOffset(this.page, 1);
+        await this.clickChoose();
     }
 
     async clickSelectNewStatus() {

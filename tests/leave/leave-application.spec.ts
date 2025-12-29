@@ -2,14 +2,14 @@ import { expect, test, } from '../base-test';
 import { LoginPage } from '../../pages/LoginPage';
 import Config from '../../utils/configUtils';
 import { LeaveApplicationPage } from '../../pages/leave_page/LeaveApplicationPage';
-import { checkLeaveApplicationExists, clearHolidayManagement, clearLeaveApplications, clearLeaveManagements } from '../../db/helpers/DBHelper';
+import { checkLeaveApplicationExists, clearHolidayManagement, clearLeaveApplications, clearLeaveManagements
+} from '../../db/helpers/DBHelper';
 import { addAnnualLeaveForEmployeeAndAdmin, sendAndApproveLeave } from './leave-helper';
 import { allure } from 'allure-playwright';
 import { ToastPage } from '../../pages/ToastPage';
 import { LogoutPage } from '../../pages/LogoutPage';
 import { ValidationPage } from '../../pages/ValidationPage';
 import { importShiftPlan } from '../../db/modules/ShiftplanDB';
-import { BasePage } from '../../pages/BasePage';
 
 test.describe.serial('Leave Application Tests', () => {
     let loginPage: LoginPage;
@@ -62,7 +62,7 @@ test.describe.serial('Leave Application Tests', () => {
         await leaveApplicationPage.clickLeaveApplicationButton();
     }
 
-    test('Add annual leave for a employee and manager browsed', async ({ page }) => {
+    test('Add annual leave for a employee and manager browsed - Tạo đơn xin nghỉ phép năm cho nhân viên duyệt', async ({ page }) => {
         allure.story('Setup Annual Leave');
         await allure.step('Clear all leave management and add annual leave for employee and admin', async () => {
             await clearLeaveManagements();
@@ -246,6 +246,18 @@ test.describe.serial('Leave Application Tests', () => {
         });
     });
 
+    test('Add leave application with end date after start date - Thêm đơn xin nghỉ phép có ngày kết thúc sau ngày bắt đầu ', async ({ page }) => {
+        await beforeTest();
+        await leaveApplicationPage.clickAdd();
+        await leaveApplicationPage.clickLeaveTypeDropDown();
+        await leaveApplicationPage.clickAnnualLeave();
+        await leaveApplicationPage.selectStartDateAfterToday();
+        await leaveApplicationPage.fillReason('Automation test');
+        await leaveApplicationPage.clickSave();
+        await leaveApplicationPage.verifyEndDateMustAfterStartDate();
+        await toastPage.getToastAddFailed();
+    });
+
     test('Search by month', async ({ page }) => {
         await clearLeaveApplications();
         await beforeSearchTest();
@@ -270,7 +282,7 @@ test.describe.serial('Leave Application Tests', () => {
     });
 
     test('Search by approved status', async ({ page }) => {
-        await beforeSearchTest();   
+        await beforeSearchTest();
         await leaveApplicationPage.clickChooseMonthFilter();
         await leaveApplicationPage.clickChosseMonthPicker(11);
         await leaveApplicationPage.clickBrowsedButtonSearch();

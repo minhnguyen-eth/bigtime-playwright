@@ -27,7 +27,7 @@ test.describe.serial('Branch Test', () => {
         await branchPage.clickAdmin();
     })
 
-    test('Create branch with valid information', async ({ page }) => {
+    test('Create branch with valid information - Tạo chi nhánh với thông tin hợp lệ', async ({ page }) => {
         await clearBranch();
         const randomString = "Automation test branch " + Math.random().toString(36).substring(7);
         const phoneNumber = `09${Math.floor(100000000 + Math.random() * 900000000)}`;
@@ -44,7 +44,7 @@ test.describe.serial('Branch Test', () => {
         await toastPage.getToastAddSuccess();
     });
 
-    test('Create with over number of employee', async ({ page }) => {
+    test('Create with over number of employee - Tạo chi nhánh với số lượng nhân viên lớn hơn 1000', async ({ page }) => {
         const randomString = "Automation test branch " + Math.random().toString(36).substring(7);
         const phoneNumber = `09${Math.floor(100000000 + Math.random() * 900000000)}`;
         await branchPage.clickBranchButton();
@@ -58,7 +58,7 @@ test.describe.serial('Branch Test', () => {
         await branchPage.verifyMaxNumberOfEmployee();
     });
 
-    test('Create with min number of employee', async ({ page }) => {
+    test('Create with min number of employee - Tạo chi nhánh với số lượng nhân viên nhỏ hơn 100', async ({ page }) => {
         const randomString = "Automation test branch " + Math.random().toString(36).substring(7);
         const phoneNumber = `09${Math.floor(100000000 + Math.random() * 900000000)}`;
         await branchPage.clickBranchButton();
@@ -72,7 +72,7 @@ test.describe.serial('Branch Test', () => {
         await branchPage.verifyMinNumberOfEmployee();
     });
 
-    test('Create with duplicate branch name', async ({ page }) => {
+    test('Create with duplicate branch name - Tạo chi nhánh với tên trùng', async ({ page }) => {
         const randomString = "Automation test branch " + Math.random().toString(36).substring(7);
         const phoneNumber = `09${Math.floor(100000000 + Math.random() * 900000000)}`;
         await branchPage.clickBranchButton();
@@ -87,7 +87,7 @@ test.describe.serial('Branch Test', () => {
         await branchPage.verifyBranchExist();
     });
 
-    test('Create with duplicate short name', async ({ page }) => {
+    test('Create with duplicate short name - Tạo chi nhánh với tên ngắn trùng', async ({ page }) => {
         const randomString = "Automation test branch " + Math.random().toString(36).substring(7);
         const phoneNumber = `09${Math.floor(100000000 + Math.random() * 900000000)}`;
         await branchPage.clickBranchButton();
@@ -101,7 +101,7 @@ test.describe.serial('Branch Test', () => {
         await toastPage.getToastAddFailed();
     });
 
-    test('Create with lock status', async ({ page }) => {
+    test('Create with lock status - Tạo chi nhánh với trạng thái khóa', async ({ page }) => {
         const randomString = "Automation test branch " + Math.random().toString(36).substring(7);
         const phoneNumber = `09${Math.floor(100000000 + Math.random() * 900000000)}`;
         await branchPage.clickBranchButton();
@@ -118,7 +118,7 @@ test.describe.serial('Branch Test', () => {
         await branchPage.verifyLockStatusRow0();
     });
 
-    test('Create with blank address and note', async ({ page }) => {
+    test('Create with blank address and note - Tạo chi nhánh với địa chỉ và ghi chú rỗng', async ({ page }) => {
         const randomString = "Automation test branch " + Math.random().toString(36).substring(7);
         const phoneNumber = `09${Math.floor(100000000 + Math.random() * 900000000)}`;
         await branchPage.clickBranchButton();
@@ -130,7 +130,7 @@ test.describe.serial('Branch Test', () => {
         await branchPage.clickSave();
     });
 
-    test('Create with blank data', async ({ page }) => {
+    test('Create with blank data - Tạo chi nhánh với dữ liệu rỗng', async ({ page }) => {
         await branchPage.clickBranchButton();
         await branchPage.clickAdd();
         await branchPage.clickSave();
@@ -139,7 +139,7 @@ test.describe.serial('Branch Test', () => {
         await branchPage.verifyShortNameRequired();
     });
 
-    test('Edit active status to lock status', async ({ page }) => {
+    test('Edit active status to lock status - Chỉnh sửa trạng thái chi nhánh từ hoạt động sang khóa', async ({ page }) => {
         await branchPage.clickBranchButton();
         await branchPage.clickEditRow0();
         await branchPage.clickDropdownStatusInFormNth1();
@@ -149,7 +149,7 @@ test.describe.serial('Branch Test', () => {
         await branchPage.verifyLockStatusRow0();
     });
 
-    test('Edit lock status to active status', async ({ page }) => {
+    test('Edit lock status to active status - Chỉnh sửa trạng thái chi nhánh từ khóa sang hoạt động', async ({ page }) => {
         await branchPage.clickBranchButton();
         await branchPage.clickEditRow0();
         await branchPage.clickDropdownStatusInFormNth1();
@@ -159,7 +159,7 @@ test.describe.serial('Branch Test', () => {
         await branchPage.verifyActivityStatusRow0();
     });
 
-    test('Edit branch name', async ({ page }) => {
+    test('Edit branch name - Chỉnh sửa tên chi nhánh', async ({ page }) => {
         const randomString = "Automation test branch " + Math.random().toString(36).substring(7);
         await branchPage.clickBranchButton();
         await branchPage.clickEditRow0();
@@ -168,7 +168,7 @@ test.describe.serial('Branch Test', () => {
         await toastPage.getToastUpdateSuccess();
     });
 
-    test('Edit short name', async ({ page }) => {
+    test('Edit short name - Chỉnh sửa tên ngắn', async ({ page }) => {
         const randomString = "Automation test branch " + Math.random().toString(36).substring(7);
         await branchPage.clickBranchButton();
         await branchPage.clickEditRow0();
@@ -177,7 +177,7 @@ test.describe.serial('Branch Test', () => {
         await toastPage.getToastUpdateSuccess();
     });
 
-    test('Edit number of employee', async ({ page }) => {
+    test('Edit number of employee - Chỉnh sửa số lượng nhân viên', async ({ page }) => {
         await branchPage.clickBranchButton();
         await branchPage.clickEditRow0();
         await branchPage.fillNumberOfEmployee("999");
@@ -185,7 +185,7 @@ test.describe.serial('Branch Test', () => {
         await toastPage.getToastUpdateSuccess();
     });
 
-    test('Edit phone number', async ({ page }) => {
+    test('Edit phone number - Chỉnh sửa số điện thoại', async ({ page }) => {
         const phoneNumber = `09${Math.floor(100000000 + Math.random() * 900000000)}`;
         await branchPage.clickBranchButton();
         await branchPage.clickEditRow0();
@@ -194,7 +194,7 @@ test.describe.serial('Branch Test', () => {
         await toastPage.getToastUpdateSuccess();
     });
 
-    test('Edit branch address', async ({ page }) => {
+    test('Edit branch address - Chỉnh sửa địa chỉ chi nhánh', async ({ page }) => {
         const randomString = "Automation test branch " + Math.random().toString(36).substring(7);
         await branchPage.clickBranchButton();
         await branchPage.clickEditRow0();
@@ -203,7 +203,7 @@ test.describe.serial('Branch Test', () => {
         await toastPage.getToastUpdateSuccess();
     });
 
-    test('Edit note', async ({ page }) => {
+    test('Edit note - Chỉnh sửa ghi chú', async ({ page }) => {
         const randomString = "Automation test branch " + Math.random().toString(36).substring(7);
         await branchPage.clickBranchButton();
         await branchPage.clickEditRow0();
@@ -212,7 +212,7 @@ test.describe.serial('Branch Test', () => {
         await toastPage.getToastUpdateSuccess();
     });
 
-    test('Edit with duplicate branch name', async ({ page }) => {
+    test('Edit with duplicate branch name - Chỉnh sửa chi nhánh với tên trùng', async ({ page }) => {
         await branchPage.clickBranchButton();
         await branchPage.clickEditRow0();
         await branchPage.fillBranchName('Biên Hòa');
@@ -222,7 +222,7 @@ test.describe.serial('Branch Test', () => {
         await branchPage.verifyBranchExist();
     })
 
-    test('Edit all fields', async ({ page }) => {
+    test('Edit all fields - Chỉnh sửa tất cả thông tin chi nhánh', async ({ page }) => {
         const randomString = "Automation test branch " + Math.random().toString(36).substring(7);
         const phoneNumber = `09${Math.floor(100000000 + Math.random() * 900000000)}`;
         await branchPage.clickBranchButton();
@@ -237,20 +237,20 @@ test.describe.serial('Branch Test', () => {
         await toastPage.getToastUpdateSuccess();
     });
 
-    test('Delete branch', async ({ page }) => {
+    test('Delete branch - Xóa chi nhánh', async ({ page }) => {
         await branchPage.clickBranchButton();
         await branchPage.clickDeleteRow0();
         await toastPage.getToastDeleteSuccess();
     });
 
-    test('Search by branch name', async ({ page }) => {
+    test('Search by branch name - Tìm kiếm chi nhánh theo tên', async ({ page }) => {
         await branchPage.clickBranchButton();
         await branchPage.fillSearchByBranchName("Biên Hòa");
         await branchPage.clickSearch();
         await branchPage.verifySearchByNameResult();
     });
 
-    test('Search by status', async ({ page }) => {
+    test('Search by status - Tìm kiếm chi nhánh theo trạng thái', async ({ page }) => {
         await branchPage.clickBranchButton();
         await branchPage.clickDropdownStatusSearch();
         await branchPage.clickLockStatus();
@@ -264,7 +264,7 @@ test.describe.serial('Branch Test', () => {
         await branchPage.verifyActivityStatusRow0();
     });
 
-    test("Max length of branch name 255 characters", async ({ page }) => {
+    test("Max length of branch name 255 characters ", async ({ page }) => {
         await clearBranch();
         const randomString = "Automation test branch " + Math.random().toString(36).substring(7);
         const phoneNumber = `09${Math.floor(100000000 + Math.random() * 900000000)}`;

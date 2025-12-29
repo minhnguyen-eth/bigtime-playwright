@@ -19,7 +19,7 @@ concurrency:
 
 jobs:
   test:
-    timeout-minutes: 160 # thời gian kết thúc là 160 minutes = 2.6 hours
+    timeout-minutes: 200 # thời gian kết thúc là 200 phút
     runs-on: ubuntu-latest
 
     steps:
