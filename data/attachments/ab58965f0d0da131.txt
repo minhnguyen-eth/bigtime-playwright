@@ -1,6 +1,0 @@
-Cleared 10 rows in check_days.
-Reset AUTO_INCREMENT for check_days.
-Cleared 20 rows in check_times.
-Reset AUTO_INCREMENT for check_times.
-Cleared 1 rows in overtime_submissions.
-Reset AUTO_INCREMENT for overtime_submissions.

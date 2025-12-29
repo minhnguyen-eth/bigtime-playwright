@@ -1,0 +1,1 @@
+Cleared 1 rows in branches with condition: name LIKE '%Automation test%' OR name LIKE '%z%'.
