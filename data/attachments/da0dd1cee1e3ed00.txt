@@ -1,4 +1,0 @@
-Cleared 1 rows in holiday_managements.
-Reset AUTO_INCREMENT for holiday_managements.
-Cleared 3 rows in leave_applications with condition: reason NOT LIKE '%Test data%'.
-Cleared 0 rows in leave_applications with condition: reason NOT LIKE '%Test data%'.
