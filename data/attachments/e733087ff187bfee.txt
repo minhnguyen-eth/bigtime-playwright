@@ -1,0 +1,2 @@
+Cleared 2 rows in allowance_types with condition: note NOT LIKE '%Test data%' OR note IS NULL.
+Cleared 6 rows in users with condition: name LIKE '%Automation test%' or name LIKE '%z%'.

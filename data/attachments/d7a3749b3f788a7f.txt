@@ -1,0 +1,220 @@
+# Page snapshot
+
+```yaml
+- banner:
+  - button
+  - text: BigTime - Prepare
+  - button "Quản lý":
+    - paragraph: Quản lý
+  - button "Chấm công":
+    - paragraph: Chấm công
+  - button "Lương":
+    - paragraph: Lương
+  - button "Cài đặt":
+    - paragraph: Cài đặt
+  - img
+  - text: admin
+  - button "Badge":
+    - status "Badge"
+  - button
+  - button "Đăng xuất"
+- banner:
+  - text: Version 1.0.11
+  - list:
+    - listitem "English":
+      - img
+    - listitem "Tiếng Việt":
+      - img
+  - button
+- navigation:
+  - listbox:
+    - link "Trung tâm":
+      - /url: /dashboard-admin
+    - separator
+    - text: Quản lý nhân viên
+    - link "Nhân viên":
+      - /url: /user
+    - separator
+    - text: Thông báo
+    - link "Quản lý thông báo":
+      - /url: /notification
+    - link "Danh sách thông báo":
+      - /url: /list-notification
+    - separator
+    - text: Đánh giá
+    - link "Loại đánh giá":
+      - /url: /evaluation-type
+    - link "Tiêu chí đánh giá":
+      - /url: /evaluation-criteria
+    - link "Quy trình đánh giá":
+      - /url: /evaluation-progress
+    - link "Danh sách đánh giá":
+      - /url: /list-evaluation
+    - separator
+    - text: Khen thưởng
+    - link "Loại khen thưởng":
+      - /url: /reward-type
+    - link "Khen thưởng nhân viên":
+      - /url: /reward-user
+    - separator
+    - text: Chung
+    - link "Quản lý ngày phép năm":
+      - /url: /leave-management
+    - link "Đơn nghỉ phép":
+      - /url: /leave-application
+    - link "Quản lý nghỉ lễ":
+      - /url: /holiday-management
+    - link "Đơn thôi việc":
+      - /url: /resignation
+    - link "Chi nhánh":
+      - /url: /branch
+    - link "Bộ phận":
+      - /url: /department
+    - link "Chức vụ":
+      - /url: /position
+    - link "Cấp bậc":
+      - /url: /level
+    - link "Nhóm":
+      - /url: /team
+    - separator
+    - text: Hợp đồng
+    - link "Hợp đồng":
+      - /url: /contract
+    - link "Điều khoản":
+      - /url: /term
+    - link "Thống kê hợp đồng":
+      - /url: /contract-statistic
+- main:
+  - text: Loại khen thưởng
+  - button "Làm mới"
+  - button "Thêm"
+  - button
+  - text: Tên loại khen thưởng
+  - textbox "Tên loại khen thưởng Tên loại khen thưởng"
+  - combobox:
+    - text: Trạng thái
+    - textbox "Open"
+  - button "Tìm kiếm"
+  - button "Xóa"
+  - table:
+    - rowgroup:
+      - row "# Tên loại khen thưởng Mô tả Trạng thái Hành động":
+        - columnheader "#"
+        - columnheader "Tên loại khen thưởng"
+        - columnheader "Mô tả"
+        - columnheader "Trạng thái"
+        - columnheader "Hành động"
+    - rowgroup:
+      - row "1 Test Reward Type 3vp6hp Test Description Hoạt động Sửa Xóa":
+        - cell "1"
+        - cell "Test Reward Type 3vp6hp"
+        - cell "Test Description"
+        - cell "Hoạt động":
+          - button "Hoạt động"
+        - cell "Sửa Xóa":
+          - button "Sửa"
+          - button "Xóa"
+      - row "2 Khen thưởng 1 Test Description Hoạt động Sửa Xóa":
+        - cell "2"
+        - cell "Khen thưởng 1"
+        - cell "Test Description"
+        - cell "Hoạt động":
+          - button "Hoạt động"
+        - cell "Sửa Xóa":
+          - button "Sửa"
+          - button "Xóa"
+      - row "3 Khen thưởng phi tài chính Đôi khi, phần thưởng không cần phải là tiền hoặc v... Hoạt động Sửa Xóa":
+        - cell "3"
+        - cell "Khen thưởng phi tài chính"
+        - cell "Đôi khi, phần thưởng không cần phải là tiền hoặc v..."
+        - cell "Hoạt động":
+          - button "Hoạt động"
+        - cell "Sửa Xóa":
+          - button "Sửa"
+          - button "Xóa"
+      - row "4 Khen thưởng tinh thần / thái đ... Không chỉ thành tích, thái độ cũng cần được công n... Hoạt động Sửa Xóa":
+        - cell "4"
+        - cell "Khen thưởng tinh thần / thái đ..."
+        - cell "Không chỉ thành tích, thái độ cũng cần được công n..."
+        - cell "Hoạt động":
+          - button "Hoạt động"
+        - cell "Sửa Xóa":
+          - button "Sửa"
+          - button "Xóa"
+      - row "5 Khen thưởng sáng kiến, đổi mới Dành cho những cá nhân đóng góp ý tưởng mới hoặc c... Hoạt động Sửa Xóa":
+        - cell "5"
+        - cell "Khen thưởng sáng kiến, đổi mới"
+        - cell "Dành cho những cá nhân đóng góp ý tưởng mới hoặc c..."
+        - cell "Hoạt động":
+          - button "Hoạt động"
+        - cell "Sửa Xóa":
+          - button "Sửa"
+          - button "Xóa"
+      - row "6 Khen thưởng định kỳ Thường áp dụng theo chu kỳ quý, năm hoặc theo dự á... Hoạt động Sửa Xóa":
+        - cell "6"
+        - cell "Khen thưởng định kỳ"
+        - cell "Thường áp dụng theo chu kỳ quý, năm hoặc theo dự á..."
+        - cell "Hoạt động":
+          - button "Hoạt động"
+        - cell "Sửa Xóa":
+          - button "Sửa"
+          - button "Xóa"
+      - row "7 Khen thưởng theo thành tích Áp dụng khi nhân viên có đóng góp nổi bật hoặc hoà... Hoạt động Sửa Xóa":
+        - cell "7"
+        - cell "Khen thưởng theo thành tích"
+        - cell "Áp dụng khi nhân viên có đóng góp nổi bật hoặc hoà..."
+        - cell "Hoạt động":
+          - button "Hoạt động"
+        - cell "Sửa Xóa":
+          - button "Sửa"
+          - button "Xóa"
+      - row "8 Khen thưởng 2 a Hoạt động Sửa Xóa":
+        - cell "8"
+        - cell "Khen thưởng 2"
+        - cell "a"
+        - cell "Hoạt động":
+          - button "Hoạt động"
+        - cell "Sửa Xóa":
+          - button "Sửa"
+          - button "Xóa"
+  - text: Tổng 8, Hiển thị
+  - combobox:
+    - text: "20"
+    - textbox "Open": "20"
+  - navigation "Pagination Navigation":
+    - list:
+      - listitem:
+        - button "Previous page" [disabled]
+      - listitem:
+        - button "Page 1, Current page" [disabled]: "1"
+      - listitem:
+        - button "Next page" [disabled]
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- dialog:
+  - text: Thêm loại khen thưởng
+  - textbox "Tên loại khen thưởng ※ Tên loại khen thưởng ※": Khen thưởng 1
+  - textbox "Mô tả Mô tả": Test Description
+  - combobox:
+    - text: Hoạt động
+    - textbox "Open": "1"
+  - textbox "Ngày tạo Ngày tạo" [disabled]: 30-12-2025 05:21
+  - textbox "Người tạo Người tạo" [disabled]: admin
+  - button "Lưu"
+  - button "Hủy"
+```
