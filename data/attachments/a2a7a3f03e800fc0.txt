@@ -1,7 +1,0 @@
-Cleared 0 rows in users with condition: name LIKE '%Automation test%' or name LIKE '%z%'.
-Found 2 records in employment_contracts with conditions: {
-  note: { value: 'Automation test contract', like: true },
-  type: { value: 0 },
-  status: { value: 0 }
-}
-Cleared 3 rows in employment_contracts with condition: user_id LIKE '%minh%' and id not like '%TestData%'.
