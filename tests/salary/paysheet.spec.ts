@@ -777,7 +777,6 @@ test.describe.serial('Paysheet Tests', () => {
     });
 
       /* Test thuế không có người phụ thuộc
-
         Test Data : Lương chính = 14.000.000, 
         Mức đóng bảo hiểm 14.000.000, BHXH 8%, BHYT 1.5%, BHTN 1% , ĐOÀN PHÍ 1% = 1.470.140
         Phụ cấp = 3.000.000 (Miễn thuế 2.730.000)
