@@ -1,0 +1,141 @@
+# Page snapshot
+
+```yaml
+- banner:
+  - button
+  - text: BigTime - Prepare
+  - button "Quản lý":
+    - paragraph: Quản lý
+  - button "Chấm công":
+    - paragraph: Chấm công
+  - button "Lương":
+    - paragraph: Lương
+  - img
+  - text: Nguyễn Văn Minh
+  - button "Badge":
+    - status "Badge"
+  - button
+  - button "Đăng xuất"
+- banner:
+  - text: Version 1.0.10
+  - list:
+    - listitem "English":
+      - img
+    - listitem "Tiếng Việt":
+      - img
+  - button
+- navigation:
+  - listbox:
+    - link "Trung tâm":
+      - /url: /dashboard-salary
+    - separator
+    - text: Lương
+    - link "Phiếu lương":
+      - /url: /salary/payslip
+    - link "Tạm ứng":
+      - /url: /salary/debt
+- main:
+  - text: Tạm ứng
+  - button "Làm mới"
+  - button "Thêm"
+  - button
+  - textbox "Khoảng thời gian Khoảng thời gian": 01-12-2025 - 31-12-2025
+  - button "Tìm kiếm"
+  - button "Xóa"
+  - table:
+    - rowgroup:
+      - row "# Tên người tạm ứng Ngày tạo Tiền Ghi chú Trạng thái Hành động":
+        - columnheader "#"
+        - columnheader "Tên người tạm ứng"
+        - columnheader "Ngày tạo"
+        - columnheader "Tiền"
+        - columnheader "Ghi chú"
+        - columnheader "Trạng thái"
+        - columnheader "Hành động"
+    - rowgroup:
+      - row "1 BAT810 - Nguyễn Văn Minh 30-12-2025 1.000.000 đ add debt test for cancel Đã gửi 󰇙 Thao tác":
+        - cell "1"
+        - cell "BAT810 - Nguyễn Văn Minh"
+        - cell "30-12-2025"
+        - cell "1.000.000 đ"
+        - cell "add debt test for cancel"
+        - cell "Đã gửi"
+        - cell "󰇙 Thao tác":
+          - button "󰇙 Thao tác"
+      - row "2 BAT810 - Nguyễn Văn Minh 30-12-2025 1.000.000 đ add debt test for cancel Từ chối 󰇙 Thao tác":
+        - cell "2"
+        - cell "BAT810 - Nguyễn Văn Minh"
+        - cell "30-12-2025"
+        - cell "1.000.000 đ"
+        - cell "add debt test for cancel"
+        - cell "Từ chối"
+        - cell "󰇙 Thao tác":
+          - button "󰇙 Thao tác"
+      - row "3 BAT810 - Nguyễn Văn Minh 30-12-2025 1.000.000 đ add debt test for cancel Đã duyệt 󰇙 Thao tác":
+        - cell "3"
+        - cell "BAT810 - Nguyễn Văn Minh"
+        - cell "30-12-2025"
+        - cell "1.000.000 đ"
+        - cell "add debt test for cancel"
+        - cell "Đã duyệt"
+        - cell "󰇙 Thao tác":
+          - button "󰇙 Thao tác"
+      - row "4 BAT810 - Nguyễn Văn Minh 30-12-2025 20.000.000 đ edit valid value Mới tạo 󰇙 Thao tác":
+        - cell "4"
+        - cell "BAT810 - Nguyễn Văn Minh"
+        - cell "30-12-2025"
+        - cell "20.000.000 đ"
+        - cell "edit valid value"
+        - cell "Mới tạo"
+        - cell "󰇙 Thao tác":
+          - button "󰇙 Thao tác"
+      - row "5 BAT810 - Nguyễn Văn Minh 30-12-2025 1.000.000 đ add debt test for cancel Mới tạo 󰇙 Thao tác":
+        - cell "5"
+        - cell "BAT810 - Nguyễn Văn Minh"
+        - cell "30-12-2025"
+        - cell "1.000.000 đ"
+        - cell "add debt test for cancel"
+        - cell "Mới tạo"
+        - cell "󰇙 Thao tác":
+          - button "󰇙 Thao tác"
+      - row "6 BAT810 - Nguyễn Văn Minh 30-12-2025 10.000.000 đ aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa... Mới tạo 󰇙 Thao tác":
+        - cell "6"
+        - cell "BAT810 - Nguyễn Văn Minh"
+        - cell "30-12-2025"
+        - cell "10.000.000 đ"
+        - cell "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa..."
+        - cell "Mới tạo"
+        - cell "󰇙 Thao tác":
+          - button "󰇙 Thao tác"
+  - text: Tổng 6, Hiển thị
+  - combobox:
+    - text: "20"
+    - textbox "Open": "20"
+  - navigation "Pagination Navigation":
+    - list:
+      - listitem:
+        - button "Previous page" [disabled]
+      - listitem:
+        - button "Page 1, Current page" [disabled]: "1"
+      - listitem:
+        - button "Next page" [disabled]
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- dialog:
+  - text: Bạn có chắc chắn xác nhận hủy?
+  - textbox "Lý do ※ Lý do ※": cancel debt test
+  - alert
+  - button "Có"
+  - button "Không"
+```
