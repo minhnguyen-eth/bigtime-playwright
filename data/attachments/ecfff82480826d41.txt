@@ -1,1 +1,0 @@
-Cleared 0 rows in employment_contracts with condition: user_id LIKE '%minh%' and id not like '%TestData%'.

@@ -1,1 +1,0 @@
-Cleared 4 rows in departments with condition: name LIKE '%Automation test%' OR name LIKE '%z%'.
