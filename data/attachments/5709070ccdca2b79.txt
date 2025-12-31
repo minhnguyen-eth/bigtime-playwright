@@ -1,4 +1,0 @@
-Cleared 2 rows in evaluation_types with condition: name NOT LIKE '%Đánh giá%'.
-Found 1 records in table "evaluation_types" with conditions: { name: { value: 'Automation test lqha70', like: true } }
-Deleted 1 rows from evaluation_types where name like 'Automation test lqha70'
-Đã xóa loại đánh giá "Automation test lqha70": true
