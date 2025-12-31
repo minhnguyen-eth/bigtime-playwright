@@ -1,0 +1,24 @@
+safeClick error: locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator('div').filter({ hasText: 'Ca hành chính' }).first()
+    - locator resolved to <div class="v-overlay-container">…</div>
+  - attempting click action
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - element is not visible
+    - retrying click action
+    - waiting 20ms
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - element is not visible
+    - retrying click action
+      - waiting 100ms
+    58 × waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - element is not visible
+     - retrying click action
+       - waiting 500ms
+

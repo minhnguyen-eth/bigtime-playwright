@@ -1,0 +1,1 @@
+Cleared 3 rows in positions with condition: name LIKE '%Automation test%' or name LIKE '%z%'.
