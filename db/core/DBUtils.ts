@@ -2,23 +2,62 @@ import path from 'path';
 import fs from 'fs';
 import { executeQuery, getConnection } from './DBConnection';
 
-// Check exists generalized
+/**
+ * Check if a record exists in a table based on dynamic conditions
+ *
+ * @param table - Database table name
+ * @param conditions - Object containing column conditions:
+ *   {
+ *     columnName: {
+ *       value: any;        // value to compare
+ *       like?: boolean;    // use LIKE instead of '=' if true
+ *     }
+ *   }
+ *
+ * @returns Promise<boolean> - true if at least one record exists, otherwise false
+ */
 export async function checkExistsWithConditions(
     table: string,
-    conditions: Record<string, { value: any; like?: boolean }>): Promise<boolean> {
+    conditions: Record<string, { value: any; like?: boolean }>
+): Promise<boolean> {
+
+    // Extract condition keys (column names)
     const keys = Object.keys(conditions);
+
+    // Build WHERE clauses dynamically
+    // Example: "name LIKE ?" or "status = ?"
     const whereClauses = keys.map(key =>
         conditions[key].like ? `${key} LIKE ?` : `${key} = ?`
     );
+
+    // Build values array for prepared statement
+    // Add wildcard (%) for LIKE queries
     const values = keys.map(key =>
-        conditions[key].like ? `%${conditions[key].value}%` : conditions[key].value
+        conditions[key].like
+            ? `%${conditions[key].value}%`
+            : conditions[key].value
     );
 
-    const query = `SELECT COUNT(*) AS count FROM ${table} WHERE ${whereClauses.join(' AND ')}`;
+    // Construct SQL query
+    const query = `
+        SELECT COUNT(*) AS count
+        FROM ${table}
+        WHERE ${whereClauses.join(' AND ')}
+    `;
+
+    // Execute query with parameters
     const result = await executeQuery(query, values);
+
+    // Extract count from query result
     const count = (result as any[])[0].count;
 
-    console.info(`Found ${count} records in ${table} with conditions:`, conditions);
+    // Log query result for debugging purposes
+    console.info(
+        `Found ${count} records in table "${table}" with conditions:`,
+        conditions
+    );
+
+    // Return true if at least one record exists
     return count > 0;
 }
 
@@ -50,7 +89,6 @@ export async function clearTable(tableName: string, condition?: string): Promise
         throw error;
     }
 }
-
 
 // Hàm chung import CSV vào MySQL
 export async function importFromCSV(
@@ -124,4 +162,3 @@ export async function updateTable(
         throw error;
     }
 }
-
