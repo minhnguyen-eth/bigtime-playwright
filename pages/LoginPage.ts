@@ -46,11 +46,11 @@ export class LoginPage extends BasePage {
   async expectPasswordValidate() {
     await this.safeVerifyToHaveText(this.VALIDATE_PASSWORD, 'Nhập mật khẩu');
   }
-  
+
   async expectAccountLockedValidate() {
     await this.safeVerifyToHaveText(this.VALIDATE_ACCOUNT_LOCKED, 'Tài khoản hiện đang bị khoá');
   }
-  
+
   async login(username: string, password: string) {
     await this.safeFill(this.USERNAME_INPUT, username);
     await this.safeFill(this.PASSWORD_INPUT, password);
