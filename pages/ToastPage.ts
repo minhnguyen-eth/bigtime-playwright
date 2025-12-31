@@ -30,7 +30,7 @@ export class ToastPage extends BasePage {
     readonly TOAST_EXTENSION_CONTRACT_SUCCESS: Locator;
     readonly TOAST_SEPARATE_PAYSHEET_SUCCESS: Locator;
     readonly TOAST_ADD_TIME_SUCCESS: Locator;
-
+    readonly TOAST_CHANGE_PASSWORD_SUCCESS: Locator;    
     constructor(page: Page) {
         super(page);
         this.TOAST_ADD_TIME_SUCCESS = page.locator('//div[contains(text(),"Thêm thời gian thành công")]');
@@ -60,6 +60,7 @@ export class ToastPage extends BasePage {
         this.TOAST_DELETE_SUCCESS = page.locator('//div[contains(text(),"Xóa thành công")]');
         this.TOAST_BROWSE_SUCCESS = page.locator('//div[contains(text(),"Đã duyệt thành công")]');
         this.TOAST_BROWSE_SUCCESS2 = page.locator('//div[contains(text(),"Phê duyệt thành công")]');
+        this.TOAST_CHANGE_PASSWORD_SUCCESS =page.locator('div').filter({ hasText: /^Thay đổi mật khẩu thành công! Vui lòng đăng nhập lại$/ }).first();
     }
 
     async getToastAddTimeSuccess() {
@@ -168,5 +169,10 @@ export class ToastPage extends BasePage {
 
     async getToastDeleteSuccess() {
         await this.safeVerifyToHaveText(this.TOAST_DELETE_SUCCESS, 'Xóa thành công');
+    }
+
+    async getToastChangePasswordSuccess() {
+        await this.safeVerifyToHaveText(this.TOAST_CHANGE_PASSWORD_SUCCESS, 'Thay đổi mật khẩu thành công! Vui lòng đăng nhập lại');
+        await this.safeClick(this.page.getByRole('button', { name: 'Đồng ý' }));
     }
 }
