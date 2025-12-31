@@ -1,5 +1,5 @@
 ### Kiến trúc hệ thống cho dự án Automation Testing của BigTime
-================================================
+===============================================================
 
 ## Tổng quan 
 Dự án Automation Testing cho BigTime được thiết kế để đảm bảo chất lượng, tính khả thi và khả mở rộng của các bài kiểm tra tự động cho ứng dụng BigTime.
@@ -57,3 +57,5 @@ Thư mục test-data chứa các file csv dùng để import dữ liệu vào da
 
 Thư mục github/workflows chứa file cấu hình cho github actions để chạy tự động các test case khi có push hoặc pull request vào branch main
 
+## Lưu ý:
+Dự án chạy kiểu serial nên các test case sẽ được chạy theo thứ tự trong file spec.ts test case sau sẽ phụ thuộc các test case trước 
