@@ -3,11 +3,14 @@ import { LoginPage } from '../pages/LoginPage';
 import { allure } from 'allure-playwright';
 import { PasswordPage } from '../pages/PasswordPage';
 import { ToastPage } from '../pages/ToastPage';
+import { LogoutPage } from '../pages/LogoutPage';
 
-test.describe('Forgot Password Test Suite', () => {
+test.describe.serial('Forgot Password Test Suite', () => {
   let loginPage: LoginPage;
   let passwordPage: PasswordPage;
   let toastPage: ToastPage;
+  let logoutPage: LogoutPage;
+
   test.beforeEach(async ({ page }) => {
     allure.feature('Forgot Password Feature');
     allure.owner('Minh Nguyen');
@@ -15,6 +18,7 @@ test.describe('Forgot Password Test Suite', () => {
     passwordPage = new PasswordPage(page);
     toastPage = new ToastPage(page);
     loginPage = new LoginPage(page);
+    logoutPage = new LogoutPage(page);
     await loginPage.goto();
 
   });
@@ -117,8 +121,6 @@ test.describe('Forgot Password Test Suite', () => {
     await passwordPage.validatePasswordOld6Characters();
   });
 
-
-
   //Change Password successsfully
   test('Test forgot password with valid email', async ({ page }) => {
     await loginPage.login('mhai1711@gmail.com', '123456');
@@ -128,9 +130,15 @@ test.describe('Forgot Password Test Suite', () => {
     await passwordPage.clickSave();
     await toastPage.getToastChangePasswordSuccess();
     await loginPage.login('mhai1711@gmail.com', '1234567');
-    await passwordPage.clickLogoutButton();
+    await loginPage.expectLoginSuccess();
+    await logoutPage.logout();
     await loginPage.login('mhai1711@gmail.com', '123456');
     await loginPage.expectLoginError();
-  });
 
+    await loginPage.login('mhai1711@gmail.com', '1234567');
+    await passwordPage.clickAvataButton();
+    await passwordPage.clickChangePassword();
+    await passwordPage.changePassword('1234567', '123456', '123456');
+    await passwordPage.clickSave();
+  });
 });
