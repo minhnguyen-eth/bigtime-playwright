@@ -4,7 +4,7 @@ dotenv.config();
 export class Config {
   // URL staging
   static get urlStaging(): string {
-    return process.env.URL_BIGTIME || '';
+    return process.env.BASE_URL || '';
   }
 
   // Manager Team Account

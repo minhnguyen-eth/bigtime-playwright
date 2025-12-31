@@ -32,7 +32,11 @@ export class LoginPage extends BasePage {
 
   async goto() {
     await this.page.waitForLoadState('load');
-    await this.page.goto(process.env.BASE_URL as string);
+    const url = Config.urlStaging || process.env.URL_BIGTIME || '';
+    if (!url) {
+      throw new Error('Base URL is not defined. Set the URL_BIGTIME environment variable or update Config.urlStaging.');
+    }
+    await this.page.goto(url);
   }
 
   async expectUsernameValidate() {
