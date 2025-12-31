@@ -1,0 +1,220 @@
+# Page snapshot
+
+```yaml
+- banner:
+  - button
+  - text: BigTime - Prepare
+  - button "Quản lý":
+    - paragraph: Quản lý
+  - button "Chấm công":
+    - paragraph: Chấm công
+  - button "Lương":
+    - paragraph: Lương
+  - button "Cài đặt":
+    - paragraph: Cài đặt
+  - img
+  - text: admin
+  - button "Badge":
+    - status "Badge"
+  - button
+  - button "Đăng xuất"
+- banner:
+  - text: Version 1.0.11
+  - list:
+    - listitem "English":
+      - img
+    - listitem "Tiếng Việt":
+      - img
+  - button
+- navigation:
+  - listbox:
+    - link "Trung tâm":
+      - /url: /dashboard-admin
+    - separator
+    - text: Quản lý nhân viên
+    - link "Nhân viên":
+      - /url: /user
+    - separator
+    - text: Thông báo
+    - link "Quản lý thông báo":
+      - /url: /notification
+    - link "Danh sách thông báo":
+      - /url: /list-notification
+    - separator
+    - text: Đánh giá
+    - link "Loại đánh giá":
+      - /url: /evaluation-type
+    - link "Tiêu chí đánh giá":
+      - /url: /evaluation-criteria
+    - link "Quy trình đánh giá":
+      - /url: /evaluation-progress
+    - link "Danh sách đánh giá":
+      - /url: /list-evaluation
+    - separator
+    - text: Khen thưởng
+    - link "Loại khen thưởng":
+      - /url: /reward-type
+    - link "Khen thưởng nhân viên":
+      - /url: /reward-user
+    - separator
+    - text: Chung
+    - link "Quản lý ngày phép năm":
+      - /url: /leave-management
+    - link "Đơn nghỉ phép":
+      - /url: /leave-application
+    - link "Quản lý nghỉ lễ":
+      - /url: /holiday-management
+    - link "Đơn thôi việc":
+      - /url: /resignation
+    - link "Chi nhánh":
+      - /url: /branch
+    - link "Bộ phận":
+      - /url: /department
+    - link "Chức vụ":
+      - /url: /position
+    - link "Cấp bậc":
+      - /url: /level
+    - link "Nhóm":
+      - /url: /team
+    - separator
+    - text: Hợp đồng
+    - link "Hợp đồng":
+      - /url: /contract
+    - link "Điều khoản":
+      - /url: /term
+    - link "Thống kê hợp đồng":
+      - /url: /contract-statistic
+- main:
+  - text: Nhân viên
+  - button "Làm mới"
+  - button "Thêm"
+  - button
+  - text: Mã nhân viên
+  - textbox "Mã nhân viên Mã nhân viên"
+  - textbox "Tên nhân viên Tên nhân viên": Nguyễn Văn Minh
+  - combobox:
+    - text: Giới tính
+    - textbox "Open"
+  - combobox:
+    - text: Bộ phận
+    - textbox "Open"
+  - combobox:
+    - text: Nhóm
+    - textbox "Open"
+  - combobox:
+    - text: Đóng tiền đoàn phí công đoàn
+    - textbox "Open"
+  - button "Tìm kiếm"
+  - button "Xóa"
+  - table:
+    - rowgroup:
+      - row "# Mã nhân viên Tên nhân viên Tên loại nhân viên Giới tính Bộ phận Nhóm Thâm niên Trạng thái Đóng tiền đoàn phí công đoàn":
+        - columnheader "#"
+        - columnheader "Mã nhân viên"
+        - columnheader "Tên nhân viên"
+        - columnheader "Tên loại nhân viên"
+        - columnheader "Giới tính"
+        - columnheader "Bộ phận"
+        - columnheader "Nhóm"
+        - columnheader "Thâm niên"
+        - columnheader "Trạng thái"
+        - columnheader "Đóng tiền đoàn phí công đoàn"
+    - rowgroup:
+      - row "1 BAT810 Nguyễn Văn Minh Nhân viên (Bộ phận IT - Nhóm It1 ) Nữ Bộ phận IT Nhóm It1 Hoạt động":
+        - cell "1"
+        - cell "BAT810"
+        - cell "Nguyễn Văn Minh"
+        - cell "Nhân viên (Bộ phận IT - Nhóm It1 )"
+        - cell "Nữ"
+        - cell "Bộ phận IT"
+        - cell "Nhóm It1"
+        - cell
+        - cell "Hoạt động"
+        - cell:
+          - checkbox
+      - 'row "BAT810 - Nguyễn Văn Minh Người tạo: BAT0000 - admin Ngày tạo: 19-12-2025 Tên chi nhánh: Biên Hòa Số điện thoại (Trống) Email minhnguyen.eth@gmail.com Ngày sinh (Trống) Giới tính Nữ Bộ phận Bộ phận IT Nhóm Nhóm It1 Chức vụ (Trống) Cấp bậc (Trống) Địa chỉ (Trống) Ngày vào công ty (Trống) Mã số thuế (Trống) Cho phép chấm công trực tuyến Có Xóa Sửa"':
+        - 'cell "BAT810 - Nguyễn Văn Minh Người tạo: BAT0000 - admin Ngày tạo: 19-12-2025 Tên chi nhánh: Biên Hòa Số điện thoại (Trống) Email minhnguyen.eth@gmail.com Ngày sinh (Trống) Giới tính Nữ Bộ phận Bộ phận IT Nhóm Nhóm It1 Chức vụ (Trống) Cấp bậc (Trống) Địa chỉ (Trống) Ngày vào công ty (Trống) Mã số thuế (Trống) Cho phép chấm công trực tuyến Có Xóa Sửa"':
+          - tablist:
+            - tab "Thông tin" [selected]
+            - tab "Thông tin gia đình"
+            - tab "Sơ yếu lý lịch"
+            - tab "Phiếu lương"
+            - tab "Thiết lập lương"
+            - tab "Thông tin hợp đồng"
+          - img
+          - text: "BAT810 - Nguyễn Văn Minh Người tạo:"
+          - strong: BAT0000 - admin
+          - text: "Ngày tạo:"
+          - strong: 19-12-2025
+          - text: "Tên chi nhánh: Biên Hòa"
+          - separator
+          - text: Số điện thoại (Trống) Email minhnguyen.eth@gmail.com Ngày sinh (Trống) Giới tính Nữ
+          - separator
+          - text: Bộ phận Bộ phận IT Nhóm Nhóm It1 Chức vụ (Trống) Cấp bậc (Trống)
+          - separator
+          - text: Địa chỉ (Trống) Ngày vào công ty (Trống) Mã số thuế (Trống) Cho phép chấm công trực tuyến Có
+          - button "Xóa"
+          - button "Sửa"
+  - text: Tổng 1, Hiển thị
+  - combobox:
+    - text: "20"
+    - textbox "Open": "20"
+  - navigation "Pagination Navigation":
+    - list:
+      - listitem:
+        - button "Previous page" [disabled]
+      - listitem:
+        - button "Page 1, Current page" [disabled]: "1"
+      - listitem:
+        - button "Next page" [disabled]
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- dialog:
+  - text: Cập nhật nhân viên
+  - tablist:
+    - tab "Thông tin cá nhân"
+    - tab "Thông tin gia đình" [selected]
+    - tab "Thiết lập lương"
+  - alert:
+    - list:
+      - listitem: "SQLSTATE[42S22]: Column not found: 1054 Unknown column 'code_identification' in 'field list' (Connection: mysql, SQL: insert into `user_family_members` (`user_id`, `name`, `relationship`, `birthday`, `gender`, `phone`, `address`, `tax_code`, `is_dependent`, `tax_deduction_from_day`, `tax_deduction_to_day`, `note`, `code_identification`, `id`, `created_at`, `updated_at`, `deleted_by`, `deleted_at`, `created_by`, `updated_by`) values (minh, Automation test dependents, 8, 2025-12-31, 0, 0351569856, AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA, 01234564895, 1, 2025-12-31, 2025-12-31, AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA, ?, hKShn7zAsB, 2025-12-31 12:04:06, 2025-12-31 12:04:06, ?, ?, 0000000000, 0000000000))"
+  - banner:
+    - text: Danh sách thành viên gia đình
+    - button "Thêm"
+    - button
+  - table:
+    - rowgroup:
+      - row "# Họ và tên Mối quan hệ Ngày sinh Giới tính Mã số thuế Là người phụ thuộc Giảm trừ từ ngày Giảm trừ đến ngày Hành động":
+        - columnheader "#"
+        - columnheader "Họ và tên"
+        - columnheader "Mối quan hệ"
+        - columnheader "Ngày sinh"
+        - columnheader "Giới tính"
+        - columnheader "Mã số thuế"
+        - columnheader "Là người phụ thuộc"
+        - columnheader "Giảm trừ từ ngày"
+        - columnheader "Giảm trừ đến ngày"
+        - columnheader "Hành động"
+    - rowgroup:
+      - row "1 Automation test dependent... Con trai 31-12-2025 Nam 01234564895 Có 31-12-2025 31-12-2025 Sửa Xóa":
+        - cell "1"
+        - cell "Automation test dependent..."
+        - cell "Con trai"
+        - cell "31-12-2025"
+        - cell "Nam"
+        - cell "01234564895"
+        - cell "Có"
+        - cell "31-12-2025"
+        - cell "31-12-2025"
+        - cell "Sửa Xóa":
+          - button "Sửa"
+          - button "Xóa"
+  - button "Lưu"
+  - button "Hủy"
+- tooltip
+```
