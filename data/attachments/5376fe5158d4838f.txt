@@ -1,0 +1,1 @@
+Cleared 2 rows in shift_plans with condition: name NOT LIKE '%Test Data%'.

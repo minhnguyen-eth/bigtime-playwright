@@ -1,0 +1,166 @@
+# Page snapshot
+
+```yaml
+- banner:
+  - button
+  - text: BigTime - Prepare
+  - button "Quản lý":
+    - paragraph: Quản lý
+  - button "Chấm công":
+    - paragraph: Chấm công
+  - button "Lương":
+    - paragraph: Lương
+  - button "Cài đặt":
+    - paragraph: Cài đặt
+  - img
+  - text: admin
+  - button "Badge":
+    - status "Badge"
+  - button
+  - button "Đăng xuất"
+- banner:
+  - text: Version 1.0.12
+  - list:
+    - listitem "English":
+      - img
+    - listitem "Tiếng Việt":
+      - img
+  - button
+- navigation:
+  - listbox:
+    - link "Trung tâm":
+      - /url: /dashboard-time-keeping
+    - separator
+    - text: Chấm công
+    - link "Chấm công tháng":
+      - /url: /user-checkin-and-checkout-statistic
+    - link "Lịch sử điểm danh":
+      - /url: /checkin-out-history
+    - link "Điểm danh hôm nay":
+      - /url: /checkin-out-today
+    - link "Phiếu tăng ca":
+      - /url: /overtime-ticket
+    - separator
+    - text: Ca làm việc
+    - link "Ca làm việc":
+      - /url: /working-shift
+    - link "Phân ca nhanh":
+      - /url: /shift-plan
+    - link "Lịch làm việc tổng hợp":
+      - /url: /time-working
+    - separator
+    - text: Thống kê
+    - link "Thống kê ngày công tháng":
+      - /url: /monthly-workday-statistic
+    - link "Thống kê tổng thời gian":
+      - /url: /user-checkin-statistic
+    - link "Thống kê việc làm tháng":
+      - /url: /employment-statistic-month
+- main:
+  - text: Phân ca nhanh
+  - button "Làm mới"
+  - button "Thêm"
+  - button
+  - textbox "Chọn tháng Chọn tháng": 01-2026
+  - text: Tên bảng phân ca
+  - textbox "Tên bảng phân ca Tên bảng phân ca"
+  - combobox [expanded]:
+    - textbox "Close"
+    - listbox:
+      - option "Ca thứ 7":
+        - checkbox
+        - text: Ca thứ 7
+      - option "Ca ngày":
+        - checkbox
+        - text: Ca ngày
+      - option "Ca hành chính nhân viên kinh doanh":
+        - checkbox
+        - text: Ca hành chính nhân viên kinh doanh
+      - option "CA 1":
+        - checkbox
+        - text: CA 1
+      - option "Ca hành chính":
+        - checkbox
+        - text: Ca hành chính
+      - option "Ca làm việc":
+        - checkbox
+        - text: Ca làm việc
+      - option "CA SÁNG":
+        - checkbox
+        - text: CA SÁNG
+  - button "Tìm kiếm"
+  - button "Xóa"
+  - table:
+    - rowgroup:
+      - row "# Tên bảng phân ca Ca làm việc Thời gian áp dụng Đối tượng áp dụng Bộ phận áp dụng Hành động":
+        - columnheader "#"
+        - columnheader "Tên bảng phân ca"
+        - columnheader "Ca làm việc"
+        - columnheader "Thời gian áp dụng"
+        - columnheader "Đối tượng áp dụng"
+        - columnheader "Bộ phận áp dụng"
+        - columnheader "Hành động"
+    - rowgroup:
+      - row "1 iew 02-01-2026 - 02-01-2026 Sửa Xóa":
+        - cell "1"
+        - cell "iew":
+          - paragraph: iew
+        - cell
+        - cell "02-01-2026 - 02-01-2026"
+        - cell
+        - cell
+        - cell "Sửa Xóa":
+          - button "Sửa" [disabled]
+          - button "Xóa"
+      - row "2 xz3qd4 02-01-2026 - 02-01-2026 Bộ phận test Sửa Xóa":
+        - cell "2"
+        - cell "xz3qd4":
+          - paragraph: xz3qd4
+        - cell
+        - cell "02-01-2026 - 02-01-2026"
+        - cell
+        - cell "Bộ phận test"
+        - cell "Sửa Xóa":
+          - button "Sửa" [disabled]
+          - button "Xóa"
+      - row "3 Test data 23-12-2025 - 31-03-2026 Sửa Xóa":
+        - cell "3"
+        - cell "Test data":
+          - paragraph: Test data
+        - cell
+        - cell "23-12-2025 - 31-03-2026"
+        - cell
+        - cell
+        - cell "Sửa Xóa":
+          - button "Sửa" [disabled]
+          - button "Xóa"
+      - row "4 Test data 100 23-12-2025 - 31-03-2026 Sửa Xóa":
+        - cell "4"
+        - cell "Test data 100":
+          - paragraph: Test data 100
+        - cell
+        - cell "23-12-2025 - 31-03-2026"
+        - cell
+        - cell
+        - cell "Sửa Xóa":
+          - button "Sửa" [disabled]
+          - button "Xóa" [disabled]
+  - text: Tổng 4, Hiển thị
+  - combobox:
+    - text: "20"
+    - textbox "Open": "20"
+  - navigation "Pagination Navigation":
+    - list:
+      - listitem:
+        - button "Previous page" [disabled]
+      - listitem:
+        - button "Page 1, Current page" [disabled]: "1"
+      - listitem:
+        - button "Next page" [disabled]
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+```

@@ -1,0 +1,361 @@
+# Page snapshot
+
+```yaml
+- banner:
+  - button
+  - text: BigTime - Prepare
+  - button "Quản lý":
+    - paragraph: Quản lý
+  - button "Chấm công":
+    - paragraph: Chấm công
+  - button "Lương":
+    - paragraph: Lương
+  - button "Cài đặt":
+    - paragraph: Cài đặt
+  - img
+  - text: admin
+  - button "Badge":
+    - status "Badge"
+  - button
+  - button "Đăng xuất"
+- banner:
+  - text: Version 1.0.12
+  - list:
+    - listitem "English":
+      - img
+    - listitem "Tiếng Việt":
+      - img
+  - button
+- navigation:
+  - listbox:
+    - link "Trung tâm":
+      - /url: /dashboard-admin
+    - separator
+    - text: Quản lý nhân viên
+    - link "Nhân viên":
+      - /url: /user
+    - separator
+    - text: Thông báo
+    - link "Quản lý thông báo":
+      - /url: /notification
+    - link "Danh sách thông báo":
+      - /url: /list-notification
+    - separator
+    - text: Đánh giá
+    - link "Loại đánh giá":
+      - /url: /evaluation-type
+    - link "Tiêu chí đánh giá":
+      - /url: /evaluation-criteria
+    - link "Quy trình đánh giá":
+      - /url: /evaluation-progress
+    - link "Danh sách đánh giá":
+      - /url: /list-evaluation
+    - separator
+    - text: Khen thưởng
+    - link "Loại khen thưởng":
+      - /url: /reward-type
+    - link "Khen thưởng nhân viên":
+      - /url: /reward-user
+    - separator
+    - text: Chung
+    - link "Quản lý ngày phép năm":
+      - /url: /leave-management
+    - link "Đơn nghỉ phép":
+      - /url: /leave-application
+    - link "Quản lý nghỉ lễ":
+      - /url: /holiday-management
+    - link "Đơn thôi việc":
+      - /url: /resignation
+    - link "Chi nhánh":
+      - /url: /branch
+    - link "Bộ phận":
+      - /url: /department
+    - link "Chức vụ":
+      - /url: /position
+    - link "Cấp bậc":
+      - /url: /level
+    - link "Nhóm":
+      - /url: /team
+    - separator
+    - text: Hợp đồng
+    - link "Hợp đồng":
+      - /url: /contract
+    - link "Điều khoản":
+      - /url: /term
+    - link "Thống kê hợp đồng":
+      - /url: /contract-statistic
+- main:
+  - text: Bộ phận
+  - button "Làm mới"
+  - button "Thêm"
+  - button
+  - text: Tên bộ phận
+  - textbox "Tên bộ phận Tên bộ phận"
+  - combobox:
+    - text: Trạng thái
+    - textbox "Open"
+  - button "Tìm kiếm"
+  - button "Xóa"
+  - table:
+    - rowgroup:
+      - row "# Tên bộ phận Ngày thành lập Ghi chú Trạng thái Hành động":
+        - columnheader "#"
+        - columnheader "Tên bộ phận"
+        - columnheader "Ngày thành lập"
+        - columnheader "Ghi chú"
+        - columnheader "Trạng thái"
+        - columnheader "Hành động"
+    - rowgroup:
+      - row "1 Automation testf8wci 02-01-2026 Automation test Hoạt động Sửa Xóa":
+        - cell "1"
+        - cell "Automation testf8wci"
+        - cell "02-01-2026"
+        - cell "Automation test"
+        - cell "Hoạt động":
+          - button "Hoạt động"
+        - cell "Sửa Xóa":
+          - button "Sửa"
+          - button "Xóa"
+      - row "2 Automation testwn8og 02-01-2026 Automation test Khóa Sửa Xóa":
+        - cell "2"
+        - cell "Automation testwn8og"
+        - cell "02-01-2026"
+        - cell "Automation test"
+        - cell "Khóa":
+          - button "Khóa"
+        - cell "Sửa Xóa":
+          - button "Sửa"
+          - button "Xóa"
+      - row "3 Automation teste2ot3 02-01-2026 zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz... Hoạt động Sửa Xóa":
+        - cell "3"
+        - cell "Automation teste2ot3"
+        - cell "02-01-2026"
+        - cell "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz..."
+        - cell "Hoạt động":
+          - button "Hoạt động"
+        - cell "Sửa Xóa":
+          - button "Sửa"
+          - button "Xóa"
+      - row "4 zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz... 02-01-2026 Automation test Hoạt động Sửa Xóa":
+        - cell "4"
+        - cell "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz..."
+        - cell "02-01-2026"
+        - cell "Automation test"
+        - cell "Hoạt động":
+          - button "Hoạt động"
+        - cell "Sửa Xóa":
+          - button "Sửa"
+          - button "Xóa"
+      - row "5 Bộ phận test 14-11-2025 Hoạt động Sửa Xóa":
+        - cell "5"
+        - cell "Bộ phận test"
+        - cell "14-11-2025"
+        - cell
+        - cell "Hoạt động":
+          - button "Hoạt động"
+        - cell "Sửa Xóa":
+          - button "Sửa"
+          - button "Xóa"
+      - row "6 testavava 16-10-2025 Hoạt động Sửa Xóa":
+        - cell "6"
+        - cell "testavava"
+        - cell "16-10-2025"
+        - cell
+        - cell "Hoạt động":
+          - button "Hoạt động"
+        - cell "Sửa Xóa":
+          - button "Sửa"
+          - button "Xóa"
+      - row "7 bộ phận 2 07-10-2025 Hoạt động Sửa Xóa":
+        - cell "7"
+        - cell "bộ phận 2"
+        - cell "07-10-2025"
+        - cell
+        - cell "Hoạt động":
+          - button "Hoạt động"
+        - cell "Sửa Xóa":
+          - button "Sửa"
+          - button "Xóa"
+      - row "8 bộ phận 1 07-10-2025 Hoạt động Sửa Xóa":
+        - cell "8"
+        - cell "bộ phận 1"
+        - cell "07-10-2025"
+        - cell
+        - cell "Hoạt động":
+          - button "Hoạt động"
+        - cell "Sửa Xóa":
+          - button "Sửa"
+          - button "Xóa"
+      - row "9 tetsvb 30-09-2025 Hoạt động Sửa Xóa":
+        - cell "9"
+        - cell "tetsvb"
+        - cell "30-09-2025"
+        - cell
+        - cell "Hoạt động":
+          - button "Hoạt động"
+        - cell "Sửa Xóa":
+          - button "Sửa"
+          - button "Xóa"
+      - row "10 hụn 30-09-2025 Hoạt động Sửa Xóa":
+        - cell "10"
+        - cell "hụn"
+        - cell "30-09-2025"
+        - cell
+        - cell "Hoạt động":
+          - button "Hoạt động"
+        - cell "Sửa Xóa":
+          - button "Sửa"
+          - button "Xóa"
+      - row "11 hu 30-09-2025 Hoạt động Sửa Xóa":
+        - cell "11"
+        - cell "hu"
+        - cell "30-09-2025"
+        - cell
+        - cell "Hoạt động":
+          - button "Hoạt động"
+        - cell "Sửa Xóa":
+          - button "Sửa"
+          - button "Xóa"
+      - row "12 test12 30-09-2025 Hoạt động Sửa Xóa":
+        - cell "12"
+        - cell "test12"
+        - cell "30-09-2025"
+        - cell
+        - cell "Hoạt động":
+          - button "Hoạt động"
+        - cell "Sửa Xóa":
+          - button "Sửa"
+          - button "Xóa"
+      - row "13 CN 30-09-2025 Hoạt động Sửa Xóa":
+        - cell "13"
+        - cell "CN"
+        - cell "30-09-2025"
+        - cell
+        - cell "Hoạt động":
+          - button "Hoạt động"
+        - cell "Sửa Xóa":
+          - button "Sửa"
+          - button "Xóa"
+      - row "14 Quản lý chi nhánh đ 23-08-2025 Hoạt động Sửa Xóa":
+        - cell "14"
+        - cell "Quản lý chi nhánh đ"
+        - cell "23-08-2025"
+        - cell
+        - cell "Hoạt động":
+          - button "Hoạt động"
+        - cell "Sửa Xóa":
+          - button "Sửa"
+          - button "Xóa"
+      - row "15 test 18-09-2025 Hoạt động Sửa Xóa":
+        - cell "15"
+        - cell "test"
+        - cell "18-09-2025"
+        - cell
+        - cell "Hoạt động":
+          - button "Hoạt động"
+        - cell "Sửa Xóa":
+          - button "Sửa"
+          - button "Xóa"
+      - row "16 abc 18-09-2025 Hoạt động Sửa Xóa":
+        - cell "16"
+        - cell "abc"
+        - cell "18-09-2025"
+        - cell
+        - cell "Hoạt động":
+          - button "Hoạt động"
+        - cell "Sửa Xóa":
+          - button "Sửa"
+          - button "Xóa"
+      - row "17 Bộ phận Marketing 28-02-2025 Hoạt động Sửa Xóa":
+        - cell "17"
+        - cell "Bộ phận Marketing"
+        - cell "28-02-2025"
+        - cell
+        - cell "Hoạt động":
+          - button "Hoạt động"
+        - cell "Sửa Xóa":
+          - button "Sửa"
+          - button "Xóa"
+      - row "18 Bộ phận IT 22-07-2025 Automation test Hoạt động Sửa Xóa":
+        - cell "18"
+        - cell "Bộ phận IT"
+        - cell "22-07-2025"
+        - cell "Automation test"
+        - cell "Hoạt động":
+          - button "Hoạt động"
+        - cell "Sửa Xóa":
+          - button "Sửa"
+          - button "Xóa"
+      - row "19 Kế toán 16-04-2025 Hoạt động Sửa Xóa":
+        - cell "19"
+        - cell "Kế toán"
+        - cell "16-04-2025"
+        - cell
+        - cell "Hoạt động":
+          - button "Hoạt động"
+        - cell "Sửa Xóa":
+          - button "Sửa"
+          - button "Xóa"
+      - row "20 Nhân sự 28-02-2025 Hoạt động Sửa Xóa":
+        - cell "20"
+        - cell "Nhân sự"
+        - cell "28-02-2025"
+        - cell
+        - cell "Hoạt động":
+          - button "Hoạt động"
+        - cell "Sửa Xóa":
+          - button "Sửa"
+          - button "Xóa"
+  - text: Tổng 24, Hiển thị
+  - combobox:
+    - text: "20"
+    - textbox "Open": "20"
+  - navigation "Pagination Navigation":
+    - list:
+      - listitem:
+        - button "Previous page" [disabled]
+      - listitem:
+        - button "Page 1, Current page": "1"
+      - listitem:
+        - button "Go to page 2": "2"
+      - listitem:
+        - button "Next page"
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- dialog:
+  - text: Thêm bộ phận
+  - textbox "Tên bộ phận ※ Tên bộ phận ※": Bộ phận IT
+  - textbox "Ngày thành lập ※ Ngày thành lập ※": 02-01-2026
+  - combobox:
+    - text: Hoạt động
+    - textbox "Open": "true"
+  - textbox "Ghi chú Ghi chú": Automation test
+  - textbox "Ngày tạo Ngày tạo" [disabled]: 02-01-2026 02:53
+  - textbox "Người tạo Người tạo" [disabled]: admin
+  - button "Lưu"
+  - button "Hủy"
+```

@@ -1,0 +1,2 @@
+Cleared 0 rows in paysheets with condition: name not like '%Test Data%'.
+Cleared 44 rows in payslips with condition: paysheet_id NOT LIKE '%testData%'.

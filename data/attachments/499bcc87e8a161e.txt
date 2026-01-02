@@ -1,0 +1,1 @@
+Found 1 records in table "shift_plans" with conditions: { name: { value: 'iew', like: true } }

@@ -1,0 +1,2 @@
+Cleared 1 rows in shift_plans with condition: name NOT LIKE '%Test Data%'.
+Found 1 records in table "shift_plans" with conditions: { name: { value: 'xz3qd4', like: true } }
