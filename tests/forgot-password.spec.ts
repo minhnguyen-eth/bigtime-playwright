@@ -62,18 +62,18 @@ test.describe.serial('Forgot Password Test Suite', () => {
     await loginPage.login('mhai1711@gmail.com', '123456');
     await passwordPage.clickAvataButton();
     await passwordPage.clickChangePassword();
-    await passwordPage.changePassword('abcccc', '123456', '123456');
+    await passwordPage.handleChangePassword('abcccc', '123456', '123456');
     await passwordPage.clickSave();
-    await passwordPage.validatePasswordOldFailed();
+    await passwordPage.validateOldPasswordFailed();
   });
   // Password comfirmation error
   test('Test change password with mismatched new password and confirmation password', async ({ page }) => {
     await loginPage.login('mhai1711@gmail.com', '123456');
     await passwordPage.clickAvataButton();
     await passwordPage.clickChangePassword();
-    await passwordPage.changePassword('1234567', '1234566', '12345678');
+    await passwordPage.handleChangePassword('1234567', '1234566', '12345678');
     await passwordPage.clickSave();
-    await passwordPage.validatePasswordConfirmFailed();
+    await passwordPage.validaeConfirmPasswordFailed();
   });
 
   //Check input password old
@@ -81,8 +81,8 @@ test.describe.serial('Forgot Password Test Suite', () => {
     await loginPage.login('mhai1711@gmail.com', '123456');
     await passwordPage.clickAvataButton();
     await passwordPage.clickChangePassword();
-    await passwordPage.changePassword('', '123456', '123456');
-    await passwordPage.validatePasswordOldEmpty();
+    await passwordPage.handleChangePassword('', '123456', '123456');
+    await passwordPage.validateOldPasswordEmpty();
   });
 
   //Check input old password under 6 characters
@@ -90,8 +90,8 @@ test.describe.serial('Forgot Password Test Suite', () => {
     await loginPage.login('mhai1711@gmail.com', '123456');
     await passwordPage.clickAvataButton();
     await passwordPage.clickChangePassword();
-    await passwordPage.changePassword('123', '123456', '123456');
-    await passwordPage.validatePasswordOld6Characters();
+    await passwordPage.handleChangePassword('123', '123456', '123456');
+    await passwordPage.validateOldPassword6Characters();
   });
 
   //Check new password emtpy
@@ -99,7 +99,7 @@ test.describe.serial('Forgot Password Test Suite', () => {
     await loginPage.login('mhai1711@gmail.com', '123456');
     await passwordPage.clickAvataButton();
     await passwordPage.clickChangePassword();
-    await passwordPage.changePassword('1234567', '', '123456');
+    await passwordPage.handleChangePassword('1234567', '', '123456');
     await passwordPage.validateNewPasswordEmpty();
   });
 
@@ -108,17 +108,17 @@ test.describe.serial('Forgot Password Test Suite', () => {
     await loginPage.login('mhai1711@gmail.com', '123456');
     await passwordPage.clickAvataButton();
     await passwordPage.clickChangePassword();
-    await passwordPage.changePassword('1234567', '123', '123');
-    await passwordPage.validatePasswordOld6Characters();
+    await passwordPage.handleChangePassword('1234567', '123', '123');
+    await passwordPage.validateOldPassword6Characters();
   });
 
-  //Check new còmfirm password under 6 characters
+  //Check new confirm password under 6 characters
   test('Test change password with confirmation password under 6 characters', async ({ page }) => {
     await loginPage.login('mhai1711@gmail.com', '123456');
     await passwordPage.clickAvataButton();
     await passwordPage.clickChangePassword();
-    await passwordPage.changePassword('1234567', '123456', '123');
-    await passwordPage.validatePasswordOld6Characters();
+    await passwordPage.handleChangePassword('1234567', '123456', '123');
+    await passwordPage.validateOldPassword6Characters();
   });
 
   //Change Password successsfully
@@ -126,7 +126,7 @@ test.describe.serial('Forgot Password Test Suite', () => {
     await loginPage.login('mhai1711@gmail.com', '123456');
     await passwordPage.clickAvataButton();
     await passwordPage.clickChangePassword();
-    await passwordPage.changePassword('123456', '1234567', '1234567');
+    await passwordPage.handleChangePassword('123456', '1234567', '1234567');
     await passwordPage.clickSave();
     await toastPage.getToastChangePasswordSuccess();
     await loginPage.login('mhai1711@gmail.com', '1234567');
@@ -138,7 +138,7 @@ test.describe.serial('Forgot Password Test Suite', () => {
     await loginPage.login('mhai1711@gmail.com', '1234567');
     await passwordPage.clickAvataButton();
     await passwordPage.clickChangePassword();
-    await passwordPage.changePassword('1234567', '123456', '123456');
+    await passwordPage.handleChangePassword('1234567', '123456', '123456');
     await passwordPage.clickSave();
   });
 });
