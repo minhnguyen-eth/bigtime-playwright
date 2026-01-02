@@ -9,8 +9,8 @@ export class PasswordPage extends BasePage {
     readonly OLD_PASSWORD_INPUT: Locator;
     readonly NEW_PASSWORD_INPUT: Locator;
     readonly CONFIRM_PASSWORD_INPUT: Locator;
-    readonly VALIDATE_OLD_PASSWORD_FAILED : Locator;
-    readonly VALIDATE_CONFIRM_PASSWORD_FAILED : Locator;    
+    readonly VALIDATE_OLD_PASSWORD_FAILED: Locator;
+    readonly VALIDATE_CONFIRM_PASSWORD_FAILED: Locator;
     readonly VALIDATE_OLD_PASSWORD_EMPTY: Locator;
     readonly VALIDATE_OLD_PASSWORD_6_CHARACTERS: Locator;
     readonly VALIDATE_NEW_PASSWORD_EMPTY: Locator;
@@ -20,21 +20,21 @@ export class PasswordPage extends BasePage {
         this.page = page;
         this.AVATA_BUTTON = page.locator('img.v-img__img.v-img__img--cover:visible');
         this.CHANGE_PASSWORD_BUTTON = page.getByRole('link', { name: 'Đổi mật khẩu' });
-        this.OLD_PASSWORD_INPUT = page.getByRole('textbox', { name: 'Mật khẩu cũ ※ Mật khẩu cũ ※' }); 
+        this.OLD_PASSWORD_INPUT = page.getByRole('textbox', { name: 'Mật khẩu cũ ※ Mật khẩu cũ ※' });
         this.NEW_PASSWORD_INPUT = page.getByRole('textbox', { name: 'Mật khẩu mới ※ Mật khẩu mới ※' });
         this.CONFIRM_PASSWORD_INPUT = page.getByRole('textbox', { name: 'Nhập lại mật khẩu ※ Nhập lại' });
         this.VALIDATE_OLD_PASSWORD_FAILED = page.getByText('Nhập sai mật khẩu cũ', { exact: true });
         this.VALIDATE_CONFIRM_PASSWORD_FAILED = page.locator('div').filter({ hasText: /^Giá trị không khớp với Mật khẩu\.$/ }).first();
         this.VALIDATE_OLD_PASSWORD_EMPTY = page.locator('div').filter({ hasText: /^Nhập mật khẩu cũ$/ }).first();
-        this.VALIDATE_OLD_PASSWORD_6_CHARACTERS = page.locator('div').filter({ hasText: /^Không nhập dưới 6 kí tự\.$/ }).first(); 
-        this.VALIDATE_NEW_PASSWORD_EMPTY = page.locator('div').filter({ hasText: /^Nhập mật khẩu mới$/ }).first();  
+        this.VALIDATE_OLD_PASSWORD_6_CHARACTERS = page.locator('div').filter({ hasText: /^Không nhập dưới 6 kí tự\.$/ }).first();
+        this.VALIDATE_NEW_PASSWORD_EMPTY = page.locator('div').filter({ hasText: /^Nhập mật khẩu mới$/ }).first();
     }
 
 
     async clickAvataButton() {
         await this.safeClick(this.AVATA_BUTTON);
     }
-    
+
     async clickChangePassword() {
         await this.safeClick(this.CHANGE_PASSWORD_BUTTON);
     }
@@ -50,7 +50,17 @@ export class PasswordPage extends BasePage {
         await this.safeFill(this.CONFIRM_PASSWORD_INPUT, confirmPassword);
     }
 
-    async handleChangePassword(oldPassword: string, newPassword: string, confirmPassword: string) {
+    async handleChangePassword(
+        {
+            oldPassword,
+            newPassword,
+            confirmPassword,
+        }: {
+            oldPassword: string;
+            newPassword: string;
+            confirmPassword: string;
+        }
+    ) {
         await this.fillOldPassword(oldPassword);
         await this.fillNewPassword(newPassword);
         await this.fillConfirmPassword(confirmPassword);
@@ -69,11 +79,11 @@ export class PasswordPage extends BasePage {
         await this.safeVerifyToHaveText(this.VALIDATE_OLD_PASSWORD_EMPTY, 'Nhập mật khẩu cũ');
     }
 
-    async validateOldPassword6Characters() {  
+    async validateOldPassword6Characters() {
         await this.safeVerifyToHaveText(this.VALIDATE_OLD_PASSWORD_6_CHARACTERS, 'Không nhập dưới 6 kí tự.');
     }
 
-    async validateNewPasswordEmpty() {  
+    async validateNewPasswordEmpty() {
         await this.safeVerifyToHaveText(this.VALIDATE_NEW_PASSWORD_EMPTY, 'Nhập mật khẩu mới');
     }
 }
