@@ -109,7 +109,7 @@ export class BasePage extends SafeActions {
         // Common Buttons
         this.DELETE_BUTTON = page.locator("//span[contains(text(),'Xóa')]");
         this.EDIT_BUTTON = page.locator("//span[contains(text(),'Sửa')]");
-        this.CHOSSE_BUTTON = page.getByRole('button', { name: 'Chọn' });
+        this.CHOSSE_BUTTON = page.getByRole('button', { name: 'Chọn', exact: true });
         this.CONFIRM_BUTTON = page.getByRole('button', { name: 'Xác nhận' });
         this.REJECT_BUTTON = page.getByRole('button', { name: 'Từ chối' });
         this.BROWSE_BUTTON = page.getByRole('button', { name: 'Duyệt' });
