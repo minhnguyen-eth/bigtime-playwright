@@ -123,7 +123,8 @@ test.describe.serial('Allowance Tests', () => {
     });
 
     test('Edit allowance name', async ({ page }) => {
-        await allowancePage.clickEditRow0();
+        await allowancePage.clickIconAction();
+        await allowancePage.clickEdit();
         await allowancePage.fillAllowanceName('Automation test edit');
         await allowancePage.clickSave();
         await toastPage.getToastUpdateSuccess();

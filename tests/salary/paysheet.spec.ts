@@ -229,6 +229,7 @@ test.describe.serial('Paysheet Tests', () => {
         await allure.step('Export excel by last month  ', async () => {
             await paysheet.clickExportExcelByMonth();
             await paysheet.clickChooseMonthExport();
+            await paysheet.clickBackYear();
             await paysheet.clickMonth05(); // 05-2025
             await paysheet.clickChoose();
             await paysheet.clickYes();

@@ -41,7 +41,7 @@ export class LeaveApplicationPage extends BasePage {
     readonly LABEL_LEAVE_APPLICATION: Locator;
     readonly SELECT_NEW_STATUS: Locator;
     readonly END_DATE_MUST_AFTER_START_DATE: Locator;
-
+ 
     constructor(page: Page) {
         super(page);
         this.END_DATE_MUST_AFTER_START_DATE = page.getByText('Ngày kết thúc phải là ngày sau hoặc bằng ngày bắt đầu.', { exact: true });
@@ -67,6 +67,7 @@ export class LeaveApplicationPage extends BasePage {
         this.SEARCH_BY_SPECIAL_LEAVE = page.getByRole('option', { name: 'Nghỉ đặc biệt' });
         this.SEARCH_BY_REGULAR_LEAVE = page.getByRole('option', { name: 'Nghỉ thường' });
         this.SEARCH_BY_ANNUAL_LEAVE = page.getByRole('option', { name: 'Nghỉ theo phép năm' });
+       
 
         this.SPECIAL_LEAVE = page.locator("//div[contains(text(),'Nghỉ đặc biệt')]");
         this.MATERNITY_LEAVE = page.locator("//div[contains(text(),'Nghỉ thai sản')]");
@@ -125,8 +126,14 @@ export class LeaveApplicationPage extends BasePage {
         // await this.clickCloseSearchByMonth();
         await this.clickClearSearch();
         await this.clickTextboxSearchByMonth();
+        await this.clickBackYear();
         await this.clickMonthOption();
+        
         await this.clickSearch();
+    }
+
+    async clickBackYear() {
+        await this.safeClick(this.BACK_YEAR);
     }
 
     async clickTextboxSearchByMonth() {

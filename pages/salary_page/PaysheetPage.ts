@@ -64,6 +64,8 @@ export class PaysheetPage extends BasePage {
     readonly INPUT_FILL_MONEY_ALLOWANCE: Locator;
     readonly SEPARATE_BUTTON: Locator;
     readonly POPUP_SEPARATE: Locator;
+    
+
 
     constructor(page: Page) {
         super(page);
@@ -129,6 +131,7 @@ export class PaysheetPage extends BasePage {
         this.PAYMENT_CONFIRM_BUTTON = page.locator('//span[contains(normalize-space(),"Xác nhận thanh toán")]');
         this.SEARCH_BY_NAME = page.getByRole('textbox', { name: 'Tìm kiếm theo tên' });
         this.SELECT_EMPLOYEE = page.locator("(//input[@type='checkbox'])[2]");
+        
     }
     async verifyTotalTaxAmountCalculated(amount: string) {
         const locator = this.page.getByText(`${amount} đ`, { exact: true });
@@ -309,6 +312,8 @@ export class PaysheetPage extends BasePage {
     async clickMonth05() {
         await this.safeClick(this.MONTH_05);
     }
+
+    
 
     async clickChooseMonthExport() {
         await this.safeClick(this.CHOOSE_MONTH_EXPORT);

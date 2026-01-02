@@ -2,7 +2,8 @@ import { expect, test, } from '../base-test';
 import { LoginPage } from '../../pages/LoginPage';
 import Config from '../../utils/configUtils';
 import { LeaveApplicationPage } from '../../pages/leave_page/LeaveApplicationPage';
-import { checkLeaveApplicationExists, clearHolidayManagement, clearLeaveApplications, clearLeaveManagements
+import {
+    checkLeaveApplicationExists, clearHolidayManagement, clearLeaveApplications, clearLeaveManagements
 } from '../../db/helpers/DBHelper';
 import { addAnnualLeaveForEmployeeAndAdmin, sendAndApproveLeave } from './leave-helper';
 import { allure } from 'allure-playwright';

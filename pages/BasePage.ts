@@ -54,6 +54,7 @@ export class BasePage extends SafeActions {
     // DATE PICKER
     readonly OPEN_YEAR_OVERLAY_BUTTON: Locator;
     readonly OPEN_MONTH_OVERLAY_BUTTON: Locator;
+    readonly BACK_YEAR: Locator;
 
     // MONTH PICKER FILTER
     readonly CHOOSE_MONTH_FILTER: Locator;
@@ -73,6 +74,7 @@ export class BasePage extends SafeActions {
         this.OPEN_YEAR_OVERLAY_BUTTON = page.getByRole('button', { name: 'Open years overlay' });
         this.OPEN_MONTH_OVERLAY_BUTTON = page.getByRole('button', { name: 'Open months overlay' });
         this.CHOOSE_MONTH_FILTER = page.getByRole('textbox', { name: 'Chọn tháng' });
+        this.BACK_YEAR = page.locator("//div[@aria-label='Previous month']//*[name()='svg']");
 
         // HOUR PICKER
         this.OPEN_HOURS_OVERLAY_BUTTON = page.getByRole('button', { name: 'Open hours overlay' });
@@ -284,6 +286,7 @@ export class BasePage extends SafeActions {
         await this.safeClick(this.DELETE_ROW0_BUTTON);
         await this.safeClick(this.YES_BUTTON);
     }
+    
 
     async clickEditRow0() {
         await this.safeClick(this.EDIT_ROW0_BUTTON);
@@ -319,5 +322,9 @@ export class BasePage extends SafeActions {
 
     async clickDropdownStatusInFormNth1() {
         await this.safeClick(this.STATUS_DROPDOWN, { nth: 1 });
+    }
+
+    async clickBackYear() {
+        await this.safeClick(this.BACK_YEAR);
     }
 }
