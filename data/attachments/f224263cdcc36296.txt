@@ -1,0 +1,7 @@
+safeClick error: locator.waitFor: Error: strict mode violation: getByRole('button', { name: 'Chọn' }) resolved to 2 elements:
+    1) <button type="button" class="dp__action_button dp__action_select">Chọn</button> aka getByRole('button', { name: 'Chọn', exact: true })
+    2) <button type="button" class="v-btn v-theme--lightColor13 v-btn--density-default rounded-e-l rounded-s-0 v-btn--size-default v-btn--variant-outlined">…</button> aka getByRole('button', { name: 'Chọn file' })
+
+Call log:
+  - waiting for getByRole('button', { name: 'Chọn' })
+
