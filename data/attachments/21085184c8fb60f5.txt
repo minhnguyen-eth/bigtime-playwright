@@ -1,0 +1,180 @@
+# Page snapshot
+
+```yaml
+- banner:
+  - button
+  - text: BigTime - Prepare
+  - button "Quản lý":
+    - paragraph: Quản lý
+  - button "Chấm công":
+    - paragraph: Chấm công
+  - button "Lương":
+    - paragraph: Lương
+  - button "Cài đặt":
+    - paragraph: Cài đặt
+  - img
+  - text: admin
+  - button "Badge":
+    - status "Badge"
+  - button
+  - button "Đăng xuất"
+- banner:
+  - text: Version 1.0.12
+  - list:
+    - listitem "English":
+      - img
+    - listitem "Tiếng Việt":
+      - img
+  - button
+- navigation:
+  - listbox:
+    - link "Trung tâm":
+      - /url: /dashboard-salary
+    - separator
+    - text: Lương
+    - link "Loại phụ cấp":
+      - /url: /salary/allowance-type
+    - link "Bảng lương":
+      - /url: /salary/pay-sheet
+    - link "Phiếu lương":
+      - /url: /salary/payslip
+    - link "Tạm ứng":
+      - /url: /salary/debt
+    - separator
+    - text: Thống kê
+    - link "Thống kê lương":
+      - /url: /salary/salary-statistic
+    - link "Thống kê thuế":
+      - /url: /tax-statistic
+- main:
+  - text: Loại phụ cấp
+  - button "Làm mới"
+  - button "Thêm"
+  - button
+  - text: Tên phụ cấp
+  - textbox "Tên phụ cấp Tên phụ cấp"
+  - combobox:
+    - text: Loại phụ cấp
+    - textbox "Open"
+  - combobox:
+    - text: Trạng thái
+    - textbox "Open"
+  - button "Tìm kiếm"
+  - button "Xóa"
+  - table:
+    - rowgroup:
+      - row "# Tên phụ cấp Loại phụ cấp Tiền phụ cấp Tính thuế Mức tính thuế từ Ghi chú Trạng thái Hành động":
+        - columnheader "#"
+        - columnheader "Tên phụ cấp"
+        - columnheader "Loại phụ cấp"
+        - columnheader "Tiền phụ cấp"
+        - columnheader "Tính thuế"
+        - columnheader "Mức tính thuế từ"
+        - columnheader "Ghi chú"
+        - columnheader "Trạng thái"
+        - columnheader "Hành động"
+    - rowgroup:
+      - row "1 Automation test edit Hàng ngày 0 đ Không 0 đ aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa... Hoạt động 󰇙 Thao tác":
+        - cell "1"
+        - cell "Automation test edit"
+        - cell "Hàng ngày"
+        - cell "0 đ"
+        - cell "Không"
+        - cell "0 đ"
+        - cell "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa..."
+        - cell "Hoạt động"
+        - cell "󰇙 Thao tác":
+          - button "󰇙 Thao tác"
+      - row "2 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa... Hàng ngày 0 đ Không 0 đ Hoạt động 󰇙 Thao tác":
+        - cell "2"
+        - cell "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa..."
+        - cell "Hàng ngày"
+        - cell "0 đ"
+        - cell "Không"
+        - cell "0 đ"
+        - cell
+        - cell "Hoạt động"
+        - cell "󰇙 Thao tác":
+          - button "󰇙 Thao tác"
+      - row "3 Phụ cấp tiền ăn Hàng ngày 50.000.000 đ Không 0 đ Test Data Hoạt động 󰇙 Thao tác":
+        - cell "3"
+        - cell "Phụ cấp tiền ăn"
+        - cell "Hàng ngày"
+        - cell "50.000.000 đ"
+        - cell "Không"
+        - cell "0 đ"
+        - cell "Test Data"
+        - cell "Hoạt động"
+        - cell "󰇙 Thao tác":
+          - button "󰇙 Thao tác"
+      - row "4 Phụ cấp tiền ăn uống Hàng ngày 500.000 đ Không 0 đ Test data Hoạt động 󰇙 Thao tác":
+        - cell "4"
+        - cell "Phụ cấp tiền ăn uống"
+        - cell "Hàng ngày"
+        - cell "500.000 đ"
+        - cell "Không"
+        - cell "0 đ"
+        - cell "Test data"
+        - cell "Hoạt động"
+        - cell "󰇙 Thao tác":
+          - button "󰇙 Thao tác"
+      - row "5 Test phụ cấp Hàng tháng 7.000.000 đ Không 0 đ Test Data Hoạt động 󰇙 Thao tác":
+        - cell "5"
+        - cell "Test phụ cấp"
+        - cell "Hàng tháng"
+        - cell "7.000.000 đ"
+        - cell "Không"
+        - cell "0 đ"
+        - cell "Test Data"
+        - cell "Hoạt động"
+        - cell "󰇙 Thao tác":
+          - button "󰇙 Thao tác"
+      - row "6 Test thuế (PC không tính thuế) Hàng tháng 2.000.000 đ Không 0 đ Test data Hoạt động 󰇙 Thao tác":
+        - cell "6"
+        - cell "Test thuế (PC không tính thuế)"
+        - cell "Hàng tháng"
+        - cell "2.000.000 đ"
+        - cell "Không"
+        - cell "0 đ"
+        - cell "Test data"
+        - cell "Hoạt động"
+        - cell "󰇙 Thao tác":
+          - button "󰇙 Thao tác"
+      - row "7 Test thue (PC có tính thuế) Hàng tháng 1.000.000 đ Có 730.000 đ Test data Hoạt động 󰇙 Thao tác":
+        - cell "7"
+        - cell "Test thue (PC có tính thuế)"
+        - cell "Hàng tháng"
+        - cell "1.000.000 đ"
+        - cell "Có"
+        - cell "730.000 đ"
+        - cell "Test data"
+        - cell "Hoạt động"
+        - cell "󰇙 Thao tác":
+          - button "󰇙 Thao tác"
+  - text: Tổng 7, Hiển thị
+  - combobox:
+    - text: "20"
+    - textbox "Open": "20"
+  - navigation "Pagination Navigation":
+    - list:
+      - listitem:
+        - button "Previous page" [disabled]
+      - listitem:
+        - button "Page 1, Current page" [disabled]: "1"
+      - listitem:
+        - button "Next page" [disabled]
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+- tooltip
+```
