@@ -1,0 +1,110 @@
+# Page snapshot
+
+```yaml
+- banner:
+  - button
+  - text: BigTime - Prepare
+  - button "Quản lý":
+    - paragraph: Quản lý
+  - button "Chấm công":
+    - paragraph: Chấm công
+  - button "Lương":
+    - paragraph: Lương
+  - img
+  - text: Nguyễn Văn Minh
+  - button "Badge":
+    - status "Badge"
+  - button
+  - button "Đăng xuất"
+- banner:
+  - text: Version 1.0.13
+  - list:
+    - listitem "English":
+      - img
+    - listitem "Tiếng Việt":
+      - img
+  - button
+- navigation:
+  - listbox:
+    - link "Trung tâm":
+      - /url: /dashboard-admin
+    - separator
+    - text: Thông báo
+    - link "Danh sách thông báo":
+      - /url: /list-notification
+    - separator
+    - text: Đánh giá
+    - link "Tiêu chí đánh giá":
+      - /url: /evaluation-criteria
+    - link "Danh sách đánh giá":
+      - /url: /list-evaluation
+    - separator
+    - text: Chung
+    - link "Quản lý ngày phép năm":
+      - /url: /leave-management
+    - link "Đơn nghỉ phép":
+      - /url: /leave-application
+    - link "Đơn thôi việc":
+      - /url: /resignation
+- main:
+  - text: Đơn nghỉ phép
+  - button "Làm mới"
+  - button "Thêm"
+  - button
+  - combobox:
+    - text: Loại ngày nghỉ
+    - textbox "Open"
+  - combobox:
+    - text: Trạng thái
+    - textbox "Open"
+  - textbox "Chọn tháng Chọn tháng": 01-2026
+  - button "Tìm kiếm"
+  - button "Xóa"
+  - table:
+    - rowgroup:
+      - row "# Tên nhân viên Nghỉ từ ngày Đến hết ngày Số ngày nghỉ Lý do Loại ngày nghỉ Trạng thái":
+        - columnheader "#"
+        - columnheader "Tên nhân viên"
+        - columnheader "Nghỉ từ ngày"
+        - columnheader "Đến hết ngày"
+        - columnheader "Số ngày nghỉ"
+        - columnheader "Lý do"
+        - columnheader "Loại ngày nghỉ"
+        - columnheader "Trạng thái"
+    - rowgroup:
+      - row "Không có dữ liệu":
+        - cell "Không có dữ liệu"
+  - text: Tổng 0, Hiển thị
+  - combobox:
+    - text: "20"
+    - textbox "Open": "20"
+  - navigation "Pagination Navigation":
+    - list:
+      - listitem:
+        - button "Previous page" [disabled]
+      - listitem:
+        - button "Page 1, Current page" [disabled]: "1"
+      - listitem:
+        - button "Next page" [disabled]
+- tooltip
+- dialog:
+  - text: Thêm đơn nghỉ phép
+  - combobox:
+    - textbox "Tên nhân viên ※ Tên nhân viên ※"
+    - button "Open": 󰍝
+  - alert: Nhập tên nhân viên
+  - combobox:
+    - text: Nghỉ theo phép năm
+    - textbox "Open": "1"
+  - textbox "Nghỉ từ ngày ※ Nghỉ từ ngày ※": 05-01-2026
+  - textbox "Đến hết ngày ※ Đến hết ngày ※": 05-01-2026
+  - textbox "Lý do ※ Lý do ※": aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+  - combobox:
+    - text: Đã duyệt
+    - textbox "Open": "2"
+  - spinbutton "Số ngày nghỉ Số ngày nghỉ": "1"
+  - textbox "Ngày tạo Ngày tạo" [disabled]: 05-01-2026 08:59
+  - textbox "Người tạo Người tạo" [disabled]: Nguyễn Văn Minh
+  - button "Lưu"
+  - button "Hủy"
+```
