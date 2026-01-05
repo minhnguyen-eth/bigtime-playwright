@@ -20,6 +20,7 @@ export default defineConfig({
 
     // headless: false, // true run in headless mode. false run with browser window opened.
     // viewport: null,
+    
     headless: isHeadless,
     viewport: isHeadless ? { width: 1920, height: 1080 } : null,
     launchOptions: {
