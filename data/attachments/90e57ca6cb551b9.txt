@@ -1,1 +1,0 @@
-Cleared 1 rows in debts with condition: note NOT LIKE '%Test data%'.

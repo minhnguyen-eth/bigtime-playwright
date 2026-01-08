@@ -1,2 +1,0 @@
-Cleared 2 rows in notifications.
-Reset AUTO_INCREMENT for notifications.
