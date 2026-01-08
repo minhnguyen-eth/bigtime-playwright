@@ -1,2 +1,0 @@
-Importing file into [reward_users] from: /home/runner/work/bigtime-playwright/bigtime-playwright/test-data/reward_users.csv
-Imported data into reward_users from /home/runner/work/bigtime-playwright/bigtime-playwright/test-data/reward_users.csv
