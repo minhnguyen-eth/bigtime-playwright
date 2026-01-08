@@ -34,13 +34,13 @@ export class Config {
     return process.env.EMPLOYEE2_PASSWORD || '';
   }
 
-  // Manager Account
-  static get manager_username(): string {
-    return process.env.MANAGER_USERNAME || '';
+  // Manager Department Account
+  static get manager_department_username(): string {
+    return process.env.MANAGER_DEPARTMENT_USERNAME || '';
   }
 
-  static get manager_password(): string {
-    return process.env.MANAGER_PASSWORD || '';
+  static get manager_department_password(): string {
+    return process.env.MANAGER_DEPARTMENT_PASSWORD || '';
   }
 
   // Admin Account
