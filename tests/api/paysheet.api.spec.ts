@@ -22,9 +22,9 @@ test.describe('Paysheet API Tests', () => {
 
     // Import data for paysheet calculation
     await clearPaysheets();
-    await importCheckTime();
-    await importCheckDay();
-    await importPayrolls();
+    // await importCheckTime();
+    // await importCheckDay();
+    // await importPayrolls();
   });
 
   // test.afterEach(async ({ adminAPI }) => {

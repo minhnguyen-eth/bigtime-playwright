@@ -20,3 +20,6 @@ vscode/
 
 # Environment variables
 .env
+
+# docs
+.READEME.md

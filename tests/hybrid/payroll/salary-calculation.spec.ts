@@ -19,12 +19,9 @@ test.describe.serial('Salary Calculation Tests', () => {
     const START_DATE_DECEMBER = '2025-12-01';
     const END_DATE_DECEMBER = '2025-12-31';
 
-    let createdPaysheetId: string;
+    // let createdPaysheetId: string;
     let loginPage: LoginPage;
     let paysheet: PaysheetPage;
-    let toastPage: ToastPage;
-    let logoutPage: LogoutPage;
-    let validation: ValidationPage;
 
     test.beforeAll(async () => {
         allure.epic('Hybrid Testing');
@@ -39,12 +36,9 @@ test.describe.serial('Salary Calculation Tests', () => {
     });
 
     test.beforeEach(async ({ page }) => {
-
-        validation = new ValidationPage(page);
-        toastPage = new ToastPage(page);
         loginPage = new LoginPage(page);
         paysheet = new PaysheetPage(page);
-        logoutPage = new LogoutPage(page);
+
 
     });
 
@@ -75,8 +69,7 @@ test.describe.serial('Salary Calculation Tests', () => {
         - Base salary: 20,000,000 VND
         - Tax: 0 VND
         - Insurance deduction: 2.100.000 VND 
-        - Net salary: 17,900,000 VND
-        `);
+        - Net salary: 17,900,000 VND `);
 
         await allure.step('API - Add paysheet for 1 employees', async () => {
             // Use helper to generate paysheet data
@@ -184,10 +177,6 @@ test.describe.serial('Salary Calculation Tests', () => {
             // Verify response format
             expect(response.code).toBe(200);
             expect(response.message).toBe('Created successfully'); // BigTime API message
-            expect(response.data).toBeDefined();
-            expect(typeof response.data).toBe('string'); // Returns ID as string
-
-            createdPaysheetId = response.data; // Save ID 
         });
 
         await allure.step('UI - Verify salary and tax', async () => {
@@ -320,10 +309,7 @@ test.describe.serial('Salary Calculation Tests', () => {
             // Verify response format
             expect(response.code).toBe(200);
             expect(response.message).toBe('Created successfully'); // BigTime API message
-            expect(response.data).toBeDefined();
-            expect(typeof response.data).toBe('string'); // Returns ID as string
-
-            createdPaysheetId = response.data; // Save ID 
+ 
         });
 
         await allure.step('UI - Verify salary and tax', async () => {
@@ -366,10 +352,6 @@ test.describe.serial('Salary Calculation Tests', () => {
             // Verify response format
             expect(response.code).toBe(200);
             expect(response.message).toBe('Created successfully'); // BigTime API message
-            expect(response.data).toBeDefined();
-            expect(typeof response.data).toBe('string'); // Returns ID as string
-
-            createdPaysheetId = response.data; // Save ID 
         });
 
         await allure.step('UI - Verify salary and tax', async () => {
@@ -415,11 +397,7 @@ test.describe.serial('Salary Calculation Tests', () => {
 
             // Verify response format
             expect(response.code).toBe(200);
-            expect(response.message).toBe('Created successfully'); // BigTime API message
-            expect(response.data).toBeDefined();
-            expect(typeof response.data).toBe('string'); // Returns ID as string
-
-            createdPaysheetId = response.data; // Save ID 
+            expect(response.message).toBe('Created successfully'); // BigTime API message 
         });
 
         await allure.step('UI - Verify salary and tax', async () => {

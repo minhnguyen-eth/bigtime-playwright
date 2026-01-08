@@ -71,7 +71,7 @@ export class HolidayManagementPage extends BasePage {
 
     // FILL
     async fillAndSelectUser(user: string) {
-        await this.safeFill(this.CHOOSE_USER_INPUT, 'BAT300 - Test quản lý nghỉ lễ');
+        await this.safeFill(this.CHOOSE_USER_INPUT, user);
         await this.safeClick(this.SELECT_USER(user));
     }
 
