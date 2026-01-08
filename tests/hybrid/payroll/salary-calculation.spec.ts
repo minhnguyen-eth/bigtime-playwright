@@ -27,12 +27,13 @@ test.describe.serial('Salary Calculation Tests', () => {
     let validation: ValidationPage;
 
     test.beforeAll(async () => {
+        allure.epic('Hybrid Testing');
         allure.feature('Salary Calculation Feature');
         allure.owner('Minh Nguyen');
         allure.severity('Critical');
 
         await clearPaysheets();
-        await importCheckTime();
+        await importCheckTime();    
         await importCheckDay();
         await importPayrolls();
     });

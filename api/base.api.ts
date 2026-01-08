@@ -121,13 +121,16 @@ export class BaseAPI {
      * POST request
      */
     async post<T>(
-        url: string,
+        endpoint: string,
         data?: any,
         options?: {
             headers?: Record<string, string>;
             allowedStatus?: number[];
         }
     ): Promise<T> {
+        const url = `${this.baseURL}${endpoint}`;
+        this.logRequest('POST', url, data);
+
         const response = await this.request.post(url, {
             headers: this.getHeaders(options?.headers),
             data,
