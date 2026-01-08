@@ -1,0 +1,11 @@
+safeClick error: Timed out 30000ms waiting for expect(locator).toBeEnabled()
+
+Locator: getByRole('button', { name: 'Chọn', exact: true })
+Expected: enabled
+Received: disabled
+Call log:
+  - Expect "toBeEnabled" with timeout 30000ms
+  - waiting for getByRole('button', { name: 'Chọn', exact: true })
+    33 × locator resolved to <button disabled type="button" class="dp__action_button dp__action_select">Chọn</button>
+       - unexpected value "disabled"
+
