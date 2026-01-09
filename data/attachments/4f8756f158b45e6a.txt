@@ -1,0 +1,1 @@
+Cleared 7 rows in reward_users with condition: id NOT LIKE '%testdata%'.
