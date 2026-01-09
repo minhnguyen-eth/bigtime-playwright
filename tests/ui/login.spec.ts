@@ -16,7 +16,7 @@ test.describe.serial('Login Tests', () => {
     await loginPage.goto();
   });
 
-  test('Login Successful With Valid Credentials - Đăng nhập thành công với tài khoản admin', async () => {
+  test.only('Login Successful With Valid Credentials - Đăng nhập thành công với tài khoản admin', async () => {
     allure.story('Valid Admin Login Story');
 
     await allure.step('Login with admin account', async () => {

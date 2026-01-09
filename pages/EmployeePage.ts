@@ -1,4 +1,4 @@
-import { Locator, Page } from '@playwright/test';
+import { Locator, Page, expect } from '@playwright/test';
 import { ToastPage } from './ToastPage';
 import { BasePage } from './BasePage';
 import { ValidationPage } from './ValidationPage';
@@ -195,7 +195,7 @@ export class EmployeePage extends ValidationPage {
   }
 
   async verifyTaxCode(taxCode: string) {
-    const locator = this.page.getByText('01234564895', { exact: true });
+    const locator = this.page.getByText('012345648222', { exact: true });
     await this.safeVerifyToHaveText(locator, taxCode);
   }
 
@@ -213,6 +213,15 @@ export class EmployeePage extends ValidationPage {
   async selectRelationship(relationship: string) {
     const locator = this.page.locator(`//div[contains(text(),'${relationship}')]`);
     await this.safeClick(locator);
+  }
+
+  async verifyRelationshipAtLastRow(relationship: string) {
+  const locator = this.page
+    .locator('table tbody tr')
+    .last()
+    .getByText(relationship, { exact: true });
+
+  await expect(locator).toBeVisible();
   }
 
   async clickRelationshipDropdown() {
@@ -760,5 +769,10 @@ export class EmployeePage extends ValidationPage {
     // await this.fillAllowanceTypeName(randomAllowanceName);
     // await this.fillMoneyAllowance('100000');
     // await this.clickConfirm();
+  }
+
+  async clickEdit1(){
+    const edit = this.page.getByRole('button', { name: 'Sửa' });
+    this.safeClick(edit);
   }
 }

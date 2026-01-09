@@ -32,7 +32,7 @@ export class LoginPage extends BasePage {
 
   async goto() {
     await this.page.waitForLoadState('load');
-    const url = Config.urlStaging || process.env.URL_BIGTIME || '';
+    const url = Config.urlStaging || process.env.BASE_URL || '';
     if (!url) {
       throw new Error('Base URL is not defined. Set the URL_BIGTIME environment variable or update Config.urlStaging.');
     }

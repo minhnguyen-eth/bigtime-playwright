@@ -54,6 +54,7 @@ test.describe.serial('Employee Tests', () => {
     });
 
     test('Add a dependents fill all information - Thêm một người phụ thuộc nhập đầy đủ thông tin ', async ({ page }) => {
+      
         await employeePage.fillSearchByName('Nguyễn Văn Minh');
         await employeePage.clickSearch();
         await employeePage.clickRow0();
@@ -68,7 +69,7 @@ test.describe.serial('Employee Tests', () => {
         await employeePage.clickTodayDatePicker();
         await employeePage.clickEndDateDependents();
         await employeePage.clickTodayDatePicker();
-        await employeePage.fillTaxCode('01234564895');
+        await employeePage.fillTaxCode('012345648222');
         await employeePage.fillPhoneNumber('0351569856');
 
         // Relationship
@@ -85,11 +86,11 @@ test.describe.serial('Employee Tests', () => {
 
         await page.waitForTimeout(800);
         await employeePage.clickRow0();
-        await employeePage.clickEdit();
+        await employeePage.clickEdit1();
         await employeePage.clickFamilyInformation();
         await employeePage.verifyRelationship('Con trai');
         await employeePage.verifyNameDependents('Automation test dependent');
-        await employeePage.verifyTaxCode('01234564895');
+        await employeePage.verifyTaxCode('012345648222');
         await employeePage.verifyIsDependents();
     });
 
