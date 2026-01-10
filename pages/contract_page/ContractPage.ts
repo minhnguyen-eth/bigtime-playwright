@@ -2,6 +2,7 @@ import { Page, Locator, expect } from 'playwright/test';
 import { BasePage } from '../BasePage';
 
 export class ContractPage extends BasePage {
+    
     readonly CONTRACT_BUTTON: Locator;
     readonly TERMINATE_BUTTON: Locator;
     readonly EXTENSION_BUTTON: Locator;

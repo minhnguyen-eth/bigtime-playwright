@@ -37,11 +37,9 @@ export class OvertimeTicketPage extends BasePage {
     readonly SELECT_NEW_STATUS: Locator;
     readonly VALIDATE_DATE_REQUIRED: Locator;
     readonly VALIDATE_WHEN_USER_CHOOSE_WRONG_TIME: Locator;
-    readonly VERIFY_TIME: (time: string) => Locator;
 
     constructor(page: Page) {
         super(page);
-        this.VERIFY_TIME = (time: string) => page.getByRole('cell', { name: time, exact: true });
         this.CANCEL_STATUS_INFO = page.locator("//div[contains(@class, 'text-body-2') and contains(text(), 'Hủy')]");
         this.HOUR_19 = page.locator("//div[@class='dp__overlay_cell dp__overlay_cell_pad'][normalize-space()='19']");
         this.VALIDATE_WHEN_USER_CHOOSE_WRONG_TIME = page.locator("//li[contains(text(),'Đã chấm công ra lúc')]");
@@ -71,6 +69,10 @@ export class OvertimeTicketPage extends BasePage {
         this.CONFIRM_CHECK_IN_BUTTON = page.locator('span:has-text("ĐỒNG Ý")');
         this.CHECK_IN_BUTTON = page.locator("//span[@class='v-btn__content']//p[contains(text(),'Điểm danh')]");
         this.CHECK_IN_OUT_BUTTON = page.locator("//a[@href='/checkin-out']");
+    }
+
+    getTimeCell(time: string): Locator {
+        return this.page.getByRole('cell', { name: time, exact: true });
     }
 
     async verifyCancelStatus() {
@@ -124,25 +126,24 @@ export class OvertimeTicketPage extends BasePage {
 
     async verifyTotalOvertime(expectedTime: string) {
         await this.safeVerifyTextContains(
-            this.VERIFY_TIME(expectedTime),
+            this.getTimeCell(expectedTime),
             expectedTime
         );
     }
 
     async verifyEndTime(expectedTime: string) {
         await this.safeVerifyTextContains(
-            this.VERIFY_TIME(expectedTime),
+            this.getTimeCell(expectedTime),
             expectedTime
         );
     }
 
     async verifyStartTime(expectedTime: string) {
         await this.safeVerifyTextContains(
-            this.VERIFY_TIME(expectedTime),
+            this.getTimeCell(expectedTime),
             expectedTime
         );
     }
-
 
     async verifyReason() {
         await this.safeVerifyTextContains(this.REASON_INFO, "Automation test");
