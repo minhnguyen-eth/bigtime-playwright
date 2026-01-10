@@ -68,7 +68,7 @@ export class OvertimeTicketPage extends BasePage {
         this.OVERTIME_TICKET_DAY_BUTTON = page.getByRole('textbox', { name: 'Ngày tăng ca ※' });
         this.OVERTIME_TICKET_BUTTON = page.locator("//div[contains(text(),'Phiếu tăng ca')]");
         this.CHECK_IN_OUT_HISTORY_BUTTON = page.locator("//div[@class='v-list-item-title'][contains(text(),'Lịch sử điểm danh')]");
-        this.CONFIRM_CHECK_IN_BUTTON = page.locator("//span[.='Đồng ý']");
+        this.CONFIRM_CHECK_IN_BUTTON = page.locator('span:has-text("ĐỒNG Ý")');
         this.CHECK_IN_BUTTON = page.locator("//span[@class='v-btn__content']//p[contains(text(),'Điểm danh')]");
         this.CHECK_IN_OUT_BUTTON = page.locator("//a[@href='/checkin-out']");
     }

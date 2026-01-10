@@ -66,9 +66,9 @@ test.describe.serial('Monthly Checkin Tests - Chấm công tháng', () => {
         // USER LOGIN
         await loginPage.login('bat200@gmail.com', '123456');
         await monthlyCheckinPage.clickTimeKeepingManagement();
-        
+
         await clearDataForTestMonthlyCheckin('uBqEzhKGYn');
-        
+
         await importShiftPlanForTestMonthlyCheckin();
 
         // ADD CHECK IN
@@ -77,7 +77,7 @@ test.describe.serial('Monthly Checkin Tests - Chấm công tháng', () => {
         await monthlyCheckinPage.clickBackYear();
         await monthlyCheckinPage.clickChosseMonthPicker(MONTH);
         await monthlyCheckinPage.clickHistoryEditButton();
-    
+
         await monthlyCheckinPage.clickAdd();
         await monthlyCheckinPage.selectTimeDropdown();
         await monthlyCheckinPage.clickOpenHoursOverlayButton();
@@ -110,7 +110,7 @@ test.describe.serial('Monthly Checkin Tests - Chấm công tháng', () => {
         await loginPage.goto();
         await loginPage.login(Config.admin_username, Config.admin_password);
         await monthlyCheckinPage.clickTimeKeepingManagement();
-     
+
         await monthlyCheckinPage.clickMonthlyCheckinButton();
         await monthlyCheckinPage.clickChooseMonthFilter();
         await monthlyCheckinPage.clickBackYear();
@@ -160,6 +160,7 @@ test.describe.serial('Monthly Checkin Tests - Chấm công tháng', () => {
         // ADD CHECK IN
         await monthlyCheckinPage.clickHistoryLinkButton();
         await monthlyCheckinPage.clickChooseMonthFilter();
+        await monthlyCheckinPage.clickBackYear();
         await monthlyCheckinPage.clickChosseMonthPicker(MONTH);
         await monthlyCheckinPage.clickHistoryEditButton();
         await monthlyCheckinPage.clickAdd();
@@ -198,6 +199,7 @@ test.describe.serial('Monthly Checkin Tests - Chấm công tháng', () => {
         await monthlyCheckinPage.chooseEmployeeFilter('Test chấm công tháng');
         await monthlyCheckinPage.selectEmployeeFilter();
         await monthlyCheckinPage.clickChooseMonthFilter();
+        await monthlyCheckinPage.clickBackYear();
         await monthlyCheckinPage.clickChosseMonthPicker(MONTH);
 
         // MONTHLY APPROVAL

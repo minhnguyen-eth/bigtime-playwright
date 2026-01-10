@@ -76,7 +76,7 @@ export class PaysheetPage extends BasePage {
         this.INPUT_FILL_MONEY_ALLOWANCE = page.locator("//tr/td[3]/div/div/div/div[3]/input");
         this.ADD_ALLOWANCE_BUTTON = page.locator("//span[contains(.,'Thêm khoản phụ cấp khác')]");
         this.ALLOWANCE_BUTTON = page.locator("//tbody/tr/td[6]/p[1]");
-        this.SEARCH_BUTTON_TABLIST = page.getByRole('tablist').getByRole('button', { name: 'Tìm kiếm' });
+        this.SEARCH_BUTTON_TABLIST = page.getByRole('tablist').getByRole('button', { name: 'Tìm kiếm', exact: true });
         this.CHECKBOX_PAYSLIPS_FIRST = page.locator('.v-selection-control').first();
         this.VERIFY_OVERTIME = page.locator("//input[contains(@value,'500.000')]");
         this.TEMPORARY_SAVE_BUTTON = page.locator("//span[.=' Lưu tạm']");
