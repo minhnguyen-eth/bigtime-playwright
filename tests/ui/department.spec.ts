@@ -187,11 +187,9 @@ test.describe.serial('Department Test', () => {
         await departmentPage.clickSearch();
         await departmentPage.verifyLockStatusRow0();
         await departmentPage.clickClearSearch();
-
         await departmentPage.clickDropdownStatusSearch();
         await departmentPage.clickActivityStatus();
         await departmentPage.clickSearch();
         await departmentPage.verifyActivityStatusRow0();
     });
-
 });

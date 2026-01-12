@@ -3,9 +3,6 @@ import { LoginPage } from '../../../pages/LoginPage';
 import Config from '../../../utils/configUtils';
 import { PaysheetPage } from '../../../pages/salary_page/PaysheetPage';
 import { allure } from 'allure-playwright';
-import { ToastPage } from '../../../pages/ToastPage';
-import { LogoutPage } from '../../../pages/LogoutPage';
-import { ValidationPage } from '../../../pages/ValidationPage';
 import { clearPaysheets } from '../../../db/modules/PaysheetDB';
 import { importCheckTime } from '../../../db/modules/CheckTimeDB';
 import { importCheckDay } from '../../../db/modules/CheckDayDB';
@@ -19,7 +16,6 @@ test.describe.serial('Salary Calculation Tests', () => {
     const START_DATE_DECEMBER = '2025-12-01';
     const END_DATE_DECEMBER = '2025-12-31';
 
-    // let createdPaysheetId: string;
     let loginPage: LoginPage;
     let paysheet: PaysheetPage;
 
@@ -30,7 +26,7 @@ test.describe.serial('Salary Calculation Tests', () => {
         allure.severity('Critical');
 
         await clearPaysheets();
-        await importCheckTime();    
+        await importCheckTime();
         await importCheckDay();
         await importPayrolls();
     });
@@ -38,8 +34,6 @@ test.describe.serial('Salary Calculation Tests', () => {
     test.beforeEach(async ({ page }) => {
         loginPage = new LoginPage(page);
         paysheet = new PaysheetPage(page);
-
-
     });
 
     async function beforeTest() {
@@ -309,7 +303,7 @@ test.describe.serial('Salary Calculation Tests', () => {
             // Verify response format
             expect(response.code).toBe(200);
             expect(response.message).toBe('Created successfully'); // BigTime API message
- 
+
         });
 
         await allure.step('UI - Verify salary and tax', async () => {
