@@ -84,7 +84,7 @@ jobs:
 
       # Generate Allure environment.properties
       - name: Generate Allure environment
-        run: npx ts-node scripts/generate-environment.ts
+        run: npx ts-node scripts/generate-env.ts
 
 
       # Chạy Playwright tests
