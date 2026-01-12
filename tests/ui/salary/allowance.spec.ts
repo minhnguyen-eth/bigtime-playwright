@@ -131,35 +131,36 @@ test.describe.serial('Allowance Tests', () => {
     });
 
     test('Edit allowance money', async ({ page }) => {
-        await allowancePage.clickEditRow0();
+        await allowancePage.clickIconAction();
+        await allowancePage.clickEdit();
         await allowancePage.fillAllowanceMoney('999999');
         await allowancePage.clickSave();
         await toastPage.getToastUpdateSuccess();
     });
 
     test('Edit allowance note', async ({ page }) => {
-        await allowancePage.clickEditRow0();
+        await allowancePage.clickIconAction();
+        await allowancePage.clickEdit();
         await allowancePage.fillNote('Automation test edit note');
         await allowancePage.clickSave();
         await toastPage.getToastUpdateSuccess();
     });
 
     test('Edit allowance active status to lock status', async ({ page }) => {
-        await allowancePage.clickEditRow0();
+        await allowancePage.clickIconAction();
+        await allowancePage.clickEdit();
         await allowancePage.clickDropdownStatusInFormNth1();
         await allowancePage.clickLockStatus();
-        await allowancePage.clickSave();
-        await toastPage.getToastUpdateSuccess();
-
-        await allowancePage.clickEditRow0();
-        await allowancePage.clickDropdownStatusInFormNth1();
-        await allowancePage.clickActivityStatus();
         await allowancePage.clickSave();
         await toastPage.getToastUpdateSuccess();
     });
 
     test('Delete allowance', async ({ page }) => {
-        await allowancePage.clickDeleteRow0();
+        await allowancePage.clickAdd();
+        await allowancePage.fillAllowanceName('Testing');
+        await allowancePage.clickSave();
+        await allowancePage.clickIconAction();
+        await allowancePage.clickDelete();
         await toastPage.getToastDeleteSuccess();
     });
 
