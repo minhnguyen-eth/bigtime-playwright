@@ -46,6 +46,7 @@ export class BasePage extends SafeActions {
     readonly TODAY_DATE_PICKER: Locator;
     readonly ICON_ACTION: Locator;
     readonly ROW0: Locator;
+    readonly NO_DATA_EXIST_IN_SEARCH: Locator;
 
     // HOUR PICKER
     readonly OPEN_MINUTES_OVERLAY_BUTTON: Locator;
@@ -116,6 +117,7 @@ export class BasePage extends SafeActions {
         // Others
         this.ICON_ACTION = page.locator('#row-0').getByRole('cell', { name: '󰇙 Thao tác' });
         this.TODAY_DATE_PICKER = page.locator("div.dp__cell_inner.dp__pointer.dp__today");
+        this.NO_DATA_EXIST_IN_SEARCH = page.getByText('Không có dữ liệu', { exact: true });
 
         // Common Buttons
         this.DELETE_BUTTON = page.locator("//span[contains(text(),'Xóa')]");
@@ -147,6 +149,10 @@ export class BasePage extends SafeActions {
 
         // Required message
         this.REQUIRED_MESSAGE = page.locator('.v-messages__message');
+    }
+
+    async verifyNoDataExistInSearch() {
+        await this.safeVerifyToHaveText(this.NO_DATA_EXIST_IN_SEARCH, 'Không có dữ liệu');
     }
 
     async verifyRequiredField(message: string) {

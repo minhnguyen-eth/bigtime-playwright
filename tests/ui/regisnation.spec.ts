@@ -3,16 +3,13 @@ import { clearResignation } from '../../db/helpers/DBHelper';
 import { LoginPage } from '../../pages/LoginPage';
 import Config from '../../utils/configUtils';
 import { RegisnationPage } from '../../pages/RegisnationPage';
-import { ToastPage } from '../../pages/ToastPage';
 import { allure } from 'allure-playwright';
-import { ValidationPage } from '../../pages/ValidationPage';
 import { LogoutPage } from '../../pages/LogoutPage';
+import { RequiredMessages, ToastMessages } from '../../constants/MessagesCommon';
 
 test.describe.serial('Resignation Tests', () => {
   let loginPage: LoginPage;
   let regisnationPage: RegisnationPage;
-  let toastPage: ToastPage;
-  let validation: ValidationPage;
   let logoutPage: LogoutPage;
 
   const randomSuffix = Math.random().toString(36).substring(2, 8);
@@ -23,10 +20,8 @@ test.describe.serial('Resignation Tests', () => {
     allure.severity('Critical');
 
     loginPage = new LoginPage(page);
-    validation = new ValidationPage(page);
     loginPage = new LoginPage(page);
     regisnationPage = new RegisnationPage(page);
-    toastPage = new ToastPage(page);
     logoutPage = new LogoutPage(page);
 
     await loginPage.goto();
@@ -39,7 +34,7 @@ test.describe.serial('Resignation Tests', () => {
     await regisnationPage.clickAdd();
     await regisnationPage.fillReason('Automation test');
     await regisnationPage.clickSave();
-    await toastPage.getToastAddSuccess();
+    await regisnationPage.verifyToastMessage(ToastMessages.ADD_SUCCESS);
   }
 
   async function beforTestMaxLength() {
@@ -49,19 +44,19 @@ test.describe.serial('Resignation Tests', () => {
     await regisnationPage.clickAdd();
   }
 
-  test("Max length of reason ", async ({ page }) => {
+  test("Add with Max length 255 characters of reason ", async ({ page }) => {
     await clearResignation();
     await beforTestMaxLength();
     await regisnationPage.fillReason("z".repeat(255));
     await regisnationPage.clickSave();
-    await toastPage.getToastAddSuccess();
+    await regisnationPage.verifyToastMessage(ToastMessages.ADD_SUCCESS);
   });
 
-  test("Max length of reason over 255 characters", async ({ page }) => {
+  test("Add with Max length of reason over 255 characters", async ({ page }) => {
     await beforTestMaxLength();
     await regisnationPage.fillReason("z".repeat(256));
     await regisnationPage.clickSave();
-    await validation.validateMaxLength255Characters();
+    await regisnationPage.verifyRequiredField(RequiredMessages.MAX_LENGTH_255);
   });
 
   test('Add new resignation and send', async ({ page }) => {
@@ -76,7 +71,7 @@ test.describe.serial('Resignation Tests', () => {
     await allure.step('Employee sends resignation', async () => {
       await regisnationPage.clickRow0();
       await regisnationPage.clickSendAndClickYes();
-      await toastPage.getToastSendSuccess();
+      await regisnationPage.verifyToastMessage(ToastMessages.SEND_SUCCESS);
     });
   });
 
@@ -88,7 +83,7 @@ test.describe.serial('Resignation Tests', () => {
       await regisnationPage.clickEdit();
       await regisnationPage.fillReason('Automation test edit');
       await regisnationPage.clickSave();
-      await toastPage.getToastUpdateSuccess();
+      await regisnationPage.verifyToastMessage(ToastMessages.UPDATE_SUCCESS);
     });
   });
 
@@ -102,7 +97,7 @@ test.describe.serial('Resignation Tests', () => {
       await regisnationPage.clickEdit();
       await regisnationPage.fillReason('');
       await regisnationPage.clickSave();
-      await validation.validateRequiredFillReason();
+      await regisnationPage.verifyRequiredField(RequiredMessages.REQUIRED_FILL_REASON);
     });
   });
 
@@ -116,7 +111,7 @@ test.describe.serial('Resignation Tests', () => {
 
     await allure.step('Employee sends resignation request', async () => {
       await regisnationPage.clickSendAndClickYes();
-      await toastPage.getToastSendSuccess();
+      await regisnationPage.verifyToastMessage(ToastMessages.SEND_SUCCESS);
       await logoutPage.logout();
     });
 
@@ -147,7 +142,7 @@ test.describe.serial('Resignation Tests', () => {
       await regisnationPage.clickRow0();
       await regisnationPage.clickReject();
       await regisnationPage.fillReasonAndClickYes('Automation test reject');
-      await toastPage.getToastRejectSuccess();
+      await regisnationPage.verifyToastMessage(ToastMessages.TOAST_REJECT_SUCCESS);
     });
   });
 
@@ -161,8 +156,8 @@ test.describe.serial('Resignation Tests', () => {
 
     await allure.step('Employee sends resignation request', async () => {
       await regisnationPage.clickSendAndClickYes();
-      await toastPage.getToastSendSuccess();
-       await logoutPage.logout();
+      await regisnationPage.verifyToastMessage(ToastMessages.SEND_SUCCESS);
+      await logoutPage.logout();
     });
 
     // await allure.step('Employee browses own request', async () => {
@@ -191,7 +186,7 @@ test.describe.serial('Resignation Tests', () => {
       await regisnationPage.clickRegisnationButton();
       await regisnationPage.clickRow0();
       await regisnationPage.clickBrowse();
-      await toastPage.getToastBrowseSuccess();
+      await regisnationPage.verifyToastMessage(ToastMessages.TOAST_BROWSE_SUCCESS);
     });
   });
 
@@ -204,7 +199,7 @@ test.describe.serial('Resignation Tests', () => {
       await regisnationPage.clickRow0();
       await regisnationPage.clickCancel();
       await regisnationPage.fillReasonAndClickYes('Automation test cancel');
-      await toastPage.getToastCancelSuccess();
+      await regisnationPage.verifyToastMessage(ToastMessages.TOAST_CANCEL_SUCCESS);
     });
   });
 
@@ -280,7 +275,7 @@ test.describe.serial('Resignation Tests', () => {
       await regisnationPage.clickEndDate();
       await regisnationPage.clickTodayDatePicker();
       await regisnationPage.clickYes();
-      await toastPage.getToastExportSuccess();
+      await regisnationPage.verifyToastMessage(ToastMessages.TOAST_EXPORT_SUCCESS);
     });
   });
 
@@ -301,7 +296,7 @@ test.describe.serial('Resignation Tests', () => {
       await regisnationPage.clickDay09();
       await regisnationPage.clickChoose();
       await regisnationPage.clickYes();
-      await toastPage.getToastExportHaveNoData();
+      await regisnationPage.verifyToastMessage(ToastMessages.TOAST_EXPORT_HAVE_NO_DATA);
     });
   });
 });

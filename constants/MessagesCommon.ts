@@ -4,6 +4,11 @@ export const ToastMessages = {
   UPDATE_SUCCESS: 'Cập nhật thành công',
   DELETE_SUCCESS: 'Xóa thành công',
   SEND_SUCCESS: 'Đã gửi thành công',
+  TOAST_BROWSE_SUCCESS: 'Đã duyệt thành công',
+  TOAST_REJECT_SUCCESS: 'Từ chối thành công',
+  TOAST_CANCEL_SUCCESS: 'Hủy thành công',
+  TOAST_EXPORT_SUCCESS: 'Xuất thành công',
+  TOAST_EXPORT_HAVE_NO_DATA: 'Không có dữ liệu',
 }
 
 export const RequiredMessages = {

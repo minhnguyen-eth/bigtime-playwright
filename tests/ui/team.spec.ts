@@ -2,17 +2,13 @@ import { test, } from './base-test';
 import { allure } from 'allure-playwright';
 import { LoginPage } from '../../pages/LoginPage';
 import { TeamPage } from '../../pages/TeamPage';
-// import { ToastPage } from '../../pages/ToastPage';
 import { Config } from '../../utils/configUtils';
 import { clearTeam } from '../../db/helpers/DBHelper';
-import { ValidationPage } from '../../pages/ValidationPage';
 import { ToastMessages, RequiredMessages, ValidationMessages } from '../../constants/MessagesCommon';
 
 test.describe.serial('Team', () => {
     let loginPage: LoginPage;
     let teamPage: TeamPage;
-    // let toastPage: ToastPage;
-    let validation: ValidationPage;
 
     test.beforeEach(async ({ page }) => {
         allure.feature('Team Feature');
@@ -21,8 +17,6 @@ test.describe.serial('Team', () => {
 
         loginPage = new LoginPage(page);
         teamPage = new TeamPage(page);
-        // toastPage = new ToastPage(page);
-        validation = new ValidationPage(page);
         await loginPage.goto();
     });
 
@@ -200,7 +194,7 @@ test.describe.serial('Team', () => {
         await teamPage.fillTeamName(teamNameRandom);
         await teamPage.clickSelectDepartment();
         await teamPage.clickSave();
-        await validation.validateMaxLength100Characters();
+        await teamPage.verifyRequiredField(RequiredMessages.MAX_LENGTH_100);
     });
 
     test('Maxlenght note 255 characters', async ({ page }) => {
@@ -230,7 +224,7 @@ test.describe.serial('Team', () => {
         await teamPage.fillNote('a'.repeat(256));
         await teamPage.clickSelectDepartment();
         await teamPage.clickSave();
-        await validation.validateMaxLength255Characters();
+        await teamPage.verifyRequiredField(RequiredMessages.MAX_LENGTH_255);
     });
 
     test('Delete team', async ({ page }) => {
