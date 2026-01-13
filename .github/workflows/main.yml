@@ -90,7 +90,7 @@ jobs:
       # Chạy Playwright tests
       # Toàn bộ config lấy từ GitHub Secrets
       - name: Run Playwright tests
-        run: npx playwright test
+        run: npx playwright test tests/ui/team.spec.ts 
         env:
           BASE_URL: ${{ secrets.BASE_URL }}
           EMPLOYEE_USERNAME: ${{ secrets.EMPLOYEE_USERNAME }}

@@ -2,15 +2,16 @@ import { test, } from './base-test';
 import { allure } from 'allure-playwright';
 import { LoginPage } from '../../pages/LoginPage';
 import { TeamPage } from '../../pages/TeamPage';
-import { ToastPage } from '../../pages/ToastPage';
+// import { ToastPage } from '../../pages/ToastPage';
 import { Config } from '../../utils/configUtils';
 import { clearTeam } from '../../db/helpers/DBHelper';
 import { ValidationPage } from '../../pages/ValidationPage';
+import { ToastMessages, RequiredMessages, ValidationMessages } from '../../constants/MessagesCommon';
 
 test.describe.serial('Team', () => {
     let loginPage: LoginPage;
     let teamPage: TeamPage;
-    let toastPage: ToastPage;
+    // let toastPage: ToastPage;
     let validation: ValidationPage;
 
     test.beforeEach(async ({ page }) => {
@@ -20,7 +21,7 @@ test.describe.serial('Team', () => {
 
         loginPage = new LoginPage(page);
         teamPage = new TeamPage(page);
-        toastPage = new ToastPage(page);
+        // toastPage = new ToastPage(page);
         validation = new ValidationPage(page);
         await loginPage.goto();
     });
@@ -39,7 +40,7 @@ test.describe.serial('Team', () => {
         await teamPage.clickSelectDepartment();
         await teamPage.fillNote('This is a note');
         await teamPage.clickSave();
-        await toastPage.getToastAddSuccess();
+        await teamPage.verifyToastMessage(ToastMessages.ADD_SUCCESS);
     });
 
     test('Create a new team with existing team name - Tạo mới một nhóm với tên đã tồn tại', async ({ page }) => {
@@ -70,8 +71,8 @@ test.describe.serial('Team', () => {
         });
 
         await allure.step('Verify create team failed and display validate error - Verify tạo Team thất bại và hiển thị validate lỗi', async () => {
-            await toastPage.getToastAddFailed();
-            await validation.validateNameAlreadyExists();
+            await teamPage.verifyToastMessage(ToastMessages.ADD_FAILED);
+            await teamPage.verifyValidationMessage(ValidationMessages.NAME_ALREADY_EXISTS);
         });
     });
 
@@ -86,7 +87,7 @@ test.describe.serial('Team', () => {
         await teamPage.fillTeamName(teamNameRandom);
         await teamPage.clickSelectDepartment();
         await teamPage.clickSave();
-        await toastPage.getToastAddFailed();
+        await teamPage.verifyToastMessage(ToastMessages.ADD_FAILED);
         await teamPage.getValidateCodeExist();
     });
 
@@ -107,7 +108,7 @@ test.describe.serial('Team', () => {
         await teamPage.clickDropdownStatusInFormNth1();
         await teamPage.clickLockStatus();
         await teamPage.clickSave();
-        await toastPage.getToastUpdateSuccess();
+        await teamPage.verifyToastMessage(ToastMessages.UPDATE_SUCCESS);
     });
 
     test('Edit team name', async ({ page }) => {
@@ -119,7 +120,7 @@ test.describe.serial('Team', () => {
         await teamPage.clickEditRow0();
         await teamPage.fillTeamName(editTeamNameRandom);
         await teamPage.clickSave();
-        await toastPage.getToastUpdateSuccess();
+        await teamPage.verifyToastMessage(ToastMessages.UPDATE_SUCCESS);
     });
 
     test('Edit team code', async ({ page }) => {
@@ -131,7 +132,7 @@ test.describe.serial('Team', () => {
         await teamPage.clickEditRow0();
         await teamPage.fillTeamCode(editTeamNameCode);
         await teamPage.clickSave();
-        await toastPage.getToastUpdateSuccess();
+        await teamPage.verifyToastMessage(ToastMessages.UPDATE_SUCCESS);
     });
 
     test('Edit note', async ({ page }) => {
@@ -141,7 +142,7 @@ test.describe.serial('Team', () => {
         await teamPage.clickEditRow0();
         await teamPage.fillNote('Automation test edit note');
         await teamPage.clickSave();
-        await toastPage.getToastUpdateSuccess();
+        await teamPage.verifyToastMessage(ToastMessages.UPDATE_SUCCESS);
     });
 
     test('Maxleght team name 255 characters', async ({ page }) => {
@@ -156,32 +157,35 @@ test.describe.serial('Team', () => {
         await teamPage.fillTeamName(teamName255);
         await teamPage.clickSelectDepartment();
         await teamPage.clickSave();
-        await toastPage.getToastAddSuccess();
+        await teamPage.verifyToastMessage(ToastMessages.ADD_SUCCESS);
     });
 
     test('Maxleght team name 256 characters', async ({ page }) => {
-        const teamName256 = 'a'.repeat(256);
         await loginPage.login(Config.admin_username, Config.admin_password);
         await teamPage.clickAdmin();
         await teamPage.clickTeamButton();
         await teamPage.clickAdd();
-        await teamPage.fillTeamName(teamName256);
-        await validation.validateMaxLength255Characters();
+        await teamPage.fillTeamName('a'.repeat(256));
+        await teamPage.fillTeamCode('0123');
+        await teamPage.clickSelectDepartment();
+        await teamPage.clickSave();
+        await teamPage.verifyRequiredField(
+            RequiredMessages.MAX_LENGTH_255,
+        );
     });
 
     test('Maxleght team code 100 characters', async ({ page }) => {
         const randomSuffix = Math.random().toString(36).substring(2, 8);
         const teamNameRandom = `team${randomSuffix}`;
-        const teamCode255 = 'a'.repeat(100);
         await loginPage.login(Config.admin_username, Config.admin_password);
         await teamPage.clickAdmin();
         await teamPage.clickTeamButton();
         await teamPage.clickAdd();
-        await teamPage.fillTeamCode(teamCode255);
+        await teamPage.fillTeamCode('m'.repeat(100));
         await teamPage.fillTeamName(teamNameRandom);
         await teamPage.clickSelectDepartment();
         await teamPage.clickSave();
-        await toastPage.getToastAddSuccess();
+        await teamPage.verifyToastMessage(ToastMessages.ADD_SUCCESS);
     });
 
     test('Maxlenght team code 101 characters', async ({ page }) => {
@@ -211,7 +215,7 @@ test.describe.serial('Team', () => {
         await teamPage.fillNote('a'.repeat(255));
         await teamPage.clickSelectDepartment();
         await teamPage.clickSave();
-        await toastPage.getToastAddSuccess();
+        await teamPage.verifyToastMessage(ToastMessages.ADD_SUCCESS);
     });
 
     test('Maxlenght note over 255 characters', async ({ page }) => {
@@ -234,7 +238,7 @@ test.describe.serial('Team', () => {
         await teamPage.clickAdmin();
         await teamPage.clickTeamButton();
         await teamPage.clickDeleteRow0();
-        await toastPage.getToastDeleteSuccess();
+        await teamPage.verifyToastMessage(ToastMessages.DELETE_SUCCESS);
     });
 
     test('Seach', async ({ page }) => {

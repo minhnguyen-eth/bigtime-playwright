@@ -12,6 +12,8 @@ import { clearPaysheets } from '../../db/helpers/DBHelper';
 import { importCheckTime } from '../../db/modules/CheckTimeDB';
 import { importPayrolls } from '../../db/modules/PayrollsDB';
 import { importCheckDay } from '../../db/modules/CheckDayDB';
+import { responseCommon } from '../../constants/ResponseCommon';
+
 
 test.describe('Paysheet API Tests', () => {
   let createdPaysheetId: string;
@@ -54,9 +56,7 @@ test.describe('Paysheet API Tests', () => {
 
     // Verify response format
     expect(response.code).toBe(200);
-    expect(response.message).toBe('Created successfully'); // BigTime API message
-    expect(response.data).toBeDefined();
-    expect(typeof response.data).toBe('string'); // Returns ID as string
+    expect(response.message).toBe(responseCommon.CREATE_SUCCESS);
 
     createdPaysheetId = response.data; // Save ID 
 

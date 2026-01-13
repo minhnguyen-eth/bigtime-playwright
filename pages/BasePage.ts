@@ -63,6 +63,15 @@ export class BasePage extends SafeActions {
     readonly FISRT_CHECKBOX: Locator;
     readonly SECOND_CHECKBOX: Locator;
 
+    // Toast 
+    readonly TOAST: Locator;
+
+    // Validation 
+    readonly VALIDATION_MESSAGE: Locator;
+
+    // Required message
+    readonly REQUIRED_MESSAGE: Locator;
+
     constructor(page: Page) {
         super(page);
 
@@ -129,6 +138,27 @@ export class BasePage extends SafeActions {
         this.CLEAR_SEARCH_BUTTON = page.locator("//span[normalize-space()='Xóa']").first();
         this.ADD_BUTTON = page.locator("//span[normalize-space()='Thêm']");
         this.SEARCH_BUTTON = page.locator("//span[contains(normalize-space(),'Tìm kiếm')]");
+
+        // Toast 
+        this.TOAST = page.getByTestId('toast-content');
+
+        // Validation 
+        this.VALIDATION_MESSAGE = page.locator('div.v-alert__content ul li');
+
+        // Required message
+        this.REQUIRED_MESSAGE = page.locator('.v-messages__message');
+    }
+
+    async verifyRequiredField(message: string) {
+        await this.safeVerifyTextContains(this.REQUIRED_MESSAGE, message);
+    }
+
+    async verifyValidationMessage(message: string) {
+        await this.safeVerifyToHaveText(this.VALIDATION_MESSAGE, message);
+    }
+
+    async verifyToastMessage(message: string) {
+        await this.safeVerifyToHaveText(this.TOAST, message);
     }
 
     async fillTaxCode(taxCode: string) {
@@ -286,7 +316,7 @@ export class BasePage extends SafeActions {
         await this.safeClick(this.DELETE_ROW0_BUTTON);
         await this.safeClick(this.YES_BUTTON);
     }
-    
+
 
     async clickEditRow0() {
         await this.safeClick(this.EDIT_ROW0_BUTTON);

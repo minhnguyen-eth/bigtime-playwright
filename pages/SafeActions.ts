@@ -125,11 +125,25 @@ export class SafeActions {
         await expect(locator).toHaveText(expectedText, { timeout });
     }
 
-    async safeVerifyTextContains(locator: Locator, expectedText: string, timeout: number = 20000) {
-        await locator.waitFor({ state: 'visible', timeout });
-        await expect(locator).toHaveText(new RegExp(expectedText.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')), { timeout });
-
+    async safeVerifyTextContains(
+        locator: Locator,
+        expectedText: string,
+        timeout: number = 20000
+    ) {
+        const escapedText = expectedText.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        await expect(locator).toContainText(new RegExp(escapedText), { timeout });
     }
+
+    async safeVerifyTextsContain(
+        locator: Locator,
+        expectedTexts: string[],
+        timeout: number = 20000
+    ) {
+        for (const text of expectedTexts) {
+            await this.safeVerifyTextContains(locator, text, timeout);
+        }
+    }
+
 
     async getFirstVisibleText(locator: Locator, label: string) {
         const first = locator.first();
