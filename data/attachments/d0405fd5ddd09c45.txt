@@ -1,1 +1,0 @@
-Cleared 1 rows in terms with condition: title NOT LIKE '%Điều khoản%'.

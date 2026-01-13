@@ -1,8 +1,0 @@
-Cleared 1 rows in paysheets with condition: name not like '%Test Data%'.
-[API POST] https://bigtime-pre.bigapptech.vn/api/auth/login {"username":"admin@gmail.com","password":"123456","remember":true}
-[API POST] https://bigtime-pre.bigapptech.vn/api/pay-sheet/create {"id":"","name":"Paysheet Custom Cancel","note":"Custom date range","type":0,"status":0,"rangeMonth":"2025-12","start_date":"2025-12-01","end_date":"2025-12-31","isChooseAllUser":false,"is_by_department":false,"department_ids":[],"users_id":["EVMI6Dgbh7"]}
-[API POST] https://bigtime-pre.bigapptech.vn/api/pay-sheet/cancel-salary {"id":"z4aztUTc1n","cancel_reason":""}
-Response: {
-  message: 'Cancel reason is required',
-  errors: { cancel_reason: [ 'Cancel reason is required' ] }
-}

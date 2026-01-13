@@ -1,2 +1,0 @@
-[API POST] https://bigtime-pre.bigapptech.vn/api/auth/login {"username":"admin@gmail.com","password":"123456","remember":true}
-[API POST] https://bigtime-pre.bigapptech.vn/api/pay-sheet/create {"id":"","name":"Automation test NPT not yet effective","note":"Custom date range","type":0,"status":0,"rangeMonth":"2025-12","start_date":"2025-12-01","end_date":"2025-12-31","isChooseAllUser":false,"is_by_department":false,"department_ids":[],"users_id":["leRkpFpfhf"]}
