@@ -1,0 +1,13 @@
+Cleared 1 rows in paysheets with condition: name not like '%Test Data%'.
+Importing file into [check_times] from: /home/runner/work/bigtime-playwright/bigtime-playwright/test-data/check_times.csv
+Imported data into check_times from /home/runner/work/bigtime-playwright/bigtime-playwright/test-data/check_times.csv
+Importing file into [check_days] from: /home/runner/work/bigtime-playwright/bigtime-playwright/test-data/check_days.csv
+Imported data into check_days from /home/runner/work/bigtime-playwright/bigtime-playwright/test-data/check_days.csv
+Importing file into [payrolls] from: /home/runner/work/bigtime-playwright/bigtime-playwright/test-data/payrolls.csv
+Imported data into payrolls from /home/runner/work/bigtime-playwright/bigtime-playwright/test-data/payrolls.csv
+[API POST] https://bigtime-pre.bigapptech.vn/api/auth/login {"username":"admin@gmail.com","password":"123456","remember":true}
+[API POST] https://bigtime-pre.bigapptech.vn/api/pay-sheet/create {"id":"","name":"Paysheet to Cancel","note":"Custom date range","type":0,"status":0,"rangeMonth":"2025-12","start_date":"2025-12-01","end_date":"2025-12-31","isChooseAllUser":false,"is_by_department":false,"department_ids":[],"users_id":["EVMI6Dgbh7"]}
+Created paysheet to cancel: gz5uzT8opg
+[API POST] https://bigtime-pre.bigapptech.vn/api/pay-sheet/cancel-salary {"id":"gz5uzT8opg","cancel_reason":"Test cancellation reason"}
+Paysheet cancelled successfully
+Cancel response: { code: 200, message: '', data: 'Updated successfully' }

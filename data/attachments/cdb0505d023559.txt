@@ -1,8 +1,0 @@
-Importing file into [check_times] from: /home/runner/work/bigtime-playwright/bigtime-playwright/test-data/check_times.csv
-Imported data into check_times from /home/runner/work/bigtime-playwright/bigtime-playwright/test-data/check_times.csv
-Importing file into [check_days] from: /home/runner/work/bigtime-playwright/bigtime-playwright/test-data/check_days.csv
-Imported data into check_days from /home/runner/work/bigtime-playwright/bigtime-playwright/test-data/check_days.csv
-Importing file into [payrolls] from: /home/runner/work/bigtime-playwright/bigtime-playwright/test-data/payrolls.csv
-Imported data into payrolls from /home/runner/work/bigtime-playwright/bigtime-playwright/test-data/payrolls.csv
-Cleared 9 rows in paysheets with condition: name not like '%Test Data%'.
-Cleared 0 rows in paysheets with condition: name not like '%Test Data%'.
