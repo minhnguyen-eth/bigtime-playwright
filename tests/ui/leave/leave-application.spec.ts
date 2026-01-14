@@ -7,9 +7,7 @@ import {
 } from '../../../db/helpers/DBHelper';
 import { addAnnualLeaveForEmployeeAndAdmin, sendAndApproveLeave } from './leave-helper';
 import { allure } from 'allure-playwright';
-import { ToastPage } from '../../../pages/ToastPage';
 import { LogoutPage } from '../../../pages/LogoutPage';
-import { ValidationPage } from '../../../pages/ValidationPage';
 import { importShiftPlan } from '../../../db/modules/ShiftplanDB';
 import { ToastMessages, ValidationMessages } from '../../../constants/MessagesCommon';
 

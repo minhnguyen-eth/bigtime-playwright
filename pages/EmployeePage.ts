@@ -1,10 +1,8 @@
 import { Locator, Page, expect } from '@playwright/test';
-import { ToastPage } from './ToastPage';
 import { BasePage } from './BasePage';
-import { ValidationMessages } from '../constants/MessagesCommon';
+import { ToastMessages, ValidationMessages } from '../constants/MessagesCommon';
 
 export class EmployeePage extends BasePage {
-  readonly toastPage: ToastPage;
   readonly USER_BUTTON: Locator;
   readonly EMPLOYEE_NAME: Locator;
   readonly EMPLOYEE_CODE: Locator;
@@ -96,7 +94,6 @@ export class EmployeePage extends BasePage {
 
   constructor(page: Page) {
     super(page);
-    this.toastPage = new ToastPage(page);
 
     // VERIFY
     this.VERIFY_RELATIONSHIP = page.getByText('Con trai', { exact: true })
@@ -216,12 +213,12 @@ export class EmployeePage extends BasePage {
   }
 
   async verifyRelationshipAtLastRow(relationship: string) {
-  const locator = this.page
-    .locator('table tbody tr')
-    .last()
-    .getByText(relationship, { exact: true });
+    const locator = this.page
+      .locator('table tbody tr')
+      .last()
+      .getByText(relationship, { exact: true });
 
-  await expect(locator).toBeVisible();
+    await expect(locator).toBeVisible();
   }
 
   async clickRelationshipDropdown() {
@@ -556,7 +553,7 @@ export class EmployeePage extends BasePage {
   async deleteAUser() {
     await this.clickRow0();
     await this.clickDelete();
-    await this.toastPage.getToastDeleteSuccess();
+    await this.verifyToastMessage(ToastMessages.TOAST_DELETE_SUCCESS);
   }
 
   async testSaveWithoutAnyInformation() {
@@ -570,7 +567,7 @@ export class EmployeePage extends BasePage {
     await this.clickEdit();
     await this.fillEmployeeName('Automation test edit');
     await this.clickSave();
-    await this.toastPage.getToastUpdateSuccess();
+    await this.verifyToastMessage(ToastMessages.TOAST_UPDATE_SUCCESS);
   }
 
   async testEditEmployeeCode() {
@@ -581,7 +578,7 @@ export class EmployeePage extends BasePage {
     await this.clickEdit();
     await this.fillEmployeeCode(userEditCode);
     await this.clickSave();
-    await this.toastPage.getToastUpdateSuccess();
+    await this.verifyToastMessage(ToastMessages.TOAST_UPDATE_SUCCESS);
   }
 
   async addWithDuplicateCodeAndEmail() {
@@ -596,7 +593,7 @@ export class EmployeePage extends BasePage {
     await this.clickDropdownEmployeeType();
     await this.clickStaff();
     await this.clickSave();
-    await this.toastPage.getToastAddFailed();
+    await this.verifyToastMessage(ToastMessages.TOAST_ADD_FAILED);
     await this.verifyEmailExisted();
     await this.verifyEmployeeCodeExisted();
   }
@@ -608,7 +605,7 @@ export class EmployeePage extends BasePage {
     await this.clickDropdownRoleName();
     await this.clickManagementDepartmentRole();
     await this.clickSave();
-    await this.toastPage.getToastAddSuccess();
+    await this.verifyToastMessage(ToastMessages.TOAST_ADD_SUCCESS);
   }
 
   async addWithWrongFormatEmail() {
@@ -616,7 +613,7 @@ export class EmployeePage extends BasePage {
     await this.fillEmail('Tét123456');
     await this.clickSave();
     await this.verifyValidateEmail();
-    await this.toastPage.getToastAddFailed();
+    await this.verifyToastMessage(ToastMessages.TOAST_ADD_FAILED);
   }
 
   async testMinlengthEmail() {
@@ -656,7 +653,7 @@ export class EmployeePage extends BasePage {
     await this.fillFillSalary('22000000');
     await this.fillFillInsurance('500000');
     await this.clickSave();
-    await this.toastPage.getToastAddSuccess();
+    await this.verifyToastMessage(ToastMessages.TOAST_ADD_SUCCESS);
   }
 
   async addWithoutSetSalary() {
@@ -668,7 +665,7 @@ export class EmployeePage extends BasePage {
     await this.testFillMoreInformation();
     await this.testSetSalary();
     await this.clickSave();
-    await this.toastPage.getToastAddSuccess();
+    await this.verifyToastMessage(ToastMessages.TOAST_ADD_SUCCESS);
   }
 
   async searchByEmployeeCode() {
@@ -771,7 +768,7 @@ export class EmployeePage extends BasePage {
     // await this.clickConfirm();
   }
 
-  async clickEdit1(){
+  async clickEdit1() {
     const edit = this.page.getByRole('button', { name: 'Sửa' });
     this.safeClick(edit);
   }

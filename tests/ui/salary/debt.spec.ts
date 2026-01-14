@@ -1,11 +1,9 @@
 import { test, } from '../base-test';
 import { LoginPage } from "../../../pages/LoginPage";
 import Config from "../../../utils/configUtils";
-import { ToastPage } from "../../../pages/ToastPage";
 import { DebtPage } from "../../../pages/salary_page/DebtPage";
 import { LogoutPage } from "../../../pages/LogoutPage";
 import { allure } from 'allure-playwright';
-import { ValidationPage } from '../../../pages/ValidationPage';
 import { clearDebts } from '../../../db/helpers/DBHelper';
 import { ToastMessages, ValidationMessages } from '../../../constants/MessagesCommon';
 
