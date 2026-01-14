@@ -1,12 +1,11 @@
 import { Page } from '@playwright/test';
 import { EvaluationCriteriaPage } from '../../../pages/evaluation_page/EvaluationCriteriaPage';
-import { ToastPage } from '../../../pages/ToastPage';
+import { ToastMessages } from '../../../constants/MessagesCommon';
 import { BasePage } from '../../../pages/BasePage';
 
 export async function createCriteria(
     basePage: BasePage,
     evaluationCriteriaPage: EvaluationCriteriaPage,
-    toastPage: ToastPage
 ) {
     const randomSuffix = Math.random().toString(36).substring(2, 8);
     const EvaluationCriteriaNameRandom = `Automation test ${randomSuffix}`;
@@ -19,5 +18,5 @@ export async function createCriteria(
     await evaluationCriteriaPage.clickEvaluationCriteriaNameDropDown();
     await evaluationCriteriaPage.clickEvaluationTypeOption();
     await basePage.clickSave();
-    await toastPage.getToastAddSuccess();
+    await evaluationCriteriaPage.verifyToastMessage(ToastMessages.TOAST_ADD_SUCCESS);
 }

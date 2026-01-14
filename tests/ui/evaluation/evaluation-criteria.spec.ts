@@ -4,22 +4,18 @@ import Config from "../../../utils/configUtils";
 import { EvaluationCriteriaPage } from "../../../pages/evaluation_page/EvaluationCriteriaPage";
 import { clearEvaluationCriterias } from '../../../db/helpers/DBHelper';
 import { allure } from "allure-playwright";
-import { ToastPage } from "../../../pages/ToastPage";
-import { ValidationPage } from '../../../pages/ValidationPage';
+import { ToastMessages, ValidationMessages } from '../../../constants/MessagesCommon';
 
 test.describe.serial("Evaluation Criteria Tests - Kiểm tra tiêu chí đánh giá", () => {
     let loginPage: LoginPage;
     let evaluationCriteriaPage: EvaluationCriteriaPage;
-    let toastPage: ToastPage;
-    let validationPage: ValidationPage;
 
     test.beforeEach(async ({ page }) => {
         allure.owner("Minh Nguyen");
         allure.feature("Evaluation Criteria Feature");
         allure.severity("Critical");
 
-        validationPage = new ValidationPage(page);
-        toastPage = new ToastPage(page);
+
         loginPage = new LoginPage(page);
         evaluationCriteriaPage = new EvaluationCriteriaPage(page);
         await loginPage.goto();
@@ -36,7 +32,7 @@ test.describe.serial("Evaluation Criteria Tests - Kiểm tra tiêu chí đánh g
         await evaluationCriteriaPage.clickEvaluationCriteriaNameDropDown();
         await evaluationCriteriaPage.clickEvaluationTypeOption();
         await evaluationCriteriaPage.clickSave();
-        await toastPage.getToastAddSuccess();
+        await evaluationCriteriaPage.verifyToastMessage(ToastMessages.TOAST_ADD_SUCCESS);
     });
 
     test("Max length of Evaluation Criteria Name over 255 characters - Kiểm tra tiêu chí đánh giá có độ dài lớn hơn 255 ký tự", async ({ page }) => {
@@ -48,7 +44,7 @@ test.describe.serial("Evaluation Criteria Tests - Kiểm tra tiêu chí đánh g
         await evaluationCriteriaPage.clickEvaluationCriteriaNameDropDown();
         await evaluationCriteriaPage.clickEvaluationTypeOption();
         await evaluationCriteriaPage.clickSave();
-        await validationPage.validateMaxLength255Characters();
+        await evaluationCriteriaPage.verifyRequiredField(ValidationMessages.MAX_LENGTH_255);
     });
 
     test("Max length of Evaluation Criteria Description is 500 characters - Kiểm tra tiêu chí đánh giá có độ dài tối đa là 500 ký tự", async ({ page }) => {
@@ -61,7 +57,7 @@ test.describe.serial("Evaluation Criteria Tests - Kiểm tra tiêu chí đánh g
         await evaluationCriteriaPage.clickEvaluationCriteriaNameDropDown();
         await evaluationCriteriaPage.clickEvaluationTypeOption();
         await evaluationCriteriaPage.clickSave();
-        await toastPage.getToastAddSuccess();
+        await evaluationCriteriaPage.verifyToastMessage(ToastMessages.TOAST_ADD_SUCCESS);
     });
 
     test("Max length of Evaluation Criteria Description over 500 characters - Kiểm tra tiêu chí đánh giá có độ dài lớn hơn 500 ký tự", async ({ page }) => {
@@ -74,7 +70,7 @@ test.describe.serial("Evaluation Criteria Tests - Kiểm tra tiêu chí đánh g
         await evaluationCriteriaPage.clickEvaluationCriteriaNameDropDown();
         await evaluationCriteriaPage.clickEvaluationTypeOption();
         await evaluationCriteriaPage.clickSave();
-        await validationPage.validateMaxLength500Characters();
+        await evaluationCriteriaPage.verifyRequiredField(ValidationMessages.MAX_LENGTH_500);
     });
 
 
@@ -103,7 +99,7 @@ test.describe.serial("Evaluation Criteria Tests - Kiểm tra tiêu chí đánh g
         await evaluationCriteriaPage.clickDropdownStatusInFormNth1();
         await evaluationCriteriaPage.clickLockStatus();
         await evaluationCriteriaPage.clickSave();
-        await toastPage.getToastAddSuccess();
+        await evaluationCriteriaPage.verifyToastMessage(ToastMessages.TOAST_ADD_SUCCESS);
         await evaluationCriteriaPage.verifyLockStatusRow0();
     });
 
@@ -119,7 +115,7 @@ test.describe.serial("Evaluation Criteria Tests - Kiểm tra tiêu chí đánh g
         await evaluationCriteriaPage.clickEvaluationCriteriaNameDropDown();
         await evaluationCriteriaPage.clickEvaluationTypeOption();
         await evaluationCriteriaPage.clickSave();
-        await toastPage.getToastAddSuccess();
+        await evaluationCriteriaPage.verifyToastMessage(ToastMessages.TOAST_ADD_SUCCESS);
     });
 
     test("Search Evaluation Criteria by status - Tìm kiếm tiêu chí đánh giá theo trạng thái", async ({ page }) => {
@@ -160,13 +156,13 @@ test.describe.serial("Evaluation Criteria Tests - Kiểm tra tiêu chí đánh g
         await evaluationCriteriaPage.editEvaluationCriteriaName(EvaluationCriteriaNameEdited);
         await evaluationCriteriaPage.fillDescription("Automation Test Description Edited");
         await evaluationCriteriaPage.clickSave();
-        await toastPage.getToastUpdateSuccess();
+        await evaluationCriteriaPage.verifyToastMessage(ToastMessages.TOAST_UPDATE_SUCCESS);
 
         await evaluationCriteriaPage.clickEditRow0();
         await evaluationCriteriaPage.clickDropdownStatusInFormNth1();
         await evaluationCriteriaPage.clickLockStatus();
         await evaluationCriteriaPage.clickSave();
-        await toastPage.getToastUpdateSuccess();
+        await evaluationCriteriaPage.verifyToastMessage(ToastMessages.TOAST_UPDATE_SUCCESS);
         await evaluationCriteriaPage.verifyLockStatusRow0();
 
         await evaluationCriteriaPage.clickEditRow0();
@@ -181,6 +177,6 @@ test.describe.serial("Evaluation Criteria Tests - Kiểm tra tiêu chí đánh g
         await evaluationCriteriaPage.clickAdmin();
         await evaluationCriteriaPage.clickEvaluationCriteria();
         await evaluationCriteriaPage.clickDeleteRow0();
-        await toastPage.getToastDeleteSuccess();
+        await evaluationCriteriaPage.verifyToastMessage(ToastMessages.TOAST_DELETE_SUCCESS);
     });
 });

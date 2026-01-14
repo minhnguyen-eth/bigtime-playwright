@@ -1,9 +1,9 @@
 import { Locator, Page, expect } from '@playwright/test';
 import { ToastPage } from './ToastPage';
 import { BasePage } from './BasePage';
-import { ValidationPage } from './ValidationPage';
+import { ValidationMessages } from '../constants/MessagesCommon';
 
-export class EmployeePage extends ValidationPage {
+export class EmployeePage extends BasePage {
   readonly toastPage: ToastPage;
   readonly USER_BUTTON: Locator;
   readonly EMPLOYEE_NAME: Locator;
@@ -623,7 +623,7 @@ export class EmployeePage extends ValidationPage {
     await this.testAddEmployee();
     await this.fillEmail('minh');
     await this.clickSave();
-    await this.validateMinlengthEmail();
+    await this.verifyRequiredField(ValidationMessages.MIN_LENGTH_EMAIL);
   }
 
   async testAddEmployee() {

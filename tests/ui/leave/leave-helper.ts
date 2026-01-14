@@ -3,13 +3,12 @@ import { LoginPage } from '../../../pages/LoginPage';
 import { LeaveManagementPage } from '../../../pages/leave_page/LeaveManagementPage';
 import { LeaveApplicationPage } from '../../../pages/leave_page/LeaveApplicationPage';
 import Config from '../../../utils/configUtils';
-import { ToastPage } from '../../../pages/ToastPage';
 import { LogoutPage } from '../../../pages/LogoutPage';
+import { ToastMessages } from '../../../constants/MessagesCommon';
 
 export async function addAnnualLeaveForEmployeeAndAdmin(page: Page) {
     const loginPage = new LoginPage(page);
     const leaveManagementPage = new LeaveManagementPage(page);
-    const toastPage = new ToastPage(page);
     const logoutPage = new LogoutPage(page);
 
     await loginPage.goto();
@@ -23,7 +22,7 @@ export async function addAnnualLeaveForEmployeeAndAdmin(page: Page) {
     await leaveManagementPage.clickSaveEmployee();
     await page.waitForTimeout(1000);
     await leaveManagementPage.clickSave();
-    await toastPage.getToastAddSuccess();
+    await leaveManagementPage.verifyToastMessage(ToastMessages.TOAST_ADD_SUCCESS);
     // await leaveManagementPage.verifyStatusNew('Mới');
     // await leaveManagementPage.clickIconActionRow0();
     // await leaveManagementPage.clickConfirm();
@@ -37,7 +36,7 @@ export async function addAnnualLeaveForEmployeeAndAdmin(page: Page) {
     await leaveManagementPage.clickLeaveManagementButton();
     await leaveManagementPage.clickIconActionRow0();
     await leaveManagementPage.clickBrowse();
-    await toastPage.getToastBrowseSuccess2;
+    await leaveManagementPage.verifyToastMessage(ToastMessages.TOAST_BROWSE_SUCCESS2);
     await leaveManagementPage.verifyStatusApproved('Đã duyệt');
 }
 
@@ -45,7 +44,6 @@ export async function sendAndApproveLeave(page: Page) {
     const loginPage = new LoginPage(page);
     const leaveApplicationPage = new LeaveApplicationPage(page);
     const leaveManagementPage = new LeaveManagementPage(page);
-    const toastPage = new ToastPage(page);
     const logoutPage = new LogoutPage(page);
 
     // Employee sends leave application
@@ -61,13 +59,12 @@ export async function sendAndApproveLeave(page: Page) {
     await leaveApplicationPage.clickLeaveApplicationButton();
     await leaveApplicationPage.clickRow0();
     await leaveManagementPage.clickBrowse();
-    await toastPage.getToastBrowseSuccess2();
+    await leaveApplicationPage.verifyToastMessage(ToastMessages.TOAST_BROWSE_SUCCESS2);
 }
 
 export async function employeeBrowseLeaveManagement(page: Page) {
     const loginPage = new LoginPage(page);
     const leaveManagementPage = new LeaveManagementPage(page);
-    const toastPage = new ToastPage(page);
     const logoutPage = new LogoutPage(page);
 
     await logoutPage.logout();
@@ -77,6 +74,6 @@ export async function employeeBrowseLeaveManagement(page: Page) {
     await leaveManagementPage.clickLeaveManagementButton();
     await leaveManagementPage.clickIconActionRow0();
     await leaveManagementPage.clickBrowse();
-    await toastPage.getToastBrowseSuccess2;
+    await leaveManagementPage.verifyToastMessage(ToastMessages.TOAST_BROWSE_SUCCESS2);
     await leaveManagementPage.verifyStatusApproved('Đã duyệt');
 }

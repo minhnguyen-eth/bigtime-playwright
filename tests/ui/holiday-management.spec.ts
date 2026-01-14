@@ -1,27 +1,22 @@
 import { test, } from './base-test';
 import { LoginPage } from '../../pages/LoginPage';
 import Config from '../../utils/configUtils';
-import { ToastPage } from '../../pages/ToastPage';
 import { HolidayManagementPage } from '../../pages/HolidayManagementPage';
 import { clearCheckDay, clearCheckTime, clearHolidayManagement } from '../../db/helpers/DBHelper';
 import { allure } from 'allure-playwright';
-import { ValidationPage } from '../../pages/ValidationPage';
 import { clearPayroll } from '../../db/modules/PayrollsDB';
+import { ToastMessages, ValidationMessages } from '../../constants/MessagesCommon';
 
 test.describe.serial('Holiday Management', () => {
     let loginPage: LoginPage;
     let holidayManagementPage: HolidayManagementPage;
-    let toastPage: ToastPage;
-    let validation: ValidationPage;
 
     test.beforeEach(async ({ page }) => {
         allure.feature('Holiday Management Feature');
         allure.owner('Minh Nguyen');
         allure.severity('Critical');
 
-        validation = new ValidationPage(page);
         loginPage = new LoginPage(page);
-        toastPage = new ToastPage(page);
         holidayManagementPage = new HolidayManagementPage(page);
 
         await loginPage.goto();
@@ -45,7 +40,7 @@ test.describe.serial('Holiday Management', () => {
         await holidayManagementPage.fillReason("z".repeat(255));
         await holidayManagementPage.checkTotalHolidayResult();
         await holidayManagementPage.clickSave();
-        await toastPage.getToastAddSuccess();
+        await holidayManagementPage.verifyToastMessage(ToastMessages.TOAST_UPDATE_SUCCESS);
     });
 
     test("Max length name holiday management over 255 characters", async ({ page }) => {
@@ -58,7 +53,7 @@ test.describe.serial('Holiday Management', () => {
         await holidayManagementPage.checkTotalHolidayResult();
         await holidayManagementPage.fillReason("Test reason");
         await holidayManagementPage.clickSave();
-        await validation.validateMaxLength255Characters();
+        await holidayManagementPage.verifyRequiredField(ValidationMessages.MAX_LENGTH_255);
     });
 
     test("Max length reason holiday management over 255 characters", async ({ page }) => {
@@ -71,7 +66,7 @@ test.describe.serial('Holiday Management', () => {
         await holidayManagementPage.checkTotalHolidayResult();
         await holidayManagementPage.fillReason("z".repeat(256));
         await holidayManagementPage.clickSave();
-        await validation.validateMaxLength255Characters();
+        await holidayManagementPage.verifyRequiredField(ValidationMessages.MAX_LENGTH_255);
     });
 
     test('E2E - Add Holiday Management', async ({ page }) => {
@@ -87,7 +82,7 @@ test.describe.serial('Holiday Management', () => {
         await holidayManagementPage.fillReason('Test Reason');
         await holidayManagementPage.checkTotalHolidayResult();
         await holidayManagementPage.clickSave();
-        await toastPage.getToastAddSuccess();
+        await holidayManagementPage.verifyToastMessage(ToastMessages.TOAST_UPDATE_SUCCESS);
         await holidayManagementPage.clickTimeKeeping();
         await holidayManagementPage.clickCheckInOutHistory();
         await holidayManagementPage.fillAndSelectUser('BAT300 - Test quản lý nghỉ lễ');
@@ -100,7 +95,7 @@ test.describe.serial('Holiday Management', () => {
         await holidayManagementPage.expectNameRequired();
         await holidayManagementPage.expectStartDateRequired();
         await holidayManagementPage.expectEndDateRequired();
-        await validation.validateRequiredFillReason();
+        await holidayManagementPage.verifyRequiredField(ValidationMessages.REQUIRED_FILL_REASON);
     });
 
     test('Add with blank reason', async ({ page }) => {
@@ -111,7 +106,7 @@ test.describe.serial('Holiday Management', () => {
         await holidayManagementPage.clickEndDate();
         await holidayManagementPage.clickTodayDatePicker();
         await holidayManagementPage.clickSave();
-        await validation.validateRequiredFillReason();
+        await holidayManagementPage.verifyRequiredField(ValidationMessages.REQUIRED_FILL_REASON);
     });
 
     test('Add with blank name', async ({ page }) => {
@@ -136,8 +131,8 @@ test.describe.serial('Holiday Management', () => {
         await holidayManagementPage.fillReason("Test reason");
         await holidayManagementPage.checkTotalHolidayResult();
         await holidayManagementPage.clickSave();
-        await toastPage.getToastAddSuccess();
+        await holidayManagementPage.verifyToastMessage(ToastMessages.TOAST_UPDATE_SUCCESS);
         await holidayManagementPage.clickDeleteRow0();
-        await toastPage.getToastDeleteSuccess();
+        await holidayManagementPage.verifyToastMessage(ToastMessages.TOAST_DELETE_SUCCESS);
     });
 });

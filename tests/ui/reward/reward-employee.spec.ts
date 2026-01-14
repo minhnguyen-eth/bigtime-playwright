@@ -1,18 +1,15 @@
 import { test, } from '../base-test';
 import { LoginPage } from '../../../pages/LoginPage';
-import { ToastPage } from '../../../pages/ToastPage';
 import Config from '../../../utils/configUtils';
 import { allure } from 'allure-playwright';
 import { RewardEmployeePage } from '../../../pages/reward_page/RewardEmployeePage';
 import { LogoutPage } from '../../../pages/LogoutPage';
-import { ValidationPage } from '../../../pages/ValidationPage';
 import { clearRewardUsers, importRewardUser } from '../../../db/helpers/DBHelper';
+import { ToastMessages, ValidationMessages } from '../../../constants/MessagesCommon';
 
 test.describe.serial('Reward Employee Tests', () => {
     let loginPage: LoginPage;
     let rewardEmployeePage: RewardEmployeePage;
-    let toastPage: ToastPage;
-    let validation: ValidationPage;
     let logoutPage: LogoutPage;
 
     test.beforeEach(async ({ page }) => {
@@ -20,11 +17,9 @@ test.describe.serial('Reward Employee Tests', () => {
         allure.owner('Minh Nguyen');
         allure.severity('Critical');
 
-        validation = new ValidationPage(page);
         logoutPage = new LogoutPage(page);
         loginPage = new LoginPage(page);
         rewardEmployeePage = new RewardEmployeePage(page);
-        toastPage = new ToastPage(page);
         await loginPage.goto();
     });
 
@@ -47,7 +42,7 @@ test.describe.serial('Reward Employee Tests', () => {
         await rewardEmployeePage.fillDescription('Description');
         await rewardEmployeePage.fillNote('Note');
         await rewardEmployeePage.clickSave();
-        await toastPage.getToastAddSuccess();
+        await rewardEmployeePage.verifyToastMessage(ToastMessages.TOAST_ADD_SUCCESS);
     });
 
     test("Max length of reward name over 255 characters", async ({ page }) => {
@@ -61,7 +56,7 @@ test.describe.serial('Reward Employee Tests', () => {
         await rewardEmployeePage.fillDescription('Description');
         await rewardEmployeePage.fillNote('Note');
         await rewardEmployeePage.clickSave();
-        await validation.validateMaxLength255Characters();
+        await rewardEmployeePage.verifyRequiredField(ValidationMessages.MAX_LENGTH_255);
     });
 
     test("Max length of description is 500 characters", async ({ page }) => {
@@ -75,7 +70,7 @@ test.describe.serial('Reward Employee Tests', () => {
         await rewardEmployeePage.fillDescription('a'.repeat(500));
         await rewardEmployeePage.fillNote('Note');
         await rewardEmployeePage.clickSave();
-        await toastPage.getToastAddSuccess();
+        await rewardEmployeePage.verifyToastMessage(ToastMessages.TOAST_ADD_SUCCESS);
     });
 
     test("Max length of description over 500 characters", async ({ page }) => {
@@ -89,7 +84,7 @@ test.describe.serial('Reward Employee Tests', () => {
         await rewardEmployeePage.fillDescription('z'.repeat(501));
         await rewardEmployeePage.fillNote('Note');
         await rewardEmployeePage.clickSave();
-        await validation.validateMaxLength500Characters();
+        await rewardEmployeePage.verifyRequiredField(ValidationMessages.MAX_LENGTH_500);
     });
 
     test("Max length of note is 500 characters", async ({ page }) => {
@@ -103,7 +98,7 @@ test.describe.serial('Reward Employee Tests', () => {
         await rewardEmployeePage.fillDescription('Description');
         await rewardEmployeePage.fillNote('a'.repeat(500));
         await rewardEmployeePage.clickSave();
-        await toastPage.getToastAddSuccess();
+        await rewardEmployeePage.verifyToastMessage(ToastMessages.TOAST_ADD_SUCCESS);
     });
 
     test("Max length of note over 500 characters", async ({ page }) => {
@@ -117,7 +112,7 @@ test.describe.serial('Reward Employee Tests', () => {
         await rewardEmployeePage.fillDescription('Description');
         await rewardEmployeePage.fillNote('z'.repeat(501));
         await rewardEmployeePage.clickSave();
-        await validation.validateMaxLength500Characters();
+        await rewardEmployeePage.verifyRequiredField(ValidationMessages.MAX_LENGTH_500);
     });
 
     test.skip('E2E reward employee - manager send reward to admin approve', async ({ page }) => {
@@ -130,7 +125,7 @@ test.describe.serial('Reward Employee Tests', () => {
         await rewardEmployeePage.clickAdd();
         await rewardEmployeePage.createReward();
         await rewardEmployeePage.clickSave();
-        await toastPage.getToastAddSuccess();
+        await rewardEmployeePage.verifyToastMessage(ToastMessages.TOAST_ADD_SUCCESS);
 
         // Send reward to admin
         await rewardEmployeePage.clickRow0();
@@ -142,7 +137,7 @@ test.describe.serial('Reward Employee Tests', () => {
         await rewardEmployeePage.clickRewardEmployee();
         await rewardEmployeePage.clickRow0();
         await rewardEmployeePage.clickBrowse();
-        await toastPage.getToastBrowseSuccess();
+        await rewardEmployeePage.verifyToastMessage(ToastMessages.TOAST_BROWSE_SUCCESS);
         await rewardEmployeePage.verifyBrowsedStatus();
     });
 
@@ -153,7 +148,7 @@ test.describe.serial('Reward Employee Tests', () => {
         await rewardEmployeePage.clickAdd();
         await rewardEmployeePage.createReward();
         await rewardEmployeePage.clickSave();
-        await toastPage.getToastAddSuccess();
+        await rewardEmployeePage.verifyToastMessage(ToastMessages.TOAST_ADD_SUCCESS);
 
         // Send reward to admin
         await rewardEmployeePage.clickRow0();
@@ -166,14 +161,14 @@ test.describe.serial('Reward Employee Tests', () => {
         await rewardEmployeePage.clickRow0();
         await rewardEmployeePage.clickReject();
         await rewardEmployeePage.fillReasonAndClickYes('Reason reject');
-        await toastPage.getToastRejectSuccess();
+        await rewardEmployeePage.verifyToastMessage(ToastMessages.TOAST_REJECT_SUCCESS);
     });
 
     test('Create reward with valid information', async ({ page }) => {
         await beforeTest();
         await rewardEmployeePage.createReward();
         await rewardEmployeePage.clickSave();
-        await toastPage.getToastAddSuccess();
+        await rewardEmployeePage.verifyToastMessage(ToastMessages.TOAST_ADD_SUCCESS);
     });
 
     test.skip('Manager create reward with approved status', async ({ page }) => {
@@ -192,7 +187,7 @@ test.describe.serial('Reward Employee Tests', () => {
         await rewardEmployeePage.clickDropdownStatusInForm();
         await rewardEmployeePage.clickSelectWaitingForApproved();
         await rewardEmployeePage.clickSave();
-        await toastPage.getToastAddSuccess();
+        await rewardEmployeePage.verifyToastMessage(ToastMessages.TOAST_ADD_SUCCESS);
     });
 
     test('Admin create reward with approved status', async ({ page }) => {
@@ -208,7 +203,7 @@ test.describe.serial('Reward Employee Tests', () => {
         await rewardEmployeePage.clickDropdownStatusInFormNth1();
         await rewardEmployeePage.clickApprovedStatus();
         await rewardEmployeePage.clickSave();
-        await toastPage.getToastAddSuccess();
+        await rewardEmployeePage.verifyToastMessage(ToastMessages.TOAST_ADD_SUCCESS);
     });
 
     test('Cancel reward', async ({ page }) => {
@@ -218,7 +213,7 @@ test.describe.serial('Reward Employee Tests', () => {
         await rewardEmployeePage.clickRow0();
         await rewardEmployeePage.clickCancel();
         await rewardEmployeePage.fillReasonAndClickYes('Reason cancel');
-        await toastPage.getToastCancelledSuccess();
+        await rewardEmployeePage.verifyToastMessage(ToastMessages.TOAST_CANCEL_SUCCESS);
     });
 
     test('Create reward with empty description and note ', async ({ page }) => {
@@ -230,7 +225,7 @@ test.describe.serial('Reward Employee Tests', () => {
         await rewardEmployeePage.clickSelectRewardType();
         await rewardEmployeePage.fillMoney('1000000');
         await rewardEmployeePage.clickSave();
-        await toastPage.getToastAddSuccess();
+        await rewardEmployeePage.verifyToastMessage(ToastMessages.TOAST_ADD_SUCCESS);
     });
 
     test('Create reward with chosse day reward', async ({ page }) => {
@@ -247,7 +242,7 @@ test.describe.serial('Reward Employee Tests', () => {
         await rewardEmployeePage.clickDay19();
         await rewardEmployeePage.clickChoose();
         await rewardEmployeePage.clickSave();
-        await toastPage.getToastAddSuccess();
+        await rewardEmployeePage.verifyToastMessage(ToastMessages.TOAST_ADD_SUCCESS);
 
     });
 

@@ -1,17 +1,14 @@
 import { test, } from '../base-test';
-import { ToastPage } from '../../../pages/ToastPage';
 import { LoginPage } from '../../../pages/LoginPage';
 import Config from '../../../utils/configUtils';
 import { TermPage } from '../../../pages/contract_page/TermPage';
 import { allure } from "allure-playwright";
-import { ValidationPage } from '../../../pages/ValidationPage';
 import { clearTerm } from '../../../db/helpers/DBHelper';
+import { ToastMessages, ValidationMessages } from '../../../constants/MessagesCommon';
 
 test.describe.serial('Term Tests', () => {
     let termPage: TermPage;
-    let toastPage: ToastPage;
     let loginPage: LoginPage;
-    let validation: ValidationPage;
 
     test.beforeEach(async ({ page }) => {
         allure.owner("Minh Nguyen");
@@ -19,9 +16,7 @@ test.describe.serial('Term Tests', () => {
         allure.severity("Critical");
 
         loginPage = new LoginPage(page);
-        toastPage = new ToastPage(page);
         termPage = new TermPage(page);
-        validation = new ValidationPage(page);
 
         await loginPage.goto();
         await loginPage.login(Config.admin_username, Config.admin_password);
@@ -49,7 +44,7 @@ test.describe.serial('Term Tests', () => {
         await termPage.fillName('Automatic created term 1');
         await termPage.fillContent('Automatic created term');
         await termPage.clickSave();
-        await toastPage.getToastAddSuccess();
+        await termPage.verifyToastMessage(ToastMessages.TOAST_ADD_SUCCESS);
     });
 
     test('Create term with duplicate name - Tạo điều khoản với tên trùng', async ({ page }) => {
@@ -58,7 +53,7 @@ test.describe.serial('Term Tests', () => {
         await termPage.fillContent('Automatic created term');
         await termPage.clickSave();
         await termPage.validateNameDuplicateError();
-        await toastPage.getToastAddFailed();
+        await termPage.verifyToastMessage(ToastMessages.TOAST_ADD_FAILED);
     });
 
     test('Create term with lock status - Tạo điều khoản với trạng thái khóa', async ({ page }) => {
@@ -68,7 +63,7 @@ test.describe.serial('Term Tests', () => {
         await termPage.clickDropdownStatusInFormNth1();
         await termPage.clickLockStatus();
         await termPage.clickSave();
-        await toastPage.getToastAddSuccess();
+        await termPage.verifyToastMessage(ToastMessages.TOAST_ADD_SUCCESS);
     });
 
     test('Max length name 255 character - Tên tối đa 255 ký tự', async ({ page }) => {
@@ -76,7 +71,7 @@ test.describe.serial('Term Tests', () => {
         await termPage.fillName('a'.repeat(255));
         await termPage.fillContent('Automatic created term');
         await termPage.clickSave();
-        await toastPage.getToastAddSuccess();
+        await termPage.verifyToastMessage(ToastMessages.TOAST_ADD_SUCCESS);
     });
 
     test('Max length name over 255 character - Tên tối đa 255 ký tự', async ({ page }) => {
@@ -92,7 +87,7 @@ test.describe.serial('Term Tests', () => {
         await termPage.fillName('Automatic created term max length note');
         await termPage.fillContent('a'.repeat(255));
         await termPage.clickSave();
-        await toastPage.getToastAddSuccess();
+        await termPage.verifyToastMessage(ToastMessages.TOAST_ADD_SUCCESS);
     });
 
     test('Max length note over 255 character - Ghi chú tối đa 255 ký tự', async ({ page }) => {
@@ -100,7 +95,7 @@ test.describe.serial('Term Tests', () => {
         await termPage.fillName('Automatic created term max length note');
         await termPage.fillContent('a'.repeat(256));
         await termPage.clickSave();
-        await validation.validateMaxLength255Characters();
+        await termPage.verifyRequiredField(ValidationMessages.MAX_LENGTH_255);
     });
 
     test('Edit status - Chỉnh sửa trạng thái', async ({ page }) => {
@@ -108,7 +103,7 @@ test.describe.serial('Term Tests', () => {
         await termPage.clickDropdownStatusInFormNth1();
         await termPage.clickLockStatus();
         await termPage.clickSave();
-        await toastPage.getToastUpdateSuccess();
+        await termPage.verifyToastMessage(ToastMessages.TOAST_UPDATE_SUCCESS);
     });
 
     test('Edit name with empty name - Chỉnh sửa tên với tên rỗng', async ({ page }) => {
@@ -129,14 +124,14 @@ test.describe.serial('Term Tests', () => {
         await termPage.clickEditRow0();
         await termPage.fillName('Automatic edit name');
         await termPage.clickSave();
-        await toastPage.getToastUpdateSuccess();
+        await termPage.verifyToastMessage(ToastMessages.TOAST_UPDATE_SUCCESS);
     });
 
     test('Edit content with valid data - Chỉnh sửa nội dung với dữ liệu hợp lệ', async ({ page }) => {
         await termPage.clickEditRow0();
         await termPage.fillContent('Automatic edit content');
         await termPage.clickSave();
-        await toastPage.getToastUpdateSuccess();
+        await termPage.verifyToastMessage(ToastMessages.TOAST_UPDATE_SUCCESS);
     });
 
     test('Search by status - Tìm kiếm theo trạng thái', async ({ page }) => {
@@ -156,6 +151,6 @@ test.describe.serial('Term Tests', () => {
 
     test('Delete term - Xóa điều khoản', async ({ page }) => {
         await termPage.clickDeleteRow0();
-        await toastPage.getToastDeleteSuccess();
+        await termPage.verifyToastMessage(ToastMessages.TOAST_DELETE_SUCCESS);
     });
 });

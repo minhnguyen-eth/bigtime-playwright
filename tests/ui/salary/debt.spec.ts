@@ -7,23 +7,21 @@ import { LogoutPage } from "../../../pages/LogoutPage";
 import { allure } from 'allure-playwright';
 import { ValidationPage } from '../../../pages/ValidationPage';
 import { clearDebts } from '../../../db/helpers/DBHelper';
+import { ToastMessages, ValidationMessages } from '../../../constants/MessagesCommon';
 
 test.describe.serial("Debt Tests", () => {
   let loginPage: LoginPage;
   let debtPage: DebtPage;
-  let toastPage: ToastPage;
   let logoutPage: LogoutPage;
-  let validationPage: ValidationPage;
+
 
   test.beforeEach(async ({ page }) => {
     allure.feature('Debt Feature');
     allure.owner('Minh Nguyen');
     allure.severity('Critical');
 
-    validationPage = new ValidationPage(page);
     loginPage = new LoginPage(page);
     debtPage = new DebtPage(page);
-    toastPage = new ToastPage(page);
     logoutPage = new LogoutPage(page);
 
     await loginPage.goto();
@@ -37,7 +35,7 @@ test.describe.serial("Debt Tests", () => {
     await debtPage.fillAmount("1000000");
     await debtPage.fillNote("add debt test for cancel");
     await debtPage.clickSave();
-    await toastPage.getToastAddSuccess();
+    await debtPage.verifyToastMessage(ToastMessages.TOAST_ADD_SUCCESS);
   }
 
   test("Max length of note 255 characters", async ({ page }) => {
@@ -49,7 +47,7 @@ test.describe.serial("Debt Tests", () => {
     await debtPage.fillAmount("10000000");
     await debtPage.fillNote("a".repeat(255));
     await debtPage.clickSave();
-    await toastPage.getToastAddSuccess();
+    await debtPage.verifyToastMessage(ToastMessages.TOAST_ADD_SUCCESS);
   });
 
   test("Max length of note over 255 characters", async ({ page }) => {
@@ -60,7 +58,7 @@ test.describe.serial("Debt Tests", () => {
     await debtPage.fillAmount("10000000");
     await debtPage.fillNote("a".repeat(256));
     await debtPage.clickSave();
-    await validationPage.validateMaxLength255Characters();
+    await debtPage.verifyRequiredField(ValidationMessages.MAX_LENGTH_255);
   });
 
   test("Add debt with empty value ", async ({ page }) => {
@@ -89,7 +87,7 @@ test.describe.serial("Debt Tests", () => {
       await debtPage.fillNote("value already exists test");
       await debtPage.clickSave();
     });
-    await toastPage.getToastAddSuccess();
+    await debtPage.verifyToastMessage(ToastMessages.TOAST_ADD_SUCCESS);
   });
 
   test("Edit money ", async ({ page }) => {
@@ -103,7 +101,7 @@ test.describe.serial("Debt Tests", () => {
       await debtPage.fillAmount("20000000");
       await debtPage.clickSave();
     });
-    await toastPage.getToastUpdateSuccess();
+    await debtPage.verifyToastMessage(ToastMessages.TOAST_UPDATE_SUCCESS);
   });
 
   test("Edit note", async ({ page }) => {
@@ -117,7 +115,7 @@ test.describe.serial("Debt Tests", () => {
       await debtPage.fillNote("edit valid value");
       await debtPage.clickSave();
     });
-    await toastPage.getToastUpdateSuccess();
+    await debtPage.verifyToastMessage(ToastMessages.TOAST_UPDATE_SUCCESS);
   });
 
   test("Send debt and browse", async ({ page }) => {
@@ -126,7 +124,7 @@ test.describe.serial("Debt Tests", () => {
       await addDebt();
       await debtPage.clickIconAction();
       await debtPage.clickSendAndClickYes();
-      await toastPage.getToastSendSuccess();
+      await debtPage.verifyToastMessage(ToastMessages.TOAST_SEND_SUCCESS);
 
       await logoutPage.logout();
       await loginPage.login(Config.admin_username, Config.admin_password);
@@ -135,7 +133,7 @@ test.describe.serial("Debt Tests", () => {
       await debtPage.clickIconAction();
       await debtPage.clickBrowse();
     });
-    await toastPage.getToastBrowseSuccess();
+    await debtPage.verifyToastMessage(ToastMessages.TOAST_BROWSE_SUCCESS);
   });
 
   test("Send debt and refused in employee account", async ({ page }) => {
@@ -144,7 +142,7 @@ test.describe.serial("Debt Tests", () => {
       await addDebt();
       await debtPage.clickIconAction();
       await debtPage.clickSendAndClickYes();
-      await toastPage.getToastSendSuccess();
+      await debtPage.verifyToastMessage(ToastMessages.TOAST_SEND_SUCCESS);
 
       await logoutPage.logout();
       await loginPage.login(Config.admin_username, Config.admin_password);
@@ -154,7 +152,7 @@ test.describe.serial("Debt Tests", () => {
       await debtPage.clickReject();
       await debtPage.fillReasonAndClickYes("refused debt test");
     });
-    await toastPage.getToastRejectSuccess();
+    await debtPage.verifyToastMessage(ToastMessages.TOAST_REJECT_SUCCESS);
   });
 
   test("Send debt and cancel", async ({ page }) => {
@@ -163,12 +161,12 @@ test.describe.serial("Debt Tests", () => {
       await addDebt();
       await debtPage.clickIconAction();
       await debtPage.clickSendAndClickYes();
-      await toastPage.getToastSendSuccess();
+      await debtPage.verifyToastMessage(ToastMessages.TOAST_SEND_SUCCESS);
       await debtPage.clickIconAction();
       await debtPage.clickCancel();
       await debtPage.fillReasonAndClickYes("cancel debt test");
     });
-    await toastPage.getToastCancelSuccess();
+    await debtPage.verifyToastMessage(ToastMessages.TOAST_CANCEL_SUCCESS);
   });
 
   test("Cancel debt with new status", async ({ page }) => {
@@ -180,7 +178,7 @@ test.describe.serial("Debt Tests", () => {
       await debtPage.clickCancel();
       await debtPage.fillReasonAndClickYes("cancel debt test");
     });
-    await toastPage.getToastCancelSuccess();
+    await debtPage.verifyToastMessage(ToastMessages.TOAST_CANCEL_SUCCESS);
   });
 
   test("Cancel debt with empty reason", async ({ page }) => {
@@ -192,7 +190,7 @@ test.describe.serial("Debt Tests", () => {
       await debtPage.clickCancel();
       await debtPage.fillReasonAndClickYes("");
     });
-    await validationPage.validateRequiredFillReason();
+    await debtPage.verifyRequiredField(ValidationMessages.REQUIRED_FILL_REASON);
   });
 });
 

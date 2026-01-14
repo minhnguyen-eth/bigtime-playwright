@@ -1,15 +1,16 @@
 import { LoginPage } from '../../../pages/LoginPage';
 import { PaysheetPage } from '../../../pages/salary_page/PaysheetPage';
-import { ToastPage } from '../../../pages/ToastPage';
 import { LogoutPage } from '../../../pages/LogoutPage';
 import Config from '../../../utils/configUtils';
+import { ToastMessages } from '../../../constants/MessagesCommon';
 
 export class PaysheetHelper {
   constructor(
+    
     private paysheet: PaysheetPage,
     private loginPage: LoginPage,
     private logoutPage: LogoutPage,
-    private toastPage: ToastPage
+
   ) { }
 
   // Admin -> Employee -> Manager -> Admin
@@ -39,7 +40,7 @@ export class PaysheetHelper {
     await this.paysheet.clickPayslipPayment();
     await this.paysheet.clickPayment();
     await this.paysheet.clickPaymentConfirm();
-    await this.toastPage.getToastPaymentSuccess();
+    await this.paysheet.verifyToastMessage(ToastMessages.TOAST_PAYMENT_SUCCESS);
   }
 
   // Admin -> Employee -> Admin
@@ -65,7 +66,7 @@ export class PaysheetHelper {
     await this.paysheet.clickPayslipPayment();
     await this.paysheet.clickPayment();
     await this.paysheet.clickPaymentConfirm();
-    await this.toastPage.getToastPaymentSuccess();
+    await this.paysheet.verifyToastMessage(ToastMessages.TOAST_PAYMENT_SUCCESS);
   }
 
   // Admin -> Employee
@@ -94,7 +95,7 @@ export class PaysheetHelper {
     await this.paysheet.clickFirstCheckbox();
     await this.paysheet.clickPayment();
     await this.paysheet.clickPaymentConfirm();
-    await this.toastPage.getToastPaymentSuccess();
+    await this.paysheet.verifyToastMessage(ToastMessages.TOAST_PAYMENT_SUCCESS);
   }
 
   // Tạo bảng lương mới
@@ -109,7 +110,7 @@ export class PaysheetHelper {
     await this.paysheet.clickSearchButtonTablist();
     await this.paysheet.clickSelectEmployee();
     await this.paysheet.clickSave();
-    await this.toastPage.getToastAddSuccess();
+    await this.paysheet.verifyToastMessage(ToastMessages.TOAST_ADD_SUCCESS);
   }
 
   // Hành động lặp lại: xem phiếu lương
@@ -118,6 +119,6 @@ export class PaysheetHelper {
     await this.paysheet.clickPayslip();
     await this.paysheet.clickSalarySlipCode();
     await this.paysheet.clickBrowse();
-    await this.toastPage.getToastBrowseSuccess();
+    await this.paysheet.verifyToastMessage(ToastMessages.TOAST_BROWSE_SUCCESS);
   }
 }

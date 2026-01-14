@@ -4,16 +4,14 @@ import Config from '../../../utils/configUtils';
 import { LeaveManagementPage } from '../../../pages/leave_page/LeaveManagementPage';
 import { employeeBrowseLeaveManagement } from './leave-helper';
 import { allure } from 'allure-playwright';
-import { ToastPage } from '../../../pages/ToastPage';
 import { LogoutPage } from '../../../pages/LogoutPage';
 import { clearLeaveManagements, importLeaveManagements } from '../../../db/helpers/DBHelper';
+import { ToastMessages } from '../../../constants/MessagesCommon';
 
 test.describe.serial('Leave Management Tests', () => {
     let loginPage: LoginPage;
     let leaveManagementPage: LeaveManagementPage;
-    let toastPage: ToastPage;
     let logoutPage: LogoutPage;
-
 
     test.beforeEach(async ({ page }) => {
 
@@ -22,7 +20,6 @@ test.describe.serial('Leave Management Tests', () => {
         allure.severity('Critical');
 
         logoutPage = new LogoutPage(page);
-        toastPage = new ToastPage(page);
         loginPage = new LoginPage(page);
         leaveManagementPage = new LeaveManagementPage(page);
         await loginPage.goto();
@@ -50,7 +47,7 @@ test.describe.serial('Leave Management Tests', () => {
             await leaveManagementPage.clickSaveEmployee();
             await page.waitForTimeout(1000); // Wait for 3 seconds
             await leaveManagementPage.clickSave();
-            await toastPage.getToastAddSuccess();
+            await leaveManagementPage.verifyToastMessage(ToastMessages.TOAST_ADD_SUCCESS);
             // await leaveManagementPage.verifyStatusNew('Mới');
             // await leaveManagementPage.clickIconActionRow0();
             // await leaveManagementPage.clickConfirm();
@@ -98,7 +95,7 @@ test.describe.serial('Leave Management Tests', () => {
             await leaveManagementPage.clickSelectAnEmployee();
             await leaveManagementPage.clickSaveEmployee();
             await leaveManagementPage.clickSave();
-            await toastPage.getToastAddSuccess();
+            await leaveManagementPage.verifyToastMessage(ToastMessages.TOAST_ADD_SUCCESS);
             await leaveManagementPage.verifyStatusWaitingForApproval('Chờ duyệt');
         });
 
@@ -120,7 +117,7 @@ test.describe.serial('Leave Management Tests', () => {
             await leaveManagementPage.clickDepartmentOption();
             await leaveManagementPage.clickSaveDepartmentAndTeam();
             await leaveManagementPage.clickSave();
-            await toastPage.getToastAddSuccess();
+            await leaveManagementPage.verifyToastMessage(ToastMessages.TOAST_ADD_SUCCESS);
             // await leaveManagementPage.verifyStatusNew('Mới');
         });
 

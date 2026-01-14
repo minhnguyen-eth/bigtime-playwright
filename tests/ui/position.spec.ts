@@ -4,7 +4,7 @@ import { LoginPage } from '../../pages/LoginPage';
 import { Config } from '../../utils/configUtils';
 import { clearPosition } from '../../db/helpers/DBHelper';
 import { allure } from 'allure-playwright';
-import { RequiredMessages, ToastMessages, ValidationMessages } from '../../constants/MessagesCommon';
+import { ToastMessages, ValidationMessages } from '../../constants/MessagesCommon';
 
 test.describe.serial('Position Tests', () => {
 
@@ -33,7 +33,7 @@ test.describe.serial('Position Tests', () => {
         await positionPage.inputName("z".repeat(255));
         await positionPage.fillNote("A".repeat(255));
         await positionPage.clickSave()
-        await positionPage.verifyToastMessage(ToastMessages.ADD_SUCCESS);
+        await positionPage.verifyToastMessage(ToastMessages.TOAST_ADD_SUCCESS);
     });
 
     test("Max length of over 255 charactor of name ", async ({ page }) => {
@@ -41,7 +41,7 @@ test.describe.serial('Position Tests', () => {
         await positionPage.inputName("z".repeat(256));
         await positionPage.fillNote("a");
         await positionPage.clickSave()
-        await positionPage.verifyRequiredField(RequiredMessages.MAX_LENGTH_255);
+        await positionPage.verifyRequiredField(ValidationMessages.MAX_LENGTH_255);
     });
 
     test("Max length of over 255 charactor of note ", async ({ page }) => {
@@ -49,7 +49,7 @@ test.describe.serial('Position Tests', () => {
         await positionPage.inputName("zzzzza");
         await positionPage.fillNote("a".repeat(256));
         await positionPage.clickSave()
-        await positionPage.verifyRequiredField(RequiredMessages.MAX_LENGTH_255);
+        await positionPage.verifyRequiredField(ValidationMessages.MAX_LENGTH_255);
     });
 
     test('Create with empty name', async ({ page }) => {
@@ -67,7 +67,7 @@ test.describe.serial('Position Tests', () => {
         await positionPage.clickDropdownStatusInFormNth1()
         await positionPage.clickLockStatus()
         await positionPage.clickSave()
-        await positionPage.verifyToastMessage(ToastMessages.ADD_SUCCESS);
+        await positionPage.verifyToastMessage(ToastMessages.TOAST_ADD_SUCCESS);
         await positionPage.verifyLockStatusRow0();
     });
 
@@ -76,7 +76,7 @@ test.describe.serial('Position Tests', () => {
         await positionPage.inputName("Automation test position")
         await positionPage.fillNote("Automation test note")
         await positionPage.clickSave()
-        await positionPage.verifyToastMessage(ToastMessages.ADD_SUCCESS);
+        await positionPage.verifyToastMessage(ToastMessages.TOAST_ADD_SUCCESS);
     });
 
     test('Edit position active to lock status', async ({ page }) => {
@@ -84,7 +84,7 @@ test.describe.serial('Position Tests', () => {
         await positionPage.clickDropdownStatusInFormNth1()
         await positionPage.clickLockStatus()
         await positionPage.clickSave()
-        await positionPage.verifyToastMessage(ToastMessages.UPDATE_SUCCESS);
+        await positionPage.verifyToastMessage(ToastMessages.TOAST_UPDATE_SUCCESS);
         await positionPage.verifyLockStatusRow0();
     })
 
@@ -93,7 +93,7 @@ test.describe.serial('Position Tests', () => {
         await positionPage.clickDropdownStatusInFormNth1()
         await positionPage.clickActivityStatus()
         await positionPage.clickSave()
-        await positionPage.verifyToastMessage(ToastMessages.UPDATE_SUCCESS);
+        await positionPage.verifyToastMessage(ToastMessages.TOAST_UPDATE_SUCCESS);
         await positionPage.verifyActivityStatusRow0();
     })
 
@@ -101,7 +101,7 @@ test.describe.serial('Position Tests', () => {
         await positionPage.clickAdd();
         await positionPage.inputName("Automation test position 2")
         await positionPage.clickSave()
-        await positionPage.verifyToastMessage(ToastMessages.ADD_SUCCESS);
+        await positionPage.verifyToastMessage(ToastMessages.TOAST_ADD_SUCCESS);
     });
 
     test('Create position with existed name', async ({ page }) => {
@@ -110,7 +110,7 @@ test.describe.serial('Position Tests', () => {
         await positionPage.fillNote("Automation test note")
         await positionPage.clickSave()
         await positionPage.verifyValidationMessage(ValidationMessages.NAME_ALREADY_EXISTS);
-        await positionPage.verifyToastMessage(ToastMessages.ADD_FAILED);
+        await positionPage.verifyToastMessage(ToastMessages.TOAST_ADD_FAILED);
     });
 
     test('Edit position name and note successfully', async ({ page }) => {
@@ -118,7 +118,7 @@ test.describe.serial('Position Tests', () => {
         await positionPage.inputName("Automation test edit position")
         await positionPage.fillNote("Automation test edit note")
         await positionPage.clickSave()
-        await positionPage.verifyToastMessage(ToastMessages.UPDATE_SUCCESS);
+        await positionPage.verifyToastMessage(ToastMessages.TOAST_UPDATE_SUCCESS);
     });
 
     test('Search by name', async ({ page }) => {
@@ -151,6 +151,6 @@ test.describe.serial('Position Tests', () => {
 
     test('Delete position successfully', async ({ page }) => {
         await positionPage.clickDeleteRow0()
-        await positionPage.verifyToastMessage(ToastMessages.DELETE_SUCCESS);
+        await positionPage.verifyToastMessage(ToastMessages.TOAST_DELETE_SUCCESS);
     });
 });

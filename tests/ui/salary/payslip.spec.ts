@@ -3,15 +3,14 @@ import { LoginPage } from '../../../pages/LoginPage';
 import Config from '../../../utils/configUtils';
 import { PayslipPage } from '../../../pages/salary_page/PayslipPage';
 import { allure } from 'allure-playwright';
-import { ToastPage } from '../../../pages/ToastPage';
 import { LogoutPage } from '../../../pages/LogoutPage';
 import { BasePage } from '../../../pages/BasePage';
 import { clearPaysheets, clearPayslips } from '../../../db/helpers/DBHelper';
+import { ToastMessages } from '../../../constants/MessagesCommon';
 
 test.describe.serial('Payslip Tests', () => {
     let loginPage: LoginPage;
     let payslipPage: PayslipPage;
-    let toastPage: ToastPage;
     let logoutPage: LogoutPage;
 
     test.beforeEach(async ({ page }) => {
@@ -19,7 +18,6 @@ test.describe.serial('Payslip Tests', () => {
         allure.owner('Minh Nguyen');
         allure.severity('Critical');
 
-        toastPage = new ToastPage(page);
         loginPage = new LoginPage(page);
         payslipPage = new PayslipPage(page);
         logoutPage = new LogoutPage(page);
@@ -31,14 +29,14 @@ test.describe.serial('Payslip Tests', () => {
         await clearPaysheets();
         await clearPayslips();
         await payslipPage.exportSingleEmployeePayslip();
-        await toastPage.getToastExportSuccess();
+        await payslipPage.verifyToastMessage(ToastMessages.TOAST_EXPORT_SUCCESS);
     });
 
     test('Export by month', async ({ page }) => {
         await clearPaysheets();
         await clearPayslips();
         await payslipPage.exportPaysheetByMonth();
-        await toastPage.getToastExportSuccess();
+        await payslipPage.verifyToastMessage(ToastMessages.TOAST_EXPORT_SUCCESS);
     });
 
     test('Cancel payslip', async ({ page }) => {

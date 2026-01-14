@@ -1,5 +1,4 @@
 import { Locator, Page } from '@playwright/test';
-import { ToastPage } from './ToastPage';
 import { BasePage } from './BasePage';
 
 export class PasswordPage extends BasePage {
@@ -14,6 +13,7 @@ export class PasswordPage extends BasePage {
     readonly VALIDATE_OLD_PASSWORD_EMPTY: Locator;
     readonly VALIDATE_OLD_PASSWORD_6_CHARACTERS: Locator;
     readonly VALIDATE_NEW_PASSWORD_EMPTY: Locator;
+    readonly TOAST_CHANGE_PASSWORD_SUCCESS: Locator;
 
     constructor(page: Page) {
         super(page);
@@ -28,8 +28,13 @@ export class PasswordPage extends BasePage {
         this.VALIDATE_OLD_PASSWORD_EMPTY = page.locator('div').filter({ hasText: /^Nhập mật khẩu cũ$/ }).first();
         this.VALIDATE_OLD_PASSWORD_6_CHARACTERS = page.locator('div').filter({ hasText: /^Không nhập dưới 6 kí tự\.$/ }).first();
         this.VALIDATE_NEW_PASSWORD_EMPTY = page.locator('div').filter({ hasText: /^Nhập mật khẩu mới$/ }).first();
+        this.TOAST_CHANGE_PASSWORD_SUCCESS = page.locator('div').filter({ hasText: /^Thay đổi mật khẩu thành công! Vui lòng đăng nhập lại$/ }).first();
     }
 
+    async getToastChangePasswordSuccess() {
+        await this.safeVerifyToHaveText(this.TOAST_CHANGE_PASSWORD_SUCCESS, 'Thay đổi mật khẩu thành công! Vui lòng đăng nhập lại');
+        await this.safeClick(this.page.getByRole('button', { name: 'Đồng ý' }));
+    }
 
     async clickAvataButton() {
         await this.safeClick(this.AVATA_BUTTON);
@@ -71,7 +76,7 @@ export class PasswordPage extends BasePage {
         await this.safeVerifyToHaveText(this.VALIDATE_OLD_PASSWORD_FAILED, 'Nhập sai mật khẩu cũ');
     }
 
-    async validaeConfirmPasswordFailed() {
+    async validateConfirmPasswordFailed() {
         await this.safeVerifyToHaveText(this.VALIDATE_CONFIRM_PASSWORD_FAILED, 'Giá trị không khớp với Mật khẩu.');
     }
 

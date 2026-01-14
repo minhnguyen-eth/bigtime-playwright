@@ -3,23 +3,20 @@ import { LoginPage } from '../../../pages/LoginPage';
 import Config from '../../../utils/configUtils';
 import { PaysheetPage } from '../../../pages/salary_page/PaysheetPage';
 import { allure } from 'allure-playwright';
-import { ToastPage } from '../../../pages/ToastPage';
 import { LogoutPage } from '../../../pages/LogoutPage';
-import { ValidationPage } from '../../../pages/ValidationPage';
 import { PaysheetHelper } from './paysheet-helper';
 import { clearPaysheets } from '../../../db/modules/PaysheetDB';
 import { importCheckTime } from '../../../db/modules/CheckTimeDB';
 import { importCheckDay } from '../../../db/modules/CheckDayDB';
 import { importPayrolls } from '../../../db/modules/PayrollsDB';
+import { ToastMessages, ValidationMessages } from '../../../constants/MessagesCommon';
 
 test.describe.serial('Paysheet Tests', () => {
     let loginPage: LoginPage;
     let paysheet: PaysheetPage;
-    let toastPage: ToastPage;
     let logoutPage: LogoutPage;
-    let validation: ValidationPage;
     let paysheetHelper: PaysheetHelper;
-    
+
 
     test.beforeEach(async ({ page }) => {
         allure.feature('Paysheet Feature');
@@ -30,12 +27,10 @@ test.describe.serial('Paysheet Tests', () => {
         await importCheckDay();
         await importPayrolls();
 
-        validation = new ValidationPage(page);
-        toastPage = new ToastPage(page);
         loginPage = new LoginPage(page);
         paysheet = new PaysheetPage(page);
         logoutPage = new LogoutPage(page);
-        paysheetHelper = new PaysheetHelper(paysheet, loginPage, logoutPage, toastPage);
+        paysheetHelper = new PaysheetHelper(paysheet, loginPage, logoutPage);
         await loginPage.goto();
     });
 
@@ -74,7 +69,7 @@ test.describe.serial('Paysheet Tests', () => {
         });
 
         await allure.step('Verify employee existed - Verify nhân viên đã tồn tại trong bảng lương', async () => {
-            await toastPage.getToastEmployeeExisted();
+            await paysheet.verifyToastMessage(ToastMessages.TOAST_EMPLOYEE_EXISTED);
         });
     });
 
@@ -89,7 +84,7 @@ test.describe.serial('Paysheet Tests', () => {
             await paysheet.fillEmployeeNameInput('Big app tech')
             await paysheet.clickSelectMoreEmployee();
             await paysheet.clickSave();
-            await toastPage.getToastAddSuccess();
+            await paysheet.verifyToastMessage(ToastMessages.TOAST_ADD_SUCCESS);
             await paysheet.clickSendAll();
             await paysheet.clickConfirmPaysheet();
             await logoutPage.logout();
@@ -123,7 +118,7 @@ test.describe.serial('Paysheet Tests', () => {
         await paysheet.clickViewPayroll();
         await paysheet.clickSalaryClosing();
         await paysheet.clickConfirmPaysheet();
-        await toastPage.getToastValidateCloseSalary();
+        await paysheet.verifyToastMessage(ToastMessages.TOAST_VALIDATE_CLOSE_SALARY);
     });
 
     test('Search Paysheet - Tìm kiếm bảng lương theo ID', async ({ page }) => {
@@ -144,7 +139,7 @@ test.describe.serial('Paysheet Tests', () => {
         await allure.step('Search paysheet by ID', async () => {
             await paysheet.fillSearchPaysheet('BL0000000000');
             await paysheet.clickSearch();
-            await validation.validateNoExistData();
+            await paysheet.verifyNoDataExistInSearch();
         });
     });
 
@@ -172,7 +167,7 @@ test.describe.serial('Paysheet Tests', () => {
             await paysheet.clickSelectAllEmployees();
             await paysheet.setNote('Automation test');
             await paysheet.clickSave();
-            await toastPage.getToastAddSuccess();
+            await paysheet.verifyToastMessage(ToastMessages.TOAST_ADD_SUCCESS);
         });
     });
 
@@ -188,7 +183,7 @@ test.describe.serial('Paysheet Tests', () => {
             await paysheet.clickLatestPaysheetRow();
             await paysheet.clickCancel();
             await paysheet.fillReason('Automation test cancel paysheet');
-            await toastPage.getToastCancelSuccess();
+            await paysheet.verifyToastMessage(ToastMessages.TOAST_CANCEL_SUCCESS);
         });
     });
 
@@ -203,7 +198,7 @@ test.describe.serial('Paysheet Tests', () => {
         await allure.step('Export excel by month', async () => {
             await paysheet.clickExportExcelByMonth();
             await paysheet.clickYes();
-            await toastPage.getToastExportSuccess();
+            await paysheet.verifyToastMessage(ToastMessages.TOAST_EXPORT_SUCCESS);
         });
     });
 
@@ -218,7 +213,7 @@ test.describe.serial('Paysheet Tests', () => {
         await allure.step('Click export button of the lastest paysheet ', async () => {
             await paysheet.clickLatestPaysheetRow();
             await paysheet.clickExportOnly1Paysheet();
-            await toastPage.getToastExportSuccess();
+            await paysheet.verifyToastMessage(ToastMessages.TOAST_EXPORT_SUCCESS);
         });
     });
 
@@ -233,7 +228,7 @@ test.describe.serial('Paysheet Tests', () => {
             await paysheet.clickMonth05(); // 05-2025
             await paysheet.clickChoose();
             await paysheet.clickYes();
-            await toastPage.getToastExportSuccess();
+            await paysheet.verifyToastMessage(ToastMessages.TOAST_EXPORT_SUCCESS);
         });
     });
 
@@ -273,7 +268,7 @@ test.describe.serial('Paysheet Tests', () => {
             await paysheet.fillDeductionMoney('150000');
             await paysheet.clickSave();
             await paysheet.clickTemporarySave();
-            await toastPage.getToastSaveSuccess();
+            await paysheet.verifyToastMessage(ToastMessages.TOAST_SAVE_SUCCESS);
 
             // Verify update data
             await paysheet.clickPaysheet();
@@ -296,7 +291,7 @@ test.describe.serial('Paysheet Tests', () => {
             await paysheet.clickAdd();
             await paysheet.setNamePaysheet('a'.repeat(246));
             await paysheet.clickSave();
-            await validation.validateMaxLength245Characters();
+            await paysheet.verifyRequiredField(ValidationMessages.MAX_LENGTH_245);
         });
     });
 
@@ -309,7 +304,7 @@ test.describe.serial('Paysheet Tests', () => {
             await paysheet.setNamePaysheet('Automation test');
             await paysheet.setNote('a'.repeat(256));
             await paysheet.clickSave();
-            await validation.validateMaxLength255Characters();
+            await paysheet.verifyRequiredField(ValidationMessages.MAX_LENGTH_255);
         });
     });
 
@@ -329,7 +324,7 @@ test.describe.serial('Paysheet Tests', () => {
             await paysheet.clickSelectEmployee();
             await paysheet.setNote('a'.repeat(255));
             await paysheet.clickSave();
-            await toastPage.getToastAddSuccess();
+            await paysheet.verifyToastMessage(ToastMessages.TOAST_ADD_SUCCESS);
         });
     });
 
@@ -348,7 +343,7 @@ test.describe.serial('Paysheet Tests', () => {
             await paysheet.clickSelectEmployee();
             await paysheet.setNote('Automation test');
             await paysheet.clickSave();
-            await toastPage.getToastAddSuccess();
+            await paysheet.verifyToastMessage(ToastMessages.TOAST_ADD_SUCCESS);
         });
     });
 
@@ -370,7 +365,7 @@ test.describe.serial('Paysheet Tests', () => {
             await paysheet.clickSearchButtonTablist();
             await paysheet.clickSelectEmployee();
             await paysheet.clickSave();
-            await toastPage.getToastAddSuccess();
+            await paysheet.verifyToastMessage(ToastMessages.TOAST_ADD_SUCCESS);
 
             await paysheet.clickLatestPaysheetRow();
             await paysheet.clickViewPayroll();
@@ -392,7 +387,7 @@ test.describe.serial('Paysheet Tests', () => {
             await paysheet.clickSeparateButton();
             await paysheet.verifyPopupSeparate('Bạn có chắc chắn muốn tách bảng lương thành 2 phần: đã duyệt và chưa duyệt không?');
             await paysheet.clickYes();
-            await toastPage.getToastSeparatePaysheetSuccess();
+            await paysheet.verifyToastMessage(ToastMessages.TOAST_SEPARATE_PAYSHEET_SUCCESS);
 
             // Payment 
             await paysheet.fillSearchPaysheet('T01');
@@ -406,7 +401,7 @@ test.describe.serial('Paysheet Tests', () => {
             await paysheet.clickFirstCheckbox();
             await paysheet.clickPayment();
             await paysheet.clickPaymentConfirm();
-            await toastPage.getToastPaymentSuccess();
+            await paysheet.verifyToastMessage(ToastMessages.TOAST_PAYMENT_SUCCESS);
         });
     });
 });

@@ -2,28 +2,23 @@ import { test, expect } from '../base-test';
 import { allure } from "allure-playwright";
 import Config from '../../../utils/configUtils';
 import { checkContractExists, clearEmploymentContract, importEmploymentContract } from '../../../db/helpers/DBHelper';
-import { ValidationPage } from '../../../pages/ValidationPage';
-import { ToastPage } from '../../../pages/ToastPage';
 import { LoginPage } from '../../../pages/LoginPage';
 import { BasePage } from '../../../pages/BasePage';
 import { ContractPage } from '../../../pages/contract_page/ContractPage';
 import { createContractWithProbation } from './contractHelper';
+import { ToastMessages, ValidationMessages } from '../../../constants/MessagesCommon';
 
 test.describe.serial('Contract Tests', () => {
     let contractPage: ContractPage;
-    let toastPage: ToastPage;
     let loginPage: LoginPage;
     let basePage: BasePage;
-    let validationPage: ValidationPage;
 
     test.beforeEach(async ({ page }) => {
         allure.owner("Minh Nguyen");
         allure.feature("Contract Feature");
         allure.severity("Critical");
 
-        validationPage = new ValidationPage(page);
         loginPage = new LoginPage(page);
-        toastPage = new ToastPage(page);
         contractPage = new ContractPage(page);
         basePage = new BasePage(page);
 
@@ -43,7 +38,7 @@ test.describe.serial('Contract Tests', () => {
         await contractPage.clickUncheckEditor();
         await contractPage.checkSelectAllTerm();
         await basePage.clickSave();
-        await toastPage.getToastAddSuccess();
+        await contractPage.verifyToastMessage(ToastMessages.TOAST_ADD_SUCCESS);
     });
 
     test('Max lenghth of note over 255 characters - Kiểm tra nhập ghi chú quá 255 ký tự', async ({ page }) => {
@@ -56,7 +51,7 @@ test.describe.serial('Contract Tests', () => {
         await contractPage.clickUncheckEditor();
         await contractPage.checkSelectAllTerm();
         await basePage.clickSave();
-        await validationPage.validateMaxLength255Characters();
+        await contractPage.verifyRequiredField(ValidationMessages.MAX_LENGTH_255);
     });
 
     test('Create contract with no select term and blank note - Tạo hợp đồng không chọn điều khoản và ghi chú rỗng', async ({ page }) => {
@@ -66,17 +61,17 @@ test.describe.serial('Contract Tests', () => {
         await contractPage.fillSalary("10000000");
         await contractPage.selectEndDate();
         await contractPage.clickSave();
-        await toastPage.getToastAddSuccess();
+        await contractPage.verifyToastMessage(ToastMessages.TOAST_ADD_SUCCESS);
     });
 
     test('Edit contract type - Probation to Permanent - Chỉnh sửa hợp đồng từ thử việc sang chính thức', async ({ page }) => {
-        await createContractWithProbation(basePage, contractPage, toastPage);
+        await createContractWithProbation(basePage, contractPage);
         await contractPage.clickRow0();
         await contractPage.clickEdit();
         await contractPage.clickContractTypeDropdown();
         await contractPage.clickFormalContract();
         await basePage.clickSave();
-        await toastPage.getToastUpdateSuccess();
+        await contractPage.verifyToastMessage(ToastMessages.TOAST_UPDATE_SUCCESS);
         await contractPage.verifyPermanentType();
 
     });
@@ -86,7 +81,7 @@ test.describe.serial('Contract Tests', () => {
         await contractPage.clickEdit();
         await contractPage.fillSalary("20000000");
         await basePage.clickSave();
-        await toastPage.getToastUpdateSuccess();
+        await contractPage.verifyToastMessage(ToastMessages.TOAST_UPDATE_SUCCESS);
     });
 
     test('Edit note - Chỉnh sửa ghi chú ', async ({ page }) => {
@@ -94,15 +89,15 @@ test.describe.serial('Contract Tests', () => {
         await basePage.clickEdit();
         await contractPage.fillNote('Automation test edit');
         await basePage.clickSave();
-        await toastPage.getToastUpdateSuccess();
+        await contractPage.verifyToastMessage(ToastMessages.TOAST_UPDATE_SUCCESS);
     });
 
     test('E2E - Create contract with probation and confirm contract - Tạo hợp đồng thử việc và xác nhận hợp đồng', async ({ page }) => {
         await clearEmploymentContract();
-        await createContractWithProbation(basePage, contractPage, toastPage);
+        await createContractWithProbation(basePage, contractPage);
         await contractPage.clickRow0();
         await contractPage.clickConfirm();
-        await toastPage.getToastConfirmSuccess();
+        await contractPage.verifyToastMessage(ToastMessages.TOAST_CONFIRM_SUCCESS);
 
         // Check in DB, type 0 is probation, status 1 is confirmed
         const existsInDB = await checkContractExists('Automation test contract', 0, 1);
@@ -119,14 +114,14 @@ test.describe.serial('Contract Tests', () => {
         await contractPage.clickUncheckEditor();
         // await contractPage.checkSelectAllTerm();
         await basePage.clickSave();
-        await toastPage.getToastAddSuccess();
+        await contractPage.verifyToastMessage(ToastMessages.TOAST_ADD_SUCCESS);
 
         const exitsInDB = await checkContractExists('Automation test formal', 1, 0);
         expect(exitsInDB).toBeTruthy();
 
         await contractPage.clickRow0();
         await contractPage.clickConfirm();
-        await toastPage.getToastConfirmSuccess();
+        await contractPage.verifyToastMessage(ToastMessages.TOAST_CONFIRM_SUCCESS);
 
         // Check in DB, type 1 is probation, status 1 is confirmed
         const existsInDB = await checkContractExists('Automation test formal', 1, 1);
@@ -143,8 +138,8 @@ test.describe.serial('Contract Tests', () => {
         await contractPage.clickUncheckEditor();
         await contractPage.checkSelectAllTerm();
         await basePage.clickSave();
-        await toastPage.getToastAddFailed();
-        await validationPage.validateContractAlreadyApproved();
+        await contractPage.verifyToastMessage(ToastMessages.TOAST_ADD_FAILED);
+        await contractPage.verifyValidationMessage(ValidationMessages.CONTRACT_ALREADY_APPROVED);
 
     });
 
@@ -159,14 +154,14 @@ test.describe.serial('Contract Tests', () => {
         await contractPage.clickUncheckEditor();
         await contractPage.checkSelectAllTerm();
         await basePage.clickSave();
-        await toastPage.getToastAddSuccess();
+        await contractPage.verifyToastMessage(ToastMessages.TOAST_ADD_SUCCESS);
 
         const exitsInDB = await checkContractExists('Automation test seasonal', 2, 0);
         expect(exitsInDB).toBeTruthy();
 
         await contractPage.clickRow0();
         await contractPage.clickConfirm();
-        await toastPage.getToastConfirmSuccess();
+        await contractPage.verifyToastMessage(ToastMessages.TOAST_CONFIRM_SUCCESS);
 
         // Check in DB, type 0 is probation, status 1 is confirmed
         const existsInDB = await checkContractExists('Automation test seasonal', 2, 1);
@@ -184,21 +179,21 @@ test.describe.serial('Contract Tests', () => {
         await contractPage.clickUncheckEditor();
         await contractPage.checkSelectAllTerm();
         await basePage.clickSave();
-        await toastPage.getToastAddSuccess();
+        await contractPage.verifyToastMessage(ToastMessages.TOAST_ADD_SUCCESS);
 
         const exitsInDB = await checkContractExists('Automation test seasonal', 2, 0);
         expect(exitsInDB).toBeTruthy();
 
         await contractPage.clickRow0();
         await contractPage.clickConfirm();
-        await toastPage.getToastConfirmSuccess();
+        await contractPage.verifyToastMessage(ToastMessages.TOAST_CONFIRM_SUCCESS);
 
         // Check in DB, type 0 is probation, status 1 is confirmed
         const existsInDB = await checkContractExists('Automation test seasonal', 2, 1);
         expect(existsInDB).toBeTruthy();
 
         await contractPage.handleTerminateContract();
-        await toastPage.getToastTerminateContractSuccess();
+        await contractPage.verifyToastMessage(ToastMessages.TOAST_TERMINATE_CONTRACT_SUCCESS);
         await contractPage.verifyTerminatedStatusSearchResult();
     });
 
@@ -213,32 +208,32 @@ test.describe.serial('Contract Tests', () => {
         await contractPage.clickUncheckEditor();
         await contractPage.checkSelectAllTerm();
         await basePage.clickSave();
-        await toastPage.getToastAddSuccess();
+        await contractPage.verifyToastMessage(ToastMessages.TOAST_ADD_SUCCESS);
 
         const exitsInDB = await checkContractExists('Automation test seasonal', 2, 0);
         expect(exitsInDB).toBeTruthy();
 
         await contractPage.clickRow0();
         await contractPage.clickConfirm();
-        await toastPage.getToastConfirmSuccess();
+        await contractPage.verifyToastMessage(ToastMessages.TOAST_CONFIRM_SUCCESS);
 
         // Check in DB, type 0 is probation, status 1 is confirmed
         const existsInDB = await checkContractExists('Automation test seasonal', 2, 1);
         expect(existsInDB).toBeTruthy();
 
         await contractPage.handleExtensionContract();
-        await toastPage.getToastExtensionContractSuccess();
+        await contractPage.verifyToastMessage(ToastMessages.TOAST_EXTENSION_CONTRACT_SUCCESS);
 
     });
 
     test('Edit end date - Chỉnh sửa ngày kết thúc', async ({ page }) => {
         await clearEmploymentContract();
-        await createContractWithProbation(basePage, contractPage, toastPage);
+        await createContractWithProbation(basePage, contractPage);
         await basePage.clickRow0();
         await basePage.clickEdit();
         await contractPage.selectEndDate2();
         await basePage.clickSave();
-        await toastPage.getToastUpdateSuccess();
+        await contractPage.verifyToastMessage(ToastMessages.TOAST_UPDATE_SUCCESS);
     });
 
     test('Create with collaborator contract - Tạo hợp đồng cộng tác viên', async ({ page }) => {
@@ -251,7 +246,7 @@ test.describe.serial('Contract Tests', () => {
         await contractPage.clickUncheckEditor();
         await contractPage.checkSelectAllTerm();
         await basePage.clickSave();
-        await toastPage.getToastAddSuccess();
+        await contractPage.verifyToastMessage(ToastMessages.TOAST_ADD_SUCCESS);
 
         const exitsInDB = await checkContractExists('Automation test collaborator', 3, 0);
         expect(exitsInDB).toBeTruthy();
@@ -338,7 +333,7 @@ test.describe.serial('Contract Tests', () => {
         // search by code not exist
         await contractPage.fillSearchByCode('Testttt258963');
         await basePage.clickSearch();
-        await validationPage.validateNoExistData();
+        await contractPage.verifyNoDataExistInSearch();
     });
 
     test('Search by name - Tìm kiếm theo tên nhân viên', async ({ page }) => {
@@ -349,14 +344,14 @@ test.describe.serial('Contract Tests', () => {
         // search by name not exist
         await contractPage.fillSearchByName('No da exist');
         await basePage.clickSearch();
-        await validationPage.validateNoExistData();
+        await contractPage.verifyNoDataExistInSearch();
     });
 
     test('Delete contract - Xóa hợp đồng', async ({ page }) => {
-        await createContractWithProbation(basePage, contractPage, toastPage);
+        await createContractWithProbation(basePage, contractPage);
         await contractPage.clickRow0();
         await contractPage.clickDelete();
-        await toastPage.getToastDeleteSuccess();
+        await contractPage.verifyToastMessage(ToastMessages.TOAST_DELETE_SUCCESS);
         await clearEmploymentContract();
     });
 });

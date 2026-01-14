@@ -2,24 +2,20 @@ import { test, } from '../base-test';
 import { LoginPage } from '../../../pages/LoginPage';
 import { RewardTypePage } from '../../../pages/reward_page/RewardTypePage';
 import Config from '../../../utils/configUtils';
-import { ToastPage } from '../../../pages/ToastPage';
 import { allure } from 'allure-playwright';
-import { ValidationPage } from '../../../pages/ValidationPage';
 import { clearRewardType } from '../../../db/helpers/DBHelper';
+import { ToastMessages, ValidationMessages } from '../../../constants/MessagesCommon';
 
 test.describe.serial('Reward Type Tests', () => {
     let loginPage: LoginPage;
     let rewardTypePage: RewardTypePage;
-    let toastPage: ToastPage;
-    let validation: ValidationPage;
+
 
     test.beforeEach(async ({ page }) => {
         allure.feature('Reward Type Feature');
         allure.owner('Minh Nguyen');
         allure.severity('Critical');
 
-        validation = new ValidationPage(page);
-        toastPage = new ToastPage(page);
         loginPage = new LoginPage(page);
         rewardTypePage = new RewardTypePage(page);
 
@@ -37,7 +33,7 @@ test.describe.serial('Reward Type Tests', () => {
             await rewardTypePage.fillRewardTypeNameInput('z'.repeat(255));
             await rewardTypePage.clickSave();
         });
-        await toastPage.getToastAddSuccess();
+        await rewardTypePage.verifyToastMessage(ToastMessages.TOAST_ADD_SUCCESS);
     });
 
     test("Max length of reward type name is 256 characters", async ({ page }) => {
@@ -47,7 +43,7 @@ test.describe.serial('Reward Type Tests', () => {
             await rewardTypePage.fillRewardTypeNameInput('z'.repeat(256));
             await rewardTypePage.clickSave();
         });
-        await validation.validateMaxLength255Characters();
+        await rewardTypePage.verifyRequiredField(ValidationMessages.MAX_LENGTH_255);
     });
 
     test("Max length of reward type description is 500 characters", async ({ page }) => {
@@ -58,7 +54,7 @@ test.describe.serial('Reward Type Tests', () => {
             await rewardTypePage.fillDescription('z'.repeat(500));
             await rewardTypePage.clickSave();
         });
-        await toastPage.getToastAddSuccess();
+        await rewardTypePage.verifyToastMessage(ToastMessages.TOAST_ADD_SUCCESS);
     });
 
     test("Max length of reward type description is 501 characters", async ({ page }) => {
@@ -69,7 +65,7 @@ test.describe.serial('Reward Type Tests', () => {
             await rewardTypePage.fillDescription('z'.repeat(501));
             await rewardTypePage.clickSave();
         });
-        await validation.validateMaxLength500Characters();
+        await rewardTypePage.verifyRequiredField(ValidationMessages.MAX_LENGTH_500);
     });
 
 
@@ -99,7 +95,7 @@ test.describe.serial('Reward Type Tests', () => {
             await rewardTypePage.fillDescription('Test Description');
             await rewardTypePage.clickSave();
         });
-        await toastPage.getToastAddSuccess();
+        await rewardTypePage.verifyToastMessage(ToastMessages.TOAST_ADD_SUCCESS);
     });
 
     test('Add reward type with duplicate name', async ({ page }) => {
@@ -112,8 +108,8 @@ test.describe.serial('Reward Type Tests', () => {
             await rewardTypePage.fillDescription('Test Description');
             await rewardTypePage.clickSave();
         });
-        await validation.validateNameAlreadyExists();
-        await toastPage.getToastAddFailed();
+        await rewardTypePage.verifyValidationMessage(ValidationMessages.NAME_ALREADY_EXISTS);
+        await rewardTypePage.verifyToastMessage(ToastMessages.TOAST_ADD_FAILED);
     });
 
 
@@ -131,7 +127,7 @@ test.describe.serial('Reward Type Tests', () => {
             await rewardTypePage.clickLockStatus();
             await rewardTypePage.clickSave();
         });
-        await toastPage.getToastAddSuccess();
+        await rewardTypePage.verifyToastMessage(ToastMessages.TOAST_ADD_SUCCESS);
     });
 
     test('Add Reward Type with empty description', async ({ page }) => {
@@ -145,7 +141,7 @@ test.describe.serial('Reward Type Tests', () => {
             await rewardTypePage.fillRewardTypeNameInput(rewardTypeName);
             await rewardTypePage.clickSave();
         });
-        await toastPage.getToastAddSuccess();
+        await rewardTypePage.verifyToastMessage(ToastMessages.TOAST_ADD_SUCCESS);
     });
 
     test('Edit description', async ({ page }) => {
@@ -156,7 +152,7 @@ test.describe.serial('Reward Type Tests', () => {
             await rewardTypePage.fillDescription('Edit Description');
             await rewardTypePage.clickSave();
         });
-        await toastPage.getToastUpdateSuccess();
+        await rewardTypePage.verifyToastMessage(ToastMessages.TOAST_UPDATE_SUCCESS);
     });
 
     test('Edit activity status to lock', async ({ page }) => {
@@ -167,7 +163,7 @@ test.describe.serial('Reward Type Tests', () => {
             await rewardTypePage.clickDropdownStatusInFormNth1();
             await rewardTypePage.clickLockStatus();
             await rewardTypePage.clickSave();
-            await toastPage.getToastUpdateSuccess();
+            await rewardTypePage.verifyToastMessage(ToastMessages.TOAST_UPDATE_SUCCESS);
         });
 
     });
@@ -178,7 +174,7 @@ test.describe.serial('Reward Type Tests', () => {
 
             await rewardTypePage.clickDeleteRow0();
         });
-        await toastPage.getToastDeleteSuccess();
+        await rewardTypePage.verifyToastMessage(ToastMessages.TOAST_DELETE_SUCCESS);
     });
 
     test('Search by name and status', async ({ page }) => {

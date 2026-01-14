@@ -13,7 +13,6 @@ export class RegisnationPage extends BasePage {
     readonly browsedStatusOption: Locator;
     readonly rejectStatusOption: Locator;
     readonly cancelStatusOption: Locator;
-    readonly verifyNotificationOfLeave: Locator;
     readonly verifyBrowseStatusOption: Locator;
     readonly verifyRejectStatusOption: Locator;
     readonly verifyCancelStatusOption: Locator;
@@ -40,7 +39,6 @@ export class RegisnationPage extends BasePage {
         this.verifyRejectStatusOption = page.locator("//tr[@id='row-0']//div[text()='Từ chối']");
         this.verifySubmittedButton = page.locator("//tr[@id='row-0']//div[text()='Đã gửi']");
         this.verifyBrowseStatusOption = page.locator("//tr[@id='row-0']//div[text()='Đã duyệt']");
-        this.verifyNotificationOfLeave = page.locator("//td[normalize-space()='16-06-2025']");
         this.rejectStatusOption = page.locator("//div[contains(text(),'Từ chối')]");
         this.browsedStatusOption = page.locator("//div[contains(text(),'Đã duyệt')]");
         this.cancelStatusOption = page.locator("//div[contains(text(),'Hủy')]");
@@ -53,8 +51,10 @@ export class RegisnationPage extends BasePage {
         this.regisnationButton = page.getByRole('link', { name: 'Đơn thôi việc' });
     }
 
-    async clickMonth06Button() {
-        await this.safeClick(this.month06Button);
+    getNotificationOfLeaveByDate(date: string): Locator {
+        return this.page.locator(
+            `//td[normalize-space()='${date}']`
+        );
     }
 
     async clickMonthButton() {
@@ -138,8 +138,9 @@ export class RegisnationPage extends BasePage {
         await this.safeVerifyToHaveText(this.verifyBrowseStatusOption, "Đã duyệt");
     }
 
-    async getVerifyNotificationOfLeave() {
-        await this.safeVerifyToHaveText(this.verifyNotificationOfLeave, "16-06-2025");
+    async verifyNotificationOfLeave(date: string) {
+        const locator = this.getNotificationOfLeaveByDate(date);
+        await this.safeVerifyToHaveText(locator, date);
     }
 
     async getVerifyEmployeeNameSearch() {

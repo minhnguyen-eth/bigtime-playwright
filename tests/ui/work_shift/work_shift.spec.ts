@@ -3,23 +3,18 @@ import { LoginPage } from '../../../pages/LoginPage';
 import Config from '../../../utils/configUtils';
 import { WorkShiftPage } from '../../../pages/work_shift_page/WorkShiftPage';
 import { allure } from 'allure-playwright';
-import { ToastPage } from '../../../pages/ToastPage';
-import { ValidationPage } from '../../../pages/ValidationPage';
 import { clearWorkingShift } from '../../../db/helpers/DBHelper';
+import { ToastMessages, ValidationMessages } from '../../../constants/MessagesCommon';
 
 test.describe.serial('Work Shift Tests', () => {
     let loginPage: LoginPage;
     let workShiftPage: WorkShiftPage;
-    let toastPage: ToastPage;
-    let validation: ValidationPage;
 
     test.beforeEach(async ({ page }) => {
         allure.feature('Work Shift Feature');
         allure.owner('Minh Nguyen');
         allure.severity('Critical');
 
-        validation = new ValidationPage(page);
-        toastPage = new ToastPage(page);
         loginPage = new LoginPage(page);
         workShiftPage = new WorkShiftPage(page);
         await loginPage.goto();
@@ -61,7 +56,7 @@ test.describe.serial('Work Shift Tests', () => {
         await workShiftPage.fillWorkShiftCode(workShiftCode);
         await testBody();
         await workShiftPage.clickSave();
-        await toastPage.getToastAddSuccess();
+        await workShiftPage.verifyToastMessage(ToastMessages.TOAST_ADD_SUCCESS);
     });
 
     test("Max length of work shift name over 255 characters", async ({ page }) => {
@@ -71,7 +66,7 @@ test.describe.serial('Work Shift Tests', () => {
         await workShiftPage.fillWorkShiftCode(workShiftCode);
         await testBody();
         await workShiftPage.clickSave();
-        await validation.validateMaxLength255Characters();
+        await workShiftPage.verifyRequiredField(ValidationMessages.MAX_LENGTH_255);
     });
 
     test('Create new work shift', async ({ page }) => {
@@ -92,7 +87,7 @@ test.describe.serial('Work Shift Tests', () => {
             await workShiftPage.clickOnBranchDropdown();
             await workShiftPage.clickOnBranchBienHoa();
             await workShiftPage.clickSave();
-            await toastPage.getToastAddSuccess();
+            await workShiftPage.verifyToastMessage(ToastMessages.TOAST_ADD_SUCCESS);
         });
     });
 
@@ -103,13 +98,13 @@ test.describe.serial('Work Shift Tests', () => {
             await workShiftPage.clickDropdownStatusInFormNth1();
             await workShiftPage.clickLockStatus();
             await workShiftPage.clickSave();
-            await toastPage.getToastUpdateSuccess();
+            await workShiftPage.verifyToastMessage(ToastMessages.TOAST_UPDATE_SUCCESS);
             await workShiftPage.verifyLockStatusRow0();
         });
 
         await allure.step('Delete work shift', async () => {
             await workShiftPage.clickDeleteRow0();
-            await toastPage.getToastDeleteSuccess();
+            await workShiftPage.verifyToastMessage(ToastMessages.TOAST_DELETE_SUCCESS);
         });
 
     });

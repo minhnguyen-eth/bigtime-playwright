@@ -3,18 +3,19 @@ import { LoginPage } from '../../../pages/LoginPage';
 import Config from '../../../utils/configUtils';
 import { ShiftPlanPage } from '../../../pages/work_shift_page/ShiftPlanPage';
 import { allure } from 'allure-playwright';
-import { ToastPage } from '../../../pages/ToastPage';
-import { ValidationPage } from '../../../pages/ValidationPage';
-import { checkShiftPlanExists, clearShiftPlan, importShiftPlanForTestMonthlyCheckin } from '../../../db/modules/ShiftplanDB';
+import {
+    checkShiftPlanExists,
+    clearShiftPlan,
+    importShiftPlanForTestMonthlyCheckin
+} from '../../../db/modules/ShiftplanDB';
 import { MonthlyCheckinPage } from '../../../pages/timekeeping_page/MonthlyCheckinPage';
 import { clearDataForTestMonthlyCheckin } from '../../../db/modules/MonthlyCheckinDB';
 import { LogoutPage } from '../../../pages/LogoutPage';
+import { ToastMessages } from '../../../constants/MessagesCommon';
 
 test.describe.serial('Monthly Checkin Tests - Chấm công tháng', () => {
     let loginPage: LoginPage;
     let shiftPlanPage: ShiftPlanPage;
-    let toastPage: ToastPage;
-    let validation: ValidationPage;
     let monthlyCheckinPage: MonthlyCheckinPage;
     let logoutPage: LogoutPage;
 
@@ -30,8 +31,6 @@ test.describe.serial('Monthly Checkin Tests - Chấm công tháng', () => {
             longitude: 106.660172,
         });
 
-        validation = new ValidationPage(page);
-        toastPage = new ToastPage(page);
         loginPage = new LoginPage(page);
         shiftPlanPage = new ShiftPlanPage(page);
         logoutPage = new LogoutPage(page);
@@ -47,7 +46,7 @@ test.describe.serial('Monthly Checkin Tests - Chấm công tháng', () => {
         await monthlyCheckinPage.clickMonthlyCheckinButton();
         await monthlyCheckinPage.clickFirstCheckbox();
         await monthlyCheckinPage.clickExportButton();
-        await toastPage.getToastExportSuccess();
+        await monthlyCheckinPage.verifyToastMessage(ToastMessages.TOAST_EXPORT_SUCCESS);
 
     });
 
@@ -57,7 +56,7 @@ test.describe.serial('Monthly Checkin Tests - Chấm công tháng', () => {
         await monthlyCheckinPage.clickMonthlyCheckinButton();
         await monthlyCheckinPage.clickSecondCheckbox();
         await monthlyCheckinPage.clickExportButton();
-        await toastPage.getToastExportSuccess();
+        await monthlyCheckinPage.verifyToastMessage(ToastMessages.TOAST_EXPORT_SUCCESS);
     });
 
     test('E2E Flow - User check in/out, submit checkday => admin monthly approval, monthly closing', async ({ page }) => {
@@ -87,7 +86,7 @@ test.describe.serial('Monthly Checkin Tests - Chấm công tháng', () => {
         await monthlyCheckinPage.clickChoose();
         await monthlyCheckinPage.fillReason('Test reason check in');
         await monthlyCheckinPage.clickSave();
-        await toastPage.getToastAddTimeSuccess();
+        await monthlyCheckinPage.verifyToastMessage(ToastMessages.TOAST_ADD_TIME_SUCCESS);
 
         // CHECK OUT
         await monthlyCheckinPage.clickAdd();
@@ -99,7 +98,7 @@ test.describe.serial('Monthly Checkin Tests - Chấm công tháng', () => {
         await monthlyCheckinPage.clickChoose();
         await monthlyCheckinPage.fillReason('Test reason check out');
         await monthlyCheckinPage.clickSave();
-        await toastPage.getToastAddTimeSuccess();
+        await monthlyCheckinPage.verifyToastMessage(ToastMessages.TOAST_ADD_TIME_SUCCESS);
 
         // SUBMIT CHECKDAY
         await monthlyCheckinPage.clickCloseFormButton();
@@ -172,7 +171,7 @@ test.describe.serial('Monthly Checkin Tests - Chấm công tháng', () => {
         await monthlyCheckinPage.clickChoose();
         await monthlyCheckinPage.fillReason('Test reason check in');
         await monthlyCheckinPage.clickSave();
-        await toastPage.getToastAddTimeSuccess();
+        await monthlyCheckinPage.verifyToastMessage(ToastMessages.TOAST_ADD_TIME_SUCCESS);
 
         // CHECK OUT
         await monthlyCheckinPage.clickAdd();
@@ -184,7 +183,7 @@ test.describe.serial('Monthly Checkin Tests - Chấm công tháng', () => {
         await monthlyCheckinPage.clickChoose();
         await monthlyCheckinPage.fillReason('Test reason check out');
         await monthlyCheckinPage.clickSave();
-        await toastPage.getToastAddTimeSuccess();
+        await monthlyCheckinPage.verifyToastMessage(ToastMessages.TOAST_ADD_TIME_SUCCESS);
 
         // SUBMIT CHECKDAY
         await monthlyCheckinPage.clickCloseFormButton();

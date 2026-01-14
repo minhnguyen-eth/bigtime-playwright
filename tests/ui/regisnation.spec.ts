@@ -5,14 +5,12 @@ import Config from '../../utils/configUtils';
 import { RegisnationPage } from '../../pages/RegisnationPage';
 import { allure } from 'allure-playwright';
 import { LogoutPage } from '../../pages/LogoutPage';
-import { RequiredMessages, ToastMessages } from '../../constants/MessagesCommon';
+import { ToastMessages, ValidationMessages } from '../../constants/MessagesCommon';
 
 test.describe.serial('Resignation Tests', () => {
   let loginPage: LoginPage;
   let regisnationPage: RegisnationPage;
   let logoutPage: LogoutPage;
-
-  const randomSuffix = Math.random().toString(36).substring(2, 8);
 
   test.beforeEach(async ({ page }) => {
     allure.feature('Resignation Feature');
@@ -34,7 +32,7 @@ test.describe.serial('Resignation Tests', () => {
     await regisnationPage.clickAdd();
     await regisnationPage.fillReason('Automation test');
     await regisnationPage.clickSave();
-    await regisnationPage.verifyToastMessage(ToastMessages.ADD_SUCCESS);
+    await regisnationPage.verifyToastMessage(ToastMessages.TOAST_ADD_SUCCESS);
   }
 
   async function beforTestMaxLength() {
@@ -49,14 +47,14 @@ test.describe.serial('Resignation Tests', () => {
     await beforTestMaxLength();
     await regisnationPage.fillReason("z".repeat(255));
     await regisnationPage.clickSave();
-    await regisnationPage.verifyToastMessage(ToastMessages.ADD_SUCCESS);
+    await regisnationPage.verifyToastMessage(ToastMessages.TOAST_ADD_SUCCESS);
   });
 
   test("Add with Max length of reason over 255 characters", async ({ page }) => {
     await beforTestMaxLength();
     await regisnationPage.fillReason("z".repeat(256));
     await regisnationPage.clickSave();
-    await regisnationPage.verifyRequiredField(RequiredMessages.MAX_LENGTH_255);
+    await regisnationPage.verifyRequiredField(ValidationMessages.MAX_LENGTH_255);
   });
 
   test('Add new resignation and send', async ({ page }) => {
@@ -71,7 +69,7 @@ test.describe.serial('Resignation Tests', () => {
     await allure.step('Employee sends resignation', async () => {
       await regisnationPage.clickRow0();
       await regisnationPage.clickSendAndClickYes();
-      await regisnationPage.verifyToastMessage(ToastMessages.SEND_SUCCESS);
+      await regisnationPage.verifyToastMessage(ToastMessages.TOAST_SEND_SUCCESS);
     });
   });
 
@@ -83,7 +81,7 @@ test.describe.serial('Resignation Tests', () => {
       await regisnationPage.clickEdit();
       await regisnationPage.fillReason('Automation test edit');
       await regisnationPage.clickSave();
-      await regisnationPage.verifyToastMessage(ToastMessages.UPDATE_SUCCESS);
+      await regisnationPage.verifyToastMessage(ToastMessages.TOAST_UPDATE_SUCCESS);
     });
   });
 
@@ -97,7 +95,7 @@ test.describe.serial('Resignation Tests', () => {
       await regisnationPage.clickEdit();
       await regisnationPage.fillReason('');
       await regisnationPage.clickSave();
-      await regisnationPage.verifyRequiredField(RequiredMessages.REQUIRED_FILL_REASON);
+      await regisnationPage.verifyRequiredField(ValidationMessages.REQUIRED_FILL_REASON);
     });
   });
 
@@ -111,7 +109,7 @@ test.describe.serial('Resignation Tests', () => {
 
     await allure.step('Employee sends resignation request', async () => {
       await regisnationPage.clickSendAndClickYes();
-      await regisnationPage.verifyToastMessage(ToastMessages.SEND_SUCCESS);
+      await regisnationPage.verifyToastMessage(ToastMessages.TOAST_SEND_SUCCESS);
       await logoutPage.logout();
     });
 
@@ -156,7 +154,7 @@ test.describe.serial('Resignation Tests', () => {
 
     await allure.step('Employee sends resignation request', async () => {
       await regisnationPage.clickSendAndClickYes();
-      await regisnationPage.verifyToastMessage(ToastMessages.SEND_SUCCESS);
+      await regisnationPage.verifyToastMessage(ToastMessages.TOAST_SEND_SUCCESS);
       await logoutPage.logout();
     });
 
@@ -220,11 +218,11 @@ test.describe.serial('Resignation Tests', () => {
     await allure.step('Search by notification of leave date', async () => {
       await regisnationPage.clickNotificaOfLeave();
       await regisnationPage.clickMonthButton();
-      await regisnationPage.clickMonth06Button();
+      await regisnationPage.clickChosseMonthPicker(6);
       await regisnationPage.clickDay16();
       await regisnationPage.clickChoose();
       await regisnationPage.clickSearch();
-      await regisnationPage.getVerifyNotificationOfLeave();
+      await regisnationPage.verifyNotificationOfLeave('16-06-2026');
       await regisnationPage.clickClearSearch();
     });
 

@@ -1,19 +1,16 @@
 import { test, } from '../base-test';
 import { LoginPage } from '../../../pages/LoginPage';
 import Config from '../../../utils/configUtils';
-import { ToastPage } from '../../../pages/ToastPage';
 import { clearCheckDay, clearCheckTime, mockCheckinData, clearOvertimeSubmission } from '../../../db/helpers/DBHelper';
 import { OvertimeTicketPage } from '../../../pages/timekeeping_page/OvertimeTicketPage';
 import { LogoutPage } from '../../../pages/LogoutPage';
 import { allure } from 'allure-playwright';
-import { ValidationPage } from '../../../pages/ValidationPage';
+import { ToastMessages, ValidationMessages } from '../../../constants/MessagesCommon';
 
 test.describe.serial('Overtime Ticket Test Suite', () => {
     let loginPage: LoginPage;
     let overtimeTicketPage: OvertimeTicketPage;
-    let toastPage: ToastPage;
     let logoutPage: LogoutPage;
-    let validation: ValidationPage;
 
     const userId = 'minh';
     const today = new Date().toISOString().split('T')[0];
@@ -34,8 +31,6 @@ test.describe.serial('Overtime Ticket Test Suite', () => {
 
         logoutPage = new LogoutPage(page);
         loginPage = new LoginPage(page);
-        validation = new ValidationPage(page);
-        toastPage = new ToastPage(page);
         overtimeTicketPage = new OvertimeTicketPage(page);
 
         await loginPage.goto();
@@ -57,7 +52,7 @@ test.describe.serial('Overtime Ticket Test Suite', () => {
         await overtimeTicketPage.setOverTimeTicket();
         await overtimeTicketPage.fillReason('Automation test reason');
         await overtimeTicketPage.clickSave();
-        await toastPage.getToastAddSuccess();
+        await overtimeTicketPage.verifyToastMessage(ToastMessages.TOAST_ADD_SUCCESS);
     }
 
     async function addOverTimeTicketWithNewStatus() {
@@ -71,7 +66,7 @@ test.describe.serial('Overtime Ticket Test Suite', () => {
         await overtimeTicketPage.clickDropdownStatusInFormNth1();
         await overtimeTicketPage.clickSelectNewStatus();
         await overtimeTicketPage.clickSave();
-        await toastPage.getToastAddSuccess();
+        await overtimeTicketPage.verifyToastMessage(ToastMessages.TOAST_ADD_SUCCESS);
     }
 
     // test.skip('Mock data for all month', async ({ page }) => {
@@ -99,7 +94,7 @@ test.describe.serial('Overtime Ticket Test Suite', () => {
         await overtimeTicketPage.clickCheckInOutButton();
         await overtimeTicketPage.clickCheckInButton();
         await overtimeTicketPage.clickConfirmCheckInButton();
-        await toastPage.getToastCheckinSuccess();
+        await overtimeTicketPage.verifyToastMessage(ToastMessages.TOAST_CHECKIN_SUCCESS);
     });
 
     test('Maxlength of reason over 255 characters', async ({ page }) => {
@@ -110,7 +105,7 @@ test.describe.serial('Overtime Ticket Test Suite', () => {
         await overtimeTicketPage.setOverTimeTicket();
         await overtimeTicketPage.fillReason('a'.repeat(256));
         await overtimeTicketPage.clickSave();
-        await validation.validateMaxLength255Characters();
+        await overtimeTicketPage.verifyRequiredField(ValidationMessages.MAX_LENGTH_255);
     });
 
     test('Maxlength of reason 255 characters', async ({ page }) => {
@@ -124,7 +119,7 @@ test.describe.serial('Overtime Ticket Test Suite', () => {
         // await overtimeTicketPage.clickDropdownStatusInFormNth1();
         // await overtimeTicketPage.clickSelectPendingStatus();
         await overtimeTicketPage.clickSave();
-        await toastPage.getToastAddSuccess();
+        await overtimeTicketPage.verifyToastMessage(ToastMessages.TOAST_ADD_SUCCESS);
     });
 
     test('Create with blank name and reason', async ({ page }) => {
@@ -132,7 +127,7 @@ test.describe.serial('Overtime Ticket Test Suite', () => {
         await overtimeTicketPage.clickAdd();
         await overtimeTicketPage.clickSave();
         await overtimeTicketPage.verifyValidateDateRequired();
-        await validation.validateRequiredFillReason();
+        await overtimeTicketPage.verifyRequiredField(ValidationMessages.REQUIRED_FILL_REASON);
     });
 
     test('Create with wrong time', async ({ page }) => {
@@ -151,7 +146,7 @@ test.describe.serial('Overtime Ticket Test Suite', () => {
         await overtimeTicketPage.clickChoose();
         await overtimeTicketPage.fillReason('Automation test reason');
         await overtimeTicketPage.clickSave();
-        await toastPage.getToastAddFailed();
+        await overtimeTicketPage.verifyToastMessage(ToastMessages.TOAST_ADD_FAILED);
         await overtimeTicketPage.verifyValidateWhenUserChooseWrongTime();
     });
 
@@ -166,7 +161,7 @@ test.describe.serial('Overtime Ticket Test Suite', () => {
         // await overtimeTicketPage.clickDropdownStatusInFormNth1();
         // await overtimeTicketPage.clickSelectPendingStatus();
         await overtimeTicketPage.clickSave();
-        await toastPage.getToastAddSuccess();
+        await overtimeTicketPage.verifyToastMessage(ToastMessages.TOAST_ADD_SUCCESS);
 
         // Verify pending status
         await overtimeTicketPage.clickRow0();
@@ -222,7 +217,7 @@ test.describe.serial('Overtime Ticket Test Suite', () => {
         // Reject Overtime Ticket
         await overtimeTicketPage.clickReject();
         await overtimeTicketPage.fillReasonAndClickYes('Automation test reject reason');
-        await toastPage.getToastRejectSuccess();
+        await overtimeTicketPage.verifyToastMessage(ToastMessages.TOAST_REJECT_SUCCESS);
 
         // Verify reject status
         await overtimeTicketPage.clickRow0();
@@ -258,7 +253,7 @@ test.describe.serial('Overtime Ticket Test Suite', () => {
         // Reject Overtime Ticket
         await overtimeTicketPage.clickReject();
         await overtimeTicketPage.fillReasonAndClickYes('Automation test reject reason');
-        await toastPage.getToastRejectSuccess();
+        await overtimeTicketPage.verifyToastMessage(ToastMessages.TOAST_REJECT_SUCCESS);
 
         // Verify reject status
         await overtimeTicketPage.clickRow0();
@@ -274,7 +269,7 @@ test.describe.serial('Overtime Ticket Test Suite', () => {
         await overtimeTicketPage.clickSelectPendingStatus();
         await overtimeTicketPage.fillReason('Automation test update reason');
         await overtimeTicketPage.clickSave();
-        await toastPage.getToastUpdateSuccess();
+        await overtimeTicketPage.verifyToastMessage(ToastMessages.TOAST_UPDATE_SUCCESS);
 
         // Verify pending status 
         await overtimeTicketPage.clickRow0();
@@ -321,7 +316,7 @@ test.describe.serial('Overtime Ticket Test Suite', () => {
         await overtimeTicketPage.clickRow0();
         await overtimeTicketPage.clickCancel();
         await overtimeTicketPage.fillReasonAndClickYes('Automation test cancel reason');
-        await toastPage.getToastCancelSuccess();
+        await overtimeTicketPage.verifyToastMessage(ToastMessages.TOAST_CANCEL_SUCCESS);
 
         // Verify cancel status
         await overtimeTicketPage.clickRow0();
@@ -342,7 +337,7 @@ test.describe.serial('Overtime Ticket Test Suite', () => {
         await overtimeTicketPage.clickRow0();
         await overtimeTicketPage.clickEdit();
         await overtimeTicketPage.clickSave();
-        await toastPage.getToastUpdateSuccess();
+        await overtimeTicketPage.verifyToastMessage(ToastMessages.TOAST_UPDATE_SUCCESS);
     });
 
     test('Edit Time In', async ({ page }) => {
@@ -356,7 +351,7 @@ test.describe.serial('Overtime Ticket Test Suite', () => {
         await overtimeTicketPage.clickOpenMinute();
         await overtimeTicketPage.clickMinute10();
         await overtimeTicketPage.clickSave();
-        await toastPage.getToastUpdateSuccess();
+        await overtimeTicketPage.verifyToastMessage(ToastMessages.TOAST_UPDATE_SUCCESS);
     });
 
     test('Edit Time Out', async ({ page }) => {
@@ -370,7 +365,7 @@ test.describe.serial('Overtime Ticket Test Suite', () => {
         await overtimeTicketPage.clickOpenMinute();
         await overtimeTicketPage.clickMinute10();
         await overtimeTicketPage.clickSave();
-        await toastPage.getToastUpdateSuccess();
+        await overtimeTicketPage.verifyToastMessage(ToastMessages.TOAST_UPDATE_SUCCESS);
     });
 
     test('Edit Reason', async ({ page }) => {
@@ -382,7 +377,7 @@ test.describe.serial('Overtime Ticket Test Suite', () => {
         await overtimeTicketPage.clickEdit();
         await overtimeTicketPage.fillReason('Automation test update reason');
         await overtimeTicketPage.clickSave();
-        await toastPage.getToastUpdateSuccess();
+        await overtimeTicketPage.verifyToastMessage(ToastMessages.TOAST_UPDATE_SUCCESS);
     });
 
     test('Delete Overtime Ticket', async ({ page }) => {
@@ -392,6 +387,6 @@ test.describe.serial('Overtime Ticket Test Suite', () => {
         // Delete
         await overtimeTicketPage.clickRow0();
         await overtimeTicketPage.clickDelete();
-        await toastPage.getToastDeleteSuccess();
+        await overtimeTicketPage.verifyToastMessage(ToastMessages.TOAST_DELETE_SUCCESS);
     });
 });

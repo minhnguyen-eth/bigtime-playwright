@@ -4,21 +4,19 @@ import Config from '../../utils/configUtils';
 import { allure } from 'allure-playwright';
 import { EmployeePage } from '../../pages/EmployeePage';
 import { ResumePage } from '../../pages/ResumePage';
-import { ToastPage } from '../../pages/ToastPage';
 import { clearAllowanceTypes, clearEmployees } from '../../db/helpers/DBHelper';
+import { ToastMessages, ValidationMessages } from '../../constants/MessagesCommon';
 
 test.describe.serial('Employee Tests', () => {
     let loginPage: LoginPage;
     let employeePage: EmployeePage
     let resumePage: ResumePage;
-    let toastPage: ToastPage;
 
     test.beforeEach(async ({ page }) => {
         allure.feature('Employee Feature');
         allure.owner('Minh Nguyen');
         allure.severity('Critical');
 
-        toastPage = new ToastPage(page);
         employeePage = new EmployeePage(page);
         loginPage = new LoginPage(page);
         resumePage = new ResumePage(page);
@@ -50,11 +48,11 @@ test.describe.serial('Employee Tests', () => {
         await employeePage.clickFamilyInformation();
         await employeePage.clickAddNth1();
         await employeePage.clickSaveNth1();
-        await employeePage.validateRequiredFillName();
+        await employeePage.verifyRequiredField(ValidationMessages.REQUIRED_FILL_NAME);
     });
 
     test('Add a dependents fill all information - Thêm một người phụ thuộc nhập đầy đủ thông tin ', async ({ page }) => {
-      
+
         await employeePage.fillSearchByName('Nguyễn Văn Minh');
         await employeePage.clickSearch();
         await employeePage.clickRow0();
@@ -82,7 +80,7 @@ test.describe.serial('Employee Tests', () => {
         await employeePage.clickSave();
 
         // Verify
-        await toastPage.getToastUpdateSuccess();
+        await employeePage.verifyToastMessage(ToastMessages.TOAST_UPDATE_SUCCESS);
 
         await page.waitForTimeout(800);
         await employeePage.clickRow0();
@@ -115,7 +113,7 @@ test.describe.serial('Employee Tests', () => {
         await employeePage.selectRelationship('Con gái');
         await employeePage.clickSaveNth1();
         await employeePage.clickSave();
-        await toastPage.getToastUpdateSuccess();
+        await employeePage.verifyToastMessage(ToastMessages.TOAST_UPDATE_SUCCESS);
     });
 
     test('Delete dependents - Xóa người phụ thuộc', async ({ page }) => {
@@ -126,13 +124,13 @@ test.describe.serial('Employee Tests', () => {
         await employeePage.clickFamilyInformation();
         await employeePage.clickDeleteNth1();
         await employeePage.clickSave();
-        await toastPage.getToastUpdateSuccess();
+        await employeePage.verifyToastMessage(ToastMessages.TOAST_UPDATE_SUCCESS);
 
         // Verify deleted
         await employeePage.clickRow0();
         await employeePage.clickEdit();
         await employeePage.clickFamilyInformation();
-        await employeePage.validateNoExistData();
+        await employeePage.verifyNoDataExistInSearch();
     });
 
     test('Add a member of family not check is dependents - Thêm một người trong gia đình không chọn là người phụ thuộc ', async ({ page }) => {
@@ -145,7 +143,7 @@ test.describe.serial('Employee Tests', () => {
         await employeePage.fillNameDependents('Automation test');
         await employeePage.clickSaveNth1();
         await employeePage.clickSave();
-        await toastPage.getToastUpdateSuccess();
+        await employeePage.verifyToastMessage(ToastMessages.TOAST_UPDATE_SUCCESS);
 
         // Delete 
         await page.waitForTimeout(800);
@@ -154,7 +152,7 @@ test.describe.serial('Employee Tests', () => {
         await employeePage.clickFamilyInformation();
         await employeePage.clickDeleteNth1();
         await employeePage.clickSave();
-        await toastPage.getToastUpdateSuccess();
+        await employeePage.verifyToastMessage(ToastMessages.TOAST_UPDATE_SUCCESS);
     });
 
     test('Create employee with check pay union due - Tạo mới nhân viên chọn đóng đoàn phí ', async ({ page }) => {
@@ -180,8 +178,7 @@ test.describe.serial('Employee Tests', () => {
         await employeePage.clickSetSalary();
         await employeePage.selectPayUnionDue();
         await employeePage.clickSave();
-        await toastPage.getToastAddSuccess();
-
+        await employeePage.verifyToastMessage(ToastMessages.TOAST_ADD_SUCCESS);
     });
 
     test('Add employee just check in at least once when entering the shift', async ({ page }) => {
@@ -205,7 +202,7 @@ test.describe.serial('Employee Tests', () => {
         await employeePage.clickDropdownEmployeeType();
         await employeePage.clickStaff();
         await employeePage.clickSave();
-        await toastPage.getToastAddSuccess();
+        await employeePage.verifyToastMessage(ToastMessages.TOAST_ADD_SUCCESS);
     });
 
     test('Add employee just check in at least once in a day', async ({ page }) => {
@@ -229,7 +226,7 @@ test.describe.serial('Employee Tests', () => {
         await employeePage.clickDropdownEmployeeType();
         await employeePage.clickStaff();
         await employeePage.clickSave();
-        await toastPage.getToastAddSuccess();
+        await employeePage.verifyToastMessage(ToastMessages.TOAST_ADD_SUCCESS);
     });
 
     test("Max length of all fields", async ({ page }) => {
@@ -276,7 +273,7 @@ test.describe.serial('Employee Tests', () => {
         await employeePage.fillAddress("z".repeat(255));
         await employeePage.fillNote("z".repeat(500));
         await employeePage.clickSave();
-        await toastPage.getToastAddSuccess();
+        await employeePage.verifyToastMessage(ToastMessages.TOAST_ADD_SUCCESS);
     });
 
     test('Test max length of resume', async ({ page }) => {
@@ -317,7 +314,7 @@ test.describe.serial('Employee Tests', () => {
         // await resumePage.fillRecruimentForm("T".repeat(100));
         // await resumePage.fillRecruitedPosition("C".repeat(255));
         await employeePage.clickSave();
-        await toastPage.getToastEditSuccess();
+        await employeePage.verifyToastMessage(ToastMessages.TOAST_EDIT_SUCCESS);
     });
 
     test(`E2E - Add with role employee`, async ({ page }) => {
@@ -332,7 +329,7 @@ test.describe.serial('Employee Tests', () => {
         await employeePage.clickRow0();
         await resumePage.testResumeWithValidData();
         await employeePage.clickSave();
-        await toastPage.getToastEditSuccess();
+        await employeePage.verifyToastMessage(ToastMessages.TOAST_EDIT_SUCCESS);
     });
 
     test('Add with basic information and set salary by date ', async ({ page }) => {
@@ -346,12 +343,12 @@ test.describe.serial('Employee Tests', () => {
     test.skip('Add with basic information and edit information', async ({ page }) => {
         await employeePage.testAddEmployee();
         await employeePage.clickSave();
-        await toastPage.getToastAddSuccess();
+        await employeePage.verifyToastMessage(ToastMessages.TOAST_ADD_SUCCESS);
         await employeePage.clickRow0();
         await employeePage.clickEdit();
         await employeePage.testFillMoreInformation();
         await employeePage.clickSave();
-        await toastPage.getToastUpdateSuccess();
+        await employeePage.verifyToastMessage(ToastMessages.TOAST_UPDATE_SUCCESS);
     });
 
     test('Save resume with empty information required', async ({ page }) => {

@@ -1,18 +1,15 @@
 import { test, } from '../base-test';
 import { LoginPage } from '../../../pages/LoginPage';
 import Config from '../../../utils/configUtils';
-import { ToastPage } from '../../../pages/ToastPage';
 import { allure } from 'allure-playwright';
 import { NotificationPage } from '../../../pages/notification_page/NotificationPage';
 import { LogoutPage } from '../../../pages/LogoutPage';
-import { ValidationPage } from '../../../pages/ValidationPage';
 import { clearNotifications } from '../../../db/helpers/DBHelper';
+import { ToastMessages, ValidationMessages } from '../../../constants/MessagesCommon';
 
 test.describe.serial('Notification Test Suite', () => {
     let loginPage: LoginPage;
     let notificationPage: NotificationPage;
-    let toast: ToastPage;
-    let validation: ValidationPage;
     let logoutPage: LogoutPage;
 
     test.beforeEach(async ({ page }) => {
@@ -21,8 +18,6 @@ test.describe.serial('Notification Test Suite', () => {
         allure.severity('High');
 
         logoutPage = new LogoutPage(page);
-        validation = new ValidationPage(page);
-        toast = new ToastPage(page);
         loginPage = new LoginPage(page);
         notificationPage = new NotificationPage(page);
         await loginPage.goto();
@@ -40,7 +35,7 @@ test.describe.serial('Notification Test Suite', () => {
             await notificationPage.fillDescription('Automation test');
             await notificationPage.clickSave();
         });
-        await toast.getToastAddSuccess();
+        await notificationPage.verifyToastMessage(ToastMessages.TOAST_ADD_SUCCESS);
     });
 
     test("Max length of notification name is 256 characters", async ({ page }) => {
@@ -54,7 +49,7 @@ test.describe.serial('Notification Test Suite', () => {
             await notificationPage.fillDescription('Automation test');
             await notificationPage.clickSave();
         });
-        await validation.validateMaxLength255Characters();
+        await notificationPage.verifyRequiredField(ValidationMessages.MAX_LENGTH_255);
     });
 
     test("Max length of notification description is 500 characters", async ({ page }) => {
@@ -68,7 +63,7 @@ test.describe.serial('Notification Test Suite', () => {
             await notificationPage.fillDescription('a'.repeat(500));
             await notificationPage.clickSave();
         });
-        await toast.getToastAddSuccess();
+        await notificationPage.verifyToastMessage(ToastMessages.TOAST_ADD_SUCCESS);
     });
 
     test("Max length of notification description is 501 characters", async ({ page }) => {
@@ -82,7 +77,7 @@ test.describe.serial('Notification Test Suite', () => {
             await notificationPage.fillDescription('a'.repeat(501));
             await notificationPage.clickSave();
         });
-        await validation.validateMaxLength500Characters();
+        await notificationPage.verifyRequiredField(ValidationMessages.MAX_LENGTH_500);
     });
 
     test('Add new notification with event notification type', async ({ page }) => {
@@ -97,7 +92,7 @@ test.describe.serial('Notification Test Suite', () => {
             await notificationPage.fillDescription('Automation test');
             await notificationPage.clickSave();
         });
-        await toast.getToastAddSuccess();
+        await notificationPage.verifyToastMessage(ToastMessages.TOAST_ADD_SUCCESS);
     });
 
     test('Add new notification with existing name', async ({ page }) => {
@@ -111,7 +106,7 @@ test.describe.serial('Notification Test Suite', () => {
             await notificationPage.fillDescription('Automation test');
             await notificationPage.clickSave();
         });
-        await validation.validateNameAlreadyExists();
+        await notificationPage.verifyValidationMessage(ValidationMessages.NAME_ALREADY_EXISTS);
     });
 
     test('Add new notification with empty name and description', async ({ page }) => {
@@ -140,7 +135,7 @@ test.describe.serial('Notification Test Suite', () => {
             await notificationPage.fillDescription('Automation test');
             await notificationPage.clickSave();
         });
-        await toast.getToastAddSuccess();
+        await notificationPage.verifyToastMessage(ToastMessages.TOAST_ADD_SUCCESS);
     });
 
     test('Add new notification with work schedule notification type', async ({ page }) => {
@@ -156,7 +151,7 @@ test.describe.serial('Notification Test Suite', () => {
             await notificationPage.fillDescription('Automation test');
             await notificationPage.clickSave();
         });
-        await toast.getToastAddSuccess();
+        await notificationPage.verifyToastMessage(ToastMessages.TOAST_ADD_SUCCESS);
     });
 
     test('Add new notification with urgent notification type', async ({ page }) => {
@@ -172,7 +167,7 @@ test.describe.serial('Notification Test Suite', () => {
             await notificationPage.fillDescription('Automation test');
             await notificationPage.clickSave();
         });
-        await toast.getToastAddSuccess();
+        await notificationPage.verifyToastMessage(ToastMessages.TOAST_ADD_SUCCESS);
     });
 
     test('Send notification to company', async ({ page }) => {
@@ -185,7 +180,7 @@ test.describe.serial('Notification Test Suite', () => {
             await notificationPage.clickSend();
             await notificationPage.clickSave();
         });
-        await toast.getToastSendNotificationSuccess();
+        await notificationPage.verifyToastMessage(ToastMessages.TOAST_SEND_NOTIFICATION_SUCCESS);
     });
 
     test('Send notification to department', async ({ page }) => {
@@ -201,7 +196,7 @@ test.describe.serial('Notification Test Suite', () => {
             await notificationPage.clickFirstCheckbox();
             await notificationPage.clickSave();
         });
-        await toast.getToastSendNotificationSuccess();
+        await notificationPage.verifyToastMessage(ToastMessages.TOAST_SEND_NOTIFICATION_SUCCESS);
     });
 
     test('Send notification to personal', async ({ page }) => {
@@ -217,7 +212,7 @@ test.describe.serial('Notification Test Suite', () => {
             await notificationPage.clickPersonalSelect();
             await notificationPage.clickSave();
         });
-        await toast.getToastSendNotificationSuccess();
+        await notificationPage.verifyToastMessage(ToastMessages.TOAST_SEND_NOTIFICATION_SUCCESS);
         await logoutPage.logout();
 
         // Verify notification is sent to the employee
@@ -241,6 +236,6 @@ test.describe.serial('Notification Test Suite', () => {
             await notificationPage.clickListNotification();
             await notificationPage.clickDelete();
         });
-        await toast.getToastDeleteSuccess();
+        await notificationPage.verifyToastMessage(ToastMessages.TOAST_DELETE_SUCCESS);
     });
 });

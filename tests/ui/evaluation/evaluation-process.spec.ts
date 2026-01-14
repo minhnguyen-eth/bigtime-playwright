@@ -2,18 +2,15 @@ import { test, } from '../base-test';
 import { LoginPage } from "../../../pages/LoginPage";
 import Config from "../../../utils/configUtils";
 import { EvaluationProcessPage } from "../../../pages/evaluation_page/EvaluationProcessPage";
-import { ToastPage } from "../../../pages/ToastPage";
 import { clearEvaluationProgress, importEvaluationProgressFromCSV } from '../../../db/helpers/DBHelper';
 import { allure } from "allure-playwright";
 import { createCriteria } from "../evaluation/evaluation-helper";
-import { ValidationPage } from "../../../pages/ValidationPage";
+import { ToastMessages, ValidationMessages } from '../../../constants/MessagesCommon';
 
 test.describe.serial("Evaluation Process Tests", () => {
 
     let loginPage: LoginPage;
     let evaluationProcess: EvaluationProcessPage;
-    let toast: ToastPage;
-    let validation: ValidationPage;
 
     const randomSuffix = Date.now();
     const random = `Automation test ${randomSuffix}`;
@@ -25,8 +22,6 @@ test.describe.serial("Evaluation Process Tests", () => {
 
         loginPage = new LoginPage(page);
         evaluationProcess = new EvaluationProcessPage(page);
-        toast = new ToastPage(page);
-        validation = new ValidationPage(page);
         await loginPage.goto();
         await loginPage.login(Config.admin_username, Config.admin_password);
     });
@@ -145,7 +140,7 @@ test.describe.serial("Evaluation Process Tests", () => {
         await evaluationProcess.clickIconAction();
         await evaluationProcess.clickCancelNth1();
         await evaluationProcess.fillReasonAndClickYes('Cancel evaluation');
-        await toast.getToastCancelledSuccess();
+        await evaluationProcess.verifyToastMessage(ToastMessages.TOAST_CANCEL_SUCCESS);
     }
 
     test('Cancel evaluation', async ({ page }) => {
@@ -161,7 +156,7 @@ test.describe.serial("Evaluation Process Tests", () => {
         await allure.step("Add evaluation after cancel", async () => {
             await addEvaluationProcessDepartmentForm();
         });
-        await toast.getToastAddSuccess();
+        await evaluationProcess.verifyToastMessage(ToastMessages.TOAST_ADD_SUCCESS);
     });
 
     test('Evaluation process - Search by status', async ({ page }) => {

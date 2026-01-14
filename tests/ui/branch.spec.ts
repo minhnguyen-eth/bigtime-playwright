@@ -2,26 +2,21 @@ import { test, } from './base-test';
 import { LoginPage } from '../../pages/LoginPage';
 import Config from '../../utils/configUtils';
 import { allure } from 'allure-playwright';
-import { ToastPage } from '../../pages/ToastPage';
 import { BranchPage } from '../../pages/BranchPage';
-import { ValidationPage } from '../../pages/ValidationPage';
 import { clearBranch } from '../../db/helpers/DBHelper';
+import { ToastMessages, ValidationMessages } from '../../constants/MessagesCommon';
 
 test.describe.serial('Branch Test', () => {
     let loginPage: LoginPage;
     let branchPage: BranchPage
-    let validation: ValidationPage;
-    let toastPage: ToastPage;
 
     test.beforeEach(async ({ page }) => {
         allure.feature('Branch Feature');
         allure.owner('Minh Nguyen');
         allure.severity('Critical');
 
-        toastPage = new ToastPage(page);
         branchPage = new BranchPage(page);
         loginPage = new LoginPage(page);
-        validation = new ValidationPage(page);
         await loginPage.goto();
         await loginPage.login(Config.admin_username, Config.admin_password)
         await branchPage.clickAdmin();
@@ -41,7 +36,7 @@ test.describe.serial('Branch Test', () => {
         await branchPage.fillBranchAddress(randomString);
         await branchPage.fillNote(randomString);
         await branchPage.clickSave();
-        await toastPage.getToastAddSuccess();
+        await branchPage.verifyToastMessage(ToastMessages.TOAST_ADD_SUCCESS);
     });
 
     test('Create with over number of employee - Tạo chi nhánh với số lượng nhân viên lớn hơn 1000', async ({ page }) => {
@@ -83,7 +78,7 @@ test.describe.serial('Branch Test', () => {
         await branchPage.fillPhoneNumber(phoneNumber.toString());
         await branchPage.fillBranchAddress(randomString);
         await branchPage.clickSave();
-        await toastPage.getToastAddFailed();
+        await branchPage.verifyToastMessage(ToastMessages.TOAST_ADD_FAILED);
         await branchPage.verifyBranchExist();
     });
 
@@ -98,7 +93,7 @@ test.describe.serial('Branch Test', () => {
         await branchPage.fillPhoneNumber(phoneNumber.toString());
         await branchPage.fillBranchAddress(randomString);
         await branchPage.clickSave();
-        await toastPage.getToastAddFailed();
+        await branchPage.verifyToastMessage(ToastMessages.TOAST_ADD_FAILED);
     });
 
     test('Create with lock status - Tạo chi nhánh với trạng thái khóa', async ({ page }) => {
@@ -114,7 +109,7 @@ test.describe.serial('Branch Test', () => {
         await branchPage.clickDropdownStatusInFormNth1();
         await branchPage.clickLockStatus();
         await branchPage.clickSave();
-        await toastPage.getToastAddSuccess();
+        await branchPage.verifyToastMessage(ToastMessages.TOAST_ADD_SUCCESS);
         await branchPage.verifyLockStatusRow0();
     });
 
@@ -145,7 +140,7 @@ test.describe.serial('Branch Test', () => {
         await branchPage.clickDropdownStatusInFormNth1();
         await branchPage.clickLockStatus();
         await branchPage.clickSave();
-        await toastPage.getToastUpdateSuccess();
+        await branchPage.verifyToastMessage(ToastMessages.TOAST_UPDATE_SUCCESS);
         await branchPage.verifyLockStatusRow0();
     });
 
@@ -155,7 +150,7 @@ test.describe.serial('Branch Test', () => {
         await branchPage.clickDropdownStatusInFormNth1();
         await branchPage.clickActivityStatus();
         await branchPage.clickSave();
-        await toastPage.getToastUpdateSuccess();
+        await branchPage.verifyToastMessage(ToastMessages.TOAST_UPDATE_SUCCESS);
         await branchPage.verifyActivityStatusRow0();
     });
 
@@ -165,7 +160,7 @@ test.describe.serial('Branch Test', () => {
         await branchPage.clickEditRow0();
         await branchPage.fillBranchName(randomString);
         await branchPage.clickSave();
-        await toastPage.getToastUpdateSuccess();
+        await branchPage.verifyToastMessage(ToastMessages.TOAST_UPDATE_SUCCESS);
     });
 
     test('Edit short name - Chỉnh sửa tên ngắn', async ({ page }) => {
@@ -174,7 +169,7 @@ test.describe.serial('Branch Test', () => {
         await branchPage.clickEditRow0();
         await branchPage.fillShortName(randomString);
         await branchPage.clickSave();
-        await toastPage.getToastUpdateSuccess();
+        await branchPage.verifyToastMessage(ToastMessages.TOAST_UPDATE_SUCCESS);
     });
 
     test('Edit number of employee - Chỉnh sửa số lượng nhân viên', async ({ page }) => {
@@ -182,7 +177,7 @@ test.describe.serial('Branch Test', () => {
         await branchPage.clickEditRow0();
         await branchPage.fillNumberOfEmployee("999");
         await branchPage.clickSave();
-        await toastPage.getToastUpdateSuccess();
+        await branchPage.verifyToastMessage(ToastMessages.TOAST_UPDATE_SUCCESS);
     });
 
     test('Edit phone number - Chỉnh sửa số điện thoại', async ({ page }) => {
@@ -191,7 +186,7 @@ test.describe.serial('Branch Test', () => {
         await branchPage.clickEditRow0();
         await branchPage.fillPhoneNumber(phoneNumber.toString());
         await branchPage.clickSave();
-        await toastPage.getToastUpdateSuccess();
+        await branchPage.verifyToastMessage(ToastMessages.TOAST_UPDATE_SUCCESS);
     });
 
     test('Edit branch address - Chỉnh sửa địa chỉ chi nhánh', async ({ page }) => {
@@ -200,7 +195,7 @@ test.describe.serial('Branch Test', () => {
         await branchPage.clickEditRow0();
         await branchPage.fillBranchAddress(randomString);
         await branchPage.clickSave();
-        await toastPage.getToastUpdateSuccess();
+        await branchPage.verifyToastMessage(ToastMessages.TOAST_UPDATE_SUCCESS);
     });
 
     test('Edit note - Chỉnh sửa ghi chú', async ({ page }) => {
@@ -209,7 +204,7 @@ test.describe.serial('Branch Test', () => {
         await branchPage.clickEditRow0();
         await branchPage.fillNote(randomString);
         await branchPage.clickSave();
-        await toastPage.getToastUpdateSuccess();
+        await branchPage.verifyToastMessage(ToastMessages.TOAST_UPDATE_SUCCESS);
     });
 
     test('Edit with duplicate branch name - Chỉnh sửa chi nhánh với tên trùng', async ({ page }) => {
@@ -218,7 +213,7 @@ test.describe.serial('Branch Test', () => {
         await branchPage.fillBranchName('Biên Hòa');
         await branchPage.fillBranchAddress('Automation test branch ');
         await branchPage.clickSave();
-        await toastPage.getToastUpdateFailed();
+        await branchPage.verifyToastMessage(ToastMessages.TOAST_UPDATE_FAILED);
         await branchPage.verifyBranchExist();
     })
 
@@ -234,13 +229,13 @@ test.describe.serial('Branch Test', () => {
         await branchPage.fillBranchAddress(randomString);
         await branchPage.fillNote(randomString);
         await branchPage.clickSave();
-        await toastPage.getToastUpdateSuccess();
+        await branchPage.verifyToastMessage(ToastMessages.TOAST_UPDATE_SUCCESS);
     });
 
     test('Delete branch - Xóa chi nhánh', async ({ page }) => {
         await branchPage.clickBranchButton();
         await branchPage.clickDeleteRow0();
-        await toastPage.getToastDeleteSuccess();
+        await branchPage.verifyToastMessage(ToastMessages.TOAST_DELETE_SUCCESS);
     });
 
     test('Search by branch name - Tìm kiếm chi nhánh theo tên', async ({ page }) => {
@@ -277,7 +272,7 @@ test.describe.serial('Branch Test', () => {
         await branchPage.fillBranchAddress(randomString);
         await branchPage.fillNote(randomString);
         await branchPage.clickSave();
-        await toastPage.getToastAddSuccess();
+        await branchPage.verifyToastMessage(ToastMessages.TOAST_ADD_SUCCESS);
     });
 
     test("Max length of branch name over 255 characters", async ({ page }) => {
@@ -292,7 +287,7 @@ test.describe.serial('Branch Test', () => {
         await branchPage.fillBranchAddress(randomString);
         await branchPage.fillNote(randomString);
         await branchPage.clickSave();
-        await validation.validateMaxLength255Characters();
+        await branchPage.verifyRequiredField(ValidationMessages.MAX_LENGTH_255);
     });
 
     test("Max length of short name 50 characters", async ({ page }) => {
@@ -307,7 +302,7 @@ test.describe.serial('Branch Test', () => {
         await branchPage.fillBranchAddress(randomString);
         await branchPage.fillNote(randomString);
         await branchPage.clickSave();
-        await toastPage.getToastAddSuccess();
+        await branchPage.verifyToastMessage(ToastMessages.TOAST_ADD_SUCCESS);
     });
 
     test("Max length of short name over 50 characters", async ({ page }) => {
@@ -322,7 +317,7 @@ test.describe.serial('Branch Test', () => {
         await branchPage.fillBranchAddress(randomString);
         await branchPage.fillNote(randomString);
         await branchPage.clickSave();
-        await validation.validateMaxLength50Characters();
+        await branchPage.verifyRequiredField(ValidationMessages.MAX_LENGTH_50);
     });
 
     test("Max length of note 500 characters", async ({ page }) => {
@@ -337,7 +332,7 @@ test.describe.serial('Branch Test', () => {
         await branchPage.fillBranchAddress(randomString);
         await branchPage.fillNote("z".repeat(500));
         await branchPage.clickSave();
-        await toastPage.getToastAddSuccess();
+        await branchPage.verifyToastMessage(ToastMessages.TOAST_ADD_SUCCESS);
     });
 
     test("Max length of branch address 500 characters", async ({ page }) => {
@@ -352,7 +347,7 @@ test.describe.serial('Branch Test', () => {
         await branchPage.fillBranchAddress("z".repeat(500));
         await branchPage.fillNote(randomString);
         await branchPage.clickSave();
-        await toastPage.getToastAddSuccess();
+        await branchPage.verifyToastMessage(ToastMessages.TOAST_ADD_SUCCESS);
     });
 
     test("Max length of note over 500 characters", async ({ page }) => {
@@ -367,7 +362,7 @@ test.describe.serial('Branch Test', () => {
         await branchPage.fillBranchAddress(randomString);
         await branchPage.fillNote("z".repeat(501));
         await branchPage.clickSave();
-        await validation.validateMaxLength500Characters();
+        await branchPage.verifyRequiredField(ValidationMessages.MAX_LENGTH_500);
     });
 
     test("Max length of branch address over 500 characters", async ({ page }) => {
@@ -382,6 +377,6 @@ test.describe.serial('Branch Test', () => {
         await branchPage.fillBranchAddress("z".repeat(501));
         await branchPage.fillNote(randomString);
         await branchPage.clickSave();
-        await validation.validateMaxLength500Characters();
+        await branchPage.verifyRequiredField(ValidationMessages.MAX_LENGTH_500);
     });
 });

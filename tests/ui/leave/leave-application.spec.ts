@@ -11,13 +11,12 @@ import { ToastPage } from '../../../pages/ToastPage';
 import { LogoutPage } from '../../../pages/LogoutPage';
 import { ValidationPage } from '../../../pages/ValidationPage';
 import { importShiftPlan } from '../../../db/modules/ShiftplanDB';
+import { ToastMessages, ValidationMessages } from '../../../constants/MessagesCommon';
 
 test.describe.serial('Leave Application Tests', () => {
     let loginPage: LoginPage;
     let leaveApplicationPage: LeaveApplicationPage;
-    let toastPage: ToastPage;
     let logoutPage: LogoutPage;
-    let validationPage: ValidationPage;
 
     test.beforeAll(async () => {
         await importShiftPlan();
@@ -28,11 +27,9 @@ test.describe.serial('Leave Application Tests', () => {
         allure.owner('Minh Nguyen');
         allure.severity('Critical');
 
-        validationPage = new ValidationPage(page);
         logoutPage = new LogoutPage(page);
         loginPage = new LoginPage(page);
         leaveApplicationPage = new LeaveApplicationPage(page);
-        toastPage = new ToastPage(page);
     });
 
     async function addLeaveApplication() {
@@ -44,7 +41,7 @@ test.describe.serial('Leave Application Tests', () => {
         await leaveApplicationPage.clickSelectNewStatus();
         await leaveApplicationPage.fillReason('Automation test leave application');
         await leaveApplicationPage.clickSave();
-        await toastPage.getToastAddSuccess();
+        await leaveApplicationPage.verifyToastMessage(ToastMessages.TOAST_ADD_SUCCESS);
 
     }
     async function beforeSearchTest() {
@@ -81,7 +78,7 @@ test.describe.serial('Leave Application Tests', () => {
         await leaveApplicationPage.setDate();
         await leaveApplicationPage.fillReason('a'.repeat(255));
         await leaveApplicationPage.clickSave();
-        await toastPage.getToastAddSuccess();
+        await leaveApplicationPage.verifyToastMessage(ToastMessages.TOAST_ADD_SUCCESS);
     });
 
     test("Max lenght of reason over 255 characters", async ({ page }) => {
@@ -92,7 +89,7 @@ test.describe.serial('Leave Application Tests', () => {
         await leaveApplicationPage.setDate();
         await leaveApplicationPage.fillReason('a'.repeat(256));
         await leaveApplicationPage.clickSave();
-        await validationPage.validateMaxLength255Characters();
+        await leaveApplicationPage.verifyRequiredField(ValidationMessages.MAX_LENGTH_255);
     });
 
     test('Edit reason of leave application', async ({ page }) => {
@@ -102,7 +99,7 @@ test.describe.serial('Leave Application Tests', () => {
         await leaveApplicationPage.clickEdit();
         await leaveApplicationPage.fillReason('Automation test edited');
         await leaveApplicationPage.clickSave();
-        await toastPage.getToastUpdateSuccess();
+        await leaveApplicationPage.verifyToastMessage(ToastMessages.TOAST_UPDATE_SUCCESS);
     });
 
     test('Edit day of leave application', async ({ page }) => {
@@ -112,7 +109,7 @@ test.describe.serial('Leave Application Tests', () => {
         await leaveApplicationPage.clickEdit();
         await leaveApplicationPage.setDateForEdit();
         await leaveApplicationPage.clickSave();
-        await toastPage.getToastUpdateSuccess();
+        await leaveApplicationPage.verifyToastMessage(ToastMessages.TOAST_UPDATE_SUCCESS);
     });
 
     test('Edit leave type of leave application', async ({ page }) => {
@@ -123,7 +120,7 @@ test.describe.serial('Leave Application Tests', () => {
         await leaveApplicationPage.clickLeaveTypeDropDown();
         await leaveApplicationPage.clickSocialInsuranceLeave();
         await leaveApplicationPage.clickSave();
-        await toastPage.getToastUpdateSuccess();
+        await leaveApplicationPage.verifyToastMessage(ToastMessages.TOAST_UPDATE_SUCCESS);
     });
 
     test('Add leave application with annual leave and send to admin -> admin approve', async ({ page }) => {
@@ -135,7 +132,7 @@ test.describe.serial('Leave Application Tests', () => {
             await leaveApplicationPage.getVerifyAnnualLeave();
             await leaveApplicationPage.clickRow0();
             await leaveApplicationPage.clickSendAndClickYes();
-            await toastPage.getToastSendBrowseSuccess();
+            await leaveApplicationPage.verifyToastMessage(ToastMessages.TOAST_SEND_BROWSE_SUCCESS);
         });
         await allure.step('Send and approve leave application', async () => {
             await sendAndApproveLeave(page);
@@ -153,13 +150,13 @@ test.describe.serial('Leave Application Tests', () => {
         await allure.step('Send to admin and admin reject leave application', async () => {
             await leaveApplicationPage.clickRow0();
             await leaveApplicationPage.clickSendAndClickYes();
-            await toastPage.getToastSendBrowseSuccess();
+            await leaveApplicationPage.verifyToastMessage(ToastMessages.TOAST_SEND_BROWSE_SUCCESS);
             await logoutPage.logout();
             await loginPage.login(Config.admin_username, Config.admin_password);
             await leaveApplicationPage.clickRow0();
             await leaveApplicationPage.clickReject();
             await leaveApplicationPage.fillReasonAndClickYes('Automation test');
-            await toastPage.getToastRejectSuccess();
+            await leaveApplicationPage.verifyToastMessage(ToastMessages.TOAST_REJECT_SUCCESS);
         });
     });
 
@@ -174,7 +171,7 @@ test.describe.serial('Leave Application Tests', () => {
             await leaveApplicationPage.setDate();
             await leaveApplicationPage.fillReason('Automation test reason');
             await leaveApplicationPage.clickSave();
-            await toastPage.getToastAddSuccess();
+            await leaveApplicationPage.verifyToastMessage(ToastMessages.TOAST_ADD_SUCCESS);
 
             // Check leave application exits in DB with reason and new status = 0
             const existsInDB = await checkLeaveApplicationExists('Automation test reason', 1);
@@ -201,7 +198,7 @@ test.describe.serial('Leave Application Tests', () => {
             await leaveApplicationPage.setDate();
             await leaveApplicationPage.fillReason('Automation test');
             await leaveApplicationPage.clickSave();
-            await toastPage.getToastAddSuccess();
+            await leaveApplicationPage.verifyToastMessage(ToastMessages.TOAST_ADD_SUCCESS);
             await leaveApplicationPage.getVerifySocialInsuranceLeave();
         });
         await allure.step('Send and approve leave application', async () => {
@@ -220,7 +217,7 @@ test.describe.serial('Leave Application Tests', () => {
             await leaveApplicationPage.setDate();
             await leaveApplicationPage.fillReason('Automation test');
             await leaveApplicationPage.clickSave();
-            await toastPage.getToastAddSuccess();
+            await leaveApplicationPage.verifyToastMessage(ToastMessages.TOAST_ADD_SUCCESS);
             await leaveApplicationPage.getVerifyMaternityLeave();
         });
         await allure.step('Send and approve leave application', async () => {
@@ -239,7 +236,7 @@ test.describe.serial('Leave Application Tests', () => {
             await leaveApplicationPage.setDate();
             await leaveApplicationPage.fillReason('Automation test');
             await leaveApplicationPage.clickSave();
-            await toastPage.getToastAddSuccess();
+            await leaveApplicationPage.verifyToastMessage(ToastMessages.TOAST_ADD_SUCCESS);
             await leaveApplicationPage.getVerifySpecialLeave();
         });
         await allure.step('Send and approve leave application', async () => {
@@ -256,7 +253,7 @@ test.describe.serial('Leave Application Tests', () => {
         await leaveApplicationPage.fillReason('Automation test');
         await leaveApplicationPage.clickSave();
         await leaveApplicationPage.verifyEndDateMustAfterStartDate();
-        await toastPage.getToastAddFailed();
+        await leaveApplicationPage.verifyToastMessage(ToastMessages.TOAST_ADD_FAILED);
     });
 
     test('Search by month', async ({ page }) => {
@@ -343,6 +340,6 @@ test.describe.serial('Leave Application Tests', () => {
         await addLeaveApplication();
         await leaveApplicationPage.clickRow0();
         await leaveApplicationPage.clickDelete();
-        await toastPage.getToastDeleteSuccess();
+        await leaveApplicationPage.verifyToastMessage(ToastMessages.TOAST_DELETE_SUCCESS);
     });
 });

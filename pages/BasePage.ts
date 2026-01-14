@@ -164,7 +164,10 @@ export class BasePage extends SafeActions {
     }
 
     async verifyToastMessage(message: string) {
-        await this.safeVerifyToHaveText(this.TOAST, message);
+        await this.safeVerifyTextContains(
+            this.page.getByTestId('toast-content').filter({ hasText: message }),
+            message
+        );
     }
 
     async fillTaxCode(taxCode: string) {
