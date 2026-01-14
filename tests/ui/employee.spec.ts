@@ -400,7 +400,7 @@ test.describe.serial('Employee Tests', () => {
         await employeePage.testMinlengthEmail();
     });
 
-    test.skip('Add with role department management', async ({ page }) => {
+    test.skip('Add with role department management - Thêm nhân viên và gán quyền quản lý bộ phận', async ({ page }) => {
         await employeePage.addWithRoleDepartmentManager();
     });
 
