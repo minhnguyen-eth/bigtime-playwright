@@ -6,6 +6,9 @@ import { EmployeePage } from '../../pages/EmployeePage';
 import { ResumePage } from '../../pages/ResumePage';
 import { clearAllowanceTypes, clearEmployees } from '../../db/helpers/DBHelper';
 import { ToastMessages, ValidationMessages } from '../../constants/MessagesCommon';
+import { clearDependents } from '../../db/modules/UsersDB';
+import { step } from '../../utils/steps';
+
 
 test.describe.serial('Employee Tests', () => {
     let loginPage: LoginPage;
@@ -52,6 +55,10 @@ test.describe.serial('Employee Tests', () => {
     });
 
     test('Add a dependents fill all information - Thêm một người phụ thuộc nhập đầy đủ thông tin ', async ({ page }) => {
+        await clearDependents();
+        const randomSuffix = Math.random().toString(36).substring(2, 8);
+        const taxCode = `0${randomSuffix}`;
+        console.log('Generated taxCode:', taxCode);
 
         await employeePage.fillSearchByName('Nguyễn Văn Minh');
         await employeePage.clickSearch();
@@ -67,7 +74,9 @@ test.describe.serial('Employee Tests', () => {
         await employeePage.clickTodayDatePicker();
         await employeePage.clickEndDateDependents();
         await employeePage.clickTodayDatePicker();
-        await employeePage.fillTaxCode('012345648222');
+
+        console.log('Fill taxCode:', taxCode);
+        await employeePage.fillTaxCode(taxCode);
         await employeePage.fillPhoneNumber('0351569856');
 
         // Relationship
@@ -77,6 +86,7 @@ test.describe.serial('Employee Tests', () => {
         await employeePage.fillAddress('A'.repeat(500));
         await employeePage.fillNote('A'.repeat(500));
         await employeePage.clickSaveNth1();
+        await page.waitForTimeout(1000);
         await employeePage.clickSave();
 
         // Verify
@@ -88,7 +98,10 @@ test.describe.serial('Employee Tests', () => {
         await employeePage.clickFamilyInformation();
         await employeePage.verifyRelationship('Con trai');
         await employeePage.verifyNameDependents('Automation test dependent');
-        await employeePage.verifyTaxCode('012345648222');
+
+
+        console.log('Verify taxCode:', taxCode);
+        await employeePage.verifyTaxCode(taxCode);
         await employeePage.verifyIsDependents();
     });
 
@@ -231,55 +244,73 @@ test.describe.serial('Employee Tests', () => {
 
     test("Max length of all fields", async ({ page }) => {
         allure.severity('Critical');
-        await clearAllowanceTypes();
-        await clearEmployees();
+
+        await step('Prepare test data & clear DB', async () => {
+            await clearAllowanceTypes();
+            await clearEmployees();
+        });
+
         const randomSuffix = Math.random().toString(36).substring(2, 8);
         const emailRandom = `email${randomSuffix}`;
-        const phoneNumber = `09${Math.floor(100000000 + Math.random() * 900000000)}`;
-        await employeePage.clickAdd();
+        const phoneNumber = `0${Math.floor(100000000 + Math.random() * 900000000)}`;
 
-        // Fill information
-        await employeePage.fillEmployeeCode("z".repeat(20));
-        await employeePage.fillEmployeeName('z'.repeat(255));
-        await employeePage.fillEmail(emailRandom);
-        await employeePage.clickSelectMale();
-        await employeePage.clickDropdownBranch();
-        await employeePage.clickSelectBranch();
-        await employeePage.clickDropdownDepartment();
-        await employeePage.clickSelectDepartment('Bộ phận IT');
-        await employeePage.clickDropdownEmployeeType();
-        await employeePage.clickStaff();
+        await step('Open Add Employee form', async () => {
+            await employeePage.clickAdd();
+        });
 
-        // Fill more information
-        await employeePage.clickDropdownPosition();
-        await employeePage.clickPosition();
-        await employeePage.clickDropdownRank();
-        await employeePage.clickSelectRank();
-        await employeePage.fillCitizenIdMaxlength("9".repeat(20));
-        await employeePage.clickCitizenIdCardIssueDate();
-        await employeePage.clickTodayDatePicker();
-        await employeePage.fillPlaceOfIssueOfIdentityCard("z".repeat(255));
-        await employeePage.fillBankName('Vietcombank');
-        await employeePage.fillBankAccountNumber("9".repeat(20));
-        await employeePage.fillPhoneNumber(phoneNumber);
-        await employeePage.clickDateOfBirth();
-        await employeePage.clickChosseYear();
-        await employeePage.clickSelectYear();
-        // await employeePage.clickChosseMonth();
-        // await employeePage.clickSelectMonth();
-        await employeePage.clickSelectDay();
-        await employeePage.clickDateOfJoiningTheCompany();
-        await employeePage.clickTodayDatePicker();
-        await employeePage.fillAddress("z".repeat(255));
-        await employeePage.fillNote("z".repeat(500));
-        await employeePage.clickSave();
-        await employeePage.verifyToastMessage(ToastMessages.TOAST_ADD_SUCCESS);
+        await step('Fill basic employee information (max length)', async () => {
+            await employeePage.fillEmployeeCode("z".repeat(20));
+            await employeePage.fillEmployeeName('z'.repeat(255));
+            await employeePage.fillEmail(emailRandom);
+            await employeePage.clickSelectMale();
+            await employeePage.clickDropdownBranch();
+            await employeePage.clickSelectBranch();
+            await employeePage.clickDropdownDepartment();
+            await employeePage.clickSelectDepartment('Bộ phận IT');
+            await employeePage.clickDropdownEmployeeType();
+            await employeePage.clickStaff();
+        });
+
+        await step('Fill additional employee information (max length)', async () => {
+            await employeePage.clickDropdownPosition();
+            await employeePage.clickPosition();
+            await employeePage.clickDropdownRank();
+            await employeePage.clickSelectRank();
+            await employeePage.fillCitizenIdMaxlength("9".repeat(20));
+            await employeePage.clickCitizenIdCardIssueDate();
+            await employeePage.clickTodayDatePicker();
+            await employeePage.fillPlaceOfIssueOfIdentityCard("z".repeat(255));
+            await employeePage.fillBankName('Vietcombank');
+            await employeePage.fillBankAccountNumber("9".repeat(20));
+            await employeePage.fillPhoneNumber(phoneNumber);
+        });
+
+        await step('Fill date information', async () => {
+            await employeePage.ADDRESS.scrollIntoViewIfNeeded();
+            await employeePage.clickDateOfBirth();
+            await employeePage.clickChosseYear();
+            await employeePage.clickSelectYear();
+            await employeePage.clickSelectDay();
+            await employeePage.clickDateOfJoiningTheCompany();
+            await employeePage.clickTodayDatePicker();
+        });
+
+        await step('Fill address & note (max length)', async () => {
+            await employeePage.fillAddress("z".repeat(255));
+            await employeePage.fillNote("z".repeat(500));
+        });
+
+        await step('Save employee and verify success', async () => {
+            await employeePage.clickSave();
+            await employeePage.verifyToastMessage(ToastMessages.TOAST_ADD_SUCCESS);
+        });
     });
+
 
     test('Test max length of resume', async ({ page }) => {
         allure.severity('Critical');
         const random10Digits = Math.floor(1000000000 + Math.random() * 9000000000);
-        const phoneNumber = `09${Math.floor(100000000 + Math.random() * 900000000)}`;
+        const phoneNumber = `0${Math.floor(100000000 + Math.random() * 900000000)}`;
         await employeePage.fillSearchByName("Test max length of resume");
         await employeePage.clickSearch();
         await employeePage.clickRow0();

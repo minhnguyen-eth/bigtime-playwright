@@ -7,6 +7,7 @@ import { BasePage } from '../../../pages/BasePage';
 import { ContractPage } from '../../../pages/contract_page/ContractPage';
 import { createContractWithProbation } from './contractHelper';
 import { ToastMessages, ValidationMessages } from '../../../constants/MessagesCommon';
+import { ContractType, ContractStatus } from '../../../enums/ContractEnums';
 
 test.describe.serial('Contract Tests', () => {
     let contractPage: ContractPage;
@@ -100,7 +101,10 @@ test.describe.serial('Contract Tests', () => {
         await contractPage.verifyToastMessage(ToastMessages.TOAST_CONFIRM_SUCCESS);
 
         // Check in DB, type 0 is probation, status 1 is confirmed
-        const existsInDB = await checkContractExists('Automation test contract', 0, 1);
+        const existsInDB = await checkContractExists(
+            'Automation test contract',
+            ContractType.PROBATION,
+            ContractStatus.CONFIRMED);
         expect(existsInDB).toBeTruthy();
     });
 
@@ -116,7 +120,7 @@ test.describe.serial('Contract Tests', () => {
         await basePage.clickSave();
         await contractPage.verifyToastMessage(ToastMessages.TOAST_ADD_SUCCESS);
 
-        const exitsInDB = await checkContractExists('Automation test formal', 1, 0);
+        const exitsInDB = await checkContractExists('Automation test formal', ContractType.PERMANENT, ContractStatus.NEW);
         expect(exitsInDB).toBeTruthy();
 
         await contractPage.clickRow0();
@@ -124,7 +128,7 @@ test.describe.serial('Contract Tests', () => {
         await contractPage.verifyToastMessage(ToastMessages.TOAST_CONFIRM_SUCCESS);
 
         // Check in DB, type 1 is probation, status 1 is confirmed
-        const existsInDB = await checkContractExists('Automation test formal', 1, 1);
+        const existsInDB = await checkContractExists('Automation test formal', ContractType.PERMANENT, ContractStatus.CONFIRMED);
         expect(existsInDB).toBeTruthy();
     });
 
@@ -140,7 +144,6 @@ test.describe.serial('Contract Tests', () => {
         await basePage.clickSave();
         await contractPage.verifyToastMessage(ToastMessages.TOAST_ADD_FAILED);
         await contractPage.verifyValidationMessage(ValidationMessages.CONTRACT_ALREADY_APPROVED);
-
     });
 
     test('E2E - Create with seasonal contract and confirm contract - Tạo hợp đồng thời vụ và xác nhận hợp đồng', async ({ page }) => {
@@ -156,7 +159,7 @@ test.describe.serial('Contract Tests', () => {
         await basePage.clickSave();
         await contractPage.verifyToastMessage(ToastMessages.TOAST_ADD_SUCCESS);
 
-        const exitsInDB = await checkContractExists('Automation test seasonal', 2, 0);
+        const exitsInDB = await checkContractExists('Automation test seasonal', ContractType.TEMPORARY, ContractStatus.NEW);
         expect(exitsInDB).toBeTruthy();
 
         await contractPage.clickRow0();
@@ -164,7 +167,7 @@ test.describe.serial('Contract Tests', () => {
         await contractPage.verifyToastMessage(ToastMessages.TOAST_CONFIRM_SUCCESS);
 
         // Check in DB, type 0 is probation, status 1 is confirmed
-        const existsInDB = await checkContractExists('Automation test seasonal', 2, 1);
+        const existsInDB = await checkContractExists('Automation test seasonal', ContractType.TEMPORARY, ContractStatus.CONFIRMED);
         expect(existsInDB).toBeTruthy();
     });
 
@@ -181,7 +184,7 @@ test.describe.serial('Contract Tests', () => {
         await basePage.clickSave();
         await contractPage.verifyToastMessage(ToastMessages.TOAST_ADD_SUCCESS);
 
-        const exitsInDB = await checkContractExists('Automation test seasonal', 2, 0);
+        const exitsInDB = await checkContractExists('Automation test seasonal', ContractType.TEMPORARY, ContractStatus.NEW);
         expect(exitsInDB).toBeTruthy();
 
         await contractPage.clickRow0();
@@ -189,12 +192,15 @@ test.describe.serial('Contract Tests', () => {
         await contractPage.verifyToastMessage(ToastMessages.TOAST_CONFIRM_SUCCESS);
 
         // Check in DB, type 0 is probation, status 1 is confirmed
-        const existsInDB = await checkContractExists('Automation test seasonal', 2, 1);
-        expect(existsInDB).toBeTruthy();
+        const isConfirmed = await checkContractExists('Automation test seasonal', ContractType.TEMPORARY, ContractStatus.CONFIRMED);
+        expect(isConfirmed).toBeTruthy();
 
         await contractPage.handleTerminateContract();
         await contractPage.verifyToastMessage(ToastMessages.TOAST_TERMINATE_CONTRACT_SUCCESS);
         await contractPage.verifyTerminatedStatusSearchResult();
+
+        const isTerminated = await checkContractExists('Automation test seasonal', ContractType.TEMPORARY, ContractStatus.TERMINATED);
+        expect(isTerminated).toBeTruthy();
     });
 
     test('E2E - Extension contract - Gia hạn hợp đồng', async ({ page }) => {
@@ -210,7 +216,7 @@ test.describe.serial('Contract Tests', () => {
         await basePage.clickSave();
         await contractPage.verifyToastMessage(ToastMessages.TOAST_ADD_SUCCESS);
 
-        const exitsInDB = await checkContractExists('Automation test seasonal', 2, 0);
+        const exitsInDB = await checkContractExists('Automation test seasonal', ContractType.TEMPORARY, ContractStatus.NEW);
         expect(exitsInDB).toBeTruthy();
 
         await contractPage.clickRow0();
@@ -218,7 +224,7 @@ test.describe.serial('Contract Tests', () => {
         await contractPage.verifyToastMessage(ToastMessages.TOAST_CONFIRM_SUCCESS);
 
         // Check in DB, type 0 is probation, status 1 is confirmed
-        const existsInDB = await checkContractExists('Automation test seasonal', 2, 1);
+        const existsInDB = await checkContractExists('Automation test seasonal', ContractType.TEMPORARY, ContractStatus.CONFIRMED);
         expect(existsInDB).toBeTruthy();
 
         await contractPage.handleExtensionContract();
@@ -248,7 +254,7 @@ test.describe.serial('Contract Tests', () => {
         await basePage.clickSave();
         await contractPage.verifyToastMessage(ToastMessages.TOAST_ADD_SUCCESS);
 
-        const exitsInDB = await checkContractExists('Automation test collaborator', 3, 0);
+        const exitsInDB = await checkContractExists('Automation test collaborator', ContractType.FREELANCER, ContractStatus.NEW);
         expect(exitsInDB).toBeTruthy();
     });
 

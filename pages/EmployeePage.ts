@@ -1,6 +1,7 @@
 import { Locator, Page, expect } from '@playwright/test';
 import { BasePage } from './BasePage';
 import { ToastMessages, ValidationMessages } from '../constants/MessagesCommon';
+import { step } from '../utils/steps';
 
 export class EmployeePage extends BasePage {
   readonly USER_BUTTON: Locator;
@@ -192,7 +193,7 @@ export class EmployeePage extends BasePage {
   }
 
   async verifyTaxCode(taxCode: string) {
-    const locator = this.page.getByText('012345648222', { exact: true });
+    const locator = this.page.getByText(taxCode, { exact: true });
     await this.safeVerifyToHaveText(locator, taxCode);
   }
 
@@ -661,11 +662,25 @@ export class EmployeePage extends BasePage {
   }
 
   async addWithRoleEmployee() {
-    await this.testAddEmployee();
-    await this.testFillMoreInformation();
-    await this.testSetSalary();
-    await this.clickSave();
-    await this.verifyToastMessage(ToastMessages.TOAST_ADD_SUCCESS);
+    await step('Add employee basic information', async () => {
+      await this.testAddEmployee();
+    });
+
+    await step('Fill more employee information', async () => {
+      await this.testFillMoreInformation();
+    });
+
+    await step('Set employee salary', async () => {
+      await this.testSetSalary();
+    });
+
+    await step('Save employee', async () => {
+      await this.clickSave();
+    });
+
+    await step('Verify add employee success toast', async () => {
+      await this.verifyToastMessage(ToastMessages.TOAST_ADD_SUCCESS);
+    });
   }
 
   async searchByEmployeeCode() {
@@ -716,7 +731,7 @@ export class EmployeePage extends BasePage {
 
   async testFillMoreInformation() {
     const random10Digits = Math.floor(1000000000 + Math.random() * 9000000000);
-    const phoneNumber = `09${Math.floor(100000000 + Math.random() * 900000000)}`;
+    const phoneNumber = `0${Math.floor(100000000 + Math.random() * 900000000)}`;
 
     // Fill more information
     await this.clickDropdownPosition();

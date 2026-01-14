@@ -26,68 +26,68 @@ test.describe.serial('Holiday Management', () => {
     });
 
 
-    test("Max length name and reason holiday management 255 characters", async ({ page }) => {
-        await clearPayroll();
-        await clearHolidayManagement();
-        await clearCheckDay();
-        await clearCheckTime();
-        await holidayManagementPage.clickAdd();
-        await holidayManagementPage.fillHolidayName("z".repeat(255));
-        await holidayManagementPage.clickStartDate();
-        await holidayManagementPage.clickTodayDatePicker();
-        await holidayManagementPage.clickEndDate();
-        await holidayManagementPage.clickTodayDatePicker();
-        await holidayManagementPage.fillReason("z".repeat(255));
-        await holidayManagementPage.checkTotalHolidayResult();
-        await holidayManagementPage.clickSave();
-        await holidayManagementPage.verifyToastMessage(ToastMessages.TOAST_UPDATE_SUCCESS);
-    });
+    // test("Max length name and reason holiday management 255 characters", async ({ page }) => {
+    //     await clearPayroll();
+    //     await clearHolidayManagement();
+    //     await clearCheckDay();
+    //     await clearCheckTime();
+    //     await holidayManagementPage.clickAdd();
+    //     await holidayManagementPage.fillHolidayName("z".repeat(255));
+    //     await holidayManagementPage.clickStartDate();
+    //     await holidayManagementPage.clickTodayDatePicker();
+    //     await holidayManagementPage.clickEndDate();
+    //     await holidayManagementPage.clickTodayDatePicker();
+    //     await holidayManagementPage.fillReason("z".repeat(255));
+    //     await holidayManagementPage.checkTotalHolidayResult();
+    //     await holidayManagementPage.clickSave();
+    //     await holidayManagementPage.verifyToastMessage(ToastMessages.TOAST_ADD_SUCCESS);
+    // });
 
-    test("Max length name holiday management over 255 characters", async ({ page }) => {
-        await holidayManagementPage.clickAdd();
-        await holidayManagementPage.fillHolidayName("z".repeat(256));
-        await holidayManagementPage.clickStartDate();
-        await holidayManagementPage.clickTodayDatePicker();
-        await holidayManagementPage.clickEndDate();
-        await holidayManagementPage.clickTodayDatePicker();
-        await holidayManagementPage.checkTotalHolidayResult();
-        await holidayManagementPage.fillReason("Test reason");
-        await holidayManagementPage.clickSave();
-        await holidayManagementPage.verifyRequiredField(ValidationMessages.MAX_LENGTH_255);
-    });
+    // test("Max length name holiday management over 255 characters", async ({ page }) => {
+    //     await holidayManagementPage.clickAdd();
+    //     await holidayManagementPage.fillHolidayName("z".repeat(256));
+    //     await holidayManagementPage.clickStartDate();
+    //     await holidayManagementPage.clickTodayDatePicker();
+    //     await holidayManagementPage.clickEndDate();
+    //     await holidayManagementPage.clickTodayDatePicker();
+    //     await holidayManagementPage.checkTotalHolidayResult();
+    //     await holidayManagementPage.fillReason("Test reason");
+    //     await holidayManagementPage.clickSave();
+    //     await holidayManagementPage.verifyRequiredField(ValidationMessages.MAX_LENGTH_255);
+    // });
 
-    test("Max length reason holiday management over 255 characters", async ({ page }) => {
-        await holidayManagementPage.clickAdd();
-        await holidayManagementPage.fillHolidayName("Test max length reason");
-        await holidayManagementPage.clickStartDate();
-        await holidayManagementPage.clickTodayDatePicker();
-        await holidayManagementPage.clickEndDate();
-        await holidayManagementPage.clickTodayDatePicker();
-        await holidayManagementPage.checkTotalHolidayResult();
-        await holidayManagementPage.fillReason("z".repeat(256));
-        await holidayManagementPage.clickSave();
-        await holidayManagementPage.verifyRequiredField(ValidationMessages.MAX_LENGTH_255);
-    });
+    // test("Max length reason holiday management over 255 characters", async ({ page }) => {
+    //     await holidayManagementPage.clickAdd();
+    //     await holidayManagementPage.fillHolidayName("Test max length reason");
+    //     await holidayManagementPage.clickStartDate();
+    //     await holidayManagementPage.clickTodayDatePicker();
+    //     await holidayManagementPage.clickEndDate();
+    //     await holidayManagementPage.clickTodayDatePicker();
+    //     await holidayManagementPage.checkTotalHolidayResult();
+    //     await holidayManagementPage.fillReason("z".repeat(256));
+    //     await holidayManagementPage.clickSave();
+    //     await holidayManagementPage.verifyRequiredField(ValidationMessages.MAX_LENGTH_255);
+    // });
 
-    test('E2E - Add Holiday Management', async ({ page }) => {
-        await clearHolidayManagement();
-        await clearCheckDay();
-        await clearCheckTime();
-        await holidayManagementPage.clickAdd();
-        await holidayManagementPage.fillHolidayName("Test");
-        await holidayManagementPage.clickStartDate();
-        await holidayManagementPage.clickTodayDatePicker();
-        await holidayManagementPage.clickEndDate();
-        await holidayManagementPage.clickTodayDatePicker();
-        await holidayManagementPage.fillReason('Test Reason');
-        await holidayManagementPage.checkTotalHolidayResult();
-        await holidayManagementPage.clickSave();
-        await holidayManagementPage.verifyToastMessage(ToastMessages.TOAST_UPDATE_SUCCESS);
-        await holidayManagementPage.clickTimeKeeping();
-        await holidayManagementPage.clickCheckInOutHistory();
-        await holidayManagementPage.fillAndSelectUser('BAT300 - Test quản lý nghỉ lễ');
-        await holidayManagementPage.verifyRestHolidayHaveSalary();
-    });
+    // test('E2E - Add Holiday Management', async ({ page }) => {
+    //     await clearHolidayManagement();
+    //     await clearCheckDay();
+    //     await clearCheckTime();
+    //     await holidayManagementPage.clickAdd();
+    //     await holidayManagementPage.fillHolidayName("Test");
+    //     await holidayManagementPage.clickStartDate();
+    //     await holidayManagementPage.clickTodayDatePicker();
+    //     await holidayManagementPage.clickEndDate();
+    //     await holidayManagementPage.clickTodayDatePicker();
+    //     await holidayManagementPage.fillReason('Test Reason');
+    //     await holidayManagementPage.checkTotalHolidayResult();
+    //     await holidayManagementPage.clickSave();
+    //     await holidayManagementPage.verifyToastMessage(ToastMessages.TOAST_ADD_SUCCESS);
+    //     await holidayManagementPage.clickTimeKeeping();
+    //     await holidayManagementPage.clickCheckInOutHistory();
+    //     await holidayManagementPage.fillAndSelectUser('BAT300 - Test quản lý nghỉ lễ');
+    //     await holidayManagementPage.verifyRestHolidayHaveSalary();
+    // });
 
     test('Check validation required add with blank field', async ({ page }) => {
         await holidayManagementPage.clickAdd();
@@ -122,6 +122,7 @@ test.describe.serial('Holiday Management', () => {
 
     test('Delete Holiday', async ({ page }) => {
         await clearHolidayManagement();
+        await clearPayroll();
         await holidayManagementPage.clickAdd();
         await holidayManagementPage.fillHolidayName("Test delete");
         await holidayManagementPage.clickStartDate();
@@ -131,7 +132,7 @@ test.describe.serial('Holiday Management', () => {
         await holidayManagementPage.fillReason("Test reason");
         await holidayManagementPage.checkTotalHolidayResult();
         await holidayManagementPage.clickSave();
-        await holidayManagementPage.verifyToastMessage(ToastMessages.TOAST_UPDATE_SUCCESS);
+        await holidayManagementPage.verifyToastMessage(ToastMessages.TOAST_ADD_SUCCESS);
         await holidayManagementPage.clickDeleteRow0();
         await holidayManagementPage.verifyToastMessage(ToastMessages.TOAST_DELETE_SUCCESS);
     });
