@@ -93,6 +93,12 @@ export class EmployeePage extends BasePage {
   readonly verifyPosition: Locator;
   readonly verifyMinlenghtEmail: Locator;
 
+  //
+  //options
+  readonly DEPARTMENT_ROLE_CLICK: Locator;
+  readonly GROUP_ROLE_CLICK: Locator;
+  readonly ROLE_CLICK: Locator;
+  readonly ADMIN_OPTIONS: Locator;
   constructor(page: Page) {
     super(page);
 
@@ -179,6 +185,12 @@ export class EmployeePage extends BasePage {
     this.EMPLOYEE_NAME = page.getByRole('textbox', { name: 'Tên nhân viên ※' })
     this.EMPLOYEE_CODE = page.getByRole('textbox', { name: 'Mã nhân viên ※' })
     this.USER_BUTTON = page.getByRole('link', { name: 'Nhân viên', exact: true });
+
+    //
+    this.ADMIN_OPTIONS = page.getByRole('option', { name: 'Quản lý' });
+    this.DEPARTMENT_ROLE_CLICK = page.getByRole('option', { name: 'Quản lý bộ phận' });
+    this.GROUP_ROLE_CLICK = page.getByRole('option', { name: 'Quản lý nhóm' })
+    this.ROLE_CLICK = page.getByRole('option', { name: 'Quản lý' })
   }
 
   // VERIFY
@@ -312,7 +324,17 @@ export class EmployeePage extends BasePage {
   }
 
   async clickManagementDepartmentRole() {
-    await this.safeClick(this.managementDepartmentRole);
+
+    await this.safeClick(this.DEPARTMENT_ROLE_CLICK);
+  }
+
+  async clickGroupRole() {
+
+    await this.safeClick(this.GROUP_ROLE_CLICK);
+  }
+
+  async clickRole() {
+    await this.safeClick(this.ROLE_CLICK);
   }
 
   async clickDropdownRoleName() {
@@ -508,6 +530,10 @@ export class EmployeePage extends BasePage {
     await this.safeClick(this.USER_BUTTON);
   }
 
+  async clickOption() {
+    await this.safeClick(this.ADMIN_OPTIONS);
+  }
+
   // FUNCTION VERIFY 
   async validateRequiredFields() {
     const validations = [
@@ -602,12 +628,34 @@ export class EmployeePage extends BasePage {
   async addWithRoleDepartmentManager() {
     await this.testAddEmployee();
     await this.clickDropdownEmployeeType();
-    await this.clickAdmin();
+    await this.clickOption();
     await this.clickDropdownRoleName();
     await this.clickManagementDepartmentRole();
     await this.clickSave();
     await this.verifyToastMessage(ToastMessages.TOAST_ADD_SUCCESS);
   }
+
+
+  async addWithRoleGroup() {
+    await this.testAddEmployee();
+    await this.clickDropdownEmployeeType();
+    await this.clickOption();
+    await this.clickDropdownRoleName();
+    await this.clickGroupRole();
+    await this.clickSave();
+    await this.verifyToastMessage(ToastMessages.TOAST_ADD_SUCCESS);
+  }
+
+  async addWithRole() {
+    await this.testAddEmployee();
+    await this.clickDropdownEmployeeType();
+    await this.clickOption();
+    await this.clickDropdownRoleName();
+    await this.clickRole();
+    await this.clickSave();
+    await this.verifyToastMessage(ToastMessages.TOAST_ADD_SUCCESS);
+  }
+
 
   async addWithWrongFormatEmail() {
     await this.testAddEmployee();

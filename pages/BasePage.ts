@@ -226,7 +226,8 @@ export class BasePage extends SafeActions {
     async clickNoButton() { await this.safeClick(this.NO_BUTTON); }
 
     async clickAdmin() { await this.safeClick(this.ADMIN_BUTTON); }
-
+    
+   
     async clickTimeKeepingManagement() { await this.safeClick(this.TIMEKEEPING_MANAGEMENT_BUTTON); }
 
     async clickSalary() { await this.safeClick(this.SALARY_BUTTON); }

@@ -400,9 +400,22 @@ test.describe.serial('Employee Tests', () => {
         await employeePage.testMinlengthEmail();
     });
 
-    test.skip('Add with role department management - Thêm nhân viên và gán quyền quản lý bộ phận', async ({ page }) => {
+    test('Add with role department management - Thêm nhân viên và gán quyền quản lý bộ phận', async ({ page }) => {
         await employeePage.addWithRoleDepartmentManager();
     });
+
+    test('Add with role group management - Thêm nhân viên và gán quyền quản lý nhóm', async ({ page }) => {
+        await employeePage.addWithRoleGroup();
+    });
+
+    test('Add with role  management - Thêm nhân viên và gán quyền quản lý nhóm', async ({ page }) => {
+        await employeePage.addWithRole();
+    });
+
+      test('Add with role department management - Thêm nhân viên và gán quyền quản lý bộ phận thuộc bộ phận...', async ({ page }) => {
+        await employeePage.addWithRoleGroup();
+    });
+
 
     test('Add with duplicate employee code and email', async ({ page }) => {
         await employeePage.addWithDuplicateCodeAndEmail();
