@@ -1,0 +1,6 @@
+STEP: Prepare test data & clear DB
+Cleared 3 rows in allowance_types with condition: note NOT LIKE '%Test data%' OR note IS NULL.
+Cleared 3 rows in users with condition: name LIKE '%Automation test%' or name LIKE '%z%'.
+STEP: Open Add Employee form
+STEP: Fill basic employee information (max length)
+STEP: Fill additional employee information (max length)

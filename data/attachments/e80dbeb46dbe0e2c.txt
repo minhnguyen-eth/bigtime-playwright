@@ -1,0 +1,5 @@
+STEP: Add employee basic information
+STEP: Fill more employee information
+STEP: Set employee salary
+STEP: Save employee
+STEP: Verify add employee success toast

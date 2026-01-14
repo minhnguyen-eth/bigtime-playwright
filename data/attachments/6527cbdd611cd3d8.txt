@@ -1,0 +1,6 @@
+Cleared 1 rows in holiday_managements.
+Reset AUTO_INCREMENT for holiday_managements.
+Cleared 0 rows in check_days.
+Reset AUTO_INCREMENT for check_days.
+Cleared 0 rows in check_times.
+Reset AUTO_INCREMENT for check_times.
