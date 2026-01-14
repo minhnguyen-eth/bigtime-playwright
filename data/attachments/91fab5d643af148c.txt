@@ -1,0 +1,108 @@
+# Page snapshot
+
+```yaml
+- banner:
+  - button
+  - text: BigTime - Prepare
+  - button "Quản lý":
+    - paragraph: Quản lý
+  - button "Chấm công":
+    - paragraph: Chấm công
+  - button "Lương":
+    - paragraph: Lương
+  - img
+  - text: Nguyễn Văn Minh
+  - button "Badge":
+    - status "Badge"
+  - button
+  - button "Đăng xuất"
+- banner:
+  - text: Version 1.0.14
+  - list:
+    - listitem "English":
+      - img
+    - listitem "Tiếng Việt":
+      - img
+  - button
+- navigation:
+  - listbox:
+    - link "Trung tâm":
+      - /url: /dashboard-time-keeping
+    - separator
+    - text: Chấm công
+    - link "Lịch sử điểm danh":
+      - /url: /checkin-out-history
+    - link "Phiếu tăng ca":
+      - /url: /overtime-ticket
+    - separator
+    - text: Ca làm việc
+    - link "Điểm danh":
+      - /url: /checkin-out
+    - link "Lịch làm việc tổng hợp":
+      - /url: /time-working
+    - separator
+    - text: Thống kê
+    - link "Thống kê ngày công tháng":
+      - /url: /monthly-workday-statistic
+    - link "Thống kê tổng thời gian":
+      - /url: /user-checkin-statistic
+    - link "Thống kê việc làm tháng":
+      - /url: /employment-statistic-month
+- main:
+  - text: Phiếu tăng ca
+  - button "Làm mới"
+  - button "Thêm"
+  - button
+  - textbox "Chọn tháng Chọn tháng": 01-2026
+  - combobox:
+    - text: Tất cả
+    - textbox "Open"
+  - combobox:
+    - text: Tất cả
+    - textbox "Open"
+  - button "Tìm kiếm"
+  - button "Xóa"
+  - table:
+    - rowgroup:
+      - row "# Tên nhân viên Ngày tăng ca Giờ bắt đầu Giờ kết thúc Giờ làm việc Trạng thái":
+        - columnheader "#"
+        - columnheader "Tên nhân viên"
+        - columnheader "Ngày tăng ca"
+        - columnheader "Giờ bắt đầu"
+        - columnheader "Giờ kết thúc"
+        - columnheader "Giờ làm việc"
+        - columnheader "Trạng thái"
+    - rowgroup:
+      - row "Không có dữ liệu":
+        - cell "Không có dữ liệu"
+  - text: Tổng 0, Hiển thị
+  - combobox:
+    - text: "20"
+    - textbox "Open": "20"
+  - navigation "Pagination Navigation":
+    - list:
+      - listitem:
+        - button "Previous page" [disabled]
+      - listitem:
+        - button "Next page" [disabled]
+- tooltip
+- dialog:
+  - text: Thêm phiếu tăng ca
+  - textbox "Tên nhân viên ※ Tên nhân viên ※": Nguyễn Văn Minh
+  - text: Ngày tăng ca ※
+  - textbox "Ngày tăng ca ※ Ngày tăng ca ※"
+  - alert: Nhập ngày tăng ca
+  - textbox "Giờ bắt đầu ※ Giờ bắt đầu ※": 00:00
+  - textbox "Giờ kết thúc ※ Giờ kết thúc ※": 00:00
+  - textbox "Giờ làm việc Giờ làm việc": 0:00
+  - text: Lý do ※
+  - textbox "Lý do ※ Lý do ※"
+  - alert: Nhập lý do
+  - combobox:
+    - text: Chờ duyệt
+    - textbox "Open": "1"
+  - textbox "Ngày tạo Ngày tạo" [disabled]: 14-01-2026 05:08
+  - textbox "Người tạo Người tạo" [disabled]: Nguyễn Văn Minh
+  - button "Lưu"
+  - button "Hủy"
+```
