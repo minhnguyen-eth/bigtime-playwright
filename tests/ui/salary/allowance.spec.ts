@@ -150,15 +150,6 @@ test.describe.serial('Allowance Tests', () => {
         await allowancePage.verifyToastMessage(ToastMessages.TOAST_UPDATE_SUCCESS);
     });
 
-    test('Delete allowance', async ({ page }) => {
-        await allowancePage.clickAdd();
-        await allowancePage.fillAllowanceName('Testing');
-        await allowancePage.clickSave();
-        await allowancePage.clickIconAction();
-        await allowancePage.clickDelete();
-        await allowancePage.verifyToastMessage(ToastMessages.TOAST_DELETE_SUCCESS);
-    });
-
     test('Search by name', async ({ page }) => {
         await allowancePage.fillNameAllowanceSearch('Phụ cấp tiền ăn');
         await allowancePage.clickSearch();
@@ -180,5 +171,14 @@ test.describe.serial('Allowance Tests', () => {
         await allowancePage.clickSearch();
         await allowancePage.checkAllowanceTypeMonthlyResult();
 
+    });
+
+    test('Delete allowance', async ({ page }) => {
+        await allowancePage.clickAdd();
+        await allowancePage.fillAllowanceName('Testing');
+        await allowancePage.clickSave();
+        await allowancePage.clickIconAction();
+        await allowancePage.clickDelete();
+        await allowancePage.verifyToastMessage(ToastMessages.TOAST_DELETE_SUCCESS);
     });
 });

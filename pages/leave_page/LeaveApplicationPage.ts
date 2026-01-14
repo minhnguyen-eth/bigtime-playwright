@@ -126,7 +126,6 @@ export class LeaveApplicationPage extends BasePage {
         // await this.clickCloseSearchByMonth();
         await this.clickClearSearch();
         await this.clickTextboxSearchByMonth();
-        await this.clickBackYear();
         await this.clickMonthOption();
         
         await this.clickSearch();

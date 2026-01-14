@@ -30,6 +30,12 @@ test.describe.serial('Reward Employee Tests', () => {
         await rewardEmployeePage.clickAdd();
     }
 
+    async function beforeTestSearch() {
+        await loginPage.login(Config.admin_username, Config.admin_password);
+        await rewardEmployeePage.clickAdmin();
+        await rewardEmployeePage.clickRewardEmployee();
+    }
+
     test("Max length of reward name is 255 characters", async ({ page }) => {
         await clearRewardUsers();
         await beforeTest();
@@ -207,13 +213,21 @@ test.describe.serial('Reward Employee Tests', () => {
     });
 
     test('Cancel reward', async ({ page }) => {
-        await loginPage.login(Config.admin_username, Config.admin_password);
-        await rewardEmployeePage.clickAdmin();
-        await rewardEmployeePage.clickRewardEmployee();
+        await beforeTest();
+        await rewardEmployeePage.fillRewardName('Reward Employee 3');
+        await rewardEmployeePage.fillChooseEmployee('Minh');
+        await rewardEmployeePage.clickSelectEmployee();
+        await rewardEmployeePage.clickChooseRewardType();
+        await rewardEmployeePage.clickSelectRewardType();
+        await rewardEmployeePage.fillMoney('1000000');
+        await rewardEmployeePage.clickSave();
+        await rewardEmployeePage.verifyToastMessage(ToastMessages.TOAST_ADD_SUCCESS);
+        await rewardEmployeePage.clickRow0();
+        await rewardEmployeePage.clickBrowse();
         await rewardEmployeePage.clickRow0();
         await rewardEmployeePage.clickCancel();
         await rewardEmployeePage.fillReasonAndClickYes('Reason cancel');
-        await rewardEmployeePage.verifyToastMessage(ToastMessages.TOAST_CANCEL_SUCCESS);
+        await rewardEmployeePage.verifyToastMessage(ToastMessages.TOAST_CANCELED_SUCCESS);
     });
 
     test('Create reward with empty description and note ', async ({ page }) => {
@@ -256,12 +270,6 @@ test.describe.serial('Reward Employee Tests', () => {
         await rewardEmployeePage.verifyValidationMoney();
     });
 
-    async function beforeTestSearch() {
-        await loginPage.login(Config.admin_username, Config.admin_password);
-        await rewardEmployeePage.clickAdmin();
-        await rewardEmployeePage.clickRewardEmployee();
-    }
-
     test('Search with reward name', async ({ page }) => {
         await importRewardUser();
         await beforeTestSearch();
@@ -292,8 +300,7 @@ test.describe.serial('Reward Employee Tests', () => {
         await rewardEmployeePage.clickDay19();
         await rewardEmployeePage.clickChoose();
         await rewardEmployeePage.clickSearch();
-        await rewardEmployeePage.verifyDateSearch('19-06');
-        await rewardEmployeePage.clickClearSearch();
+        await rewardEmployeePage.verifyDateSearch('19-06-2026');
     });
 
     test('Search by status', async ({ page }) => {

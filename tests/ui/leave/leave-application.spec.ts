@@ -128,9 +128,7 @@ test.describe.serial('Leave Application Tests', () => {
             await beforeTest();
             await addLeaveApplication();
             await leaveApplicationPage.getVerifyAnnualLeave();
-            await leaveApplicationPage.clickRow0();
-            await leaveApplicationPage.clickSendAndClickYes();
-            await leaveApplicationPage.verifyToastMessage(ToastMessages.TOAST_SEND_BROWSE_SUCCESS);
+            await leaveApplicationPage.verifyToastMessage(ToastMessages.TOAST_ADD_SUCCESS);
         });
         await allure.step('Send and approve leave application', async () => {
             await sendAndApproveLeave(page);
@@ -172,7 +170,7 @@ test.describe.serial('Leave Application Tests', () => {
             await leaveApplicationPage.verifyToastMessage(ToastMessages.TOAST_ADD_SUCCESS);
 
             // Check leave application exits in DB with reason and new status = 0
-            const existsInDB = await checkLeaveApplicationExists('Automation test reason', 1);
+            const existsInDB = await checkLeaveApplicationExists('Automation test reason', 0);
             expect(existsInDB).toBeTruthy();
 
         });

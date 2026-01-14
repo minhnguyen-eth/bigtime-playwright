@@ -26,7 +26,6 @@ export class RewardEmployeePage extends BasePage {
     readonly VERIFY_SEARCH_BY_REWARD_NAME: Locator;
     readonly VERIFY_SEARCH_BY_EMPLOYEE: Locator;
     readonly VERIFY_SEARCH_BY_REWARD_TYPE: Locator;
-    readonly VERIFY_SEARCH_BY_DATE: Locator;
     readonly VERIFY_NEW_STATUS: Locator;
     readonly VERIFY_APPROVED_STATUS: Locator;
     readonly VERIFY_CANCELLED_STATUS: Locator;
@@ -62,7 +61,6 @@ export class RewardEmployeePage extends BasePage {
         this.VERIFY_SEARCH_BY_REWARD_NAME = page.locator("//tr[@id='row-0']//span[contains(text(),'Reward Employee 4')]");
         this.VERIFY_SEARCH_BY_EMPLOYEE = page.locator("//tr[@id='row-0']//span[contains(text(),'BAT810 - Nguyễn Văn Minh')]");
         this.VERIFY_SEARCH_BY_REWARD_TYPE = page.locator("//tr[@id='row-0']//span[contains(text(),'Khen thưởng 2')]");
-        this.VERIFY_SEARCH_BY_DATE = page.locator("//td[normalize-space()='19-06-2025']").first();
         this.VERIFY_NEW_STATUS = page.locator("//tr[@id='row-0']//div[text()='Mới tạo']");
         this.VERIFY_APPROVED_STATUS = page.locator("//tr[@id='row-0']//div[text()='Đã duyệt']");
         this.VERIFY_CANCELLED_STATUS = page.locator("//tr[@id='row-0']//div[text()='Đã hủy']");
@@ -156,8 +154,15 @@ export class RewardEmployeePage extends BasePage {
         await this.safeVerifyToHaveText(this.VERIFY_SEARCH_BY_REWARD_TYPE, expected);
     }
 
+    getVerifySearchByDate(date: string): Locator {
+        return this.page.locator(
+            `//td[normalize-space()='${date}']`
+        ).first();
+    }
+
     async verifyDateSearch(expected: string) {
-        await this.safeVerifyTextContains(this.VERIFY_SEARCH_BY_DATE, expected);
+        const dateCell = this.getVerifySearchByDate(expected);
+        await this.safeVerifyTextContains(dateCell, expected);
     }
 
     async verifyNewStatusSearch(expected: string) {

@@ -10,6 +10,7 @@ export const ToastMessages = {
   TOAST_BROWSE_SUCCESS: 'Đã duyệt thành công',
   TOAST_REJECT_SUCCESS: 'Từ chối thành công',
   TOAST_CANCEL_SUCCESS: 'Hủy thành công',
+  TOAST_CANCELED_SUCCESS: 'Đã hủy thành công',
   TOAST_EXPORT_SUCCESS: 'Xuất thành công',
   TOAST_EXPORT_HAVE_NO_DATA: 'Không có dữ liệu',
   TOAST_CHECKIN_SUCCESS: 'Chấm công thành công.',
