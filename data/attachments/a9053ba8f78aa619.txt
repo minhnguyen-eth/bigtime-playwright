@@ -1,7 +1,0 @@
-safeClick error: locator.waitFor: Error: strict mode violation: locator('//span[contains(normalize-space(),\'Tìm kiếm\')]') resolved to 2 elements:
-    1) <span data-no-activator="" class="v-btn__content">Tìm kiếm</span> aka locator('#app').getByRole('button', { name: 'Tìm kiếm' })
-    2) <span data-no-activator="" class="v-btn__content">…</span> aka getByRole('tablist').getByRole('button', { name: 'Tìm kiếm' })
-
-Call log:
-  - waiting for locator('//span[contains(normalize-space(),\'Tìm kiếm\')]')
-

@@ -1,1 +1,1 @@
-{"total":2,"items":[{"uid":"6967227b9eb3a27f48cab22bae1c8b86","name":"Edge","statistic":{"failed":10,"broken":0,"skipped":81,"passed":329,"unknown":0,"total":420}},{"uid":"358a5ce5f3d3cf5d552cb1aa0863145f","name":"Chromium","statistic":{"failed":9,"broken":0,"skipped":88,"passed":323,"unknown":0,"total":420}}]}
+{"total":1,"items":[{"uid":"358a5ce5f3d3cf5d552cb1aa0863145f","name":"Chromium","statistic":{"failed":7,"broken":0,"skipped":51,"passed":362,"unknown":0,"total":420}}]}
