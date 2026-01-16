@@ -48,7 +48,7 @@ jobs:
     # Môi trường chạy
     runs-on: ubuntu-latest
     env:
-      ENVIRONMENT: BigTime Pre Version 1.0.14
+      ENVIRONMENT: BigTime Pre Version 1.0.15
       AUTHOR: Minh Nguyen
       PLATFORM: Ubuntu
       BROWSER: Chromium, Edge, Firefox
