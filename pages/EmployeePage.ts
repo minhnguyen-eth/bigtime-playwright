@@ -780,6 +780,7 @@ export class EmployeePage extends BasePage {
   async testFillMoreInformation() {
     const random10Digits = Math.floor(1000000000 + Math.random() * 9000000000);
     const phoneNumber = `0${Math.floor(100000000 + Math.random() * 900000000)}`;
+    const bankAccountNumber = `0${Math.floor(100000000 + Math.random() * 900000000)}`;
 
     // Fill more information
     await this.clickDropdownPosition();
@@ -797,7 +798,7 @@ export class EmployeePage extends BasePage {
 
     await this.fillPlaceOfIssueOfIdentityCard('Bien Hoa, Dong Nai');
     await this.fillBankName('Vietcombank');
-    await this.fillBankAccountNumber('02847182497124');
+    await this.fillBankAccountNumber(bankAccountNumber);
     await this.fillPhoneNumber(phoneNumber);
     await this.fillAddress('Bien Hoa, Dong Nai');
     await this.fillNote('Automation testing');
