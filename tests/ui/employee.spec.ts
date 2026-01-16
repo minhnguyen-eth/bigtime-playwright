@@ -9,7 +9,6 @@ import { ToastMessages, ValidationMessages } from '../../constants/MessagesCommo
 import { clearDependents } from '../../db/modules/UsersDB';
 import { step } from '../../utils/steps';
 
-
 test.describe.serial('Employee Tests', () => {
     let loginPage: LoginPage;
     let employeePage: EmployeePage
@@ -277,8 +276,6 @@ test.describe.serial('Employee Tests', () => {
             await employeePage.clickDropdownRank();
             await employeePage.clickSelectRank();
             await employeePage.fillCitizenIdMaxlength("9".repeat(20));
-            await employeePage.clickCitizenIdCardIssueDate();
-            await employeePage.clickTodayDatePicker();
             await employeePage.fillPlaceOfIssueOfIdentityCard("z".repeat(255));
             await employeePage.fillBankName('Vietcombank');
             await employeePage.fillBankAccountNumber("9".repeat(20));
