@@ -41,7 +41,7 @@ export class PaysheetPage extends BasePage {
     readonly EXPORT_ONLY_1_PAYSHEET: Locator;
     readonly ADD_MORE_EMPLOYEE: Locator;
     readonly FILL_EMPLOYEE_NAME: Locator;
-    readonly SELECT_MORE_EMPLOYEE: Locator;
+    readonly SELECT_MORE_EMPLOYEE: (name: string) => Locator;
     readonly BASE_SALARY: Locator;
     readonly NUMBER_OF_WORKING_DAYS: Locator;
     readonly OVERTIME_INPUT: Locator;
@@ -54,7 +54,6 @@ export class PaysheetPage extends BasePage {
     readonly ADD_DEDUCTION: Locator;
     readonly TEMPORARY_SAVE_BUTTON: Locator;
     readonly VERIFY_OVERTIME: Locator;
-    readonly SELECT_MORE_EMPLOYEE_2: Locator;
     readonly CHECKBOX_PAYSLIPS_FIRST: Locator;
     readonly SEARCH_BY_NAME: Locator;
     readonly SEARCH_BUTTON_TABLIST: Locator;
@@ -70,13 +69,14 @@ export class PaysheetPage extends BasePage {
 
     constructor(page: Page) {
         super(page);
+        this.SELECT_MORE_EMPLOYEE = (name: string) => page.getByRole('option', { name: name });
         this.VERIFY_TAX = page.locator("(//table/tbody/tr/td[11]/p)");
         this.POPUP_SEPARATE = page.locator("//div[.='Bạn có chắc chắn muốn tách bảng lương thành 2 phần: đã duyệt và chưa duyệt không?']");
         this.SEPARATE_BUTTON = page.locator("//span[contains(.,'Tách')]");
         this.INPUT_FILL_MONEY_ALLOWANCE = page.locator("//tr/td[3]/div/div/div/div[3]/input");
         this.ADD_ALLOWANCE_BUTTON = page.locator("//span[contains(.,'Thêm khoản phụ cấp khác')]");
         this.ALLOWANCE_BUTTON = page.locator("//tbody/tr/td[6]/p[1]");
-        this.SEARCH_BUTTON_TABLIST = page.getByRole('tablist').getByRole('button', { name: 'Tìm kiếm', exact: true });
+        this.SEARCH_BUTTON_TABLIST = page.getByRole('tablist').getByRole('button', { name: 'Tìm kiếm' });
         this.CHECKBOX_PAYSLIPS_FIRST = page.locator('.v-selection-control').first();
         this.VERIFY_OVERTIME = page.locator("//input[contains(@value,'500.000')]");
         this.TEMPORARY_SAVE_BUTTON = page.locator("//span[.=' Lưu tạm']");
@@ -90,8 +90,6 @@ export class PaysheetPage extends BasePage {
         this.OVERTIME_INPUT = page.locator("//tr/td[5]/div/div/div/div[3]/input");
         this.NUMBER_OF_WORKING_DAYS = page.locator("//tr/td[4]/div/div/div/div[3]/div/input");
         this.BASE_SALARY = page.locator("//tbody/tr/td[4]/p[1]");
-        this.SELECT_MORE_EMPLOYEE = page.getByRole('option', { name: /Big App Tech/ });
-        this.SELECT_MORE_EMPLOYEE_2 = page.getByText('BAT501 - Test Lương', { exact: true });
         this.FILL_EMPLOYEE_NAME = page.locator("//div[3]/div[2]/div/div/div/div[3]/div/input");
         this.ADD_MORE_EMPLOYEE = page.locator("//span[normalize-space()='Thêm nhân viên']");
         this.EXPORT_ONLY_1_PAYSHEET = page.getByRole('table').getByRole('button', { name: 'Xuất dữ liệu' });
@@ -131,10 +129,15 @@ export class PaysheetPage extends BasePage {
         this.REASON_INPUT = page.locator('//form//div[3]//div[3]//textarea[1]');
         this.PAYMENT_BUTTON = page.getByRole('button', { name: 'Thanh toán' });
         this.PAYMENT_CONFIRM_BUTTON = page.locator('//span[contains(normalize-space(),"Xác nhận thanh toán")]');
-        this.SEARCH_BY_NAME = page.getByRole('textbox', { name: 'Tìm kiếm theo mã hoặc tên bảng lương' });
+        this.SEARCH_BY_NAME = page.getByRole('textbox', { name: 'Tìm kiếm theo tên' });
         this.SELECT_EMPLOYEE = page.locator("(//input[@type='checkbox'])[2]");
 
     }
+
+    async clickSelectMoreEmployee(name: string) {
+        await this.safeClick(this.SELECT_MORE_EMPLOYEE(name));
+    }
+
     async verifyTotalTaxAmountCalculated(amount: string) {
         const locator = this.page.getByText(`${amount} đ`, { exact: true });
         await this.safeVerifyTextContains(locator, amount);
@@ -217,15 +220,10 @@ export class PaysheetPage extends BasePage {
 
     async fillSearchByName(name: string) {
         await this.safeFill(this.SEARCH_BY_NAME, name);
-        await this.clickSearch();
     }
 
     async clickCheckboxPayslipsFirst() {
         await this.safeClick(this.CHECKBOX_PAYSLIPS_FIRST);
-    }
-
-    async clickSelectEmployee2() {
-        await this.safeClick(this.SELECT_MORE_EMPLOYEE_2);
     }
 
     async expectOvertime() {
@@ -292,10 +290,6 @@ export class PaysheetPage extends BasePage {
 
     async clickBaseSalary() {
         await this.safeClick(this.BASE_SALARY);
-    }
-
-    async clickSelectMoreEmployee() {
-        await this.safeClick(this.SELECT_MORE_EMPLOYEE);
     }
 
     async fillEmployeeNameInput(name: string) {

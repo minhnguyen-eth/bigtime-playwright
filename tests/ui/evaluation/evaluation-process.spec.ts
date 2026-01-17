@@ -140,7 +140,7 @@ test.describe.serial("Evaluation Process Tests", () => {
         await evaluationProcess.clickIconAction();
         await evaluationProcess.clickCancelNth1();
         await evaluationProcess.fillReasonAndClickYes('Cancel evaluation');
-        await evaluationProcess.verifyToastMessage(ToastMessages.TOAST_CANCEL_SUCCESS);
+        await evaluationProcess.verifyToastMessage(ToastMessages.TOAST_CANCELED_SUCCESS);
     }
 
     test('Cancel evaluation', async ({ page }) => {

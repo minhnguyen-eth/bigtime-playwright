@@ -3,10 +3,11 @@ import { PaysheetPage } from '../../../pages/salary_page/PaysheetPage';
 import { LogoutPage } from '../../../pages/LogoutPage';
 import Config from '../../../utils/configUtils';
 import { ToastMessages } from '../../../constants/MessagesCommon';
+import { step } from '../../../utils/steps';
 
 export class PaysheetHelper {
   constructor(
-    
+
     private paysheet: PaysheetPage,
     private loginPage: LoginPage,
     private logoutPage: LogoutPage,
@@ -78,7 +79,7 @@ export class PaysheetHelper {
     await this.logoutPage.logout();
 
     await this.loginPage.goto();
-    await this.loginPage.login('testluong@gmail.com', '123456');
+    await this.loginPage.login('bat100@gmail.com', '123456');
     await this.browsePayslip();
     await this.logoutPage.logout();
 
@@ -99,15 +100,27 @@ export class PaysheetHelper {
   }
 
   // Tạo bảng lương mới
-  async addPaysheet(employeeName: string = 'test lương') {
-    await this.paysheet.clickAdd();
-    await this.paysheet.setNamePaysheet('Automation test');
-    await this.paysheet.clickCheckboxMonthly();
-    await this.paysheet.clickChooseMonth();
-    await this.paysheet.clickMonthOption();
-    await this.paysheet.setNote('Automation test');
-    await this.paysheet.fillSearchByName(employeeName);
-    await this.paysheet.clickSearchButtonTablist();
+  async addPaysheet(employeeName: string) {
+    await step('Click add button', async () => {
+      await this.paysheet.clickAdd();
+      await this.paysheet.setNamePaysheet('Automation test');
+      await this.paysheet.clickCheckboxMonthly();
+      await this.paysheet.clickChooseMonth();
+      await this.paysheet.clickMonthOption();
+
+      await step('Set note', async () => {
+        await this.paysheet.setNote('Automation test');
+      });
+    });
+
+    await step('Fill employee name', async () => {
+      await this.paysheet.fillSearchByName(employeeName);
+    });
+
+    await step('Click search button', async () => {
+      await this.paysheet.clickSearchButtonTablist();
+    });
+
     await this.paysheet.clickSelectEmployee();
     await this.paysheet.clickSave();
     await this.paysheet.verifyToastMessage(ToastMessages.TOAST_ADD_SUCCESS);

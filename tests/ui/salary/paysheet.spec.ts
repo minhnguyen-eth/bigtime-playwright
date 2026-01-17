@@ -10,6 +10,7 @@ import { importCheckTime } from '../../../db/modules/CheckTimeDB';
 import { importCheckDay } from '../../../db/modules/CheckDayDB';
 import { importPayrolls } from '../../../db/modules/PayrollsDB';
 import { ToastMessages, ValidationMessages } from '../../../constants/MessagesCommon';
+import { step } from '../../../utils/steps';
 
 test.describe.serial('Paysheet Tests', () => {
     let loginPage: LoginPage;
@@ -45,7 +46,7 @@ test.describe.serial('Paysheet Tests', () => {
         await clearPaysheets();
         await beforeTest();
         await allure.step('Admin creates and sends paysheet', async () => {
-            await paysheetHelper.addPaysheet();
+            await paysheetHelper.addPaysheet('BAT100');
         });
 
         await allure.step('Employee browses payslip => Admin payment ', async () => {
@@ -56,15 +57,15 @@ test.describe.serial('Paysheet Tests', () => {
     test('Add duplicate employee in a paysheet - Thêm nhân viên trùng trong 1 bảng lương', async ({ page }) => {
         await beforeTest();
         await allure.step('Admin creates paysheet - Quản lý tạo bảng lương', async () => {
-            await paysheetHelper.addPaysheet();
+            await paysheetHelper.addPaysheet('BAT100');
         });
 
         await allure.step('Add duplicate employee - Thêm nhân viên trùng trong 1 bảng lương', async () => {
             await paysheet.clickLatestPaysheetRow();
             await paysheet.clickViewPayroll();
             await paysheet.clickAddMoreEmployee();
-            await paysheet.fillEmployeeNameInput('test lương');
-            await paysheet.clickSelectEmployee2();
+            await paysheet.fillEmployeeNameInput('BAT100');
+            await paysheet.clickSelectMoreEmployee('BAT100 - Test thue (Không có NPT)');
             await paysheet.clickSave();
         });
 
@@ -77,12 +78,12 @@ test.describe.serial('Paysheet Tests', () => {
         allure.story('Complete Paysheet Process Story');
         await allure.step('Admin creates and sends paysheet', async () => {
             await beforeTest();
-            await paysheetHelper.addPaysheet();
+            await paysheetHelper.addPaysheet('BAT100');
             await paysheet.clickLatestPaysheetRow();
             await paysheet.clickViewPayroll();
             await paysheet.clickAddMoreEmployee();
             await paysheet.fillEmployeeNameInput('Big app tech')
-            await paysheet.clickSelectMoreEmployee();
+            await paysheet.clickSelectMoreEmployee('Big App Tech');
             await paysheet.clickSave();
             await paysheet.verifyToastMessage(ToastMessages.TOAST_ADD_SUCCESS);
             await paysheet.clickSendAll();
@@ -92,7 +93,7 @@ test.describe.serial('Paysheet Tests', () => {
         });
 
         await allure.step('Employee 1 approves payslip', async () => {
-            await loginPage.login('testluong@gmail.com', '123456');
+            await loginPage.login('bat100@gmail.com', '123456');
             await paysheet.clickSalary();
             await paysheet.clickPayslip();
             await paysheet.clickSalarySlipCode();
@@ -113,7 +114,7 @@ test.describe.serial('Paysheet Tests', () => {
 
     test('Test close salary when employee not browse - Kiểm tra chốt luong khi nhân viên chưa duyệt phiếu lương', async ({ page }) => {
         await beforeTest();
-        await paysheetHelper.addPaysheet();
+        await paysheetHelper.addPaysheet('BAT100');
         await paysheet.clickLatestPaysheetRow();
         await paysheet.clickViewPayroll();
         await paysheet.clickSalaryClosing();
@@ -176,7 +177,7 @@ test.describe.serial('Paysheet Tests', () => {
         await beforeTest();
 
         await allure.step('Add paysheet for all employees', async () => {
-            await paysheetHelper.addPaysheet();
+            await paysheetHelper.addPaysheet('BAT810');
         });
 
         await allure.step('Cancel latest paysheet with reason', async () => {
@@ -192,7 +193,7 @@ test.describe.serial('Paysheet Tests', () => {
         await beforeTest();
 
         await allure.step('Add paysheet for all employees', async () => {
-            await paysheetHelper.addPaysheet();
+            await paysheetHelper.addPaysheet('BAT810');
         });
 
         await allure.step('Export excel by month', async () => {
@@ -206,11 +207,11 @@ test.describe.serial('Paysheet Tests', () => {
         allure.story('Export Excel by 1 Paysheet Story');
         await beforeTest();
 
-        await allure.step('Add paysheet for all employees', async () => {
-            await paysheetHelper.addPaysheet();
+        await step('Add paysheet', async () => {
+            await paysheetHelper.addPaysheet('BAT810');
         });
 
-        await allure.step('Click export button of the lastest paysheet ', async () => {
+        await step('Click export button of the lastest paysheet ', async () => {
             await paysheet.clickLatestPaysheetRow();
             await paysheet.clickExportOnly1Paysheet();
             await paysheet.verifyToastMessage(ToastMessages.TOAST_EXPORT_SUCCESS);
@@ -237,7 +238,7 @@ test.describe.serial('Paysheet Tests', () => {
 
         await allure.step('Admin create paysheet', async () => {
             await beforeTest();
-            await paysheetHelper.addPaysheet();
+            await paysheetHelper.addPaysheet('Big App Tech');
         });
 
         await allure.step('Edit paysheet', async () => {
@@ -256,9 +257,15 @@ test.describe.serial('Paysheet Tests', () => {
 
             await paysheet.clickAllowanceButton();
             await paysheet.clickAddAllowanceButton();
-            await paysheet.fillAllowanceType('Automation test');
-            ;
-            await paysheet.fillAllowanceMoney('2000000');
+
+            await step('Fill allowance type', async () => {
+                await paysheet.fillAllowanceType('Automation test');
+            });
+
+            await step('Fill allowance money', async () => {
+                await paysheet.fillAllowanceMoney('2000000');
+            });
+
             await paysheet.clickSave();
 
             await paysheet.clickDeduction();

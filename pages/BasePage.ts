@@ -133,6 +133,10 @@ export class BasePage extends SafeActions {
         this.SEARCH_BUTTON = page.locator("//span[contains(normalize-space(),'Tìm kiếm')]");
     }
 
+    async pressEnter() {
+        await this.page.keyboard.press('Enter');
+    }
+
     async verifyNoDataExistInSearch() {
         await this.safeVerifyToHaveText(this.NO_DATA_EXIST_IN_SEARCH, 'Không có dữ liệu');
     }
@@ -226,8 +230,8 @@ export class BasePage extends SafeActions {
     async clickNoButton() { await this.safeClick(this.NO_BUTTON); }
 
     async clickAdmin() { await this.safeClick(this.ADMIN_BUTTON); }
-    
-   
+
+
     async clickTimeKeepingManagement() { await this.safeClick(this.TIMEKEEPING_MANAGEMENT_BUTTON); }
 
     async clickSalary() { await this.safeClick(this.SALARY_BUTTON); }

@@ -789,9 +789,7 @@ export class EmployeePage extends BasePage {
     await this.clickSelectRank();
     await this.fillCitizenId(random10Digits);
 
-    await this.page.evaluate(() => {
-      window.scrollBy(0, -1000);
-    }); // Scroll up
+    await this.ADDRESS.scrollIntoViewIfNeeded();
 
     await this.clickCitizenIdCardIssueDate();
     await this.clickTodayDatePicker();
@@ -802,9 +800,6 @@ export class EmployeePage extends BasePage {
     await this.fillPhoneNumber(phoneNumber);
     await this.fillAddress('Bien Hoa, Dong Nai');
     await this.fillNote('Automation testing');
-    await this.page.evaluate(() => {
-      window.scrollBy(0, -1000);
-    });
     await this.clickDateOfBirth();
     await this.clickOpenYearOverlayButton();
     await this.clickSelectYear();
