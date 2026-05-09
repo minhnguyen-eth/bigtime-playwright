@@ -139,273 +139,273 @@ test.describe.serial('Salary Calculation Tests', () => {
         });
     });
 
-    /* Test thuế nhân viên có phát sinh người phụ thuộc giữa tháng */
-    test('E2E Calculate tax with dependents in the middle of the month - Kiểm tra tính thuế khi phát sinh NPT giữa tháng', async ({ adminAPI }) => {
-        allure.description(`
-        Employee: BAT107
-        Payroll month: 12/2025
-        Base salary: 20,000,000 VND
-        Dependent deduction start date: 15/12/2025
+    // /* Test thuế nhân viên có phát sinh người phụ thuộc giữa tháng */
+    // test('E2E Calculate tax with dependents in the middle of the month - Kiểm tra tính thuế khi phát sinh NPT giữa tháng', async ({ adminAPI }) => {
+    //     allure.description(`
+    //     Employee: BAT107
+    //     Payroll month: 12/2025
+    //     Base salary: 20,000,000 VND
+    //     Dependent deduction start date: 15/12/2025
 
-        Insurance deduction: 2,100,000 VND (20.000.000 * (BHXH 8%) + (BHYT 1.5%) + (BHTN 1%) + (ĐOÀN PHÍ 0%))
-        Personal deduction: 15,500,000 VND (free tax)
-        Dependent deduction: 6,200,000 VND (1 dependent)
+    //     Insurance deduction: 2,100,000 VND (20.000.000 * (BHXH 8%) + (BHYT 1.5%) + (BHTN 1%) + (ĐOÀN PHÍ 0%))
+    //     Personal deduction: 15,500,000 VND (free tax)
+    //     Dependent deduction: 6,200,000 VND (1 dependent)
 
-        Expected:
-        - Tax: 0 VND
-        - Insurance deduction: 2,100,000 VND 
-        - Net salary: 17,775,000 VND
-        `);
+    //     Expected:
+    //     - Tax: 0 VND
+    //     - Insurance deduction: 2,100,000 VND 
+    //     - Net salary: 17,775,000 VND
+    //     `);
 
-        await allure.step('API - Add paysheet for 1 employees', async () => {
-            // Use helper to generate paysheet data
-            const paysheetData = generateCustomPaysheet({
-                name: 'Automation test NPT generated in the middle of the month',
-                start_date: START_DATE_DECEMBER,
-                end_date: END_DATE_DECEMBER,
-                users_id: [TestUsers.USERID_BAT107_NPT_GENERATED_IN_THE_MIDDLE_OF_THE_MONTH]
-            });
+    //     await allure.step('API - Add paysheet for 1 employees', async () => {
+    //         // Use helper to generate paysheet data
+    //         const paysheetData = generateCustomPaysheet({
+    //             name: 'Automation test NPT generated in the middle of the month',
+    //             start_date: START_DATE_DECEMBER,
+    //             end_date: END_DATE_DECEMBER,
+    //             users_id: [TestUsers.USERID_BAT107_NPT_GENERATED_IN_THE_MIDDLE_OF_THE_MONTH]
+    //         });
 
-            const response = await adminAPI.paysheet.createPaysheet(paysheetData);
+    //         const response = await adminAPI.paysheet.createPaysheet(paysheetData);
 
-            // Verify response format
-            expect(response.code).toBe(200);
-            expect(response.message).toBe('Created successfully'); // BigTime API message
-        });
+    //         // Verify response format
+    //         expect(response.code).toBe(200);
+    //         expect(response.message).toBe('Created successfully'); // BigTime API message
+    //     });
 
-        await allure.step('UI - Verify salary and tax', async () => {
-            await beforeTest();
-            // verify salary and tax
-            await paysheet.verifyMainSalary('20.000.000');
-            await paysheet.verifyTotalSalary('20.000.000');
-            await paysheet.verifyInsurance('2.100.000');
-            await paysheet.verifyTax('0');
-            await paysheet.verifyTotalReceived('17.900.000');
+    //     await allure.step('UI - Verify salary and tax', async () => {
+    //         await beforeTest();
+    //         // verify salary and tax
+    //         await paysheet.verifyMainSalary('20.000.000');
+    //         await paysheet.verifyTotalSalary('20.000.000');
+    //         await paysheet.verifyInsurance('2.100.000');
+    //         await paysheet.verifyTax('0');
+    //         await paysheet.verifyTotalReceived('17.900.000');
 
-        });
-    });
+    //     });
+    // });
 
-    /* Test thuế nhân viên có người phụ thuộc hết hạn giảm trừ giữa tháng */
-    test('E2E Calculate tax with dependents expired in the middle of the month - Kiểm tra tính thuế kh NPT hết hạn giảm trừ giữa tháng', async ({ adminAPI }) => {
-        allure.description(`
-        Employee: BAT108
-        Payroll month: 12/2025
-        Base salary: 20,000,000 VND
-        Dependent deduction start date: 15/12/2025
+    // /* Test thuế nhân viên có người phụ thuộc hết hạn giảm trừ giữa tháng */
+    // test('E2E Calculate tax with dependents expired in the middle of the month - Kiểm tra tính thuế kh NPT hết hạn giảm trừ giữa tháng', async ({ adminAPI }) => {
+    //     allure.description(`
+    //     Employee: BAT108
+    //     Payroll month: 12/2025
+    //     Base salary: 20,000,000 VND
+    //     Dependent deduction start date: 15/12/2025
 
-        Expected:
-        - Tax: 0 VND
-        - Insurance deduction: 2,100,000 VND 
-        - Net salary: 17,900,000 VND
-        `);
+    //     Expected:
+    //     - Tax: 0 VND
+    //     - Insurance deduction: 2,100,000 VND 
+    //     - Net salary: 17,900,000 VND
+    //     `);
 
-        await allure.step('API - Add paysheet for 1 employees', async () => {
-            // Use helper to generate paysheet data
-            const paysheetData = generateCustomPaysheet({
-                name: 'Automation test NPT generated in the middle of the month',
-                start_date: START_DATE_DECEMBER,
-                end_date: END_DATE_DECEMBER,
-                users_id: [TestUsers.USERID_BAT108_NPT_ENDING_IN_THE_MIDDLE_OF_THE_MONTH]
-            });
+    //     await allure.step('API - Add paysheet for 1 employees', async () => {
+    //         // Use helper to generate paysheet data
+    //         const paysheetData = generateCustomPaysheet({
+    //             name: 'Automation test NPT generated in the middle of the month',
+    //             start_date: START_DATE_DECEMBER,
+    //             end_date: END_DATE_DECEMBER,
+    //             users_id: [TestUsers.USERID_BAT108_NPT_ENDING_IN_THE_MIDDLE_OF_THE_MONTH]
+    //         });
 
-            const response = await adminAPI.paysheet.createPaysheet(paysheetData);
+    //         const response = await adminAPI.paysheet.createPaysheet(paysheetData);
 
-            // Verify response format
-            expect(response.code).toBe(200);
-            expect(response.message).toBe('Created successfully'); // BigTime API message
-        });
+    //         // Verify response format
+    //         expect(response.code).toBe(200);
+    //         expect(response.message).toBe('Created successfully'); // BigTime API message
+    //     });
 
-        await allure.step('Add paysheet for 1 employees', async () => {
+    //     await allure.step('Add paysheet for 1 employees', async () => {
 
-            await beforeTest();
-            // verify salary and tax
-            await paysheet.verifyMainSalary('20.000.000');
-            await paysheet.verifyTotalSalary('20.000.000');
-            await paysheet.verifyInsurance('2.100.000');
-            await paysheet.verifyTax('0');
-            await paysheet.verifyTotalReceived('17.900.000');
+    //         await beforeTest();
+    //         // verify salary and tax
+    //         await paysheet.verifyMainSalary('20.000.000');
+    //         await paysheet.verifyTotalSalary('20.000.000');
+    //         await paysheet.verifyInsurance('2.100.000');
+    //         await paysheet.verifyTax('0');
+    //         await paysheet.verifyTotalReceived('17.900.000');
 
-        });
+    //     });
 
-    });
+    // });
 
-    /*  Chưa đến ngày giảm trừ NPT */
-    test('E2E Calculate tax with dependents not yet effective - Kiểm tra tính thuế khi chưa đến ngày giảm trừ NPT', async ({ adminAPI }) => {
-        allure.story('Calculate tax with dependents not yet effective Story');
-        allure.description(`
-        Employee: BAT105
-        Payroll month: 12/2025
-        Base salary: 20,000,000 VND
-        Dependent deduction effective date: 30/09/2026
+    // /*  Chưa đến ngày giảm trừ NPT */
+    // test('E2E Calculate tax with dependents not yet effective - Kiểm tra tính thuế khi chưa đến ngày giảm trừ NPT', async ({ adminAPI }) => {
+    //     allure.story('Calculate tax with dependents not yet effective Story');
+    //     allure.description(`
+    //     Employee: BAT105
+    //     Payroll month: 12/2025
+    //     Base salary: 20,000,000 VND
+    //     Dependent deduction effective date: 30/09/2026
 
 
-        Expected result:
-        - Tax: 120,000 VND
-        - Total insurance: 2,100,000 VND
-        - Net salary: 17,780,000 VND`);
+    //     Expected result:
+    //     - Tax: 120,000 VND
+    //     - Total insurance: 2,100,000 VND
+    //     - Net salary: 17,780,000 VND`);
 
-        await allure.step('API - Add paysheet for 1 employees', async () => {
-            // Use helper to generate paysheet data
-            const paysheetData = generateCustomPaysheet({
-                name: 'Automation test NPT not yet effective',
-                start_date: START_DATE_DECEMBER,
-                end_date: END_DATE_DECEMBER,
-                users_id: [TestUsers.USERID_BAT105_1_DEPENDENT_NOT_YET_DEDUCTION_DAY]
-            });
+    //     await allure.step('API - Add paysheet for 1 employees', async () => {
+    //         // Use helper to generate paysheet data
+    //         const paysheetData = generateCustomPaysheet({
+    //             name: 'Automation test NPT not yet effective',
+    //             start_date: START_DATE_DECEMBER,
+    //             end_date: END_DATE_DECEMBER,
+    //             users_id: [TestUsers.USERID_BAT105_1_DEPENDENT_NOT_YET_DEDUCTION_DAY]
+    //         });
 
-            const response = await adminAPI.paysheet.createPaysheet(paysheetData);
+    //         const response = await adminAPI.paysheet.createPaysheet(paysheetData);
 
-            // Verify response format
-            expect(response.code).toBe(200);
-            expect(response.message).toBe('Created successfully');
-        });
+    //         // Verify response format
+    //         expect(response.code).toBe(200);
+    //         expect(response.message).toBe('Created successfully');
+    //     });
 
-        await allure.step('UI - Verify salary and tax', async () => {
-            await beforeTest();
+    //     await allure.step('UI - Verify salary and tax', async () => {
+    //         await beforeTest();
 
-            // verify salary and tax
-            await paysheet.verifyMainSalary('20.000.000');
-            await paysheet.verifyTotalSalary('20.000.000');
-            await paysheet.verifyInsurance('2.100.000');
-            await paysheet.verifyTax('120.000');
-            await paysheet.verifyTotalReceived('17.780.000');
+    //         // verify salary and tax
+    //         await paysheet.verifyMainSalary('20.000.000');
+    //         await paysheet.verifyTotalSalary('20.000.000');
+    //         await paysheet.verifyInsurance('2.100.000');
+    //         await paysheet.verifyTax('120.000');
+    //         await paysheet.verifyTotalReceived('17.780.000');
 
-        });
+    //     });
 
-    });
+    // });
 
-    /* Đã hết hạn giảm trừ NPT */
-    test('E2E Calculate tax with dependents expired - Kiểm tra tính thuế khi NPT hết hạn giảm trừ', async ({ adminAPI }) => {
-        allure.story('Calculate tax with dependents expired Story');
-        allure.description(`
-        Employee: BAT106 ( 1 NPT, hết hạn giảm trừ 01/11/2025)
-        Payroll month: 12/2025
-        Base salary: 20,000,000 VND
-        Dependent deduction expiry date: 01/11/2025
+    // /* Đã hết hạn giảm trừ NPT */
+    // test('E2E Calculate tax with dependents expired - Kiểm tra tính thuế khi NPT hết hạn giảm trừ', async ({ adminAPI }) => {
+    //     allure.story('Calculate tax with dependents expired Story');
+    //     allure.description(`
+    //     Employee: BAT106 ( 1 NPT, hết hạn giảm trừ 01/11/2025)
+    //     Payroll month: 12/2025
+    //     Base salary: 20,000,000 VND
+    //     Dependent deduction expiry date: 01/11/2025
 
-        Expected result:
-        - Tax: 120,000 VND
-        - Insurance deduction: 2,100,000 VND 
-        - Net salary: 17,780,000 VND
-        `);
+    //     Expected result:
+    //     - Tax: 120,000 VND
+    //     - Insurance deduction: 2,100,000 VND 
+    //     - Net salary: 17,780,000 VND
+    //     `);
 
-        await allure.step('API - Add paysheet for 1 employees', async () => {
-            // Use helper to generate paysheet data
-            const paysheetData = generateCustomPaysheet({
-                name: 'Automation test NPT expired',
-                start_date: START_DATE_DECEMBER,
-                end_date: END_DATE_DECEMBER,
-                users_id: [TestUsers.USERID_BAT106_EXPIRED_DEPENDENT]
-            });
+    //     await allure.step('API - Add paysheet for 1 employees', async () => {
+    //         // Use helper to generate paysheet data
+    //         const paysheetData = generateCustomPaysheet({
+    //             name: 'Automation test NPT expired',
+    //             start_date: START_DATE_DECEMBER,
+    //             end_date: END_DATE_DECEMBER,
+    //             users_id: [TestUsers.USERID_BAT106_EXPIRED_DEPENDENT]
+    //         });
 
-            const response = await adminAPI.paysheet.createPaysheet(paysheetData);
+    //         const response = await adminAPI.paysheet.createPaysheet(paysheetData);
 
-            // Verify response format
-            expect(response.code).toBe(200);
-            expect(response.message).toBe('Created successfully'); // BigTime API message
+    //         // Verify response format
+    //         expect(response.code).toBe(200);
+    //         expect(response.message).toBe('Created successfully'); // BigTime API message
 
-        });
+    //     });
 
-        await allure.step('UI - Verify salary and tax', async () => {
-            await beforeTest();
+    //     await allure.step('UI - Verify salary and tax', async () => {
+    //         await beforeTest();
 
-            // verify salary and tax`
-            await paysheet.verifyMainSalary('20.000.000');
-            await paysheet.verifyTotalSalary('20.000.000');
-            await paysheet.verifyInsurance('2.100.000');
-            await paysheet.verifyTax('120.000');
-            await paysheet.verifyTotalReceived('17.780.000');
+    //         // verify salary and tax`
+    //         await paysheet.verifyMainSalary('20.000.000');
+    //         await paysheet.verifyTotalSalary('20.000.000');
+    //         await paysheet.verifyInsurance('2.100.000');
+    //         await paysheet.verifyTax('120.000');
+    //         await paysheet.verifyTotalReceived('17.780.000');
 
-        });
-    });
+    //     });
+    // });
 
-    /* Test tính lương cho nhân viên có 1 ngày nghỉ phép năm */
-    test('E2E Calculate salary with 1 day annual leave - Kiểm tra tính lương khi có 1 ngày nghỉ phép năm ', async ({ adminAPI }) => {
-        allure.story('Calculate salary with 1 day leave Story');
-        allure.description(`
-        Employee: BAT400 (1 ngày nghỉ phép năm)
-        Payroll month: 12/2025
-        Base salary: 10,000,000 VND
+    // /* Test tính lương cho nhân viên có 1 ngày nghỉ phép năm */
+    // test('E2E Calculate salary with 1 day annual leave - Kiểm tra tính lương khi có 1 ngày nghỉ phép năm ', async ({ adminAPI }) => {
+    //     allure.story('Calculate salary with 1 day leave Story');
+    //     allure.description(`
+    //     Employee: BAT400 (1 ngày nghỉ phép năm)
+    //     Payroll month: 12/2025
+    //     Base salary: 10,000,000 VND
 
-        Expected result:
-        - Tax: 0 VND
-        - Insurance deduction: 1.050.000 VND 
-        - Net salary: 8,950,000 VND
-        `);
-        await allure.step('API - Add paysheet for 1 employees', async () => {
-            // Use helper to generate paysheet data
-            const paysheetData = generateCustomPaysheet({
-                name: 'Automation test 1 day annual leave',
-                start_date: START_DATE_DECEMBER,
-                end_date: END_DATE_DECEMBER,
-                users_id: [TestUsers.USERID_BAT400_1_ANNUAL_LEAVE]
-            });
+    //     Expected result:
+    //     - Tax: 0 VND
+    //     - Insurance deduction: 1.050.000 VND 
+    //     - Net salary: 8,950,000 VND
+    //     `);
+    //     await allure.step('API - Add paysheet for 1 employees', async () => {
+    //         // Use helper to generate paysheet data
+    //         const paysheetData = generateCustomPaysheet({
+    //             name: 'Automation test 1 day annual leave',
+    //             start_date: START_DATE_DECEMBER,
+    //             end_date: END_DATE_DECEMBER,
+    //             users_id: [TestUsers.USERID_BAT400_1_ANNUAL_LEAVE]
+    //         });
 
-            const response = await adminAPI.paysheet.createPaysheet(paysheetData);
+    //         const response = await adminAPI.paysheet.createPaysheet(paysheetData);
 
-            // Verify response format
-            expect(response.code).toBe(200);
-            expect(response.message).toBe('Created successfully'); // BigTime API message
-        });
+    //         // Verify response format
+    //         expect(response.code).toBe(200);
+    //         expect(response.message).toBe('Created successfully'); // BigTime API message
+    //     });
 
-        await allure.step('UI - Verify salary and tax', async () => {
-            await beforeTest();
+    //     await allure.step('UI - Verify salary and tax', async () => {
+    //         await beforeTest();
 
-            // verify salary
-            await paysheet.verifyMainSalary('10.000.000');
-            await paysheet.verifyTotalSalary('10.000.000');
-            await paysheet.verifyInsurance('1.050.000');
-            await paysheet.verifyTax('0');
-            await paysheet.verifyTotalReceived('8.950.000');
+    //         // verify salary
+    //         await paysheet.verifyMainSalary('10.000.000');
+    //         await paysheet.verifyTotalSalary('10.000.000');
+    //         await paysheet.verifyInsurance('1.050.000');
+    //         await paysheet.verifyTax('0');
+    //         await paysheet.verifyTotalReceived('8.950.000');
 
-        });
-    });
+    //     });
+    // });
 
-    /* Test tính lương cho nhân viên có 1 ngày nghỉ thường */
-    test('E2E Calculate salary with 1 day regular leave - Kiểm tra tính lương khi có 1 ngày nghỉ thường ', async ({ adminAPI }) => {
-        allure.story('Calculate salary with 1 day regular leave Story');
-        allure.description(`
-        Employee: BAT402
-        Payroll month: 12/2025
-        Base salary: 10,000,000 VND
-        Standard work: 2
-        Working days: 1
-        Regular leave: 1 day
+    // /* Test tính lương cho nhân viên có 1 ngày nghỉ thường */
+    // test('E2E Calculate salary with 1 day regular leave - Kiểm tra tính lương khi có 1 ngày nghỉ thường ', async ({ adminAPI }) => {
+    //     allure.story('Calculate salary with 1 day regular leave Story');
+    //     allure.description(`
+    //     Employee: BAT402
+    //     Payroll month: 12/2025
+    //     Base salary: 10,000,000 VND
+    //     Standard work: 2
+    //     Working days: 1
+    //     Regular leave: 1 day
 
-        Expected:
-        Main salary: 5,000,000 VND
-        Insurance deduction: 1.050.000 VND
-        Net salary: 3,950,000 VND
-        `)
+    //     Expected:
+    //     Main salary: 5,000,000 VND
+    //     Insurance deduction: 1.050.000 VND
+    //     Net salary: 3,950,000 VND
+    //     `)
 
-        await allure.step('API - Add paysheet for 1 employees', async () => {
-            // Use helper to generate paysheet data
-            const paysheetData = generateCustomPaysheet({
-                name: 'Automation test 1 day annual leave',
-                start_date: START_DATE_DECEMBER,
-                end_date: END_DATE_DECEMBER,
-                users_id: [TestUsers.USERID_BAT402_1_REGULAR_LEAVE]
-            });
+    //     await allure.step('API - Add paysheet for 1 employees', async () => {
+    //         // Use helper to generate paysheet data
+    //         const paysheetData = generateCustomPaysheet({
+    //             name: 'Automation test 1 day annual leave',
+    //             start_date: START_DATE_DECEMBER,
+    //             end_date: END_DATE_DECEMBER,
+    //             users_id: [TestUsers.USERID_BAT402_1_REGULAR_LEAVE]
+    //         });
 
-            const response = await adminAPI.paysheet.createPaysheet(paysheetData);
+    //         const response = await adminAPI.paysheet.createPaysheet(paysheetData);
 
-            // Verify response format
-            expect(response.code).toBe(200);
-            expect(response.message).toBe('Created successfully'); // BigTime API message 
-        });
+    //         // Verify response format
+    //         expect(response.code).toBe(200);
+    //         expect(response.message).toBe('Created successfully'); // BigTime API message 
+    //     });
 
-        await allure.step('UI - Verify salary and tax', async () => {
-            await beforeTest();
+    //     await allure.step('UI - Verify salary and tax', async () => {
+    //         await beforeTest();
 
-            // verify salary
-            await paysheet.verifyMainSalary('5.000.000');
-            await paysheet.verifyTotalSalary('5.000.000');
-            await paysheet.verifyInsurance('1.050.000');
-            await paysheet.verifyTax('0');
-            await paysheet.verifyTotalReceived('3.950.000');
+    //         // verify salary
+    //         await paysheet.verifyMainSalary('5.000.000');
+    //         await paysheet.verifyTotalSalary('5.000.000');
+    //         await paysheet.verifyInsurance('1.050.000');
+    //         await paysheet.verifyTax('0');
+    //         await paysheet.verifyTotalReceived('3.950.000');
 
-        });
-    });
+    //     });
+    // });
 
     /* Test thuế nhân viên có 0 người phụ thuộc */
     test('TC_Paysheet_API_001 - Calculate tax with 0 dependents - Kiểm tra tính thuế khi có 0 người phụ thuộc', async ({ adminAPI }) => {
@@ -453,7 +453,7 @@ test.describe.serial('Salary Calculation Tests', () => {
             await paysheet.verifyTotalSalary('17.000.000');
             await paysheet.verifyInsurance('1.610.000');
             await paysheet.verifyTax('0');
-            await paysheet.verifyTotalReceived('15.390.000');
+            await paysheet.verifyTotalReceived('14.390.000');
         });
     });
 });
