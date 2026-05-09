@@ -1,4 +1,51 @@
 "DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
-"","0","TC_Paysheet_API_001 - Calculate tax with 0 dependents - Kiểm tra tính thuế khi có 0 người phụ thuộc","Chromium","Sat May 09 08:54:06 UTC 2026","skipped","Sat May 09 08:54:06 UTC 2026","Salary Calculation Tests","hybrid/payroll/salary-calculation.spec.ts","",""
-"","1","E2E Calculate tax with 2 dependents - Kiểm tra tính thuế với 2 người phụ thuộc","Chromium","Sat May 09 08:54:06 UTC 2026","skipped","Sat May 09 08:54:06 UTC 2026","Salary Calculation Tests","hybrid/payroll/salary-calculation.spec.ts","",""
-"","4794","TC_Paysheet_API_002 - E2E Calculate tax with 1 dependents - Kiểm tra tính thuế khi có 1 người phụ thuộc","Chromium","Sat May 09 08:54:01 UTC 2026","failed","Sat May 09 08:54:06 UTC 2026","Salary Calculation Tests","hybrid/payroll/salary-calculation.spec.ts","",""
+"
+        Employee: BAT101 (1 dependent)
+        Payroll month: 12/2025
+        Base salary: 20,000,000 VND
+        Dependent deduction start date: 15/12/2025
+        Insurance deduction: 2.100.000 VND (20.000.000 * (BHXH 8%) + (BHYT 1.5%) + (BHTN 1%) + (ĐOÀN PHÍ 0%))
+        Personal deduction:  15.500.000 VND
+        Dependent deduction: 6.200.000 VND (1 dependent)
+
+        Taxable income: 0 VND
+
+        Expected:
+        - Base salary: 20,000,000 VND
+        - Tax: 0 VND
+        - Insurance deduction: 2.100.000 VND 
+        - Net salary: 17,900,000 VND ","20322","TC_Paysheet_API_002 - E2E Calculate tax with 1 dependents - Kiểm tra tính thuế khi có 1 người phụ thuộc","Chromium","Sat May 09 08:58:23 UTC 2026","passed","Sat May 09 08:58:44 UTC 2026","Salary Calculation Tests","hybrid/payroll/salary-calculation.spec.ts","",""
+"
+        Employee: BAT102
+        Payroll month: 12/2025
+        Base salary: 30,000,000 VND
+        Dependent deduction start date: 15/12/2025
+
+        Insurance deduction: 3.150.000 VND (30.000.000 * (BHXH 8%) + (BHYT 1.5%) + (BHTN 1%) + (ĐOÀN PHÍ 0%))
+        Personal deduction: 15.500.000 VND
+        Dependent deduction: 12.400.000 VND (2 dependents)
+
+        Expected:
+        - Base salary: 30,000,000 VND
+        - Insurance deduction: 3.150.000 VND 
+        - Tax: 0 VND
+        - Net salary: 26,850,000 VND
+        ","14726","E2E Calculate tax with 2 dependents - Kiểm tra tính thuế với 2 người phụ thuộc","Chromium","Sat May 09 08:58:44 UTC 2026","passed","Sat May 09 08:58:58 UTC 2026","Salary Calculation Tests","hybrid/payroll/salary-calculation.spec.ts","",""
+"
+        Employee: BAT100 No dependent
+        Payroll month: 12/2025
+        Base salary: 14,000,000 VND
+        Allowance: 3,000,000 VND
+        Dependent deduction start date: 15/12/2025
+
+        Insurance deduction: 1,493,400 VND (30.000.000 * (BHXH 8%) + (BHYT 1.5%) + (BHTN 1%) + (ĐOÀN PHÍ 1%))
+        Personal deduction: 1.610.000 VND
+        Dependent deduction: 0 VND (0 dependents)
+
+        Taxable income: 0 VND
+        Tax: 0 VND
+
+        Expected:
+        - Dependent deduction is applied
+        - Net salary: 15,506,600 VND
+        ","34941","TC_Paysheet_API_001 - Calculate tax with 0 dependents - Kiểm tra tính thuế khi có 0 người phụ thuộc","Chromium","Sat May 09 08:58:58 UTC 2026","failed","Sat May 09 08:59:33 UTC 2026","Salary Calculation Tests","hybrid/payroll/salary-calculation.spec.ts","",""

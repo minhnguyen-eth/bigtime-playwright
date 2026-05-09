@@ -1,3 +1,4 @@
 "BROKEN","EPIC","FAILED","FEATURE","PASSED","SKIPPED","STORY","UNKNOWN"
-"0","","0","","0","2","","0"
-"0","Hybrid Testing","1","Salary Calculation Feature","0","0","","0"
+"0","Hybrid Testing","0","Salary Calculation Feature","1","0","Calculate tax with 1 dependents Story","0"
+"0","","0","","1","0","Calculate tax with 2 dependents Story","0"
+"0","","1","","0","0","Calculate tax with 1 dependents Story","0"
