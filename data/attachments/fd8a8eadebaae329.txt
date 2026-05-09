@@ -1,4 +1,0 @@
-Cleared 3 rows in user_family_members with condition: user_id = 'minh'.
-Generated taxCode: 0lucqki
-Fill taxCode: 0lucqki
-Verify taxCode: 0lucqki
